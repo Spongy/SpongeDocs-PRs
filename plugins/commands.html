@@ -270,10 +270,27 @@
 </pre></div>
 </div>
 <p>Your IDE should be throwing a couple of errors at you, so let&#8217;s keep going.</p>
+<div class="section" id="the-commandcallable-lifecycle">
+<h3>The CommandCallable Lifecycle<a class="headerlink" href="#the-commandcallable-lifecycle" title="Permalink to this headline">¶</a></h3>
+<p>Unlike what you might expect, CommandCallable <em>does not</em> represent a specific invocation of a command.
+Instead, it is instantiated once and passed into a command service, which then calls it every time that command is invoked.
+(We will get to registering your command towards the end of this tutorial.)</p>
+<p>A lot of commands require holding an instance to the server when performing their behavior.
+We can do this by adding it as a constructor parameter and private variable:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="kd">final</span> <span class="n">Server</span> <span class="n">server</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="nf">MyBroadcastCommand</span><span class="o">(</span><span class="n">Server</span> <span class="n">server</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">server</span> <span class="o">=</span> <span class="n">server</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>This private server variable will be referenced later on.</p>
+</div>
 <div class="section" id="describing-your-command">
 <h3>Describing Your Command<a class="headerlink" href="#describing-your-command" title="Permalink to this headline">¶</a></h3>
-<p>Now that we have our command class, let&#8217;s start describing our command.
-This is one of the most important functions of a command (other than its actual function), because
+<p>Now that we have our command class set up, let&#8217;s start describing our command.
+This is one of the most important functions of a command (other than its actual behavior), because it describes the command, what it does,
+and how to use it.
 Commands are associated with three strings describing their usage:</p>
 <div class="section" id="the-usage-string">
 <h4>The Usage String<a class="headerlink" href="#the-usage-string" title="Permalink to this headline">¶</a></h4>
@@ -283,7 +300,12 @@ It is displayed when a command is run incorrectly, or when asked for explicitly.
 <div class="highlight-none"><div class="highlight"><pre>/sponge conf [-g] [-d dim] [-w world] key value
 </pre></div>
 </div>
-<p>The usage string is the only required property, and is specified by implementing the <tt class="code docutils literal"><span class="pre">getUsage()</span></tt> method.</p>
+<p>The usage string is the only required property, and is specified by implementing the <tt class="code docutils literal"><span class="pre">getUsage()</span></tt> method:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getShortDescription</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">absent</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="the-short-description">
 <h4>The Short Description<a class="headerlink" href="#the-short-description" title="Permalink to this headline">¶</a></h4>
@@ -292,21 +314,13 @@ It is usually displayed next to the command in a help listing.
 Unlike the usage string, it is written in English. Also unlike the usage string, it is optional.</p>
 <p>The short description is specified by implementing the <tt class="code docutils literal"><span class="pre">getShortDescription()</span></tt> method.
 If your command does not provide a description, use <tt class="code docutils literal"><span class="pre">Optional.absent()</span></tt>:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="nn">example.command</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">com.google.common.base.Optional</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getShortDescription</span><span class="o">()</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getShortDescription</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">absent</span><span class="o">();</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 <p>And if it provides a description, create an Optional using <tt class="code docutils literal"><span class="pre">Optional.of()</span></tt>:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="nn">example.command</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">com.google.common.base.Optional</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getShortDescription</span><span class="o">()</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getShortDescription</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Description goes here&quot;</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
@@ -317,11 +331,7 @@ If your command does not provide a description, use <tt class="code docutils lit
 <p>The help text is a full description of your command and how to use it.
 It is shown when <tt class="code docutils literal"><span class="pre">/help</span> <span class="pre">yourcommand</span></tt> is run. Like the short description, it is optional.</p>
 <p>Specifying the help text is similar to how the short description is specified:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="nn">example.command</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">com.google.common.base.Optional</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getHelp</span><span class="o">()</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getHelp</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
         <span class="s">&quot;My very long help text which is extremely informative and allows</span>
 <span class="s">        people to use the command effectively goes here&quot;</span><span class="o">);</span>
@@ -335,11 +345,7 @@ It is shown when <tt class="code docutils literal"><span class="pre">/help</span
 <p>Almost every useful command should be restricted by permissions somehow &#8211; a server owner doesn&#8217;t want
 the average Bob or Alice to run the <cite>/fireball</cite> or <cite>/broadcast</cite> commands, for obvious reasons.</p>
 <p>Testing for permissions is required by the CommandCallable interface via the <cite>testPermission</cite> method:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="nn">example.command</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandSource</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">testPermission</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">testPermission</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;example.mycommand&quot;</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
@@ -349,10 +355,72 @@ the average Bob or Alice to run the <cite>/fireball</cite> or <cite>/broadcast</
 <p class="last">To learn how to use the Permissions API with more of its features, please see the <a class="reference internal" href="permissions.html"><em>Working with the Permissions API</em></a> guide.</p>
 </div>
 </div>
+<div class="section" id="command-behavior">
+<h3>Command Behavior<a class="headerlink" href="#command-behavior" title="Permalink to this headline">¶</a></h3>
+<p>Finally, let&#8217;s get to the meat of our command &#8211; the behavior.
+To do this, we implement the <cite>call</cite> method on CommandCallable for the behavior of the command.</p>
+<p>Since this command doesn&#8217;t do much, our implementation is very simple:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">call</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">,</span> <span class="n">String</span> <span class="n">arguments</span><span class="o">,</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">parents</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">CommandException</span> <span class="o">{</span>
+
+    <span class="n">Message</span> <span class="n">message</span> <span class="o">=</span> <span class="n">Messages</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">arguments</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">server</span><span class="o">.</span><span class="na">broadcastMessage</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>We simply make a message out of the passed-in arguments and broadcast it to the server.</p>
+<p>The first parameter given to <cite>call</cite> is the CommandSource &#8211; this can be a player,
+the console, a command block, or a remote source (Rcon or some developer-defined source).
+The second parameter is a string of the arguments passed into the command.</p>
+<p>The final parameter is a list of parents to the command, starting with the root command.
+Most commands don&#8217;t worry about this, so for this tutorial we do not care.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you wish to learn about command parenting in Sponge, see the guide.</p>
+</div>
+<p>The command throws CommandException by default. You can use this error to throw messages related to how the
+command is handled, for instance, if the console attempts to run a command that only a player can run.
+Be careful about throwing CommandException.
+If something goes on with the actual execution of your command, you most likely need to throw another exception,
+like an InvalidArgumentsException.</p>
+<p>Finally, the command returns a boolean indicating whether it passed or failed.
+It is not possible to return a boolean if an exception was thrown, Sponge will assume the command failed because of the exception.</p>
+</div>
+<div class="section" id="completion-suggestions">
+<h3>Completion Suggestions<a class="headerlink" href="#completion-suggestions" title="Permalink to this headline">¶</a></h3>
+<p>While a user is typing your command, they may press &#8220;tab&#8221; in order to try to autocomplete some parts of it, in order to speed up entering the command.
+We can customize this by implementing the <cite>getSuggestions</cite> method, like so:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getSuggestions</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">,</span> <span class="n">String</span> <span class="n">arguments</span><span class="o">)</span>
+    <span class="kd">throws</span> <span class="n">CommandException</span> <span class="o">{</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">arguments</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&quot;H&quot;</span><span class="o">))</span> <span class="o">{</span>
+
+        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">suggestions</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+        <span class="n">suggestions</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Hi!&quot;</span><span class="o">);</span>
+        <span class="n">suggestions</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Hello World!&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">suggestions</span><span class="o">;</span>
+
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Like the <cite>call</cite> method, <cite>getSuggestions</cite> also takes a CommandSource and a string for the arguments.
+The CommandSource is the exact same as <cite>call</cite> &#8211; the source of the command.
+The arguments are almost the same, except they aren&#8217;t the completed arguments like <cite>call</cite>, they are whatever
+the CommandSource has currently typed in. Keep this in mind when writing your autocomplete code.</p>
+<p>Also like <cite>call</cite>, <cite>getSuggestions</cite> throws a CommandException something related to command handling fails.
+Again, be sure to throw this exception only when necessary and use different or more specific classes for other, unrelated exceptions.</p>
+<p>Return a list of strings as suggestions, or <cite>Collections.emptyList()</cite>.</p>
+</div>
 </div>
 <div class="section" id="command-example">
 <h2>Command Example<a class="headerlink" href="#command-example" title="Permalink to this headline">¶</a></h2>
-<p>The following is a full-featured command example:</p>
+<p>Here is what we have so far:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="nn">example.command</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
@@ -448,7 +516,8 @@ the average Bob or Alice to run the <cite>/fireball</cite> or <cite>/broadcast</
 </div>
 <div class="section" id="registering-the-command">
 <h2>Registering the Command<a class="headerlink" href="#registering-the-command" title="Permalink to this headline">¶</a></h2>
-<p>Now we can register the class in the <tt class="docutils literal"><span class="pre">CommandService</span></tt>. The <tt class="docutils literal"><span class="pre">CommandService</span></tt> stands as the manager for watching what commands get typed into chat, and redirecting them to the right command handler.
+<p>Now we can register the class in the <tt class="docutils literal"><span class="pre">CommandService</span></tt>.
+The <tt class="docutils literal"><span class="pre">CommandService</span></tt> stands as the manager for watching what commands get typed into chat, and redirecting them to the right command handler.
 To register your command, use the method <tt class="docutils literal"><span class="pre">CommandService.register()</span></tt>, passing your plugin, an instance of the command, and any needed aliases as parameters.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">CommandService</span> <span class="n">cmdService</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getCommandDispatcher</span><span class="o">();</span>
 <span class="n">cmdService</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="k">new</span> <span class="n">MyBroadcastCommand</span><span class="o">(</span><span class="n">server</span><span class="o">),</span> <span class="s">&quot;message&quot;</span><span class="o">,</span> <span class="s">&quot;broadcast&quot;</span><span class="o">);</span>
