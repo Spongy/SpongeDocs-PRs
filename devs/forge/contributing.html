@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <title>Working on the Sponge Coremod &mdash; Sponge 0.0.1 documentation</title>
+    
+  <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:400italic,700italic,700,400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../../_static/tomorrow.css" type="text/css" />
+  <link id="syntax-highlighting-ref" rel="stylesheet" href="../../_static/tomorrow_night.css" type="text/css" />
+      
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT:    '../../',
+      VERSION:     '0.0.1',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE:  true
+    };
+  </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/store.min.js"></script>
+    <script type="text/javascript" src="../../_static/lights.js"></script>
+        <link rel="top" title="Sponge 0.0.1 documentation" href="../../index.html" />
+        <link rel="up" title="Developing the Sponge Coremod" href="index.html" />
+        <link rel="next" title="Project Layout" href="project-layout.html" />
+        <link rel="prev" title="Developing the Sponge Coremod" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="container">
+  <div class="related" role="navigation" aria-label="related navigation">
+    <h3>Navigation</h3>
+    <ul>
+      <span style="float: right" class="lights" title="Toggles syntax highlighting between light and dark">
+        <i class="icon-lamp lights-icon"></i> Highlight Code Light/Dark
+      </span>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="project-layout.html" title="Project Layout"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Developing the Sponge Coremod"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Sponge 0.0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html" >Developing Sponge</a> &raquo;</li>
+        <li><a href="index.html" accesskey="U">Developing the Sponge Coremod</a> &raquo;</li> 
+    </ul>
+  </div> 
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+    <form class="search" action="../../search.html" method="get">
+      <input class="field" type="text" name="q" autocomplete="off" />
+      <button class="submit" type="submit"><i class="icon-search"></i></button>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%"></p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../users/index.html">User&#8217;s Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../users/quick-start.html">Quick Start</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../users/java.html">Java (JRE) Installation Guide</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../users/plugins.html">Installing Plugins</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../users/config.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../users/hocon.html">Introduction to HOCON</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../users/sponge-conf.html">sponge.conf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../users/server-properties.html">server.properties</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../users/permissions.html">Managing Who Can Do What</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../users/commands.html">Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../users/whitelist.html">Managing the Whitelist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../users/json-formatting.html">JSON Syntax</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../users/bans.html">Managing Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../users/logs.html">Log Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../users/compat.html">Compatibility</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../users/bukkit.html">Migrating from Bukkit</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../users/forge.html">Using Forge Mods</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../users/canary.html">Migrating from Canary</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../users/troubleshooting.html">Troubleshooting</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../users/port-forwarding.html">Port Forwarding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../users/platforms.html">Other Platforms</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../workspace/index.html">Preparing for Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../workspace/getting-started.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../workspace/jdk.html">Installing the JDK</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../workspace/git.html">Installing Git</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../workspace/text.html">Installing a Text Editor</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../workspace/ide/index.html">Installing an IDE</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../workspace/ide/idea.html">Setting Up IntelliJ IDEA</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../workspace/ide/eclipse.html">Setting Up Eclipse</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../workspace/ide/netbeans.html">Setting Up NetBeans</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../workspace/artifact.html">Artifacts for Plugin Development</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugins/index.html">Developing Plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/quick-start.html">Writing a Plugin</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/blocks.html">Working with Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/commands.html">Creating Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/event-bus.html">Working with Events</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/entities/index.html">Working with Entities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugins/entities/spawning.html">Spawning an Entity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/logging.html">Logging and Debug Messages</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/manager.html">Working with the Plugin Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/message.html">Using the Message API</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/permissions.html">Working with the Permissions API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/plugin-lifecycle.html">Plugin Lifecycle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/services.html">Accessing Services</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/configuration.html">Configuration and Defaults</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugins/advanced/index.html">Advanced Topics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugins/advanced/configuration-in-depth.html">Configuration In-depth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugins/advanced/dependency-injection.html">Dependency Injection</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Developing Sponge</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../guidelines.html">Contribution Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Developing the Sponge Coremod</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">Working on the Sponge Coremod</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="project-layout.html">Project Layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="debugging.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mixins.html">Mixins</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">Developing the Sponge API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/contributing.html">Working on the Sponge API</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git/index.html">How to Work with Git and Sponge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git/gitfu-api.html">Git-Fu for SpongeAPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git/gitfu-impl.html">Git-Fu for Sponge Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../porting/index.html">Porting to Other Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../porting/dependencies.html">Provided Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../downloads.html">Downloads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">Sponge License</a></li>
+</ul>
+<ul class="simple">
+</ul>
+
+      </div>
+    </div> 
+
+        <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body" role="main">
+                  
+  <div class="section" id="working-on-the-sponge-coremod">
+<h1>Working on the Sponge Coremod<a class="headerlink" href="#working-on-the-sponge-coremod" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The term &#8220;Sponge&#8221; refers to the Sponge coremod, which runs on the Forge platform. Sponge implements the Sponge API. Think of it as the half of the Sponge project that does the work.</p>
+</div>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../../workspace/jdk.html"><em>Java Developer Kit</em></a></li>
+<li><a class="reference internal" href="../../workspace/ide/index.html"><em>An IDE of your choice</em></a></li>
+<li><a class="reference internal" href="../../workspace/git.html"><em>Git client</em></a></li>
+<li><a class="reference external" href="http://gradle.org/downloads">Gradle</a> (optional, but recommended)</li>
+</ul>
+<p>Prior to working on the Sponge coremod, please review the <a class="reference internal" href="../guidelines.html"><em>contributor guidelines</em></a> and become familiar with them.</p>
+</div>
+<div class="section" id="path-environment-variable">
+<h2>PATH Environment Variable<a class="headerlink" href="#path-environment-variable" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">PATH</span></tt> environment variable essentially tells your operating system where to look for executable programs. Ensure your <tt class="docutils literal"><span class="pre">PATH</span></tt> environment variable is set correctly prior to working on Sponge. Oracle provides <a class="reference external" href="https://www.java.com/en/download/help/path.xml">instructions</a> on setting and changing the <tt class="docutils literal"><span class="pre">PATH</span></tt> environment variable.</p>
+<p>On Unix-based systems, the environment variable is <tt class="docutils literal"><span class="pre">$PATH</span></tt>. On Windows, the environment variable is <tt class="docutils literal"><span class="pre">%PATH%</span></tt>.</p>
+<p>It is recommended to construct your system profile in such a way that the <tt class="docutils literal"><span class="pre">PATH</span></tt> environment variable to set up correctly when you log in, rather than having to manually update it each time you want to work on Sponge.</p>
+</div>
+<div class="section" id="java-home-environment-variable">
+<h2>JAVA_HOME Environment Variable<a class="headerlink" href="#java-home-environment-variable" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">JAVA_HOME</span></tt> environment variable is an environment that is set in the shell, and is the directory in which the Java Developer Kit is installed. It is recommended to construct your system profile in such a way that <tt class="docutils literal"><span class="pre">JAVA_HOME</span></tt> is set up correctly each time you log in.</p>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Launch the Command Prompt.</li>
+<li>To find the path, run <tt class="docutils literal"><span class="pre">dir</span> <span class="pre">C:\Program</span> <span class="pre">Files\Java</span></tt></li>
+<li>To set <tt class="docutils literal"><span class="pre">JAVA_HOME</span></tt>, run <tt class="docutils literal"><span class="pre">set</span> <span class="pre">JAVA_HOME=C:\Program</span> <span class="pre">Files\Java\&lt;your</span> <span class="pre">jdk</span> <span class="pre">version&gt;</span></tt></li>
+</ol>
+<p>Alternatively, if you are uncomfortable using the Command Prompt, you can use a GUI:</p>
+<ol class="arabic simple">
+<li>Right-click <tt class="docutils literal"><span class="pre">My</span> <span class="pre">Computer</span></tt> and click <tt class="docutils literal"><span class="pre">Properties</span></tt>.</li>
+<li>Click <tt class="docutils literal"><span class="pre">Advanced</span></tt>, then <tt class="docutils literal"><span class="pre">Environment</span> <span class="pre">Variables</span></tt>.</li>
+<li>Under <tt class="docutils literal"><span class="pre">System</span> <span class="pre">Variables</span></tt>, click <tt class="docutils literal"><span class="pre">New</span></tt>.</li>
+<li>The name is <tt class="docutils literal"><span class="pre">JAVA_HOME</span></tt>, and the value is the installation path for the Java Development Kit.</li>
+<li>Click <tt class="docutils literal"><span class="pre">OK</span></tt>.</li>
+<li>Click <tt class="docutils literal"><span class="pre">Apply</span> <span class="pre">Changes</span></tt>.</li>
+</ol>
+</div>
+<div class="section" id="mac-os-x">
+<h3>Mac OS X<a class="headerlink" href="#mac-os-x" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Launch the Terminal.</li>
+<li>To find the current path, run <tt class="docutils literal"><span class="pre">echo</span> <span class="pre">$JAVA_HOME</span></tt>.</li>
+<li>Run <tt class="docutils literal"><span class="pre">vim</span> <span class="pre">.bash_profile</span></tt>.</li>
+<li>Enter <tt class="docutils literal"><span class="pre">export</span> <span class="pre">JAVA_HOME=$(/usr/libexec/java_home)</span></tt>.</li>
+<li>Close the editor by pressing Esc, then type <tt class="docutils literal"><span class="pre">:x</span></tt>.</li>
+<li>Run <tt class="docutils literal"><span class="pre">source</span> <span class="pre">.bash_profile</span></tt>.</li>
+<li>Verify you have set the variable correctly by typing <tt class="docutils literal"><span class="pre">echo</span> <span class="pre">$JAVA_HOME</span></tt>.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="tips-before-you-start">
+<h2>Tips Before You Start<a class="headerlink" href="#tips-before-you-start" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Avoid using spaces and whitespace in file names.</li>
+<li>Store the Git repository somewhere other than your desktop.<ul>
+<li>Some people prefer to keep it in their user folder.</li>
+<li>It is recommended to keep file paths short; however, this is up to you.</li>
+</ul>
+</li>
+<li>Be aware of the file path length limits of your operating system.</li>
+</ul>
+</div>
+<div class="section" id="cloning">
+<h2>Cloning<a class="headerlink" href="#cloning" title="Permalink to this headline">¶</a></h2>
+<p>The following commands will clone Sponge from its Git repository.</p>
+<div class="highlight-none"><div class="highlight"><pre>git clone git@github.com:SpongePowered/Sponge.git
+cd Sponge
+git submodule update --init --recursive
+cp scripts/pre-commit .git/hooks
+</pre></div>
+</div>
+</div>
+<div class="section" id="running">
+<h2>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h2>
+<p>The following command will set up the workspace.</p>
+<div class="highlight-none"><div class="highlight"><pre>gradle setupDecompWorkspace --refresh-dependencies
+</pre></div>
+</div>
+<p>This process does a couple things:</p>
+<ul class="simple">
+<li>It downloads the <tt class="docutils literal"><span class="pre">.jar</span></tt> files that Sponge requires in order to build.</li>
+<li>It downloads Forge, which Sponge also requires in order to build.</li>
+</ul>
+<p>The process may take a while, depending on the quality of your network connection. You will end up with something like this:</p>
+<div class="highlight-none"><div class="highlight"><pre>C:\sp\main\Sponge&gt;gradle setupDecompWorkspace --refresh-dependencies
+****************************
+ Powered By MCP:
+ http://mcp.ocean-labs.de/
+ Searge, ProfMobius, Fesh0r,
+ R4wk, ZeuX, IngisKahn, bspkrs
+ MCP Data version : unknown
+****************************
+:extractMcpData UP-TO-DATE
+:getVersionJson
+:extractUserDev UP-TO-DATE
+:genSrgs SKIPPED
+:extractNatives UP-TO-DATE
+:copyNativesLegacy UP-TO-DATE
+:getAssetsIndex
+:getAssets
+:makeStart
+:downloadMcpTools
+:downloadClient SKIPPED
+:downloadServer SKIPPED
+:mergeJars SKIPPED
+:deobfuscateJar SKIPPED
+:decompile SKIPPED
+:processSources SKIPPED
+:remapJar SKIPPED
+:extractMinecraftSrc SKIPPED
+:recompMinecraft SKIPPED
+:repackMinecraft SKIPPED
+:setupDecompWorkspace
+
+BUILD SUCCESSFUL
+
+Total time: 2 mins 45.216 secs
+C:\sp\main\Sponge&gt;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Remember, we are building Sponge itself, not plugins for Sponge. Plugins do not need Forge to build.</p>
+</div>
+<p>After the Gradle process is complete, follow the steps on the SpongePowered/Sponge <a class="reference external" href="https://github.com/SpongePowered/Sponge/blob/master/README.md">README.md</a> file on GitHub to import Sponge into your IDE and run the Sponge artifact.</p>
+</div>
+<div class="section" id="building">
+<h2>Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h2>
+<p>The only step required to build Sponge is running <tt class="docutils literal"><span class="pre">gradle</span></tt> from the Terminal or Command Prompt - whichever one applies to your operating system.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you do not have Gradle installed, use <tt class="docutils literal"><span class="pre">./gradlew</span></tt> on Unix systems and <tt class="docutils literal"><span class="pre">gradlew.bat</span></tt> on Windows systems in lieu of any <tt class="docutils literal"><span class="pre">gradle</span></tt> command.</p>
+</div>
+<p>You can find the compiled <tt class="docutils literal"><span class="pre">.jar</span></tt> file in <tt class="docutils literal"><span class="pre">./build/libs</span></tt>. It will be labeled similarly to <tt class="docutils literal"><span class="pre">sponge-x.x.x-SNAPSHOT.jar</span></tt>.</p>
+</div>
+<div class="section" id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>After reviewing the <a class="reference internal" href="../guidelines.html"><em>contributor guidelines</em></a>, sign up for a GitHub account and fork the <strong>SpongePowered/Sponge</strong> repository to get started.</p>
+</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          <div class="clearer"></div>
+        </div>
+        <div class="footer" role="contentinfo">
+              &copy; Copyright 2014-2015, Sponge Contributors.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+        </div>
+    </div>
+  </body>
+</html>
