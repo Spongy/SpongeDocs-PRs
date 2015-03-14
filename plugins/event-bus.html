@@ -1,0 +1,504 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <title>Working with Events &mdash; Sponge 0.0.1 documentation</title>
+    
+  <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:400italic,700italic,700,400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../_static/tomorrow.css" type="text/css" />
+  <link id="syntax-highlighting-ref" rel="stylesheet" href="../_static/tomorrow_night.css" type="text/css" />
+      
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT:    '../',
+      VERSION:     '0.0.1',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE:  true
+    };
+  </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/store.min.js"></script>
+    <script type="text/javascript" src="../_static/lights.js"></script>
+        <link rel="top" title="Sponge 0.0.1 documentation" href="../index.html" />
+        <link rel="up" title="Developing Plugins" href="index.html" />
+        <link rel="next" title="Working with Entities" href="entities/index.html" />
+        <link rel="prev" title="Creating Commands" href="commands.html" /> 
+  </head>
+  <body role="document">
+    <div class="container">
+  <div class="related" role="navigation" aria-label="related navigation">
+    <h3>Navigation</h3>
+    <ul>
+      <span style="float: right" class="lights" title="Toggles syntax highlighting between light and dark">
+        <i class="icon-lamp lights-icon"></i> Highlight Code Light/Dark
+      </span>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="entities/index.html" title="Working with Entities"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="commands.html" title="Creating Commands"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Sponge 0.0.1 documentation</a> &raquo;</li>
+        <li><a href="index.html" accesskey="U">Developing Plugins</a> &raquo;</li> 
+    </ul>
+  </div> 
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+    <form class="search" action="../search.html" method="get">
+      <input class="field" type="text" name="q" autocomplete="off" />
+      <button class="submit" type="submit"><i class="icon-search"></i></button>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%"></p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">User&#8217;s Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/quick-start.html">Quick Start</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/java.html">Java (JRE) Installation Guide</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/plugins.html">Installing Plugins</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/hocon.html">Introduction to HOCON</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../users/sponge-conf.html">sponge.conf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/server-properties.html">server.properties</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/permissions.html">Managing Who Can Do What</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/commands.html">Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/whitelist.html">Managing the Whitelist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/json-formatting.html">JSON Syntax</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/bans.html">Managing Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/logs.html">Log Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/compat.html">Compatibility</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/bukkit.html">Migrating from Bukkit</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../users/forge.html">Using Forge Mods</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../users/canary.html">Migrating from Canary</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/troubleshooting.html">Troubleshooting</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/port-forwarding.html">Port Forwarding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/platforms.html">Other Platforms</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../workspace/index.html">Preparing for Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../workspace/getting-started.html">Getting Started</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../workspace/jdk.html">Installing the JDK</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../workspace/git.html">Installing Git</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../workspace/text.html">Installing a Text Editor</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../workspace/ide/index.html">Installing an IDE</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../workspace/ide/idea.html">Setting Up IntelliJ IDEA</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../workspace/ide/eclipse.html">Setting Up Eclipse</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../workspace/ide/netbeans.html">Setting Up NetBeans</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../workspace/artifact.html">Artifacts for Plugin Development</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developing Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html">Writing a Plugin</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blocks.html">Working with Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html">Creating Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Working with Events</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="entities/index.html">Working with Entities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="entities/spawning.html">Spawning an Entity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging and Debug Messages</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manager.html">Working with the Plugin Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="message.html">Using the Message API</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="permissions.html">Working with the Permissions API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin-lifecycle.html">Plugin Lifecycle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Accessing Services</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration and Defaults</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="advanced/index.html">Advanced Topics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="advanced/configuration-in-depth.html">Configuration In-depth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced/dependency-injection.html">Dependency Injection</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../devs/index.html">Developing Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../devs/guidelines.html">Contribution Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../devs/forge/index.html">Developing the Sponge Coremod</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../devs/forge/contributing.html">Working on the Sponge Coremod</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../devs/forge/project-layout.html">Project Layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../devs/forge/debugging.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../devs/forge/mixins.html">Mixins</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../devs/api/index.html">Developing the Sponge API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../devs/api/contributing.html">Working on the Sponge API</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../devs/git/index.html">How to Work with Git and Sponge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../devs/git/gitfu-api.html">Git-Fu for SpongeAPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../devs/git/gitfu-impl.html">Git-Fu for Sponge Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../devs/porting/index.html">Porting to Other Platforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../devs/porting/dependencies.html">Provided Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../downloads.html">Downloads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">Sponge License</a></li>
+</ul>
+<ul class="simple">
+</ul>
+
+      </div>
+    </div> 
+
+        <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body" role="main">
+                  
+  <div class="section" id="working-with-events">
+<h1>Working with Events<a class="headerlink" href="#working-with-events" title="Permalink to this headline">¶</a></h1>
+<p>Sponge provides a system to (1) fire events and then (2) listen for events.</p>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Events are used to inform plugins of certain happenings. Many events can also be <em>cancelled</em> &#8211; that is, the action that the event refers to can be prevented from occurring. Cancellable events implement the <code class="docutils literal"><span class="pre">Cancellable</span></code> interface.</p>
+<p>Sponge itself contains many events; however, plugins can create their own events which other plugins can subscribe to.</p>
+<p>Subscribing is the act of listening to an event. An event handler is what subscribes to an event. Event handlers are assigned a priority that determines the order in which the event handler is run in context of other event handlers (such as those from other plugins). For example, an event handler with <em>EARLY</em> priority will return before most other event handlers.</p>
+<p>Events cannot be sent to a specific set of plugins. All plugins that subscribe to an event will be notified of the event.</p>
+<p>The event bus or event manager is the class that keeps track of which plugins have subscribed to which event, and is also responsible for distributing events to event handlers. Sponge comes with an event bus.</p>
+<p>An important note about events in Sponge is that the event bus <strong>supports supertypes</strong>. For example, there&#8217;s a <code class="docutils literal"><span class="pre">BlockBreakEvent</span></code> that extends a <code class="docutils literal"><span class="pre">BlockChangeEvent</span></code>. A plugin could subscribe to the <code class="docutils literal"><span class="pre">BlockChangeEvent</span></code> and still receive <code class="docutils literal"><span class="pre">BlockBreakEvent</span></code> events. However, a plugin subscribed to just <code class="docutils literal"><span class="pre">BlockBreakEvent</span></code> would not receive other types of <code class="docutils literal"><span class="pre">BlockChangeEvent</span></code>.</p>
+<p>The event bus in Sponge is a high-performance event bus.</p>
+</div>
+<div class="section" id="event-handlers">
+<h2>Event Handlers<a class="headerlink" href="#event-handlers" title="Permalink to this headline">¶</a></h2>
+<p>In order to listen for event, an event handler must be registered. This is done by making a method with any name, having the first (and only) parameter be of the desired event type that you want to catch, and then affixing <code class="docutils literal"><span class="pre">&#64;Subscribe</span></code> to the method. This is illustrated below.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.util.event.Subscribe</span><span class="o">;</span>
+
+<span class="nd">@Subscribe</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="o">(</span><span class="n">SomeEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Do something with the event</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>In addition, the object that has these methods must be registered with the event bus.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">eventBus</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">theObject</span><span class="o">);</span>
+</pre></div>
+</div>
+<p>The event bus is the <code class="docutils literal"><span class="pre">org.spongepowered.api.service.event.EventManager</span></code> class. See <a class="reference internal" href="services.html"><em>Accessing Services</em></a> to learn how to get access to this instance.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">For event handlers on your main plugin class, you do not need to register the object for events because Sponge will do it automatically.</p>
+</div>
+<p>Note that, by default, <code class="docutils literal"><span class="pre">&#64;Subscribe</span></code> is configured so that your event handler will <em>not</em> be called if the event in question is cancellable and has been cancelled (such as by another plugin).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is currently not possible to register a dynamic event handler by providing an event type and a handler.</p>
+</div>
+<div class="section" id="about-subscribe">
+<h3>About &#64;Subscribe<a class="headerlink" href="#about-subscribe" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">&#64;Subscribe</span></code> annotation has a few configurable fields:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">order</span></code> is the order in which the event handler is to be run. See the <code class="docutils literal"><span class="pre">Order</span></code> enum in Sponge to see the available options.</li>
+<li><code class="docutils literal"><span class="pre">ignoreCancelled</span></code>, if true (which is default true), causes the event handler to be skipped if the event in question is cancellable and has been cancelled (by a previously-executed plugin, for example).</li>
+</ul>
+</div>
+</div>
+<div class="section" id="firing-events">
+<h2>Firing Events<a class="headerlink" href="#firing-events" title="Permalink to this headline">¶</a></h2>
+<p>To dispatch an event, you need an object that implements the <code class="docutils literal"><span class="pre">org.spongepowered.api.util.event.Event</span></code> interface.</p>
+<p>You can fire events using the event bus (<code class="docutils literal"><span class="pre">org.spongepowered.api.service.event.EventManager</span></code>):</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kt">boolean</span> <span class="n">cancelled</span> <span class="o">=</span> <span class="n">eventBus</span><span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="n">theEventObject</span><span class="o">);</span>
+</pre></div>
+</div>
+<p>The method returns <code class="docutils literal"><span class="pre">true</span></code> if the event was cancelled, <code class="docutils literal"><span class="pre">false</span></code> if not.</p>
+<div class="section" id="firing-sponge-events">
+<h3>Firing Sponge Events<a class="headerlink" href="#firing-sponge-events" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to generate instances of built-in events with the static <code class="docutils literal"><span class="pre">SpongeEventFactory</span></code>.</p>
+</div>
+</div>
+<div class="section" id="creating-custom-events">
+<h2>Creating Custom Events<a class="headerlink" href="#creating-custom-events" title="Permalink to this headline">¶</a></h2>
+<p>You can write your own event classes and dispatch those events using the method described above.</p>
+<p>An event class must implement the <code class="docutils literal"><span class="pre">Event</span></code> interface. Alternatively you can extend the <code class="docutils literal"><span class="pre">AbstractEvent</span></code> class.</p>
+<p>If you want your event to be cancellable, the class must also implement <code class="docutils literal"><span class="pre">Cancellable</span></code>.</p>
+<div class="section" id="example-custom-event-class">
+<h3>Example: Custom Event Class<a class="headerlink" href="#example-custom-event-class" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="nn">example.event</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.player.Player</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.AbstractEvent</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.event.Cancellable</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrivateMessageEvent</span> <span class="kd">extends</span> <span class="n">AbstractEvent</span> <span class="kd">implements</span> <span class="n">Cancellable</span> <span class="o">{</span>
+
+   <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">cancelled</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+   <span class="kd">private</span> <span class="n">Player</span> <span class="n">sender</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="n">Player</span> <span class="n">recipient</span><span class="o">;</span>
+
+   <span class="kd">private</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
+
+   <span class="kd">public</span> <span class="n">Player</span> <span class="nf">getSender</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">sender</span><span class="o">;</span>
+   <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="n">Player</span> <span class="nf">getRecipient</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">recipient</span><span class="o">;</span>
+   <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">getMessage</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">message</span><span class="o">;</span>
+   <span class="o">}</span>
+
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isCancelled</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">cancelled</span><span class="o">;</span>
+   <span class="o">}</span>
+
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCancelled</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">cancel</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">cancelled</span> <span class="o">=</span> <span class="n">cancel</span><span class="o">;</span>
+   <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="nf">PrivateMessageEvent</span><span class="o">(</span><span class="n">Player</span> <span class="n">sender</span><span class="o">,</span> <span class="n">Player</span> <span class="n">recipient</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">sender</span> <span class="o">=</span> <span class="n">sender</span><span class="o">;</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">recipient</span> <span class="o">=</span> <span class="n">recipient</span><span class="o">;</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">;</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-fire-custom-event">
+<h3>Example: Fire Custom Event<a class="headerlink" href="#example-fire-custom-event" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">eventBus</span><span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="k">new</span> <span class="n">PrivateMessageEvent</span><span class="o">(</span><span class="n">playerA</span><span class="o">,</span> <span class="n">playerB</span><span class="o">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="o">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-listen-for-custom-event">
+<h3>Example: Listen for Custom Event<a class="headerlink" href="#example-listen-for-custom-event" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Subscribe</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">pmEventHandler</span><span class="o">(</span><span class="n">PrivateMessageEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getMessage</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;hi i am from planetminecraft&quot;</span><span class="o">))</span> <span class="o">{</span>
+       <span class="n">event</span><span class="o">.</span><span class="na">setCancelled</span><span class="o">();</span>
+       <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">String</span> <span class="n">senderName</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getSender</span><span class="o">().</span><span class="na">getName</span><span class="o">();</span>
+    <span class="n">event</span><span class="o">.</span><span class="na">getReceipient</span><span class="o">().</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">ChatTypes</span><span class="o">.</span><span class="na">CHAT</span><span class="o">,</span> <span class="s">&quot;PM from &quot;</span> <span class="o">+</span> <span class="n">senderName</span> <span class="o">+</span> <span class="s">&quot;: &quot;</span> <span class="o">+</span> <span class="n">event</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="callbacks">
+<h2>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
+<p>Callbacks are a more advanced feature of Sponge&#8217;s event system.</p>
+<p>Callbacks allow plugins to cooperate better when they override vanilla behavior. When an event is invoked, Sponge runs through the event
+handlers in order from first to last. Then Sponge runs through the callback list in order from last to first. Vanilla is always the first
+callback added, meaning that vanilla&#8217;s handler will be executed last.</p>
+<p>Plugins that don&#8217;t use callbacks can also use the simpler <code class="docutils literal"><span class="pre">setCancelled(boolean)</span></code> method, which will disable all callbacks. However,
+some plugins may just need to disable vanilla behavior, modify another plugin&#8217;s behavior, or disable that behavior completely. These are
+cases where the flexibility offered through callbacks is required.</p>
+<p>A plugin can add as many callbacks as it needs during an event, and plugins can cancel specific callbacks. However, a plugin cannot reorder
+or remove callbacks, as some behaviors (especially vanilla) cannot be reordered. Additionally, all modifications to the callback list, should
+be done in the event handler itself. Attempting to change the list during callback execution will cause a <code class="docutils literal"><span class="pre">ConcurrentModificationException</span></code>.
+Callbacks should only be added or cancelled in event handlers who&#8217;s <code class="docutils literal"><span class="pre">Order</span></code> property allows event cancellation.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">ExplosionEvent</span></code> doesn&#8217;t exist in the API currently, it is just used for example purposes.</p>
+</div>
+<div class="section" id="example-adding-a-callback-to-disable-explosions-and-spawn-an-arrow">
+<h3>Example: Adding a Callback to Disable Explosions and Spawn an Arrow<a class="headerlink" href="#example-adding-a-callback-to-disable-explosions-and-spawn-an-arrow" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is a bad example, but use-cases for callbacks are going to be very specific so this just demonstrates the code needed to add one.</p>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Subscribe</span>
+<span class="c1">// final not required unless using an inner class that needs access to it.</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onExplosion</span><span class="o">(</span><span class="kd">final</span> <span class="n">ExplosionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">EventCallback</span> <span class="n">callback</span> <span class="o">:</span> <span class="n">event</span><span class="o">.</span><span class="na">getCallbacks</span><span class="o">())</span> <span class="o">{</span>
+        <span class="c1">// Disable vanilla behavior</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">callback</span><span class="o">.</span><span class="na">isBaseGame</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">callback</span> <span class="k">instanceof</span> <span class="n">Cancellable</span><span class="o">)</span> <span class="o">{</span>
+                <span class="o">((</span><span class="n">Cancellable</span><span class="o">)</span> <span class="n">callback</span><span class="o">).</span><span class="na">setCancelled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="n">event</span><span class="o">.</span><span class="na">getCallbacks</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">EventCallback</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isBaseGame</span><span class="o">()</span> <span class="o">{</span>
+            <span class="c1">// Not a base game (i.e. Vanilla) behavior</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+            <span class="n">Extent</span> <span class="n">extent</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getEntity</span><span class="o">().</span><span class="na">getLocation</span><span class="o">().</span><span class="na">getExtent</span><span class="o">();</span>
+
+            <span class="c1">// Create an arrow</span>
+            <span class="n">extent</span><span class="o">.</span><span class="na">createEntity</span><span class="o">(</span><span class="n">EntityTypes</span><span class="o">.</span><span class="na">ARROW</span><span class="o">,</span> <span class="n">event</span><span class="o">.</span><span class="na">getEntity</span><span class="o">().</span><span class="na">getLocation</span><span class="o">().</span><span class="na">getPosition</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">});</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-disable-chair-sitting-added-by-craftbook">
+<h3>Example: Disable Chair Sitting Added by CraftBook<a class="headerlink" href="#example-disable-chair-sitting-added-by-craftbook" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This example will break if other plugins enable or disable callbacks.</p>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Subscribe</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPlayerInteractBlock</span><span class="o">(</span><span class="n">PlayerInteractBlockEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="n">foundChair</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="n">Callback</span> <span class="n">callback</span> <span class="o">:</span> <span class="n">event</span><span class="o">.</span><span class="na">getCallbacks</span><span class="o">())</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">callback</span> <span class="k">instanceof</span> <span class="n">com</span><span class="o">.</span><span class="na">sk89q</span><span class="o">.</span><span class="na">craftbook</span><span class="o">.</span><span class="na">mechanic</span><span class="o">.</span><span class="na">Chair</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">callback</span> <span class="k">instanceof</span> <span class="n">Cancellable</span><span class="o">)</span> <span class="o">{</span>
+                <span class="o">((</span><span class="n">Cancellable</span><span class="o">)</span> <span class="n">callback</span><span class="o">).</span><span class="na">setCancelled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">foundChair</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">foundChair</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Callback</span> <span class="n">callback</span> <span class="o">:</span> <span class="n">event</span><span class="o">.</span><span class="na">getCallbacks</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(!(</span><span class="n">callback</span> <span class="k">instanceof</span> <span class="n">com</span><span class="o">.</span><span class="na">sk89q</span><span class="o">.</span><span class="na">craftbook</span><span class="o">.</span><span class="na">mechanic</span><span class="o">.</span><span class="na">Chair</span><span class="o">))</span> <span class="o">{</span>
+              <span class="k">if</span> <span class="o">(</span><span class="n">callback</span> <span class="k">instanceof</span> <span class="n">Cancellable</span><span class="o">)</span> <span class="o">{</span>
+                  <span class="o">((</span><span class="n">Cancellable</span><span class="o">)</span> <span class="n">callback</span><span class="o">).</span><span class="na">setCancelled</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+              <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-modifying-behaviors">
+<h3>Example: Modifying Behaviors<a class="headerlink" href="#example-modifying-behaviors" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Subscribe</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onExplosion</span><span class="o">(</span><span class="n">ExplosionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">Callback</span> <span class="n">callback</span> <span class="o">:</span> <span class="n">event</span><span class="o">.</span><span class="na">getCallbacks</span><span class="o">())</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">callback</span> <span class="k">instanceof</span> <span class="n">example</span><span class="o">.</span><span class="na">FireworksExplosion</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">((</span><span class="n">example</span><span class="o">.</span><span class="na">FireworksExplosion</span><span class="o">)</span> <span class="n">callback</span><span class="o">).</span><span class="na">setYield</span><span class="o">(</span><span class="mi">200</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Thanks to &#64;sk89q for the callback examples. They were copied from his original <a class="reference external" href="https://github.com/SpongePowered/SpongeAPI/pull/232">PR #232</a>.</p>
+</div>
+</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          <div class="clearer"></div>
+        </div>
+        <div class="footer" role="contentinfo">
+              &copy; Copyright 2014-2015, Sponge Contributors.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.
+        </div>
+    </div>
+  </body>
+</html>
