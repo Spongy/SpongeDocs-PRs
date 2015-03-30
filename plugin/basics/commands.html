@@ -1,0 +1,473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <title>Creating Commands &mdash; Sponge 0.0.1 documentation</title>
+    
+  <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:400italic,700italic,700,400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../../_static/tomorrow.css" type="text/css" />
+  <link id="syntax-highlighting-ref" rel="stylesheet" href="../../_static/tomorrow_night.css" type="text/css" />
+      
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT:    '../../',
+      VERSION:     '0.0.1',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE:  true
+    };
+  </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/store.min.js"></script>
+    <script type="text/javascript" src="../../_static/lights.js"></script>
+        <link rel="top" title="Sponge 0.0.1 documentation" href="../../index.html" />
+        <link rel="up" title="The Basics" href="index.html" />
+        <link rel="next" title="Creating Messages" href="messages.html" />
+        <link rel="prev" title="Logging and Debugging" href="logging.html" /> 
+  </head>
+  <body role="document">
+    <div class="container">
+  <div class="related" role="navigation" aria-label="related navigation">
+    <h3>Navigation</h3>
+    <ul>
+      <span style="float: right" class="lights" title="Toggles syntax highlighting between light and dark">
+        <i class="icon-lamp lights-icon"></i> Highlight Code Light/Dark
+      </span>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="messages.html" title="Creating Messages"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="logging.html" title="Logging and Debugging"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Sponge 0.0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html" >Creating a Plugin</a> &raquo;</li>
+        <li><a href="index.html" accesskey="U">The Basics</a> &raquo;</li> 
+    </ul>
+  </div> 
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+    <form class="search" action="../../search.html" method="get">
+      <input class="field" type="text" name="q" autocomplete="off" />
+      <button class="submit" type="submit"><i class="icon-search"></i></button>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%"></p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../server/index.html">Creating a Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../server/getting-started/index.html">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/jre.html">Installing the JRE</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/migrating/index.html">Migrating to Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/migrating/bukkit.html">Migrating from Bukkit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/migrating/canary.html">Migrating from Canary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/migrating/forge.html">Using Forge Mods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/sponge.html">Sponge (Forge coremod)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/granite.html">Granite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/glowstone.html">Glowstone</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/launch-script.html">Creating a Launch Script</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/port-forward.html">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/configuration/index.html">Configuring Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/configuration/hocon.html">Introduction to HOCON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/configuration/json.html">JSON Syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/configuration/sponge-conf.html">sponge.conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/configuration/server-properties.html">server.properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../server/management/index.html">Server Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../server/management/whitelist.html">Managing the Whitelist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/management/bans.html">Managing Bans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/management/permissions.html">Managing Permissions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/management/plugins.html">Installing Plugins</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../server/spongineer/index.html">Becoming an Expert Spongineer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/commands.html">Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/debugging.html">Log Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../preparing/jdk.html">Installing the JDK</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../preparing/ide.html">Installing an IDE</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../preparing/text.html">Installing a Text Editor</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../preparing/git.html">Installing Git</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">The Basics</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="workspace/index.html">Setting Up Your Workspace</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="workspace/idea.html">Setting Up IntelliJ IDEA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="workspace/eclipse.html">Setting Up Eclipse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="workspace/netbeans.html">Setting Up NetBeans</a></li>
+<li class="toctree-l4"><a class="reference internal" href="workspace/dependencies.html">Adding Sponge API Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="practices.html">Best Practices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="templates.html">Plugin Templates</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="main-class.html">Creating Your Main Plugin Class</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lifecycle.html">Plugin Lifecycle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="logging.html">Logging and Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Creating Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="messages.html">Creating Messages</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blocks.html">Working with Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="entities/index.html">Working with Entities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="entities/spawning.html">Spawning an Entity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html">Creating a Default Plugin Configuration</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../advanced/index.html">Advanced</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/adv-configuration.html">Working with Advanced Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/database.html">Working with Databases</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/permissions.html">Working with the Permissions API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/services.html">Working with Services</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/manager.html">Using the Plugin Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/injection.html">Dependency Injection</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/coremod/index.html">Coremod Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/coremod/layout.html">Layout of Sponge (coremod)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/coremod/debugging.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/coremod/mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/coremod/git.html">Git Workflow for Sponge (coremod)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/api/layout.html">Layout of Sponge API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/api/git.html">Git Workflow for SpongeAPI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/docs/index.html">SpongeDocs Writing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/docs/layout.html">Layout of SpongeDocs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/docs/git.html">Git Workflow for SpongeDocs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about/introduction.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/future.html">Plans for the Future</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/license.html">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/staff.html">Staff</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../downloads.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<ul class="simple">
+</ul>
+
+      </div>
+    </div> 
+
+        <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body" role="main">
+                  
+  <div class="section" id="creating-commands">
+<h1>Creating Commands<a class="headerlink" href="#creating-commands" title="Permalink to this headline">¶</a></h1>
+<p>The Sponge API contains a robust set of command interfaces in order to allow developers to specify command handling.</p>
+<div class="section" id="writing-a-command">
+<h2>Writing a Command<a class="headerlink" href="#writing-a-command" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to create a class for the command. The class has to implement the interface <tt class="docutils literal"><span class="pre">CommandCallable</span></tt>:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="nn">example.command</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandCallable</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyBroadcastCommand</span> <span class="kd">implements</span> <span class="n">CommandCallable</span> <span class="o">{</span>
+
+    <span class="c1">// Body of the command goes here</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Your IDE should be throwing a couple of errors at you, so let&#8217;s keep going.</p>
+<div class="section" id="the-commandcallable-lifecycle">
+<h3>The CommandCallable Lifecycle<a class="headerlink" href="#the-commandcallable-lifecycle" title="Permalink to this headline">¶</a></h3>
+<p>Unlike what you might expect, CommandCallable <em>does not</em> represent a specific invocation of a command.
+Instead, it is instantiated once and passed into a command service, which then calls it every time that command is invoked.
+(We will get to registering your command towards the end of this tutorial.)</p>
+<p>A lot of commands require holding an instance to the server when performing their behavior.
+We can do this by adding it as a constructor parameter and private variable:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="kd">final</span> <span class="n">Server</span> <span class="n">server</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="nf">MyBroadcastCommand</span><span class="o">(</span><span class="n">Server</span> <span class="n">server</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">server</span> <span class="o">=</span> <span class="n">server</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>This private server variable will be referenced later on.</p>
+</div>
+<div class="section" id="describing-your-command">
+<h3>Describing Your Command<a class="headerlink" href="#describing-your-command" title="Permalink to this headline">¶</a></h3>
+<p>Now that we have our command class set up, let&#8217;s start describing our command.
+This is one of the most important functions of a command (other than its actual behavior), because it describes the command, what it does,
+and how to use it.
+Commands are associated with three strings describing their usage:</p>
+<div class="section" id="the-usage-string">
+<h4>The Usage String<a class="headerlink" href="#the-usage-string" title="Permalink to this headline">¶</a></h4>
+<p>The usage string is an extremely short description of the command, describing sub-commands, arguments, and other properties.
+It is displayed when a command is run incorrectly, or when asked for explicitly.</p>
+<p>It typically looks something like this:</p>
+<div class="highlight-none"><div class="highlight"><pre>/sponge conf [-g] [-d dim] [-w world] key value
+</pre></div>
+</div>
+<p>The usage string is the only required property, and is specified by implementing the <tt class="code docutils literal"><span class="pre">getUsage()</span></tt> method:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getShortDescription</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">absent</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-short-description">
+<h4>The Short Description<a class="headerlink" href="#the-short-description" title="Permalink to this headline">¶</a></h4>
+<p>The short description is a description of the command that is typically one sentence long.
+It is usually displayed next to the command in a help listing.
+Unlike the usage string, it is written in English. Also unlike the usage string, it is optional.</p>
+<p>The short description is specified by implementing the <tt class="code docutils literal"><span class="pre">getShortDescription()</span></tt> method.
+If your command does not provide a description, use <tt class="code docutils literal"><span class="pre">Optional.absent()</span></tt>:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getUsage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">absent</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>And if it provides a description, create an Optional using <tt class="code docutils literal"><span class="pre">Optional.of()</span></tt>:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getShortDescription</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Description goes here&quot;</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-help-text">
+<h4>The Help Text<a class="headerlink" href="#the-help-text" title="Permalink to this headline">¶</a></h4>
+<p>The help text is a full description of your command and how to use it.
+It is shown when <tt class="code docutils literal"><span class="pre">/help</span> <span class="pre">yourcommand</span></tt> is run. Like the short description, it is optional.</p>
+<p>Specifying the help text is similar to how the short description is specified:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getHelp</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
+        <span class="s">&quot;My very long help text which is extremely informative and allows</span>
+<span class="s">        people to use the command effectively goes here&quot;</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="command-permissions">
+<h3>Command Permissions<a class="headerlink" href="#command-permissions" title="Permalink to this headline">¶</a></h3>
+<p>Almost every useful command should be restricted by permissions somehow &#8211; a server owner doesn&#8217;t want
+the average Bob or Alice to run the <cite>/fireball</cite> or <cite>/broadcast</cite> commands, for obvious reasons.</p>
+<p>Testing for permissions is required by the CommandCallable interface via the <cite>testPermission</cite> method:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">testPermission</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;example.mycommand&quot;</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">To learn how to use the Permissions API with more of its features, please see the <tt class="xref doc docutils literal"><span class="pre">permissions</span></tt> guide.</p>
+</div>
+</div>
+<div class="section" id="command-behavior">
+<h3>Command Behavior<a class="headerlink" href="#command-behavior" title="Permalink to this headline">¶</a></h3>
+<p>Finally, let&#8217;s get to the meat of our command &#8211; the behavior.
+To do this, we implement the <cite>call</cite> method on CommandCallable for the behavior of the command.</p>
+<p>Since this command doesn&#8217;t do much, our implementation is very simple:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">call</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">,</span> <span class="n">String</span> <span class="n">arguments</span><span class="o">,</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">parents</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">CommandException</span> <span class="o">{</span>
+
+    <span class="n">Message</span> <span class="n">message</span> <span class="o">=</span> <span class="n">Messages</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">arguments</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">server</span><span class="o">.</span><span class="na">broadcastMessage</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>We simply make a message out of the passed-in arguments and broadcast it to the server.</p>
+<p>The first parameter given to <cite>call</cite> is the CommandSource &#8211; this can be a player,
+the console, a command block, or a remote source (Rcon or some developer-defined source).
+The second parameter is a string of the arguments passed into the command.</p>
+<p>The final parameter is a list of parents to the command, starting with the root command.
+Most commands don&#8217;t worry about this, so it is out of scope for this tutorial.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you wish to learn about command parenting in Sponge, see the guide.</p>
+</div>
+</div>
+<div class="section" id="command-exceptions">
+<h3>Command Exceptions<a class="headerlink" href="#command-exceptions" title="Permalink to this headline">¶</a></h3>
+<p>A command throws CommandException by default. You can use this error to throw messages related to how the
+command is handled, for instance, if the console attempts to run a command that only a player can run.</p>
+<p>Here&#8217;s the command exceptions already present in the Sponge API:</p>
+<ul class="simple">
+<li><strong>CommandException</strong>: The base class for all exceptions, represents an exception related to command handling.</li>
+<li><strong>InvocationCommandException</strong>:</li>
+</ul>
+<p>Be careful about throwing CommandException; if something goes wrong with the actual execution of your command,
+you most likely need to throw another exception,
+like an InvalidArgumentsException.</p>
+<p>Finally, the command returns a boolean indicating whether it passed or failed.
+It is not possible to return a boolean if an exception was thrown, Sponge will assume the command failed because of the exception.</p>
+</div>
+<div class="section" id="completion-suggestions">
+<h3>Completion Suggestions<a class="headerlink" href="#completion-suggestions" title="Permalink to this headline">¶</a></h3>
+<p>While a user is typing your command, they may press &#8220;tab&#8221; in order to try to autocomplete some parts of it, in order to speed up entering the command.
+We can customize this by implementing the <cite>getSuggestions</cite> method, like so:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getSuggestions</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">,</span> <span class="n">String</span> <span class="n">arguments</span><span class="o">)</span>
+    <span class="kd">throws</span> <span class="n">CommandException</span> <span class="o">{</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">arguments</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&quot;H&quot;</span><span class="o">))</span> <span class="o">{</span>
+
+        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">suggestions</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+        <span class="n">suggestions</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Hi!&quot;</span><span class="o">);</span>
+        <span class="n">suggestions</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;Hello World!&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">suggestions</span><span class="o">;</span>
+
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Like the <cite>call</cite> method, <cite>getSuggestions</cite> also takes a CommandSource and a string for the arguments.
+The CommandSource is exactly the same as <cite>call</cite> &#8211; the source of the command.
+The arguments are almost the same, except they aren&#8217;t the completed arguments like <cite>call</cite>, they are whatever
+the CommandSource has currently typed in. Keep this in mind when writing your autocomplete code.</p>
+<p>Also like <cite>call</cite>, <cite>getSuggestions</cite> throws a CommandException something related to command handling fails.
+Again, be sure to throw this exception only when necessary and use different or more specific classes for other, unrelated exceptions.</p>
+<p>Return a list of strings as suggestions, or <cite>Collections.emptyList()</cite>.</p>
+</div>
+</div>
+<div class="section" id="registering-the-command">
+<h2>Registering the Command<a class="headerlink" href="#registering-the-command" title="Permalink to this headline">¶</a></h2>
+<p>Now we can register the class in the <tt class="docutils literal"><span class="pre">CommandService</span></tt>.
+The <tt class="docutils literal"><span class="pre">CommandService</span></tt> stands as the manager for watching what commands get typed into chat, and redirecting them to the right command handler.
+To register your command, use the method <tt class="docutils literal"><span class="pre">CommandService.register()</span></tt>, passing your plugin, an instance of the command, and any needed aliases as parameters.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">CommandService</span> <span class="n">cmdService</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getCommandDispatcher</span><span class="o">();</span>
+<span class="n">cmdService</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="k">new</span> <span class="n">MyBroadcastCommand</span><span class="o">(</span><span class="n">server</span><span class="o">),</span> <span class="s">&quot;message&quot;</span><span class="o">,</span> <span class="s">&quot;broadcast&quot;</span><span class="o">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The arguments after the new instance of your command are the aliases to register for the command. You can add as many Strings as you want.
+The first alias that isn&#8217;t used by another command becomes the primary alias. This means aliases used by another command are ignored.</p>
+</div>
+</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          <div class="clearer"></div>
+        </div>
+        <div class="footer" role="contentinfo">
+              &copy; Copyright 2014-2015, Sponge Contributors.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+        </div>
+    </div>
+  </body>
+</html>
