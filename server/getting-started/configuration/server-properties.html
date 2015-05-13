@@ -1,0 +1,862 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <title>server.properties &mdash; Sponge 2.1-snapshot documentation</title>
+    
+  <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sponge.css" type="text/css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:400italic,700italic,700,400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../../../_static/tomorrow.css" type="text/css" />
+  <link id="syntax-highlighting-ref" rel="stylesheet" href="../../../_static/tomorrow_night.css" type="text/css" />
+      
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT:    '../../../',
+      VERSION:     '2.1-snapshot',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE:  true
+    };
+  </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/store.min.js"></script>
+    <script type="text/javascript" src="../../../_static/lights.js"></script>
+        <link rel="top" title="Sponge 2.1-snapshot documentation" href="../../../index.html" />
+        <link rel="up" title="Configuring Sponge" href="index.html" />
+        <link rel="next" title="Server Management" href="../../management/index.html" />
+        <link rel="prev" title="sponge.conf" href="sponge-conf.html" /> 
+  </head>
+  <body role="document">
+    <div class="container">
+  <div class="related" role="navigation" aria-label="related navigation">
+    <h3>Navigation</h3>
+    <ul>
+      <span style="float: right" class="lights" title="Toggles syntax highlighting between light and dark">
+        <i class="icon-lamp lights-icon"></i> Highlight Code Light/Dark
+      </span>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../management/index.html" title="Server Management"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sponge-conf.html" title="sponge.conf"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">Sponge 2.1-snapshot documentation</a> &raquo;</li>
+        <li><a href="../../index.html" >Creating a Server</a> &raquo;</li>
+        <li><a href="../index.html" >Getting Started</a> &raquo;</li>
+        <li><a href="index.html" accesskey="U">Configuring Sponge</a> &raquo;</li> 
+    </ul>
+  </div> 
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+    <form class="search" action="../../../search.html" method="get">
+      <input class="field" type="text" name="q" autocomplete="off" />
+      <button class="submit" type="submit"><i class="icon-search"></i></button>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%"></p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../../index.html">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Creating a Server</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Getting Started</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../jre.html">Installing the JRE</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../migrating/index.html">Migrating to Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../migrating/sponge/index.html">Migrating to Sponge (coremod)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../migrating/spongevanilla/index.html">Migrating to SpongeVanilla</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../implementations/index.html">Choosing an Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../implementations/sponge.html">Sponge (coremod)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../implementations/spongevanilla.html">SpongeVanilla</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../implementations/glowstone.html">Glowstone</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../launch-script.html">Creating a Launch Script</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../port-forward.html">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html">Installing Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Configuring Sponge</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="hocon.html">Introduction to HOCON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="json.html">JSON Syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sponge-conf.html">sponge.conf</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">server.properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../management/index.html">Server Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../management/whitelist.html">Managing the Whitelist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../management/bans.html">Managing Bans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../management/permissions.html">Managing Permissions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../management/plugins.html">Installing Plugins</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../spongineer/index.html">Becoming an Expert Spongineer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../spongineer/commands.html">Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../spongineer/debugging.html">Log Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../preparing/index.html">Preparing for Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../preparing/jdk.html">Installing the JDK</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../preparing/ide.html">Installing an IDE</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../preparing/text.html">Installing a Text Editor</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../preparing/git.html">Installing Git</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugin/index.html">Creating a Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/basics/index.html">The Basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/basics/workspace/index.html">Setting Up Your Workspace</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/basics/workspace/idea.html">Setting Up IntelliJ IDEA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/basics/workspace/eclipse.html">Setting Up Eclipse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/basics/workspace/netbeans.html">Setting Up NetBeans</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/basics/workspace/dependencies.html">Adding Sponge API Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/basics/practices.html">Best Practices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/basics/templates.html">Plugin Templates</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/basics/main-class.html">Creating Your Main Plugin Class</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/basics/lifecycle.html">Plugin Lifecycle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/basics/logging.html">Logging and Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/basics/text.html">Creating Text</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/basics/commands/index.html">Creating Commands</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/basics/commands/creating.html">Building a Command</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/basics/commands/arguments.html">Argument Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/basics/commands/childcommands.html">Child Commands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/basics/commands/service.html">The Command Service</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/basics/events.html">Working with Events</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/basics/blocks/index.html">Working with Blocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/basics/blocks/concepts.html">Concepts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/basics/blocks/accessing.html">Accessing Blocks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/basics/blocks/modifying.html">Modifying Blocks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/basics/blocks/tileentities.html">Working with Tile Entities</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/basics/entities/index.html">Working with Entities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/basics/entities/spawning.html">Spawning an Entity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/basics/configuration.html">Creating a Default Plugin Configuration</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/advanced/index.html">Advanced</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/advanced/config-in-depth/index.html">Manipulating a Configuration File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/advanced/config-in-depth/loaders.html">Configuration Loaders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/advanced/config-in-depth/nodes.html">Configuration Nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/advanced/config-in-depth/paths.html">Navigating Through Nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/advanced/commands/index.html">Advanced Command API Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/advanced/commands/arguments.html">Advanced Command Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/advanced/commands/callable.html">Low-Level Command API</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/advanced/database.html">Working with Databases</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/advanced/permissions.html">Working with the Permissions API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/advanced/services.html">Working with Services</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/advanced/manager.html">Using the Plugin Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/advanced/injection.html">Dependency Injection</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/advanced/debugging.html">Plugin Debugging and Hotswapping</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing to Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/coremod/index.html">Coremod Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/coremod/layout.html">Layout of Sponge (coremod)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/coremod/debugging.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/coremod/mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/coremod/git.html">Git Workflow for Sponge (coremod)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/vanilla/index.html">SpongeVanilla Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/vanilla/layout.html">Layout of SpongeVanilla</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/vanilla/debugging.html">Debugging SpongeVanilla Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/vanilla/mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/vanilla/git.html">Git Workflow for SpongeVanilla</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/common/index.html">SpongeCommon Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/common/mixins.html">Mixins</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/api/index.html">API Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/api/layout.html">Layout of Sponge API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/api/git.html">Git Workflow for SpongeAPI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/docs/index.html">SpongeDocs Writing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/docs/layout.html">Layout of SpongeDocs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/docs/git.html">Git Workflow for SpongeDocs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">About the Sponge Project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/introduction.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/future.html">Plans for the Future</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/license.html">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/posting.html">Forum Posting Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/rules.html">Forum &amp; IRC Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/staff.html">Staff</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../downloads.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<ul class="simple">
+</ul>
+
+      </div>
+    </div> 
+
+        <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body" role="main">
+                  
+  <div class="section" id="server-properties">
+<h1>server.properties<a class="headerlink" href="#server-properties" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="default-file">
+<h2>Default File<a class="headerlink" href="#default-file" title="Permalink to this headline">¶</a></h2>
+<p>Here is the default server.properties file of an unmodified Minecraft 1.8.1 server.</p>
+<div class="highlight-properties"><div class="highlight"><pre><span class="c">#Minecraft server properties</span>
+<span class="c">#(File modification datestamp)</span>
+<span class="na">spawn-protection</span><span class="o">=</span><span class="s">16</span>
+<span class="na">max-tick-time</span><span class="o">=</span><span class="s">60000</span>
+<span class="na">generator-settings</span><span class="o">=</span>
+<span class="na">force-gamemode</span><span class="o">=</span><span class="s">false</span>
+<span class="na">allow-nether</span><span class="o">=</span><span class="s">true</span>
+<span class="na">gamemode</span><span class="o">=</span><span class="s">0</span>
+<span class="na">enable-query</span><span class="o">=</span><span class="s">false</span>
+<span class="na">player-idle-timeout</span><span class="o">=</span><span class="s">0</span>
+<span class="na">difficulty</span><span class="o">=</span><span class="s">1</span>
+<span class="na">spawn-monsters</span><span class="o">=</span><span class="s">true</span>
+<span class="na">op-permission-level</span><span class="o">=</span><span class="s">4</span>
+<span class="na">resource-pack-hash</span><span class="o">=</span>
+<span class="na">announce-player-achievements</span><span class="o">=</span><span class="s">true</span>
+<span class="na">pvp</span><span class="o">=</span><span class="s">true</span>
+<span class="na">snooper-enabled</span><span class="o">=</span><span class="s">true</span>
+<span class="na">level-type</span><span class="o">=</span><span class="s">DEFAULT</span>
+<span class="na">hardcore</span><span class="o">=</span><span class="s">false</span>
+<span class="na">enable-command-block</span><span class="o">=</span><span class="s">false</span>
+<span class="na">max-players</span><span class="o">=</span><span class="s">20</span>
+<span class="na">network-compression-threshold</span><span class="o">=</span><span class="s">256</span>
+<span class="na">max-world-size</span><span class="o">=</span><span class="s">29999984</span>
+<span class="na">server-port</span><span class="o">=</span><span class="s">25565</span>
+<span class="na">server-ip</span><span class="o">=</span>
+<span class="na">spawn-npcs</span><span class="o">=</span><span class="s">true</span>
+<span class="na">allow-flight</span><span class="o">=</span><span class="s">false</span>
+<span class="na">level-name</span><span class="o">=</span><span class="s">world</span>
+<span class="na">view-distance</span><span class="o">=</span><span class="s">10</span>
+<span class="na">resource-pack</span><span class="o">=</span>
+<span class="na">spawn-animals</span><span class="o">=</span><span class="s">true</span>
+<span class="na">white-list</span><span class="o">=</span><span class="s">false</span>
+<span class="na">generate-structures</span><span class="o">=</span><span class="s">true</span>
+<span class="na">online-mode</span><span class="o">=</span><span class="s">true</span>
+<span class="na">max-build-height</span><span class="o">=</span><span class="s">256</span>
+<span class="na">level-seed</span><span class="o">=</span>
+<span class="na">use-native-transport</span><span class="o">=</span><span class="s">true</span>
+<span class="na">motd</span><span class="o">=</span><span class="s">A Minecraft Server</span>
+<span class="na">enable-rcon</span><span class="o">=</span><span class="s">false</span>
+</pre></div>
+</div>
+<div class="section" id="property-explanation">
+<h3>Property Explanation<a class="headerlink" href="#property-explanation" title="Permalink to this headline">¶</a></h3>
+<p>Credit goes to the editors at the <a class="reference external" href="http://minecraft.gamepedia.com">Minecraft Wiki</a> for the explanations.</p>
+<p><strong>Boolean</strong> properties have only two valid values: <em>true</em> and <em>false</em>.
+<strong>Integer</strong> properties must be whole numbers. Where a range is specified, the number must be in that range.
+<strong>String</strong> properties can consist of any symbol.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="11%" />
+<col width="11%" />
+<col width="51%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Type</th>
+<th class="head">Default
+Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>allow-flight</td>
+<td>boolean</td>
+<td>false</td>
+<td><p class="first">Allows users to use flight on your server while in
+Survival mode, if they have a mod that provides flight
+installed.</p>
+<p>With allow-flight enabled griefers will possibly be more
+common, because it will make their work easier. In
+Creative mode this has no effect.</p>
+<blockquote class="last">
+<div><p><strong>false</strong> - Flight is not allowed (players in air for at
+least 5 seconds will be kicked).</p>
+<p><strong>true</strong> - Flight is allowed.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>allow-nether</td>
+<td>boolean</td>
+<td>true</td>
+<td><p class="first">Allows players to travel to the Nether.</p>
+<blockquote class="last">
+<div><p><strong>false</strong> - Nether portals will not work.</p>
+<p><strong>true</strong> - The server will allow portals to send players
+to the Nether.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>announce-player-achievements</td>
+<td>boolean</td>
+<td>true</td>
+<td>Allows the server to announce when a player gets an
+achievement.</td>
+</tr>
+<tr class="row-odd"><td>difficulty</td>
+<td>integer
+(0-3)</td>
+<td>1</td>
+<td><p class="first">Defines the difficulty (such as damage dealt by mobs and
+the way hunger and poison affects players) of the server.</p>
+<blockquote class="last">
+<div><p><strong>0</strong> - Peaceful</p>
+<p><strong>1</strong> - Easy</p>
+<p><strong>2</strong> - Normal</p>
+<p><strong>3</strong> - Hard</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>enable-query</td>
+<td>boolean</td>
+<td>false</td>
+<td>Enables the GameSpy4 protocol server listener. Used to get
+information about the server.</td>
+</tr>
+<tr class="row-odd"><td>enable-rcon</td>
+<td>boolean</td>
+<td>false</td>
+<td>Enables remote access to the server console.</td>
+</tr>
+<tr class="row-even"><td>enable-command-block</td>
+<td>boolean</td>
+<td>false</td>
+<td>Enables command blocks.</td>
+</tr>
+<tr class="row-odd"><td>force-gamemode</td>
+<td>boolean</td>
+<td>false</td>
+<td><p class="first">Force players to join in the default game mode.</p>
+<blockquote class="last">
+<div><p><strong>false</strong> - Players will join in the gamemode they had
+when they last left.</p>
+<p><strong>true</strong> - Players will always join in the default
+gamemode.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>gamemode</td>
+<td>integer
+(0-3)</td>
+<td>0</td>
+<td><p class="first">Defines the mode of gameplay.</p>
+<blockquote class="last">
+<div><p><strong>0</strong> - Survival</p>
+<p><strong>1</strong> - Creative</p>
+<p><strong>2</strong> - Adventure</p>
+<p><strong>3</strong> - Spectator</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>generate-structures</td>
+<td>boolean</td>
+<td>true</td>
+<td><p class="first">Defines whether structures (such as villages) will be
+generated in new chunks.</p>
+<blockquote>
+<div><p><strong>false</strong> - Structures will not be generated.</p>
+<p><strong>true</strong> - Structures will be generated.</p>
+</div></blockquote>
+<p class="last"><strong>Note:</strong> Dungeons will still generate if this is set to
+false.</p>
+</td>
+</tr>
+<tr class="row-even"><td>generator-settings</td>
+<td>string</td>
+<td><em>blank</em></td>
+<td>The settings used to customize world generation. See
+<a class="reference external" href="http://minecraft.gamepedia.com/Superflat">Superflat</a>
+and
+<a class="reference external" href="http://minecraft.gamepedia.com/Customized">Customized</a>
+on the Minecraft Wiki (external links) for possible
+settings and examples.</td>
+</tr>
+<tr class="row-odd"><td>hardcore</td>
+<td>boolean</td>
+<td>false</td>
+<td>If set to <strong>true</strong>, players will be permanently banned if
+they die.</td>
+</tr>
+<tr class="row-even"><td>level-name</td>
+<td>string</td>
+<td>world</td>
+<td><p class="first">The &#8220;level-name&#8221; value will be used as the world name and
+its folder name. You may also copy your saved game folder
+here, and change the name to the same as that folder&#8217;s to
+load it instead.</p>
+<blockquote class="last">
+<div>Characters such as &#8216; (apostrophe) may need to be escaped
+by adding a backslash (\) before them.</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>level-seed</td>
+<td>string</td>
+<td><em>blank</em></td>
+<td><p class="first">Add a seed for your world, as in Singleplayer.</p>
+<blockquote class="last">
+<div>Some examples are: minecraft, 404, 1a2b3c.</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>level-type</td>
+<td>string</td>
+<td>DEFAULT</td>
+<td><p class="first">Determines the type of map that is generated.</p>
+<blockquote class="last">
+<div><p><strong>DEFAULT</strong> - Standard world with hills, valleys, water,
+etc.</p>
+<p><strong>FLAT</strong> - A flat world with no features, meant for
+building.</p>
+<p><strong>LARGEBIOMES</strong> - Same as default, but all biomes are
+larger.</p>
+<p><strong>AMPLIFIED</strong> - Same as default, but world-generation
+height limit is increased.</p>
+<p><strong>CUSTOMIZED</strong> - Same as default unless
+generator-settings is set to a preset.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>max-build-height</td>
+<td>integer</td>
+<td>256</td>
+<td>The maximum height in which building is allowed. Terrain
+may still naturally generate above a low height limit.</td>
+</tr>
+<tr class="row-even"><td>max-players</td>
+<td>integer (0-
+2147483647)</td>
+<td>20</td>
+<td>The maximum number of players that can play on the server
+at the same time. Note that if more players are on the
+server it will use more resources. Note also, op player
+connections are not supposed to count against the max
+players, but ops currently cannot join a full server.
+Extremely large values for this field result in the
+client-side user list being broken.</td>
+</tr>
+<tr class="row-odd"><td>max-tick-time</td>
+<td>integer (0-
+(2^63-1))</td>
+<td>60000</td>
+<td><p class="first">The maximum number of milliseconds a single tick may take
+before the server watchdog stops the server with the
+message: &#8220;A single server tick took 60.00 seconds (should
+be max 0.05); Considering it to be crashed, server will
+forcibly shutdown&#8221;. Once this criteria is met, it calls
+System.exit(1).</p>
+<blockquote class="last">
+<div><strong>-1</strong> - disable watchdog entirely</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>max-world-size</td>
+<td>integer (1-
+29999984)</td>
+<td>29999984</td>
+<td><p class="first">This sets the maximum possible size in blocks, expressed
+as a radius, that the world border can obtain. Setting the
+world border bigger causes the commands to complete
+successfully, but the actual border will not move past
+this block limit. Setting the max-world-size higher than
+the default doesn&#8217;t appear to do anything.</p>
+<p>Examples:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>Setting max-world-size to 1000 will allow you to have a
+2000x2000 world border.</li>
+<li>Setting max-world-size to 4000 will give you an
+8000x8000 world border.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>motd</td>
+<td>string</td>
+<td><em>A</em>
+<em>Minecraft</em>
+<em>Server</em></td>
+<td><p class="first">This is the message that is displayed in the server list
+of the client, below the name.</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>The MOTD does support color and formatting codes.</li>
+<li>If the MOTD is over 59 characters, the server list will
+likely report a communication error.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>network-compression-threshold</td>
+<td>integer</td>
+<td>256</td>
+<td><p class="first">By default it allows packets that are n-1 bytes big to go
+normally, but a packet that n bytes or more will be
+compressed down. So, lower number means more compression
+but compressing small amounts of bytes might actually end
+up with a larger result than what went in.</p>
+<blockquote>
+<div><p><strong>-1</strong> - disable compression entirely</p>
+<p><strong>0</strong> - compress everything</p>
+</div></blockquote>
+<p class="last"><strong>Note:</strong> <em>The ethernet spec requires that packets less</em>
+<em>than 64 bytes become padded to 64 bytes. Thus, setting a</em>
+<em>value lower than 64 may not be beneficial. It is also</em>
+<em>not recommended to exceed the MTU (Maximum Transmission</em>
+<em>Unit), typically 1500 bytes.</em></p>
+</td>
+</tr>
+<tr class="row-odd"><td>online-mode</td>
+<td>boolean</td>
+<td>true</td>
+<td><p class="first">Server checks connecting players against Minecraft&#8217;s
+account database. Only set this to false if your server is
+not connected to the Internet. Hackers with fake accounts
+can connect if this is set to false! If minecraft.net is
+down or inaccessible, no players will be able to connect
+if this is set to true. Setting this variable to off
+purposely is called &#8220;cracking&#8221; a server, and servers that
+are presently in offline mode are called &#8220;cracked&#8221;
+servers, allowing players with unlicensed copies of
+Minecraft to join.</p>
+<blockquote class="last">
+<div><p><strong>false</strong> - Disabled. The server will not attempt to
+check connecting players.</p>
+<p><strong>true</strong> - Enabled. The server will assume it has an
+Internet connection and check every connecting player.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>op-permission-level</td>
+<td>integer
+(1-4)</td>
+<td>4</td>
+<td><p class="first">Sets permission level for ops. Each level also contains
+the permissions of the levels below it.</p>
+<blockquote class="last">
+<div><p><strong>1</strong> - Ops can bypass spawn protection.</p>
+<p><strong>2</strong> - Ops can use /clear, /difficulty, /effect,
+/gamemode, /gamerule, /give, and /tp, and can edit
+command blocks.</p>
+<p><strong>3</strong> - Ops can use /ban, /deop, /kick, and /op.</p>
+<p><strong>4</strong> - Ops can use /stop.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>player-idle-timeout</td>
+<td>integer</td>
+<td>0</td>
+<td><p class="first">If non-zero, players are kicked from the server if they
+are idle for more than that many minutes.</p>
+<blockquote class="last">
+<div><p><strong>Note:</strong> <em>Idle time is reset when the server receives</em>
+<em>one of the following packets:</em></p>
+<blockquote>
+<div><ul class="simple">
+<li>102 (0x66) WindowClick</li>
+<li>108 (0x6c) ButtonClick</li>
+<li>130 (0x82) UpdateSign</li>
+<li>14 (0xe) BlockDig</li>
+<li>15 (0xf) Place</li>
+<li>16 (0x10) BlockItemSwitch</li>
+<li>18 (0x12) ArmAnimation</li>
+<li>19 (0x13) EntityAction</li>
+<li>205 (0xcd) ClientCommand</li>
+<li>3 (0x3) Chat</li>
+<li>7 (0x7) UseEntity</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>pvp</td>
+<td>boolean</td>
+<td>true</td>
+<td><p class="first">Enable PvP on the server. Players shooting themselves with
+arrows will only receive damage if PvP is enabled.</p>
+<blockquote>
+<div><p><strong>false</strong> - Players cannot kill other players (also known
+as <strong>Player versus Environment</strong> (<strong>PvE</strong>)).</p>
+<p><strong>true</strong> - Players will be able to kill each other.</p>
+</div></blockquote>
+<p class="last"><strong>Note:</strong> <em>Indirect damage sources spawned by players</em>
+<em>(such as lava, fire, TNT and to some extent water, sand</em>
+<em>and gravel) will still deal damage to other players.</em></p>
+</td>
+</tr>
+<tr class="row-odd"><td>query.port</td>
+<td>integer (1-
+65534)</td>
+<td>25565</td>
+<td>Sets the port for the query server (see <strong>enable-query</strong>).</td>
+</tr>
+<tr class="row-even"><td>rcon.password</td>
+<td>string</td>
+<td><em>blank</em></td>
+<td>Sets the password for remote connection.</td>
+</tr>
+<tr class="row-odd"><td>rcon.port</td>
+<td>integer (1-
+65534)</td>
+<td>25575</td>
+<td>Sets the port for remote connection.</td>
+</tr>
+<tr class="row-even"><td>resource-pack</td>
+<td>string</td>
+<td><em>blank</em></td>
+<td>Optional URI to a resource pack. The player may choose to
+use it.</td>
+</tr>
+<tr class="row-odd"><td>resource-pack-hash</td>
+<td>string</td>
+<td><em>blank</em></td>
+<td>Optional SHA-1 digest of the resource pack, in lowercase
+hexadecimal. It&#8217;s recommended to specify this. This is not
+yet used to verify the integrity of the resource pack, but
+improves the effectiveness and reliability of caching.</td>
+</tr>
+<tr class="row-even"><td>server-ip</td>
+<td>string</td>
+<td><em>blank</em></td>
+<td>Set this if you want the server to bind to a particular
+IP. It is strongly recommended that you leave this blank.</td>
+</tr>
+<tr class="row-odd"><td>server-port</td>
+<td>integer (1-
+65534)</td>
+<td>25565</td>
+<td>Changes the port the server is hosting (listening) on.
+This port must be forwarded if the server is hosted in a
+network using NAT (If you have a home router/firewall).</td>
+</tr>
+<tr class="row-even"><td>snooper-enabled</td>
+<td>boolean</td>
+<td>true</td>
+<td><p class="first">Sets whether the server sends snoop data regularly to
+<a class="reference external" href="http://snoop.minecraft.net">http://snoop.minecraft.net</a>. (external link)</p>
+<blockquote class="last">
+<div><p><strong>false</strong> - Disable sending of data.</p>
+<p><strong>true</strong> - Enable sending of data.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td>spawn-animals</td>
+<td>boolean</td>
+<td>true</td>
+<td><p class="first">Determines whether animals will be able to spawn.</p>
+<blockquote>
+<div><p><strong>false</strong> - All animals will immediately vanish, and none
+will spawn.</p>
+<p><strong>true</strong> - Animals spawn as normal.</p>
+</div></blockquote>
+<p class="last"><em>Tip: if you have major lag, set this to false.</em></p>
+</td>
+</tr>
+<tr class="row-even"><td>spawn-monsters</td>
+<td>boolean</td>
+<td>true</td>
+<td><p class="first">Determines whether hostile mobs will be able to spawn.</p>
+<blockquote>
+<div><p><strong>false</strong> - All mobs will immediately vanish, and none
+will spawn anywhere, or at any time of day.</p>
+<p><strong>true</strong> - Mobs spawn as normal; in darkness and at
+night.</p>
+</div></blockquote>
+<p>This will have no effect if difficulty is set to Peaceful.</p>
+<p class="last"><em>Tip: if you have major lag, set this to false.</em></p>
+</td>
+</tr>
+<tr class="row-odd"><td>spawn-npcs</td>
+<td>boolean</td>
+<td>true</td>
+<td><p class="first">Determines if villagers will be spawned.</p>
+<blockquote class="last">
+<div><p><strong>true</strong> - Enabled. Villagers will spawn.</p>
+<p><strong>false</strong> - Disabled. No villagers.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>spawn-protection</td>
+<td>integer</td>
+<td>16</td>
+<td>Determines the radius of the spawn protection. Setting
+this to 0 will not disable spawn protection. 0 will
+protect the single block at the spawn point. 1 will
+protect a 3x3 area centered on the spawn point. 2 will
+protect 5x5, 3 will protect 7x7, etc. This option is not
+generated on the first server start and appears when the
+first player joins. If there are no ops set on the server,
+the spawn protection will be disabled automatically.</td>
+</tr>
+<tr class="row-odd"><td>use-native-transport</td>
+<td>boolean</td>
+<td>true</td>
+<td><p class="first">Linux server performance improvements: optimized packet
+sending/receiving on Linux.</p>
+<blockquote class="last">
+<div><p><strong>false</strong> - Disabled. Disable Linux packet
+sending/receiving optimization.</p>
+<p><strong>true</strong> - Enabled. Enable Linux packet
+sending/receiving optimization.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td>view-distance</td>
+<td><p class="first">integer</p>
+<p class="last">(3-15)</p>
+</td>
+<td>10</td>
+<td><p class="first">Sets the amount of world data the server sends the client,
+measured in chunks in each direction of the player
+(radius, not diameter). It determines the server-side
+viewing distance.</p>
+<p class="last"><em>10 is the default/recommended. If you have major lag,</em>
+<em>reduce this value.</em></p>
+</td>
+</tr>
+<tr class="row-odd"><td>white-list</td>
+<td>boolean</td>
+<td>false</td>
+<td><p class="first">Enables a whitelist on the server.
+See <a class="reference internal" href="../../management/whitelist.html"><em>Managing the Whitelist</em></a>
+With a whitelist enabled, users not on the whitelist will
+be unable to connect. Intended for private servers, such
+as those for real-life friends or strangers carefully
+selected via an application process, for example.</p>
+<blockquote>
+<div><p><strong>false</strong> - No white list is used.</p>
+<p><strong>true</strong> - The file <tt class="docutils literal"><span class="pre">whitelist.json</span></tt> is used to
+generate the white list.</p>
+</div></blockquote>
+<p class="last"><strong>Note:</strong> <em>Ops are automatically white listed, and there</em>
+<em>is no need to add them to the whitelist.</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          <div class="clearer"></div>
+        </div>
+        <div class="footer" role="contentinfo">
+              &copy; Copyright 2014-2015, Sponge Contributors.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+        </div>
+    </div>
+  </body>
+</html>
