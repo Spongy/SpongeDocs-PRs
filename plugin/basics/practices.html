@@ -329,11 +329,11 @@
 <p>The following guidelines have been prepared to aid Sponge plugin developers. It is not a definitive or comprehensive list, merely an attempt to detail some issues that are likely to arise during plugin development, and propose our best solutions.</p>
 <div class="section" id="economy-api">
 <h3>Economy API<a class="headerlink" href="#economy-api" title="Permalink to this headline">¶</a></h3>
-<p>An Economy API is currently in development, using the Services API. It is anticipated that plugins wishing to use economy features will utilise this service once available.</p>
+<p>An Economy API is currently in development, using the Services API. It is anticipated that plugins wishing to deploy economy features will utilise this service once available.</p>
 </div>
 <div class="section" id="mixins">
 <h3>Mixins<a class="headerlink" href="#mixins" title="Permalink to this headline">¶</a></h3>
-<p>Mixins can not be used by Plugins. Mixins are specifically for transforming classes before other mods/plugins start. ForgeModLoader calls these mods “CoreMods”. Sponge is a CoreMod, and deploys Mixins on startup.</p>
+<p>Mixins can not be used by plugins. Mixins are specifically for transforming classes before other mods/plugins start. ForgeModLoader calls these mods “Coremods”. Sponge is a Coremod, and deploys Mixins on startup.</p>
 </div>
 <div class="section" id="packets">
 <h3>Packets<a class="headerlink" href="#packets" title="Permalink to this headline">¶</a></h3>
@@ -341,7 +341,8 @@
 </div>
 <div class="section" id="using-forge-or-nms-classes">
 <h3>Using Forge or NMS Classes<a class="headerlink" href="#using-forge-or-nms-classes" title="Permalink to this headline">¶</a></h3>
-<p>Mods which add to the Sponge API using code internals will have to specifically write an API, that does not rely on underlying Minecraft code, to be usable by Sponge plugins.
+<p>We do not recommend working with Forge or Minecraft base classes at all, unless it is to provide compatibility with a mod for Sponge API.
+Mods which add to the Sponge API using code internals will have to specifically write an API, that does not rely on underlying Minecraft code, to be usable by Sponge plugins.
 However, plugins can be created that load separate “compatibility” modules to interact with the underlying
 implementation (Sponge Coremod or SpongeVanilla).</p>
 <p>Plugins using implementation-specific code are very likely to break between versions, and should be clearly labelled as such wherever they are hosted. These may more appropriately labelled as &#8220;Mods&#8221;.</p>
