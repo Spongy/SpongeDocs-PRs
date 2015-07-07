@@ -377,7 +377,27 @@
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The use of YAML format (<a class="reference external" href="http://www.yaml.org/spec/1.2/spec.html">http://www.yaml.org/spec/1.2/spec.html</a>) is also supported, but the preferred config format for Sponge plugins is HOCON.</p>
+<p class="last">The use of YAML format (<a class="reference external" href="http://yaml.org/spec/1.1/">http://yaml.org/spec/1.1/</a>) is also supported, but the preferred config format for Sponge plugins is HOCON. Conversion from YAML to HOCON can be automated; a simple code snippet for converting a bukkit plugin configuration folder with a dedicated data folder is provided below.</p>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="kt">void</span> <span class="nf">convertFromBukkit</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">File</span> <span class="n">bukkitConfigDir</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;plugins/&quot;</span> <span class="o">+</span> <span class="n">PomData</span><span class="o">.</span><span class="na">NAME</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">bukkitConfigDir</span><span class="o">.</span><span class="na">isDirectory</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">configDir</span><span class="o">.</span><span class="na">isDirectory</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">lf</span><span class="o">(</span><span class="n">_</span><span class="o">(</span><span class="s">&quot;Migrating configuration data from Bukkit&quot;</span><span class="o">)));</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">bukkitConfigDir</span><span class="o">.</span><span class="na">renameTo</span><span class="o">(</span><span class="n">configDir</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">IOException</span><span class="o">(</span><span class="n">lf</span><span class="o">(</span><span class="n">_</span><span class="o">(</span><span class="s">&quot;Unable to move Bukkit configuration directory to location for Sponge!&quot;</span><span class="o">)));</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="n">File</span> <span class="n">bukkitConfigFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">configDir</span><span class="o">,</span> <span class="s">&quot;config.yml&quot;</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">bukkitConfigFile</span><span class="o">.</span><span class="na">isFile</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">ConfigurationNode</span><span class="o">&gt;</span> <span class="n">yamlReader</span> <span class="o">=</span> <span class="n">YAMLConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setFile</span><span class="o">(</span><span class="n">bukkitConfigFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+        <span class="n">ConfigurationNode</span> <span class="n">bukkitConfig</span> <span class="o">=</span> <span class="n">yamlReader</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
+        <span class="n">configLoader</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">bukkitConfig</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">bukkitConfigFile</span><span class="o">.</span><span class="na">renameTo</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">configDir</span><span class="o">,</span> <span class="s">&quot;config.yml.bukkit&quot;</span><span class="o">)))</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="n">lf</span><span class="o">(</span><span class="n">_</span><span class="o">(</span><span class="s">&quot;Could not rename old Bukkit configuration file to old name&quot;</span><span class="o">)));</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="working-with-the-configuration">
