@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <title>Mixins &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+    
+  <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:400italic,700italic,700,400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../../_static/tomorrow.css" type="text/css" />
+  <link id="syntax-highlighting-ref" rel="stylesheet" href="../../_static/tomorrow_night.css" type="text/css" />
+      
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT:    '../../',
+      VERSION:     '2.1-SNAPSHOT',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE:  true
+    };
+  </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/store.min.js"></script>
+    <script type="text/javascript" src="../../_static/lights.js"></script>
+        <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../../index.html" />
+        <link rel="up" title="Coremod Development" href="index.html" />
+        <link rel="next" title="Git Workflow for Sponge (coremod)" href="git.html" />
+        <link rel="prev" title="Debugging Sponge Within the IDE" href="debugging.html" />
+    
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-59476017-2', 'auto');
+    ga('send', 'pageview');
+
+  </script> 
+  </head>
+  <body role="document">
+    <div class="container">
+  <div class="related" role="navigation" aria-label="related navigation">
+    <h3>Navigation</h3>
+    <ul>
+      <span style="float: right" class="lights" title="Toggles syntax highlighting between light and dark">
+        <i class="icon-lamp lights-icon"></i> Highlight Code Light/Dark
+      </span>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="git.html" title="Git Workflow for Sponge (coremod)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="debugging.html" title="Debugging Sponge Within the IDE"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
+        <li><a href="../index.html" >Contributing to Sponge</a> &raquo;</li>
+        <li><a href="index.html" accesskey="U">Coremod Development</a> &raquo;</li> 
+    </ul>
+  </div> 
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+    <form class="search" action="../../search.html" method="get">
+      <div class="searchbox-inner">
+        <input class="field" type="text" name="q" autocomplete="off" />
+        <button class="submit" type="submit"><i class="icon-search"></i></button>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </div>
+    </form>
+    <p class="searchtip" style="font-size: 90%"></p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../server/index.html">Creating a Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../server/getting-started/index.html">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/jre.html">Installing Java</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/migrating/index.html">Migrating to Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/migrating/sponge/index.html">Migrating to Sponge (coremod)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/migrating/spongevanilla/index.html">Migrating to SpongeVanilla</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/sponge.html">Sponge Coremod</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/glowstone.html">Glowstone</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/launch-script.html">Creating a Launch Script</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/port-forward.html">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/configuration/index.html">Configuring Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/configuration/hocon.html">Introduction to HOCON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/configuration/json.html">JSON Syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/configuration/sponge-conf.html">global.conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/configuration/server-properties.html">server.properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../server/management/index.html">Server Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../server/management/whitelist.html">Managing the Whitelist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/management/bans.html">Managing Bans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/management/permissions.html">Managing Permissions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/management/plugins.html">Installing Plugins</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../server/spongineer/index.html">Becoming an Expert Spongineer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/commands.html">Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/debugging.html">Log Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../preparing/jdk.html">Installing the JDK</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../preparing/ide.html">Installing an IDE</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../preparing/text.html">Installing a Text Editor</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../preparing/git.html">Installing Git</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin/index.html">Creating a Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/basics/index.html">The Basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/basics/workspace/index.html">Setting Up Your Workspace</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/workspace/idea.html">Setting Up IntelliJ IDEA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/workspace/eclipse.html">Setting Up Eclipse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/workspace/netbeans.html">Setting Up NetBeans</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/workspace/dependencies.html">Adding Sponge API Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/basics/practices.html">Best Practices</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/basics/templates.html">Plugin Templates</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/basics/main-class.html">Creating Your Main Plugin Class</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/basics/lifecycle.html">Plugin Lifecycle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/basics/logging.html">Logging and Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/basics/text/index.html">Working with Text</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/text/text.html">Creating Text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/text/pagination.html">The Pagination Service</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/basics/commands/index.html">Creating Commands</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/commands/creating.html">Building a Command</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/commands/arguments.html">Argument Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/commands/childcommands.html">Child Commands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/commands/service.html">The Command Service</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/basics/events.html">Working with Events</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/basics/blocks/index.html">Working with Blocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/blocks/concepts.html">Concepts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/blocks/accessing.html">Accessing Blocks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/blocks/modifying.html">Modifying Blocks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/blocks/tileentities.html">Working with Tile Entities</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/basics/entities/index.html">Working with Entities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/basics/entities/spawning.html">Spawning an Entity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/basics/configuration.html">Creating a Default Plugin Configuration</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/basics/injection.html">Dependency Injection</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/advanced/index.html">Advanced</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/advanced/config-in-depth/index.html">Manipulating a Configuration File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/advanced/config-in-depth/loaders.html">Configuration Loaders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/advanced/config-in-depth/nodes.html">Configuration Nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/advanced/config-in-depth/paths.html">Navigating Through Nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/advanced/commands/index.html">Advanced Command API Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/advanced/commands/arguments.html">Advanced Command Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/advanced/commands/callable.html">Low-Level Command API</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/advanced/database.html">Working with Databases</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/advanced/permissions.html">Working with the Permissions API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/advanced/services.html">Working with Services</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/advanced/manager.html">Using the Plugin Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/advanced/debugging.html">Plugin Debugging and Hotswapping</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/advanced/message-sinks.html">Message Sinks</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/tutorials.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Contributing to Sponge</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../guidelines.html">Contribution Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Coremod Development</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="layout.html">Layout of Sponge (coremod)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="debugging.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="git.html">Git Workflow for Sponge (coremod)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../vanilla/index.html">SpongeVanilla Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../vanilla/layout.html">Layout of SpongeVanilla</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vanilla/debugging.html">Debugging SpongeVanilla Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vanilla/mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vanilla/git.html">Git Workflow for SpongeVanilla</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../common/index.html">SpongeCommon Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../common/mixins.html">Mixins</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/layout.html">Layout of Sponge API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/git.html">Git Workflow for SpongeAPI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../docs/index.html">SpongeDocs Writing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../docs/layout.html">Layout of SpongeDocs</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../docs/git.html">Git Workflow for SpongeDocs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about/introduction.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/future.html">Plans for the Future</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/license.html">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/posting.html">Forum Posting Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/rules.html">Forum &amp; IRC Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/staff.html">Staff</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/glossary.html">Sponge Glossary</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/assets.html">Art Assets</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/history.html">The History of Sponge</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../downloads.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<ul class="simple">
+</ul>
+
+      </div>
+    </div> 
+
+        <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body" role="main">
+                  
+  <div class="section" id="mixins">
+<h1>Mixins<a class="headerlink" href="#mixins" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">this page is shared between Common, Sponge, and Vanilla.</p>
+</div>
+<p>Mixins are a way of modifying java code at runtime by adding additional behavior to classes. They enable transplanting of intended behavior into existing Minecraft objects. Mixins are necessary for the Sponge coremod to function.</p>
+<p>A basic introduction to some of the core concepts underpinning the mixin functionality we&#8217;re using to implement Sponge
+is available at the <a class="reference external" href="https://github.com/SpongePowered/Mixin/wiki/">Mixin Wiki</a></p>
+<p><em>It starts with absolute basics. If you&#8217;re an experienced java developer, feel free to skip to section 4, where the mixins themselves are actually discussed.</em></p>
+<p>If you&#8217;re looking to get started writing mixins, we also strongly recommend carefully examining all of the examples in the <a class="reference external" href="https://github.com/SpongePowered/Sponge/tree/master/src/example/java/org/spongepowered">Sponge repository</a> which are extensively documented and cover many of the more complex scenarios. You should also consult the Javadoc of the Mixin repository itself, since almost everything is already documented.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Mixin project will be servicing a number of other projects in addition to Sponge itself. Therefore Mixin has its&#8217; own documentation together with the repository.</p>
+</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          <div class="clearer"></div>
+        </div>
+        <div class="footer" role="contentinfo">
+              &copy; Copyright 2014-2015, Sponge Contributors.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+        </div>
+    </div>
+  </body>
+</html>
