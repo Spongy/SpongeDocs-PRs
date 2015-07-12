@@ -415,15 +415,19 @@ sponge {
             }
             enabled=true
             misc {
+                armorstand=true
                 arrow=true
                 boat=true
                 fallingsand=true
                 item=true
+                itemframe=true
+                leashknot=true
                 minecartchest=true
                 minecartfurnace=true
                 minecarthopper=true
                 minecartrideable=true
                 minecarttnt=true
+                painting=true
                 villager=true
                 villagergolem=true
                 xporb=true
@@ -514,10 +518,15 @@ sponge {
 <tr class="row-odd"><td>aliases</td>
 <td>string</td>
 <td>null</td>
-<td>Alias will resolve conflicts when multiple
-plugins request a specific command. Syntax is
-&lt;unqualified command&gt;=&lt;plugin name&gt;
-eg. me=Minecraft, give=Essentials</td>
+<td><p class="first">Alias will resolve conflicts when multiple
+plugins request a specific command. Correct
+syntax is &lt;unqualified command&gt;: &lt;plugin name&gt;</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="n">eg</span><span class="o">.</span>     <span class="n">aliases</span><span class="o">=</span> <span class="p">{</span>
+            <span class="n">title</span><span class="p">:</span> <span class="n">myPlugin</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+</td>
 </tr>
 <tr class="row-even"><td>config-enabled</td>
 <td>boolean</td>
@@ -596,7 +605,8 @@ it is removed. Set to 0 to disable</td>
 <tr class="row-odd"><td><strong>Entity Activation Range</strong></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td>&nbsp;</td>
+<td><em>Note that entities from Mods are automatically
+to this list.</em></td>
 </tr>
 <tr class="row-even"><td>ambient-activation-range</td>
 <td>integer</td>
@@ -655,107 +665,24 @@ pig, rabbit, sheep, wolf.</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><ul class="first last simple">
-<li>arrow</li>
+<li>Misc &lt;entity&gt;</li>
 </ul>
 </td>
 <td>boolean</td>
 <td>true</td>
-<td>Allow arrow entities.</td>
+<td>Allow &lt;entity&gt; to spawn. Permitted values:
+armorstand, arrow, boat, fallingsand, item,
+itemframe, leashknot, minecartchest,
+minecartfurnace, minecarthopper,
+minecartrideable, minecarttnt, painting,
+villager, villagergolem, xporb.</td>
 </tr>
-<tr class="row-even"><td><ul class="first last simple">
-<li>boat</li>
-</ul>
-</td>
-<td>boolean</td>
-<td>true</td>
-<td>Allow boats.</td>
-</tr>
-<tr class="row-odd"><td><ul class="first last simple">
-<li>fallingsand</li>
-</ul>
-</td>
-<td>boolean</td>
-<td>true</td>
-<td>Enable falling sand (and gravel).</td>
-</tr>
-<tr class="row-even"><td><ul class="first last simple">
-<li>item</li>
-</ul>
-</td>
-<td>boolean</td>
-<td>true</td>
-<td>Allow item entities.</td>
-</tr>
-<tr class="row-odd"><td><ul class="first last simple">
-<li>minecartchest</li>
-</ul>
-</td>
-<td>boolean</td>
-<td>true</td>
-<td>Allow minecarts with chests.</td>
-</tr>
-<tr class="row-even"><td><ul class="first last simple">
-<li>minecartfurnace</li>
-</ul>
-</td>
-<td>boolean</td>
-<td>true</td>
-<td>Allow minecarts with furnaces.</td>
-</tr>
-<tr class="row-odd"><td><ul class="first last simple">
-<li>minecarthopper</li>
-</ul>
-</td>
-<td>boolean</td>
-<td>true</td>
-<td>Allow minecarts with hoppers.</td>
-</tr>
-<tr class="row-even"><td><ul class="first last simple">
-<li>xporb</li>
-</ul>
-</td>
-<td>boolean</td>
-<td>true</td>
-<td>Allow experience orbs.</td>
-</tr>
-<tr class="row-odd"><td><ul class="first last simple">
-<li>minecartrideable</li>
-</ul>
-</td>
-<td>boolean</td>
-<td>true</td>
-<td>Allow rideable minecarts.</td>
-</tr>
-<tr class="row-even"><td><ul class="first last simple">
-<li>minecarttnt</li>
-</ul>
-</td>
-<td>boolean</td>
-<td>true</td>
-<td>Allow TNT-laden minecarts.</td>
-</tr>
-<tr class="row-odd"><td><ul class="first last simple">
-<li>villager</li>
-</ul>
-</td>
-<td>boolean</td>
-<td>true</td>
-<td>Allow villagers.</td>
-</tr>
-<tr class="row-even"><td><ul class="first last simple">
-<li>villagergolem</li>
-</ul>
-</td>
-<td>boolean</td>
-<td>true</td>
-<td>Allow villager iron golems.</td>
-</tr>
-<tr class="row-odd"><td><strong>Minecraft Monsters</strong></td>
+<tr class="row-even"><td><strong>Minecraft Monsters</strong></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><ul class="first last simple">
+<tr class="row-odd"><td><ul class="first last simple">
 <li>Monster &lt;monster&gt;</li>
 </ul>
 </td>
@@ -767,100 +694,100 @@ endermite, ghast, giant, guardian, lavaslime,
 pigzombie, silverfish, skeleton, slime,
 snowman, spider, witch, zombie.</td>
 </tr>
-<tr class="row-odd"><td>misc-activation-range</td>
+<tr class="row-even"><td>misc-activation-range</td>
 <td>integer</td>
 <td>16</td>
 <td>Range where misc entities become active.</td>
 </tr>
-<tr class="row-even"><td>monster-activation-range</td>
+<tr class="row-odd"><td>monster-activation-range</td>
 <td>integer</td>
 <td>32</td>
 <td>Range where monsters are activated.</td>
 </tr>
-<tr class="row-odd"><td><strong>General Settings</strong></td>
+<tr class="row-even"><td><strong>General Settings</strong></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>chunk-load-override</td>
+<tr class="row-odd"><td>chunk-load-override</td>
 <td>boolean</td>
 <td>false</td>
 <td>Forces chunk loading on provide requests.
 This is a speed-up for mods that don&#8217;t check if
 a chunk is loaded.</td>
 </tr>
-<tr class="row-odd"><td>disable-warnings</td>
+<tr class="row-even"><td>disable-warnings</td>
 <td>boolean</td>
 <td>false</td>
 <td>Disable warning messages to server Admins.</td>
 </tr>
-<tr class="row-even"><td><strong>Logging Options</strong></td>
+<tr class="row-odd"><td><strong>Logging Options</strong></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>chunk-load</td>
+<tr class="row-even"><td>chunk-load</td>
 <td>boolean</td>
 <td>false</td>
 <td>Log when chunks are loaded.</td>
 </tr>
-<tr class="row-even"><td>chunk-unload</td>
+<tr class="row-odd"><td>chunk-unload</td>
 <td>boolean</td>
 <td>false</td>
 <td>Log when chunks are unloaded.</td>
 </tr>
-<tr class="row-odd"><td>entity-collision-checks</td>
+<tr class="row-even"><td>entity-collision-checks</td>
 <td>boolean</td>
 <td>false</td>
 <td>Whether to log entity collision/count checks.</td>
 </tr>
-<tr class="row-even"><td>entity-death</td>
+<tr class="row-odd"><td>entity-death</td>
 <td>boolean</td>
 <td>false</td>
 <td>Log when living entities are destroyed.</td>
 </tr>
-<tr class="row-odd"><td>entity-despawn</td>
+<tr class="row-even"><td>entity-despawn</td>
 <td>boolean</td>
 <td>false</td>
 <td>Log when living entities are despawned.</td>
 </tr>
-<tr class="row-even"><td>entity-spawn</td>
+<tr class="row-odd"><td>entity-spawn</td>
 <td>boolean</td>
 <td>false</td>
 <td>Log when living entities are spawned.</td>
 </tr>
-<tr class="row-odd"><td>entity-speed-removal</td>
+<tr class="row-even"><td>entity-speed-removal</td>
 <td>boolean</td>
 <td>false</td>
 <td>Whether to log entity removals due to speed.</td>
 </tr>
-<tr class="row-even"><td>log-stacktraces</td>
+<tr class="row-odd"><td>log-stacktraces</td>
 <td>boolean</td>
 <td>false</td>
 <td>Add stack traces to dev logging.</td>
 </tr>
-<tr class="row-odd"><td><strong>Modules</strong></td>
+<tr class="row-even"><td><strong>Modules</strong></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>entity-activation-range</td>
+<tr class="row-odd"><td>entity-activation-range</td>
 <td>boolean</td>
 <td>true</td>
 <td>Enables the entity activation range settings.</td>
 </tr>
-<tr class="row-odd"><td><strong>World Settings</strong></td>
+<tr class="row-even"><td><strong>World Settings</strong></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>flowing-lava-decay</td>
+<tr class="row-odd"><td>flowing-lava-decay</td>
 <td>boolean</td>
 <td>false</td>
 <td>Lava behaves like vanilla water when the source
 block is removed, when set to true.</td>
 </tr>
-<tr class="row-odd"><td>infinite-water-source</td>
+<tr class="row-even"><td>infinite-water-source</td>
 <td>boolean</td>
 <td>false</td>
 <td>False = Default vanilla water source behaviour.</td>
