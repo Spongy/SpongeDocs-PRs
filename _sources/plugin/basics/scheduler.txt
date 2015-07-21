@@ -2,12 +2,8 @@
 Using the Scheduler
 ===================
 
-.. tip::
-
-	For a basic understanding of services, make sure you read :doc:`../advanced/services` first.
-
 Sponge exposes the `SchedulerService` to allow you to designate tasks to be executed in the future. The `SchedulerService` provides a `TaskBuilder` with which you can specify
-task properties such as the delay, interval, name, (a)synchronicity, and `Runnable`.
+task properties such as the delay, interval, name, (a)synchronicity, and `Runnable` (see :ref:`task-properties`).
 
 Working With the TaskBuilder
 ============================
@@ -32,7 +28,12 @@ The only required property is the `Runnable <http://docs.oracle.com/javase/7/doc
         }
     });
 
-Using the `TaskBuilder`, you can specify other, optional properties, as shown below.
+.. _task-properties:
+
+Task Properties
+~~~~~~~~~~~~~~~
+
+Using the `TaskBuilder`, you can specify other, optional properties, as described below.
 
 +-----------------------------------+-----------------------------------+-------------------------------------------------------------------------------------------------------+
 | Property                          | Method Used                       | Description                                                                                           |
@@ -55,6 +56,7 @@ Using the `TaskBuilder`, you can specify other, optional properties, as shown be
 | name                              | name(String name)                 | The name of the task. By default, the name of the task will be                                        |
 |                                   |                                   | PLUGIN_ID "-" ( "A-" | "S-" ) SERIAL_ID. For example, a default task name could look like:            |
 |                                   |                                   | "FooPlugin-A-12". No two active tasks will have the same serial ID for the same synchronization type. |
+|                                   |                                   | If a task name is specified, it should be descriptive and aid users in debugging your plugin.         |
 +-----------------------------------+-----------------------------------+-------------------------------------------------------------------------------------------------------+
 
 Last, submit the task to the scheduler using `TaskBuilder#submit(Object plugin)`.
@@ -75,7 +77,7 @@ submitted using the following code:
 		public void run() {
 			logger.info("Yay! Schedulers!");
 		}
-	}).async().delay(100, TimeUnit.MILLISECONDS).interval(5, TimeUnit.MINUTES).name("my-task").submit(plugin);
+	}).async().delay(100, TimeUnit.MILLISECONDS).interval(5, TimeUnit.MINUTES).name("ExamplePlugin - Fetch Stats from Database").submit(plugin);
 
 To cancel a task, simply call the `Task#cancel` method:
 

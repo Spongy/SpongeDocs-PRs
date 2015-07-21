@@ -342,12 +342,8 @@
                   
   <div class="section" id="using-the-scheduler">
 <h1>Using the Scheduler<a class="headerlink" href="#using-the-scheduler" title="Permalink to this headline">¶</a></h1>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">For a basic understanding of services, make sure you read <a class="reference internal" href="../advanced/services.html"><em>Working with Services</em></a> first.</p>
-</div>
 <p>Sponge exposes the <cite>SchedulerService</cite> to allow you to designate tasks to be executed in the future. The <cite>SchedulerService</cite> provides a <cite>TaskBuilder</cite> with which you can specify
-task properties such as the delay, interval, name, (a)synchronicity, and <cite>Runnable</cite>.</p>
+task properties such as the delay, interval, name, (a)synchronicity, and <cite>Runnable</cite> (see <a class="reference internal" href="#task-properties"><em>Task Properties</em></a>).</p>
 <div class="section" id="working-with-the-taskbuilder">
 <h2>Working With the TaskBuilder<a class="headerlink" href="#working-with-the-taskbuilder" title="Permalink to this headline">¶</a></h2>
 <p>First, obtain an instance of the <cite>SchedulerService</cite>, and retrieve the <cite>TaskBuilder</cite>:</p>
@@ -366,7 +362,9 @@ task properties such as the delay, interval, name, (a)synchronicity, and <cite>R
 <span class="o">});</span>
 </pre></div>
 </div>
-<p>Using the <cite>TaskBuilder</cite>, you can specify other, optional properties, as shown below.</p>
+<div class="section" id="task-properties">
+<span id="id1"></span><h3>Task Properties<a class="headerlink" href="#task-properties" title="Permalink to this headline">¶</a></h3>
+<p>Using the <cite>TaskBuilder</cite>, you can specify other, optional properties, as described below.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="20%" />
@@ -405,7 +403,8 @@ thread, independently of the tick cycle, and will not be thread safe with game d
 <td>name(String name)</td>
 <td>The name of the task. By default, the name of the task will be
 PLUGIN_ID &#8220;-&#8221; ( &#8220;A-&#8221; | &#8220;S-&#8221; ) SERIAL_ID. For example, a default task name could look like:
-&#8220;FooPlugin-A-12&#8221;. No two active tasks will have the same serial ID for the same synchronization type.</td>
+&#8220;FooPlugin-A-12&#8221;. No two active tasks will have the same serial ID for the same synchronization type.
+If a task name is specified, it should be descriptive and aid users in debugging your plugin.</td>
 </tr>
 </tbody>
 </table>
@@ -423,12 +422,13 @@ submitted using the following code:</p>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
                 <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="o">);</span>
         <span class="o">}</span>
-<span class="o">}).</span><span class="na">async</span><span class="o">().</span><span class="na">delay</span><span class="o">(</span><span class="mi">100</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">).</span><span class="na">interval</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">).</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;my-task&quot;</span><span class="o">).</span><span class="na">submit</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
+<span class="o">}).</span><span class="na">async</span><span class="o">().</span><span class="na">delay</span><span class="o">(</span><span class="mi">100</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">).</span><span class="na">interval</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">).</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;ExamplePlugin - Fetch Stats from Database&quot;</span><span class="o">).</span><span class="na">submit</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
 </pre></div>
 </div>
 <p>To cancel a task, simply call the <cite>Task#cancel</cite> method:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">task</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>
