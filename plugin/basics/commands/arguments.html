@@ -1,0 +1,563 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <title>Argument Parsing &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+    
+  <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sponge.css" type="text/css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:400italic,700italic,700,400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../../../_static/tomorrow.css" type="text/css" />
+  <link id="syntax-highlighting-ref" rel="stylesheet" href="../../../_static/tomorrow_night.css" type="text/css" />
+      
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT:    '../../../',
+      VERSION:     '2.1-SNAPSHOT',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE:  true
+    };
+  </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/store.min.js"></script>
+    <script type="text/javascript" src="../../../_static/lights.js"></script>
+        <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../../../index.html" />
+        <link rel="up" title="Creating Commands" href="index.html" />
+        <link rel="next" title="Child Commands" href="childcommands.html" />
+        <link rel="prev" title="Building a Command" href="creating.html" />
+    
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-59476017-2', 'auto');
+    ga('send', 'pageview');
+
+  </script> 
+  </head>
+  <body role="document">
+    <div class="container">
+  <div class="related" role="navigation" aria-label="related navigation">
+    <h3>Navigation</h3>
+    <ul>
+      <span style="float: right" class="lights" title="Toggles syntax highlighting between light and dark">
+        <i class="icon-lamp lights-icon"></i> Highlight Code Light/Dark
+      </span>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="childcommands.html" title="Child Commands"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="creating.html" title="Building a Command"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
+        <li><a href="../../index.html" >Creating a Plugin</a> &raquo;</li>
+        <li><a href="../index.html" >The Basics</a> &raquo;</li>
+        <li><a href="index.html" accesskey="U">Creating Commands</a> &raquo;</li> 
+    </ul>
+  </div> 
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+    <form class="search" action="../../../search.html" method="get">
+      <div class="searchbox-inner">
+        <input class="field" type="text" name="q" autocomplete="off" />
+        <button class="submit" type="submit"><i class="icon-search"></i></button>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </div>
+    </form>
+    <p class="searchtip" style="font-size: 90%"></p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../server/index.html">Creating a Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../server/getting-started/index.html">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/getting-started/jre.html">Installing Java</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/getting-started/migrating/index.html">Migrating to Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/getting-started/migrating/sponge/index.html">Migrating to Sponge (coremod)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/getting-started/migrating/spongevanilla/index.html">Migrating to SpongeVanilla</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/getting-started/implementations/sponge.html">Sponge Coremod</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/getting-started/implementations/glowstone.html">Glowstone</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/getting-started/launch-script.html">Creating a Launch Script</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/getting-started/port-forward.html">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/getting-started/configuration/index.html">Configuring Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/getting-started/configuration/hocon.html">Introduction to HOCON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/getting-started/configuration/json.html">JSON Syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/getting-started/configuration/sponge-conf.html">global.conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/getting-started/configuration/server-properties.html">server.properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../server/management/index.html">Server Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/management/whitelist.html">Managing the Whitelist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/management/bans.html">Managing Bans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/management/permissions.html">Managing Permissions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/management/plugins.html">Installing Plugins</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../server/spongineer/index.html">Becoming an Expert Spongineer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/spongineer/commands.html">Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/spongineer/debugging.html">Log Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../preparing/index.html">Preparing for Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../preparing/jdk.html">Installing the JDK</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../preparing/ide.html">Installing an IDE</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../preparing/text.html">Installing a Text Editor</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../preparing/git.html">Installing Git</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">The Basics</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../workspace/index.html">Setting Up Your Workspace</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../workspace/idea.html">Setting Up IntelliJ IDEA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../workspace/eclipse.html">Setting Up Eclipse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../workspace/netbeans.html">Setting Up NetBeans</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../workspace/dependencies.html">Adding Sponge API Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../practices.html">Best Practices</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../templates.html">Plugin Templates</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../main-class.html">Creating Your Main Plugin Class</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../logging.html">Logging and Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../text/index.html">Working with Text</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../text/text.html">Creating Text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/pagination.html">The Pagination Service</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Creating Commands</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="creating.html">Building a Command</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">Argument Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="childcommands.html">Child Commands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="service.html">The Command Service</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../events.html">Working with Events</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../blocks/index.html">Working with Blocks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../blocks/concepts.html">Concepts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../blocks/accessing.html">Accessing Blocks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../blocks/modifying.html">Modifying Blocks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../blocks/tileentities.html">Working with Tile Entities</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../entities/index.html">Working with Entities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../entities/spawning.html">Spawning an Entity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html">Creating a Default Plugin Configuration</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../injection.html">Dependency Injection</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../scheduler.html">Using the Scheduler</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../advanced/index.html">Advanced</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/config-in-depth/index.html">Manipulating a Configuration File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../advanced/config-in-depth/loaders.html">Configuration Loaders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../advanced/config-in-depth/nodes.html">Configuration Nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../advanced/config-in-depth/paths.html">Navigating Through Nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/commands/index.html">Advanced Command API Documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/arguments.html">Advanced Command Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/callable.html">Low-Level Command API</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/database.html">Working with Databases</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/permissions.html">Working with the Permissions API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/services.html">Working with Services</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/manager.html">Using the Plugin Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/debugging.html">Plugin Debugging and Hotswapping</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/message-sinks.html">Message Sinks</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing to Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/coremod/index.html">Coremod Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/coremod/layout.html">Layout of Sponge (coremod)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/coremod/debugging.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/coremod/mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/coremod/git.html">Git Workflow for Sponge (coremod)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/vanilla/index.html">SpongeVanilla Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/vanilla/layout.html">Layout of SpongeVanilla</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/vanilla/debugging.html">Debugging SpongeVanilla Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/vanilla/mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/vanilla/git.html">Git Workflow for SpongeVanilla</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/common/index.html">SpongeCommon Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/common/mixins.html">Mixins</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/api/index.html">API Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/api/layout.html">Layout of Sponge API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/api/git.html">Git Workflow for SpongeAPI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/docs/index.html">SpongeDocs Writing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/docs/layout.html">Layout of SpongeDocs</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/docs/git.html">Git Workflow for SpongeDocs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">About the Sponge Project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/introduction.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/future.html">Plans for the Future</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/license.html">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/posting.html">Forum Posting Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/rules.html">Forum &amp; IRC Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/staff.html">Staff</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/glossary.html">Sponge Glossary</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/assets.html">Art Assets</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/history.html">The History of Sponge</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../downloads.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<ul class="simple">
+</ul>
+
+      </div>
+    </div> 
+
+        <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body" role="main">
+                  
+  <div class="section" id="argument-parsing">
+<h1>Argument Parsing<a class="headerlink" href="#argument-parsing" title="Permalink to this headline">¶</a></h1>
+<p>The Command Builder API comes with a powerful argument parser.
+It converts the string input to java base types (integers, booleans, strings) or game objects (players, worlds, block types , ...).
+The parser supports optional arguments and flags. It also handles TAB completion of arguments.</p>
+<p>The parsed arguments are stored in the <tt class="docutils literal"><span class="pre">CommandContext</span></tt> object.
+If the parser returns a single object, obtain it with <tt class="docutils literal"><span class="pre">args.&lt;T&gt;getOne(String</span> <span class="pre">key)</span></tt> (<tt class="docutils literal"><span class="pre">T</span></tt> is the value type).
+Optional and weak arguments may return <tt class="docutils literal"><span class="pre">Optional.absent()</span></tt>.</p>
+<p>Many of the parsers may return more than one object (e.g. multiple players with a matching username).
+In that case, you must use the <tt class="docutils literal"><span class="pre">args.&lt;T&gt;getAll(String</span> <span class="pre">key)</span></tt> method to get the <tt class="docutils literal"><span class="pre">Collection</span></tt> of possible matches.
+<strong>Otherwise, the context object will throw an exception!</strong></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">You can use the <tt class="docutils literal"><span class="pre">onlyOne</span></tt> element to limit the amount of returned values to a single one, so you can safely use <tt class="docutils literal"><span class="pre">args.&lt;T&gt;getOne(String</span> <span class="pre">key)</span></tt>.</p>
+</div>
+<p>To create a new <tt class="docutils literal"><span class="pre">CommandElement</span></tt> (argument), use the <tt class="docutils literal"><span class="pre">GenericArguments</span></tt> factory class.
+Many command elements require a short text key, which is displayed in error and help messages.</p>
+<p>Apply the <tt class="docutils literal"><span class="pre">CommandElement</span></tt> to the command builder with the <tt class="docutils literal"><span class="pre">setArguments()</span></tt> method.
+It is possible to pass more than one <tt class="docutils literal"><span class="pre">CommandElement</span></tt> to the method, thus chaining multiple arguments (e.g <tt class="docutils literal"><span class="pre">/msg</span> <span class="pre">&lt;player&gt;</span> <span class="pre">&lt;msg&gt;</span></tt>). This has the same effect as wrapping the <tt class="docutils literal"><span class="pre">CommandElement</span></tt> objects in a <tt class="docutils literal"><span class="pre">GenericArguments.seq()</span></tt> element.</p>
+<div class="section" id="example-building-a-command-with-multiple-arguments">
+<h2>Example: Building a Command with Multiple Arguments<a class="headerlink" href="#example-building-a-command-with-multiple-arguments" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Texts</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.player.Player</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandResult</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandSource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.args.CommandContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.args.GenericArguments</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.spec.CommandExecutor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.spec.CommandSpec</span><span class="o">;</span>
+
+<span class="n">CommandSpec</span> <span class="n">myCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Send a message to a player&quot;</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">permission</span><span class="o">(</span><span class="s">&quot;myplugin.command.message&quot;</span><span class="o">)</span>
+
+        <span class="o">.</span><span class="na">arguments</span><span class="o">(</span>
+                <span class="n">GenericArguments</span><span class="o">.</span><span class="na">onlyOne</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">player</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;player&quot;</span><span class="o">),</span> <span class="k">this</span><span class="o">.</span><span class="na">game</span><span class="o">)),</span>
+                <span class="n">GenericArguments</span><span class="o">.</span><span class="na">remainingJoinedStrings</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;message&quot;</span><span class="o">)))</span>
+
+        <span class="o">.</span><span class="na">executor</span><span class="o">(</span><span class="k">new</span> <span class="n">CommandExecutor</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">CommandResult</span> <span class="nf">execute</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">src</span><span class="o">,</span> <span class="n">CommandContext</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">CommandException</span> <span class="o">{</span>
+
+                <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="n">args</span><span class="o">.&lt;</span><span class="n">Player</span><span class="o">&gt;</span><span class="n">getOne</span><span class="o">(</span><span class="s">&quot;player&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+                <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">args</span><span class="o">.&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="n">getOne</span><span class="o">(</span><span class="s">&quot;message&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+
+                <span class="n">player</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">message</span><span class="o">));</span>
+
+                <span class="k">return</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">success</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">})</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="n">game</span><span class="o">.</span><span class="na">getCommandDispatcher</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="n">myCommandSpec</span><span class="o">,</span> <span class="s">&quot;message&quot;</span><span class="o">,</span> <span class="s">&quot;msg&quot;</span><span class="o">,</span> <span class="s">&quot;m&quot;</span><span class="o">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="overview-of-the-genericarguments-command-elements">
+<h2>Overview of the GenericArguments command elements<a class="headerlink" href="#overview-of-the-genericarguments-command-elements" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="60%" />
+<col width="21%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Command Element</th>
+<th class="head">Description</th>
+<th class="head">Value Type &amp; Amount</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">none</span></tt></td>
+<td>Expects no arguments. This is the default behavior of a <tt class="docutils literal"><span class="pre">CommandSpec</span></tt>.</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td colspan="3"><strong>Java Base Types</strong></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">string</span></tt></td>
+<td>Require an argument to be a string.</td>
+<td>one <tt class="docutils literal"><span class="pre">String</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">remainingJoinedStrings</span></tt></td>
+<td>Concatenates all remaining arguments separated by spaces (useful for message commands).</td>
+<td>one <tt class="docutils literal"><span class="pre">String</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">bool</span></tt></td>
+<td>Require an argument to be a boolean.</td>
+<td>one <tt class="docutils literal"><span class="pre">Boolean</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">integer</span></tt></td>
+<td>Require an argument to be an integer.</td>
+<td>one <tt class="docutils literal"><span class="pre">Integer</span></tt></td>
+</tr>
+<tr class="row-even"><td colspan="3"><strong>Game Objects</strong></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">player</span></tt></td>
+<td>Expect an argument to represent an online player. <strong>May return multiple players!</strong></td>
+<td>multiple <tt class="docutils literal"><span class="pre">Player</span></tt> instances</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">playerOrSource</span></tt></td>
+<td>Like <tt class="docutils literal"><span class="pre">player</span></tt>, but returns the sender of the command if no matching player was found.</td>
+<td>multiple <tt class="docutils literal"><span class="pre">Player</span></tt> instances</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">world</span></tt></td>
+<td>Expect an argument to represent a world (also includes unloaded worlds).</td>
+<td>multiple <tt class="docutils literal"><span class="pre">WorldProperties</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">dimension</span></tt></td>
+<td>Expect an argument to represent a dimension (<tt class="docutils literal"><span class="pre">END</span></tt>, <tt class="docutils literal"><span class="pre">NETHER</span></tt>, <tt class="docutils literal"><span class="pre">OVERWORLD</span></tt>).</td>
+<td>multiple <tt class="docutils literal"><span class="pre">DimensionType</span></tt>
+instances</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">location</span></tt></td>
+<td>Expect an argument to represent a <tt class="docutils literal"><span class="pre">Location</span></tt>.</td>
+<td>one <tt class="docutils literal"><span class="pre">Location</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">vector3d</span></tt></td>
+<td>Expect an argument to represent a <tt class="docutils literal"><span class="pre">Vector3d</span></tt>.</td>
+<td>one <tt class="docutils literal"><span class="pre">Vector3d</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">catalogedElement</span></tt></td>
+<td>Expect an argument that is a member of the specified <a class="reference external" href="http://spongepowered.github.io/SpongeAPI/org/spongepowered/api/CatalogTypes.html">catalog type</a>.</td>
+<td>multiple matching elements
+of the specified catalog type</td>
+</tr>
+<tr class="row-even"><td colspan="3"><strong>Matchers</strong></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">choices</span></tt></td>
+<td>Return an argument that allows selecting from a limited set of values.</td>
+<td>one specified value</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">literal</span></tt></td>
+<td>Expect a literal sequence of arguments (e.g. <tt class="docutils literal"><span class="pre">&quot;i&quot;,</span> <span class="pre">&quot;luv&quot;,</span> <span class="pre">&quot;u&quot;</span></tt>: <tt class="docutils literal"><span class="pre">/cmd</span> <span class="pre">i</span> <span class="pre">luv</span> <span class="pre">u</span></tt>).
+Throws an error if the arguments do not match.</td>
+<td>one specified value</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">enumValue</span></tt></td>
+<td>Require the argument to be a key under the provided enum.</td>
+<td>multiple matching elements
+of the specified enum</td>
+</tr>
+<tr class="row-even"><td colspan="3"><p class="first"><strong>Utilities</strong></p>
+<p class="last">Can be wrapped around command elements. The value type is inherited from the wrapped element.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">seq</span></tt></td>
+<td>Builds a sequence of command elements (e.g. <tt class="docutils literal"><span class="pre">/cmd</span> <span class="pre">&lt;arg1&gt;</span> <span class="pre">&lt;arg2&gt;</span> <span class="pre">&lt;arg3&gt;</span></tt>).</td>
+<td>inherited</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">repeated</span></tt></td>
+<td>Require a given command element to be provided a certain number of times.</td>
+<td>multiple inherited</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">allOf</span></tt></td>
+<td>Require all remaining args to match the provided command element.</td>
+<td>multiple inherited</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">optional</span></tt></td>
+<td>Make the provided command element optional. Throws an error if the argument
+is of invalid format and there are no more args.</td>
+<td>inherited</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">optionalWeak</span></tt></td>
+<td>Make the provided command element optional. Does not throw an error if the argument
+is of invalid format and there are no more args.</td>
+<td>inherited</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">firstParsing</span></tt></td>
+<td>Returns a command element that matches the first of the provided elements that parses
+(useful for command overloading, e.g. <tt class="docutils literal"><span class="pre">/settime</span> <span class="pre">&lt;day|night|&lt;number&gt;&gt;</span></tt>).</td>
+<td>inherited</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">onlyOne</span></tt></td>
+<td>Restricts the given command element to only insert one value into the context at the
+provided key.</td>
+<td>inherited</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">flags</span></tt></td>
+<td><p class="first">Returns a builder for command flags (e.g. <tt class="docutils literal"><span class="pre">/cmd</span> <span class="pre">[-a]</span> <span class="pre">[-b</span> <span class="pre">&lt;value&gt;]</span></tt>).</p>
+<p class="last">See <a class="reference internal" href="../../advanced/commands/arguments.html"><em>Advanced Command Arguments</em></a></p>
+</td>
+<td><p class="first">Short Flag: one <tt class="docutils literal"><span class="pre">Boolean</span></tt></p>
+<p>Long Flag: one <tt class="docutils literal"><span class="pre">String</span></tt></p>
+<p class="last">Value Flag: inherited</p>
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">requiringPermission</span></tt></td>
+<td>Requires the command sender to have the specified permission in order to use the given
+command argument</td>
+<td>inherited</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">See the <a class="reference external" href="http://spongepowered.github.io/SpongeAPI/org/spongepowered/api/util/command/args/GenericArguments.html">documentation for GenericArguments</a>
+for more information.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">It is possible to create custom command elements (e.g. an URL parser or a <tt class="docutils literal"><span class="pre">Vector2i</span></tt> element). The procedure is described on
+<a class="reference internal" href="../../advanced/commands/arguments.html"><em>this page</em></a></p>
+</div>
+</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          <div class="clearer"></div>
+        </div>
+        <div class="footer" role="contentinfo">
+              &copy; Copyright 2014-2015, Sponge Contributors.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+        </div>
+    </div>
+  </body>
+</html>
