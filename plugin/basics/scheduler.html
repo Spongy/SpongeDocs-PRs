@@ -430,6 +430,19 @@ submitted using the following code:</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="asynchronous-tasks">
+<h3>Asynchronous Tasks<a class="headerlink" href="#asynchronous-tasks" title="Permalink to this headline">¶</a></h3>
+<p>Asynchronous tasks should be used primarily for code that may take a significant period of time to execute, namely requests to another server or database. If done on
+the main thread, a request to another server could greatly impact the performance of the game, since the next tick cannot be fired until the request is completed.</p>
+<p>Since Minecraft is largely single-threaded, there is little you can do in an asynchronous thread. If you must run a thread asynchronously, you should execute all of the
+code that does not use the SpongeAPI/affect Minecraft, then register another <cite>synchronous</cite> task to handle the code that needs the API. There are a few parts of Minecraft
+that you can work with <cite>asynchronously</cite>, including:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Chat</li>
+</ul>
+</div></blockquote>
+</div>
 </div>
 </div>
 
