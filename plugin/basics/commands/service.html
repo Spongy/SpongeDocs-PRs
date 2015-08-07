@@ -227,9 +227,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../advanced/commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../advanced/database.html">Working with Databases</a><ul class="simple">
@@ -343,10 +341,11 @@
                   
   <div class="section" id="the-command-service">
 <h1>The Command Service<a class="headerlink" href="#the-command-service" title="Permalink to this headline">¶</a></h1>
-<p>The <tt class="docutils literal"><span class="pre">CommandService</span></tt> stands as the manager for watching what commands get typed into chat, and redirecting them to the right command handler.
-To register your command, use the method <tt class="docutils literal"><span class="pre">CommandService.register()</span></tt>, passing your plugin, an instance of the command, and any needed aliases as parameters.</p>
-<p>Usually you want to register your commands when the <tt class="docutils literal"><span class="pre">InitializationEvent</span></tt> is called.
-If you are registering the commands from the main plugin class, use <tt class="docutils literal"><span class="pre">this</span></tt> as the <tt class="docutils literal"><span class="pre">plugin</span></tt> parameter.</p>
+<p>The <tt class="docutils literal"><span class="pre">CommandService</span></tt> stands as the manager for watching what commands get typed into chat, and redirecting them to
+the right command handler. To register your command, use the method <tt class="docutils literal"><span class="pre">CommandService.register()</span></tt>, passing your plugin,
+an instance of the command, and any needed aliases as parameters.</p>
+<p>Usually you want to register your commands when the <tt class="docutils literal"><span class="pre">InitializationEvent</span></tt> is called. If you are registering the
+commands from the main plugin class, use <tt class="docutils literal"><span class="pre">this</span></tt> as the <tt class="docutils literal"><span class="pre">plugin</span></tt> parameter.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.command.CommandService</span><span class="o">;</span>
 
 <span class="n">CommandService</span> <span class="n">cmdService</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getCommandDispatcher</span><span class="o">();</span>
@@ -355,8 +354,9 @@ If you are registering the commands from the main plugin class, use <tt class="d
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The arguments after the new instance of your command are the aliases to register for the command. You can add as many Strings as you want.
-The first alias that isn&#8217;t used by another command becomes the primary alias. This means aliases used by another command are ignored.</p>
+<p class="last">The arguments after the new instance of your command are the aliases to register for the command. You can add as
+many Strings as you want. The first alias that isn&#8217;t used by another command becomes the primary alias. This means
+aliases used by another command are ignored.</p>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">CommandService</span></tt> can also be used to call a command programatically:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">cmdService</span><span class="o">.</span><span class="na">process</span><span class="o">(</span><span class="n">player</span><span class="o">,</span> <span class="s">&quot;msg Notch hi notch!&quot;</span><span class="o">);</span>

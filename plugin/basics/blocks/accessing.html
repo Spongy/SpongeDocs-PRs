@@ -227,9 +227,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../advanced/commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../advanced/database.html">Working with Databases</a><ul class="simple">
@@ -345,7 +343,8 @@
 <h1>Accessing Blocks<a class="headerlink" href="#accessing-blocks" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="basic-information">
 <h2>Basic Information<a class="headerlink" href="#basic-information" title="Permalink to this headline">¶</a></h2>
-<p>Blocks are most commonly identified and accessed by their <tt class="docutils literal"><span class="pre">Location</span></tt>. This location points to a certain coordinate within an <tt class="docutils literal"><span class="pre">Extent</span></tt>. In most cases a <tt class="docutils literal"><span class="pre">World</span></tt> will be used as the Extent.</p>
+<p>Blocks are most commonly identified and accessed by their <tt class="docutils literal"><span class="pre">Location</span></tt>. This location points to a certain coordinate
+within an <tt class="docutils literal"><span class="pre">Extent</span></tt>. In most cases a <tt class="docutils literal"><span class="pre">World</span></tt> will be used as the Extent.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.Game</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="o">;</span>
@@ -359,9 +358,11 @@
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Note that the above example does not check if the world exists. <tt class="docutils literal"><span class="pre">getWorld(worldName).get()</span></tt> will fail if there is no world of that name loaded.</p>
+<p class="last">Note that the above example does not check if the world exists. <tt class="docutils literal"><span class="pre">getWorld(worldName).get()</span></tt> will fail if there
+is no world of that name loaded.</p>
 </div>
-<p>With this <tt class="docutils literal"><span class="pre">Location</span></tt> object you can then obtain further information about the block. The following code checks if a referenced block is any kind of banner by checking the blocks type.</p>
+<p>With this <tt class="docutils literal"><span class="pre">Location</span></tt> object you can then obtain further information about the block. The following code checks if a
+referenced block is any kind of banner by checking the blocks type.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockType</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockTypes</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
@@ -375,9 +376,11 @@
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">For every possible type of block, there is only one <tt class="docutils literal"><span class="pre">BlockType</span></tt> instance. Therefore, simple comparison with <tt class="docutils literal"><span class="pre">==</span></tt> can be used instead of using the <tt class="docutils literal"><span class="pre">equals()</span></tt> function.</p>
+<p class="last">For every possible type of block, there is only one <tt class="docutils literal"><span class="pre">BlockType</span></tt> instance. Therefore, simple comparison with <tt class="docutils literal"><span class="pre">==</span></tt>
+can be used instead of using the <tt class="docutils literal"><span class="pre">equals()</span></tt> function.</p>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">Location</span></tt> class also provides means to check for environmental influences on the block (for example lighting and redstone power). The following example checks if a block is a regular chest directly or indirectly powered with redstone.</p>
+<p>The <tt class="docutils literal"><span class="pre">Location</span></tt> class also provides means to check for environmental influences on the block (for example lighting and
+redstone power). The following example checks if a block is a regular chest directly or indirectly powered with redstone.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockTypes</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
 
@@ -393,7 +396,10 @@
 </div>
 <div class="section" id="block-states">
 <h2>Block States<a class="headerlink" href="#block-states" title="Permalink to this headline">¶</a></h2>
-<p>Additional Data (like orientation, subtypes like granite vs regular stone, farm land moisture ... ) can be obtained from a <tt class="docutils literal"><span class="pre">BlockState</span></tt>. A <tt class="docutils literal"><span class="pre">BlockState</span></tt> contains a <tt class="docutils literal"><span class="pre">BlockType</span></tt> and further data that can be accessed via a set of data manipulators that all extend the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> interface. The following example will return <tt class="docutils literal"><span class="pre">true</span></tt> if a the block at a given <tt class="docutils literal"><span class="pre">Location</span></tt> is a) a Sponge and b) wet, false otherwise.</p>
+<p>Additional Data (like orientation, subtypes like granite vs regular stone, farm land moisture ... ) can be obtained from
+a <tt class="docutils literal"><span class="pre">BlockState</span></tt>. A <tt class="docutils literal"><span class="pre">BlockState</span></tt> contains a <tt class="docutils literal"><span class="pre">BlockType</span></tt> and further data that can be accessed via a set of data
+manipulators that all extend the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> interface. The following example will return <tt class="docutils literal"><span class="pre">true</span></tt> if a the block
+at a given <tt class="docutils literal"><span class="pre">Location</span></tt> is a) a Sponge and b) wet, false otherwise.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockState</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockTypes</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.WetData</span><span class="o">;</span>
@@ -409,8 +415,11 @@
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>First, we need to know which <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> subinterface we need. Those that are applicable to blocks are found in the <tt class="docutils literal"><span class="pre">org.spongepowered.api.data.manipulator</span></tt> and <tt class="docutils literal"><span class="pre">org.spongepowered.api.data.manipulator.block</span></tt> packages. Then we can just pass that class to the <tt class="docutils literal"><span class="pre">getManipulator()</span></tt> method and get an <tt class="docutils literal"><span class="pre">Optional</span></tt> in return which will be <tt class="docutils literal"><span class="pre">absent()</span></tt> if the <tt class="docutils literal"><span class="pre">BlockState</span></tt> does not contain data of that type.
-Since <tt class="docutils literal"><span class="pre">WetData</span></tt> represents a boolean value, its presence equates to <tt class="docutils literal"><span class="pre">true</span></tt>. Its absence (if <tt class="docutils literal"><span class="pre">Optional.absent()</span></tt> was returned) either signifies <tt class="docutils literal"><span class="pre">false</span></tt>.</p>
+<p>First, we need to know which <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> subinterface we need. Those that are applicable to blocks are found in
+the <tt class="docutils literal"><span class="pre">org.spongepowered.api.data.manipulator</span></tt> and <tt class="docutils literal"><span class="pre">org.spongepowered.api.data.manipulator.block</span></tt> packages. Then we
+can just pass that class to the <tt class="docutils literal"><span class="pre">getManipulator()</span></tt> method and get an <tt class="docutils literal"><span class="pre">Optional</span></tt> in return which will be <tt class="docutils literal"><span class="pre">absent()</span></tt>
+if the <tt class="docutils literal"><span class="pre">BlockState</span></tt> does not contain data of that type. Since <tt class="docutils literal"><span class="pre">WetData</span></tt> represents a boolean value, its presence
+equates to <tt class="docutils literal"><span class="pre">true</span></tt>. Its absence (if <tt class="docutils literal"><span class="pre">Optional.absent()</span></tt> was returned) either signifies <tt class="docutils literal"><span class="pre">false</span></tt>.</p>
 </div>
 </div>
 

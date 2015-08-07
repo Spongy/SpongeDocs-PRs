@@ -226,9 +226,7 @@
 <li class="toctree-l4"><a class="reference internal" href="config-in-depth/values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="database.html">Working with Databases</a><ul class="simple">
@@ -342,14 +340,23 @@
                   
   <div class="section" id="using-the-plugin-manager">
 <h1>Using the Plugin Manager<a class="headerlink" href="#using-the-plugin-manager" title="Permalink to this headline">¶</a></h1>
-<p>The Plugin Manager is what your plugin gets sent to after being loaded by the server at startup. The server loads your plugin by finding its main class, annotated by the <tt class="docutils literal"><span class="pre">&#64;Plugin</span></tt> annotation that holds its general information, and sends a new instance of it to the manager. The manager then keeps that instance in its own collection that you can look into and pull from using methods provided by itself, thus allowing you to easily interact with another loaded plugin if you so desire.</p>
+<p>The Plugin Manager is what your plugin gets sent to after being loaded by the server at startup. The server loads
+your plugin by finding its main class, annotated by the <tt class="docutils literal"><span class="pre">&#64;Plugin</span></tt> annotation that holds its general information,
+and sends a new instance of it to the manager. The manager then keeps that instance in its own collection that you
+can look into and pull from using methods provided by itself, thus allowing you to easily interact with another
+loaded plugin if you so desire.</p>
 <div class="section" id="the-pluginmanager-class">
 <h2>The PluginManager Class<a class="headerlink" href="#the-pluginmanager-class" title="Permalink to this headline">¶</a></h2>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">See the <a class="reference external" href="http://spongepowered.github.io/SpongeAPI/org/spongepowered/api/plugin/PluginManager.html">documentation for PluginManager</a> for full information about the class, as well as its methods and their usage.</p>
+<p class="last">See the <a class="reference external" href="http://spongepowered.github.io/SpongeAPI/org/spongepowered/api/plugin/PluginManager.html">documentation for PluginManager</a> for full information about the class, as well as its methods and their
+usage.</p>
 </div>
-<p>Public methods inside the <tt class="docutils literal"><span class="pre">PluginManager</span></tt> are used to grab information about the current collection of loaded plugins, alongside their instances. The plugins are stored inside a <tt class="docutils literal"><span class="pre">PluginContainer</span></tt> (discussed in next section) to allow for an easy center of information about the specific plugin. As an example, you can use the <tt class="docutils literal"><span class="pre">PluginManager</span></tt> to communicate with another plugin, grabbing its instance and using the methods it offers to provide compability or extended features by means of your calling plugin.</p>
+<p>Public methods inside the <tt class="docutils literal"><span class="pre">PluginManager</span></tt> are used to grab information about the current collection of loaded plugins,
+alongside their instances. The plugins are stored inside a <tt class="docutils literal"><span class="pre">PluginContainer</span></tt> (discussed in next section) to allow for
+an easy center of information about the specific plugin. As an example, you can use the <tt class="docutils literal"><span class="pre">PluginManager</span></tt> to communicate
+with another plugin, grabbing its instance and using the methods it offers to provide compability or extended features
+by means of your calling plugin.</p>
 </div>
 <div class="section" id="obtaining-the-plugin-manager">
 <h2>Obtaining the Plugin Manager<a class="headerlink" href="#obtaining-the-plugin-manager" title="Permalink to this headline">¶</a></h2>
@@ -360,7 +367,8 @@
 <p class="first admonition-title">Tip</p>
 <p class="last">See the <a class="reference internal" href="../basics/injection.html"><em>Dependency Injection</em></a> guide for help on using dependency injection.</p>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">PluginManager</span></tt> is one of the few API instances that are injected into the main class upon being loaded. To ask for a reference, create a new variable to hold the <tt class="docutils literal"><span class="pre">PluginManager</span></tt> instance and simply annotate it with <tt class="docutils literal"><span class="pre">&#64;Inject</span></tt>.</p>
+<p>The <tt class="docutils literal"><span class="pre">PluginManager</span></tt> is one of the few API instances that are injected into the main class upon being loaded. To ask
+for a reference, create a new variable to hold the <tt class="docutils literal"><span class="pre">PluginManager</span></tt> instance and simply annotate it with <tt class="docutils literal"><span class="pre">&#64;Inject</span></tt>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="nn">examples.plugin</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
@@ -377,7 +385,8 @@
 <p class="first admonition-title">Tip</p>
 <p class="last">See <a class="reference internal" href="services.html"><em>Working with Services</em></a> for a full guide about the Service Manager.</p>
 </div>
-<p>The service manager also holds an instance of the server&#8217;s <tt class="docutils literal"><span class="pre">PluginManager</span></tt>. Simply use the method <tt class="docutils literal"><span class="pre">ServiceManager.provide()</span></tt>, passing the <tt class="docutils literal"><span class="pre">PluginManager</span></tt>&#8216;s class (<tt class="docutils literal"><span class="pre">PluginManager.class</span></tt>) as a parameter.</p>
+<p>The service manager also holds an instance of the server&#8217;s <tt class="docutils literal"><span class="pre">PluginManager</span></tt>. Simply use the method
+<tt class="docutils literal"><span class="pre">ServiceManager.provide()</span></tt>, passing the <tt class="docutils literal"><span class="pre">PluginManager</span></tt>&#8216;s class (<tt class="docutils literal"><span class="pre">PluginManager.class</span></tt>) as a parameter.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="nn">examples.plugin</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.plugin.PluginManager</span><span class="o">;</span>
@@ -408,8 +417,8 @@
 <div class="section" id="id1">
 <h2>Using the Plugin Manager<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>The plugin manager provides several methods for working with plugins.</p>
-<p>A lot of methods return plugin containers, which will be discussed in the next section.
-Plugin containers are pretty much self-explanatory &#8220;containers&#8221; of the actual plugin instance.</p>
+<p>A lot of methods return plugin containers, which will be discussed in the next section. Plugin containers are pretty
+much self-explanatory &#8220;containers&#8221; of the actual plugin instance.</p>
 <p>With the plugin manager, it is possible to get all plugins currently loaded through the plugin manager:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="nn">examples.plugin</span><span class="o">;</span>
 
@@ -432,10 +441,16 @@ Plugin containers are pretty much self-explanatory &#8220;containers&#8221; of t
 <h2>The PluginContainer Class<a class="headerlink" href="#the-plugincontainer-class" title="Permalink to this headline">¶</a></h2>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">See the <a class="reference external" href="http://spongepowered.github.io/SpongeAPI/org/spongepowered/api/plugin/PluginContainer.html">documentation for PluginContainer</a> for full information about the class, as well as its methods and their usage.</p>
+<p class="last">See the <a class="reference external" href="http://spongepowered.github.io/SpongeAPI/org/spongepowered/api/plugin/PluginContainer.html">documentation for PluginContainer</a> for full information about the class, as well as its methods and their
+usage.</p>
 </div>
-<p>When grabbing a plugin from the <tt class="docutils literal"><span class="pre">PluginManager</span></tt>, you&#8217;ll notice very quickly that you are not given an immediate instance of the requested plugin. Instead, you&#8217;ll be greeted by a <tt class="docutils literal"><span class="pre">PluginContainer</span></tt> containing information about the plugin attained from its <tt class="docutils literal"><span class="pre">&#64;Plugin</span></tt> annotation in its main class, as well as the loaded instance.</p>
-<p>The <tt class="docutils literal"><span class="pre">PluginContainer</span></tt> will hold any generic information about the plugin set by its owning developer. You can use information from here instead of hard-coding what you know about it in your supporting plugin. An example scenario would be if the owning developer changes the name of the plugin, references to the latter in the supporting plugin would not become wrong as a result of this change, provided you&#8217;ve used the method <tt class="docutils literal"><span class="pre">PluginContainer.getName()</span></tt> to get its name.</p>
+<p>When grabbing a plugin from the <tt class="docutils literal"><span class="pre">PluginManager</span></tt>, you&#8217;ll notice very quickly that you are not given an immediate
+instance of the requested plugin. Instead, you&#8217;ll be greeted by a <tt class="docutils literal"><span class="pre">PluginContainer</span></tt> containing information about the
+plugin attained from its <tt class="docutils literal"><span class="pre">&#64;Plugin</span></tt> annotation in its main class, as well as the loaded instance.</p>
+<p>The <tt class="docutils literal"><span class="pre">PluginContainer</span></tt> will hold any generic information about the plugin set by its owning developer. You can use
+information from here instead of hard-coding what you know about it in your supporting plugin. An example scenario would
+be if the owning developer changes the name of the plugin, references to the latter in the supporting plugin would not
+become wrong as a result of this change, provided you&#8217;ve used the method <tt class="docutils literal"><span class="pre">PluginContainer.getName()</span></tt> to get its name.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="nn">examples.plugin</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.plugin.PluginContainer</span><span class="o">;</span>
@@ -446,7 +461,8 @@ Plugin containers are pretty much self-explanatory &#8220;containers&#8221; of t
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><tt class="docutils literal"><span class="pre">PluginContainer.getInstance()</span></tt> will return as an <tt class="docutils literal"><span class="pre">Object</span></tt>. You need to cast it as the target plugin after obtaining it from the container.</p>
+<p class="last"><tt class="docutils literal"><span class="pre">PluginContainer.getInstance()</span></tt> will return as an <tt class="docutils literal"><span class="pre">Object</span></tt>. You need to cast it as the target plugin after
+obtaining it from the container.</p>
 </div>
 </div>
 </div>

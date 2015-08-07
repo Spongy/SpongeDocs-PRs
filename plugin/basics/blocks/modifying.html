@@ -227,9 +227,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../advanced/commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../advanced/database.html">Working with Databases</a><ul class="simple">
@@ -345,7 +343,8 @@
 <h1>Modifying Blocks<a class="headerlink" href="#modifying-blocks" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="changing-a-blocks-type">
 <h2>Changing a Blocks Type<a class="headerlink" href="#changing-a-blocks-type" title="Permalink to this headline">¶</a></h2>
-<p>Changing the Type of a Block is as simple as calling the <tt class="docutils literal"><span class="pre">setBlockType()</span></tt> method of a <tt class="docutils literal"><span class="pre">Location</span></tt> with the new <tt class="docutils literal"><span class="pre">BlockType</span></tt>. For example the following code turns the block at the given <tt class="docutils literal"><span class="pre">Location</span></tt> into a sponge.</p>
+<p>Changing the Type of a Block is as simple as calling the <tt class="docutils literal"><span class="pre">setBlockType()</span></tt> method of a <tt class="docutils literal"><span class="pre">Location</span></tt> with the new
+<tt class="docutils literal"><span class="pre">BlockType</span></tt>. For example the following code turns the block at the given <tt class="docutils literal"><span class="pre">Location</span></tt> into a sponge.</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockTypes</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
@@ -356,11 +355,16 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>It&#8217;s as simple as that. If you just want to &#8216;delete&#8217; a block (which is done by replacing it with air), you may just use the <tt class="docutils literal"><span class="pre">removeBlock()</span></tt> method provided by <tt class="docutils literal"><span class="pre">Location</span></tt>.</p>
+<p>It&#8217;s as simple as that. If you just want to &#8216;delete&#8217; a block (which is done by replacing it with air), you may just
+use the <tt class="docutils literal"><span class="pre">removeBlock()</span></tt> method provided by <tt class="docutils literal"><span class="pre">Location</span></tt>.</p>
 </div>
 <div class="section" id="altering-block-states">
 <h2>Altering Block States<a class="headerlink" href="#altering-block-states" title="Permalink to this headline">¶</a></h2>
-<p>Similar to the above example, the <tt class="docutils literal"><span class="pre">Location</span></tt> class provides a <tt class="docutils literal"><span class="pre">setBlock()</span></tt> method accepting a new <tt class="docutils literal"><span class="pre">BlockState</span></tt>. To make use of it, you first must acquire a <tt class="docutils literal"><span class="pre">BlockState</span></tt> you can modify. You can do so either by getting the block&#8217;s current state via the <tt class="docutils literal"><span class="pre">getBlock()</span></tt> method provided by the <tt class="docutils literal"><span class="pre">Location</span></tt> class or by using a blocktype&#8217;s default state. The latter is demonstrated below: The default state for a Sponge block is retrieved and then modified to directly create a wet sponge block.</p>
+<p>Similar to the above example, the <tt class="docutils literal"><span class="pre">Location</span></tt> class provides a <tt class="docutils literal"><span class="pre">setBlock()</span></tt> method accepting a new <tt class="docutils literal"><span class="pre">BlockState</span></tt>.
+To make use of it, you first must acquire a <tt class="docutils literal"><span class="pre">BlockState</span></tt> you can modify. You can do so either by getting the block&#8217;s
+current state via the <tt class="docutils literal"><span class="pre">getBlock()</span></tt> method provided by the <tt class="docutils literal"><span class="pre">Location</span></tt> class or by using a blocktype&#8217;s default state.
+The latter is demonstrated below: The default state for a Sponge block is retrieved and then modified to directly create
+a wet sponge block.</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.Game</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockState</span><span class="o">;</span>
@@ -378,8 +382,11 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>A <tt class="docutils literal"><span class="pre">BlockState</span></tt> itself and its data are immutable, but it provides the methods <tt class="docutils literal"><span class="pre">withData()</span></tt> and <tt class="docutils literal"><span class="pre">withoutData()</span></tt> both of which will return a new altered <tt class="docutils literal"><span class="pre">BlockState</span></tt> or <tt class="docutils literal"><span class="pre">Optional.absent()</span></tt> if the given <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> is not applicable to the kind of block represented by the <tt class="docutils literal"><span class="pre">BlockState</span></tt>.</p>
-<p>The <tt class="docutils literal"><span class="pre">withData()</span></tt> method accepts a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> and will try to create a new <tt class="docutils literal"><span class="pre">BlockState</span></tt> with the given data set, overwriting existing values. The following example will change any dirt block to podzol.</p>
+<p>A <tt class="docutils literal"><span class="pre">BlockState</span></tt> itself and its data are immutable, but it provides the methods <tt class="docutils literal"><span class="pre">withData()</span></tt> and <tt class="docutils literal"><span class="pre">withoutData()</span></tt>
+both of which will return a new altered <tt class="docutils literal"><span class="pre">BlockState</span></tt> or <tt class="docutils literal"><span class="pre">Optional.absent()</span></tt> if the given <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> is
+not applicable to the kind of block represented by the <tt class="docutils literal"><span class="pre">BlockState</span></tt>.</p>
+<p>The <tt class="docutils literal"><span class="pre">withData()</span></tt> method accepts a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> and will try to create a new <tt class="docutils literal"><span class="pre">BlockState</span></tt> with the given
+data set, overwriting existing values. The following example will change any dirt block to podzol.</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockState</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.block.DirtData</span><span class="o">;</span>
@@ -399,8 +406,11 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>Note that the <tt class="docutils literal"><span class="pre">DirtData</span></tt> is a mutable copy of the data held in the <tt class="docutils literal"><span class="pre">BlockState</span></tt>. It is changed and then used to create a new <tt class="docutils literal"><span class="pre">BlockState</span></tt> which then replaces the original block.</p>
-<p>The <tt class="docutils literal"><span class="pre">withoutData()</span></tt> method accepts a class reference and will create a new <tt class="docutils literal"><span class="pre">BlockState</span></tt> without the data represented by the given class. If the block state would not be valid without that data, a default value will be used. So if the <tt class="docutils literal"><span class="pre">DirtData</span></tt> from a dirt blocks state is removed, it will fall back to <tt class="docutils literal"><span class="pre">DirtTypes.DIRT</span></tt>, the default value.
+<p>Note that the <tt class="docutils literal"><span class="pre">DirtData</span></tt> is a mutable copy of the data held in the <tt class="docutils literal"><span class="pre">BlockState</span></tt>. It is changed and then used to
+create a new <tt class="docutils literal"><span class="pre">BlockState</span></tt> which then replaces the original block.</p>
+<p>The <tt class="docutils literal"><span class="pre">withoutData()</span></tt> method accepts a class reference and will create a new <tt class="docutils literal"><span class="pre">BlockState</span></tt> without the data
+represented by the given class. If the block state would not be valid without that data, a default value will be used.
+So if the <tt class="docutils literal"><span class="pre">DirtData</span></tt> from a dirt blocks state is removed, it will fall back to <tt class="docutils literal"><span class="pre">DirtTypes.DIRT</span></tt>, the default value.
 The following example will dry the block at a given <tt class="docutils literal"><span class="pre">Location</span></tt>, if possible.</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockState</span><span class="o">;</span>
@@ -417,11 +427,17 @@ The following example will dry the block at a given <tt class="docutils literal"
 </pre></div>
 </div>
 </div></blockquote>
-<p>Since the <tt class="docutils literal"><span class="pre">WetData</span></tt> data manipulator represents boolean data, by removing it we set the wetness of the block (if it has any) to false. The <tt class="docutils literal"><span class="pre">dryState.isPresent()</span></tt> check will fail on block states that can not be wet since <tt class="docutils literal"><span class="pre">dryState</span></tt> will be <tt class="docutils literal"><span class="pre">Optional.absent()</span></tt> in that case.</p>
+<p>Since the <tt class="docutils literal"><span class="pre">WetData</span></tt> data manipulator represents boolean data, by removing it we set the wetness of the block (if it
+has any) to false. The <tt class="docutils literal"><span class="pre">dryState.isPresent()</span></tt> check will fail on block states that can not be wet since <tt class="docutils literal"><span class="pre">dryState</span></tt>
+will be <tt class="docutils literal"><span class="pre">Optional.absent()</span></tt> in that case.</p>
 </div>
 <div class="section" id="copying-blocks">
 <h2>Copying Blocks<a class="headerlink" href="#copying-blocks" title="Permalink to this headline">¶</a></h2>
-<p>If you want to copy all of a blocks data, the <tt class="docutils literal"><span class="pre">BlockSnapshot</span></tt> class is your best friend. While it doesn&#8217;t expose all the data, it stores a Blocks type, its BlockState and, if necessary, all additional Tile Entity Data (for example chest inventories). Conveniently, the <tt class="docutils literal"><span class="pre">Location</span></tt> class provides a <tt class="docutils literal"><span class="pre">getBlockSnapshot()</span></tt> method as well as a <tt class="docutils literal"><span class="pre">setBlockSnapshot()</span></tt> method accepting a <tt class="docutils literal"><span class="pre">BlockSnapshot</span></tt>. That makes copying blocks from one location to another very simple:</p>
+<p>If you want to copy all of a blocks data, the <tt class="docutils literal"><span class="pre">BlockSnapshot</span></tt> class is your best friend. While it doesn&#8217;t expose all
+the data, it stores a Blocks type, its BlockState and, if necessary, all additional Tile Entity Data (for example chest
+inventories). Conveniently, the <tt class="docutils literal"><span class="pre">Location</span></tt> class provides a <tt class="docutils literal"><span class="pre">getBlockSnapshot()</span></tt> method as well as a
+<tt class="docutils literal"><span class="pre">setBlockSnapshot()</span></tt> method accepting a <tt class="docutils literal"><span class="pre">BlockSnapshot</span></tt>. That makes copying blocks from one location to another very
+simple:</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockSnapshot</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>

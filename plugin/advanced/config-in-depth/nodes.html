@@ -227,9 +227,7 @@
 <li class="toctree-l4"><a class="reference internal" href="values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../database.html">Working with Databases</a><ul class="simple">
@@ -343,11 +341,21 @@
                   
   <div class="section" id="configuration-nodes">
 <h1>Configuration Nodes<a class="headerlink" href="#configuration-nodes" title="Permalink to this headline">¶</a></h1>
-<p>Before we discuss the next section, let&#8217;s learn about what a <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> is. To put it in simplest terms, a <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> object is what holds all the data stored within a config file. From the root node of the config file, you can read values set by you or the user, or write values to save to a file with simple calls to the value retrieval methods, and <tt class="docutils literal"><span class="pre">setValue(Object[]</span> <span class="pre">path,</span> <span class="pre">Object</span> <span class="pre">value)</span></tt>.</p>
-<p>In previous topics, it was noted that the configuration loader holds a generic type to allow you to choose what type of node it should generate. Currently, the only extra node is a <tt class="docutils literal"><span class="pre">CommentedConfigurationNode</span></tt>. You&#8217;re free to use a normal <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt>, but for configurations to be modified by server administrators, the <tt class="docutils literal"><span class="pre">CommentedConfigurationNode</span></tt> will help you write comments to values of the file to help them customize the configuration values. Documentation on the <tt class="docutils literal"><span class="pre">CommentedConfigurationNode</span></tt> is available on the Configurate wiki, linked at the index of these pages.</p>
+<p>Before we discuss the next section, let&#8217;s learn about what a <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> is. To put it in simplest terms, a
+<tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> holds all the data stored within a config file. From the root node of the config file, you can
+read values set by you or the user, or write values to save to a file with simple calls to the value retrieval methods,
+and <tt class="docutils literal"><span class="pre">setValue(Object[]</span> <span class="pre">path,</span> <span class="pre">Object</span> <span class="pre">value)</span></tt>.</p>
+<p>In previous topics, it was noted that the configuration loader holds a generic type to allow you to choose what type of
+node it should generate. Currently, the only extra node is a <tt class="docutils literal"><span class="pre">CommentedConfigurationNode</span></tt>. You&#8217;re free to use a normal
+<tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt>, but for configurations to be modified by server administrators, the <tt class="docutils literal"><span class="pre">CommentedConfigurationNode</span></tt>
+will help you write comments to values of the file to help them customize the configuration values. Documentation on the
+<tt class="docutils literal"><span class="pre">CommentedConfigurationNode</span></tt> is available on the Configurate wiki, linked at the index of these pages.</p>
 <div class="section" id="getting-your-configuration">
 <h2>Getting your Configuration<a class="headerlink" href="#getting-your-configuration" title="Permalink to this headline">¶</a></h2>
-<p>Now that we have a loader, we can load our configuration from it with a simple call to <tt class="docutils literal"><span class="pre">load()</span></tt>. This will give us a <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> with all values found within the config file. From here, you can start reading the values to accommodate for features within your plugin, or write new values to store some data. Note the <tt class="docutils literal"><span class="pre">IOException</span></tt> that&#8217;s thrown when loading the node from the file and handle it accordingly.</p>
+<p>Now that we have a loader, we can load our configuration from it with a simple call to <tt class="docutils literal"><span class="pre">load()</span></tt>. This will give us a
+<tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> with all values found within the config file. From here, you can start reading the values to
+accommodate for features within your plugin, or write new values to store some data. Note the <tt class="docutils literal"><span class="pre">IOException</span></tt> that&#8217;s
+thrown when loading the node from the file and handle it accordingly.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">File</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;config.conf&quot;</span><span class="o">);</span>
 <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span> <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setFile</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 <span class="n">ConfigurationNode</span> <span class="n">rootNode</span><span class="o">;</span>
@@ -358,7 +366,9 @@
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Previously, it was mentioned that loaders can also load blank configuration nodes for you to write default data on. This can be done with a simple call to <tt class="docutils literal"><span class="pre">ConfigurationLoader.createEmptyNode(ConfigurationOptions)</span></tt>. (and you don&#8217;t even have an <tt class="docutils literal"><span class="pre">IOException</span></tt> to catch!)</p>
+<p>Previously, it was mentioned that loaders can also load blank configuration nodes for you to write default data on. This
+can be done with a simple call to <tt class="docutils literal"><span class="pre">ConfigurationLoader.createEmptyNode(ConfigurationOptions)</span></tt>. (and you don&#8217;t even
+have an <tt class="docutils literal"><span class="pre">IOException</span></tt> to catch!)</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">File</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;config.conf&quot;</span><span class="o">);</span>
 <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span> <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setFile</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 <span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">createEmptyNode</span><span class="o">(</span><span class="n">ConfigurationOptions</span><span class="o">.</span><span class="na">defaults</span><span class="o">());</span>
@@ -366,7 +376,8 @@
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Note the parameter passed to satisfy the method creating the empty node. While the value of <tt class="docutils literal"><span class="pre">null</span></tt> seems to work fine upon initializing, this will cause an internal <tt class="docutils literal"><span class="pre">NullPointerException</span></tt> while attempting to set values on the node. Pass a default <tt class="docutils literal"><span class="pre">ConfigurationOptions</span></tt> instance instead by using the static method <tt class="docutils literal"><span class="pre">ConfigurationOptions.defaults()</span></tt> to generate one.</p>
+<p class="last">Note the parameter passed to satisfy the method creating the empty node. While the value of <tt class="docutils literal"><span class="pre">null</span></tt> seems to work
+fine upon initializing, this will cause an internal <tt class="docutils literal"><span class="pre">NullPointerException</span></tt> while attempting to set values on the node. Pass a default <tt class="docutils literal"><span class="pre">ConfigurationOptions</span></tt> instance instead by using the static method <tt class="docutils literal"><span class="pre">ConfigurationOptions.defaults()</span></tt> to generate one.</p>
 </div>
 </div>
 </div>

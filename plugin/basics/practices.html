@@ -226,9 +226,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../advanced/commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../advanced/commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../advanced/commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../advanced/database.html">Working with Databases</a><ul class="simple">
@@ -342,29 +340,41 @@
                   
   <div class="section" id="best-practices">
 <h1>Best Practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h1>
-<p>There are many ways to create a plugin, and many pitfalls for an unwary developer. Here we describe the plugin development practices that will make the most of the Sponge API, setting sensible boundaries for the benefit of compatibility. This information may change and expand as the Sponge project matures.</p>
+<p>There are many ways to create a plugin, and many pitfalls for an unwary developer. Here we describe the plugin
+development practices that will make the most of the Sponge API, setting sensible boundaries for the benefit of
+compatibility. This information may change and expand as the Sponge project matures.</p>
 <div class="section" id="plugin-development-guidelines">
 <h2>Plugin Development Guidelines<a class="headerlink" href="#plugin-development-guidelines" title="Permalink to this headline">¶</a></h2>
-<p>The following guidelines have been prepared to aid Sponge plugin developers. It is not a definitive or comprehensive list, merely an attempt to detail some issues that are likely to arise during plugin development, and propose our best solutions.</p>
+<p>The following guidelines have been prepared to aid Sponge plugin developers. It is not a definitive or comprehensive
+list, merely an attempt to detail some issues that are likely to arise during plugin development, and propose our best
+solutions.</p>
 <div class="section" id="economy-api">
 <h3>Economy API<a class="headerlink" href="#economy-api" title="Permalink to this headline">¶</a></h3>
-<p>An Economy API is currently in development, using the Services API. It is anticipated that plugins wishing to deploy economy features will utilise this service once available.</p>
+<p>An Economy API is currently in development, using the Services API. It is anticipated that plugins wishing to deploy
+economy features will utilise this service once available.</p>
 </div>
 <div class="section" id="mixins">
 <h3>Mixins<a class="headerlink" href="#mixins" title="Permalink to this headline">¶</a></h3>
-<p>Mixins are specifically for transforming classes before other mods/plugins start. ForgeModLoader calls these mods “Coremods”. Sponge is a Coremod, and deploys Mixins on startup. Mixins cannot be used by plugins.</p>
+<p>Mixins are specifically for transforming classes before other mods/plugins start. ForgeModLoader calls these mods
+“Coremods”. Sponge is a Coremod, and deploys Mixins on startup. Mixins cannot be used by plugins.</p>
 </div>
 <div class="section" id="packets">
 <h3>Packets<a class="headerlink" href="#packets" title="Permalink to this headline">¶</a></h3>
-<p>Anything to do with intercepting packets, or introducing custom items/blocks/entities/etc, is <em>not</em> planned to be part of the Sponge API. Note that using packets may be looking at the problem the wrong way, as there may be a solution achievable with the existing Sponge API. In some cases it may be possible to add whatever is needed to the Sponge API; otherwise, the alternative is to use the Forge API and create a Mod instead.</p>
+<p>Anything to do with intercepting packets, or introducing custom items/blocks/entities/etc, is <em>not</em> planned to be part
+of the Sponge API. Note that using packets may be looking at the problem the wrong way, as there may be a solution
+achievable with the existing Sponge API. In some cases it may be possible to add whatever is needed to the Sponge API;
+otherwise, the alternative is to use the Forge API and create a Mod instead.</p>
 </div>
 <div class="section" id="using-forge-or-nms-classes">
 <h3>Using Forge or NMS Classes<a class="headerlink" href="#using-forge-or-nms-classes" title="Permalink to this headline">¶</a></h3>
-<p>We do not recommend working with Forge or Minecraft base classes at all, unless it is to provide compatibility with a mod for Sponge API. Most uses of NMS (Native Minecraft Server) code in plugins do not fail gracefully, making troubleshooting very difficult. Maintaining NMS modifications is also more difficult than using the Sponge API.
-Mods that add to the Sponge API using code internals will have to specifically write an API, which does not rely on underlying Minecraft code, to be usable by Sponge plugins.
-However, plugins can be created that load separate “compatibility” modules to interact with the underlying
-implementation (Sponge Coremod or SpongeVanilla).</p>
-<p>Plugins using implementation-specific code are very likely to break between versions, and should be clearly labelled as such wherever they are hosted. These may more appropriately labelled as &#8220;Mods&#8221;.</p>
+<p>We do not recommend working with Forge or Minecraft base classes at all, unless it is to provide compatibility with a
+mod for Sponge API. Most uses of NMS (Native Minecraft Server) code in plugins do not fail gracefully, making
+troubleshooting very difficult. Maintaining NMS modifications is also more difficult than using the Sponge API. Mods that
+add to the Sponge API using code internals will have to specifically write an API, which does not rely on underlying
+Minecraft code, to be usable by Sponge plugins. However, plugins can be created that load separate “compatibility”
+modules to interact with the underlying implementation (Sponge Coremod or SpongeVanilla).</p>
+<p>Plugins using implementation-specific code are very likely to break between versions, and should be clearly labelled
+as such wherever they are hosted. These may more appropriately labelled as &#8220;Mods&#8221;.</p>
 </div>
 </div>
 <div class="section" id="plugin-interoperability">

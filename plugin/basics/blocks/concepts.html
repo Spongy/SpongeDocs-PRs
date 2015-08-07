@@ -227,9 +227,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../advanced/commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../advanced/database.html">Working with Databases</a><ul class="simple">
@@ -346,7 +344,10 @@
 <p>Blocks in Minecraft are stored in a peculiar way.</p>
 <div class="section" id="properties">
 <h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
-<p>All blocks are of a <em>base type</em>. Examples of base types include dirt, stairs, and leaves. However, to further differentiate these base types, each block has set of different properties, of which each can take a limited set of values (i.e. <em>podzol</em> dirt, <em>brick</em> stairs, <em>oak</em> leaves). A block can have multiple properties (such as <em>east-facing</em>, <em>brick</em> stairs).</p>
+<p>All blocks are of a <em>base type</em>. Examples of base types include dirt, stairs, and leaves. However, to further
+differentiate these base types, each block has set of different properties, of which each can take a limited set of
+values (i.e. <em>podzol</em> dirt, <em>brick</em> stairs, <em>oak</em> leaves). A block can have multiple properties (such as <em>east-facing</em>,
+<em>brick</em> stairs).</p>
 <div class="topic">
 <p class="topic-title first">Examples of block properties</p>
 <div class="code highlight-python"><pre>minecraft:dirt[snowy=false,variant=default]
@@ -362,9 +363,17 @@ minecraft:redstone_wire[east=none,north=up,power=0,south=up,west=up]
 minecraft:redstone_wire[east=up,north=side,power=0,south=up,west=up]</pre>
 </div>
 </div>
-<p>Some properties, however, are <em>ephemeral</em> &#8211; they exist only when the game is running. Their values are not written to the save file because their values can be detected automatically. For example, with Redstone wire, whether they are powered or not can be detected based on the environment (is there a lever that is on?). In this case, the <tt class="docutils literal"><span class="pre">power</span></tt> property of <tt class="docutils literal"><span class="pre">minecraft:redstone_wire</span></tt> as illustrated above is an ephemeral property.</p>
-<p>As of writing, Minecraft still stores block data to an old format with 12 bits for a base type (4096 possible base types) and 4 bits for &#8220;metadata&#8221; (16 possible values per base type). However, properties do not map directly to metadata due to legacy reasons: for example, the furnace block consists of two base types (currently smelting versus not smelting), each not utilizing their metadata at all. On the other hand, logs do use their metadata fully, but because the combination of properties exceeds 16 possible values (think tree type and direction), logs must be split over two base types.</p>
-<p>In the future, there will only be one 16 bit number (65536 possible combinations of base type + properties). Blocks will be assigned an ID automatically and this assignment will be stored in the world save file. This is illustrated below:</p>
+<p>Some properties, however, are <em>ephemeral</em> &#8211; they exist only when the game is running. Their values are not written to
+the save file because their values can be detected automatically. For example, with Redstone wire, whether they are
+powered or not can be detected based on the environment (is there a lever that is on?). In this case, the <tt class="docutils literal"><span class="pre">power</span></tt>
+property of <tt class="docutils literal"><span class="pre">minecraft:redstone_wire</span></tt> as illustrated above is an ephemeral property.</p>
+<p>As of writing, Minecraft still stores block data to an old format with 12 bits for a base type (4096 possible base types)
+and 4 bits for &#8220;metadata&#8221; (16 possible values per base type). However, properties do not map directly to metadata due to
+legacy reasons: for example, the furnace block consists of two base types (currently smelting versus not smelting), each
+not utilizing their metadata at all. On the other hand, logs do use their metadata fully, but because the combination of
+properties exceeds 16 possible values (think tree type and direction), logs must be split over two base types.</p>
+<p>In the future, there will only be one 16 bit number (65536 possible combinations of base type + properties). Blocks will
+be assigned an ID automatically and this assignment will be stored in the world save file. This is illustrated below:</p>
 <div class="highlight-python"><pre>0 =&gt; minecraft:dirt[snowy=false,variant=default]
 1 =&gt; minecraft:dirt[snowy=true,variant=default]
 2 =&gt; minecraft:dirt[snowy=false,variant=grassless]
@@ -376,12 +385,17 @@ etc.</pre>
 </div>
 <div class="section" id="tile-entity-data">
 <h2>Tile Entity Data<a class="headerlink" href="#tile-entity-data" title="Permalink to this headline">¶</a></h2>
-<p>With 65536 possible combinations, it is not possible to store a lot of information like inventory, so there&#8217;s an additional way that <em>some</em> blocks have data: tile entities.</p>
-<p>Tile entities themselves are Java objects (like a <cite>Chest</cite> class). Normally, Minecraft code would access data in a tile entity by getting its instance and then calling it methods or fields, like a regular object (<tt class="docutils literal"><span class="pre">world.getTileEntity(position).getInventory()</span></tt>). When tile entities need to be written to the save file, they are stored in the <a class="reference external" href="http://minecraft.gamepedia.com/NBT_format">NBT format</a>.</p>
+<p>With 65536 possible combinations, it is not possible to store a lot of information like inventory, so there&#8217;s an
+additional way that <em>some</em> blocks have data: tile entities.</p>
+<p>Tile entities themselves are Java objects (like a <cite>Chest</cite> class). Normally, Minecraft code would access data in a tile
+entity by getting its instance and then calling it methods or fields, like a regular object
+(<tt class="docutils literal"><span class="pre">world.getTileEntity(position).getInventory()</span></tt>). When tile entities need to be written to the save file, they are
+stored in the <a class="reference external" href="http://minecraft.gamepedia.com/NBT_format">NBT format</a>.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>Some things, like paintings, are actually entities.</p>
-<p class="last">However, tile entities can also override rendering so they don&#8217;t look like a regular block, although this is generally inefficient and causes a client framerate drop.</p>
+<p class="last">However, tile entities can also override rendering so they don&#8217;t look like a regular block, although this is
+generally inefficient and causes a client framerate drop.</p>
 </div>
 </div>
 </div>

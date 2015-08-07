@@ -227,9 +227,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../advanced/commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../advanced/database.html">Working with Databases</a><ul class="simple">
@@ -343,9 +341,8 @@
                   
   <div class="section" id="building-a-command">
 <h1>Building a Command<a class="headerlink" href="#building-a-command" title="Permalink to this headline">¶</a></h1>
-<p>The first step is to get a new <tt class="docutils literal"><span class="pre">CommandSpec</span></tt> builder.
-The builder provides methods to modify the command help messages, command arguments and the command logic.
-These methods can be chained.</p>
+<p>The first step is to get a new <tt class="docutils literal"><span class="pre">CommandSpec</span></tt> builder. The builder provides methods to modify the command help
+messages, command arguments and the command logic. These methods can be chained.</p>
 <p>To finally build the command, call the <tt class="docutils literal"><span class="pre">build()</span></tt> method of the builder.</p>
 <p>After that, you have to register the command.</p>
 <div class="section" id="example-building-a-simple-command">
@@ -367,8 +364,8 @@ These methods can be chained.</p>
 <h2>Overview of the CommandSpec builder methods<a class="headerlink" href="#overview-of-the-commandspec-builder-methods" title="Permalink to this headline">¶</a></h2>
 <table border="1" class="docutils">
 <colgroup>
-<col width="21%" />
-<col width="79%" />
+<col width="19%" />
+<col width="81%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Method</th>
@@ -412,9 +409,10 @@ Quotations count as a single argument.</p>
 </table>
 <div class="section" id="writing-a-command-executor">
 <h3>Writing a Command Executor<a class="headerlink" href="#writing-a-command-executor" title="Permalink to this headline">¶</a></h3>
-<p>The only required component to build a simple command is the command executor class, which contains the logic of the command.</p>
-<p>The class has to implement the <tt class="docutils literal"><span class="pre">CommandExecutor</span></tt> interface, which defines the <tt class="docutils literal"><span class="pre">execute</span></tt> method.
-The method is called on command execution and has two arguments:</p>
+<p>The only required component to build a simple command is the command executor class, which contains the logic of the
+command.</p>
+<p>The class has to implement the <tt class="docutils literal"><span class="pre">CommandExecutor</span></tt> interface, which defines the <tt class="docutils literal"><span class="pre">execute</span></tt> method. The method is called
+on command execution and has two arguments:</p>
 <ul class="simple">
 <li>The source of the command call (e.g. the console, a command block or a player)</li>
 <li>The command context object, which contains the parsed arguments (See <a class="reference internal" href="arguments.html"><em>Argument Parsing</em></a>)</li>
@@ -442,7 +440,8 @@ The method is called on command execution and has two arguments:</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">You can use <a class="reference external" href="https://docs.oracle.com/javase/tutorial/java/javaOO/anonymousclasses.html">anonymous classes</a> to define the command executor in the command build process (See the example in the <a class="reference internal" href="arguments.html"><em>Argument Parsing</em></a> page).</p>
+<p class="last">You can use <a class="reference external" href="https://docs.oracle.com/javase/tutorial/java/javaOO/anonymousclasses.html">anonymous classes</a> to
+define the command executor in the command build process (See the example in the <a class="reference internal" href="arguments.html"><em>Argument Parsing</em></a> page).</p>
 </div>
 </div>
 <div class="section" id="player-only-commands">
@@ -470,14 +469,21 @@ The method is called on command execution and has two arguments:</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>We recommend you to add an optional <tt class="docutils literal"><span class="pre">[player]</span></tt> argument to make the command <strong>console-friendly</strong> (e.g. <tt class="docutils literal"><span class="pre">/suicide</span> <span class="pre">[player]</span></tt>).</p>
+<p>We recommend you to add an optional <tt class="docutils literal"><span class="pre">[player]</span></tt> argument to make the command <strong>console-friendly</strong> (e.g. <tt class="docutils literal"><span class="pre">/suicide</span>
+<span class="pre">[player]</span></tt>).</p>
 <p class="last">The easiest solution for this is to append a <tt class="docutils literal"><span class="pre">playerOrSource</span></tt> command element (See <a class="reference internal" href="arguments.html"><em>Argument Parsing</em></a>).</p>
 </div>
 <div class="section" id="command-results">
 <h3>Command Results<a class="headerlink" href="#command-results" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">CommandExecutor::execute()</span></tt> method must always return a <tt class="docutils literal"><span class="pre">CommandResult</span></tt>. In most cases it is sufficient to return <tt class="docutils literal"><span class="pre">CommandResult.success()</span></tt> if the command was successful or <tt class="docutils literal"><span class="pre">CommandResult.empty()</span></tt> if it wasn&#8217;t.
-In cases where more information needs to be conveyed, a <tt class="docutils literal"><span class="pre">CommandResult.builder()</span></tt> should be used. It provides the methods <tt class="docutils literal"><span class="pre">affectedBlocks()</span></tt>, <tt class="docutils literal"><span class="pre">affectedEntities()</span></tt>, <tt class="docutils literal"><span class="pre">affectedItems()</span></tt>, <tt class="docutils literal"><span class="pre">queryResult()</span></tt> and <tt class="docutils literal"><span class="pre">successCount()</span></tt> methods, each accepting an integer and setting the attribute of the same name. All attributes that are not set by the builder will be absent.</p>
-<p>Command blocks can use those values to modify scoreboard stats, which then can be used for elaborate constructions consisting of multiple command blocks. A tutorial how the data is accessed can be found <a class="reference external" href="https://minecraft.gamepedia.com/Tutorials/Command_stats">here</a>.</p>
+<p>The <tt class="docutils literal"><span class="pre">CommandExecutor::execute()</span></tt> method must always return a <tt class="docutils literal"><span class="pre">CommandResult</span></tt>. In most cases it is sufficient to
+return <tt class="docutils literal"><span class="pre">CommandResult.success()</span></tt> if the command was successful or <tt class="docutils literal"><span class="pre">CommandResult.empty()</span></tt> if it wasn&#8217;t. In cases
+where more information needs to be conveyed, a <tt class="docutils literal"><span class="pre">CommandResult.builder()</span></tt> should be used. It provides the methods
+<tt class="docutils literal"><span class="pre">affectedBlocks()</span></tt>, <tt class="docutils literal"><span class="pre">affectedEntities()</span></tt>, <tt class="docutils literal"><span class="pre">affectedItems()</span></tt>, <tt class="docutils literal"><span class="pre">queryResult()</span></tt> and <tt class="docutils literal"><span class="pre">successCount()</span></tt> methods,
+each accepting an integer and setting the attribute of the same name. All attributes that are not set by the builder
+will be absent.</p>
+<p>Command blocks can use those values to modify scoreboard stats, which then can be used for elaborate constructions
+consisting of multiple command blocks. A tutorial how the data is accessed can be found
+<a class="reference external" href="https://minecraft.gamepedia.com/Tutorials/Command_stats">here</a>.</p>
 </div>
 </div>
 <div class="section" id="example-building-a-commandresult">
@@ -491,8 +497,10 @@ In cases where more information needs to be conveyed, a <tt class="docutils lite
 <p>This example uses a builder to create a <tt class="docutils literal"><span class="pre">CommandResult</span></tt> for a command which affected 42 entities and was successful.</p>
 <div class="section" id="error-handling">
 <h3>Error Handling<a class="headerlink" href="#error-handling" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">execute()</span></tt> method may also throw a <tt class="docutils literal"><span class="pre">CommandException</span></tt>, signaling that an error occured while trying to execute the command. If such an Exception is thrown, its message will be displayed to the command source, formatted as an error. Also, the commands usage message will be displayed.
-An <tt class="docutils literal"><span class="pre">ArgumentParseException</span></tt>, a subtype of <tt class="docutils literal"><span class="pre">CommandException</span></tt> is automatically thrown if the commands arguments could not be parsed.</p>
+<p>The <tt class="docutils literal"><span class="pre">execute()</span></tt> method may also throw a <tt class="docutils literal"><span class="pre">CommandException</span></tt>, signaling that an error occured while trying to execute
+the command. If such an Exception is thrown, its message will be displayed to the command source, formatted as an error.
+Also, the commands usage message will be displayed. An <tt class="docutils literal"><span class="pre">ArgumentParseException</span></tt>, a subtype of <tt class="docutils literal"><span class="pre">CommandException</span></tt> is
+automatically thrown if the commands arguments could not be parsed.</p>
 </div>
 </div>
 </div>

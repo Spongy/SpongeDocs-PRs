@@ -226,9 +226,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../advanced/commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../advanced/commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../advanced/commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../advanced/database.html">Working with Databases</a><ul class="simple">
@@ -342,20 +340,26 @@
                   
   <div class="section" id="creating-a-default-plugin-configuration">
 <h1>Creating a Default Plugin Configuration<a class="headerlink" href="#creating-a-default-plugin-configuration" title="Permalink to this headline">¶</a></h1>
-<p>Plugins using the Sponge API have the option to use one or more configuration files. Configuration files allow plugins to store data, and they allow server administrators to customize plugin options (if applicable).</p>
+<p>Plugins using the Sponge API have the option to use one or more configuration files. Configuration files allow plugins
+to store data, and they allow server administrators to customize plugin options (if applicable).</p>
 <div class="section" id="getting-your-default-plugin-configuration">
 <span id="getting-default-config"></span><h2>Getting your Default Plugin Configuration<a class="headerlink" href="#getting-your-default-plugin-configuration" title="Permalink to this headline">¶</a></h2>
-<p>The Sponge API offers the use of the <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt> annotation on a field or method with the type <tt class="docutils literal"><span class="pre">File</span></tt> to get the default configuration file for your plugin.</p>
-<p>The <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt> annotation requires a <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> boolean. If you set <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt>, then the returned pathname will be in a shared configuration directory. In that case, the configuration file for your plugin will be <tt class="docutils literal"><span class="pre">your_plugin_id.conf</span></tt> (with &#8220;your_plugin_id&#8221; replaced with your plugin&#8217;s specified ID).</p>
+<p>The Sponge API offers the use of the <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt> annotation on a field or method with the type <tt class="docutils literal"><span class="pre">File</span></tt> to get
+the default configuration file for your plugin.</p>
+<p>The <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt> annotation requires a <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> boolean. If you set <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt>, then the
+returned pathname will be in a shared configuration directory. In that case, the configuration file for your plugin
+will be <tt class="docutils literal"><span class="pre">your_plugin_id.conf</span></tt> (with &#8220;your_plugin_id&#8221; replaced with your plugin&#8217;s specified ID).</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">See <a class="reference internal" href="main-class.html"><em>Creating Your Main Plugin Class</em></a> for information on configuring your plugin ID.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The Sponge API uses HOCON, a superset of JSON, as the default format for saving configuration files. See <a class="reference internal" href="../../server/getting-started/configuration/hocon.html"><em>Introduction to HOCON</em></a> more for information regarding the HOCON format.</p>
+<p class="last">The Sponge API uses HOCON, a superset of JSON, as the default format for saving configuration files. See
+<a class="reference internal" href="../../server/getting-started/configuration/hocon.html"><em>Introduction to HOCON</em></a> more for information regarding the HOCON format.</p>
 </div>
-<p>If you set <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> to <tt class="docutils literal"><span class="pre">false</span></tt>, the returned pathname will refer to a file named <tt class="docutils literal"><span class="pre">{pluginname}.conf</span></tt> in a directory specific to your plugin.</p>
+<p>If you set <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> to <tt class="docutils literal"><span class="pre">false</span></tt>, the returned pathname will refer to a file named <tt class="docutils literal"><span class="pre">{pluginname}.conf</span></tt> in a
+directory specific to your plugin.</p>
 <p>If you are unsure of what to set the value of <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> to, consider the following:</p>
 <ul class="simple">
 <li>If you plan on having multiple configuration files (complex plugins) in the future, set the value to <tt class="docutils literal"><span class="pre">false</span></tt>.</li>
@@ -376,11 +380,14 @@
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">When your plugin is running for the first time, the returned pathname may refer to a configuration file that does not yet exist.</p>
+<p class="last">When your plugin is running for the first time, the returned pathname may refer to a configuration file that does
+not yet exist.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The use of YAML format (<a class="reference external" href="http://yaml.org/spec/1.1/">http://yaml.org/spec/1.1/</a>) is also supported, but the preferred config format for Sponge plugins is HOCON. Conversion from YAML to HOCON can be automated; a simple code snippet for converting a bukkit plugin configuration folder with a dedicated data folder (sharedRoot = false) is provided below.</p>
+<p class="last">The use of YAML format (<a class="reference external" href="http://yaml.org/spec/1.1/">http://yaml.org/spec/1.1/</a>) is also supported, but the preferred config format for Sponge
+plugins is HOCON. Conversion from YAML to HOCON can be automated; a simple code snippet for converting a Bukkit
+plugin configuration folder with a dedicated data folder (sharedRoot = false) is provided below.</p>
 </div>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="kt">void</span> <span class="nf">convertFromBukkit</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
     <span class="n">File</span> <span class="n">bukkitConfigDir</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;plugins/&quot;</span> <span class="o">+</span> <span class="n">PomData</span><span class="o">.</span><span class="na">NAME</span><span class="o">);</span>

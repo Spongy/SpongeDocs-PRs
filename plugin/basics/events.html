@@ -226,9 +226,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../advanced/commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../advanced/commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../advanced/commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../advanced/database.html">Working with Databases</a><ul class="simple">
@@ -349,26 +347,28 @@
 </ul>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>Events are used to inform plugins of certain happenings. Many events can also be <em>cancelled</em> &#8211; that is,
-the action that the event refers to can be prevented from occurring. Cancellable events implement the <tt class="docutils literal"><span class="pre">Cancellable</span></tt> interface.</p>
+<p>Events are used to inform plugins of certain happenings. Many events can also be <em>cancelled</em> &#8211; that is, the action that
+the event refers to can be prevented from occurring. Cancellable events implement the <tt class="docutils literal"><span class="pre">Cancellable</span></tt> interface.</p>
 <p>Sponge itself contains many events; however, plugins can create their own events which other plugins can subscribe to.</p>
-<p>Subscribing is the act of listening to an event. An event handler is what subscribes to an event.
-Event handlers are assigned a priority that determines the order in which the event handler is run in context
-of other event handlers (such as those from other plugins). For example, an event handler with <em>EARLY</em> priority will return before most other event handlers.</p>
+<p>Subscribing is the act of listening to an event. An event handler is what subscribes to an event. Event handlers are
+assigned a priority that determines the order in which the event handler is run in context of other event handlers
+(such as those from other plugins). For example, an event handler with <em>EARLY</em> priority will return before most other
+event handlers.</p>
 <p>Events cannot be sent to a specific set of plugins. All plugins that subscribe to an event will be notified of the event.</p>
 <p>The event bus or event manager is the class that keeps track of which plugins have subscribed to which event,
 and is also responsible for distributing events to event handlers.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The high-performance event bus <strong>supports supertypes</strong>. For example, <tt class="docutils literal"><span class="pre">BlockBreakEvent</span></tt> extends <tt class="docutils literal"><span class="pre">BlockChangeEvent</span></tt>. Therefore, a plugin could subscribe
-to <tt class="docutils literal"><span class="pre">BlockChangeEvent</span></tt> and still receive <tt class="docutils literal"><span class="pre">BlockBreakEvent</span></tt> events. However, a plugin subscribed to just <tt class="docutils literal"><span class="pre">BlockBreakEvent</span></tt> would not be notified of other
-types of <tt class="docutils literal"><span class="pre">BlockChangeEvent</span></tt>.</p>
+<p class="last">The high-performance event bus <strong>supports supertypes</strong>. For example, <tt class="docutils literal"><span class="pre">BlockBreakEvent</span></tt> extends <tt class="docutils literal"><span class="pre">BlockChangeEvent</span></tt>.
+Therefore, a plugin could subscribe to <tt class="docutils literal"><span class="pre">BlockChangeEvent</span></tt> and still receive <tt class="docutils literal"><span class="pre">BlockBreakEvent</span></tt> events. However,
+a plugin subscribed to just <tt class="docutils literal"><span class="pre">BlockBreakEvent</span></tt> would not be notified of other types of <tt class="docutils literal"><span class="pre">BlockChangeEvent</span></tt>.</p>
 </div>
 </div>
 <div class="section" id="event-handlers">
 <h2>Event Handlers<a class="headerlink" href="#event-handlers" title="Permalink to this headline">¶</a></h2>
 <p>In order to listen for an event, an event handler must be registered. This is done by making a method with any name,
-defining the first (and only) parameter to be the desired event type, and then affixing <tt class="docutils literal"><span class="pre">&#64;Subscribe</span></tt> to the method, as illustrated below.</p>
+defining the first (and only) parameter to be the desired event type, and then affixing <tt class="docutils literal"><span class="pre">&#64;Subscribe</span></tt> to the method,
+as illustrated below.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Subscribe</span><span class="o">;</span>
 
 <span class="nd">@Subscribe</span>
@@ -380,15 +380,16 @@ defining the first (and only) parameter to be the desired event type, and then a
 <p>In addition, the class containing these methods must be registered with the event manager:</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">For event handlers on your main plugin class (annotated by <tt class="docutils literal"><span class="pre">&#64;Plugin</span></tt>), you do not need to register the object for events because Sponge will do it
-automatically.</p>
+<p class="last">For event handlers on your main plugin class (annotated by <tt class="docutils literal"><span class="pre">&#64;Plugin</span></tt>), you do not need to register the object for
+events because Sponge will do it automatically.</p>
 </div>
 </div>
 <div class="section" id="dynamic-registering-and-unregistering-of-event-handlers">
 <h2>Dynamic Registering and Unregistering of Event Handlers<a class="headerlink" href="#dynamic-registering-and-unregistering-of-event-handlers" title="Permalink to this headline">¶</a></h2>
-<p>Some plugins may wish to dynamically register or unregister an event handler. In that case the event handler is not a method annotated with <tt class="docutils literal"><span class="pre">&#64;Subscribe</span></tt>, but
-rather a class implementing the <tt class="docutils literal"><span class="pre">EventHandler</span></tt> interface. This event handler can then be registered by calling <tt class="docutils literal"><span class="pre">EventManager#register()</span></tt>, which accepts a
-reference to the plugin, the <tt class="docutils literal"><span class="pre">Class</span></tt> of events handled, and the handler itself.</p>
+<p>Some plugins may wish to dynamically register or unregister an event handler. In that case the event handler is not a
+method annotated with <tt class="docutils literal"><span class="pre">&#64;Subscribe</span></tt>, but rather a class implementing the <tt class="docutils literal"><span class="pre">EventHandler</span></tt> interface. This event handler
+can then be registered by calling <tt class="docutils literal"><span class="pre">EventManager#register()</span></tt>, which accepts a reference to the plugin, the <tt class="docutils literal"><span class="pre">Class</span></tt>
+of events handled, and the handler itself.</p>
 <div class="section" id="example-event-handler-class">
 <h3>Example: Event Handler class<a class="headerlink" href="#example-event-handler-class" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleHandler</span> <span class="kd">implements</span> <span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">BlockBreakEvent</span><span class="o">&gt;</span> <span class="o">{</span>
@@ -409,8 +410,9 @@ reference to the plugin, the <tt class="docutils literal"><span class="pre">Clas
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">For event handlers created with the <tt class="docutils literal"><span class="pre">&#64;Subscribe</span></tt> annotation, the order of the execution can be configured (see also <a class="reference internal" href="#about-subscribe">About &#64;Subscribe</a>). For
-dynamically registered handlers this is possible by passing an <tt class="docutils literal"><span class="pre">Order</span></tt> to the <tt class="docutils literal"><span class="pre">register()</span></tt> method.</p>
+<p class="last">For event handlers created with the <tt class="docutils literal"><span class="pre">&#64;Subscribe</span></tt> annotation, the order of the execution can be configured
+(see also <a class="reference internal" href="#about-subscribe">About &#64;Subscribe</a>). For dynamically registered handlers this is possible by passing an <tt class="docutils literal"><span class="pre">Order</span></tt>
+to the <tt class="docutils literal"><span class="pre">register()</span></tt> method.</p>
 </div>
 </div>
 <div class="section" id="example-dynamically-unregistering-the-event-handler">
@@ -422,19 +424,21 @@ dynamically registered handlers this is possible by passing an <tt class="docuti
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">If all event handlers of a plugin need to be removed, <tt class="docutils literal"><span class="pre">EventManager#unregisterPlugin()</span></tt> may be called.
-Beware that this will remove <em>all</em> of the plugin&#8217;s event handlers, including those registered from <tt class="docutils literal"><span class="pre">&#64;Subscribe</span></tt> annotations.</p>
+Beware that this will remove <em>all</em> of the plugin&#8217;s event handlers, including those registered from <tt class="docutils literal"><span class="pre">&#64;Subscribe</span></tt>
+annotations.</p>
 </div>
 </div>
 <div class="section" id="about-subscribe">
 <h3>About &#64;Subscribe<a class="headerlink" href="#about-subscribe" title="Permalink to this headline">¶</a></h3>
 <p>The <tt class="docutils literal"><span class="pre">&#64;Subscribe</span></tt> annotation has a few configurable fields:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">order</span></tt> is the order in which the event handler is to be run. See the <tt class="docutils literal"><span class="pre">org.spongepowered.api.event.Order</span></tt> enum in Sponge to see the available options.</li>
-<li><tt class="docutils literal"><span class="pre">ignoreCancelled</span></tt>, if true (which is default true), causes the event handler to be skipped if the event in question is cancellable
-and has been cancelled (by a previously-executed plugin, for example).</li>
+<li><tt class="docutils literal"><span class="pre">order</span></tt> is the order in which the event handler is to be run. See the <tt class="docutils literal"><span class="pre">org.spongepowered.api.event.Order</span></tt> enum
+in Sponge to see the available options.</li>
+<li><tt class="docutils literal"><span class="pre">ignoreCancelled</span></tt>, if true (which is default true), causes the event handler to be skipped if the event in question
+is cancellable and has been cancelled (by a previously-executed plugin, for example).</li>
 </ul>
-<p>By default, <tt class="docutils literal"><span class="pre">&#64;Subscribe</span></tt> is configured so that your event handler will <em>not</em> be called if the event in question is cancellable
-and has been cancelled (such as by another plugin).</p>
+<p>By default, <tt class="docutils literal"><span class="pre">&#64;Subscribe</span></tt> is configured so that your event handler will <em>not</em> be called if the event in question is
+cancellable and has been cancelled (such as by another plugin).</p>
 </div>
 </div>
 <div class="section" id="firing-events">
@@ -528,16 +532,17 @@ and has been cancelled (such as by another plugin).</p>
 <div class="section" id="callbacks">
 <h2>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
 <p>Callbacks are a more advanced feature of Sponge&#8217;s event system.</p>
-<p>Callbacks allow plugins to cooperate better when they override vanilla behavior. When an event is invoked, Sponge runs through the event
-handlers in order from first to last. Then Sponge runs through the callback list in order from last to first. Vanilla is always the first
-callback added, meaning that vanilla&#8217;s handler will be executed last.</p>
-<p>Plugins that don&#8217;t use callbacks can also use the simpler <tt class="docutils literal"><span class="pre">setCancelled(boolean)</span></tt> method, which will disable all callbacks. However,
-some plugins may just need to disable vanilla behavior, modify another plugin&#8217;s behavior, or disable that behavior completely. These are
-cases where the flexibility offered through callbacks is required.</p>
-<p>A plugin can add as many callbacks as it needs during an event, and plugins can cancel specific callbacks. However, a plugin cannot reorder
-or remove callbacks, as some behaviors (especially vanilla) cannot be reordered. Additionally, all modifications to the callback list, should
-be done in the event handler itself. Attempting to change the list during callback execution will cause a <tt class="docutils literal"><span class="pre">ConcurrentModificationException</span></tt>.
-Callbacks should only be added or cancelled in event handlers who&#8217;s <tt class="docutils literal"><span class="pre">Order</span></tt> property allows event cancellation.</p>
+<p>Callbacks allow plugins to cooperate better when they override vanilla behavior. When an event is invoked, Sponge runs
+through the event handlers in order from first to last. Then Sponge runs through the callback list in order from last
+to first. Vanilla is always the first callback added, meaning that vanilla&#8217;s handler will be executed last.</p>
+<p>Plugins that don&#8217;t use callbacks can also use the simpler <tt class="docutils literal"><span class="pre">setCancelled(boolean)</span></tt> method, which will disable all
+callbacks. However, some plugins may just need to disable vanilla behavior, modify another plugin&#8217;s behavior, or disable
+that behavior completely. These are cases where the flexibility offered through callbacks is required.</p>
+<p>A plugin can add as many callbacks as it needs during an event, and plugins can cancel specific callbacks. However, a
+plugin cannot reorder or remove callbacks, as some behaviors (especially vanilla) cannot be reordered. Additionally, all
+modifications to the callback list, should be done in the event handler itself. Attempting to change the list during
+callback execution will cause a <tt class="docutils literal"><span class="pre">ConcurrentModificationException</span></tt>. Callbacks should only be added or cancelled in
+event handlers who&#8217;s <tt class="docutils literal"><span class="pre">Order</span></tt> property allows event cancellation.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><tt class="docutils literal"><span class="pre">ExplosionEvent</span></tt> doesn&#8217;t exist in the API currently, it is just used for example purposes.</p>
@@ -546,7 +551,8 @@ Callbacks should only be added or cancelled in event handlers who&#8217;s <tt cl
 <h3>Example: Adding a Callback to Disable Explosions and Spawn an Arrow<a class="headerlink" href="#example-adding-a-callback-to-disable-explosions-and-spawn-an-arrow" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This is a bad example, but use-cases for callbacks are going to be very specific so this just demonstrates the code needed to add one.</p>
+<p class="last">This is a bad example, but use-cases for callbacks are going to be very specific so this just demonstrates the code
+needed to add one.</p>
 </div>
 <div class="highlight-java"><div class="highlight"><pre><span class="nd">@Subscribe</span>
 <span class="c1">// final not required unless using an inner class that needs access to it.</span>
@@ -622,7 +628,8 @@ Callbacks should only be added or cancelled in event handlers who&#8217;s <tt cl
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Thanks to &#64;sk89q for the callback examples. They were copied from his original <a class="reference external" href="https://github.com/SpongePowered/SpongeAPI/pull/232">PR #232</a>.</p>
+<p>Thanks to &#64;sk89q for the callback examples. They were copied from his original
+<a class="reference external" href="https://github.com/SpongePowered/SpongeAPI/pull/232">PR #232</a>.</p>
 </div>
 </div>
 </div>

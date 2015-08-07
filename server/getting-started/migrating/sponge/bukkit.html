@@ -228,9 +228,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../../plugin/advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../plugin/advanced/commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../../plugin/advanced/commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../plugin/advanced/commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../plugin/advanced/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../plugin/advanced/database.html">Working with Databases</a><ul class="simple">
@@ -356,8 +354,11 @@
 <h2>Getting Ready<a class="headerlink" href="#getting-ready" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="worlds">
 <h3>Worlds<a class="headerlink" href="#worlds" title="Permalink to this headline">¶</a></h3>
-<p>Forge, and thus Sponge, uses the same world structure as vanilla Minecraft. Vanilla Minecraft places the nether (typically <tt class="docutils literal"><span class="pre">world_nether</span></tt>) and the end (typically <tt class="docutils literal"><span class="pre">world_the_end</span></tt>) dimensions within the <tt class="docutils literal"><span class="pre">world</span></tt> folder.</p>
-<p>CraftBukkit relocates the nether and end dimensions outside of the <tt class="docutils literal"><span class="pre">world</span></tt> folder, which must be remedied if it is desired to retain the nether and end dimensions when running Sponge. To relocate the nether and end dimensions, follow the instructions below.</p>
+<p>Forge, and thus Sponge, uses the same world structure as vanilla Minecraft. Vanilla Minecraft places the nether
+(typically <tt class="docutils literal"><span class="pre">world_nether</span></tt>) and the end (typically <tt class="docutils literal"><span class="pre">world_the_end</span></tt>) dimensions within the <tt class="docutils literal"><span class="pre">world</span></tt> folder.</p>
+<p>CraftBukkit relocates the nether and end dimensions outside of the <tt class="docutils literal"><span class="pre">world</span></tt> folder, which must be remedied if it is
+desired to retain the nether and end dimensions when running Sponge. To relocate the nether and end dimensions, follow
+the instructions below.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">It is a good idea to make a backup of your worlds in case you make a mistake.</p>
@@ -370,7 +371,8 @@
 </div>
 <div class="section" id="server-and-world-configuration-files">
 <h3>Server and World Configuration Files<a class="headerlink" href="#server-and-world-configuration-files" title="Permalink to this headline">¶</a></h3>
-<p>CraftBukkit and Sponge both share files that are made available by vanilla Minecraft. These files can thus be reused on Sponge, if they are already present in your CraftBukkit installation:</p>
+<p>CraftBukkit and Sponge both share files that are made available by vanilla Minecraft. These files can thus be reused on
+Sponge, if they are already present in your CraftBukkit installation:</p>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">server.properties</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">banned-ips.json</span></tt></li>
@@ -386,22 +388,31 @@
 <li><tt class="docutils literal"><span class="pre">help.yml</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">permissions.yml</span></tt></li>
 </ul>
-<p>Users who are migrating from Spigot may wish to compare <tt class="docutils literal"><span class="pre">spigot.yml</span></tt> to <tt class="docutils literal"><span class="pre">global.conf</span></tt> in Sponge. Some keys in <tt class="docutils literal"><span class="pre">spigot.yml</span></tt> have counterparts in <tt class="docutils literal"><span class="pre">global.conf</span></tt>, and it may be desirable to copy over the values of any keys that are present in both files.</p>
+<p>Users who are migrating from Spigot may wish to compare <tt class="docutils literal"><span class="pre">spigot.yml</span></tt> to <tt class="docutils literal"><span class="pre">global.conf</span></tt> in Sponge. Some keys in
+<tt class="docutils literal"><span class="pre">spigot.yml</span></tt> have counterparts in <tt class="docutils literal"><span class="pre">global.conf</span></tt>, and it may be desirable to copy over the values of any keys that
+are present in both files.</p>
 </div>
 <div class="section" id="plugins">
 <h3>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h3>
-<p>Sponge has no native support for Bukkit plugins. However, some members of the community are re-implementing the Bukkit API with a special Sponge plugin, which may allow Bukkit plugins to function on a Sponge server. This plugin has not yet been slated for release.</p>
-<p>Ore is Sponge&#8217;s official repository for finding plugins, and it is recommended to download all Sponge plugins from Ore. When finding replacements for your Bukkit plugins, there are a few points to keep in mind:</p>
+<p>Sponge has no native support for Bukkit plugins. However, some members of the community are re-implementing the Bukkit
+API with a special Sponge plugin, which may allow Bukkit plugins to function on a Sponge server. This plugin has not yet
+been slated for release.</p>
+<p>Ore is Sponge&#8217;s official repository for finding plugins, and it is recommended to download all Sponge plugins from Ore.
+When finding replacements for your Bukkit plugins, there are a few points to keep in mind:</p>
 <ul class="simple">
-<li>Not all Bukkit developers have chosen to port their plugins to Sponge. Over time, however, someone else may create a suitable replacement.</li>
-<li>Not all Sponge plugins that are ported from Bukkit will automatically convert configuration files. Individual plugin developers make the decision on whether or not to automatically convert configuration files.</li>
-<li>Some Sponge plugins that are ported from Bukkit may change in functionality, or may not even use the same configuration structure.</li>
+<li>Not all Bukkit developers have chosen to port their plugins to Sponge. Over time, however, someone else may create a
+suitable replacement.</li>
+<li>Not all Sponge plugins that are ported from Bukkit will automatically convert configuration files. Individual plugin
+developers make the decision on whether or not to automatically convert configuration files.</li>
+<li>Some Sponge plugins that are ported from Bukkit may change in functionality, or may not even use the same
+configuration structure.</li>
 </ul>
 </div>
 </div>
 <div class="section" id="installing-sponge">
 <h2>Installing Sponge<a class="headerlink" href="#installing-sponge" title="Permalink to this headline">¶</a></h2>
-<p>The guide at <a class="reference internal" href="../../installation.html"><em>Installing Sponge</em></a> provides instructions for installing Sponge, once the above steps have been completed.</p>
+<p>The guide at <a class="reference internal" href="../../installation.html"><em>Installing Sponge</em></a> provides instructions for installing Sponge, once
+the above steps have been completed.</p>
 </div>
 </div>
 

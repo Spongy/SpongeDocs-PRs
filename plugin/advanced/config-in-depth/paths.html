@@ -227,9 +227,7 @@
 <li class="toctree-l4"><a class="reference internal" href="values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../database.html">Working with Databases</a><ul class="simple">
@@ -345,9 +343,13 @@
 <h1>Navigating Through Nodes<a class="headerlink" href="#navigating-through-nodes" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The following discussion about paths uses a period (.) as a separator character. This is not always the character used, but it is a common way of denoting the next node in a path.</p>
+<p class="last">The following discussion about paths uses a period (.) as a separator character. This is not always the character
+used, but it is a common way of denoting the next node in a path.</p>
 </div>
-<p>Let&#8217;s discuss how node paths work first. They&#8217;re just like file paths, a collection of nodes, separated by a single character, leading to the final child node that holds a value, whether that value be a normal value, a list, or simply another node. As an example, <tt class="docutils literal"><span class="pre">config.blockCheats.enabled</span></tt> is a path, leading to the node <tt class="docutils literal"><span class="pre">enabled</span></tt>, under <tt class="docutils literal"><span class="pre">blockCheats</span></tt>, which is under <tt class="docutils literal"><span class="pre">config</span></tt>. In a configuration file, this would appear like so:</p>
+<p>Let&#8217;s discuss how node paths work first. They&#8217;re just like file paths, a collection of nodes, separated by a single
+character, leading to the final child node that holds a value, whether that value be a normal value, a list, or simply
+another node. As an example, <tt class="docutils literal"><span class="pre">config.blockCheats.enabled</span></tt> is a path, leading to the node <tt class="docutils literal"><span class="pre">enabled</span></tt>, under
+<tt class="docutils literal"><span class="pre">blockCheats</span></tt>, which is under <tt class="docutils literal"><span class="pre">config</span></tt>. In a configuration file, this would appear like so:</p>
 <div class="highlight-json"><pre>config {
     blockCheats {
         enabled=value
@@ -358,20 +360,26 @@
 <h2>Moving Around<a class="headerlink" href="#moving-around" title="Permalink to this headline">¶</a></h2>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">To make node retrieval easier (and to give less load on the system), it is advised to store a reference to the root node of your configuration file. This allows you to always be able to get the node using the full path, and avoids using the <tt class="docutils literal"><span class="pre">getPath()</span></tt> method, which is said to be a little intensive by official documentation.</p>
+<p class="last">To make node retrieval easier (and to give less load on the system), it is advised to store a reference to the root
+node of your configuration file. This allows you to always be able to get the node using the full path, and avoids
+using the <tt class="docutils literal"><span class="pre">getPath()</span></tt> method, which is said to be a little intensive by official documentation.</p>
 </div>
 <p>Let&#8217;s start off by defining our root node again. We&#8217;ll be using a blank node to write on.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">createEmptyNode</span><span class="o">(</span><span class="n">ConfigurationOptions</span><span class="o">.</span><span class="na">defaults</span><span class="o">());</span>
 </pre></div>
 </div>
-<p>The method to get a node from a node is the <tt class="docutils literal"><span class="pre">getNode(Object...)</span></tt> method. Note that <tt class="docutils literal"><span class="pre">Object...</span></tt> type for the parameter, as this means you cannot simply just give it a path like <tt class="docutils literal"><span class="pre">config.blockCheats.enabled</span></tt>. Doing so results in a config file like this:</p>
+<p>The method to get a node from a node is the <tt class="docutils literal"><span class="pre">getNode(Object...)</span></tt> method. Note that <tt class="docutils literal"><span class="pre">Object...</span></tt> type for the parameter,
+as this means you cannot simply just give it a path like <tt class="docutils literal"><span class="pre">config.blockCheats.enabled</span></tt>. Doing so results in a config file
+like this:</p>
 <div class="highlight-json"><pre>config.blockCheats.enabled=value</pre>
 </div>
-<p>... which is not the organized intended result we&#8217;re looking for. Instead, what you -can- do is split the path by the separator character so it ends up as separate arguments.</p>
+<p>... which is not the organized intended result we&#8217;re looking for. Instead, what you -can- do is split the path by the
+separator character so it ends up as separate arguments.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;config&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">);</span>
 </pre></div>
 </div>
-<p>With that line of code, it should give us a <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> object representative of the child node at the path of <tt class="docutils literal"><span class="pre">config.blockCheats.enabled</span></tt>. At that point, it is up to you what you want to do with it.</p>
+<p>With that line of code, it should give us a <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> object representative of the child node at the path of
+<tt class="docutils literal"><span class="pre">config.blockCheats.enabled</span></tt>. At that point, it is up to you what you want to do with it.</p>
 </div>
 </div>
 

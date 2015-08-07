@@ -226,9 +226,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../advanced/commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../advanced/commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../advanced/commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../advanced/database.html">Working with Databases</a><ul class="simple">
@@ -342,7 +340,8 @@
                   
   <div class="section" id="logging-and-debugging">
 <h1>Logging and Debugging<a class="headerlink" href="#logging-and-debugging" title="Permalink to this headline">¶</a></h1>
-<p>There are a few logging frameworks available for use in Java. Logging is preferable to printing to stdout or stderr with <tt class="docutils literal"><span class="pre">System.out.println()</span></tt> for a number of reasons:</p>
+<p>There are a few logging frameworks available for use in Java. Logging is preferable to printing to stdout or stderr with
+<tt class="docutils literal"><span class="pre">System.out.println()</span></tt> for a number of reasons:</p>
 <ul class="simple">
 <li>Logged messages are labeled with a source name, making it easier to figure out where the logged messages are coming from.</li>
 <li>Logged messages have a severity level which allows for simple filtering (e.g. disable all non-critical notices).</li>
@@ -351,7 +350,9 @@
 <p>Sponge uses <tt class="docutils literal"><span class="pre">org.slf4j.Logger</span></tt>, not <tt class="docutils literal"><span class="pre">java.util.logging.Logger</span></tt>.</p>
 <div class="section" id="getting-a-logger">
 <h2>Getting a Logger<a class="headerlink" href="#getting-a-logger" title="Permalink to this headline">¶</a></h2>
-<p>The Guice module used during the initialization of plugins has a plugin-scoped logger. This allows you to annotate a field, method, or constructor with <tt class="docutils literal"><span class="pre">&#64;Inject</span></tt> to get the logger for your plugin, which is pre-configured with the correct plugin ID.</p>
+<p>The Guice module used during the initialization of plugins has a plugin-scoped logger. This allows you to annotate a
+field, method, or constructor with <tt class="docutils literal"><span class="pre">&#64;Inject</span></tt> to get the logger for your plugin, which is pre-configured with the
+correct plugin ID.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">See <a class="reference internal" href="main-class.html"><em>Creating Your Main Plugin Class</em></a> for information on configuring your plugin ID.</p>
@@ -390,8 +391,10 @@
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>It is recommended to set your logger in your main plugin class, as it is instantiated with the Guice injector when the plugin is loaded.</p>
-<p>Creating a getter method for your logger in the same class in which it was set is also ideal, although optional. An example getter method is illustrated below.</p>
+<p>It is recommended to set your logger in your main plugin class, as it is instantiated with the Guice injector when the
+plugin is loaded.</p>
+<p>Creating a getter method for your logger in the same class in which it was set is also ideal, although optional. An
+example getter method is illustrated below.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.slf4j.Logger</span><span class="o">;</span>
 
@@ -406,7 +409,8 @@
 <p>Emitting a message with your logger is very simple.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The following example assumes that the getter method for your logger is named <tt class="docutils literal"><span class="pre">getLogger()</span></tt>, as shown in the previous section. This may differ for you depending on what you named your getter method.</p>
+<p class="last">The following example assumes that the getter method for your logger is named <tt class="docutils literal"><span class="pre">getLogger()</span></tt>, as shown in the
+previous section. This may differ for you depending on what you named your getter method.</p>
 </div>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.slf4j.Logger</span><span class="o">;</span>
 

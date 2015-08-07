@@ -227,9 +227,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../advanced/config-in-depth/values.html">Giving Nodes Value</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../advanced/commands/index.html">Advanced Command API Documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/arguments.html">Advanced Command Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../advanced/commands/callable.html">Low-Level Command API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../advanced/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../advanced/database.html">Working with Databases</a><ul class="simple">
@@ -343,10 +341,13 @@
                   
   <div class="section" id="working-with-tile-entities">
 <h1>Working with Tile Entities<a class="headerlink" href="#working-with-tile-entities" title="Permalink to this headline">¶</a></h1>
-<p>Tile entities are blocks that are capable of additional operations like autonomically crafting (furnaces and brewing stands) or provide effects (like a beacon or a note block). They also contain additional data like an inventory or text (like chests, signs or command blocks).</p>
+<p>Tile entities are blocks that are capable of additional operations like autonomically crafting (furnaces and brewing
+stands) or provide effects (like a beacon or a note block). They also contain additional data like an inventory or
+text (like chests, signs or command blocks).</p>
 <div class="section" id="identifying-tile-entities-and-their-type">
 <h2>Identifying Tile Entities and their Type<a class="headerlink" href="#identifying-tile-entities-and-their-type" title="Permalink to this headline">¶</a></h2>
-<p>Again, it all starts with a <tt class="docutils literal"><span class="pre">Location</span></tt>. The <tt class="docutils literal"><span class="pre">getTileEntity()</span></tt> function will return the tile entity corresponding to the block or <tt class="docutils literal"><span class="pre">Optional.absent()</span></tt> if the block is not a tile entity.</p>
+<p>Again, it all starts with a <tt class="docutils literal"><span class="pre">Location</span></tt>. The <tt class="docutils literal"><span class="pre">getTileEntity()</span></tt> function will return the tile entity corresponding
+to the block or <tt class="docutils literal"><span class="pre">Optional.absent()</span></tt> if the block is not a tile entity.</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
 
@@ -356,7 +357,9 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>The type of a tile entity can then be obtained by the <tt class="docutils literal"><span class="pre">getType()</span></tt> function which returns a <tt class="docutils literal"><span class="pre">TileEntityType</span></tt>. Which can then be compared similar to a <tt class="docutils literal"><span class="pre">BlockType</span></tt>. After performing this check the <tt class="docutils literal"><span class="pre">TileEntity</span></tt> variable can safely be cast to the according subtype.</p>
+<p>The type of a tile entity can then be obtained by the <tt class="docutils literal"><span class="pre">getType()</span></tt> function which returns a <tt class="docutils literal"><span class="pre">TileEntityType</span></tt>. Which
+can then be compared similar to a <tt class="docutils literal"><span class="pre">BlockType</span></tt>. After performing this check the <tt class="docutils literal"><span class="pre">TileEntity</span></tt> variable can safely be
+cast to the according subtype.</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.TileEntity</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.TileEntityTypes</span><span class="o">;</span>
@@ -374,12 +377,17 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>After performing this cast, the methods provided by the particular interface can be accessed (in this example the <tt class="docutils literal"><span class="pre">ejectRecord()</span></tt> method). For detailed information about <tt class="docutils literal"><span class="pre">TileEntity</span></tt> subtypes and their respective methods refer to the <tt class="docutils literal"><span class="pre">org.spongepowered.api.block.tileentity</span></tt> package and its subpackages in the API docs.</p>
+<p>After performing this cast, the methods provided by the particular interface can be accessed (in this example the
+<tt class="docutils literal"><span class="pre">ejectRecord()</span></tt> method). For detailed information about <tt class="docutils literal"><span class="pre">TileEntity</span></tt> subtypes and their respective methods refer
+to the <tt class="docutils literal"><span class="pre">org.spongepowered.api.block.tileentity</span></tt> package and its subpackages in the API docs.</p>
 </div>
 <div class="section" id="accessing-and-modifying-a-tile-entity-s-data">
 <h2>Accessing and Modifying a Tile Entity&#8217;s Data<a class="headerlink" href="#accessing-and-modifying-a-tile-entity-s-data" title="Permalink to this headline">¶</a></h2>
-<p>Similar to block states, the data stored in a tile entity is accessed using a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>. Since the kind of a data is fully described by the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> used, all data manipulation can be done with the <tt class="docutils literal"><span class="pre">TileEntity</span></tt> interface itself and does not require a cast.</p>
-<p>The following example contains two methods to alter the data of a sign. The first method reads (if possible) the first line, the second attempts to set it and returns the boolean value indicating its success.</p>
+<p>Similar to block states, the data stored in a tile entity is accessed using a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>. Since the kind of a
+data is fully described by the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> used, all data manipulation can be done with the <tt class="docutils literal"><span class="pre">TileEntity</span></tt>
+interface itself and does not require a cast.</p>
+<p>The following example contains two methods to alter the data of a sign. The first method reads (if possible) the first
+line, the second attempts to set it and returns the boolean value indicating its success.</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.TileEntity</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.tileentities.SignData</span><span class="o">;</span>
@@ -407,11 +415,14 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>The main difference to working with a <tt class="docutils literal"><span class="pre">BlockState</span></tt> is that a tile entity is a mutable <tt class="docutils literal"><span class="pre">DataHolder</span></tt> as opposed to the immutable <tt class="docutils literal"><span class="pre">BlockState</span></tt>.</p>
+<p>The main difference to working with a <tt class="docutils literal"><span class="pre">BlockState</span></tt> is that a tile entity is a mutable <tt class="docutils literal"><span class="pre">DataHolder</span></tt> as opposed to
+the immutable <tt class="docutils literal"><span class="pre">BlockState</span></tt>.</p>
 </div>
 <div class="section" id="accessing-inventories">
 <h2>Accessing Inventories<a class="headerlink" href="#accessing-inventories" title="Permalink to this headline">¶</a></h2>
-<p>Quite a share of tile entities come with their own inventory, most notably chests and furnaces. That inventory can not be accessed directly from the <tt class="docutils literal"><span class="pre">TileEntity</span></tt> interface. So a cast will be necessary. Since all tile entities containing an inventory extend the <tt class="docutils literal"><span class="pre">TileEntityCarrier</span></tt> interface it suffices to cast to that interface as shown below.</p>
+<p>Quite a share of tile entities come with their own inventory, most notably chests and furnaces. That inventory can not
+be accessed directly from the <tt class="docutils literal"><span class="pre">TileEntity</span></tt> interface. So a cast will be necessary. Since all tile entities containing
+an inventory extend the <tt class="docutils literal"><span class="pre">TileEntityCarrier</span></tt> interface it suffices to cast to that interface as shown below.</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.TileEntity</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.carrier.TileEntityCarrier</span><span class="o">;</span>
