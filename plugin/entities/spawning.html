@@ -349,41 +349,32 @@
 an <a class="reference external" href="http://spongepowered.github.io/SpongeAPI/org/spongepowered/api/world/extent/Extent.html">Extent</a>,
 and a <a class="reference external" href="http://spongepowered.github.io/SpongeAPI/org/spongepowered/api/world/Location.html">Location</a> to do so.</p>
 <p>For example, let&#8217;s try to spawn a Creeper:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.DisplayNameData</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.entity.ChargedData</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.entity.ExplosiveRadiusData</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.common.base.Optional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.Entity</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.EntityTypes</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Texts</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.extent.Extent</span><span class="o">;</span>
 
-<span class="kn">import</span> <span class="nn">com.google.common.base.Optional</span><span class="o">;</span>
-
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">spawnEntity</span><span class="o">(</span><span class="n">Location</span> <span class="n">location</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Extent</span> <span class="n">extent</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="na">getExtent</span><span class="o">();</span>
-     <span class="c1">// We need to create the entity</span>
+    <span class="c1">// We need to create the entity</span>
     <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;</span> <span class="n">optional</span> <span class="o">=</span> <span class="n">extent</span><span class="o">.</span><span class="na">createEntity</span><span class="o">(</span><span class="n">EntityTypes</span><span class="o">.</span><span class="na">CREEPER</span><span class="o">,</span>
-        <span class="n">location</span><span class="o">.</span><span class="na">getPosition</span><span class="o">());</span>
+                                                    <span class="n">location</span><span class="o">.</span><span class="na">getPosition</span><span class="o">());</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">optional</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-         <span class="c1">// After this, we can use more API that relates to creeper</span>
+        <span class="c1">// After this, we can use more API that relates to creeper</span>
         <span class="n">Entity</span> <span class="n">creeper</span> <span class="o">=</span> <span class="n">optional</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+        <span class="c1">// Here, we can use the handy Data API to simplify &quot;setting&quot; various</span>
+        <span class="c1">// data onto the creeper, such as the explosive radius</span>
+        <span class="n">creeper</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">EXPLOSIVE_RADIUS</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+        <span class="c1">// Or display name</span>
+        <span class="n">creeper</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">DISPLAY_NAME</span><span class="o">,</span> <span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">DARK_AQUA</span><span class="o">,</span> <span class="s">&quot;Dinnerbone&quot;</span><span class="o">));</span>
+        <span class="c1">// Or even whether the creeper is &quot;charged&quot;</span>
+        <span class="n">creeper</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">CREEPER_CHARGED</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
 
-        <span class="n">ExplosiveRadiusData</span> <span class="n">radiusData</span> <span class="o">=</span> <span class="n">creeper</span><span class="o">.</span><span class="na">getData</span><span class="o">(</span><span class="n">ExplosiveRadiusData</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">get</span><span class="o">();</span>
-        <span class="n">radiusData</span><span class="o">.</span><span class="na">setExplosionRadius</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
-         <span class="c1">// Return the modified explosive radius back to the creeper</span>
-        <span class="n">creeper</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">radiusData</span><span class="o">);</span>
-
-         <span class="c1">// We need to create the data since the creeper does not have a display name</span>
-        <span class="n">DisplayNameData</span> <span class="n">displayData</span> <span class="o">=</span> <span class="n">creeper</span><span class="o">.</span><span class="na">getOrCreate</span><span class="o">(</span><span class="n">DisplayNameData</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
-        <span class="n">displayData</span><span class="o">.</span><span class="na">setDisplayName</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Dinnerbone&quot;</span><span class="o">));</span>
-        <span class="n">creeper</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">displayData</span><span class="o">);</span>
-
-         <span class="c1">// Same applies here</span>
-        <span class="n">ChargedData</span> <span class="n">chargedData</span> <span class="o">=</span> <span class="n">creeper</span><span class="o">.</span><span class="na">getOrCreate</span><span class="o">(</span><span class="n">ChargedData</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
-        <span class="n">creeper</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">chargedData</span><span class="o">);</span>
-
-         <span class="c1">// Now we&#39;re actually spawning in the creeper into the world</span>
+        <span class="c1">// Now we&#39;re actually spawning in the creeper into the world</span>
         <span class="n">extent</span><span class="o">.</span><span class="na">spawnEntity</span><span class="o">(</span><span class="n">creeper</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
