@@ -85,30 +85,3 @@ Next up is the DataProcessor.
 
 5. Implement the ValueProcessor
 ===============================
-
-
-
-
-
-
-
-
-
-gabi on IRC 19/8/2015 23:40:
-
-A DataManipulator, depending on the types of values it contains, can be implemented by extending at least AbstractData
-Now, usually, most manipulators are single value based manipulators, like the "flying" state of an entity.
-So, considering we've abstracted things, there's a really simple thing you can extend
-AbstractBooleanData
-All you have to do is provide the DataManipulator class, the Key.WHATEVER, and the "default" value.
-
-Now, here's the fun part, usually, with most Manipulator abstract implementations, you want to have two constructors
-One no-args that calls the single arg constructor for the provided value
-
-Now, the actual fun part, after you have your manipulator implemented:
-You must check, if you are extending AbstractData, you must call registerGettersAndSetters() in your constructor. Field registration is paramount.
-
-The same thing is done for ImmutableDataManipulators
-You can refer to some of the pre-existing manipulator implementations for reference.
-
-After the manipulator is implemented, now you must worry about a few things: 1) Register the Key in the KeyRegistry, 2) Implement the DataProcessor, 3) Implement the ValueProcessor for each value being represented by the DataManipulator
