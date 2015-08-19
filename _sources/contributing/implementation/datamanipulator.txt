@@ -1,0 +1,114 @@
+==============================
+Implementing a DataManipulator
+==============================
+
+If you want to properly implement a DataManipulator you have to:
+
+1. Implement the DataManipulator itself
+#. Implement the ImmutableDataManipulator
+
+Upon completion of the forst steps you'll have to get this done too:
+
+#. Register the Key in the KeyRegistry
+#. Implement the DataProcessor
+#. Implement the ValueProcessor for each value being represented by the DataManipulator
+
+1. Implementing the DataManipulator
+===================================
+
+Implementing the DataManipulator is done by extending AbstractData in the easiest case. Heres a short example:
+
+.. code-block:: java
+
+  public class SpongeVelocityData extends AbstractSingleData<Vector3d, VelocityData, ImmutableVelocityData> implements VelocityData {
+ ...
+  }
+
+Let's assume we have a single value based manipulator, like for example the ``flying`` state on an entity which can be ``true`` or ``false``.
+We abstracted things above, so now we're able to just extend ``AbstractBooleanData``.
+The next step is to provide the actual ``DataManipulator.class``, the ``Keys.YOUR_MANIPULATOR_NAME_HERE`` and the default value.
+
+.. code-block:: java
+
+ public SpongeVelocityData(Vector3d velocity) {
+          super(VelocityData.class, velocity, Keys.VELOCITY);
+ }
+
+Ok, we're slowly getting there. In most cases while implementing an abstract Manipulator you want to have two constructors:
+
+* One without args (no-args) which calls the second
+* and one single-arg constructor which is actually used for the provided value
+
+Now, after the Manipulator is done you have to check if you are extending ``AbstractData`` or not.
+If you do you must call ``registerFieldGetter()`` and ``registerFieldSetter`` in your constructor.
+Don't forget the ``Field`` registration!
+
+.. code-block:: java
+
+ private void registerStuff() {
+      registerFieldGetter(Keys.MAX_AIR, new GetterFunction<Object>() {
+             @Override
+             public Object get() {
+                 return getMaxAir();
+             }
+         });
+      registerFieldSetter(Keys.MAX_AIR, new SetterFunction<Object>() {
+              @Override
+              public void set(Object value) {
+                  setMaxAir(((Number) value).intValue());
+              }
+          });
+  }
+
+2. ImmutableDataManipulator
+===========================
+
+Repeat the above mentioned steps for the ImmutableDataManipulator.
+If you made it this far, well done.
+
+3. Register the Key in the KeyRegistry
+======================================
+
+The next step is to register your keys in the ``KeyRegistry``.
+
+.. code-block:: java
+
+ public static void registerKeys() {
+      keyMap.put("velocity", makeSingleKey(Vector3d.class, Value.class, of("Velocity")));
+ }
+
+
+4. Implement the DataProcessor
+==============================
+
+Next up is the DataProcessor.
+
+5. Implement the ValueProcessor
+===============================
+
+
+
+
+
+
+
+
+
+gabi on IRC 19/8/2015 23:40:
+
+A DataManipulator, depending on the types of values it contains, can be implemented by extending at least AbstractData
+Now, usually, most manipulators are single value based manipulators, like the "flying" state of an entity.
+So, considering we've abstracted things, there's a really simple thing you can extend
+AbstractBooleanData
+All you have to do is provide the DataManipulator class, the Key.WHATEVER, and the "default" value.
+
+Now, here's the fun part, usually, with most Manipulator abstract implementations, you want to have two constructors
+One no-args that calls the single arg constructor for the provided value
+
+Now, the actual fun part, after you have your manipulator implemented:
+You must check, if you are extending AbstractData, you must call registerGettersAndSetters() in your constructor. Field registration is paramount.
+
+The same thing is done for ImmutableDataManipulators
+You can refer to some of the pre-existing manipulator implementations for reference.
+
+After the manipulator is implemented, now you must worry about a few things: 1) Register the Key in the KeyRegistry, 2) Implement the DataProcessor, 3) Implement the ValueProcessor for each value being represented by the DataManipulator
