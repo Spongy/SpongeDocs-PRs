@@ -347,12 +347,15 @@
                   
   <div class="section" id="implementing-datamanipulators">
 <h1>Implementing DataManipulators<a class="headerlink" href="#implementing-datamanipulators" title="Permalink to this headline">¶</a></h1>
-<p>To implement a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> you have to:</p>
+<p>This is a guide for contributors who want to help with Data API implementation by creating DataManipulators.
+An updated list of DataManipulators to be implemented can be found at
+<a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/issues/8">https://github.com/SpongePowered/SpongeCommon/issues/8</a>
+To fully implement a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> these steps must be followed:</p>
 <ol class="arabic simple">
 <li>Implement the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> itself</li>
 <li>Implement the <tt class="docutils literal"><span class="pre">ImmutableDataManipulator</span></tt></li>
 </ol>
-<p>Upon completion of the first steps you&#8217;ll have to get this done too:</p>
+<p>When these steps are complete, the following must also be done:</p>
 <ol class="arabic simple">
 <li>Register the <tt class="docutils literal"><span class="pre">Key</span></tt> in the <tt class="docutils literal"><span class="pre">KeyRegistry</span></tt></li>
 <li>Implement the <tt class="docutils literal"><span class="pre">DataProcessor</span></tt></li>
@@ -361,16 +364,16 @@
 <div class="section" id="implementing-the-datamanipulator">
 <h2>1. Implementing the DataManipulator<a class="headerlink" href="#implementing-the-datamanipulator" title="Permalink to this headline">¶</a></h2>
 <p>Implementing the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> is done by extending <tt class="docutils literal"><span class="pre">AbstractData</span></tt> in the easiest case. Let&#8217;s assume we have a
-single value based manipulator, like for example the <tt class="docutils literal"><span class="pre">flying</span></tt> state on an entity which can be <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">false</span></tt>.
+single value based manipulator, eg. the <tt class="docutils literal"><span class="pre">flying</span></tt> state on an entity, which can be <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">false</span></tt>.
 We decide to abstract things, so now we&#8217;re able to just extend <tt class="docutils literal"><span class="pre">AbstractBooleanData</span></tt>.
-Heres a short example:</p>
+Here is a short example:</p>
 <div class="highlight-java"><div class="highlight"><pre> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpongeFlyingData</span> <span class="kd">extends</span> <span class="n">AbstractBooleanData</span><span class="o">&lt;</span><span class="n">FlyingData</span><span class="o">,</span> <span class="n">ImmutableFlyingData</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">FlyingData</span> <span class="o">{</span>
 <span class="cm">/* your code here */</span>
  <span class="o">}</span>
 </pre></div>
 </div>
-<p>The next step is to provide the generic <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> that follows the generic of <tt class="docutils literal"><span class="pre">FlyingData</span></tt>. In this case we
-use <tt class="docutils literal"><span class="pre">FlyingData.class</span></tt> in our <tt class="docutils literal"><span class="pre">super</span></tt> constructor, followed by the <tt class="docutils literal"><span class="pre">Key</span></tt> which identifies the recommended
+<p>The next step is to provide the generic <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> that follows the generic of <tt class="docutils literal"><span class="pre">FlyingData</span></tt>. In this case
+we use <tt class="docutils literal"><span class="pre">FlyingData.class</span></tt> in our <tt class="docutils literal"><span class="pre">super</span></tt> constructor, followed by the <tt class="docutils literal"><span class="pre">Key</span></tt> which identifies the recommended
 <tt class="docutils literal"><span class="pre">value</span></tt> of the flying state and last but not least the <tt class="docutils literal"><span class="pre">Key</span></tt> itself: <tt class="docutils literal"><span class="pre">Keys.IS_FLYING</span></tt>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="nf">SpongeFlyingData</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">flying</span><span class="o">)</span> <span class="o">{</span>
          <span class="kd">super</span><span class="o">(</span><span class="n">FlyingData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">flying</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">IS_FLYING</span><span class="o">);</span>
