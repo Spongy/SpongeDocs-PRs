@@ -347,20 +347,20 @@
                   
   <div class="section" id="implementing-a-datamanipulator">
 <h1>Implementing a DataManipulator<a class="headerlink" href="#implementing-a-datamanipulator" title="Permalink to this headline">¶</a></h1>
-<p>If you want to properly implement a DataManipulator you have to:</p>
+<p>If you want to properly implement a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> you have to:</p>
 <ol class="arabic simple">
-<li>Implement the DataManipulator itself</li>
-<li>Implement the ImmutableDataManipulator</li>
+<li>Implement the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> itself</li>
+<li>Implement the <tt class="docutils literal"><span class="pre">ImmutableDataManipulator</span></tt></li>
 </ol>
-<p>Upon completion of the forst steps you&#8217;ll have to get this done too:</p>
+<p>Upon completion of the first steps you&#8217;ll have to get this done too:</p>
 <ol class="arabic simple">
-<li>Register the Key in the KeyRegistry</li>
-<li>Implement the DataProcessor</li>
-<li>Implement the ValueProcessor for each value being represented by the DataManipulator</li>
+<li>Register the <tt class="docutils literal"><span class="pre">Key</span></tt> in the <tt class="docutils literal"><span class="pre">KeyRegistry</span></tt></li>
+<li>Implement the <tt class="docutils literal"><span class="pre">DataProcessor</span></tt></li>
+<li>Implement the <tt class="docutils literal"><span class="pre">ValueProcessor</span></tt> for each value being represented by the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt></li>
 </ol>
 <div class="section" id="implementing-the-datamanipulator">
 <h2>1. Implementing the DataManipulator<a class="headerlink" href="#implementing-the-datamanipulator" title="Permalink to this headline">¶</a></h2>
-<p>Implementing the DataManipulator is done by extending AbstractData in the easiest case. Heres a short example:</p>
+<p>Implementing the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> is done by extending AbstractData in the easiest case. Heres a short example:</p>
 <div class="highlight-java"><div class="highlight"><pre> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpongeVelocityData</span> <span class="kd">extends</span> <span class="n">AbstractSingleData</span><span class="o">&lt;</span><span class="n">Vector3d</span><span class="o">,</span> <span class="n">VelocityData</span><span class="o">,</span> <span class="n">ImmutableVelocityData</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">VelocityData</span> <span class="o">{</span>
 <span class="o">...</span>
  <span class="o">}</span>
@@ -401,12 +401,12 @@ Don&#8217;t forget the <tt class="docutils literal"><span class="pre">Field</spa
 </div>
 <div class="section" id="immutabledatamanipulator">
 <h2>2. ImmutableDataManipulator<a class="headerlink" href="#immutabledatamanipulator" title="Permalink to this headline">¶</a></h2>
-<p>Repeat the above mentioned steps for the ImmutableDataManipulator.
+<p>Repeat the above mentioned steps for the <tt class="docutils literal"><span class="pre">ImmutableDataManipulator</span></tt>.
 If you made it this far, well done.</p>
 </div>
 <div class="section" id="register-the-key-in-the-keyregistry">
 <h2>3. Register the Key in the KeyRegistry<a class="headerlink" href="#register-the-key-in-the-keyregistry" title="Permalink to this headline">¶</a></h2>
-<p>The next step is to register your keys in the <tt class="docutils literal"><span class="pre">KeyRegistry</span></tt>.</p>
+<p>The next step is to register your <tt class="docutils literal"><span class="pre">KEYS</span></tt> in the <tt class="docutils literal"><span class="pre">KeyRegistry</span></tt>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">registerKeys</span><span class="o">()</span> <span class="o">{</span>
      <span class="n">keyMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;velocity&quot;</span><span class="o">,</span> <span class="n">makeSingleKey</span><span class="o">(</span><span class="n">Vector3d</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">of</span><span class="o">(</span><span class="s">&quot;Velocity&quot;</span><span class="o">)));</span>
 <span class="o">}</span>
@@ -415,7 +415,7 @@ If you made it this far, well done.</p>
 </div>
 <div class="section" id="implement-the-dataprocessor">
 <h2>4. Implement the DataProcessor<a class="headerlink" href="#implement-the-dataprocessor" title="Permalink to this headline">¶</a></h2>
-<p>Next up is the DataProcessor.</p>
+<p>Next up is the <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>.</p>
 </div>
 <div class="section" id="implement-the-valueprocessor">
 <h2>5. Implement the ValueProcessor<a class="headerlink" href="#implement-the-valueprocessor" title="Permalink to this headline">¶</a></h2>
