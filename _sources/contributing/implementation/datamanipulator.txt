@@ -47,7 +47,8 @@ In most cases while implementing an abstract Manipulator you want to have two co
 * and one single-argument constructor which is actually used for the provided ``value``
 
 Now, after the Manipulator is done you have to check if you are extending ``AbstractData`` or not.
-If you do, you must call ``registerFieldGetter()`` and ``registerFieldSetter`` in your constructor.
+Remember that we decided to extend ``AbstractBooleanData`` above.
+If you did too, you must now call ``registerFieldGetter()`` and ``registerFieldSetter`` in your constructor.
 Don't forget the ``Field`` registration!
 
 .. code-block:: java
@@ -122,7 +123,7 @@ Currently, a ``DataProcessor`` has the following methods:
 
 The first thing that we notice is a ``getPriority()`` method. This is used for multi-processor registration, or in more
 plain terms: A multi-processor registration system for mods to provide their own compatibility processors for their
-custom entity/itemstack/tileentity/blockstate types. The higher the priority return, the earlier the processor is used
+custom entity/itemstack/tileentity/blockstate types. The higher the priority return, the `earlier` the processor is used
 in what's called the ``DataProcessorDelegate``. The delegate is a collection of registered ``DataProcessor`` of a
 particular ``DataManipulator`` such that all registered ``DataProcessor`` can be used.
 

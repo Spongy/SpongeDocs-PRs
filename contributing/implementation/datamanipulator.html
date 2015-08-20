@@ -386,7 +386,8 @@ we use <tt class="docutils literal"><span class="pre">FlyingData.class</span></t
 <li>and one single-argument constructor which is actually used for the provided <tt class="docutils literal"><span class="pre">value</span></tt></li>
 </ul>
 <p>Now, after the Manipulator is done you have to check if you are extending <tt class="docutils literal"><span class="pre">AbstractData</span></tt> or not.
-If you do, you must call <tt class="docutils literal"><span class="pre">registerFieldGetter()</span></tt> and <tt class="docutils literal"><span class="pre">registerFieldSetter</span></tt> in your constructor.
+Remember that we decided to extend <tt class="docutils literal"><span class="pre">AbstractBooleanData</span></tt> above.
+If you did too, you must now call <tt class="docutils literal"><span class="pre">registerFieldGetter()</span></tt> and <tt class="docutils literal"><span class="pre">registerFieldSetter</span></tt> in your constructor.
 Don&#8217;t forget the <tt class="docutils literal"><span class="pre">Field</span></tt> registration!</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="kt">void</span> <span class="nf">registerStuff</span><span class="o">()</span> <span class="o">{</span>
      <span class="n">registerFieldGetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">IS_FLYING</span><span class="o">,</span> <span class="k">new</span> <span class="n">GetterFunction</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;()</span> <span class="o">{</span>
@@ -451,7 +452,7 @@ Currently, a <tt class="docutils literal"><span class="pre">DataProcessor</span>
 </div>
 <p>The first thing that we notice is a <tt class="docutils literal"><span class="pre">getPriority()</span></tt> method. This is used for multi-processor registration, or in more
 plain terms: A multi-processor registration system for mods to provide their own compatibility processors for their
-custom entity/itemstack/tileentity/blockstate types. The higher the priority return, the earlier the processor is used
+custom entity/itemstack/tileentity/blockstate types. The higher the priority return, the <cite>earlier</cite> the processor is used
 in what&#8217;s called the <tt class="docutils literal"><span class="pre">DataProcessorDelegate</span></tt>. The delegate is a collection of registered <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> of a
 particular <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> such that all registered <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> can be used.</p>
 <p>Next up, we have <tt class="docutils literal"><span class="pre">supports(DataHolder)</span></tt>. This is really simple, if your <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> is supposed to be
