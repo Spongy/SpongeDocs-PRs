@@ -1,6 +1,6 @@
-==============================
-Implementing a DataManipulator
-==============================
+=============================
+Implementing DataManipulators
+=============================
 
 To implement a ``DataManipulator`` you have to:
 
@@ -16,18 +16,20 @@ Upon completion of the first steps you'll have to get this done too:
 1. Implementing the DataManipulator
 ===================================
 
-Implementing the ``DataManipulator`` is done by extending AbstractData in the easiest case. Heres a short example:
+Implementing the ``DataManipulator`` is done by extending ``AbstractData`` in the easiest case. Let's assume we have a
+single value based manipulator, like for example the ``flying`` state on an entity which can be ``true`` or ``false``.
+We decide to abstract things, so now we're able to just extend ``AbstractBooleanData``.
+Heres a short example:
 
 .. code-block:: java
 
-  public class SpongeFlyingData extends AbstractData<FlyingData, ImmutableFlyingData> implements FlyingData {
+  public class SpongeFlyingData extends AbstractBooleanData<FlyingData, ImmutableFlyingData> implements FlyingData {
  /* your code here */
   }
 
-Let's assume we have a single value based manipulator, like for example the ``flying`` state on an entity which can be ``true`` or ``false``.
-We abstracted things above, so now we're able to just extend ``AbstractBooleanData``.
-The next step is to provide the generic ``DataManipulator`` that follows the generic of ``FlyingData``. In this case we use ``FlyingData.class`` in our ``super`` constructor,
-followed by the ``Key`` which identifies the recommended ``value`` of the flying state and last but not least the ``Key`` itself: ``Keys.IS_FLYING``.
+The next step is to provide the generic ``DataManipulator`` that follows the generic of ``FlyingData``. In this case we
+use ``FlyingData.class`` in our ``super`` constructor, followed by the ``Key`` which identifies the recommended
+``value`` of the flying state and last but not least the ``Key`` itself: ``Keys.IS_FLYING``.
 
 .. code-block:: java
 
@@ -37,11 +39,11 @@ followed by the ``Key`` which identifies the recommended ``value`` of the flying
 
 In most cases while implementing an abstract Manipulator you want to have two constructors:
 
-* One without args (no-args) which calls the second
-* and one single-arg constructor which is actually used for the provided value
+* One without arguments (no-args) which calls the second
+* and one single-argument constructor which is actually used for the provided ``value``
 
 Now, after the Manipulator is done you have to check if you are extending ``AbstractData`` or not.
-If you do you must call ``registerFieldGetter()`` and ``registerFieldSetter`` in your constructor.
+If you do, you must call ``registerFieldGetter()`` and ``registerFieldSetter`` in your constructor.
 Don't forget the ``Field`` registration!
 
 .. code-block:: java
@@ -61,17 +63,20 @@ Don't forget the ``Field`` registration!
           });
   }
 
+That's it. The ``DataManipulator`` should be done now.
+
 2. ImmutableDataManipulator
 ===========================
 
-Repeat the above mentioned steps for the ``ImmutableDataManipulator``.
+Just repeat the above mentioned steps for the ``ImmutableDataManipulator``.
+
 Now, after the ``Manipulators`` are done we have to register the ``KEY`` and finally implement the
 ``DataProcessor`` and ``ValueProcessor``.
 
 3. Register the Key in the KeyRegistry
 ======================================
 
-The next step is to register your ``KEYS`` in the ``KeyRegistry``.
+The next step is to register your ``KEYS`` in the ``KeyRegistry``:
 
 .. code-block:: java
 
