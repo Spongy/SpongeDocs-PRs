@@ -417,7 +417,7 @@ Don&#8217;t forget the <tt class="docutils literal"><span class="pre">Field</spa
 <h2>3. Register the Key in the KeyRegistry<a class="headerlink" href="#register-the-key-in-the-keyregistry" title="Permalink to this headline">¶</a></h2>
 <p>The next step is to register your <tt class="docutils literal"><span class="pre">KEYS</span></tt> in the <tt class="docutils literal"><span class="pre">KeyRegistry</span></tt>:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">registerKeys</span><span class="o">()</span> <span class="o">{</span>
-     <span class="n">keyMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;IS_FLYING&quot;</span><span class="o">,</span> <span class="n">makeSingleKey</span><span class="o">(</span><span class="n">Boolean</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">of</span><span class="o">(</span><span class="s">&quot;IsFlying&quot;</span><span class="o">)));</span>
+     <span class="n">keyMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;is_flying&quot;</span><span class="o">,</span> <span class="n">makeSingleKey</span><span class="o">(</span><span class="n">Boolean</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">of</span><span class="o">(</span><span class="s">&quot;IsFlying&quot;</span><span class="o">)));</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -450,19 +450,46 @@ Currently, a <tt class="docutils literal"><span class="pre">DataProcessor</span>
 <span class="o">}</span>
 </pre></div>
 </div>
+<div class="section" id="getpriority-method">
+<h3>getPriority() method<a class="headerlink" href="#getpriority-method" title="Permalink to this headline">¶</a></h3>
 <p>The first thing that we notice is a <tt class="docutils literal"><span class="pre">getPriority()</span></tt> method. This is used for multi-processor registration, or in more
 plain terms: A multi-processor registration system for mods to provide their own compatibility processors for their
 custom entity/itemstack/tileentity/blockstate types. The higher the priority return, the <cite>earlier</cite> the processor is used
 in what&#8217;s called the <tt class="docutils literal"><span class="pre">DataProcessorDelegate</span></tt>. The delegate is a collection of registered <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> of a
 particular <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> such that all registered <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> can be used.</p>
+</div>
+<div class="section" id="supports-dataholder">
+<h3>supports(DataHolder)<a class="headerlink" href="#supports-dataholder" title="Permalink to this headline">¶</a></h3>
 <p>Next up, we have <tt class="docutils literal"><span class="pre">supports(DataHolder)</span></tt>. This is really simple, if your <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> is supposed to be
-&#8220;supported&#8221; by the provided <tt class="docutils literal"><span class="pre">DataHolder</span></tt> (which can be an ItemStack, Entity, TileEntity, etc.) you can define this
+&#8220;supported&#8221; by the provided <tt class="docutils literal"><span class="pre">DataHolder</span></tt> (which can be an ItemStack, Entity, TileEntity, etc.) you can define the
 &#8220;support&#8221; in this method. So, if I have a <tt class="docutils literal"><span class="pre">VelocityDataProcessor</span></tt>, my <tt class="docutils literal"><span class="pre">support(DataHolder)</span></tt> would look something like so:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="nd">@Override</span>
 <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supports</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">dataHolder</span><span class="o">)</span> <span class="o">{</span>
  <span class="k">return</span> <span class="n">dataHolder</span> <span class="k">instanceof</span> <span class="n">Entity</span><span class="o">;</span>
 <span class="o">}</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="from-dataholder">
+<h3>from(DataHolder)<a class="headerlink" href="#from-dataholder" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="createfrom-dataholder">
+<h3>createFrom(DataHolder)<a class="headerlink" href="#createfrom-dataholder" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="fill-dataholder">
+<h3>fill(DataHolder)<a class="headerlink" href="#fill-dataholder" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="fill-datacontainer">
+<h3>fill(DataContainer)<a class="headerlink" href="#fill-datacontainer" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="set-dataholder">
+<h3>set(DataHolder)<a class="headerlink" href="#set-dataholder" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="with-key">
+<h3>with(Key)<a class="headerlink" href="#with-key" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="remove-dataholder">
+<h3>remove(DataHolder)<a class="headerlink" href="#remove-dataholder" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="implement-the-valueprocessor">

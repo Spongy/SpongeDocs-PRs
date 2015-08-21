@@ -86,7 +86,7 @@ The next step is to register your ``KEYS`` in the ``KeyRegistry``:
 .. code-block:: java
 
  public static void registerKeys() {
-      keyMap.put("IS_FLYING", makeSingleKey(Boolean.class, Value.class, of("IsFlying")));
+      keyMap.put("is_flying", makeSingleKey(Boolean.class, Value.class, of("IsFlying")));
  }
 
 
@@ -121,14 +121,20 @@ Currently, a ``DataProcessor`` has the following methods:
     DataTransactionResult remove(DataHolder dataHolder);
  }
 
+getPriority() method
+--------------------
+
 The first thing that we notice is a ``getPriority()`` method. This is used for multi-processor registration, or in more
 plain terms: A multi-processor registration system for mods to provide their own compatibility processors for their
 custom entity/itemstack/tileentity/blockstate types. The higher the priority return, the `earlier` the processor is used
 in what's called the ``DataProcessorDelegate``. The delegate is a collection of registered ``DataProcessor`` of a
 particular ``DataManipulator`` such that all registered ``DataProcessor`` can be used.
 
+supports(DataHolder)
+--------------------
+
 Next up, we have ``supports(DataHolder)``. This is really simple, if your ``DataManipulator`` is supposed to be
-"supported" by the provided ``DataHolder`` (which can be an ItemStack, Entity, TileEntity, etc.) you can define this
+"supported" by the provided ``DataHolder`` (which can be an ItemStack, Entity, TileEntity, etc.) you can define the
 "support" in this method. So, if I have a ``VelocityDataProcessor``, my ``support(DataHolder)`` would look something like so:
 
 .. code-block:: java
@@ -137,6 +143,27 @@ Next up, we have ``supports(DataHolder)``. This is really simple, if your ``Data
  public boolean supports(DataHolder dataHolder) {
   return dataHolder instanceof Entity;
  }
+
+from(DataHolder)
+----------------
+
+createFrom(DataHolder)
+----------------------
+
+fill(DataHolder)
+----------------
+
+fill(DataContainer)
+-------------------
+
+set(DataHolder)
+---------------
+
+with(Key)
+---------
+
+remove(DataHolder)
+------------------
 
 
 5. Implement the ValueProcessor
