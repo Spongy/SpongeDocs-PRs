@@ -154,11 +154,57 @@ from(DataHolder)
 createFrom(DataHolder)
 ----------------------
 
+.. warning::
+
+ Not sure the code is right. Please doublecheck!
+ Code taken out of PR#139 for now.
+
+.. code-block:: java
+
+ public Optional<FlyingData> createFrom(DataHolder dataHolder) {
+        if (supports(dataHolder)) {
+            boolean isFlying = ((net.minecraft.entity.Entity) dataHolder).isAirBorne;
+            if (dataHolder instanceof EntityPlayer) {
+                isFlying = ((EntityPlayer) dataHolder).capabilities.allowFlying;
+            }
+            return Optional.<FlyingData>of(new SpongeFlyingData(isFlying));
+        }
+        return Optional.absent();
+    }
+
 fill(DataHolder)
 ----------------
 
+.. warning::
+
+  Not sure the code is right, especially the ``checkNotNull`` part. Please doublecheck!
+  Code taken out of PR#139 for now.
+
+.. code-block:: java
+
+    public Optional<FlyingData> fill(DataHolder dataHolder, FlyingData manipulator, MergeFunction overlap) {
+        if (supports(dataHolder)) {
+            final FlyingData merged = checkNotNull(overlap.merge(checkNotNull(manipulator).copy(), from(dataHolder).get()), "MergeFunction cannot be null!");
+            manipulator.set(Keys.IS_FLYING, merged.flying().get());
+            return Optional.of(manipulator);
+        }
+        return Optional.absent();
+    }
+
 fill(DataContainer)
 -------------------
+
+.. warning::
+
+ Not sure the code is right. Please doublecheck!
+ Code taken out of PR#139 for now.
+
+.. code-block:: java
+
+ public Optional<FlyingData> fill(DataContainer container, FlyingData flyingData) {
+        flyingData.set(Keys.IS_FLYING, getData(container, Keys.IS_FLYING));
+        return Optional.of(flyingData);
+ }
 
 set(DataHolder)
 ---------------
@@ -169,6 +215,25 @@ with(Key)
 remove(DataHolder)
 ------------------
 
+.. warning::
+
+ Not sure the code is right. Please doublecheck!
+ Code taken out of PR#139 for now.
+
+.. code-block:: java
+
+ public DataTransactionResult remove(DataHolder dataHolder) {
+    if (supports(dataHolder)) {
+        if (dataHolder instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) dataHolder;
+            player.capabilities.allowFlying = false;
+        } else {
+            ((net.minecraft.entity.Entity) (dataHolder)).isAirBorne = false;
+        }
+        return DataTransactionBuilder.builder().result(DataTransactionResult.Type.SUCCESS).build();
+    }
+    return DataTransactionBuilder.builder().result(DataTransactionResult.Type.FAILURE).build();
+ }
 
 5. Implement the ValueProcessor
 ===============================
