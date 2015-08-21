@@ -16,6 +16,10 @@ When these steps are complete, the following must also be done:
 3. Register the ``Key`` in the ``KeyRegistry``
 #. Implement the ``DataProcessor``
 #. Implement the ``ValueProcessor`` for each value being represented by the ``DataManipulator``
+#. Register everything in ``SpongeGameRegistry``
+
+.. note::
+  Don't forget to add an empty line at the end of every file you create.
 
 1. Implementing the DataManipulator
 ===================================
@@ -169,7 +173,30 @@ remove(DataHolder)
 5. Implement the ValueProcessor
 ===============================
 
-6. Examples
+6. Register everything in SpongeGameRegistry
+============================================
+
+When finally done, you have to register everything in ``SpongeGameRegistry``. As always, add all necessary imports, then the ``DataProcessor`` and
+``Databuilder``:
+
+.. code-block:: java
+
+ private void setupSerialization() {
+  final FlyingDataProcessor flyingDataProcessor = new FlyingDataProcessor();
+        final FlyingDataBuilder flyingDataBuilder = new FlyingDataBuilder();
+        service.registerBuilder(FlyingData.class, flyingDataBuilder);
+         dataRegistry.registerDataProcessorAndImpl(FlyingData.class, SpongeFlyingData.class, ImmutableFlyingData.class, ImmutableSpongeFlyingData.class, flyingDataProcessor, flyingDataBuilder);
+ }
+
+And finally the ``ValueProcessor``:
+
+.. code-block:: java
+
+ private void setupSerialization() {
+  dataRegistry.registerValueProcessor(Keys.IS_FLYING, new IsFlyingValueProcessor());
+ }
+
+7. Examples
 ===========
 
 Several ``DataManipulators`` have already been implemented. Have a look at them to get a quick overview on how to implement your own ``Manipulator``.
