@@ -51,9 +51,8 @@ In most cases while implementing an abstract Manipulator you want to have two co
 * and one single-argument constructor which is actually used for the provided ``value``
 
 Now, after the Manipulator is done you have to check if you are extending ``AbstractData`` or not.
-Remember that we decided to extend ``AbstractBooleanData`` above.
-If you did too, you must now call ``registerFieldGetter()`` and ``registerFieldSetter`` in your constructor.
-Don't forget the ``Field`` registration!
+Remember that we decided to extend ``AbstractBooleanData`` above, hence now must call ``registerFieldGetter()`` and
+``registerFieldSetter()`` in your constructor. Don't forget the ``Field`` registration!
 
 .. code-block:: java
 
@@ -184,7 +183,7 @@ fill(DataHolder)
 
     public Optional<FlyingData> fill(DataHolder dataHolder, FlyingData manipulator, MergeFunction overlap) {
         if (supports(dataHolder)) {
-            final FlyingData merged = checkNotNull(overlap.merge(checkNotNull(manipulator).copy(), from(dataHolder).get()), "MergeFunction cannot be null!");
+            final FlyingData merged = checkNotNull(overlap, "MergeFunction cannot be null!").merge(checkNotNull(manipulator).copy(), from(dataHolder).orNull()));
             manipulator.set(Keys.IS_FLYING, merged.flying().get());
             return Optional.of(manipulator);
         }
