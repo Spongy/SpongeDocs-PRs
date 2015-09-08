@@ -1,0 +1,513 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <title>Dependency Injection &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+    
+  <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:400italic,700italic,700,400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../_static/tomorrow.css" type="text/css" />
+  <link id="syntax-highlighting-ref" rel="stylesheet" href="../_static/tomorrow_night.css" type="text/css" />
+      
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT:    '../',
+      VERSION:     '2.1-SNAPSHOT',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE:  true
+    };
+  </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/store.min.js"></script>
+    <script type="text/javascript" src="../_static/lights.js"></script>
+        <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../index.html" />
+        <link rel="up" title="Creating a Plugin" href="index.html" />
+        <link rel="next" title="Using the Scheduler" href="scheduler.html" />
+        <link rel="prev" title="Serializing Objects" href="configuration/serialization.html" />
+    
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-59476017-2', 'auto');
+    ga('send', 'pageview');
+
+  </script> 
+  </head>
+  <body role="document">
+    <div class="container">
+  <div class="related" role="navigation" aria-label="related navigation">
+    <h3>Navigation</h3>
+    <ul>
+      <span style="float: right" class="lights" title="Toggles syntax highlighting between light and dark">
+        <i class="icon-lamp lights-icon"></i> Highlight Code Light/Dark
+      </span>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="scheduler.html" title="Using the Scheduler"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="configuration/serialization.html" title="Serializing Objects"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
+        <li><a href="index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
+    </ul>
+  </div> 
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+    <form class="search" action="../search.html" method="get">
+      <div class="searchbox-inner">
+        <input class="field" type="text" name="q" autocomplete="off" />
+        <button class="submit" type="submit"><i class="icon-search"></i></button>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </div>
+    </form>
+    <p class="searchtip" style="font-size: 90%"></p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../server/index.html">Creating a Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../server/getting-started/index.html">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/jre.html">Installing Java</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/migrating.html">Migrating to Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/sponge.html">Sponge Coremod</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/glowstone.html">Glowstone</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/launch-script.html">Creating a Launch Script</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/port-forward.html">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/configuration/index.html">Configuring Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/hocon.html">Introduction to HOCON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/json.html">JSON Syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/sponge-conf.html">global.conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/server-properties.html">server.properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../server/management/index.html">Server Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/whitelist.html">Managing the Whitelist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/bans.html">Managing Bans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/permissions.html">Managing Permissions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/plugins.html">Installing Plugins</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../server/spongineer/index.html">Becoming an Expert Spongineer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/commands.html">Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/debugging.html">Log Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preparing/index.html">Preparing for Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/jdk.html">Installing the JDK</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/ide.html">Installing an IDE</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/text.html">Installing a Text Editor</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/git.html">Installing Git</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="workspace/index.html">Setting Up Your Workspace</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="workspace/idea.html">Setting Up IntelliJ IDEA</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="workspace/eclipse.html">Setting Up Eclipse</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="workspace/netbeans.html">Setting Up NetBeans</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="workspace/dependencies.html">Adding Sponge API Dependencies</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="practices.html">Best Practices</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html">Plugin Templates</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main-class.html">Creating Your Main Plugin Class</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lifecycle.html">Plugin Lifecycle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging and Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="text/index.html">Working with Text</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="text/text.html">Creating Text</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="text/pagination.html">The Pagination Service</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="commands/index.html">Creating Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands/creating.html">Building a Command</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/arguments.html">Argument Parsing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/childcommands.html">Child Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/service.html">The Command Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blocks/index.html">Working with Blocks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blocks/concepts.html">Concepts</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blocks/accessing.html">Accessing Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blocks/modifying.html">Modifying Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blocks/tileentities.html">Working with Tile Entities</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="entities/index.html">Working with Entities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="entities/spawning.html">Spawning an Entity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Your Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/values.html">Giving Nodes Value</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Dependency Injection</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scheduler.html">Using the Scheduler</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html">Working with Databases</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="permissions.html">Working with the Permissions API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Working with Services</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manager.html">Using the Plugin Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging and Hotswapping</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="message-sinks.html">Message Sinks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/api/index.html">API Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/api/git.html">Git Workflow for SpongeAPI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/implementation/index.html">Implementation Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/git.html">Git Workflow for Sponge implementations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/spongedocs.html">SpongeDocs Writing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About the Sponge Project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../about/introduction.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/future.html">Plans for the Future</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about/license.html">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about/posting.html">Forum Posting Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/rules.html">Forum &amp; IRC Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about/staff.html">Staff</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/glossary.html">Sponge Glossary</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/assets.html">Art Assets</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/history.html">The History of Sponge</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<ul class="simple">
+</ul>
+
+      </div>
+    </div> 
+
+        <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body" role="main">
+                  
+  <div class="section" id="dependency-injection">
+<h1>Dependency Injection<a class="headerlink" href="#dependency-injection" title="Permalink to this headline">¶</a></h1>
+<p>Sponge uses dependency injection to provide instances of the API to plugins.</p>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Dependency injection allows plugins to designate a few API types that will be injected after construction.</p>
+</div>
+<div class="section" id="temporary-list-of-injected-types">
+<h2>Temporary List of Injected Types<a class="headerlink" href="#temporary-list-of-injected-types" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Game</dt>
+<dd>The <tt class="docutils literal"><span class="pre">Game</span></tt> object is the core accessor of the SpongeAPI.</dd>
+<dt>PluginManager</dt>
+<dd>Manages the plugins loaded by the implementation.
+Can retrieve another plugin&#8217;s <tt class="docutils literal"><span class="pre">PluginContainer</span></tt>.</dd>
+<dt>EventManager</dt>
+<dd>Manages the registration of event handlers and the dispatching of events.</dd>
+<dt>GameRegistry</dt>
+<dd>Provides an easy way to retrieve types from a <tt class="docutils literal"><span class="pre">Game</span></tt>.</dd>
+<dt>PluginContainer</dt>
+<dd>A <tt class="docutils literal"><span class="pre">&#64;Plugin</span></tt> class wrapper, used to retrieve information from the annotation for easier use.</dd>
+<dt>Logger</dt>
+<dd>Used to identify the plugin from which logged messages are sent.</dd>
+<dt>File</dt>
+<dd>This must have an additional annotation specifying specific file!
+Currently, specifications are <tt class="docutils literal"><span class="pre">ConfigFile</span></tt> and <tt class="docutils literal"><span class="pre">ConfigDir</span></tt>.</dd>
+<dt>ConfigDir</dt>
+<dd>Used to inject the plugin&#8217;s configuration directory:
+<tt class="docutils literal"><span class="pre">./mods/</span></tt> OR <tt class="docutils literal"><span class="pre">./mods/&lt;Plugin#id&gt;/</span></tt> depending on <tt class="docutils literal"><span class="pre">sharedRoot</span></tt></dd>
+<dt>ConfigFile</dt>
+<dd>Used to inject the plugin&#8217;s specific configuration file: <tt class="docutils literal"><span class="pre">&lt;Plugin#id&gt;.conf</span></tt></dd>
+<dt>Injector</dt>
+<dd><tt class="docutils literal"><span class="pre">com.google.inject.Injector</span></tt> is available from Guice, it is the injector that was used to inject your plugin&#8217;s dependencies.
+You can use it to create a child injector with your own module in order to injector your own classes with either the Sponge
+provided dependencies listed on this page, or configure your own classes</dd>
+<dt>GuiceObjectMapperFactory</dt>
+<dd>A tool provided by configurate to allow for easier mapping of objects to configuration nodes. See <a class="reference internal" href="configuration/serialization.html"><em>Serializing Objects</em></a> for usage.</dd>
+</dl>
+</div>
+<div class="section" id="injection-examples">
+<h2>Injection Examples<a class="headerlink" href="#injection-examples" title="Permalink to this headline">¶</a></h2>
+<p>There are a few references which are difficult to get - or, in some cases, impossible - without injection. While these
+may not be absolutely vital to every plugin, they&#8217;re quite frequently used.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Note that it&#8217;s <em>almost always</em> recommended to inject your objects within the main class, as it&#8217;s instantiated with
+the Guice injector when the plugin is loaded.</p>
+</div>
+<div class="section" id="logger">
+<h3>Logger<a class="headerlink" href="#logger" title="Permalink to this headline">¶</a></h3>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">View <a class="reference internal" href="logging.html"><em>Logging and Debugging</em></a> for a complete guide, specifically for the Logger.</p>
+</div>
+</div>
+<div class="section" id="game">
+<h3>Game<a class="headerlink" href="#game" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">Game</span></tt> object is the opening for many of the internal functions of the SpongeAPI, from the <tt class="docutils literal"><span class="pre">EventManager</span></tt> to the
+<tt class="docutils literal"><span class="pre">Server</span></tt> and even the Sync/Async <tt class="docutils literal"><span class="pre">Scheduler</span></tt>.</p>
+<p>It&#8217;s entirely possible to recieve the <tt class="docutils literal"><span class="pre">Game</span></tt> object from within most events, however it is commonly obtained through
+an injection.</p>
+<p><strong>Example - Field</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.Game</span><span class="o">;</span>
+
+<span class="nd">@Inject</span>
+<span class="kd">private</span> <span class="n">Game</span> <span class="n">game</span><span class="o">;</span>
+</pre></div>
+</div>
+<p><strong>Example - Method</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.Game</span><span class="o">;</span>
+
+<span class="kd">private</span> <span class="n">Game</span> <span class="n">game</span><span class="o">;</span>
+
+<span class="nd">@Inject</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setGame</span><span class="o">(</span><span class="n">Game</span> <span class="n">game</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">game</span> <span class="o">=</span> <span class="n">game</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><strong>Example - Constructor</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.Game</span><span class="o">;</span>
+
+<span class="c1">// For the purpose of this tutorial, &quot;Apple&quot; is the class name.</span>
+
+<span class="kd">private</span> <span class="n">Game</span> <span class="n">game</span><span class="o">;</span>
+
+<span class="nd">@Inject</span>
+<span class="kd">public</span> <span class="nf">Apple</span><span class="o">(</span><span class="n">Game</span> <span class="n">game</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">game</span> <span class="o">=</span> <span class="n">game</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="config-directory">
+<h3>Config Directory<a class="headerlink" href="#config-directory" title="Permalink to this headline">¶</a></h3>
+<p>The recommended way to obtain your config file is through Guice, along with the &#64;ConfigFile annotation.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you set <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt>, your <tt class="docutils literal"><span class="pre">ConfigDir</span></tt> will be the same directory which - potentially - houses
+the configuration for other plugins. In most cases where grabbing the <tt class="docutils literal"><span class="pre">ConfigDir</span></tt> is required, this should be
+<tt class="docutils literal"><span class="pre">false</span></tt>.</p>
+</div>
+<p><strong>Example - Field</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.config.ConfigDir</span><span class="o">;</span>
+
+<span class="nd">@Inject</span>
+<span class="nd">@ConfigDir</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="kd">private</span> <span class="n">File</span> <span class="n">configDir</span><span class="o">;</span>
+</pre></div>
+</div>
+<p><strong>Example - Method</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.config.ConfigDir</span><span class="o">;</span>
+
+<span class="kd">private</span> <span class="n">File</span> <span class="n">configDir</span><span class="o">;</span>
+
+<span class="nd">@Inject</span>
+<span class="nd">@ConfigDir</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setConfigDir</span><span class="o">(</span><span class="n">File</span> <span class="n">configDir</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">configDir</span> <span class="o">=</span> <span class="n">configDir</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><strong>Example - Constructor</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.config.ConfigDir</span><span class="o">;</span>
+
+<span class="c1">// For the purposes of this tutorial, &quot;Orange&quot; is the class name.</span>
+
+<span class="kd">private</span> <span class="n">File</span> <span class="n">configDir</span><span class="o">;</span>
+
+<span class="nd">@Inject</span>
+<span class="kd">public</span> <span class="nf">Orange</span><span class="o">(</span><span class="nd">@ConfigDir</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">File</span> <span class="n">configDir</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">configDir</span> <span class="o">=</span> <span class="n">configDir</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="defaultconfig">
+<h3>DefaultConfig<a class="headerlink" href="#defaultconfig" title="Permalink to this headline">¶</a></h3>
+<p>The way that <tt class="docutils literal"><span class="pre">DefaultConfig</span></tt> works is very similar to <tt class="docutils literal"><span class="pre">ConfigDir</span></tt>. The biggest difference obviously being that
+<tt class="docutils literal"><span class="pre">DefaultConfig</span></tt> refers to a specific file, where <tt class="docutils literal"><span class="pre">ConfigDir</span></tt> refers to a directory.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">View <a class="reference internal" href="configuration/index.html"><em>Configuring Your Plugin</em></a> for a complete guide, specifically for <tt class="docutils literal"><span class="pre">DefaultConfig</span></tt>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          <div class="clearer"></div>
+        </div>
+        <div class="footer" role="contentinfo">
+              &copy; Copyright 2014-2015, Sponge Contributors.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+        </div>
+    </div>
+  </body>
+</html>
