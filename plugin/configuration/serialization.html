@@ -349,8 +349,7 @@
 <h1>Serializing Objects<a class="headerlink" href="#serializing-objects" title="Permalink to this headline">¶</a></h1>
 <p>The configurate library also provides some means to tweak automatic serialization and deserialization of objects. Per default, a set of data types can be (de)serialized: among others Strings, ints, doubles, UUIDs and also Lists (of serializable values) and Maps (where both keys and values are serializable). But if you want to write your custom data structures to a config file, this will not be enough.</p>
 <p>Imagine a data structure tracking how many diamonds a player has mined. It might look a little like this:</p>
-<blockquote>
-<div><div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounter</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounter</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="n">UUID</span> <span class="n">playerUUID</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kt">int</span> <span class="n">diamonds</span><span class="o">;</span>
 
@@ -358,13 +357,11 @@
 <span class="o">}</span>
 </pre></div>
 </div>
-</div></blockquote>
 <p>And also some methods to access those fields, a nice constructor setting both of those etc.</p>
 <div class="section" id="creating-a-custom-typeserializer">
 <h2>Creating a custom TypeSerializer<a class="headerlink" href="#creating-a-custom-typeserializer" title="Permalink to this headline">¶</a></h2>
 <p>A very straightforward way of writing and loading such a data structure is providing a custom <tt class="docutils literal"><span class="pre">TypeSerializer</span></tt>. The <tt class="docutils literal"><span class="pre">TypeSerializer</span></tt> interface provides two methods, one to write the data from an object to a configuration node and one to create an object from a given configuration node.</p>
-<blockquote>
-<div><div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounterSerializer</span> <span class="kd">implements</span> <span class="n">TypeSerializer</span><span class="o">&lt;</span><span class="n">DiamondCounter</span><span class="o">&gt;</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounterSerializer</span> <span class="kd">implements</span> <span class="n">TypeSerializer</span><span class="o">&lt;</span><span class="n">DiamondCounter</span><span class="o">&gt;</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="n">DiamondCounter</span> <span class="nf">deserialize</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">&lt;?&gt;</span> <span class="n">type</span><span class="o">,</span> <span class="n">ConfigurationNode</span> <span class="n">value</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ObjectMappingException</span> <span class="o">{</span>
@@ -381,21 +378,17 @@
 <span class="o">}</span>
 </pre></div>
 </div>
-</div></blockquote>
 <p>This <tt class="docutils literal"><span class="pre">TypeSerializer</span></tt> then must be registered with configurate.</p>
-<blockquote>
-<div><div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.TypeSerializers</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.TypeSerializers</span><span class="o">;</span>
 
 <span class="n">TypeSerializers</span><span class="o">.</span><span class="na">getDefaultSerializers</span><span class="o">().</span><span class="na">registerType</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">DiamondCounter</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="k">new</span> <span class="n">DiamondCounterSerializer</span><span class="o">());</span>
 </pre></div>
 </div>
-</div></blockquote>
 </div>
 <div class="section" id="using-objectmappers">
 <h2>Using ObjectMappers<a class="headerlink" href="#using-objectmappers" title="Permalink to this headline">¶</a></h2>
 <p>Since in many cases the (de)serialization boils down to mapping fields to configuration nodes, writing such a <tt class="docutils literal"><span class="pre">TypeSerializer</span></tt> is a rather dull affair and something we&#8217;d like configurate to do on its own. So let&#8217;s annotate our class with the <tt class="docutils literal"><span class="pre">&#64;ConfigSerializable</span></tt> and <tt class="docutils literal"><span class="pre">&#64;Setting</span></tt> annotations.</p>
-<blockquote>
-<div><div class="highlight-java"><div class="highlight"><pre><span class="nd">@ConfigSerializable</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="nd">@ConfigSerializable</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounter</span> <span class="o">{</span>
 
     <span class="nd">@Setting</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;player&quot;</span><span class="o">)</span>
@@ -407,16 +400,14 @@
 <span class="o">}</span>
 </pre></div>
 </div>
-</div></blockquote>
-<p>The above example can now be serialized and deserialized from config nodes without further registration. The <tt class="docutils literal"><span class="pre">&#64;Setting</span></tt> annotations map a configuration node to the field annotated. It accepts two optional parameters, <tt class="docutils literal"><span class="pre">value</span></tt> and <tt class="docutils literal"><span class="pre">comment`.</span> <span class="pre">If</span> <span class="pre">the</span> <span class="pre">``value</span></tt> parameter exists, it defines the name of the node the field will be saved in. If it is not present, the name of the field will be used instead. So in our above example, the annotation ensures that the contents of the field <tt class="docutils literal"><span class="pre">playerUUID</span></tt> are saved to the node &#8220;player&#8221;. The <tt class="docutils literal"><span class="pre">diamonds</span></tt> field however will be saved under that exact name since its annotation only specifies a comment. That comment will be written to the config if the implementation supports commented configuration nodes, else it will be discarded.</p>
+<p>The above example can now be serialized and deserialized from config nodes without further registration. The <tt class="docutils literal"><span class="pre">&#64;Setting</span></tt> annotations map a configuration node to the field annotated. It accepts two optional parameters, <tt class="docutils literal"><span class="pre">value</span></tt> and <tt class="docutils literal"><span class="pre">comment</span></tt>. If the <tt class="docutils literal"><span class="pre">value</span></tt> parameter exists, it defines the name of the node the field will be saved in. If it is not present, the name of the field will be used instead. So in our above example, the annotation ensures that the contents of the field <tt class="docutils literal"><span class="pre">playerUUID</span></tt> are saved to the node &#8220;player&#8221;. The <tt class="docutils literal"><span class="pre">diamonds</span></tt> field however will be saved under that exact name since its annotation only specifies a comment. That comment will be written to the config if the implementation supports commented configuration nodes, else it will be discarded.</p>
 <p>The <tt class="docutils literal"><span class="pre">&#64;ConfigSerializable</span></tt> annotation eliminates the need for any registration since it allows configurate to just generate an <tt class="docutils literal"><span class="pre">ObjectMapper</span></tt> for the class. The only limitation is that configurate needs an empty constructor to instantiate a new object before filling in the annotated fields.</p>
 </div>
 <div class="section" id="providing-a-custom-objectmapperfactory">
 <h2>Providing a custom ObjectMapperFactory<a class="headerlink" href="#providing-a-custom-objectmapperfactory" title="Permalink to this headline">¶</a></h2>
 <p>That restriction, however, can be lifted if another factory like the <tt class="docutils literal"><span class="pre">GuiceObjectMapperFactory</span></tt>. Instead of requiring an empty constructor, it will work on any class that guice can create via dependency injection. This also allows for a mixture of <tt class="docutils literal"><span class="pre">&#64;Inject</span></tt> and <tt class="docutils literal"><span class="pre">&#64;Setting</span></tt> annotated fields.</p>
 <p>Your plugin can just acquire a <tt class="docutils literal"><span class="pre">GuiceObjectMapperFactory</span></tt> simply by dependency injection (see <a class="reference internal" href="../injection.html"><em>Dependency Injection</em></a>) and then pass it to the <tt class="docutils literal"><span class="pre">ConfigurationOptions</span></tt>.</p>
-<blockquote>
-<div><div class="highlight-java"><div class="highlight"><pre><span class="nd">@Plugin</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;IStoleThisFromZml&quot;</span><span class="o">,</span> <span class="n">id</span><span class="o">=</span><span class="s">&quot;shamelesslystolen&quot;</span><span class="o">,</span> <span class="n">version</span><span class="o">=</span><span class="s">&quot;0.8.15&quot;</span><span class="o">)</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Plugin</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;IStoleThisFromZml&quot;</span><span class="o">,</span> <span class="n">id</span><span class="o">=</span><span class="s">&quot;shamelesslystolen&quot;</span><span class="o">,</span> <span class="n">version</span><span class="o">=</span><span class="s">&quot;0.8.15&quot;</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">StolenCodeExample</span> <span class="o">{</span>
 
     <span class="nd">@Inject</span> <span class="kd">private</span> <span class="n">GuiceObjectMapperFactory</span> <span class="n">factory</span><span class="o">;</span>
@@ -427,7 +418,6 @@
         <span class="n">CommentedConfigurationNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">ConfigurationOptions</span><span class="o">.</span><span class="na">defaults</span><span class="o">().</span><span class="na">setObjectMapperFactory</span><span class="o">(</span><span class="n">factory</span><span class="o">));</span>
         <span class="n">DiamondCounter</span> <span class="n">myDiamonds</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">DiamondCounter</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
     <span class="o">}</span>
-
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -435,7 +425,6 @@
 <p class="first admonition-title">Note</p>
 <p class="last">The above code is an example and therefore lacks proper exception handling.</p>
 </div>
-</div></blockquote>
 </div>
 </div>
 
