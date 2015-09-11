@@ -352,30 +352,30 @@
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>Events are used to inform plugins of certain happenings. Many events can also be <em>cancelled</em> &#8211; that is, the action that
 the event refers to can be prevented from occurring. Cancellable events implement the <tt class="docutils literal"><span class="pre">Cancellable</span></tt> interface.</p>
-<p>Sponge itself contains many events; however, plugins can create their own events which other plugins can subscribe to.</p>
-<p>Subscribing is the act of listening to an event. An event handler is what subscribes to an event. Event handlers are
-assigned a priority that determines the order in which the event handler is run in context of other event handlers
-(such as those from other plugins). For example, an event handler with <em>EARLY</em> priority will return before most other
-event handlers.</p>
-<p>Events cannot be sent to a specific set of plugins. All plugins that subscribe to an event will be notified of the event.</p>
-<p>The event bus or event manager is the class that keeps track of which plugins have subscribed to which event,
-and is also responsible for distributing events to event handlers.</p>
+<p>Sponge itself contains many events; however, plugins can create their own events which other plugins can listen to.</p>
+<p>Event listeners are used in plugins to be notified of different occurrences in the game. Event listeners are
+assigned a priority that determines the order in which the event listener is run in context of other event listeners
+(such as those from other plugins). For example, an event listener with <em>EARLY</em> priority will return before most other
+event listeners.</p>
+<p>Events cannot be sent to a specific set of plugins. All plugins that listen to an event will be notified of the event.</p>
+<p>The event bus or event manager is the class that keeps track of which plugins are listening to which event,
+and is also responsible for distributing events to event listeners.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The event bus <strong>supports supertypes</strong>. For example, <tt class="docutils literal"><span class="pre">BreakBlockEvent</span></tt> extends <tt class="docutils literal"><span class="pre">ChangeBlockEvent</span></tt>.
-Therefore, a plugin could subscribe to <tt class="docutils literal"><span class="pre">ChangeBlockEvent</span></tt> and still receive <tt class="docutils literal"><span class="pre">BreakBlockEvent</span></tt>s. However,
-a plugin subscribed to just <tt class="docutils literal"><span class="pre">BreakBlockEvent</span></tt> would not be notified of other types of <tt class="docutils literal"><span class="pre">ChangeBlockEvent</span></tt>.</p>
+Therefore, a plugin could listen to <tt class="docutils literal"><span class="pre">ChangeBlockEvent</span></tt> and still receive <tt class="docutils literal"><span class="pre">BreakBlockEvent</span></tt>s. However,
+a plugin listening to just <tt class="docutils literal"><span class="pre">BreakBlockEvent</span></tt> would not be notified of other types of <tt class="docutils literal"><span class="pre">ChangeBlockEvent</span></tt>.</p>
 </div>
 </div>
-<div class="section" id="event-handlers">
-<h2>Event Handlers<a class="headerlink" href="#event-handlers" title="Permalink to this headline">¶</a></h2>
-<p>In order to listen for an event, an event handler must be registered. This is done by making a method with any name,
+<div class="section" id="event-listeners">
+<h2>Event Listeners<a class="headerlink" href="#event-listeners" title="Permalink to this headline">¶</a></h2>
+<p>In order to listen for an event, an event listener must be registered. This is done by making a method with any name,
 defining the first (and only) parameter to be the desired event type, and then affixing <tt class="docutils literal"><span class="pre">&#64;Listener</span></tt> to the method,
 as illustrated below.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Subscribe</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
 
 <span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="o">(</span><span class="n">SomeEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSomeEvent</span><span class="o">(</span><span class="n">SomeEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">// Do something with the event</span>
 <span class="o">}</span>
 </pre></div>
@@ -383,38 +383,38 @@ as illustrated below.</p>
 <p>In addition, the class containing these methods must be registered with the event manager:</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">For event handlers on your main plugin class (annotated by <tt class="docutils literal"><span class="pre">&#64;Plugin</span></tt>), you do not need to register the object for
+<p class="last">For event listeners on your main plugin class (annotated by <tt class="docutils literal"><span class="pre">&#64;Plugin</span></tt>), you do not need to register the object for
 events because Sponge will do it automatically.</p>
 </div>
 </div>
-<div class="section" id="registering-and-unregistering-event-handlers">
-<h2>Registering and Unregistering Event Handlers<a class="headerlink" href="#registering-and-unregistering-event-handlers" title="Permalink to this headline">¶</a></h2>
-<p>To register event handlers annotated by <tt class="docutils literal"><span class="pre">&#64;Listener</span></tt> that are not in the main plugin class, you can use
+<div class="section" id="registering-and-unregistering-event-listeners">
+<h2>Registering and Unregistering Event Listeners<a class="headerlink" href="#registering-and-unregistering-event-listeners" title="Permalink to this headline">¶</a></h2>
+<p>To register event listeners annotated by <tt class="docutils literal"><span class="pre">&#64;Listener</span></tt> that are not in the main plugin class, you can use
 <tt class="docutils literal"><span class="pre">EventManager#registerListeners</span></tt>, which accepts a reference to the plugin and an instance
-of the class containing the event handlers.</p>
-<p><strong>Example: Registering Event Handlers in Other Classes</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleHandler</span> <span class="o">{</span>
+of the class containing the event listeners.</p>
+<p><strong>Example: Registering Event Listeners in Other Classes</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleListener</span> <span class="o">{</span>
 
     <span class="nd">@Listener</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">breakBlock</span><span class="o">(</span><span class="n">BreakBlockEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onBreakBlock</span><span class="o">(</span><span class="n">BreakBlockEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
         <span class="o">...</span>
     <span class="o">}</span>
 <span class="o">}</span>
 
-<span class="n">game</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">registerListeners</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="k">new</span> <span class="n">ExampleHandler</span><span class="o">());</span>
+<span class="n">game</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">registerListeners</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="k">new</span> <span class="n">Examplelistener</span><span class="o">());</span>
 </pre></div>
 </div>
-<div class="section" id="dynamically-registering-event-handlers">
-<h3>Dynamically Registering Event Handlers<a class="headerlink" href="#dynamically-registering-event-handlers" title="Permalink to this headline">¶</a></h3>
-<p>Some plugins (such as scripting plugins) may wish to dynamically register an event handler. In that case the event
-handler is not a method annotated with <tt class="docutils literal"><span class="pre">&#64;Listener</span></tt>, but rather a class implementing the <tt class="docutils literal"><span class="pre">EventHandler</span></tt> interface.
-This event handler can then be registered by calling <tt class="docutils literal"><span class="pre">EventManager#registerListener</span></tt>, which accepts a reference to the
-plugin as the first argument, the <tt class="docutils literal"><span class="pre">Class</span></tt> of events handled as the second argument, and the handler itself as the
-final argument. Optionally, you can specify an <tt class="docutils literal"><span class="pre">Order</span></tt> to run the event handler in as the third argument or a
-boolean value as the fourth argument (before the instance of the handler) which determines whether to call the listener
+<div class="section" id="dynamically-registering-event-listeners">
+<h3>Dynamically Registering Event Listeners<a class="headerlink" href="#dynamically-registering-event-listeners" title="Permalink to this headline">¶</a></h3>
+<p>Some plugins (such as scripting plugins) may wish to dynamically register an event listener. In that case the event
+listener is not a method annotated with <tt class="docutils literal"><span class="pre">&#64;Listener</span></tt>, but rather a class implementing the <tt class="docutils literal"><span class="pre">EventListener</span></tt> interface.
+This event listener can then be registered by calling <tt class="docutils literal"><span class="pre">EventManager#registerListener</span></tt>, which accepts a reference to the
+plugin as the first argument, the <tt class="docutils literal"><span class="pre">Class</span></tt> of events handled as the second argument, and the listener itself as the
+final argument. Optionally, you can specify an <tt class="docutils literal"><span class="pre">Order</span></tt> to run the event listener in as the third argument or a
+boolean value as the fourth argument (before the instance of the listener) which determines whether to call the listener
 before other server modifications.</p>
-<p><strong>Example: Implementing EventHandler</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleHandler</span> <span class="kd">implements</span> <span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">BreakBlockEvent</span><span class="o">&gt;</span> <span class="o">{</span>
+<p><strong>Example: Implementing EventListener</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleListener</span> <span class="kd">implements</span> <span class="n">EventListener</span><span class="o">&lt;</span><span class="n">BreakBlockEvent</span><span class="o">&gt;</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">BreakBlockEvent</span> <span class="n">event</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
@@ -423,29 +423,29 @@ before other server modifications.</p>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p><strong>Example: Dynamically Registering the Event Handler</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">BreakBlockEvent</span><span class="o">&gt;</span> <span class="n">handler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ExampleHandler</span><span class="o">();</span>
-<span class="n">game</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">registerListener</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">BreakBlockEvent</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">handler</span><span class="o">);</span>
+<p><strong>Example: Dynamically Registering the Event Listener</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">EventListener</span><span class="o">&lt;</span><span class="n">BreakBlockEvent</span><span class="o">&gt;</span> <span class="n">listener</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ExampleListener</span><span class="o">();</span>
+<span class="n">game</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">registerListener</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">BreakBlockEvent</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">listener</span><span class="o">);</span>
 </pre></div>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">For event handlers created with the <tt class="docutils literal"><span class="pre">&#64;Listener</span></tt> annotation, the order of the execution can be configured
-(see also <a class="reference internal" href="#about-listener">About &#64;Listener</a>). For dynamically registered handlers this is possible by passing an <tt class="docutils literal"><span class="pre">Order</span></tt>
+<p class="last">For event listeners created with the <tt class="docutils literal"><span class="pre">&#64;Listener</span></tt> annotation, the order of the execution can be configured
+(see also <a class="reference internal" href="#about-listener">About &#64;Listener</a>). For dynamically registered listeners this is possible by passing an <tt class="docutils literal"><span class="pre">Order</span></tt>
 to the third argument the <tt class="docutils literal"><span class="pre">EventManager#registerListener</span></tt> method.</p>
 </div>
 </div>
-<div class="section" id="unregistering-event-handlers">
-<h3>Unregistering Event Handlers<a class="headerlink" href="#unregistering-event-handlers" title="Permalink to this headline">¶</a></h3>
-<p>To unregister a single event handler, you can use the <tt class="docutils literal"><span class="pre">EventManager#unregisterListeners</span></tt> method, which accepts
-an instance of the class containing the event handlers.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">EventHandler</span> <span class="n">handler</span> <span class="o">=</span> <span class="o">...</span>
-<span class="n">game</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">unregisterListeners</span><span class="o">(</span><span class="n">handler</span><span class="o">);</span>
+<div class="section" id="unregistering-event-listeners">
+<h3>Unregistering Event Listeners<a class="headerlink" href="#unregistering-event-listeners" title="Permalink to this headline">¶</a></h3>
+<p>To unregister a single event listener, you can use the <tt class="docutils literal"><span class="pre">EventManager#unregisterListeners</span></tt> method, which accepts
+an instance of the class containing the event listeners.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">EventListener</span> <span class="n">listener</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">game</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">unregisterListeners</span><span class="o">(</span><span class="n">listener</span><span class="o">);</span>
 </pre></div>
 </div>
 <p>Alternatively, you can use <tt class="docutils literal"><span class="pre">EventManager#unregisterPluginListeners</span></tt>, passing in a reference to the plugin, to
-unregister all event handlers associated with that plugin. Note that this will remove <em>all</em> of the plugin&#8217;s event
-handlers, including those registered with <tt class="docutils literal"><span class="pre">&#64;Listener</span></tt> annotations.</p>
+unregister all event listeners associated with that plugin. Note that this will remove <em>all</em> of the plugin&#8217;s event
+listeners, including those registered with <tt class="docutils literal"><span class="pre">&#64;Listener</span></tt> annotations.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">MyPlugin</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">game</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">.</span><span class="na">unregisterPluginListeners</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
 </pre></div>
@@ -455,12 +455,12 @@ handlers, including those registered with <tt class="docutils literal"><span cla
 <h3>About &#64;Listener<a class="headerlink" href="#about-listener" title="Permalink to this headline">¶</a></h3>
 <p>The <tt class="docutils literal"><span class="pre">&#64;Listener</span></tt> annotation has a few configurable fields:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">order</span></tt> is the order in which the event handler is to be run. See the <tt class="docutils literal"><span class="pre">org.spongepowered.api.event.Order</span></tt> enum
+<li><tt class="docutils literal"><span class="pre">order</span></tt> is the order in which the event listener is to be run. See the <tt class="docutils literal"><span class="pre">org.spongepowered.api.event.Order</span></tt> enum
 in Sponge to see the available options.</li>
-<li><tt class="docutils literal"><span class="pre">ignoreCancelled</span></tt>, if true (which is default true), causes the event handler to be skipped if the event in question
+<li><tt class="docutils literal"><span class="pre">ignoreCancelled</span></tt>, if true (which is default true), causes the event listener to be skipped if the event in question
 is cancellable and has been cancelled (by a previously-executed plugin, for example).</li>
 </ul>
-<p>By default, <tt class="docutils literal"><span class="pre">&#64;Listener</span></tt> is configured so that your event handler will <em>not</em> be called if the event in question is
+<p>By default, <tt class="docutils literal"><span class="pre">&#64;Listener</span></tt> is configured so that your event listener will <em>not</em> be called if the event in question is
 cancellable and has been cancelled (such as by another plugin).</p>
 </div>
 </div>
@@ -539,7 +539,7 @@ cancellable and has been cancelled (such as by another plugin).</p>
 <div class="section" id="example-listen-for-custom-event">
 <h3>Example: Listen for Custom Event<a class="headerlink" href="#example-listen-for-custom-event" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-java"><div class="highlight"><pre><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">pmEventHandler</span><span class="o">(</span><span class="n">PrivateMessageEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPrivateMessage</span><span class="o">(</span><span class="n">PrivateMessageEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getMessage</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;hi i am from planetminecraft&quot;</span><span class="o">))</span> <span class="o">{</span>
        <span class="n">event</span><span class="o">.</span><span class="na">setCancelled</span><span class="o">();</span>
        <span class="k">return</span><span class="o">;</span>
@@ -556,16 +556,16 @@ cancellable and has been cancelled (such as by another plugin).</p>
 <h2>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
 <p>Callbacks are a more advanced feature of Sponge&#8217;s event system.</p>
 <p>Callbacks allow plugins to cooperate better when they override vanilla behavior. When an event is invoked, Sponge runs
-through the event handlers in order from first to last. Then Sponge runs through the callback list in order from last
-to first. Vanilla is always the first callback added, meaning that vanilla&#8217;s handler will be executed last.</p>
+through the event listeners in order from first to last. Then Sponge runs through the callback list in order from last
+to first. Vanilla is always the first callback added, meaning that vanilla&#8217;s listener will be executed last.</p>
 <p>Plugins that don&#8217;t use callbacks can also use the simpler <tt class="docutils literal"><span class="pre">setCancelled(boolean)</span></tt> method, which will disable all
 callbacks. However, some plugins may just need to disable vanilla behavior, modify another plugin&#8217;s behavior, or disable
 that behavior completely. These are cases where the flexibility offered through callbacks is required.</p>
 <p>A plugin can add as many callbacks as it needs during an event, and plugins can cancel specific callbacks. However, a
 plugin cannot reorder or remove callbacks, as some behaviors (especially vanilla) cannot be reordered. Additionally, all
-modifications to the callback list, should be done in the event handler itself. Attempting to change the list during
+modifications to the callback list, should be done in the event listener itself. Attempting to change the list during
 callback execution will cause a <tt class="docutils literal"><span class="pre">ConcurrentModificationException</span></tt>. Callbacks should only be added or cancelled in
-event handlers who&#8217;s <tt class="docutils literal"><span class="pre">Order</span></tt> property allows event cancellation.</p>
+event listeners who&#8217;s <tt class="docutils literal"><span class="pre">Order</span></tt> property allows event cancellation.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><tt class="docutils literal"><span class="pre">ExplosionEvent</span></tt> doesn&#8217;t exist in the API currently, it is just used for example purposes.</p>

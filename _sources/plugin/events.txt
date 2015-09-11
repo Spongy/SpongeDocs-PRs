@@ -13,36 +13,36 @@ Overview
 Events are used to inform plugins of certain happenings. Many events can also be *cancelled* -- that is, the action that
 the event refers to can be prevented from occurring. Cancellable events implement the ``Cancellable`` interface.
 
-Sponge itself contains many events; however, plugins can create their own events which other plugins can subscribe to.
+Sponge itself contains many events; however, plugins can create their own events which other plugins can listen to.
 
-Subscribing is the act of listening to an event. An event handler is what subscribes to an event. Event handlers are
-assigned a priority that determines the order in which the event handler is run in context of other event handlers
-(such as those from other plugins). For example, an event handler with *EARLY* priority will return before most other
-event handlers.
+Event listeners are used in plugins to be notified of different occurrences in the game. Event listeners are
+assigned a priority that determines the order in which the event listener is run in context of other event listeners
+(such as those from other plugins). For example, an event listener with *EARLY* priority will return before most other
+event listeners.
 
-Events cannot be sent to a specific set of plugins. All plugins that subscribe to an event will be notified of the event.
+Events cannot be sent to a specific set of plugins. All plugins that listen to an event will be notified of the event.
 
-The event bus or event manager is the class that keeps track of which plugins have subscribed to which event,
-and is also responsible for distributing events to event handlers.
+The event bus or event manager is the class that keeps track of which plugins are listening to which event,
+and is also responsible for distributing events to event listeners.
 
 .. note::
   The event bus **supports supertypes**. For example, ``BreakBlockEvent`` extends ``ChangeBlockEvent``.
-  Therefore, a plugin could subscribe to ``ChangeBlockEvent`` and still receive ``BreakBlockEvent``\ s. However,
-  a plugin subscribed to just ``BreakBlockEvent`` would not be notified of other types of ``ChangeBlockEvent``.
+  Therefore, a plugin could listen to ``ChangeBlockEvent`` and still receive ``BreakBlockEvent``\ s. However,
+  a plugin listening to just ``BreakBlockEvent`` would not be notified of other types of ``ChangeBlockEvent``.
 
-Event Handlers
-==============
+Event Listeners
+===============
 
-In order to listen for an event, an event handler must be registered. This is done by making a method with any name,
+In order to listen for an event, an event listener must be registered. This is done by making a method with any name,
 defining the first (and only) parameter to be the desired event type, and then affixing ``@Listener`` to the method,
 as illustrated below.
 
 .. code-block:: java
 
-    import org.spongepowered.api.event.Subscribe;
+    import org.spongepowered.api.event.Listener;
 
     @Listener
-    public void someEventHandler(SomeEvent event) {
+    public void onSomeEvent(SomeEvent event) {
         // Do something with the event
     }
 
@@ -50,50 +50,50 @@ In addition, the class containing these methods must be registered with the even
 
 .. tip::
 
-    For event handlers on your main plugin class (annotated by ``@Plugin``), you do not need to register the object for
+    For event listeners on your main plugin class (annotated by ``@Plugin``), you do not need to register the object for
     events because Sponge will do it automatically.
 
 
 
-Registering and Unregistering Event Handlers
+Registering and Unregistering Event Listeners
 ============================================
 
-To register event handlers annotated by ``@Listener`` that are not in the main plugin class, you can use
+To register event listeners annotated by ``@Listener`` that are not in the main plugin class, you can use
 ``EventManager#registerListeners``, which accepts a reference to the plugin and an instance
-of the class containing the event handlers.
+of the class containing the event listeners.
 
-**Example: Registering Event Handlers in Other Classes**
+**Example: Registering Event Listeners in Other Classes**
 
 .. code-block:: java
 
-    public class ExampleHandler {
+    public class ExampleListener {
 
         @Listener
-        public void breakBlock(BreakBlockEvent event) {
+        public void onBreakBlock(BreakBlockEvent event) {
             ...
         }
     }
 
-    game.getEventManager().registerListeners(this, new ExampleHandler());
+    game.getEventManager().registerListeners(this, new Examplelistener());
 
 
 
-Dynamically Registering Event Handlers
+Dynamically Registering Event Listeners
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Some plugins (such as scripting plugins) may wish to dynamically register an event handler. In that case the event
-handler is not a method annotated with ``@Listener``, but rather a class implementing the ``EventHandler`` interface.
-This event handler can then be registered by calling ``EventManager#registerListener``, which accepts a reference to the
-plugin as the first argument, the ``Class`` of events handled as the second argument, and the handler itself as the
-final argument. Optionally, you can specify an ``Order`` to run the event handler in as the third argument or a
-boolean value as the fourth argument (before the instance of the handler) which determines whether to call the listener
+Some plugins (such as scripting plugins) may wish to dynamically register an event listener. In that case the event
+listener is not a method annotated with ``@Listener``, but rather a class implementing the ``EventListener`` interface.
+This event listener can then be registered by calling ``EventManager#registerListener``, which accepts a reference to the
+plugin as the first argument, the ``Class`` of events handled as the second argument, and the listener itself as the
+final argument. Optionally, you can specify an ``Order`` to run the event listener in as the third argument or a
+boolean value as the fourth argument (before the instance of the listener) which determines whether to call the listener
 before other server modifications.
 
-**Example: Implementing EventHandler**
+**Example: Implementing EventListener**
 
 .. code-block:: java
 
-    public class ExampleHandler implements EventHandler<BreakBlockEvent> {
+    public class ExampleListener implements EventListener<BreakBlockEvent> {
 
         @Override
         public void handle(BreakBlockEvent event) throws Exception {
@@ -101,34 +101,34 @@ before other server modifications.
         }
     }
 
-**Example: Dynamically Registering the Event Handler**
+**Example: Dynamically Registering the Event Listener**
 
 .. code-block:: java
 
-    EventHandler<BreakBlockEvent> handler = new ExampleHandler();
-    game.getEventManager().registerListener(this, BreakBlockEvent.class, handler);
+    EventListener<BreakBlockEvent> listener = new ExampleListener();
+    game.getEventManager().registerListener(this, BreakBlockEvent.class, listener);
 
 .. tip::
 
-        For event handlers created with the ``@Listener`` annotation, the order of the execution can be configured
-        (see also `About @Listener`_). For dynamically registered handlers this is possible by passing an ``Order``
+        For event listeners created with the ``@Listener`` annotation, the order of the execution can be configured
+        (see also `About @Listener`_). For dynamically registered listeners this is possible by passing an ``Order``
         to the third argument the ``EventManager#registerListener`` method.
 
 
-Unregistering Event Handlers
+Unregistering Event Listeners
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To unregister a single event handler, you can use the ``EventManager#unregisterListeners`` method, which accepts
-an instance of the class containing the event handlers.
+To unregister a single event listener, you can use the ``EventManager#unregisterListeners`` method, which accepts
+an instance of the class containing the event listeners.
 
 .. code-block:: java
 
-    EventHandler handler = ...
-    game.getEventManager().unregisterListeners(handler);
+    EventListener listener = ...
+    game.getEventManager().unregisterListeners(listener);
 
 Alternatively, you can use ``EventManager#unregisterPluginListeners``, passing in a reference to the plugin, to
-unregister all event handlers associated with that plugin. Note that this will remove *all* of the plugin's event
-handlers, including those registered with ``@Listener`` annotations.
+unregister all event listeners associated with that plugin. Note that this will remove *all* of the plugin's event
+listeners, including those registered with ``@Listener`` annotations.
 
 .. code-block:: java
 
@@ -140,12 +140,12 @@ About @Listener
 
 The ``@Listener`` annotation has a few configurable fields:
 
-* ``order`` is the order in which the event handler is to be run. See the ``org.spongepowered.api.event.Order`` enum
+* ``order`` is the order in which the event listener is to be run. See the ``org.spongepowered.api.event.Order`` enum
   in Sponge to see the available options.
-* ``ignoreCancelled``, if true (which is default true), causes the event handler to be skipped if the event in question
+* ``ignoreCancelled``, if true (which is default true), causes the event listener to be skipped if the event in question
   is cancellable and has been cancelled (by a previously-executed plugin, for example).
 
-By default, ``@Listener`` is configured so that your event handler will *not* be called if the event in question is
+By default, ``@Listener`` is configured so that your event listener will *not* be called if the event in question is
 cancellable and has been cancelled (such as by another plugin).
 
 Firing Events
@@ -240,7 +240,7 @@ Example: Listen for Custom Event
 .. code-block:: java
 
     @Listener
-    public void pmEventHandler(PrivateMessageEvent event) {
+    public void onPrivateMessage(PrivateMessageEvent event) {
         if(event.getMessage().equals("hi i am from planetminecraft")) {
            event.setCancelled();
            return;
@@ -256,8 +256,8 @@ Callbacks
 Callbacks are a more advanced feature of Sponge's event system.
 
 Callbacks allow plugins to cooperate better when they override vanilla behavior. When an event is invoked, Sponge runs
-through the event handlers in order from first to last. Then Sponge runs through the callback list in order from last
-to first. Vanilla is always the first callback added, meaning that vanilla's handler will be executed last.
+through the event listeners in order from first to last. Then Sponge runs through the callback list in order from last
+to first. Vanilla is always the first callback added, meaning that vanilla's listener will be executed last.
 
 Plugins that don't use callbacks can also use the simpler ``setCancelled(boolean)`` method, which will disable all
 callbacks. However, some plugins may just need to disable vanilla behavior, modify another plugin's behavior, or disable
@@ -265,9 +265,9 @@ that behavior completely. These are cases where the flexibility offered through 
 
 A plugin can add as many callbacks as it needs during an event, and plugins can cancel specific callbacks. However, a
 plugin cannot reorder or remove callbacks, as some behaviors (especially vanilla) cannot be reordered. Additionally, all
-modifications to the callback list, should be done in the event handler itself. Attempting to change the list during
+modifications to the callback list, should be done in the event listener itself. Attempting to change the list during
 callback execution will cause a ``ConcurrentModificationException``. Callbacks should only be added or cancelled in
-event handlers who's ``Order`` property allows event cancellation.
+event listeners who's ``Order`` property allows event cancellation.
 
 .. note::
 
