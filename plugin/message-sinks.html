@@ -439,7 +439,7 @@ message.</p>
 <p>Message sinks have a very useful application that they can be used to establish chat channels. For example, you could
 establish a message sink for every chat channel you wish to have. Then, when a <tt class="docutils literal"><span class="pre">CommandSource</span></tt> joins a channel, such
 as with <tt class="docutils literal"><span class="pre">/join</span> <span class="pre">&lt;channel</span> <span class="pre">name&gt;</span></tt>, simply set the <tt class="docutils literal"><span class="pre">CommandSource</span></tt>&#8216;s <tt class="docutils literal"><span class="pre">MessageSink</span></tt> to the appropriate channel using
-<tt class="docutils literal"><span class="pre">CommandSource#setMessageSink(MessageSink</span> <span class="pre">sink)</span></tt>. Alternatively, you could subscribe to <tt class="docutils literal"><span class="pre">PlayerChatEvent</span></tt>, and set
+<tt class="docutils literal"><span class="pre">CommandSource#setMessageSink(MessageSink</span> <span class="pre">sink)</span></tt>. Alternatively, you could listen to <tt class="docutils literal"><span class="pre">MessageSinkEvent</span></tt>, and set
 the appropriate <tt class="docutils literal"><span class="pre">MessageSink</span></tt> using <tt class="docutils literal"><span class="pre">MessageEvent#setSink(MessageSink</span> <span class="pre">sink)</span></tt>.</p>
 </div>
 </div>
@@ -485,7 +485,7 @@ a new <tt class="docutils literal"><span class="pre">MessageSink</span></tt> com
 <tt class="docutils literal"><span class="pre">MessageSinks#combined(MessageSink...</span> <span class="pre">sinks)</span></tt> method. In the following code excerpt, the new <tt class="docutils literal"><span class="pre">DonorMessageSink</span></tt>
 will be applied to any <tt class="docutils literal"><span class="pre">Player</span></tt> that joins the server.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.player.Player</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Subscribe</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.network.ClientConnectionEvent</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.sink.MessageSink</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.sink.MessageSinks</span><span class="o">;</span>
