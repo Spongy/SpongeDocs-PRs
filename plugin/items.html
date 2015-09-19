@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Plugin Templates &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+     <title>Working with Items &mdash; Sponge 2.1-SNAPSHOT documentation</title>
     
   <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
@@ -32,8 +32,8 @@
     <script type="text/javascript" src="../_static/lights.js"></script>
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
-        <link rel="next" title="Creating Your Main Plugin Class" href="main-class.html" />
-        <link rel="prev" title="Best Practices" href="practices.html" />
+        <link rel="next" title="Configuring Your Plugin" href="configuration/index.html" />
+        <link rel="prev" title="Spawning an Entity" href="entities/spawning.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -58,10 +58,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="main-class.html" title="Creating Your Main Plugin Class"
+          <a href="configuration/index.html" title="Configuring Your Plugin"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="practices.html" title="Best Practices"
+          <a href="entities/spawning.html" title="Spawning an Entity"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
@@ -173,7 +173,7 @@
 <li class="toctree-l2"><a class="reference internal" href="practices.html">Best Practices</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Plugin Templates</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="templates.html">Plugin Templates</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="main-class.html">Creating Your Main Plugin Class</a><ul class="simple">
@@ -243,7 +243,7 @@
 <li class="toctree-l3"><a class="reference internal" href="entities/spawning.html">Spawning an Entity</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="items.html">Working with Items</a><ul class="simple">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Working with Items</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Your Plugin</a><ul>
@@ -356,71 +356,64 @@
               <div class="bodywrapper">
                 <div class="body" role="main">
                   
-  <div class="section" id="plugin-templates">
-<h1>Plugin Templates<a class="headerlink" href="#plugin-templates" title="Permalink to this headline">¶</a></h1>
-<p>For convenience, plugin templates are provided for several build systems.</p>
-<div class="section" id="gradle">
-<h2>Gradle<a class="headerlink" href="#gradle" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="maven">
-<h2>Maven<a class="headerlink" href="#maven" title="Permalink to this headline">¶</a></h2>
-<p>Sponge has a simple archetype that generates the basic structure for a plugin.</p>
-<p>The generated pom includes a release profile that generates gpg-signed jars for javadocs, binary, and sources as
-recommended in the guidelines for submitting projects to Sonatype OSS (However, this option is not currently available
-for Sponge plugins due to the fact that Sponge API is not currently hosted on Maven Central).</p>
-<div class="section" id="properties">
-<h3>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h3>
-<p>The archetype plugin accepts a few properties</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="12%" />
-<col width="22%" />
-<col width="66%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Property</th>
-<th class="head">Example value</th>
-<th class="head">Description</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>groupId</td>
-<td>io.github.user</td>
-<td>The maven groupId, useful more for plugins used as dependencies, but should
-more or less match your package name</td>
-</tr>
-<tr class="row-odd"><td>artifactId</td>
-<td>myproject</td>
-<td>The project id, also used as plugin id and name of the generated folder</td>
-</tr>
-<tr class="row-even"><td>version</td>
-<td>1.0-SNAPSHOT</td>
-<td>The initial version for your plugin. Can (and should) be changed as
-development progresses</td>
-</tr>
-<tr class="row-odd"><td>package</td>
-<td>io.github.user.myproject</td>
-<td>The package your plugin class will be generated in</td>
-</tr>
-<tr class="row-even"><td>githubProject</td>
-<td>user/repo</td>
-<td>The Github project. If a value is specified that is not user/repo, issue
-tracking and SCM sections are added to the pom</td>
-</tr>
-</tbody>
-</table>
-<p>These can be specified as arguments to Maven in the form <tt class="docutils literal"><span class="pre">-Dproperty=value</span></tt></p>
-</div>
-<div class="section" id="usage">
-<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
-<p>This archetype requires Maven 3 or newer. Invoke maven with the goal <tt class="docutils literal"><span class="pre">archetype:generate</span></tt>. Maven will prompt for any
-required properties, but optional properties must be specified on the command line.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>mvn archetype:generate -DarchetypeArtifactId<span class="o">=</span>sponge-plugin-archetype -DarchetypeGroupId<span class="o">=</span>org.spongepowered -DarchetypeRepository<span class="o">=</span>http://repo.spongepowered.org/maven -DarchetypeVersion<span class="o">=</span>1.0 -DgithubProject<span class="o">=</span>waylon531/spongeparty
+  <div class="section" id="working-with-items">
+<h1>Working with Items<a class="headerlink" href="#working-with-items" title="Permalink to this headline">¶</a></h1>
+<p>Items are represented through an <tt class="docutils literal"><span class="pre">ItemStack</span></tt>. An <tt class="docutils literal"><span class="pre">ItemStack</span></tt> is an inventory item with information such as the amount of the item in the stack, the type of the item, and extra data such as durability. An <tt class="docutils literal"><span class="pre">Item</span></tt> itself is the graphical representation of an <tt class="docutils literal"><span class="pre">ItemStack</span></tt> as an entity.</p>
+<div class="section" id="checking-an-item-s-type">
+<h2>Checking an Item&#8217;s Type<a class="headerlink" href="#checking-an-item-s-type" title="Permalink to this headline">¶</a></h2>
+<p>Checking the type of the item is very simple. You just need to call the <tt class="docutils literal"><span class="pre">getItem()</span></tt> method in the <tt class="docutils literal"><span class="pre">ItemStack</span></tt>.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.item.ItemType</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.item.ItemTypes</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.item.inventory.ItemStack</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isStick</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">stack</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ItemType</span> <span class="n">type</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">getItem</span><span class="o">();</span>
+    <span class="k">return</span> <span class="n">type</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">ItemTypes</span><span class="o">.</span><span class="na">STICK</span><span class="o">);</span>
+<span class="o">}</span>
 </pre></div>
 </div>
-<p>The first four arguments specify where maven will find the archetype and which version to use. The
-<tt class="docutils literal"><span class="pre">-DgithubProject=waylon531/spongeparty</span></tt> parameter is an optional property for the generated project and can be left
-out if you do not intend to host your plugin on GitHub.</p>
+<p>See how simple that is? Because sticks can stack, we can also find out how many are present.</p>
+<p>Getting the amount of items in an <tt class="docutils literal"><span class="pre">ItemStack</span></tt> is relatively easy. The <tt class="docutils literal"><span class="pre">getQuantity()</span></tt> method provided by <tt class="docutils literal"><span class="pre">ItemStack</span></tt> will handle this for us.</p>
+</div>
+<div class="section" id="modifying-itemstack-data">
+<h2>Modifying ItemStack Data<a class="headerlink" href="#modifying-itemstack-data" title="Permalink to this headline">¶</a></h2>
+<p>Manipulating data such as durability or the lore of an item is accomplished by simply using keys. You just need to specify the key that needs to be changed:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUnbreakable</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">stack</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">stack</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">UNBREAKABLE</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>In this, we specified that the <tt class="docutils literal"><span class="pre">UNBREAKABLE</span></tt> key is the key that we would like to change. We then set its value to <tt class="docutils literal"><span class="pre">true</span></tt> to imply that the item will never break. All of this is enclosed within the <tt class="docutils literal"><span class="pre">offer()</span></tt> method of the <tt class="docutils literal"><span class="pre">ItemStack</span></tt> to return our changes back to the <tt class="docutils literal"><span class="pre">ItemStack</span></tt>.</p>
+<p>Different keys will require different values based on their job. For example, to change the lore of an item, one would need to specify a <tt class="docutils literal"><span class="pre">List</span></tt> of <tt class="docutils literal"><span class="pre">Text</span></tt> rather than an boolean or other value. It is also important to perform checks to see if the key can actually apply to the item. For example, some items might not have durability or may already have lore applied to the item.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setLore</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">stack</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="n">itemLore</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">ITEM_LORE</span><span class="o">).</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">item</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">ITEM_LORE</span><span class="o">,</span> <span class="n">itemLore</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="item-properties">
+<h2>Item Properties<a class="headerlink" href="#item-properties" title="Permalink to this headline">¶</a></h2>
+<p>Certain items can contain specific properties. For example, certain items can mine specific blocks, such as a diamond pickaxe to obsidian. Properties are used for determining if an item can cause an action without actually checking up the type of the item. We can check if a block can mine obsidian by using the <tt class="docutils literal"><span class="pre">HarvestingProperty</span></tt> of that item.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">canMineObsidian</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HarvestingProperty</span><span class="o">&gt;</span> <span class="n">optional</span> <span class="o">=</span>
+        <span class="n">item</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">HarvestingProperty</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="n">optional</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">HarvestingProperty</span> <span class="n">property</span> <span class="o">=</span> <span class="n">optional</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">property</span><span class="o">.</span><span class="na">getValue</span><span class="o">().</span><span class="na">contains</span><span class="o">(</span><span class="n">BlockTypes</span><span class="o">.</span><span class="na">OBSIDIAN</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>This code will check to see if the item has a <tt class="docutils literal"><span class="pre">HarvestingProperty</span></tt>, such as a pickaxe. If it does then it will return if this item can harvest obsidian without even needing to check the type of the item.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you need to hold data of something that isn&#8217;t covered by the API, such as mod data, you need to implement the <tt class="docutils literal"><span class="pre">DataTranslator</span></tt> interface to translate it to a <tt class="docutils literal"><span class="pre">DataContainer</span></tt> to be used with the rest of the API.</p>
 </div>
 </div>
 </div>

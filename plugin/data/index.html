@@ -218,7 +218,9 @@
 <li class="toctree-l3"><a class="reference internal" href="datamanipulators.html">Data Manipulators</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="transactions.html">Transactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="serialization.html">Data Serialization</a></li>
 </ul>
 </li>
@@ -239,6 +241,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Working with Entities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../entities/spawning.html">Spawning an Entity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../items.html">Working with Items</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Your Plugin</a><ul>
@@ -355,34 +360,58 @@
 <h1>The Data API<a class="headerlink" href="#the-data-api" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>The unified Data API aims to provide a consistent way of accessing and modifying data of any kind. Where other approaches define the available data using interface and inheritance (like a <tt class="docutils literal"><span class="pre">LivingEntity</span></tt> interface providing getter and setter functions for current and maximum health), in Sponge every entity, block etc. is completely oblivious to what data it holds. While this may appear less straightforward than direct accessor methods, it is foremost far more extensible. And thanks to the addition of <tt class="docutils literal"><span class="pre">Key</span></tt>s, simply accessing specific values is no less straightforward.</p>
+<p>The unified Data API aims to provide a consistent way of accessing and modifying data of any kind. Where other
+approaches define the available data using interface and inheritance (like a <tt class="docutils literal"><span class="pre">LivingEntity</span></tt> interface providing
+getter and setter functions for current and maximum health), in Sponge every entity, block etc. is completely
+oblivious to what data it holds. While this may appear less straightforward than direct accessor methods, it is
+foremost far more extensible. And thanks to the addition of <tt class="docutils literal"><span class="pre">Key</span></tt>s, simply accessing specific values is no
+less straightforward.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">As of writing, the Data API is not yet fully implemented. Refer to the <a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/issues/8">Implementation Tracker</a>, ask in the <tt class="docutils literal"><span class="pre">#spongedev</span></tt> IRC channel or on the <a class="reference external" href="https://forums.spongepowered.org">Forums</a> to find out if the data you need to work with is available yet.</p>
+<p class="last">As of writing, the Data API is not yet fully implemented. Refer to the <a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/issues/8">Implementation Tracker</a>, ask in the <tt class="docutils literal"><span class="pre">#spongedev</span></tt> IRC channel or on the
+<a class="reference external" href="https://forums.spongepowered.org">Forums</a> to find out if the data you need to work with is available yet.</p>
 </div>
 </div>
 <div class="section" id="concepts">
 <h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
-<p>On first glance at the API docs, the data API threatens to overwhelm you with lots of interfaces and packages. But to simply use the data API, you will not have to deal with many of them, as most interfaces found there are just specific data manipulators.</p>
+<p>On first glance at the API docs, the data API threatens to overwhelm you with lots of interfaces and packages. But
+to simply use the data API, you will not have to deal with many of them, as most interfaces found there are just
+specific data manipulators.</p>
 <div class="section" id="dataholder">
 <h3>DataHolder<a class="headerlink" href="#dataholder" title="Permalink to this headline">¶</a></h3>
-<p>A data holder is just that - something that holds data. It provides methods to retrieve and offer back data. The interface itself is completely oblivious to the type of data held. Since only the implementations will possess this knowledge, it is possible to ask a <tt class="docutils literal"><span class="pre">DataHolder</span></tt> to provide data it does not have or to accept data it cannot use. In those cases, the return values of the methods will provide the information that data is not available (via <tt class="docutils literal"><span class="pre">Optional.absent()</span></tt>) or not accepted.</p>
+<p>A data holder is just that - something that holds data. It provides methods to retrieve and offer back data. The
+interface itself is completely oblivious to the type of data held. Since only the implementations will possess
+this knowledge, it is possible to ask a <tt class="docutils literal"><span class="pre">DataHolder</span></tt> to provide data it does not have or to accept data it
+cannot use. In those cases, the return values of the methods will provide the information that data is not
+available (via <tt class="docutils literal"><span class="pre">Optional.absent()</span></tt>) or not accepted.</p>
 </div>
 <div class="section" id="property">
 <h3>Property<a class="headerlink" href="#property" title="Permalink to this headline">¶</a></h3>
-<p>A property is a read-only point of data. It provides information that is directly derived from its holders type, but, unlike other data, unchangeable (except for core mods). Example for this are the harvesting ablities on tools (represented as <tt class="docutils literal"><span class="pre">HarvestingProperty</span></tt>) or the damage absorption of an equippable armor item.</p>
+<p>A property is a read-only point of data. It provides information that is directly derived from its holders type,
+but, unlike other data, unchangeable (except for core mods). Example for this are the harvesting ablities on tools
+(represented as <tt class="docutils literal"><span class="pre">HarvestingProperty</span></tt>) or the damage absorption of an equippable armor item.</p>
 </div>
 <div class="section" id="datamanipulator">
 <h3>DataManipulator<a class="headerlink" href="#datamanipulator" title="Permalink to this headline">¶</a></h3>
-<p>A data manipulator represents points of cohesive data that describes a certain component of its holder. For example <tt class="docutils literal"><span class="pre">HealthData</span></tt>, which contains both current and maximum health. If a data holder has <tt class="docutils literal"><span class="pre">HealthData</span></tt>, it has health that can somehow be depleted and replenished and can die if that health is depleted. This allows for the re-use of such components over the API and prevents duplication of accessor methods - as sheep, stained glass blocks and leather armor all can share the <tt class="docutils literal"><span class="pre">DyeableData</span></tt> holding the color they are dyed in.</p>
+<p>A data manipulator represents points of cohesive data that describes a certain component of its holder. For
+example <tt class="docutils literal"><span class="pre">HealthData</span></tt>, which contains both current and maximum health. If a data holder has <tt class="docutils literal"><span class="pre">HealthData</span></tt>, it
+has health that can somehow be depleted and replenished and can die if that health is depleted. This allows for
+the re-use of such components over the API and prevents duplication of accessor methods - as sheep, stained glass
+blocks and leather armor all can share the <tt class="docutils literal"><span class="pre">DyeableData</span></tt> holding the color they are dyed in.</p>
 </div>
 <div class="section" id="key">
 <h3>Key<a class="headerlink" href="#key" title="Permalink to this headline">¶</a></h3>
-<p>A <tt class="docutils literal"><span class="pre">Key</span></tt> is a unique identifier for a single point of data and can be used to directly read or set that point of data without worrying about data manipulators. It was designed to provide a convenient way of accessing data similar to direct getter/setter methods. All keys used within Sponge are listed as constants in the <tt class="docutils literal"><span class="pre">org.spongepowered.api.data.key.Keys</span></tt> utility class.</p>
+<p>A <tt class="docutils literal"><span class="pre">Key</span></tt> is a unique identifier for a single point of data and can be used to directly read or set that point of
+data without worrying about data manipulators. It was designed to provide a convenient way of accessing data
+similar to direct getter/setter methods. All keys used within Sponge are listed as constants in the
+<tt class="docutils literal"><span class="pre">org.spongepowered.api.data.key.Keys</span></tt> utility class.</p>
 </div>
 <div class="section" id="value">
 <h3>Value<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h3>
-<p>Within the Data API, a value referred to by a <tt class="docutils literal"><span class="pre">Key</span></tt> is encoded in a container object. For this documentation, it is referred to as &#8216;value container&#8217; to avoid confusion with the actual value, but note that the class name <tt class="docutils literal"><span class="pre">ValueContainer</span></tt> has another meaning in the API. A value container encapsulates the actual data value (if it is present), a default value (to be used if no direct value is present) and the Key by which the value is identified.</p>
+<p>Within the Data API, a value referred to by a <tt class="docutils literal"><span class="pre">Key</span></tt> is encoded in a container object. For this documentation, it
+is referred to as &#8216;value container&#8217; to avoid confusion with the actual value, but note that the class name
+<tt class="docutils literal"><span class="pre">ValueContainer</span></tt> has another meaning in the API. A value container encapsulates the actual data value (if it is
+present), a default value (to be used if no direct value is present) and the Key by which the value is identified.</p>
 </div>
 </div>
 <div class="section" id="contents">
@@ -395,7 +424,9 @@
 <li class="toctree-l1"><a class="reference internal" href="datamanipulators.html">Data Manipulators</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="transactions.html">Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="serialization.html">Data Serialization</a></li>
 </ul>
 </div>
