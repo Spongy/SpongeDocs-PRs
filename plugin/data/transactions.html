@@ -364,7 +364,7 @@
 object will contain the following:</p>
 <div class="section" id="type">
 <h3>Type<a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">Type</span></tt> indicates whether the transaction was completed successfully. The following values are possible:</p>
+<p>The <tt class="docutils literal"><span class="pre">Type</span></tt> indicates whether the transaction was completed successfully and, if not, how it failed.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="16%" />
@@ -389,9 +389,10 @@ object will contain the following:</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="a-ton-of-immutable-data">
-<h3>A ton of immutable data<a class="headerlink" href="#a-ton-of-immutable-data" title="Permalink to this headline">¶</a></h3>
-<p>The result also provides a couple of lists containing immutable value containers</p>
+<div class="section" id="the-affected-data">
+<h3>The affected Data<a class="headerlink" href="#the-affected-data" title="Permalink to this headline">¶</a></h3>
+<p>The result also provides a couple of immutable lists containing immutable value containers representing
+the data that was involved in the transaction.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="28%" />
@@ -430,7 +431,7 @@ element: A value container for the <tt class="docutils literal"><span class="pre
 </div>
 <div class="section" id="offering-healthdata-to-a-block-of-stone">
 <h3>Offering HealthData to a block of stone<a class="headerlink" href="#offering-healthdata-to-a-block-of-stone" title="Permalink to this headline">¶</a></h3>
-<p>Now our above-mentioned examples are coded in a Way that they will fail silently rather than try to offer the
+<p>Now our above-mentioned examples are coded in a such a way that they will fail silently rather than try to offer the
 incompatible data. But imagine we took a (fully healed) player&#8217;s <tt class="docutils literal"><span class="pre">HealthData</span></tt> and tried to offer it to the
 <tt class="docutils literal"><span class="pre">Location</span></tt> of the stone block he&#8217;s currently standing on. We can do this, since <tt class="docutils literal"><span class="pre">Location</span></tt> is also a data
 holder. And if we do, it would reward us with a <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt> like this:</p>
@@ -448,7 +449,7 @@ also allows for those changes it documents to be undone. For that, simply pass a
 holder&#8217;s <tt class="docutils literal"><span class="pre">undo()</span></tt> method. This is particularly useful since some data offerings may be partially successful, so
 that one or more values are successfully written to the data holder, yet one more value cannot be accepted. Since
 you may wish to undo the partial successes.</p>
-<p><strong>Code example: Reverting a transaction</strong></p>
+<p><strong>Code Example: Reverting a transaction</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">safeOffer</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">,</span> <span class="n">DataManipulator</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">DataTransactionResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">getType</span><span class="o">()</span> <span class="o">!=</span> <span class="n">DataTransactionResult</span><span class="o">.</span><span class="na">Type</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">)</span> <span class="o">{</span>

@@ -360,33 +360,31 @@
 <h1>Using Keys<a class="headerlink" href="#using-keys" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="getting-and-offering-data-using-a-key">
 <h2>Getting and offering data using a key<a class="headerlink" href="#getting-and-offering-data-using-a-key" title="Permalink to this headline">¶</a></h2>
-<p>Since accessing even a single point of data going from <tt class="docutils literal"><span class="pre">DataHolder</span></tt> to the correct <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> tended to
-be quite tedious and bloat both the code and the import list, a more direct way of accessing values via <tt class="docutils literal"><span class="pre">Key</span></tt>s
-was devised. Let&#8217;s just start out with an example.</p>
+<p>A data holder provides methods to retrieve or alter a single point of data identified by a <tt class="docutils literal"><span class="pre">Key</span></tt>. Let&#8217;s just start out with an example:</p>
 <p><strong>Code Example: Healing a data holder, if possible</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataHolder</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">heal</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">target</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">))</span> <span class="o">{</span>
-        <span class="kt">double</span> <span class="n">maxHealth</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="na">getOrNull</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">);</span>
+        <span class="kt">double</span> <span class="n">maxHealth</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
         <span class="n">target</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">maxHealth</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 <p>Now for the details of the above function.</p>
-<p>The first line checks if our given data holder possesses health. Only if he does, he can be healed after all.
-Since a data holder can not have health without having a maximum health and vice versa, a check for one of the
-keys using the <tt class="docutils literal"><span class="pre">supports()</span></tt> method suffices.</p>
+<p>The first line checks if our given data holder supports a current health value. Only if it does, it can be healed after
+all. Since a data holder can not have current health without having a maximum health and vice versa, a check for
+one of the keys using the <tt class="docutils literal"><span class="pre">supports()</span></tt> method suffices.</p>
 <p>The second line uses the <tt class="docutils literal"><span class="pre">getOrNull()</span></tt> function to ask the data holder for its maximum health. Besides
 <tt class="docutils literal"><span class="pre">getOrNull()</span></tt>, the methods <tt class="docutils literal"><span class="pre">get()</span></tt> and <tt class="docutils literal"><span class="pre">getOrElse()</span></tt> exist, all of which accept a <tt class="docutils literal"><span class="pre">Key</span></tt> as their first
-parameter. Generally, <tt class="docutils literal"><span class="pre">get()</span></tt> should be used. It will return an <tt class="docutils literal"><span class="pre">Optional</span></tt> of the data requested or
-<tt class="docutils literal"><span class="pre">Optional.absent()</span></tt> if the data holder does not support the supplied key. The <tt class="docutils literal"><span class="pre">getOrNull()</span></tt> method we used is
-no more than a shortcut for <tt class="docutils literal"><span class="pre">get(key).orNull()</span></tt>. In our example it is safe to use <tt class="docutils literal"><span class="pre">getOrNull()</span></tt> since we
-already verified that the value will be present in the first line and therefore <tt class="docutils literal"><span class="pre">getOrNull()</span></tt> will just relieve
-us of the <tt class="docutils literal"><span class="pre">Optional</span></tt>. The third possibility would be the <tt class="docutils literal"><span class="pre">getOrElse()</span></tt>, which accepts a default value as a
-second parameter to be returned if the value is not present on the data holder.</p>
+parameter. Generally, <tt class="docutils literal"><span class="pre">get()</span></tt> should be used, which will return an <tt class="docutils literal"><span class="pre">Optional</span></tt> of the data requested or
+<tt class="docutils literal"><span class="pre">Optional.absent()</span></tt> if the data holder does not support the supplied key. Since we already verified that the
+<tt class="docutils literal"><span class="pre">Key</span></tt> is supported, we can just call <tt class="docutils literal"><span class="pre">get()</span></tt> on the Optional without further checks. We could also use
+<tt class="docutils literal"><span class="pre">getOrNull()</span></tt> which is basically a shortcut to call <tt class="docutils literal"><span class="pre">get(key).orNull()</span></tt>, thus getting rid of the
+<tt class="docutils literal"><span class="pre">Optional</span></tt>. The third possibility would be the <tt class="docutils literal"><span class="pre">getOrElse()</span></tt>, which accepts a default value as a second
+parameter to be returned if the value is not present on the data holder.</p>
 <p>In the third line, we offer data back to the data holder. We provide a <tt class="docutils literal"><span class="pre">Key</span></tt> denoting the current health and the
 before acquired maximum health, thus healing the data holder to full health. There are a variety of <tt class="docutils literal"><span class="pre">offer()</span></tt>
 methods accepting different parameter sets, all of which return a <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt> containing information
@@ -396,8 +394,8 @@ holder supports it), we can silently discard the result.</p>
 </div>
 <div class="section" id="transforming-data">
 <h2>Transforming Data<a class="headerlink" href="#transforming-data" title="Permalink to this headline">¶</a></h2>
-<p>Other than getting a value, modify it and offer it back, there is another way of modifying data. Using a data
-holders <tt class="docutils literal"><span class="pre">transform()</span></tt> method we can pass a <tt class="docutils literal"><span class="pre">Key</span></tt> and a <tt class="docutils literal"><span class="pre">Function</span></tt>. Internally, the value for the key will
+<p>Other than getting, modifying and offering a value, there is another way of interacting with data. Using a data
+holder&#8217;s <tt class="docutils literal"><span class="pre">transform()</span></tt> method we can pass a <tt class="docutils literal"><span class="pre">Key</span></tt> and a <tt class="docutils literal"><span class="pre">Function</span></tt>. Internally, the value for the key will be
 retrieved and the given function applied to it. The result is then stored under the key and the <tt class="docutils literal"><span class="pre">transform()</span></tt>
 method will return a <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt> accordingly.</p>
 <p>Now, as an example, imagine we want to buff a data holder by doubling his maximum health.</p>
@@ -428,7 +426,7 @@ encapsulating it. In that case, use the <tt class="docutils literal"><span class
 object inheriting from <tt class="docutils literal"><span class="pre">BaseValue</span></tt> which contains a copy of the original value. Since we know that current
 health is a <tt class="docutils literal"><span class="pre">MutableBoundedValue</span></tt>, we can find out what is the minimum possible value and set our target&#8217;s
 health just a tiny bit above that.</p>
-<p><strong>Code example: Bring a target to the brink of death</strong></p>
+<p><strong>Code Example: Bring a target to the brink of death</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">scare</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">target</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">))</span> <span class="o">{</span>
         <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">health</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>

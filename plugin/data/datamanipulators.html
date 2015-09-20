@@ -363,7 +363,7 @@
 <p>A data manipulator represents a certain component and all of its data. It stores a representation of that data and can
 be offered to or created from data holders which possess a matching component. Again, let&#8217;s use an example. And again
 try to heal someone (or something).</p>
-<p><strong>Code example: Healing with data manipulators</strong></p>
+<p><strong>Code Example: Healing with data manipulators</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">DataTransactionResult</span> <span class="nf">heal</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="n">healthOptional</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="na">getOrCreate</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">healthOptional</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
@@ -383,7 +383,7 @@ try to heal someone (or something).</p>
 data by passing its class to the <tt class="docutils literal"><span class="pre">getOrCreate()</span></tt> method. We get an <tt class="docutils literal"><span class="pre">Optional</span></tt> which we can use for our check.
 If the target does not support health data, it will be absent. But if the health data is present, it now contains
 a mutable copy of the data present on the data holder. We make our alterations and finally offer the changed data
-back to our target, where it is accepted (again, <tt class="docutils literal"><span class="pre">offer</span></tt> will return a <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt> which we will
+back to our target, where it is accepted (again, <tt class="docutils literal"><span class="pre">offer()</span></tt> will return a <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt> which we will
 just discard here).</p>
 <p>As you can see, the results for <tt class="docutils literal"><span class="pre">health()</span></tt> and <tt class="docutils literal"><span class="pre">maxHealth()</span></tt> are again value containers we obtain from the
 <tt class="docutils literal"><span class="pre">DataHolder</span></tt>. As the <tt class="docutils literal"><span class="pre">MutableBoundedValue</span></tt> we receive from calling <tt class="docutils literal"><span class="pre">health()</span></tt> again just contains a copy of
@@ -436,12 +436,12 @@ holder demonstrates the core design goal of the Data API: Maximum compatibility 
 </div>
 <div class="section" id="mutable-vs-immutable-data-manipulators">
 <h2>Mutable vs. Immutable Data Manipulators<a class="headerlink" href="#mutable-vs-immutable-data-manipulators" title="Permalink to this headline">¶</a></h2>
-<p>To every data manipulator, there is a matching <tt class="docutils literal"><span class="pre">ImmutableDataHolder</span></tt>. For instance both <tt class="docutils literal"><span class="pre">HealthData</span></tt> and
+<p>To every data manipulator, there is a matching <tt class="docutils literal"><span class="pre">ImmutableDataHolder</span></tt>. For instance, both <tt class="docutils literal"><span class="pre">HealthData</span></tt> and
 <tt class="docutils literal"><span class="pre">ImmutableHealthData</span></tt> contain the same data, only the latter does not provide any means to make alterations to
 the data.</p>
 <p>Conversion between mutable and immutable data manipulators is done via the <tt class="docutils literal"><span class="pre">asImmutable()</span></tt> and <tt class="docutils literal"><span class="pre">asMutable()</span></tt>
 methods, which each will return a copy of the data. Since the only way to obtain an immutable data manipulator
-from a data holder is obtaining a mutable one and then using <tt class="docutils literal"><span class="pre">asImmutable()</span></tt> in terms of processing power it
+from a data holder is obtaining a mutable one and then using <tt class="docutils literal"><span class="pre">asImmutable()</span></tt>, in terms of processing power it
 might be cheaper to only use immutable data holders if it is to be passed around.</p>
 <p>A possible use case for this would be a custom event fired when someone is healed. It should provide copies of
 the health data before and after, but event listeners should not be able to change them. Therefore we can write
