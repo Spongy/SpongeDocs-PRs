@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Plugin Debugging and Hotswapping &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+     <title>Plugin Debugging &mdash; Sponge 2.1-SNAPSHOT documentation</title>
     
   <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
@@ -276,7 +276,7 @@
 <li class="toctree-l2"><a class="reference internal" href="manager.html">Using the Plugin Manager</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Plugin Debugging and Hotswapping</a><ul class="simple">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="message-sinks.html">Message Sinks</a><ul class="simple">
@@ -355,63 +355,61 @@
               <div class="bodywrapper">
                 <div class="body" role="main">
                   
-  <div class="section" id="plugin-debugging-and-hotswapping">
-<h1>Plugin Debugging and Hotswapping<a class="headerlink" href="#plugin-debugging-and-hotswapping" title="Permalink to this headline">¶</a></h1>
-<p>Every developer, at some point, has had the <em>pleasure</em> of debugging their plugin.
-Generally speaking, debugging is done by throwing a multitude of logs in specific areas to narrow down breakpoints,
-compiling the plugin, moving the result to the test folder, and running the server. Along that process, crossing every
-finger you have that something doesn&#8217;t immediately fail and make the past hour or so of programming in vain.</p>
-<p>However, what many newer programmers (and some seasoned!) don&#8217;t know, is that there is an easier way. Why bother
-compiling and moving folders, when you can test your plugin from right within your IDE? Oh, of course you know how
-to run tests during compilation, but that&#8217;s not quite what I&#8217;m talking about. We&#8217;re talking about running the entire
-server implementation and plugin at once, from within the IDE.</p>
-<p>How is that possible, you may be asking? Quite simple. Plugin Debugging is fairly easy to setup, once you know how. Once
-you&#8217;re debugging, Hotswapping is the next step (which we&#8217;ll cover later).</p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">See the <a class="reference internal" href="workspace/index.html"><em>Setting Up Your Workspace</em></a> documentation before attempting to follow this guide.</p>
-</div>
-<div class="section" id="preparing-your-plugin">
-<h2>Preparing your Plugin<a class="headerlink" href="#preparing-your-plugin" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="intellij">
-<h3>IntelliJ<a class="headerlink" href="#intellij" title="Permalink to this headline">¶</a></h3>
+  <div class="section" id="plugin-debugging">
+<h1>Plugin Debugging<a class="headerlink" href="#plugin-debugging" title="Permalink to this headline">¶</a></h1>
+<p>When bugs in your plugin&#8217;s code are hard to pinpoint, you are tired of recompiling after every single change
+and logger outputs are cluttering your code, debugging can be very tedious. Therefore, this section will
+explain how to set up your plugin to utilize Java&#8217;s debugging capabilities.</p>
+<div class="section" id="preparing-your-workspace">
+<h2>Preparing your workspace<a class="headerlink" href="#preparing-your-workspace" title="Permalink to this headline">¶</a></h2>
+<p>Since we will be running both Sponge and your plugin from within your IDE, you&#8217;ll need to import either
+<a class="reference external" href="https://github.com/SpongePowered/Sponge">Sponge</a> or <a class="reference external" href="https://github.com/SpongePowered/SpongeVanilla">SpongeVanilla</a>, depending on which you want to use, as a project into your
+workspace. The instructions to do so are found on the respective project&#8217;s github page. Follow those instructions
+carefully before proceeding here.</p>
+<p>Now you need to make sure your plugin project is visible to the <strong>Sponge(Vanilla)</strong> project you just created.
+The steps necessary depend on your IDE.</p>
+<div class="section" id="intellij-idea">
+<h3>IntelliJ IDEA<a class="headerlink" href="#intellij-idea" title="Permalink to this headline">¶</a></h3>
+<p>In IntelliJ, every project has its own workspace(s). To make your project visible to the <strong>Sponge(Vanilla)</strong> project, it needs to be a <em>Module</em>. Assuming you already created your project as described in
+<a class="reference internal" href="workspace/idea.html"><em>Setting Up IntelliJ IDEA</em></a>, import it using the following steps.</p>
 <ul class="simple">
 <li>Open the <strong>Sponge(Vanilla)</strong> project.</li>
-<li>Click <tt class="docutils literal"><span class="pre">File</span></tt>, followed by <tt class="docutils literal"><span class="pre">New</span></tt>, then <tt class="docutils literal"><span class="pre">Module...</span></tt>.</li>
-<li>Select <tt class="docutils literal"><span class="pre">Gradle</span></tt> in the popup, and click Next.</li>
-<li>After naming your new project, click <tt class="docutils literal"><span class="pre">Finish</span></tt>.</li>
+<li>Click <tt class="docutils literal"><span class="pre">File</span></tt>, followed by <tt class="docutils literal"><span class="pre">New</span></tt>, then <tt class="docutils literal"><span class="pre">Module</span> <span class="pre">from</span> <span class="pre">Existing</span> <span class="pre">Sources...</span></tt>.</li>
+<li>Navigate to the directory of your plugin project and select its <tt class="docutils literal"><span class="pre">.iml</span></tt> file (e.g. <tt class="docutils literal"><span class="pre">MyPlugin.iml</span></tt>)</li>
+<li>Click <tt class="docutils literal"><span class="pre">Finish</span></tt>.</li>
 </ul>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you have not yet created your plugin, click <tt class="docutils literal"><span class="pre">Module...</span></tt> instead of <tt class="docutils literal"><span class="pre">Module</span> <span class="pre">from</span> <span class="pre">Existing</span> <span class="pre">Sources...</span></tt>,
+then create your project in the following dialogue.</p>
+</div>
 </div>
 <div class="section" id="eclipse">
 <h3>Eclipse<a class="headerlink" href="#eclipse" title="Permalink to this headline">¶</a></h3>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">You can use <a class="reference internal" href="workspace/eclipse.html"><em>Setting Up Eclipse</em></a> to create a new Eclipse project. Eclipse, unlike IntelliJ, does not
-require any specific setup in regards to how you manage the plugin. Creating a new project is all you need to do.</p>
-</div>
+<p>Just create your project as described here: <a class="reference internal" href="workspace/eclipse.html"><em>Setting Up Eclipse</em></a>. As long as it is in the same workspace
+as your <strong>Sponge(Vanilla)</strong> project, it will be visible.</p>
 </div>
 </div>
 <div class="section" id="adding-plugin-to-sponge-classpath">
 <h2>Adding Plugin to Sponge classpath<a class="headerlink" href="#adding-plugin-to-sponge-classpath" title="Permalink to this headline">¶</a></h2>
 <p>The idea behind this is that we&#8217;ll launch Sponge from within your IDE, like normal. However, the difference is that
-we&#8217;ll be adding your plugin to the classpath. To do this should only take a few steps, and will enhance your workflow,
-having cut down on all of the time that you previously would have spent transferring files and manually starting your
-server.</p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">Please ensure that you have your Run/Debug Configuration(s) set appropriately, as shown in the Sponge
-<a class="reference external" href="https://github.com/SpongePowered/Sponge/blob/master/README.md">README.md</a></p>
-</div>
+we&#8217;ll be adding your plugin to the classpath. Since Sponge will per default load all plugins found in the classpath,
+adding the plugin project to Sponge&#8217;s classpath will rid you of the necessity to rebuild and copy the artifact
+file into your server directory after every change.</p>
+<p>First you need to ensure that you have your Run/Debug Configuration(s) set appropriately, as shown in the Sponge <a class="reference external" href="https://github.com/SpongePowered/Sponge/blob/master/README.md#Running">README.md</a></p>
+<p>Then you&#8217;ll need to edit that Run/Debug Configuration so that it will include your project on the class path.
+How to do this, depends on your IDE again:</p>
 <div class="section" id="id1">
-<h3>IntelliJ<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>IntelliJ IDEA<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Open your Project Structure.<ul>
 <li>Click <tt class="docutils literal"><span class="pre">File</span></tt>, followed by <tt class="docutils literal"><span class="pre">Project</span> <span class="pre">Structure...</span></tt>.</li>
 <li>OR, click the <tt class="docutils literal"><span class="pre">Project</span> <span class="pre">Structure</span></tt> icon, in the upper right-hand corner of the IDE, next to the <tt class="docutils literal"><span class="pre">Search</span></tt> icon.</li>
 </ul>
 </li>
-<li>Click <tt class="docutils literal"><span class="pre">Modules</span></tt>.</li>
-<li>Click the Green <tt class="docutils literal"><span class="pre">+</span></tt> symbol (<tt class="docutils literal"><span class="pre">Add</span></tt>), and select <tt class="docutils literal"><span class="pre">Module</span> <span class="pre">Dependency</span></tt></li>
+<li>Click <tt class="docutils literal"><span class="pre">Modules</span></tt>. Make sure Sponge / SpongeVanilla (depending on what you chose) is selected in the middle column</li>
+<li>On the right column, select the <tt class="docutils literal"><span class="pre">Dependencies</span></tt> tab</li>
+<li>Click the Green <tt class="docutils literal"><span class="pre">+</span></tt> symbol (<tt class="docutils literal"><span class="pre">Add</span></tt>) on the far right, and select <tt class="docutils literal"><span class="pre">Module</span> <span class="pre">Dependency</span></tt></li>
 <li>Select your Module (Plugin).</li>
 <li>Do NOT check the module, after it is added to the list.</li>
 </ul>
@@ -434,21 +432,16 @@ server.</p>
 </ul>
 </div>
 </div>
-<div class="section" id="testing-the-configuration">
-<h2>Testing the Configuration<a class="headerlink" href="#testing-the-configuration" title="Permalink to this headline">¶</a></h2>
-<p>After you&#8217;ve followed the previous steps, you should be ready to start debugging.</p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">Once a single server tick takes more than a given amount of time, the watchdog will consider the server crashed
-and forcefully shut it down. When working with breakpoints or executing code step by step this might occur, so
-it is recommended that you edit your test environments <tt class="docutils literal"><span class="pre">server.properties</span></tt> file and set the value of
-<tt class="docutils literal"><span class="pre">max-tick-time</span></tt> to either a very large number (the amount of milliseconds a tick may take) or <tt class="docutils literal"><span class="pre">-1</span></tt> (to disable
-the Watchdog completely).</p>
-</div>
+<div class="section" id="running-the-configuration">
+<h2>Running the Configuration<a class="headerlink" href="#running-the-configuration" title="Permalink to this headline">¶</a></h2>
+<p>After you&#8217;ve followed the previous steps, you should be ready to start debugging.
+If you start your server from your IDE as if it were run from the <tt class="docutils literal"><span class="pre">run/server</span></tt> directory in your
+Sponge(Vanilla) project. Which means, all config files, world files etc will be stored there and persist
+over multiple launches.</p>
 <div class="section" id="id3">
-<h3>IntelliJ<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3>IntelliJ IDEA<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Rather than pressing the Green right-pointing arrow to run your Run/Debug configuration, click the Green icon to the
-right of it, <tt class="docutils literal"><span class="pre">Debug</span></tt>. This is to prepare for Hotswapping, which we&#8217;re about to cover.</p>
+right of it, <tt class="docutils literal"><span class="pre">Debug</span></tt>.</p>
 </div>
 <div class="section" id="id4">
 <h3>Eclipse<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
@@ -458,42 +451,77 @@ drop-down menu, click <tt class="docutils literal"><span class="pre">Debug</span
 on the bottom left.</p>
 </div>
 </div>
-<div class="section" id="hotswapping">
-<h2>Hotswapping<a class="headerlink" href="#hotswapping" title="Permalink to this headline">¶</a></h2>
-<p>Now that you&#8217;ve got the server, running, let&#8217;s try to make some changes. Note, that there are limits to the built-in
-capabilities of Hotswapping:</p>
+<div class="section" id="using-the-debugger">
+<h2>Using the Debugger<a class="headerlink" href="#using-the-debugger" title="Permalink to this headline">¶</a></h2>
+<p>Now that your server (and your Plugin) are running in the Debugger, you can make use of the features it holds.
+The most prominently used are explained below in short, though they are not features of Sponge, but the Java
+Debugger your IDE makes use of.</p>
+<div class="section" id="breakpoints">
+<h3>Breakpoints<a class="headerlink" href="#breakpoints" title="Permalink to this headline">¶</a></h3>
+<p>Breakpoints are a useful tool to take a closer look at the code. A breakpoint can be set at the beginning of a
+line of code or a function. When reaching a breakpoint, the debugger will halt the code execution and your IDE
+will open up a view allowing you to inspect the content of all variables in the current scope. Code execution
+will not resume unless you press the according button in your IDE&#8217;s debugging view.</p>
+<p>Breakpoints may also be added, removed or temporarily disabled while the debugging is in process.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Once a single server tick takes more than a given amount of time, the watchdog will consider the server crashed
+and forcefully shut it down. When working with breakpoints this might occur, so it is recommended that you
+edit your test environments <tt class="docutils literal"><span class="pre">server.properties</span></tt> file and set the value of <tt class="docutils literal"><span class="pre">max-tick-time</span></tt> to either a
+very large number (the amount of milliseconds a tick may take) or <tt class="docutils literal"><span class="pre">-1</span></tt> (to disable the Watchdog completely).</p>
+</div>
+<div class="section" id="id5">
+<h4>IntelliJ IDEA<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>To add or remove a breakpoint, just left click in the blank space just to the left of your editor.</p>
+<p>Alternatively, have your cursor be in the line where you want the breakpoint added or removed and then click
+<tt class="docutils literal"><span class="pre">Run</span></tt> followed by <tt class="docutils literal"><span class="pre">Toggle</span> <span class="pre">Line</span> <span class="pre">Breakpoint</span></tt>.</p>
+</div>
+<div class="section" id="id6">
+<h4>Eclipse<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>To add or remove a breakpoint, just right click in the blank space just to the left of your editor and click
+<tt class="docutils literal"><span class="pre">Toggle</span> <span class="pre">Breakpoint</span></tt>.</p>
+<p>Alternatively, have your cursor be in the line where you want the breakpoint added or removed and then click <tt class="docutils literal"><span class="pre">Run</span></tt> followed by <tt class="docutils literal"><span class="pre">Toggle</span> <span class="pre">Breakpoint</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="code-hotswapping">
+<h3>Code Hotswapping<a class="headerlink" href="#code-hotswapping" title="Permalink to this headline">¶</a></h3>
+<p>The other major feat of the debugger is that you will not have to restart your server for every small change you
+make, thanks to code hotswapping. This means that you can just recompile portions of your code while it is
+running in the debugger. However, there are a couple of limitations, the most important of which are:</p>
 <ul>
 <li><p class="first">You cannot create or remove methods.</p>
 <blockquote>
 <div><ul class="simple">
-<li>Changes to methods are limited to information <em>within</em> the method. You cannot modify its return type, nor its
-variable requirements</li>
+<li>Changes to methods are limited to code <em>within</em> the method. You cannot modify its signature (that means its name, return type and parameter types)</li>
 </ul>
 </div></blockquote>
 </li>
 <li><p class="first">You cannot remove classes.</p>
 <blockquote>
 <div><ul class="simple">
-<li>You cannot modify a class&#8217; type, extensions or implementations. Nor can you add an additional import.</li>
+<li>You cannot modify a class&#8217; name, superclass or the list of interfaces it implements.</li>
 <li>You can add classes. However, once it&#8217;s been built and hotswapped, the class follows the above rules.</li>
 </ul>
 </div></blockquote>
 </li>
 </ul>
-<p>Go ahead and make a change to an existing method. Make sure that this is something you can trigger from within the
-server, to see the change. Once you&#8217;ve done that:</p>
-<div class="section" id="id5">
-<h3>IntelliJ<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>You can test this functionality: Introduce a simple command to your plugin that just writes a word, like <tt class="docutils literal"><span class="pre">Sponge</span></tt>
+Then save it and start the server as described above. Run the command. It will output sponge. Now change the command
+to write a different word to console, save the file. After a change, do as follows to hotswap the changes to
+the running program:</p>
+<div class="section" id="id7">
+<h4>IntelliJ IDEA<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li>Open the <tt class="docutils literal"><span class="pre">Run</span></tt> menu, from the top of the IDE.</li>
 <li>Below the first category break, click <tt class="docutils literal"><span class="pre">Reload</span> <span class="pre">Changed</span> <span class="pre">Classes</span></tt>.</li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h3>Eclipse<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<p>In Eclipse, when a file is rebuilt, it is automatically hotswapped with the currently running debug. The default setting
-for building files insist that it is rebuilt upon every save. Meaning as soon as the file is saved, it&#8217;s automatically
-built and swapped. If you have turned this feature off, you would have to build manually.</p>
+<div class="section" id="id8">
+<h4>Eclipse<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<p>No action needed. As soon as you save the file, it will be rebuilt and automatically hotswapped with the
+currently running debug. So as long as you did not change this particular default behavior, you will not have to
+trigger a manual hotswap.</p>
+</div>
 </div>
 </div>
 </div>
