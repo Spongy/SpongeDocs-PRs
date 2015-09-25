@@ -212,6 +212,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data/keys.html">Using Keys</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../data/datamanipulators.html">Data Manipulators</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../blocks/index.html">Working with Blocks</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../blocks/concepts.html">Concepts</a><ul class="simple">
 </ul>
@@ -229,6 +241,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Working with Entities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../entities/spawning.html">Spawning an Entity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../items.html">Working with Items</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Configuring Your Plugin</a><ul class="current">
@@ -329,8 +344,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../downloads.html">Download</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../../downloads.html">Download</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -400,7 +414,7 @@ annotate our class with the <tt class="docutils literal"><span class="pre">&#64;
 <div class="highlight-java"><div class="highlight"><pre><span class="nd">@ConfigSerializable</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounter</span> <span class="o">{</span>
 
-    <span class="nd">@Setting</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;player&quot;</span><span class="o">)</span>
+    <span class="nd">@Setting</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;player&quot;</span><span class="o">,</span> <span class="n">comment</span><span class="o">=</span><span class="s">&quot;Player UUID&quot;</span><span class="o">)</span>
     <span class="kd">private</span> <span class="n">UUID</span> <span class="n">playerUUID</span><span class="o">;</span>
     <span class="nd">@Setting</span><span class="o">(</span><span class="n">comment</span><span class="o">=</span><span class="s">&quot;Number of diamonds mined&quot;</span><span class="o">)</span>
     <span class="kd">private</span> <span class="kt">int</span> <span class="n">diamonds</span><span class="o">;</span>
@@ -413,10 +427,14 @@ annotate our class with the <tt class="docutils literal"><span class="pre">&#64;
 <tt class="docutils literal"><span class="pre">&#64;Setting</span></tt> annotations map a configuration node to the field annotated. It accepts two optional parameters,
 <tt class="docutils literal"><span class="pre">value</span></tt> and <tt class="docutils literal"><span class="pre">comment</span></tt>. If the <tt class="docutils literal"><span class="pre">value</span></tt> parameter exists, it defines the name of the node the field will be
 saved in. If it is not present, the name of the field will be used instead. So in our above example, the
-annotation ensures that the contents of the field <tt class="docutils literal"><span class="pre">playerUUID</span></tt> are saved to the node &#8220;player&#8221;. The
-<tt class="docutils literal"><span class="pre">diamonds</span></tt> field however will be saved under that exact name since its annotation only specifies a comment.
-That comment will be written to the config if the implementation supports commented configuration nodes, else
-it will be discarded.</p>
+annotation ensures that the contents of the field <tt class="docutils literal"><span class="pre">playerUUID</span></tt> are saved to the node &#8220;player&#8221;, commented with
+&#8220;Player UUID&#8221;. The <tt class="docutils literal"><span class="pre">diamonds</span></tt> field however will be saved under that exact name since its annotation only
+specifies a comment. That comment will be written to the config if the implementation supports commented
+configuration nodes, else it will be discarded.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">You may also use the shorthand <tt class="docutils literal"><span class="pre">&#64;Setting(&quot;someNode&quot;)</span></tt> instead of <tt class="docutils literal"><span class="pre">&#64;Setting(value=&quot;someNode&quot;)</span></tt></p>
+</div>
 <p>The <tt class="docutils literal"><span class="pre">&#64;ConfigSerializable</span></tt> annotation eliminates the need for any registration since it allows configurate to
 just generate an <tt class="docutils literal"><span class="pre">ObjectMapper</span></tt> for the class. The only limitation is that configurate needs an empty
 constructor to instantiate a new object before filling in the annotated fields.</p>
