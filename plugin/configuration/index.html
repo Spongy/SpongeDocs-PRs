@@ -33,7 +33,7 @@
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../../index.html" />
         <link rel="up" title="Creating a Plugin" href="../index.html" />
         <link rel="next" title="Configuration Loaders" href="loaders.html" />
-        <link rel="prev" title="Spawning an Entity" href="../entities/spawning.html" />
+        <link rel="prev" title="Working with Items" href="../items.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -61,7 +61,7 @@
           <a href="loaders.html" title="Configuration Loaders"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../entities/spawning.html" title="Spawning an Entity"
+          <a href="../items.html" title="Working with Items"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
         <li><a href="../index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
@@ -93,7 +93,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/sponge.html">Sponge Coremod</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/glowstone.html">Glowstone</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
@@ -211,6 +210,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data/keys.html">Using Keys</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../data/datamanipulators.html">Data Manipulators</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../blocks/index.html">Working with Blocks</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../blocks/concepts.html">Concepts</a><ul class="simple">
 </ul>
@@ -230,6 +241,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../entities/spawning.html">Spawning an Entity</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../items.html">Working with Items</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Configuring Your Plugin</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="loaders.html">Configuration Loaders</a><ul class="simple">
 </ul>
@@ -241,6 +255,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="values.html">Giving Nodes Value</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="serialization.html">Serializing Objects</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -261,7 +278,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../manager.html">Using the Plugin Manager</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging and Hotswapping</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../message-sinks.html">Message Sinks</a><ul class="simple">
@@ -325,8 +342,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../downloads.html">Download</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../../downloads.html">Download</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -354,9 +370,11 @@ about working with its components.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Sponge makes use of the HOCON configuration format. The rest of this guide will assume you are as well. As working
-with the different formats is made relatively similar by the system of Configurate, this should not pose too much
-of an issue if you so choose to use an alternate format.</p>
+<p class="last">Sponge makes use of the HOCON configuration format, a superset of JSON, as the default format for saving
+configuration files. The rest of this guide will assume you are using HOCON as well. See
+<a class="reference internal" href="../../server/getting-started/configuration/hocon.html"><em>Introduction to HOCON</em></a> more for information regarding the HOCON format.
+Working with different formats is made relatively similar by the Configurate system, so it should not
+pose too much of an issue if you use an alternate format instead.</p>
 </div>
 <div class="toctree-wrapper compound">
 <ul>
@@ -370,6 +388,9 @@ of an issue if you so choose to use an alternate format.</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="values.html">Giving Nodes Value</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="serialization.html">Serializing Objects</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -391,11 +412,6 @@ will be <tt class="docutils literal"><span class="pre">your_plugin_id.conf</span
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">See <a class="reference internal" href="../main-class.html"><em>Creating Your Main Plugin Class</em></a> for information on configuring your plugin ID.</p>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The Sponge API uses HOCON, a superset of JSON, as the default format for saving configuration files. See
-<a class="reference internal" href="../../server/getting-started/configuration/hocon.html"><em>Introduction to HOCON</em></a> more for information regarding the HOCON format.</p>
 </div>
 <p>If you set <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> to <tt class="docutils literal"><span class="pre">false</span></tt>, the returned pathname will refer to a file named <tt class="docutils literal"><span class="pre">{pluginname}.conf</span></tt> in a
 directory specific to your plugin.</p>
@@ -438,7 +454,8 @@ plugin configuration folder with a dedicated data folder (sharedRoot = false) is
     <span class="o">}</span>
     <span class="n">File</span> <span class="n">bukkitConfigFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">configDir</span><span class="o">,</span> <span class="s">&quot;config.yml&quot;</span><span class="o">);</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">bukkitConfigFile</span><span class="o">.</span><span class="na">isFile</span><span class="o">())</span> <span class="o">{</span>
-        <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">ConfigurationNode</span><span class="o">&gt;</span> <span class="n">yamlReader</span> <span class="o">=</span> <span class="n">YAMLConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setFile</span><span class="o">(</span><span class="n">bukkitConfigFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+        <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">ConfigurationNode</span><span class="o">&gt;</span> <span class="n">yamlReader</span> <span class="o">=</span>
+          <span class="n">YAMLConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setFile</span><span class="o">(</span><span class="n">bukkitConfigFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
         <span class="n">ConfigurationNode</span> <span class="n">bukkitConfig</span> <span class="o">=</span> <span class="n">yamlReader</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
         <span class="n">configLoader</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">bukkitConfig</span><span class="o">);</span>
         <span class="k">if</span> <span class="o">(!</span><span class="n">bukkitConfigFile</span><span class="o">.</span><span class="na">renameTo</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">configDir</span><span class="o">,</span> <span class="s">&quot;config.yml.bukkit&quot;</span><span class="o">)))</span> <span class="o">{</span>
