@@ -405,9 +405,11 @@ second is the interface implemented by the corresponding <tt class="docutils lit
 <li>One without arguments (no-args) which calls the second</li>
 <li>and one single-argument constructor which is actually used for the provided values</li>
 </ul>
-<p>The second constructor must
-* make a call to the <tt class="docutils literal"><span class="pre">AbstractData</span></tt> constructor, passing the class reference for the implemented interface.
-* call the <tt class="docutils literal"><span class="pre">registerGettersAndSetters()</span></tt> method</p>
+<p>The second constructor must</p>
+<ul class="simple">
+<li>make a call to the <tt class="docutils literal"><span class="pre">AbstractData</span></tt> constructor, passing the class reference for the implemented interface.</li>
+<li>call the <tt class="docutils literal"><span class="pre">registerGettersAndSetters()</span></tt> method</li>
+</ul>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="nf">SpongeHealthData</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">(</span><span class="mi">20</span><span class="n">D</span><span class="o">,</span> <span class="mi">20</span><span class="n">D</span><span class="o">);</span>
 <span class="o">}</span>
@@ -440,7 +442,8 @@ default value will be used instead.</p>
 </div>
 <div class="section" id="copying-and-serialization">
 <h3>Copying and Serialization<a class="headerlink" href="#copying-and-serialization" title="Permalink to this headline">¶</a></h3>
-<p>The two methods <tt class="docutils literal"><span class="pre">copy()</span></tt> and <tt class="docutils literal"><span class="pre">asImmutable()</span></tt> are easy to implement. For both you just need to return a mutable or an immutable data manipulator respectively, containing the same data as the current instance.</p>
+<p>The two methods <tt class="docutils literal"><span class="pre">copy()</span></tt> and <tt class="docutils literal"><span class="pre">asImmutable()</span></tt> are not much work to implement. For both you just need to return
+a mutable or an immutable data manipulator respectively, containing the same data as the current instance.</p>
 <p>The method <tt class="docutils literal"><span class="pre">toContainer()</span></tt> is used for serialization purposes. Use a <tt class="docutils literal"><span class="pre">MemoryDataContainer</span></tt> as the result
 and apply to it the values stored within this instance. A <tt class="docutils literal"><span class="pre">DataContainer</span></tt> is basically a map mapping <tt class="docutils literal"><span class="pre">DataQuery</span></tt>s
 to values. Since a <tt class="docutils literal"><span class="pre">Key</span></tt> always contains a corresponding <tt class="docutils literal"><span class="pre">DataQuery</span></tt>, just use those using the convenience methods.</p>
@@ -476,10 +479,12 @@ by <tt class="docutils literal"><span class="pre">AbstractData</span></tt>, but 
 <div class="section" id="immutabledatamanipulator">
 <h2>2. ImmutableDataManipulator<a class="headerlink" href="#immutabledatamanipulator" title="Permalink to this headline">¶</a></h2>
 <p>Implementing the <tt class="docutils literal"><span class="pre">ImmutableDataManipulator</span></tt> is similar to implementing the mutable one.</p>
-<p>The only differences are:
-* The class name is formed by prefixing the mutable <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>s name with <tt class="docutils literal"><span class="pre">Immutable</span></tt>
-* Inherit from <tt class="docutils literal"><span class="pre">ImmutableAbstractData</span></tt> instead
-* Instead of <tt class="docutils literal"><span class="pre">registerGettersAndSetters()</span></tt>, the method is called <tt class="docutils literal"><span class="pre">registerGetters()</span></tt></p>
+<p>The only differences are:</p>
+<ul class="simple">
+<li>The class name is formed by prefixing the mutable <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>s name with <tt class="docutils literal"><span class="pre">Immutable</span></tt></li>
+<li>Inherit from <tt class="docutils literal"><span class="pre">ImmutableAbstractData</span></tt> instead</li>
+<li>Instead of <tt class="docutils literal"><span class="pre">registerGettersAndSetters()</span></tt>, the method is called <tt class="docutils literal"><span class="pre">registerGetters()</span></tt></li>
+</ul>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">It may be beneficial to declare the fields of an <tt class="docutils literal"><span class="pre">ImmutableDataManipulator</span></tt> as <tt class="docutils literal"><span class="pre">final</span></tt> in order to
@@ -488,91 +493,130 @@ prevent accidental changes.</p>
 </div>
 <div class="section" id="register-the-key-in-the-keyregistry">
 <h2>3. Register the Key in the KeyRegistry<a class="headerlink" href="#register-the-key-in-the-keyregistry" title="Permalink to this headline">¶</a></h2>
-<p>The next step is to register your <tt class="docutils literal"><span class="pre">KEYS</span></tt> in the <tt class="docutils literal"><span class="pre">KeyRegistry</span></tt>:</p>
+<p>The next step is to register your <tt class="docutils literal"><span class="pre">Key</span></tt>s to the <tt class="docutils literal"><span class="pre">KeyRegistry</span></tt>. To do so, locate the
+<tt class="docutils literal"><span class="pre">org.spongepowered.common.data.key.KeyRegistry</span></tt> class and find the static <tt class="docutils literal"><span class="pre">registerKeys()</span></tt> function.
+There add a line to register (and create) your used keys.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">registerKeys</span><span class="o">()</span> <span class="o">{</span>
-     <span class="n">keyMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;is_flying&quot;</span><span class="o">,</span> <span class="n">makeSingleKey</span><span class="o">(</span><span class="n">Boolean</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Value</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">of</span><span class="o">(</span><span class="s">&quot;IsFlying&quot;</span><span class="o">)));</span>
+    <span class="n">keyMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;max_health&quot;</span><span class="o">,</span> <span class="n">makeSingleKey</span><span class="o">(</span><span class="n">Double</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="n">MutableBoundedValue</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">of</span><span class="o">(</span><span class="s">&quot;MaxHealth&quot;</span><span class="o">)));</span>
 <span class="o">}</span>
 </pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">keyMap</span></tt> maps strings to <tt class="docutils literal"><span class="pre">Key</span></tt>s. The string used should be the corresponding constant name from
+the <tt class="docutils literal"><span class="pre">Keys</span></tt> utility class in lowercase. The <tt class="docutils literal"><span class="pre">Key</span></tt> itself is created by one of the static methods
+provided by <tt class="docutils literal"><span class="pre">KeyFactory</span></tt>, in most cases <tt class="docutils literal"><span class="pre">makeSingleKey</span></tt>. <tt class="docutils literal"><span class="pre">makeSingleKey</span></tt> requires first a class reference
+for the underlying data, which in our case is a &#8220;Double&#8221;, then a class reference for the <tt class="docutils literal"><span class="pre">Value</span></tt> type used.
+The third argument is the <tt class="docutils literal"><span class="pre">DataQuery</span></tt> used for serialization. It is created from the statically imported
+<tt class="docutils literal"><span class="pre">DataQuery.of()</span></tt> method accepting a string. This string should also be the constant name, stripped of
+underscores and capitalization changed to upper camel case.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">For primitive types (like double, int, boolean), use the constant <tt class="docutils literal"><span class="pre">TYPE</span></tt> provided in its wrapper class, not the class reference.</p>
 </div>
 </div>
 <div class="section" id="implement-the-dataprocessor">
 <h2>4. Implement the DataProcessor<a class="headerlink" href="#implement-the-dataprocessor" title="Permalink to this headline">¶</a></h2>
-<p>Next up is the <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>. A <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> implements your <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> to work semi-natively with
-Minecraft&#8217;s objects. Unfortunately, since it&#8217;s always easier to just directly implement all of the processing of a
-particular set of data in one place, we have <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>s to do just that. To simplify the implementation of
-<tt class="docutils literal"><span class="pre">DataProcessor</span></tt>s, <tt class="docutils literal"><span class="pre">AbstractDataProcessor</span></tt> was developed to reduce boilerplate code. It brought up two additional
-<tt class="docutils literal"><span class="pre">DataProcessor</span></tt>s, <tt class="docutils literal"><span class="pre">AbstractEntitySingleDataProcessor</span></tt> and <tt class="docutils literal"><span class="pre">AbstractEntityDataProcessor</span></tt> which are specifically
-targeted at <tt class="docutils literal"><span class="pre">Entities</span></tt> based on <tt class="docutils literal"><span class="pre">net.minecraft.entity.entity</span></tt>. These two <tt class="docutils literal"><span class="pre">processor</span></tt>s reduce the needed code and
-leave us with this:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="kd">abstract</span> <span class="n">M</span> <span class="nf">createManipulator</span><span class="o">();</span>
-
- <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">supports</span><span class="o">(</span><span class="n">E</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
-     <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
- <span class="o">}</span>
-
- <span class="kd">protected</span> <span class="kd">abstract</span> <span class="kt">boolean</span> <span class="nf">set</span><span class="o">(</span><span class="n">E</span> <span class="n">entity</span><span class="o">,</span> <span class="n">T</span> <span class="n">value</span><span class="o">);</span>
-
- <span class="kd">protected</span> <span class="kd">abstract</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">getVal</span><span class="o">(</span><span class="n">E</span> <span class="n">entity</span><span class="o">);</span>
-
- <span class="kd">protected</span> <span class="kd">abstract</span> <span class="n">ImmutableValue</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">constructImmutableValue</span><span class="o">(</span><span class="n">T</span> <span class="n">value</span><span class="o">);</span>
+<p>Next up is the <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>. A <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> serves as a bridge between our <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> and
+Minecraft&#8217;s objects. Whenever any data is requested from or offered to <tt class="docutils literal"><span class="pre">DataHolders</span></tt> that exist in Vanilla
+Minecraft, those calls end up being handled by a <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> or a <tt class="docutils literal"><span class="pre">ValueProcessor</span></tt>.</p>
+<p>In order to reduce boilerplate code, the <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> should inherit from the appropriate abstract class in
+the <tt class="docutils literal"><span class="pre">org.spongepowered.common.data.processor.common</span></tt> package. Since health can only be present on certain
+entities, we can make use of the <tt class="docutils literal"><span class="pre">AbstractEntityDataProcessor</span></tt> which is specifically
+targeted at <tt class="docutils literal"><span class="pre">Entities</span></tt> based on <tt class="docutils literal"><span class="pre">net.minecraft.entity.entity</span></tt>.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HealthDataProcessor</span> <span class="kd">extends</span> <span class="n">AbstractEntityDataProcessor</span><span class="o">&lt;</span><span class="n">EntityLivingBase</span><span class="o">,</span> <span class="n">HealthData</span><span class="o">,</span> <span class="n">ImmutableHealthData</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">HealthDataProcessor</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">EntityLivingBase</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="o">[...]</span>
+<span class="o">}</span>
 </pre></div>
 </div>
-<div class="section" id="createmanipulator-method">
-<h3>createManipulator() method<a class="headerlink" href="#createmanipulator-method" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="n">HealthData</span> <span class="nf">createManipulator</span><span class="o">()</span> <span class="o">{</span>
-   <span class="k">return</span> <span class="k">new</span> <span class="n">SpongeHealthData</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="mi">20</span><span class="o">);</span>
+<p>Depending on which abstraction you use, the methods you have to implement may differ greatly, depending on how
+much implementation work already could be done in the abstract class. Generally, the methods can be categorized.</p>
+<div class="section" id="validation-methods">
+<h3>Validation Methods<a class="headerlink" href="#validation-methods" title="Permalink to this headline">¶</a></h3>
+<p>Always return a boolean value. If the method is called <tt class="docutils literal"><span class="pre">supports()</span></tt> it should perform a general check if the supplied target generally supports the kind of data handled by our <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>.</p>
+<p>For our <tt class="docutils literal"><span class="pre">HealthDataProcessor</span></tt> <tt class="docutils literal"><span class="pre">supports()</span></tt> is implemented by the <tt class="docutils literal"><span class="pre">AbstractEntityDataProcessor</span></tt>. Per
+default, it will return true if the supplied argument is an instance of the class specified when calling the
+<tt class="docutils literal"><span class="pre">super()</span></tt> constructor.</p>
+<p>Instead, we are required to provide a <tt class="docutils literal"><span class="pre">doesDataExist()</span></tt> method. Since the abstraction does not know how to
+obtain the data, it leaves this function to be implemented. As the name says, the method should check if the data
+already exists on the supported target. For the <tt class="docutils literal"><span class="pre">HealthDataProcessor</span></tt>, this always returns true, since every
+living entity always has health.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">doesDataExist</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="doesdataexist-method">
-<h3>doesDataExist() method<a class="headerlink" href="#doesdataexist-method" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">doesDataExist</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
-   <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<div class="section" id="setter-methods">
+<h3>Setter Methods<a class="headerlink" href="#setter-methods" title="Permalink to this headline">¶</a></h3>
+<p>A setter method receives a <tt class="docutils literal"><span class="pre">DataHolder</span></tt> of some sort and some data that should be applied to it, if possible.</p>
+<p>The <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> interface defines a <tt class="docutils literal"><span class="pre">set()</span></tt> method accepting a <tt class="docutils literal"><span class="pre">DataHolder</span></tt> and a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> which returns a <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt>. Depending on the abstraction class used, some of the necessary functionality might already be implemented.</p>
+<p>In this case, the <tt class="docutils literal"><span class="pre">AbstractEntityDataProcessor</span></tt> takes care of most of it and just requires a method to set some values to return <tt class="docutils literal"><span class="pre">true</span></tt> if it was successful and <tt class="docutils literal"><span class="pre">false</span></tt> if it was not. Creation of the <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt> is fully handled by the abstract class.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">set</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="o">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">keyValues</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">entity</span><span class="o">.</span><span class="na">getEntityAttribute</span><span class="o">(</span><span class="n">SharedMonsterAttributes</span><span class="o">.</span><span class="na">maxHealth</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">setBaseValue</span><span class="o">(((</span><span class="n">Double</span><span class="o">)</span> <span class="n">keyValues</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">)).</span><span class="na">floatValue</span><span class="o">());</span>
+    <span class="n">entity</span><span class="o">.</span><span class="na">setHealth</span><span class="o">(((</span><span class="n">Double</span><span class="o">)</span> <span class="n">keyValues</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">)).</span><span class="na">floatValue</span><span class="o">());</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">To understand <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt> s, check the <tt class="xref doc docutils literal"><span class="pre">corresponding</span> <span class="pre">docs</span> <span class="pre">page</span></tt> and refer to the <a class="reference external" href="https://jd.spongepowered.org/index.html?org/spongepowered/api/data/DataTransactionBuilder.html">DataTransactionBuilder API
+Docs</a> to
+create one.</p>
+</div>
+</div>
+<div class="section" id="removal-methods">
+<h3>Removal Methods<a class="headerlink" href="#removal-methods" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">remove()</span></tt> method attempts to remove data from the <tt class="docutils literal"><span class="pre">DataHolder</span></tt> and returns a <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt>.</p>
+<p>Since it is impossible for an <tt class="docutils literal"><span class="pre">EntityLivingBase</span></tt> to not have any health, this operation will always fail on the <tt class="docutils literal"><span class="pre">HealthDataProcessor</span></tt>.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">DataTransactionResult</span> <span class="nf">remove</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">dataHolder</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">DataTransactionBuilder</span><span class="o">.</span><span class="na">failNoData</span><span class="o">();</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="set-method">
-<h3>set() method<a class="headerlink" href="#set-method" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">set</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="o">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">keyValues</span><span class="o">)</span> <span class="o">{</span>
-   <span class="n">entity</span><span class="o">.</span><span class="na">getEntityAttribute</span><span class="o">(</span><span class="n">SharedMonsterAttributes</span><span class="o">.</span><span class="na">maxHealth</span><span class="o">).</span><span class="na">setBaseValue</span><span class="o">(((</span><span class="n">Double</span><span class="o">)</span> <span class="n">keyValues</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">)).</span><span class="na">floatValue</span><span class="o">());</span>
-   <span class="n">entity</span><span class="o">.</span><span class="na">setHealth</span><span class="o">(((</span><span class="n">Double</span><span class="o">)</span> <span class="n">keyValues</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">)).</span><span class="na">floatValue</span><span class="o">());</span>
-   <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<div class="section" id="getter-methods">
+<h3>Getter Methods<a class="headerlink" href="#getter-methods" title="Permalink to this headline">¶</a></h3>
+<p>Getter methods obtain data from a <tt class="docutils literal"><span class="pre">DataHolder</span></tt> and return an optional <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>. The
+<tt class="docutils literal"><span class="pre">DataProcessor</span></tt> interface specifies the methods <tt class="docutils literal"><span class="pre">from()</span></tt> and <tt class="docutils literal"><span class="pre">createFrom()</span></tt>, the difference being that
+<tt class="docutils literal"><span class="pre">from()</span></tt> will return <tt class="docutils literal"><span class="pre">Optional.empty()</span></tt> if the data holder is compatible, but currently does not contain the
+data, while <tt class="docutils literal"><span class="pre">createFrom()</span></tt> will provide a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> holding default values in that case.</p>
+<p>Again, <tt class="docutils literal"><span class="pre">AbstractEntityDataProcessor</span></tt> will provide most of the implementation for this and only requires a
+method to get the actual values present on the <tt class="docutils literal"><span class="pre">DataHolder</span></tt>. This method is only called after <tt class="docutils literal"><span class="pre">supports()</span></tt>
+and <tt class="docutils literal"><span class="pre">doesDataExist()</span></tt> both returned true.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;,</span> <span class="o">?&gt;</span> <span class="n">getValues</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="kt">double</span> <span class="n">health</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="na">getHealth</span><span class="o">();</span>
+    <span class="kd">final</span> <span class="kt">double</span> <span class="n">maxHealth</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="na">getMaxHealth</span><span class="o">();</span>
+    <span class="k">return</span> <span class="n">ImmutableMap</span><span class="o">.&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;,</span> <span class="n">Object</span><span class="o">&gt;</span><span class="n">of</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">health</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="n">maxHealth</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="getvalues-datacontainer">
-<h3>getValues(DataContainer)<a class="headerlink" href="#getvalues-datacontainer" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;,</span> <span class="o">?&gt;</span> <span class="n">getValues</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
-   <span class="kd">final</span> <span class="kt">double</span> <span class="n">health</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="na">getHealth</span><span class="o">();</span>
-   <span class="kd">final</span> <span class="kt">double</span> <span class="n">maxHealth</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="na">getMaxHealth</span><span class="o">();</span>
-   <span class="k">return</span> <span class="n">ImmutableMap</span><span class="o">.&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;,</span> <span class="n">Object</span><span class="o">&gt;</span><span class="n">of</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">health</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="n">maxHealth</span><span class="o">);</span>
+<div class="section" id="filler-methods">
+<h3>Filler Methods<a class="headerlink" href="#filler-methods" title="Permalink to this headline">¶</a></h3>
+<p>A filler method is different from a getter method in that it receives a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> to fill with values. These values either come from a <tt class="docutils literal"><span class="pre">DataHolder</span></tt> or have to be deserialized from a <tt class="docutils literal"><span class="pre">DataContainer</span></tt>. The method returns <tt class="docutils literal"><span class="pre">Optional.empty()</span></tt> if the <tt class="docutils literal"><span class="pre">DataHolder</span></tt> is incompatible.</p>
+<p><tt class="docutils literal"><span class="pre">AbstractEntityDataProcessor</span></tt> already handles filling from <tt class="docutils literal"><span class="pre">DataHolders</span></tt> by creating a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> from the holder and then merging it with the supplied manipulator, but the <tt class="docutils literal"><span class="pre">DataContainer</span></tt> deserialization it can not provide.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">fill</span><span class="o">(</span><span class="n">DataContainer</span> <span class="n">container</span><span class="o">,</span> <span class="n">HealthData</span> <span class="n">healthData</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">healthData</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="n">DataUtil</span><span class="o">.</span><span class="na">getData</span><span class="o">(</span><span class="n">container</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">));</span>
+    <span class="n">healthData</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">DataUtil</span><span class="o">.</span><span class="na">getData</span><span class="o">(</span><span class="n">container</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">));</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">healthData</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="fill-datacontainer">
-<h3>fill(DataContainer)<a class="headerlink" href="#fill-datacontainer" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">fill</span><span class="o">(</span><span class="n">DataContainer</span> <span class="n">container</span><span class="o">,</span> <span class="n">HealthData</span> <span class="n">healthData</span><span class="o">)</span> <span class="o">{</span>
-   <span class="n">healthData</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="n">getData</span><span class="o">(</span><span class="n">container</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">));</span>
-   <span class="n">healthData</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">getData</span><span class="o">(</span><span class="n">container</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">));</span>
-   <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">healthData</span><span class="o">);</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="remove-dataholder">
-<h3>remove(DataHolder)<a class="headerlink" href="#remove-dataholder" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">DataTransactionResult</span> <span class="nf">remove</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">dataHolder</span><span class="o">)</span> <span class="o">{</span>
-   <span class="k">return</span> <span class="n">DataTransactionBuilder</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">result</span><span class="o">(</span><span class="n">DataTransactionResult</span><span class="o">.</span><span class="na">Type</span><span class="o">.</span><span class="na">FAILURE</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<div class="section" id="other-methods">
+<h3>Other Methods<a class="headerlink" href="#other-methods" title="Permalink to this headline">¶</a></h3>
+<p>Depending on the abstract superclass used, some other methods may be required. For instance,
+<tt class="docutils literal"><span class="pre">AbstractEntityDataProcessor</span></tt> needs to create <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> instances in various points. It can&#8217;t do this
+since it knows neither the implementation class nor the constructor to use. Therefore it utilizes an abstract
+function that has to be provided by the final implementation. This does nothing more than create a
+<tt class="docutils literal"><span class="pre">DataManipulator</span></tt> with default data.</p>
+<p>If you implemented your <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> as recommended, you can just use the empty constructor.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="n">HealthData</span> <span class="nf">createManipulator</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">SpongeHealthData</span><span class="o">();</span>
 <span class="o">}</span>
 </pre></div>
 </div>
