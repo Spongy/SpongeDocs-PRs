@@ -94,7 +94,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/sponge.html">Sponge Coremod</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/glowstone.html">Glowstone</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
@@ -212,6 +211,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data/keys.html">Using Keys</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../data/datamanipulators.html">Data Manipulators</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Working with Blocks</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="concepts.html">Concepts</a><ul class="simple">
 </ul>
@@ -247,6 +258,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../configuration/values.html">Giving Nodes Value</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a><ul class="simple">
@@ -265,7 +279,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../manager.html">Using the Plugin Manager</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging and Hotswapping</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../message-sinks.html">Message Sinks</a><ul class="simple">
@@ -391,7 +405,7 @@ a wet sponge block.</p>
 </div>
 </div></blockquote>
 <p>A <tt class="docutils literal"><span class="pre">BlockState</span></tt> itself and its data are immutable, but it provides the methods <tt class="docutils literal"><span class="pre">withData()</span></tt> and <tt class="docutils literal"><span class="pre">withoutData()</span></tt>
-both of which will return a new altered <tt class="docutils literal"><span class="pre">BlockState</span></tt> or <tt class="docutils literal"><span class="pre">Optional.absent()</span></tt> if the given <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> is
+both of which will return a new altered <tt class="docutils literal"><span class="pre">BlockState</span></tt> or <tt class="docutils literal"><span class="pre">Optional.empty()</span></tt> if the given <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> is
 not applicable to the kind of block represented by the <tt class="docutils literal"><span class="pre">BlockState</span></tt>.</p>
 <p>The <tt class="docutils literal"><span class="pre">withData()</span></tt> method accepts a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> and will try to create a new <tt class="docutils literal"><span class="pre">BlockState</span></tt> with the given
 data set, overwriting existing values. The following example will change any dirt block to podzol.</p>
@@ -437,7 +451,7 @@ The following example will dry the block at a given <tt class="docutils literal"
 </div></blockquote>
 <p>Since the <tt class="docutils literal"><span class="pre">WetData</span></tt> data manipulator represents boolean data, by removing it we set the wetness of the block (if it
 has any) to false. The <tt class="docutils literal"><span class="pre">dryState.isPresent()</span></tt> check will fail on block states that can not be wet since <tt class="docutils literal"><span class="pre">dryState</span></tt>
-will be <tt class="docutils literal"><span class="pre">Optional.absent()</span></tt> in that case.</p>
+will be <tt class="docutils literal"><span class="pre">Optional.empty()</span></tt> in that case.</p>
 </div>
 <div class="section" id="copying-blocks">
 <h2>Copying Blocks<a class="headerlink" href="#copying-blocks" title="Permalink to this headline">¶</a></h2>

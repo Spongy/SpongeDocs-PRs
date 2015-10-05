@@ -33,7 +33,7 @@
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
         <link rel="next" title="Using the Scheduler" href="scheduler.html" />
-        <link rel="prev" title="Giving Nodes Value" href="configuration/values.html" />
+        <link rel="prev" title="Serializing Objects" href="configuration/serialization.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -61,7 +61,7 @@
           <a href="scheduler.html" title="Using the Scheduler"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="configuration/values.html" title="Giving Nodes Value"
+          <a href="configuration/serialization.html" title="Serializing Objects"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
@@ -93,7 +93,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/sponge.html">Sponge Coremod</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/glowstone.html">Glowstone</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
@@ -211,6 +210,18 @@
 <li class="toctree-l2"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="data/index.html">The Data API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="data/keys.html">Using Keys</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/datamanipulators.html">Data Manipulators</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="blocks/index.html">Working with Blocks</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="blocks/concepts.html">Concepts</a><ul class="simple">
 </ul>
@@ -246,6 +257,9 @@
 <li class="toctree-l3"><a class="reference internal" href="configuration/values.html">Giving Nodes Value</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Dependency Injection</a><ul class="simple">
@@ -264,7 +278,7 @@
 <li class="toctree-l2"><a class="reference internal" href="manager.html">Using the Plugin Manager</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging and Hotswapping</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="message-sinks.html">Message Sinks</a><ul class="simple">
@@ -356,27 +370,34 @@
 <div class="section" id="temporary-list-of-injected-types">
 <h2>Temporary List of Injected Types<a class="headerlink" href="#temporary-list-of-injected-types" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
-<dt>Game</dt>
-<dd>The <tt class="docutils literal"><span class="pre">Game</span></tt> object is the core accessor of the SpongeAPI.</dd>
-<dt>PluginManager</dt>
-<dd>Manages the plugins loaded by the implementation.
-Can retrieve another plugin&#8217;s <tt class="docutils literal"><span class="pre">PluginContainer</span></tt>.</dd>
-<dt>EventManager</dt>
-<dd>Manages the registration of event handlers and the dispatching of events.</dd>
-<dt>GameRegistry</dt>
-<dd>Provides an easy way to retrieve types from a <tt class="docutils literal"><span class="pre">Game</span></tt>.</dd>
-<dt>PluginContainer</dt>
-<dd>A <tt class="docutils literal"><span class="pre">&#64;Plugin</span></tt> class wrapper, used to retrieve information from the annotation for easier use.</dd>
-<dt>Logger</dt>
-<dd>Used to identify the plugin from which logged messages are sent.</dd>
-<dt>File</dt>
-<dd>This must have an additional annotation specifying specific file!
-Currently, specifications are <tt class="docutils literal"><span class="pre">ConfigFile</span></tt> and <tt class="docutils literal"><span class="pre">ConfigDir</span></tt>.</dd>
 <dt>ConfigDir</dt>
 <dd>Used to inject the plugin&#8217;s configuration directory:
 <tt class="docutils literal"><span class="pre">./mods/</span></tt> OR <tt class="docutils literal"><span class="pre">./mods/&lt;Plugin#id&gt;/</span></tt> depending on <tt class="docutils literal"><span class="pre">sharedRoot</span></tt></dd>
 <dt>ConfigFile</dt>
 <dd>Used to inject the plugin&#8217;s specific configuration file: <tt class="docutils literal"><span class="pre">&lt;Plugin#id&gt;.conf</span></tt></dd>
+<dt>EventManager</dt>
+<dd>Manages the registration of event handlers and the dispatching of events.</dd>
+<dt>File</dt>
+<dd>This must have an additional annotation specifying specific file!
+Currently, specifications are <tt class="docutils literal"><span class="pre">ConfigFile</span></tt> and <tt class="docutils literal"><span class="pre">ConfigDir</span></tt>.</dd>
+<dt>Game</dt>
+<dd>The <tt class="docutils literal"><span class="pre">Game</span></tt> object is the core accessor of the SpongeAPI.</dd>
+<dt>GameRegistry</dt>
+<dd>Provides an easy way to retrieve types from a <tt class="docutils literal"><span class="pre">Game</span></tt>.</dd>
+<dt>GuiceObjectMapperFactory</dt>
+<dd>A tool provided by configurate to allow easier mapping of objects to configuration nodes.
+See <a class="reference internal" href="configuration/serialization.html"><em>Serializing Objects</em></a> for usage.</dd>
+<dt>Injector</dt>
+<dd><tt class="docutils literal"><span class="pre">com.google.inject.Injector</span></tt> is available from Guice, it is the injector that was used to inject your plugin&#8217;s
+dependencies. You can use it to create a child injector with your own module in order to injector your own classes
+with either the Sponge provided dependencies listed on this page, or configure your own classes</dd>
+<dt>Logger</dt>
+<dd>Used to identify the plugin from which logged messages are sent.</dd>
+<dt>PluginContainer</dt>
+<dd>A <tt class="docutils literal"><span class="pre">&#64;Plugin</span></tt> class wrapper, used to retrieve information from the annotation for easier use.</dd>
+<dt>PluginManager</dt>
+<dd>Manages the plugins loaded by the implementation.
+Can retrieve another plugin&#8217;s <tt class="docutils literal"><span class="pre">PluginContainer</span></tt>.</dd>
 </dl>
 </div>
 <div class="section" id="injection-examples">
@@ -385,8 +406,8 @@ Currently, specifications are <tt class="docutils literal"><span class="pre">Con
 may not be absolutely vital to every plugin, they&#8217;re quite frequently used.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Note that it&#8217;s <em>almost always</em> recommended to inject your objects within the main class, as it&#8217;s instantiated with
-the Guice injector when the plugin is loaded.</p>
+<p class="last">Remember that it&#8217;s <em>almost always</em> best practice to inject your objects within the main class, as it&#8217;s
+instantiated with the Guice injector when the plugin is loaded.</p>
 </div>
 <div class="section" id="logger">
 <h3>Logger<a class="headerlink" href="#logger" title="Permalink to this headline">¶</a></h3>
@@ -399,7 +420,7 @@ the Guice injector when the plugin is loaded.</p>
 <h3>Game<a class="headerlink" href="#game" title="Permalink to this headline">¶</a></h3>
 <p>The <tt class="docutils literal"><span class="pre">Game</span></tt> object is the opening for many of the internal functions of the SpongeAPI, from the <tt class="docutils literal"><span class="pre">EventManager</span></tt> to the
 <tt class="docutils literal"><span class="pre">Server</span></tt> and even the Sync/Async <tt class="docutils literal"><span class="pre">Scheduler</span></tt>.</p>
-<p>It&#8217;s entirely possible to recieve the <tt class="docutils literal"><span class="pre">Game</span></tt> object from within most events, however it is commonly obtained through
+<p>It&#8217;s entirely possible to receive the <tt class="docutils literal"><span class="pre">Game</span></tt> object from within most events, however it is commonly obtained through
 an injection.</p>
 <p><strong>Example - Field</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
@@ -422,10 +443,10 @@ an injection.</p>
 </pre></div>
 </div>
 <p><strong>Example - Constructor</strong></p>
+<blockquote>
+<div><em>For the purpose of this tutorial, &#8220;Apple&#8221; is the class name.</em></div></blockquote>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.Game</span><span class="o">;</span>
-
-<span class="c1">// For the purpose of this tutorial, &quot;Apple&quot; is the class name.</span>
 
 <span class="kd">private</span> <span class="n">Game</span> <span class="n">game</span><span class="o">;</span>
 
@@ -468,10 +489,10 @@ the configuration for other plugins. In most cases where grabbing the <tt class=
 </pre></div>
 </div>
 <p><strong>Example - Constructor</strong></p>
+<blockquote>
+<div><em>For the purposes of this tutorial, &#8220;Orange&#8221; is the class name.</em></div></blockquote>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.service.config.ConfigDir</span><span class="o">;</span>
-
-<span class="c1">// For the purposes of this tutorial, &quot;Orange&quot; is the class name.</span>
 
 <span class="kd">private</span> <span class="n">File</span> <span class="n">configDir</span><span class="o">;</span>
 
