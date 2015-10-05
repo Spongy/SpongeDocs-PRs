@@ -485,6 +485,10 @@ by <tt class="docutils literal"><span class="pre">AbstractData</span></tt>, but 
 <li>Inherit from <tt class="docutils literal"><span class="pre">ImmutableAbstractData</span></tt> instead</li>
 <li>Instead of <tt class="docutils literal"><span class="pre">registerGettersAndSetters()</span></tt>, the method is called <tt class="docutils literal"><span class="pre">registerGetters()</span></tt></li>
 </ul>
+<p>When creating <tt class="docutils literal"><span class="pre">ImmutableDataHolder</span></tt>s or <tt class="docutils literal"><span class="pre">ImmutableValue</span></tt>s, check if it makes sense to use the
+<tt class="docutils literal"><span class="pre">ImmutableDataCachingUtil</span></tt>. For example if you have <tt class="docutils literal"><span class="pre">WetData</span></tt> which contains nothing more than a boolean, it
+is more feasible to retain only two cached instances of <tt class="docutils literal"><span class="pre">ImmutableWetData</span></tt> - one for each possible value. For
+manipulators and values with many possible values (like <tt class="docutils literal"><span class="pre">SignData</span></tt>) however, caching may prove too expensive.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">It may be beneficial to declare the fields of an <tt class="docutils literal"><span class="pre">ImmutableDataManipulator</span></tt> as <tt class="docutils literal"><span class="pre">final</span></tt> in order to
@@ -563,7 +567,7 @@ living entity always has health.</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">To understand <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt> s, check the <tt class="xref doc docutils literal"><span class="pre">corresponding</span> <span class="pre">docs</span> <span class="pre">page</span></tt> and refer to the <a class="reference external" href="https://jd.spongepowered.org/index.html?org/spongepowered/api/data/DataTransactionBuilder.html">DataTransactionBuilder API
+<p class="last">To understand <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt> s, check the <a class="reference internal" href="../../plugin/data/transactions.html"><em>corresponding docs page</em></a> and refer to the <a class="reference external" href="https://jd.spongepowered.org/index.html?org/spongepowered/api/data/DataTransactionBuilder.html">DataTransactionBuilder API
 Docs</a> to
 create one.</p>
 </div>

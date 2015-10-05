@@ -139,6 +139,11 @@ The only differences are:
 * Inherit from ``ImmutableAbstractData`` instead
 * Instead of ``registerGettersAndSetters()``, the method is called ``registerGetters()``
 
+When creating ``ImmutableDataHolder``\ s or ``ImmutableValue``\ s, check if it makes sense to use the
+``ImmutableDataCachingUtil``. For example if you have ``WetData`` which contains nothing more than a boolean, it
+is more feasible to retain only two cached instances of ``ImmutableWetData`` - one for each possible value. For
+manipulators and values with many possible values (like ``SignData``) however, caching may prove too expensive.
+
 .. tip::
 
     It may be beneficial to declare the fields of an ``ImmutableDataManipulator`` as ``final`` in order to
@@ -233,7 +238,7 @@ In this case, the ``AbstractEntityDataProcessor`` takes care of most of it and j
 .. tip::
 
     To understand ``DataTransactionResult`` \ s, check the :doc:`corresponding docs page
-    <../../plugins/data/transactions>` and refer to the `DataTransactionBuilder API
+    <../../plugin/data/transactions>` and refer to the `DataTransactionBuilder API
     Docs <https://jd.spongepowered.org/index.html?org/spongepowered/api/data/DataTransactionBuilder.html>`_ to
     create one.
 
