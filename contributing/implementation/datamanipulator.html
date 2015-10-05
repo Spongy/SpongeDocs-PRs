@@ -383,8 +383,8 @@ An updated list of DataManipulators to be implemented can be found at
 <p class="first admonition-title">Note</p>
 <p class="last">Make sure you follow our <a class="reference internal" href="../guidelines.html"><em>Contribution Guidelines</em></a>.</p>
 </div>
-<div class="section" id="implementing-the-datamanipulator">
-<h2>1. Implementing the DataManipulator<a class="headerlink" href="#implementing-the-datamanipulator" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="implement-the-datamanipulator">
+<h2>1. Implement the DataManipulator<a class="headerlink" href="#implement-the-datamanipulator" title="Permalink to this headline">¶</a></h2>
 <p>The naming convention for <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> implementations is the name of the interface prefixed with &#8220;Sponge&#8221;.
 So to implement the <tt class="docutils literal"><span class="pre">HealthData</span></tt> interface, we create a class named <tt class="docutils literal"><span class="pre">SpongeHealthData</span></tt> in the appropriate package.
 For implementing the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> first have it extend an appropriate abstract class from the
@@ -476,8 +476,8 @@ by <tt class="docutils literal"><span class="pre">AbstractData</span></tt>, but 
 <p>That&#8217;s it. The <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> should be done now.</p>
 </div>
 </div>
-<div class="section" id="immutabledatamanipulator">
-<h2>2. ImmutableDataManipulator<a class="headerlink" href="#immutabledatamanipulator" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="implement-the-immutabledatamanipulator">
+<h2>2. Implement the ImmutableDataManipulator<a class="headerlink" href="#implement-the-immutabledatamanipulator" title="Permalink to this headline">¶</a></h2>
 <p>Implementing the <tt class="docutils literal"><span class="pre">ImmutableDataManipulator</span></tt> is similar to implementing the mutable one.</p>
 <p>The only differences are:</p>
 <ul class="simple">
@@ -522,6 +522,7 @@ underscores and capitalization changed to upper camel case.</p>
 <p>Next up is the <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>. A <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> serves as a bridge between our <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> and
 Minecraft&#8217;s objects. Whenever any data is requested from or offered to <tt class="docutils literal"><span class="pre">DataHolders</span></tt> that exist in Vanilla
 Minecraft, those calls end up being handled by a <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> or a <tt class="docutils literal"><span class="pre">ValueProcessor</span></tt>.</p>
+<p>For your name, you should use the name of the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> interface and append <tt class="docutils literal"><span class="pre">Processor</span></tt>. Thus for <tt class="docutils literal"><span class="pre">HealthData</span></tt> we create a <tt class="docutils literal"><span class="pre">HealthDataProcessor</span></tt>.</p>
 <p>In order to reduce boilerplate code, the <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> should inherit from the appropriate abstract class in
 the <tt class="docutils literal"><span class="pre">org.spongepowered.common.data.processor.common</span></tt> package. Since health can only be present on certain
 entities, we can make use of the <tt class="docutils literal"><span class="pre">AbstractEntityDataProcessor</span></tt> which is specifically
