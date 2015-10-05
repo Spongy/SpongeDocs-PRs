@@ -432,16 +432,52 @@ second is the interface implemented by the corresponding <tt class="docutils lit
         <span class="k">this</span><span class="o">.</span><span class="na">maximumHealth</span><span class="o">,</span>  <span class="c1">// 2</span>
         <span class="n">ComparatorUtil</span><span class="o">.</span><span class="na">doubleComparator</span><span class="o">(),</span> <span class="c1">// 3</span>
         <span class="mi">0</span><span class="n">D</span><span class="o">,</span> <span class="c1">// 4</span>
-        <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span> <span class="c1">//5</span>
+        <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span> <span class="c1">// 5</span>
         <span class="k">this</span><span class="o">.</span><span class="na">currentHealth</span><span class="o">);</span> <span class="c1">// 6</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Since we use a bounded value, our constructor is slightly longer. Therefore, the arguments are spread over multiple
-lines for this example. First the <tt class="docutils literal"><span class="pre">Key</span></tt> to properly identify the value (1), then the <em>default</em> value (2).
-Afterwards, on the second line, three arguments follow that are specific to bounded values, as they provide a
-comparator to use (3) and minimum (4) and maximum (5) values. The last argument (6) specifies the current value.
-If it is not present, the default value will be used instead.</p>
+<p>Since we use a bounded value, our constructor is slightly longer.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="48%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Number</th>
+<th class="head">Parameter</th>
+<th class="head">Needed for</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td><tt class="docutils literal"><span class="pre">Key</span></tt> identifying the value</td>
+<td>every subclass of <tt class="docutils literal"><span class="pre">BaseValue</span></tt></td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>the default value</td>
+<td>every subclass of <tt class="docutils literal"><span class="pre">BaseValue</span></tt></td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>the <tt class="docutils literal"><span class="pre">Comparator</span></tt> to use</td>
+<td>bounded values</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>the minimum acceptable value</td>
+<td>bounded values</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>the maximum acceptable value</td>
+<td>bounded values</td>
+</tr>
+<tr class="row-odd"><td>6</td>
+<td>the current value</td>
+<td>every subclass of <tt class="docutils literal"><span class="pre">BaseValue</span></tt>, can be omitted</td>
+</tr>
+</tbody>
+</table>
+<p>If no current value is specified, calling <tt class="docutils literal"><span class="pre">get()</span></tt> on the <tt class="docutils literal"><span class="pre">Value</span></tt> returns the default value.</p>
 </div>
 <div class="section" id="copying-and-serialization">
 <h3>Copying and Serialization<a class="headerlink" href="#copying-and-serialization" title="Permalink to this headline">¶</a></h3>
