@@ -537,7 +537,7 @@ prevent accidental changes.</p>
 <div class="section" id="register-the-key-in-the-keyregistry">
 <h2>3. Register the Key in the KeyRegistry<a class="headerlink" href="#register-the-key-in-the-keyregistry" title="Permalink to this headline">¶</a></h2>
 <p>The next step is to register your <tt class="docutils literal"><span class="pre">Key</span></tt>s to the <tt class="docutils literal"><span class="pre">KeyRegistry</span></tt>. To do so, locate the
-<tt class="docutils literal"><span class="pre">org.spongepowered.common.data.key.KeyRegistry</span></tt> class and find the static <tt class="docutils literal"><span class="pre">registerKeys()</span></tt> function.
+<tt class="docutils literal"><span class="pre">org.spongepowered.common.data.key.KeyRegistry</span></tt> class and find the static <tt class="docutils literal"><span class="pre">generateKeyMap()</span></tt> function.
 There add a line to register (and create) your used keys.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">registerKeys</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">keyMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;max_health&quot;</span><span class="o">,</span> <span class="n">makeSingleKey</span><span class="o">(</span><span class="n">Double</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="n">MutableBoundedValue</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">of</span><span class="o">(</span><span class="s">&quot;MaxHealth&quot;</span><span class="o">)));</span>
@@ -578,6 +578,12 @@ implementation work, but cannot be used as <tt class="docutils literal"><span cl
 </div>
 <p>Depending on which abstraction you use, the methods you have to implement may differ greatly, depending on how
 much implementation work already could be done in the abstract class. Generally, the methods can be categorized.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">It is possible to create multiple <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>s for the same data. If vastly different <tt class="docutils literal"><span class="pre">DataHolder</span></tt>s
+should be supported (for example both a <tt class="docutils literal"><span class="pre">TileEntity</span></tt> and a matching <tt class="docutils literal"><span class="pre">ItemStack</span></tt>), it may be beneficial to
+create one processor for each type of <tt class="docutils literal"><span class="pre">DataHolder</span></tt> in order to make full use of the provided abstractions.</p>
+</div>
 <div class="section" id="validation-methods">
 <h3>Validation Methods<a class="headerlink" href="#validation-methods" title="Permalink to this headline">¶</a></h3>
 <p>Always return a boolean value. If the method is called <tt class="docutils literal"><span class="pre">supports()</span></tt> it should perform a general check if the supplied target generally supports the kind of data handled by our <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>.</p>
@@ -671,7 +677,7 @@ can not provide.</p>
 since it knows neither the implementation class nor the constructor to use. Therefore it utilizes an abstract
 function that has to be provided by the final implementation. This does nothing more than create a
 <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> with default data.</p>
-<p>If you implemented your <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> as recommended, you can just use the empty constructor.</p>
+<p>If you implemented your <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> as recommended, you can just use the no-args constructor.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="n">HealthData</span> <span class="nf">createManipulator</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="n">SpongeHealthData</span><span class="o">();</span>
 <span class="o">}</span>
@@ -681,38 +687,126 @@ function that has to be provided by the final implementation. This does nothing 
 </div>
 <div class="section" id="implement-the-databuilder">
 <h2>5. Implement the DataBuilder<a class="headerlink" href="#implement-the-databuilder" title="Permalink to this headline">¶</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> is used to create a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> from default data, a <tt class="docutils literal"><span class="pre">DataHolder</span></tt>, or a <tt class="docutils literal"><span class="pre">DataView</span></tt>
+or default data. It is exposed in the API via the <tt class="docutils literal"><span class="pre">SerializationService</span></tt>.</p>
+<p>If you implemented your <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> as recommended, the <tt class="docutils literal"><span class="pre">create()</span></tt> method only requires usage of the no-args constructor. The <tt class="docutils literal"><span class="pre">createFrom(DataHolder)</span></tt> method essentially duplicates the method of the same name from your <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>s.</p>
+<p>The only truly unique method in the <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> is the <tt class="docutils literal"><span class="pre">build(DataView)</span></tt> method. It acts as the counterpart to your <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>s <tt class="docutils literal"><span class="pre">toContainer()</span></tt> method.</p>
 </div>
-<div class="section" id="implement-the-valueprocessor">
-<h2>6. Implement the ValueProcessor<a class="headerlink" href="#implement-the-valueprocessor" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="register-everything-in-spongegameregistry">
-<h2>7. Register everything in SpongeGameRegistry<a class="headerlink" href="#register-everything-in-spongegameregistry" title="Permalink to this headline">¶</a></h2>
-<p>When finally done, you have to register everything in <tt class="docutils literal"><span class="pre">SpongeGameRegistry</span></tt>. As always, add all necessary imports, then the <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> and
-<tt class="docutils literal"><span class="pre">DataBuilder</span></tt>:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="kt">void</span> <span class="nf">setupSerialization</span><span class="o">()</span> <span class="o">{</span>
- <span class="kd">final</span> <span class="n">FlyingDataProcessor</span> <span class="n">flyingDataProcessor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FlyingDataProcessor</span><span class="o">();</span>
-       <span class="kd">final</span> <span class="n">FlyingDataBuilder</span> <span class="n">flyingDataBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FlyingDataBuilder</span><span class="o">();</span>
-       <span class="n">service</span><span class="o">.</span><span class="na">registerBuilder</span><span class="o">(</span><span class="n">FlyingData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">flyingDataBuilder</span><span class="o">);</span>
-        <span class="n">dataRegistry</span><span class="o">.</span><span class="na">registerDataProcessorAndImpl</span><span class="o">(</span><span class="n">FlyingData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">SpongeFlyingData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">ImmutableFlyingData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">ImmutableSpongeFlyingData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">flyingDataProcessor</span><span class="o">,</span> <span class="n">flyingDataBuilder</span><span class="o">);</span>
+<div class="section" id="implement-the-valueprocessors">
+<h2>6. Implement the ValueProcessors<a class="headerlink" href="#implement-the-valueprocessors" title="Permalink to this headline">¶</a></h2>
+<p>Not only a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> may be offered to a <tt class="docutils literal"><span class="pre">DataHolder</span></tt>, but also a keyed <tt class="docutils literal"><span class="pre">Value</span></tt> on its own.
+Therefore, you need to provide at least one <tt class="docutils literal"><span class="pre">ValueProcessor</span></tt> for every <tt class="docutils literal"><span class="pre">Key</span></tt> present in your
+<tt class="docutils literal"><span class="pre">DataManipulator</span></tt>. A <tt class="docutils literal"><span class="pre">ValueProcessor</span></tt> is named after the constant name of its <tt class="docutils literal"><span class="pre">Key</span></tt> in the <tt class="docutils literal"><span class="pre">Keys</span></tt> class
+in a fashion similar to its <tt class="docutils literal"><span class="pre">DataQuery</span></tt>. The constant name is stripped of underscores, used in upper camel case
+and then suffixed with <tt class="docutils literal"><span class="pre">ValueProcessor</span></tt>.</p>
+<p>A <tt class="docutils literal"><span class="pre">ValueProcessor</span></tt> should always inherit from <tt class="docutils literal"><span class="pre">AbstractSpongeValueProcessor</span></tt>, which already will handle a
+portion of the <tt class="docutils literal"><span class="pre">supports()</span></tt> checks based on the type of the <tt class="docutils literal"><span class="pre">DataHolder</span></tt>. For <tt class="docutils literal"><span class="pre">Keys.HEALTH</span></tt>, we&#8217;ll create
+and construct <tt class="docutils literal"><span class="pre">HealthValueProcessor</span></tt> as follows.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HealthValueProcessor</span> <span class="kd">extends</span> <span class="n">AbstractSpongeValueProcessor</span><span class="o">&lt;</span><span class="n">EntityLivingBase</span><span class="o">,</span> <span class="n">Double</span><span class="o">,</span>
+    <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nf">HealthValueProcessor</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">EntityLivingBase</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="o">[...]</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>And finally the <tt class="docutils literal"><span class="pre">ValueProcessor</span></tt>:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="kt">void</span> <span class="nf">setupSerialization</span><span class="o">()</span> <span class="o">{</span>
- <span class="n">dataRegistry</span><span class="o">.</span><span class="na">registerValueProcessor</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">IS_FLYING</span><span class="o">,</span> <span class="k">new</span> <span class="n">IsFlyingValueProcessor</span><span class="o">());</span>
+<p>Now the <tt class="docutils literal"><span class="pre">AbstractSpongeValueProcessor</span></tt> will relieve us of the necessity to check if the value is supported.
+It is assumed to be supported if the target <tt class="docutils literal"><span class="pre">ValueContainer</span></tt> is of the type <tt class="docutils literal"><span class="pre">EntityLivingBase</span></tt>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">For a more fine-grained control over what <tt class="docutils literal"><span class="pre">EntityLivingBase</span></tt> objects are supported, the
+<tt class="docutils literal"><span class="pre">supports(EntityLivingBase)</span></tt> method can be overridden.</p>
+</div>
+<p>Again, most work is done by the abstraction class. We just need to implement two helper methods for creating
+a <tt class="docutils literal"><span class="pre">Value</span></tt> and its immutable counterpart and three methods to get, set and remove data.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">constructValue</span><span class="o">(</span><span class="n">Double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">SpongeBoundedValue</span><span class="o">&lt;&gt;(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="mi">20</span><span class="n">D</span><span class="o">,</span>
+        <span class="n">ComparatorUtil</span><span class="o">.</span><span class="na">doubleComparator</span><span class="o">(),</span> <span class="mi">0</span><span class="n">D</span><span class="o">,</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span>
+        <span class="n">value</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">protected</span> <span class="n">ImmutableValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">constructImmutableValue</span><span class="o">(</span><span class="n">Double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">ImmutableSpongeBoundedValue</span><span class="o">&lt;&gt;(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="mi">20</span><span class="n">D</span><span class="o">,</span>
+        <span class="n">ComparatorUtil</span><span class="o">.</span><span class="na">doubleComparator</span><span class="o">(),</span> <span class="mi">0</span><span class="n">D</span><span class="o">,</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Since the actual value is a required parameter for immutable bounded values, the order of parameters differs
+between the constructors.</p>
 </div>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<p>Several <tt class="docutils literal"><span class="pre">DataManipulators</span></tt> have already been implemented. Have a look at them to get a quick overview on how to implement your own <tt class="docutils literal"><span class="pre">Manipulator</span></tt>.
-Here are some examples which might help you understanding the concept of <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>:</p>
-<ul class="simple">
-<li><a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/commit/ab47f2681dd382a44f1d32d92858bd29c2910ff3">VelocityData</a></li>
-<li><a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/commit/f461697e0a6de7840e7cdb6e739d97cb176d7617">BreathingData</a></li>
-<li><a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/commit/19c13cb71ea3e1d8cd67372b7f272fe298c21902">FoodData</a></li>
-</ul>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">getVal</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">((</span><span class="kt">double</span><span class="o">)</span> <span class="n">container</span><span class="o">.</span><span class="na">getHealth</span><span class="o">());</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Since it is impossible for an <tt class="docutils literal"><span class="pre">EntityLivingBase</span></tt> to not have health, this method will never return
+<tt class="docutils literal"><span class="pre">Optional.empty()</span></tt>.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">set</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">container</span><span class="o">,</span> <span class="n">Double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="n">D</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">container</span><span class="o">.</span><span class="na">setHealth</span><span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="na">floatValue</span><span class="o">());</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">set()</span></tt> method will return a boolean value indicating whether the value could successfully be set.
+This implementation will reject values outside of the bounds used in our value construction methods above.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">DataTransactionResult</span> <span class="nf">removeFrom</span><span class="o">(</span><span class="n">ValueContainer</span><span class="o">&lt;?&gt;</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">DataTransactionBuilder</span><span class="o">.</span><span class="na">failNoData</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Since the data is guaranteed to be always present, attempts to remove it will just fail.</p>
+</div>
+<div class="section" id="register-builders-and-processors">
+<h2>7. Register Builders and Processors<a class="headerlink" href="#register-builders-and-processors" title="Permalink to this headline">¶</a></h2>
+<p>In order for Sponge to be able to use our manipulators and processors, we need to register them. This is done
+in the <tt class="docutils literal"><span class="pre">org.spongepowered.common.data.SpongeSerializationRegistry</span></tt> class. In the <tt class="docutils literal"><span class="pre">setupSerialization</span></tt> method
+there are two large blocks of registrations to which we add our processors.</p>
+<div class="section" id="dataprocessors-and-the-builder">
+<h3>DataProcessors and the Builder<a class="headerlink" href="#dataprocessors-and-the-builder" title="Permalink to this headline">¶</a></h3>
+<p>A <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> is registered alongside the interface and implementation classes of the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> it
+handles. For every pair of mutable / immutable <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>s at least one <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> and exactly
+one <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> must be registered. Additionally, the <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> must be registered to the
+<tt class="docutils literal"><span class="pre">SerializationService</span></tt>.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">final</span> <span class="n">HealthDataBuilder</span> <span class="n">healthDataBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HealthDataBuilder</span><span class="o">();</span>
+<span class="n">service</span><span class="o">.</span><span class="na">registerBuilder</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">healthDataBuilder</span><span class="o">);</span>
+<span class="n">dataRegistry</span><span class="o">.</span><span class="na">registerDataProcessorAndImplBuilder</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+    <span class="n">ImmutableHealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">ImmutableSpongeHealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+    <span class="k">new</span> <span class="n">HealthDataProcessor</span><span class="o">(),</span> <span class="n">healthDataBuilder</span><span class="o">);</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">To register additional data processors use <tt class="docutils literal"><span class="pre">registerDataProcessorAndImpl()</span></tt> with the same arguments save
+for the last. Multiple calls to <tt class="docutils literal"><span class="pre">registerDataProcessorAndImplBuilder()</span></tt> will fail as builder registration
+can only be performed once</p>
+</div>
+</div>
+<div class="section" id="valueprocessors">
+<h3>ValueProcessors<a class="headerlink" href="#valueprocessors" title="Permalink to this headline">¶</a></h3>
+<p>Value processors are registered at the bottom of the very same function. For each <tt class="docutils literal"><span class="pre">Key</span></tt> multiple processors
+can be registered by subsequent calls of the <tt class="docutils literal"><span class="pre">registerValueProcessor()</span></tt> method.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">dataRegistry</span><span class="o">.</span><span class="na">registerValueProcessor</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="k">new</span> <span class="n">HealthValueProcessor</span><span class="o">());</span>
+<span class="n">dataRegistry</span><span class="o">.</span><span class="na">registerValueProcessor</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="k">new</span> <span class="n">MaxHealthValueProcessor</span><span class="o">());</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="further-information">
+<h2>Further Information<a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h2>
+<p>With <tt class="docutils literal"><span class="pre">Data</span></tt> being a rather abstract concept in Sponge, it is hard to give general directions on how to
+acquire the needed data from the Minecraft classes itself. It may be helpful to take a look at already
+implemented processors similar to the one you are working on to get a better understanding of how it should work.</p>
+<p>If you are stuck or are unsure about certain aspects, go visit the <tt class="docutils literal"><span class="pre">#spongedev</span></tt> IRC channel, the forums, or
+open up an Issue on github. Be sure to check the <a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/issues/8">Data Processor Implementation Checklist</a> for general
+contribution requirements.</p>
 </div>
 </div>
 
