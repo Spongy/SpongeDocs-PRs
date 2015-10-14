@@ -685,12 +685,13 @@ function that has to be provided by the final implementation. This does nothing 
 </div>
 </div>
 </div>
-<div class="section" id="implement-the-databuilder">
-<h2>5. Implement the DataBuilder<a class="headerlink" href="#implement-the-databuilder" title="Permalink to this headline">¶</a></h2>
-<p>A <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> is used to create a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> from default data, a <tt class="docutils literal"><span class="pre">DataHolder</span></tt>, or a <tt class="docutils literal"><span class="pre">DataView</span></tt>
-or default data. It is exposed in the API via the <tt class="docutils literal"><span class="pre">SerializationService</span></tt>.</p>
-<p>If you implemented your <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> as recommended, the <tt class="docutils literal"><span class="pre">create()</span></tt> method only requires usage of the no-args constructor. The <tt class="docutils literal"><span class="pre">createFrom(DataHolder)</span></tt> method essentially duplicates the method of the same name from your <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>s.</p>
-<p>The only truly unique method in the <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> is the <tt class="docutils literal"><span class="pre">build(DataView)</span></tt> method. It acts as the counterpart to your <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>s <tt class="docutils literal"><span class="pre">toContainer()</span></tt> method.</p>
+<div class="section" id="implement-the-datamanipulatorbuilder">
+<h2>5. Implement the DataManipulatorBuilder<a class="headerlink" href="#implement-the-datamanipulatorbuilder" title="Permalink to this headline">¶</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">DataManipulatorBuilder</span></tt> is used to create a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> from default data or a <tt class="docutils literal"><span class="pre">DataHolder</span></tt>. It also extends <tt class="docutils literal"><span class="pre">DataBuilder</span></tt>, which is used to deserialize a <tt class="docutils literal"><span class="pre">DataSerializable</span></tt> from a <tt class="docutils literal"><span class="pre">DataView</span></tt>. Once registered, our <tt class="docutils literal"><span class="pre">DataManipulatorBuilder</span></tt> will be exposed in the API both in the <tt class="docutils literal"><span class="pre">DataRegistry</span></tt> and the <tt class="docutils literal"><span class="pre">SerializationService</span></tt>.</p>
+<p>If you implemented your <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> as recommended, the <tt class="docutils literal"><span class="pre">create()</span></tt> method only requires usage of the no-args constructor. The <tt class="docutils literal"><span class="pre">createFrom(DataHolder)</span></tt> method essentially duplicates the method of the same name from your <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>.</p>
+<p>The <tt class="docutils literal"><span class="pre">build(DataView)</span></tt> method acts as the counterpart to our <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>s <tt class="docutils literal"><span class="pre">toContainer()</span></tt> method.
+It will return <tt class="docutils literal"><span class="pre">Optional.empty()</span></tt> if the data needed for our <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> is not present in the given
+<tt class="docutils literal"><span class="pre">DataView</span></tt>.</p>
 </div>
 <div class="section" id="implement-the-valueprocessors">
 <h2>6. Implement the ValueProcessors<a class="headerlink" href="#implement-the-valueprocessors" title="Permalink to this headline">¶</a></h2>
@@ -769,8 +770,8 @@ This implementation will reject values outside of the bounds used in our value c
 <p>In order for Sponge to be able to use our manipulators and processors, we need to register them. This is done
 in the <tt class="docutils literal"><span class="pre">org.spongepowered.common.data.SpongeSerializationRegistry</span></tt> class. In the <tt class="docutils literal"><span class="pre">setupSerialization</span></tt> method
 there are two large blocks of registrations to which we add our processors.</p>
-<div class="section" id="dataprocessors-and-the-builder">
-<h3>DataProcessors and the Builder<a class="headerlink" href="#dataprocessors-and-the-builder" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="dataprocessors-and-builders">
+<h3>DataProcessors and Builders<a class="headerlink" href="#dataprocessors-and-builders" title="Permalink to this headline">¶</a></h3>
 <p>A <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> is registered alongside the interface and implementation classes of the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> it
 handles. For every pair of mutable / immutable <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>s at least one <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> and exactly
 one <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> must be registered. Additionally, the <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> must be registered to the
