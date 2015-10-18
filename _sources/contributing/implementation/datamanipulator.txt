@@ -15,7 +15,6 @@ When these steps are complete, the following must also be done:
 
 3. Register the ``Key`` in the ``KeyRegistry``
 #. Implement the ``DataProcessor``
-#. Implement the ``DataBuilder``
 #. Implement the ``ValueProcessor`` for each value being represented by the ``DataManipulator``
 #. Register everything in the ``SpongeSerializationRegistry``
 
@@ -183,8 +182,8 @@ The third argument is the ``DataQuery`` used for serialization. It is created fr
 underscores and capitalization changed to upper camel case.
 
 
-4. Implement the DataProcessor
-==============================
+4. Implement the DataProcessors
+===============================
 
 Next up is the ``DataProcessor``. A ``DataProcessor`` serves as a bridge between our ``DataManipulator`` and
 Minecraft's objects. Whenever any data is requested from or offered to ``DataHolders`` that exist in Vanilla
@@ -339,19 +338,7 @@ If you implemented your ``DataManipulator`` as recommended, you can just use the
     }
 
 
-5. Implement the DataManipulatorBuilder
-=======================================
-
-A ``DataManipulatorBuilder`` is used to create a ``DataManipulator`` from default data or a ``DataHolder``. It also extends ``DataBuilder``, which is used to deserialize a ``DataSerializable`` from a ``DataView``. Once registered, our ``DataManipulatorBuilder`` will be exposed in the API both in the ``DataRegistry`` and the ``SerializationService``.
-
-If you implemented your ``DataManipulator`` as recommended, the ``create()`` method only requires usage of the no-args constructor. The ``createFrom(DataHolder)`` method essentially duplicates the method of the same name from your ``DataProcessor``.
-
-The ``build(DataView)`` method acts as the counterpart to our ``DataManipulator``\ s ``toContainer()`` method.
-It will return ``Optional.empty()`` if the data needed for our ``DataManipulator`` is not present in the given
-``DataView``.
-
-
-6. Implement the ValueProcessors
+5. Implement the ValueProcessors
 ================================
 
 Not only a ``DataManipulator`` may be offered to a ``DataHolder``, but also a keyed ``Value`` on its own.
@@ -435,34 +422,24 @@ This implementation will reject values outside of the bounds used in our value c
 
 Since the data is guaranteed to be always present, attempts to remove it will just fail.
 
-7. Register Builders and Processors
-===================================
+6. Register Processors
+======================
 
 In order for Sponge to be able to use our manipulators and processors, we need to register them. This is done
 in the ``org.spongepowered.common.data.SpongeSerializationRegistry`` class. In the ``setupSerialization`` method
 there are two large blocks of registrations to which we add our processors.
 
-DataProcessors and Builders
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DataProcessors
+~~~~~~~~~~~~~~
 
 A ``DataProcessor`` is registered alongside the interface and implementation classes of the ``DataManipulator`` it
-handles. For every pair of mutable / immutable ``DataManipulator``\ s at least one ``DataProcessor`` and exactly
-one ``DataBuilder`` must be registered. Additionally, the ``DataBuilder`` must be registered to the
-``SerializationService``.
+handles. For every pair of mutable / immutable ``DataManipulator``\ s at least one ``DataProcessor` must be registered.
 
 .. code-block:: java
 
-    final HealthDataBuilder healthDataBuilder = new HealthDataBuilder();
-    service.registerBuilder(HealthData.class, healthDataBuilder);
-    dataRegistry.registerDataProcessorAndImplBuilder(HealthData.class, SpongeHealthData.class,
+    dataRegistry.registerDataProcessorAndImpl(HealthData.class, SpongeHealthData.class,
         ImmutableHealthData.class, ImmutableSpongeHealthData.class,
-        new HealthDataProcessor(), healthDataBuilder);
-
-.. tip::
-
-    To register additional data processors use ``registerDataProcessorAndImpl()`` with the same arguments save
-    for the last. Multiple calls to ``registerDataProcessorAndImplBuilder()`` will fail as builder registration
-    can only be performed once
+        new HealthDataProcessor());
 
 
 ValueProcessors

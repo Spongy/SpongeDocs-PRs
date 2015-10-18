@@ -375,7 +375,6 @@ An updated list of DataManipulators to be implemented can be found at
 <ol class="arabic simple" start="3">
 <li>Register the <tt class="docutils literal"><span class="pre">Key</span></tt> in the <tt class="docutils literal"><span class="pre">KeyRegistry</span></tt></li>
 <li>Implement the <tt class="docutils literal"><span class="pre">DataProcessor</span></tt></li>
-<li>Implement the <tt class="docutils literal"><span class="pre">DataBuilder</span></tt></li>
 <li>Implement the <tt class="docutils literal"><span class="pre">ValueProcessor</span></tt> for each value being represented by the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt></li>
 <li>Register everything in the <tt class="docutils literal"><span class="pre">SpongeSerializationRegistry</span></tt></li>
 </ol>
@@ -552,8 +551,8 @@ The third argument is the <tt class="docutils literal"><span class="pre">DataQue
 <tt class="docutils literal"><span class="pre">DataQuery.of()</span></tt> method accepting a string. This string should also be the constant name, stripped of
 underscores and capitalization changed to upper camel case.</p>
 </div>
-<div class="section" id="implement-the-dataprocessor">
-<h2>4. Implement the DataProcessor<a class="headerlink" href="#implement-the-dataprocessor" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="implement-the-dataprocessors">
+<h2>4. Implement the DataProcessors<a class="headerlink" href="#implement-the-dataprocessors" title="Permalink to this headline">¶</a></h2>
 <p>Next up is the <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>. A <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> serves as a bridge between our <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> and
 Minecraft&#8217;s objects. Whenever any data is requested from or offered to <tt class="docutils literal"><span class="pre">DataHolders</span></tt> that exist in Vanilla
 Minecraft, those calls end up being delegated to a <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> or a <tt class="docutils literal"><span class="pre">ValueProcessor</span></tt>.</p>
@@ -680,16 +679,8 @@ function that has to be provided by the final implementation. This does nothing 
 </div>
 </div>
 </div>
-<div class="section" id="implement-the-datamanipulatorbuilder">
-<h2>5. Implement the DataManipulatorBuilder<a class="headerlink" href="#implement-the-datamanipulatorbuilder" title="Permalink to this headline">¶</a></h2>
-<p>A <tt class="docutils literal"><span class="pre">DataManipulatorBuilder</span></tt> is used to create a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> from default data or a <tt class="docutils literal"><span class="pre">DataHolder</span></tt>. It also extends <tt class="docutils literal"><span class="pre">DataBuilder</span></tt>, which is used to deserialize a <tt class="docutils literal"><span class="pre">DataSerializable</span></tt> from a <tt class="docutils literal"><span class="pre">DataView</span></tt>. Once registered, our <tt class="docutils literal"><span class="pre">DataManipulatorBuilder</span></tt> will be exposed in the API both in the <tt class="docutils literal"><span class="pre">DataRegistry</span></tt> and the <tt class="docutils literal"><span class="pre">SerializationService</span></tt>.</p>
-<p>If you implemented your <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> as recommended, the <tt class="docutils literal"><span class="pre">create()</span></tt> method only requires usage of the no-args constructor. The <tt class="docutils literal"><span class="pre">createFrom(DataHolder)</span></tt> method essentially duplicates the method of the same name from your <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>.</p>
-<p>The <tt class="docutils literal"><span class="pre">build(DataView)</span></tt> method acts as the counterpart to our <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>s <tt class="docutils literal"><span class="pre">toContainer()</span></tt> method.
-It will return <tt class="docutils literal"><span class="pre">Optional.empty()</span></tt> if the data needed for our <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> is not present in the given
-<tt class="docutils literal"><span class="pre">DataView</span></tt>.</p>
-</div>
 <div class="section" id="implement-the-valueprocessors">
-<h2>6. Implement the ValueProcessors<a class="headerlink" href="#implement-the-valueprocessors" title="Permalink to this headline">¶</a></h2>
+<h2>5. Implement the ValueProcessors<a class="headerlink" href="#implement-the-valueprocessors" title="Permalink to this headline">¶</a></h2>
 <p>Not only a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> may be offered to a <tt class="docutils literal"><span class="pre">DataHolder</span></tt>, but also a keyed <tt class="docutils literal"><span class="pre">Value</span></tt> on its own.
 Therefore, you need to provide at least one <tt class="docutils literal"><span class="pre">ValueProcessor</span></tt> for every <tt class="docutils literal"><span class="pre">Key</span></tt> present in your
 <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>. A <tt class="docutils literal"><span class="pre">ValueProcessor</span></tt> is named after the constant name of its <tt class="docutils literal"><span class="pre">Key</span></tt> in the <tt class="docutils literal"><span class="pre">Keys</span></tt> class
@@ -760,29 +751,19 @@ This implementation will reject values outside of the bounds used in our value c
 </div>
 <p>Since the data is guaranteed to be always present, attempts to remove it will just fail.</p>
 </div>
-<div class="section" id="register-builders-and-processors">
-<h2>7. Register Builders and Processors<a class="headerlink" href="#register-builders-and-processors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="register-processors">
+<h2>6. Register Processors<a class="headerlink" href="#register-processors" title="Permalink to this headline">¶</a></h2>
 <p>In order for Sponge to be able to use our manipulators and processors, we need to register them. This is done
 in the <tt class="docutils literal"><span class="pre">org.spongepowered.common.data.SpongeSerializationRegistry</span></tt> class. In the <tt class="docutils literal"><span class="pre">setupSerialization</span></tt> method
 there are two large blocks of registrations to which we add our processors.</p>
-<div class="section" id="dataprocessors-and-builders">
-<h3>DataProcessors and Builders<a class="headerlink" href="#dataprocessors-and-builders" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="dataprocessors">
+<h3>DataProcessors<a class="headerlink" href="#dataprocessors" title="Permalink to this headline">¶</a></h3>
 <p>A <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> is registered alongside the interface and implementation classes of the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> it
-handles. For every pair of mutable / immutable <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>s at least one <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> and exactly
-one <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> must be registered. Additionally, the <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> must be registered to the
-<tt class="docutils literal"><span class="pre">SerializationService</span></tt>.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">final</span> <span class="n">HealthDataBuilder</span> <span class="n">healthDataBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HealthDataBuilder</span><span class="o">();</span>
-<span class="n">service</span><span class="o">.</span><span class="na">registerBuilder</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">healthDataBuilder</span><span class="o">);</span>
-<span class="n">dataRegistry</span><span class="o">.</span><span class="na">registerDataProcessorAndImplBuilder</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+handles. For every pair of mutable / immutable <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>s at least one <a href="#id1"><span class="problematic" id="id2">``</span></a>DataProcessor` must be registered.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">dataRegistry</span><span class="o">.</span><span class="na">registerDataProcessorAndImpl</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
     <span class="n">ImmutableHealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">ImmutableSpongeHealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
-    <span class="k">new</span> <span class="n">HealthDataProcessor</span><span class="o">(),</span> <span class="n">healthDataBuilder</span><span class="o">);</span>
+    <span class="k">new</span> <span class="n">HealthDataProcessor</span><span class="o">());</span>
 </pre></div>
-</div>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">To register additional data processors use <tt class="docutils literal"><span class="pre">registerDataProcessorAndImpl()</span></tt> with the same arguments save
-for the last. Multiple calls to <tt class="docutils literal"><span class="pre">registerDataProcessorAndImplBuilder()</span></tt> will fail as builder registration
-can only be performed once</p>
 </div>
 </div>
 <div class="section" id="valueprocessors">
