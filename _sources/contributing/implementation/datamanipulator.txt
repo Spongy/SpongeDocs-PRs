@@ -51,6 +51,7 @@ In most cases while implementing an abstract Manipulator you want to have two co
 The second constructor must
 
 * make a call to the ``AbstractData`` constructor, passing the class reference for the implemented interface.
+* make sure the values passed are valid
 * call the ``registerGettersAndSetters()`` method
 
 .. code-block:: java
@@ -61,10 +62,15 @@ The second constructor must
 
     public SpongeHealthData(double currentHealth, double maxHealth) {
         super(HealthData.class);
+        Preconditions.checkArgument(currentHealth >= 0.0 && currentHealth <= (double) Float.MAX_VALUE);
+        Preconditions.checkArgument(maxHealth >= 0.0 && maxHealth <= (double) Float.MAX_VALUE);
         this.currentHealth = currentHealth;
         this.maximumHealth = maxHealth;
         this.registerGettersAndSetters();
     }
+
+Since we know that both current health and maximum health are bounded values, we need to make sure no values
+outside of these bounds can be passed. To achieve this we use guava's ``Preconditions``.
 
 Accessors defined by the Interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -87,14 +93,14 @@ Since we use a bounded value, our constructor is slightly longer.
 
 .. csv-table::
     :header: "Number", "Parameter", "Needed for"
-    :widths: 4, 40, 40
+    :widths: 4, 30, 60
 
     "1", "``Key`` identifying the value", "every subclass of ``BaseValue``"
     "2", "the default value", "every subclass of ``BaseValue``"
     "3", "the ``Comparator`` to use", "bounded values"
     "4", "the minimum acceptable value", "bounded values"
     "5", "the maximum acceptable value", "bounded values"
-    "6", "the current value", "every subclass of ``BaseValue``, can be omitted"
+    "6", "the current value", "every subclass of ``BaseValue``, can be omitted on mutable values"
 
 If no current value is specified, calling ``get()`` on the ``Value`` returns the default value.
 
@@ -131,15 +137,35 @@ by ``AbstractData``, but we must tell it which data it can access and how. There
 
 .. code-block:: java
 
- private void registerGettersAndSetters() {
-      registerFieldGetter(Keys.HEALTH, () -> SpongeHealthData.this.currentHealth);
-      registerFieldSetter(Keys.HEALTH, value -> SpongeHealthData.this.currentHealth = value);
-      registerKeyValue(Keys.HEALTH, SpongeHealthData.this::health);
-  }
+    private void setCurrentHealthIfValid(double value) {
+        if (value >= 0.0 && value <= (double) Float.MAX_VALUE) {
+            this.currentHealth = value;
+        }
+    }
+
+    private void setMaximumHealthIfValid(double value) {
+        if (value >= 0.0 && value <= (double) Float.MAX_VALUE) {
+            this.maximumHealth = value;
+        }
+    }
+
+    private void registerGettersAndSetters() {
+        registerFieldGetter(Keys.HEALTH, () -> SpongeHealthData.this.currentHealth);
+        registerFieldSetter(Keys.HEALTH, SpongeHealthData.this::setCurrentHealthIfValid);
+        registerKeyValue(Keys.HEALTH, SpongeHealthData.this::health);
+
+        registerFieldGetter(Keys.HEALTH, () -> SpongeHealthData.this.maximumHealth);
+        registerFieldSetter(Keys.HEALTH, SpongeHealthData.this::setMaximumHealthIfValid);
+        registerKeyValue(Keys.HEALTH, SpongeHealthData.this::maxHealth);
+    }
 
 .. note::
-  Make sure to check if the ``values`` that get passed to the ``setter`` are valid. This applies especially for
-  ``DataManipulators`` which won't accept any negative ``values`` or ``null``!
+    Make sure to check if the ``values`` that get passed to the ``FieldSetter`` are valid. This applies especially for
+    ``DataManipulators`` which won't accept any negative ``value``!
+
+To perform these checks, the most readable way is to define helper methods which set the data if it is valid
+and fail silently if not, then register those methods as ``FieldSetter``. The validity criteria should be the
+same as on the ``Value`` o
 
 That's it. The ``DataManipulator`` should be done now.
 
@@ -271,13 +297,18 @@ whether the operation was successful or not.
     Docs <https://jd.spongepowered.org/index.html?org/spongepowered/api/data/DataTransactionBuilder.html>`_ to
     create one.
 
-Removal Methods
-~~~~~~~~~~~~~~~
+Removal Method
+~~~~~~~~~~~~~~
 
 The ``remove()`` method attempts to remove data from the ``DataHolder`` and returns a ``DataTransactionResult``.
 
-Since it is impossible for an ``EntityLivingBase`` to not have any health, this operation will always fail on
-the ``HealthDataProcessor``.
+Removal is not abstracted in any abstract ``DataProcessor`` as the abstractions have no way of knowing if the data
+is always present on a compatible ``DataHolder`` (like ``WetData`` or ``HealthData``) or if it may or may not be present
+(like ``LoreData``). If the data is always present, ``remove()`` must always fail. If it may or may not be present,
+``remove()`` should remove it. In such cases the ``doesDataExist()`` method should be overridden.
+
+Since a living entity *always* has health, ``HealthData`` is always present and removal therefore not supported.
+Therefore we just return ``failNoData()`` and do not override the ``doesDataExist()`` method.
 
 .. code-block:: java
 
@@ -296,10 +327,13 @@ data, while ``createFrom()`` will provide a ``DataManipulator`` holding default 
 
 Again, ``AbstractEntityDataProcessor`` will provide most of the implementation for this and only requires a
 method to get the actual values present on the ``DataHolder``. This method is only called after ``supports()``
-and ``doesDataExist()`` both returned true. However there are cases where the data should always exist, but the value is
-either ``true`` or ``false``. This applies to *stateful* ``Datamanipulators`` like ``WetData`` (an entity can be wet
-or dry), thus the check isn't needed in this cases. Everywhere else the checks are needed and should be performed
-to check if the data is present and return ``false`` if not.
+and ``doesDataExist()`` both returned true, which means it is run under the assumption that the data is present.
+
+.. warning::
+
+    If the data may not always exist on the target ``DataHolder``, e.g. if the ``remove()`` function may be successful
+    (see above), it is imperative that you override the ``doesDataExist()`` method so that it returns ``true``
+    if the data is present and ``false`` if it is not.
 
 .. code-block:: java
 
@@ -323,10 +357,18 @@ can not provide.
 .. code-block:: java
 
     public Optional<HealthData> fill(DataContainer container, HealthData healthData) {
-        healthData.set(Keys.MAX_HEALTH, DataUtil.getData(container, Keys.MAX_HEALTH));
-        healthData.set(Keys.HEALTH, DataUtil.getData(container, Keys.HEALTH));
-        return Optional.of(healthData);
+        final Optional<Double> health = container.getDouble(Keys.HEALTH.getQuery());
+        final Optional<Double> maxHealth = container.getDouble(Keys.MAX_HEALTH.getQuery());
+        if (health.isPresent() && maxHealth.isPresent()) {
+            healthData.set(Keys.HEALTH, health.get());
+            healthData.set(Keys.MAX_HEALTH, maxHealth.get());
+            return Optional.of(healthData);
+        }
+        return Optional.empty();
     }
+
+The ``fill()`` method is to return an ``Optional`` of the altered healthData, if and only if all required data could
+be obtained from the ``DataContainer``.
 
 Other Methods
 ~~~~~~~~~~~~~
@@ -398,7 +440,9 @@ a ``Value`` and its immutable counterpart and three methods to get, set and remo
 .. tip::
 
     Since the actual value is a required parameter for immutable bounded values, the order of parameters differs
-    between the constructors.
+    between the constructors. For the ``SpongeBoundedValue`` constructor, parameter order is already explained
+    `above <#accessors-defined-by-the-interface>`_. For the ImmutableSpongeBoundedValue, just move the last parameter
+    (the current value) between the first (the used ``Key``) and the second one (the default value).
 
 .. code-block:: java
 

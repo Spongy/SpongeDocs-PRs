@@ -407,6 +407,7 @@ second is the interface implemented by the corresponding <tt class="docutils lit
 <p>The second constructor must</p>
 <ul class="simple">
 <li>make a call to the <tt class="docutils literal"><span class="pre">AbstractData</span></tt> constructor, passing the class reference for the implemented interface.</li>
+<li>make sure the values passed are valid</li>
 <li>call the <tt class="docutils literal"><span class="pre">registerGettersAndSetters()</span></tt> method</li>
 </ul>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="nf">SpongeHealthData</span><span class="o">()</span> <span class="o">{</span>
@@ -415,12 +416,16 @@ second is the interface implemented by the corresponding <tt class="docutils lit
 
 <span class="kd">public</span> <span class="nf">SpongeHealthData</span><span class="o">(</span><span class="kt">double</span> <span class="n">currentHealth</span><span class="o">,</span> <span class="kt">double</span> <span class="n">maxHealth</span><span class="o">)</span> <span class="o">{</span>
     <span class="kd">super</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkArgument</span><span class="o">(</span><span class="n">currentHealth</span> <span class="o">&gt;=</span> <span class="mf">0.0</span> <span class="o">&amp;&amp;</span> <span class="n">currentHealth</span> <span class="o">&lt;=</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">);</span>
+    <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkArgument</span><span class="o">(</span><span class="n">maxHealth</span> <span class="o">&gt;=</span> <span class="mf">0.0</span> <span class="o">&amp;&amp;</span> <span class="n">maxHealth</span> <span class="o">&lt;=</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">);</span>
     <span class="k">this</span><span class="o">.</span><span class="na">currentHealth</span> <span class="o">=</span> <span class="n">currentHealth</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="na">maximumHealth</span> <span class="o">=</span> <span class="n">maxHealth</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="na">registerGettersAndSetters</span><span class="o">();</span>
 <span class="o">}</span>
 </pre></div>
 </div>
+<p>Since we know that both current health and maximum health are bounded values, we need to make sure no values
+outside of these bounds can be passed. To achieve this we use guava&#8217;s <tt class="docutils literal"><span class="pre">Preconditions</span></tt>.</p>
 </div>
 <div class="section" id="accessors-defined-by-the-interface">
 <h3>Accessors defined by the Interface<a class="headerlink" href="#accessors-defined-by-the-interface" title="Permalink to this headline">¶</a></h3>
@@ -439,9 +444,9 @@ second is the interface implemented by the corresponding <tt class="docutils lit
 <p>Since we use a bounded value, our constructor is slightly longer.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="5%" />
-<col width="48%" />
-<col width="48%" />
+<col width="4%" />
+<col width="32%" />
+<col width="64%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Number</th>
@@ -472,7 +477,7 @@ second is the interface implemented by the corresponding <tt class="docutils lit
 </tr>
 <tr class="row-odd"><td>6</td>
 <td>the current value</td>
-<td>every subclass of <tt class="docutils literal"><span class="pre">BaseValue</span></tt>, can be omitted</td>
+<td>every subclass of <tt class="docutils literal"><span class="pre">BaseValue</span></tt>, can be omitted on mutable values</td>
 </tr>
 </tbody>
 </table>
@@ -504,18 +509,37 @@ by <tt class="docutils literal"><span class="pre">AbstractData</span></tt>, but 
 <li>register a <tt class="docutils literal"><span class="pre">Supplier&lt;Value&gt;</span></tt> to get the mutable <tt class="docutils literal"><span class="pre">Value</span></tt></li>
 </ul>
 <p><tt class="docutils literal"><span class="pre">Supplier</span></tt> and <tt class="docutils literal"><span class="pre">Consumer</span></tt> are functional interfaces, so Java 8 Lambdas can be used.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="kt">void</span> <span class="nf">registerGettersAndSetters</span><span class="o">()</span> <span class="o">{</span>
-     <span class="n">registerFieldGetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">currentHealth</span><span class="o">);</span>
-     <span class="n">registerFieldSetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">value</span> <span class="o">-&gt;</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">currentHealth</span> <span class="o">=</span> <span class="n">value</span><span class="o">);</span>
-     <span class="n">registerKeyValue</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">::</span><span class="n">health</span><span class="o">);</span>
- <span class="o">}</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="kt">void</span> <span class="nf">setCurrentHealthIfValid</span><span class="o">(</span><span class="kt">double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mf">0.0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">currentHealth</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setMaximumHealthIfValid</span><span class="o">(</span><span class="kt">double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mf">0.0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">maximumHealth</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">registerGettersAndSetters</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">registerFieldGetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">currentHealth</span><span class="o">);</span>
+    <span class="n">registerFieldSetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">::</span><span class="n">setCurrentHealthIfValid</span><span class="o">);</span>
+    <span class="n">registerKeyValue</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">::</span><span class="n">health</span><span class="o">);</span>
+
+    <span class="n">registerFieldGetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">maximumHealth</span><span class="o">);</span>
+    <span class="n">registerFieldSetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">::</span><span class="n">setMaximumHealthIfValid</span><span class="o">);</span>
+    <span class="n">registerKeyValue</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">::</span><span class="n">maxHealth</span><span class="o">);</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Make sure to check if the <tt class="docutils literal"><span class="pre">values</span></tt> that get passed to the <tt class="docutils literal"><span class="pre">setter</span></tt> are valid. This applies especially for
-<tt class="docutils literal"><span class="pre">DataManipulators</span></tt> which won&#8217;t accept any negative <tt class="docutils literal"><span class="pre">values</span></tt> or <tt class="docutils literal"><span class="pre">null</span></tt>!</p>
+<p class="last">Make sure to check if the <tt class="docutils literal"><span class="pre">values</span></tt> that get passed to the <tt class="docutils literal"><span class="pre">FieldSetter</span></tt> are valid. This applies especially for
+<tt class="docutils literal"><span class="pre">DataManipulators</span></tt> which won&#8217;t accept any negative <tt class="docutils literal"><span class="pre">value</span></tt>!</p>
 </div>
+<p>To perform these checks, the most readable way is to define helper methods which set the data if it is valid
+and fail silently if not, then register those methods as <tt class="docutils literal"><span class="pre">FieldSetter</span></tt>. The validity criteria should be the
+same as on the <tt class="docutils literal"><span class="pre">Value</span></tt> o</p>
 <p>That&#8217;s it. The <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> should be done now.</p>
 </div>
 </div>
@@ -626,11 +650,15 @@ Docs</a> to
 create one.</p>
 </div>
 </div>
-<div class="section" id="removal-methods">
-<h3>Removal Methods<a class="headerlink" href="#removal-methods" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="removal-method">
+<h3>Removal Method<a class="headerlink" href="#removal-method" title="Permalink to this headline">¶</a></h3>
 <p>The <tt class="docutils literal"><span class="pre">remove()</span></tt> method attempts to remove data from the <tt class="docutils literal"><span class="pre">DataHolder</span></tt> and returns a <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt>.</p>
-<p>Since it is impossible for an <tt class="docutils literal"><span class="pre">EntityLivingBase</span></tt> to not have any health, this operation will always fail on
-the <tt class="docutils literal"><span class="pre">HealthDataProcessor</span></tt>.</p>
+<p>Removal is not abstracted in any abstract <tt class="docutils literal"><span class="pre">DataProcessor</span></tt> as the abstractions have no way of knowing if the data
+is always present on a compatible <tt class="docutils literal"><span class="pre">DataHolder</span></tt> (like <tt class="docutils literal"><span class="pre">WetData</span></tt> or <tt class="docutils literal"><span class="pre">HealthData</span></tt>) or if it may or may not be present
+(like <tt class="docutils literal"><span class="pre">LoreData</span></tt>). If the data is always present, <tt class="docutils literal"><span class="pre">remove()</span></tt> must always fail. If it may or may not be present,
+<tt class="docutils literal"><span class="pre">remove()</span></tt> should remove it. In such cases the <tt class="docutils literal"><span class="pre">doesDataExist()</span></tt> method should be overridden.</p>
+<p>Since a living entity <em>always</em> has health, <tt class="docutils literal"><span class="pre">HealthData</span></tt> is always present and removal therefore not supported.
+Therefore we just return <tt class="docutils literal"><span class="pre">failNoData()</span></tt> and do not override the <tt class="docutils literal"><span class="pre">doesDataExist()</span></tt> method.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">DataTransactionResult</span> <span class="nf">remove</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">dataHolder</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">DataTransactionBuilder</span><span class="o">.</span><span class="na">failNoData</span><span class="o">();</span>
 <span class="o">}</span>
@@ -645,10 +673,13 @@ the <tt class="docutils literal"><span class="pre">HealthDataProcessor</span></t
 data, while <tt class="docutils literal"><span class="pre">createFrom()</span></tt> will provide a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> holding default values in that case.</p>
 <p>Again, <tt class="docutils literal"><span class="pre">AbstractEntityDataProcessor</span></tt> will provide most of the implementation for this and only requires a
 method to get the actual values present on the <tt class="docutils literal"><span class="pre">DataHolder</span></tt>. This method is only called after <tt class="docutils literal"><span class="pre">supports()</span></tt>
-and <tt class="docutils literal"><span class="pre">doesDataExist()</span></tt> both returned true. However there are cases where the data should always exist, but the value is
-either <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">false</span></tt>. This applies to <em>stateful</em> <tt class="docutils literal"><span class="pre">Datamanipulators</span></tt> like <tt class="docutils literal"><span class="pre">WetData</span></tt> (an entity can be wet
-or dry), thus the check isn&#8217;t needed in this cases. Everywhere else the checks are needed and should be performed
-to check if the data is present and return <tt class="docutils literal"><span class="pre">false</span></tt> if not.</p>
+and <tt class="docutils literal"><span class="pre">doesDataExist()</span></tt> both returned true, which means it is run under the assumption that the data is present.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If the data may not always exist on the target <tt class="docutils literal"><span class="pre">DataHolder</span></tt>, e.g. if the <tt class="docutils literal"><span class="pre">remove()</span></tt> function may be successful
+(see above), it is imperative that you override the <tt class="docutils literal"><span class="pre">doesDataExist()</span></tt> method so that it returns <tt class="docutils literal"><span class="pre">true</span></tt>
+if the data is present and <tt class="docutils literal"><span class="pre">false</span></tt> if it is not.</p>
+</div>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;,</span> <span class="o">?&gt;</span> <span class="n">getValues</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
     <span class="kd">final</span> <span class="kt">double</span> <span class="n">health</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="na">getHealth</span><span class="o">();</span>
     <span class="kd">final</span> <span class="kt">double</span> <span class="n">maxHealth</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="na">getMaxHealth</span><span class="o">();</span>
@@ -666,12 +697,19 @@ returns <tt class="docutils literal"><span class="pre">Optional.empty()</span></
 from the holder and then merging it with the supplied manipulator, but the <tt class="docutils literal"><span class="pre">DataContainer</span></tt> deserialization it
 can not provide.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">fill</span><span class="o">(</span><span class="n">DataContainer</span> <span class="n">container</span><span class="o">,</span> <span class="n">HealthData</span> <span class="n">healthData</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">healthData</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="n">DataUtil</span><span class="o">.</span><span class="na">getData</span><span class="o">(</span><span class="n">container</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">));</span>
-    <span class="n">healthData</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">DataUtil</span><span class="o">.</span><span class="na">getData</span><span class="o">(</span><span class="n">container</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">));</span>
-    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">healthData</span><span class="o">);</span>
+    <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">health</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="na">getDouble</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">.</span><span class="na">getQuery</span><span class="o">());</span>
+    <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">maxHealth</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="na">getDouble</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">.</span><span class="na">getQuery</span><span class="o">());</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">health</span><span class="o">.</span><span class="na">isPresent</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">maxHealth</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">healthData</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">health</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+        <span class="n">healthData</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="n">maxHealth</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">healthData</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
 <span class="o">}</span>
 </pre></div>
 </div>
+<p>The <tt class="docutils literal"><span class="pre">fill()</span></tt> method is to return an <tt class="docutils literal"><span class="pre">Optional</span></tt> of the altered healthData, if and only if all required data could
+be obtained from the <tt class="docutils literal"><span class="pre">DataContainer</span></tt>.</p>
 </div>
 <div class="section" id="other-methods">
 <h3>Other Methods<a class="headerlink" href="#other-methods" title="Permalink to this headline">¶</a></h3>
@@ -733,7 +771,9 @@ a <tt class="docutils literal"><span class="pre">Value</span></tt> and its immut
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">Since the actual value is a required parameter for immutable bounded values, the order of parameters differs
-between the constructors.</p>
+between the constructors. For the <tt class="docutils literal"><span class="pre">SpongeBoundedValue</span></tt> constructor, parameter order is already explained
+<a class="reference external" href="#accessors-defined-by-the-interface">above</a>. For the ImmutableSpongeBoundedValue, just move the last parameter
+(the current value) between the first (the used <tt class="docutils literal"><span class="pre">Key</span></tt>) and the second one (the default value).</p>
 </div>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">getVal</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">((</span><span class="kt">double</span><span class="o">)</span> <span class="n">container</span><span class="o">.</span><span class="na">getHealth</span><span class="o">());</span>
