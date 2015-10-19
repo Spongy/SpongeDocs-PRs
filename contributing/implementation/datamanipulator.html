@@ -511,6 +511,11 @@ by <tt class="docutils literal"><span class="pre">AbstractData</span></tt>, but 
  <span class="o">}</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Make sure to check if the <tt class="docutils literal"><span class="pre">values</span></tt> that get passed to the <tt class="docutils literal"><span class="pre">setter</span></tt> are valid. This applies especially for
+<tt class="docutils literal"><span class="pre">DataManipulators</span></tt> which won&#8217;t accept any negative <tt class="docutils literal"><span class="pre">values</span></tt> or <tt class="docutils literal"><span class="pre">null</span></tt>!</p>
+</div>
 <p>That&#8217;s it. The <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> should be done now.</p>
 </div>
 </div>
@@ -519,14 +524,14 @@ by <tt class="docutils literal"><span class="pre">AbstractData</span></tt>, but 
 <p>Implementing the <tt class="docutils literal"><span class="pre">ImmutableDataManipulator</span></tt> is similar to implementing the mutable one.</p>
 <p>The only differences are:</p>
 <ul class="simple">
-<li>The class name is formed by prefixing the mutable <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>s name with <tt class="docutils literal"><span class="pre">Immutable</span></tt></li>
+<li>The class name is formed by prefixing the mutable <tt class="docutils literal"><span class="pre">DataManipulator</span></tt>s name with <tt class="docutils literal"><span class="pre">ImmutableSponge</span></tt></li>
 <li>Inherit from <tt class="docutils literal"><span class="pre">ImmutableAbstractData</span></tt> instead</li>
 <li>Instead of <tt class="docutils literal"><span class="pre">registerGettersAndSetters()</span></tt>, the method is called <tt class="docutils literal"><span class="pre">registerGetters()</span></tt></li>
 </ul>
 <p>When creating <tt class="docutils literal"><span class="pre">ImmutableDataHolder</span></tt>s or <tt class="docutils literal"><span class="pre">ImmutableValue</span></tt>s, check if it makes sense to use the
 <tt class="docutils literal"><span class="pre">ImmutableDataCachingUtil</span></tt>. For example if you have <tt class="docutils literal"><span class="pre">WetData</span></tt> which contains nothing more than a boolean, it
 is more feasible to retain only two cached instances of <tt class="docutils literal"><span class="pre">ImmutableWetData</span></tt> - one for each possible value. For
-manipulators and values with many possible values (like <tt class="docutils literal"><span class="pre">SignData</span></tt>) however, caching may prove too expensive.</p>
+manipulators and values with many possible values (like <tt class="docutils literal"><span class="pre">SignData</span></tt>) however, caching is proven to be too expensive.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">You should declare the fields of an <tt class="docutils literal"><span class="pre">ImmutableDataManipulator</span></tt> as <tt class="docutils literal"><span class="pre">final</span></tt> in order to
@@ -576,7 +581,8 @@ much implementation work already could be done in the abstract class. Generally,
 <p class="first admonition-title">Tip</p>
 <p class="last">It is possible to create multiple <tt class="docutils literal"><span class="pre">DataProcessor</span></tt>s for the same data. If vastly different <tt class="docutils literal"><span class="pre">DataHolder</span></tt>s
 should be supported (for example both a <tt class="docutils literal"><span class="pre">TileEntity</span></tt> and a matching <tt class="docutils literal"><span class="pre">ItemStack</span></tt>), it may be beneficial to
-create one processor for each type of <tt class="docutils literal"><span class="pre">DataHolder</span></tt> in order to make full use of the provided abstractions.</p>
+create one processor for each type of <tt class="docutils literal"><span class="pre">DataHolder</span></tt> in order to make full use of the provided abstractions.
+Make sure you follow the package structure for items, tileentities and entities.</p>
 </div>
 <div class="section" id="validation-methods">
 <h3>Validation Methods<a class="headerlink" href="#validation-methods" title="Permalink to this headline">¶</a></h3>
@@ -639,7 +645,10 @@ the <tt class="docutils literal"><span class="pre">HealthDataProcessor</span></t
 data, while <tt class="docutils literal"><span class="pre">createFrom()</span></tt> will provide a <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> holding default values in that case.</p>
 <p>Again, <tt class="docutils literal"><span class="pre">AbstractEntityDataProcessor</span></tt> will provide most of the implementation for this and only requires a
 method to get the actual values present on the <tt class="docutils literal"><span class="pre">DataHolder</span></tt>. This method is only called after <tt class="docutils literal"><span class="pre">supports()</span></tt>
-and <tt class="docutils literal"><span class="pre">doesDataExist()</span></tt> both returned true.</p>
+and <tt class="docutils literal"><span class="pre">doesDataExist()</span></tt> both returned true. However there are cases where the data should always exist, but the value is
+either <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">false</span></tt>. This applies to <em>stateful</em> <tt class="docutils literal"><span class="pre">Datamanipulators</span></tt> like <tt class="docutils literal"><span class="pre">WetData</span></tt> (an entity can be wet
+or dry), thus the check isn&#8217;t needed in this cases. Everywhere else the checks are needed and should be performed
+to check if the data is present and return <tt class="docutils literal"><span class="pre">false</span></tt> if not.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;,</span> <span class="o">?&gt;</span> <span class="n">getValues</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
     <span class="kd">final</span> <span class="kt">double</span> <span class="n">health</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="na">getHealth</span><span class="o">();</span>
     <span class="kd">final</span> <span class="kt">double</span> <span class="n">maxHealth</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="na">getMaxHealth</span><span class="o">();</span>

@@ -137,6 +137,10 @@ by ``AbstractData``, but we must tell it which data it can access and how. There
       registerKeyValue(Keys.HEALTH, SpongeHealthData.this::health);
   }
 
+.. note::
+  Make sure to check if the ``values`` that get passed to the ``setter`` are valid. This applies especially for
+  ``DataManipulators`` which won't accept any negative ``values`` or ``null``!
+
 That's it. The ``DataManipulator`` should be done now.
 
 2. Implement the ImmutableDataManipulator
@@ -146,14 +150,14 @@ Implementing the ``ImmutableDataManipulator`` is similar to implementing the mut
 
 The only differences are:
 
-* The class name is formed by prefixing the mutable ``DataManipulator``\ s name with ``Immutable``
+* The class name is formed by prefixing the mutable ``DataManipulator``\ s name with ``ImmutableSponge``
 * Inherit from ``ImmutableAbstractData`` instead
 * Instead of ``registerGettersAndSetters()``, the method is called ``registerGetters()``
 
 When creating ``ImmutableDataHolder``\ s or ``ImmutableValue``\ s, check if it makes sense to use the
 ``ImmutableDataCachingUtil``. For example if you have ``WetData`` which contains nothing more than a boolean, it
 is more feasible to retain only two cached instances of ``ImmutableWetData`` - one for each possible value. For
-manipulators and values with many possible values (like ``SignData``) however, caching may prove too expensive.
+manipulators and values with many possible values (like ``SignData``) however, caching is proven to be too expensive.
 
 .. tip::
 
@@ -214,6 +218,7 @@ much implementation work already could be done in the abstract class. Generally,
     It is possible to create multiple ``DataProcessor``\ s for the same data. If vastly different ``DataHolder``\ s
     should be supported (for example both a ``TileEntity`` and a matching ``ItemStack``), it may be beneficial to
     create one processor for each type of ``DataHolder`` in order to make full use of the provided abstractions.
+    Make sure you follow the package structure for items, tileentities and entities.
 
 Validation Methods
 ~~~~~~~~~~~~~~~~~~
@@ -291,7 +296,10 @@ data, while ``createFrom()`` will provide a ``DataManipulator`` holding default 
 
 Again, ``AbstractEntityDataProcessor`` will provide most of the implementation for this and only requires a
 method to get the actual values present on the ``DataHolder``. This method is only called after ``supports()``
-and ``doesDataExist()`` both returned true.
+and ``doesDataExist()`` both returned true. However there are cases where the data should always exist, but the value is
+either ``true`` or ``false``. This applies to *stateful* ``Datamanipulators`` like ``WetData`` (an entity can be wet
+or dry), thus the check isn't needed in this cases. Everywhere else the checks are needed and should be performed
+to check if the data is present and return ``false`` if not.
 
 .. code-block:: java
 
