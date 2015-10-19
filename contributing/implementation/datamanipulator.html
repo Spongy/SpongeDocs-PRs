@@ -432,55 +432,19 @@ outside of these bounds can be passed. To achieve this we use guava&#8217;s <tt 
 <p>The interface we implement specifies some methods to access <tt class="docutils literal"><span class="pre">Value</span></tt> objects. For <tt class="docutils literal"><span class="pre">HealthData</span></tt>, those are
 <tt class="docutils literal"><span class="pre">health()</span></tt> and <tt class="docutils literal"><span class="pre">maxHealth()</span></tt>. Every call to those should yield a new <tt class="docutils literal"><span class="pre">Value</span></tt>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">health</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">SpongeBoundedValue</span><span class="o">&lt;&gt;(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="c1">// 1</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">maximumHealth</span><span class="o">,</span>  <span class="c1">// 2</span>
-        <span class="n">ComparatorUtil</span><span class="o">.</span><span class="na">doubleComparator</span><span class="o">(),</span> <span class="c1">// 3</span>
-        <span class="mi">0</span><span class="n">D</span><span class="o">,</span> <span class="c1">// 4</span>
-        <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span> <span class="c1">// 5</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">currentHealth</span><span class="o">);</span> <span class="c1">// 6</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">SpongeBoundedValue</span><span class="o">.</span><span class="na">Builder</span><span class="o">&lt;&gt;(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">minimum</span><span class="o">(</span><span class="mf">0.0</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">maximum</span><span class="o">((</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">defaultValue</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">maximumHealth</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">value</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">currentHealth</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Since we use a bounded value, our constructor is slightly longer.</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="4%" />
-<col width="32%" />
-<col width="64%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Number</th>
-<th class="head">Parameter</th>
-<th class="head">Needed for</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>1</td>
-<td><tt class="docutils literal"><span class="pre">Key</span></tt> identifying the value</td>
-<td>every subclass of <tt class="docutils literal"><span class="pre">BaseValue</span></tt></td>
-</tr>
-<tr class="row-odd"><td>2</td>
-<td>the default value</td>
-<td>every subclass of <tt class="docutils literal"><span class="pre">BaseValue</span></tt></td>
-</tr>
-<tr class="row-even"><td>3</td>
-<td>the <tt class="docutils literal"><span class="pre">Comparator</span></tt> to use</td>
-<td>bounded values</td>
-</tr>
-<tr class="row-odd"><td>4</td>
-<td>the minimum acceptable value</td>
-<td>bounded values</td>
-</tr>
-<tr class="row-even"><td>5</td>
-<td>the maximum acceptable value</td>
-<td>bounded values</td>
-</tr>
-<tr class="row-odd"><td>6</td>
-<td>the current value</td>
-<td>every subclass of <tt class="docutils literal"><span class="pre">BaseValue</span></tt>, can be omitted on mutable values</td>
-</tr>
-</tbody>
-</table>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Since <tt class="docutils literal"><span class="pre">Double</span></tt> is a <tt class="docutils literal"><span class="pre">Comparable</span></tt>, we do not need to explicitly specify a comparator.</p>
+</div>
 <p>If no current value is specified, calling <tt class="docutils literal"><span class="pre">get()</span></tt> on the <tt class="docutils literal"><span class="pre">Value</span></tt> returns the default value.</p>
 </div>
 <div class="section" id="copying-and-serialization">
@@ -757,23 +721,18 @@ It is assumed to be supported if the target <tt class="docutils literal"><span c
 <p>Again, most work is done by the abstraction class. We just need to implement two helper methods for creating
 a <tt class="docutils literal"><span class="pre">Value</span></tt> and its immutable counterpart and three methods to get, set and remove data.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">constructValue</span><span class="o">(</span><span class="n">Double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">SpongeBoundedValue</span><span class="o">&lt;&gt;(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="mi">20</span><span class="n">D</span><span class="o">,</span>
-        <span class="n">ComparatorUtil</span><span class="o">.</span><span class="na">doubleComparator</span><span class="o">(),</span> <span class="mi">0</span><span class="n">D</span><span class="o">,</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span>
-        <span class="n">value</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">SpongeBoundedValue</span><span class="o">.</span><span class="na">Builder</span><span class="o">&lt;&gt;(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">minimum</span><span class="o">(</span><span class="mf">0.0</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">maximum</span><span class="o">((</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">defaultValue</span><span class="o">(</span><span class="mf">20.0</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">value</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="o">}</span>
 
 <span class="kd">protected</span> <span class="n">ImmutableValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">constructImmutableValue</span><span class="o">(</span><span class="n">Double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">ImmutableSpongeBoundedValue</span><span class="o">&lt;&gt;(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="mi">20</span><span class="n">D</span><span class="o">,</span>
-        <span class="n">ComparatorUtil</span><span class="o">.</span><span class="na">doubleComparator</span><span class="o">(),</span> <span class="mi">0</span><span class="n">D</span><span class="o">,</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">constructValue</span><span class="o">(</span><span class="n">value</span><span class="o">).</span><span class="na">asImmutable</span><span class="o">();</span>
 <span class="o">}</span>
 </pre></div>
-</div>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">Since the actual value is a required parameter for immutable bounded values, the order of parameters differs
-between the constructors. For the <tt class="docutils literal"><span class="pre">SpongeBoundedValue</span></tt> constructor, parameter order is already explained
-<a class="reference external" href="#accessors-defined-by-the-interface">above</a>. For the ImmutableSpongeBoundedValue, just move the last parameter
-(the current value) between the first (the used <tt class="docutils literal"><span class="pre">Key</span></tt>) and the second one (the default value).</p>
 </div>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">getVal</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">((</span><span class="kt">double</span><span class="o">)</span> <span class="n">container</span><span class="o">.</span><span class="na">getHealth</span><span class="o">());</span>
