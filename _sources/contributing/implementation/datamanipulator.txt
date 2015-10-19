@@ -83,9 +83,9 @@ The interface we implement specifies some methods to access ``Value`` objects. F
     public MutableBoundedValue<Double> health() {
         return SpongeValueBuilder.boundedBuilder(Keys.HEALTH)
             .minimum(0.0)
-            .maximum((double) Float.MAX_VALUE)
+            .maximum(this.maximumHealth)
             .defaultValue(this.maximumHealth)
-            .value(this.currentHealth)
+            .actualValue(this.currentHealth)
             .build();
     }
 
@@ -422,7 +422,7 @@ a ``Value`` and its immutable counterpart and three methods to get, set and remo
             .minimum(0.0)
             .maximum((double) Float.MAX_VALUE)
             .defaultValue(20.0)
-            .value(value)
+            .actualValue(value)
             .build();
     }
 
