@@ -476,13 +476,18 @@ by <tt class="docutils literal"><span class="pre">AbstractData</span></tt>, but 
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="kt">void</span> <span class="nf">setCurrentHealthIfValid</span><span class="o">(</span><span class="kt">double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mf">0.0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">currentHealth</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;Invalid value for current health&quot;</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 
 <span class="kd">private</span> <span class="kt">void</span> <span class="nf">setMaximumHealthIfValid</span><span class="o">(</span><span class="kt">double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mf">0.0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">maximumHealth</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;Invalid value for maximum health&quot;</span><span class="o">);</span>
     <span class="o">}</span>
+
 <span class="o">}</span>
 
 <span class="kd">private</span> <span class="kt">void</span> <span class="nf">registerGettersAndSetters</span><span class="o">()</span> <span class="o">{</span>
@@ -490,20 +495,21 @@ by <tt class="docutils literal"><span class="pre">AbstractData</span></tt>, but 
     <span class="n">registerFieldSetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">::</span><span class="n">setCurrentHealthIfValid</span><span class="o">);</span>
     <span class="n">registerKeyValue</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">::</span><span class="n">health</span><span class="o">);</span>
 
-    <span class="n">registerFieldGetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">maximumHealth</span><span class="o">);</span>
-    <span class="n">registerFieldSetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">::</span><span class="n">setMaximumHealthIfValid</span><span class="o">);</span>
-    <span class="n">registerKeyValue</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">::</span><span class="n">maxHealth</span><span class="o">);</span>
+    <span class="n">registerFieldGetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">maximumHealth</span><span class="o">);</span>
+    <span class="n">registerFieldSetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">::</span><span class="n">setMaximumHealthIfValid</span><span class="o">);</span>
+    <span class="n">registerKeyValue</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">this</span><span class="o">::</span><span class="n">maxHealth</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Make sure to check if the <tt class="docutils literal"><span class="pre">values</span></tt> that get passed to the <tt class="docutils literal"><span class="pre">FieldSetter</span></tt> are valid. This applies especially for
-<tt class="docutils literal"><span class="pre">DataManipulators</span></tt> which won&#8217;t accept any negative <tt class="docutils literal"><span class="pre">value</span></tt>!</p>
+<p>The <tt class="docutils literal"><span class="pre">Consumer</span></tt> registered as field setter must perform the adequate checks to make sure the supplied value is valid.
+This applies especially for <tt class="docutils literal"><span class="pre">DataHolder``s</span> <span class="pre">which</span> <span class="pre">won't</span> <span class="pre">accept</span> <span class="pre">negative</span> <span class="pre">values.</span> <span class="pre">If</span> <span class="pre">a</span> <span class="pre">value</span> <span class="pre">is</span> <span class="pre">invalid,</span> <span class="pre">an</span>
+<span class="pre">``IllegalArgumentException</span></tt> should be thrown.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The validity criteria for those setters are the same as for the respective <tt class="docutils literal"><span class="pre">Value</span></tt> object, so you might delegate
+the validity check to a call of <tt class="docutils literal"><span class="pre">this.health().set()</span></tt> and just set <tt class="docutils literal"><span class="pre">this.currentHealth</span> <span class="pre">=</span> <span class="pre">value</span></tt> if the first
+line has no thrown an exception yet.</p>
 </div>
-<p>To perform these checks, the most readable way is to define helper methods which set the data if it is valid
-and fail silently if not, then register those methods as <tt class="docutils literal"><span class="pre">FieldSetter</span></tt>. The validity criteria should be the
-same as on the <tt class="docutils literal"><span class="pre">Value</span></tt> o</p>
 <p>That&#8217;s it. The <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> should be done now.</p>
 </div>
 </div>
@@ -531,9 +537,8 @@ prevent accidental changes.</p>
 <p>The next step is to register your <tt class="docutils literal"><span class="pre">Key</span></tt>s to the <tt class="docutils literal"><span class="pre">KeyRegistry</span></tt>. To do so, locate the
 <tt class="docutils literal"><span class="pre">org.spongepowered.common.data.key.KeyRegistry</span></tt> class and find the static <tt class="docutils literal"><span class="pre">generateKeyMap()</span></tt> function.
 There add a line to register (and create) your used keys.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">registerKeys</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">keyMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;max_health&quot;</span><span class="o">,</span> <span class="n">makeSingleKey</span><span class="o">(</span><span class="n">Double</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">MutableBoundedValue</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">of</span><span class="o">(</span><span class="s">&quot;MaxHealth&quot;</span><span class="o">)));</span>
-<span class="o">}</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">keyMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;health&quot;</span><span class="o">),</span> <span class="n">makeSingleKey</span><span class="o">(</span><span class="n">Double</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">MutableBoundedValue</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">of</span><span class="o">(</span><span class="s">&quot;Health&quot;</span><span class="o">)));</span>
+<span class="n">keyMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;max_health&quot;</span><span class="o">,</span> <span class="n">makeSingleKey</span><span class="o">(</span><span class="n">Double</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">MutableBoundedValue</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">of</span><span class="o">(</span><span class="s">&quot;MaxHealth&quot;</span><span class="o">)));</span>
 </pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">keyMap</span></tt> maps strings to <tt class="docutils literal"><span class="pre">Key</span></tt>s. The string used should be the corresponding constant name from

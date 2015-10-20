@@ -131,13 +131,18 @@ by ``AbstractData``, but we must tell it which data it can access and how. There
     private void setCurrentHealthIfValid(double value) {
         if (value >= 0.0 && value <= (double) Float.MAX_VALUE) {
             this.currentHealth = value;
+        } else {
+            throw new IllegalArgumentException("Invalid value for current health");
         }
     }
 
     private void setMaximumHealthIfValid(double value) {
         if (value >= 0.0 && value <= (double) Float.MAX_VALUE) {
             this.maximumHealth = value;
+        } else {
+            throw new IllegalArgumentException("Invalid value for maximum health");
         }
+
     }
 
     private void registerGettersAndSetters() {
@@ -145,18 +150,20 @@ by ``AbstractData``, but we must tell it which data it can access and how. There
         registerFieldSetter(Keys.HEALTH, SpongeHealthData.this::setCurrentHealthIfValid);
         registerKeyValue(Keys.HEALTH, SpongeHealthData.this::health);
 
-        registerFieldGetter(Keys.HEALTH, () -> SpongeHealthData.this.maximumHealth);
-        registerFieldSetter(Keys.HEALTH, SpongeHealthData.this::setMaximumHealthIfValid);
-        registerKeyValue(Keys.HEALTH, SpongeHealthData.this::maxHealth);
+        registerFieldGetter(Keys.MAX_HEALTH, () -> SpongeHealthData.this.maximumHealth);
+        registerFieldSetter(Keys.MAX_HEALTH, SpongeHealthData.this::setMaximumHealthIfValid);
+        registerKeyValue(Keys.MAX_HEALTH, SpongeHealthData.this::maxHealth);
     }
 
-.. note::
-    Make sure to check if the ``values`` that get passed to the ``FieldSetter`` are valid. This applies especially for
-    ``DataManipulators`` which won't accept any negative ``value``!
+The ``Consumer`` registered as field setter must perform the adequate checks to make sure the supplied value is valid.
+This applies especially for ``DataHolder``s which won't accept negative values. If a value is invalid, an
+``IllegalArgumentException`` should be thrown.
 
-To perform these checks, the most readable way is to define helper methods which set the data if it is valid
-and fail silently if not, then register those methods as ``FieldSetter``. The validity criteria should be the
-same as on the ``Value`` o
+.. tip::
+
+    The validity criteria for those setters are the same as for the respective ``Value`` object, so you might delegate
+    the validity check to a call of ``this.health().set()`` and just set ``this.currentHealth = value`` if the first
+    line has no thrown an exception yet.
 
 That's it. The ``DataManipulator`` should be done now.
 
@@ -190,9 +197,9 @@ There add a line to register (and create) your used keys.
 
 .. code-block:: java
 
-    public static void registerKeys() {
-        keyMap.put("max_health", makeSingleKey(Double.class, MutableBoundedValue.class, of("MaxHealth")));
-    }
+    keyMap.put("health"), makeSingleKey(Double.class, MutableBoundedValue.class, of("Health")));
+    keyMap.put("max_health", makeSingleKey(Double.class, MutableBoundedValue.class, of("MaxHealth")));
+
 
 The ``keyMap`` maps strings to ``Key``\ s. The string used should be the corresponding constant name from
 the ``Keys`` utility class in lowercase. The ``Key`` itself is created by one of the static methods
