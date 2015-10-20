@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Introduction to HOCON &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+     <title>SpongeForge &mdash; Sponge 2.1-SNAPSHOT documentation</title>
     
   <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sponge.css" type="text/css" />
@@ -31,9 +31,9 @@
     <script type="text/javascript" src="../../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../../_static/lights.js"></script>
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../../../index.html" />
-        <link rel="up" title="Configuring Sponge" href="index.html" />
-        <link rel="next" title="JSON Syntax" href="json.html" />
-        <link rel="prev" title="Configuring Sponge" href="index.html" />
+        <link rel="up" title="Choosing an Implementation" href="index.html" />
+        <link rel="next" title="SpongeVanilla" href="spongevanilla.html" />
+        <link rel="prev" title="Choosing an Implementation" href="index.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -58,15 +58,15 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="json.html" title="JSON Syntax"
+          <a href="spongevanilla.html" title="SpongeVanilla"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Configuring Sponge"
+          <a href="index.html" title="Choosing an Implementation"
              accesskey="P">previous</a> |</li>
         <li><a href="../../../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
         <li><a href="../../index.html" >Creating a Server</a> &raquo;</li>
         <li><a href="../index.html" >Getting Started</a> &raquo;</li>
-        <li><a href="index.html" accesskey="U">Configuring Sponge</a> &raquo;</li> 
+        <li><a href="index.html" accesskey="U">Choosing an Implementation</a> &raquo;</li> 
     </ul>
   </div> 
     <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -92,9 +92,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../migrating.html">Migrating to Sponge</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../implementations/index.html">Choosing an Implementation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../implementations/spongeforge.html">SpongeForge</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../implementations/spongevanilla.html">SpongeVanilla</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Choosing an Implementation</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="">SpongeForge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spongevanilla.html">SpongeVanilla</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html">Installing Sponge</a><ul class="simple">
@@ -104,11 +104,11 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../port-forward.html">Port Forwarding</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">Configuring Sponge</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="">Introduction to HOCON</a></li>
-<li class="toctree-l4"><a class="reference internal" href="json.html">JSON Syntax</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sponge-conf.html">global.conf</a></li>
-<li class="toctree-l4"><a class="reference internal" href="server-properties.html">server.properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/index.html">Configuring Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../configuration/hocon.html">Introduction to HOCON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../configuration/json.html">JSON Syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../configuration/sponge-conf.html">global.conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../configuration/server-properties.html">server.properties</a></li>
 </ul>
 </li>
 </ul>
@@ -362,58 +362,54 @@
               <div class="bodywrapper">
                 <div class="body" role="main">
                   
-  <div class="section" id="introduction-to-hocon">
-<h1>Introduction to HOCON<a class="headerlink" href="#introduction-to-hocon" title="Permalink to this headline">¶</a></h1>
-<p>HOCON (Human-Optimized Config Object Notation) is an easy-to-use configuration format. It is used by Sponge and
-individual plugins utilizing the Sponge API to store important data, such as configuration or player data. HOCON files
-typically use the suffix <tt class="docutils literal"><span class="pre">.conf</span></tt>.</p>
-<div class="section" id="components">
-<h2>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="spongeforge">
+<h1>SpongeForge<a class="headerlink" href="#spongeforge" title="Permalink to this headline">¶</a></h1>
+<p>SpongeForge integrates <a class="reference external" href="http://www.minecraftforge.net/">Minecraft Forge</a> so you can also run Minecraft Forge mods.
+In fact, it&#8217;s more like Sponge itself is a Forge mod that then loads Sponge plugins, but this is a technical detail.</p>
+<p>Users who do not want to use Minecraft Forge can consider <a class="reference internal" href="spongevanilla.html"><em>SpongeVanilla</em></a>.</p>
+<div class="section" id="download">
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
+<p>Check <a class="reference internal" href="../../../downloads.html"><em>Download</em></a> for further information.</p>
+</div>
+<div class="section" id="reading-the-download-filename">
+<h2>Reading the Download Filename<a class="headerlink" href="#reading-the-download-filename" title="Permalink to this headline">¶</a></h2>
+<p>When you download SpongeForge, the name of the file will provide some important version information.</p>
+<p>The format of the filename is <tt class="docutils literal"><span class="pre">{MCVersion}-{ForgeVersion}-{SpongeAPIVersion}{SpongeBuildId}</span></tt></p>
+<p>Note that there is no separator between the Sponge API Version and the Sponge Build ID.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">MCVersion</span></tt></td>
+<td>The minecraft version. Only clients compatible with this version can connect.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ForgeVersion</span></tt></td>
+<td>The version of Forge this file is built for. Preferably your server should run this exact
+version of Forge.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">SpongeAPIVersion</span></tt></td>
+<td>The version of the SpongeAPI implemented by this file. This is what Sponge plugins depend on.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">SpongeBuildId</span></tt></td>
+<td>The build number of Sponge. This is what you should supply when reporting bugs or seeking
+support.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>For example the file name <tt class="docutils literal"><span class="pre">1.8-1371-2.1DEV-439</span></tt> tells us that this SpongeForge version is compatible to Minecraft <tt class="docutils literal"><span class="pre">1.8</span></tt>,
+best used with Forge version <tt class="docutils literal"><span class="pre">1371</span></tt>, provides the API Version <tt class="docutils literal"><span class="pre">2.1</span></tt> and has the build id <tt class="docutils literal"><span class="pre">Dev-439</span></tt></p>
+</div>
+</div>
+<div class="section" id="links">
+<h2>Links<a class="headerlink" href="#links" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>a <tt class="docutils literal"><span class="pre">key</span></tt> is a string preceding a value</li>
-<li>a <tt class="docutils literal"><span class="pre">value</span></tt> is a string, number, object, array, or boolean following a <tt class="docutils literal"><span class="pre">key</span></tt></li>
-<li>a <tt class="docutils literal"><span class="pre">key-value</span> <span class="pre">separator</span></tt> separates keys from values, and can be either <tt class="docutils literal"><span class="pre">:</span></tt> or <tt class="docutils literal"><span class="pre">=</span></tt></li>
-<li>a <tt class="docutils literal"><span class="pre">comment</span></tt> is prefixed with <tt class="docutils literal"><span class="pre">#</span></tt> or <tt class="docutils literal"><span class="pre">//</span></tt>, typically serving to provide feedback or instructions</li>
+<li><a class="reference external" href="http://spongepowered.org/">Homepage</a></li>
+<li><a class="reference external" href="https://github.com/SpongePowered/SpongeForge">GitHub</a></li>
 </ul>
-<p><strong>Example:</strong></p>
-<div class="highlight-json"><pre>yellow-thing: &quot;Sponge&quot;</pre>
-</div>
-<p>In this example, the <tt class="docutils literal"><span class="pre">key</span></tt> is <tt class="docutils literal"><span class="pre">yellow-thing</span></tt>, the <tt class="docutils literal"><span class="pre">value</span></tt> is <tt class="docutils literal"><span class="pre">Sponge</span></tt>, and the <tt class="docutils literal"><span class="pre">key-value</span> <span class="pre">separator</span></tt> is <tt class="docutils literal"><span class="pre">:</span></tt>.</p>
-</div>
-<div class="section" id="working-with-hocon">
-<h2>Working with HOCON<a class="headerlink" href="#working-with-hocon" title="Permalink to this headline">¶</a></h2>
-<p>HOCON is more flexible than the JSON (JavaScript Object Notation) format in that there are several ways to write valid
-HOCON. Below are two examples of valid HOCON.</p>
-<p><strong>Example #1:</strong></p>
-<div class="highlight-none"><div class="highlight"><pre>player: {
-    name: &quot;Steve&quot;,
-    level: 30
-}
-</pre></div>
-</div>
-<p><strong>Example #2:</strong></p>
-<div class="highlight-none"><div class="highlight"><pre>player {
-    name = &quot;Steve&quot;
-    level = 30
-}
-</pre></div>
-</div>
-<p>In practice, it is best to follow the formatting conventions of the HOCON configuration you are editing. When editing
-a HOCON configuration for Sponge or an individual plugin utilizing the Sponge API, the values are likely the only thing
-you will be changing unless otherwise specified.</p>
-<div class="section" id="debugging-your-configuration">
-<h3>Debugging your configuration<a class="headerlink" href="#debugging-your-configuration" title="Permalink to this headline">¶</a></h3>
-<p>If a HOCON configuration does not appear to be working, here are some tips.</p>
-<ul class="simple">
-<li>Curly braces must be balanced</li>
-<li>Quotation marks must be balanced</li>
-<li>Duplicate keys that appear later take precedence</li>
-</ul>
-</div>
-</div>
-<div class="section" id="specification">
-<h2>Specification<a class="headerlink" href="#specification" title="Permalink to this headline">¶</a></h2>
-<p>More information about the HOCON format can be found <a class="reference external" href="https://github.com/typesafehub/config/blob/master/HOCON.md">here</a>.</p>
 </div>
 </div>
 
