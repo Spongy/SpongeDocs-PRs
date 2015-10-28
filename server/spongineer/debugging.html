@@ -438,13 +438,6 @@ Caused by: java.lang.NullPointerException
 <p>The first error indicates that a <tt class="docutils literal"><span class="pre">Class</span></tt> is missing, the second is a NullPointer Exception which indicated that the
 plugin you&#8217;re trying to use relies on missing parameters. This happens when you try to run and older plugin on a newer
 SpongeForge or SpongeVanilla build and vice versa.</p>
-<div class="highlight-none"><div class="highlight"><pre>[Server thread/ERROR] [Sponge]: Could not pass ChangeBlockEvent$Break$Impl to SpongePlugin:AwesomePlugin{1.33.7}
-java.lang.NoClassDefFoundError: org/spongepowered/api/block/BlockTransaction
-</pre></div>
-</div>
-<p>A <tt class="docutils literal"><span class="pre">NoClassDefFoundError</span></tt> occurs when the plugin tries to access a class that isn&#8217;t on the classpath. This happens
-when the API got adjusted or refactored lately. Both errors often occur when you&#8217;re trying to run an older plugin
-on a newer build of SpongeForge and vice versa. Always try to use the correct version!</p>
 <div class="highlight-none"><div class="highlight"><pre>java.lang.AbstractMethodError: net.minecraft.entity.player.EntityPlayerMP.getTabList()Lorg/spongepowered/api/entity/living/player/tab/TabList;
 at (...)
 </pre></div>
@@ -453,11 +446,19 @@ at (...)
 running the most current build of Sponge and update if a newer version is available. If the problem still exists, either
 report it on the official Issuetracker, on the forums or on IRC. You can request the implementation of the missing
 feature too.</p>
-<div class="highlight-none"><div class="highlight"><pre>java.lang.NoClassDefFoundError: org/spongepowered/api/data/DataManipulator
+<div class="highlight-none"><div class="highlight"><pre>[Server thread/INFO]: Starting minecraft server version 1.8
+[Server thread/ERROR]: Encountered an unexpected exception
+java.lang.NoClassDefFoundError: org/spongepowered/api/event/game/state/GameStartingServerEvent
 </pre></div>
 </div>
-<p>This error is encountered when your using an older or newer Sponge build than the Plugin was built against. Likely some
-parts of the API changed, which the plugin was relying on. Either ask the Plugin author which Sponge version he build
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Read the full example crashlog here:
+<a class="reference download internal" href="../../_downloads/crashlog-sponge575-plugin750.txt"><tt class="xref download docutils literal"><span class="pre">SpongeForge</span> <span class="pre">575</span> <span class="pre">crashlog</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">plugin</span> <span class="pre">built</span> <span class="pre">against</span> <span class="pre">build</span> <span class="pre">750</span></tt></a></p>
+</div>
+<p>A <tt class="docutils literal"><span class="pre">NoClassDefFoundError</span></tt> occurs when the plugin tries to access a class that isn&#8217;t on the classpath. This happens
+when the API got adjusted or refactored lately and you&#8217;re trying to run an older plugin on a newer build of Sponge
+and vice versa. Always try to use the correct version! Either ask the Plugin author which Sponge version he build
 against or try updating/downgrading your SpongeForge or SpongeVanilla to solve this.</p>
 </div>
 </div>

@@ -90,15 +90,6 @@ SpongeForge or SpongeVanilla build and vice versa.
 
 .. code-block:: none
 
- [Server thread/ERROR] [Sponge]: Could not pass ChangeBlockEvent$Break$Impl to SpongePlugin:AwesomePlugin{1.33.7}
- java.lang.NoClassDefFoundError: org/spongepowered/api/block/BlockTransaction
-
-A ``NoClassDefFoundError`` occurs when the plugin tries to access a class that isn't on the classpath. This happens
-when the API got adjusted or refactored lately. Both errors often occur when you're trying to run an older plugin
-on a newer build of SpongeForge and vice versa. Always try to use the correct version!
-
-.. code-block:: none
-
  java.lang.AbstractMethodError: net.minecraft.entity.player.EntityPlayerMP.getTabList()Lorg/spongepowered/api/entity/living/player/tab/TabList;
  at (...)
 
@@ -109,8 +100,16 @@ feature too.
 
 .. code-block:: none
 
- java.lang.NoClassDefFoundError: org/spongepowered/api/data/DataManipulator
+ [Server thread/INFO]: Starting minecraft server version 1.8
+ [Server thread/ERROR]: Encountered an unexpected exception
+ java.lang.NoClassDefFoundError: org/spongepowered/api/event/game/state/GameStartingServerEvent
 
-This error is encountered when your using an older or newer Sponge build than the Plugin was built against. Likely some
-parts of the API changed, which the plugin was relying on. Either ask the Plugin author which Sponge version he build
+.. note::
+
+ Read the full example crashlog here:
+ :download:`SpongeForge 575 crashlog with a plugin built against build 750 </files/crashlogs/crashlog-sponge575-plugin750.txt>`
+
+A ``NoClassDefFoundError`` occurs when the plugin tries to access a class that isn't on the classpath. This happens
+when the API got adjusted or refactored lately and you're trying to run an older plugin on a newer build of Sponge
+and vice versa. Always try to use the correct version! Either ask the Plugin author which Sponge version he build
 against or try updating/downgrading your SpongeForge or SpongeVanilla to solve this.
