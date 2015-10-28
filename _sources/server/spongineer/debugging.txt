@@ -1,0 +1,76 @@
+=========
+Debugging
+=========
+
+Logs are an essential part when it comes to debugging your server and figuring what went wrong. This page will show
+some basic logging examples and will try to explain what you can do to fix your issues, when encountering them.
+
+General Warnings
+================
+
+A common source of errors and bugs is a version mismatch between either SpongeForge and Forge or
+SpongeForge and Plugins. First we'll have a look at the general warning Forge gives us upon crashing:
+
+.. code-block:: none
+
+ WARNING: coremods are present:
+    SpongeForge (sponge-1.8-1521-2.1DEV-750.jar)
+ Contact their authors BEFORE contacting forge
+
+This isn't a bug or error, it's just Forge telling you that a Coremod (here: SpongeForge) is installed. Forge advises
+you to contact the Sponge developers first, before asking the Forge support for help. Nothing to worry about here.
+
+Common Exceptions
+=================
+
+Here are some common exceptions and some reasons why you might encounter them:
+
+Mismatched SpongeForge and Forge
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+
+ [12:59:21] [main/ERROR] [mixin/]: @Mixin target net.minecraftforge.event.world.BlockEvent$NeighborNotifyEvent was not found mixins.forge.core.json:event.block.MixinEventNotifyNeighborBlock
+
+This is a common crash when you try to run SpongeForge on the wrong Forge build. Note that the target/Mixin can vary.
+Always match Forge against SpongeForge! If you're unsure which version of Forge is required and you already got your
+SpongeForge build, take a look at: :doc:`../getting-started/implementations/spongeforge/`
+
+Other common errors
+~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+
+ Caused by: java.lang.ClassNotFoundException: org.spongepowered.api.event.state.ServerStartedEvent
+ Caused by: java.lang.NullPointerException
+
+The first error indicates that a ``Class`` is missing, the second is a NullPointer Exception which indicated that the
+plugin you're trying to use relies on missing parameters. This happens when you try to run and older plugin on a newer
+SpongeForge or SpongeVanilla build and vice versa.
+
+.. code-block:: none
+
+ [Server thread/ERROR] [Sponge]: Could not pass ChangeBlockEvent$Break$Impl to SpongePlugin:AwesomePlugin{1.33.7}
+ java.lang.NoClassDefFoundError: org/spongepowered/api/block/BlockTransaction
+
+A ``NoClassDefFoundError`` occurs when the plugin tries to access a class that isn't on the classpath. This happens
+when the API got adjusted or refactored lately. Both errors often occur when you're trying to run an older plugin
+on a newer build of SpongeForge and vice versa. Always try to use the correct version!
+
+.. code-block:: none
+
+ java.lang.AbstractMethodError: net.minecraft.entity.player.EntityPlayerMP.getTabList()Lorg/spongepowered/api/entity/living/player/tab/TabList;
+ at (...)
+
+An ``AbstractMethodError`` occurs when a plugin tries to call a method which isn't implemented yet. Please check if you're
+running the most current build of Sponge and update if a newer version is available. If the problem still exists, either
+report it on the official Issuetracker, on the forums or on IRC. You can request the implementation of the missing
+feature too.
+
+.. code-block:: none
+
+ java.lang.NoClassDefFoundError: org/spongepowered/api/data/DataManipulator
+
+This error is encountered when your using an older or newer Sponge build than the Plugin was built against. Likely some
+parts of the API changed, which the plugin was relying on. Either ask the Plugin author which Sponge version he build
+against or try updating/downgrading your SpongeForge or SpongeVanilla to solve this.
