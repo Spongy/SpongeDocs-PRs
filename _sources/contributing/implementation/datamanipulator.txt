@@ -56,21 +56,30 @@ The second constructor must
 
 .. code-block:: java
 
-    public SpongeHealthData() {
-        this(20D, 20D);
-    }
+    import static com.google.common.base.Preconditions.checkArgument;
 
-    public SpongeHealthData(double currentHealth, double maxHealth) {
-        super(HealthData.class);
-        Preconditions.checkArgument(currentHealth >= 0.0 && currentHealth <= (double) Float.MAX_VALUE);
-        Preconditions.checkArgument(maxHealth >= 0.0 && maxHealth <= (double) Float.MAX_VALUE);
-        this.currentHealth = currentHealth;
-        this.maximumHealth = maxHealth;
-        this.registerGettersAndSetters();
+    public class SpongeHealthData {
+
+        public SpongeHealthData() {
+            this(20D, 20D);
+        }
+
+        public SpongeHealthData(double currentHealth, double maxHealth) {
+            super(HealthData.class);
+            checkArgument(currentHealth >= 0.0 && currentHealth <= (double) Float.MAX_VALUE);
+            checkArgument(maxHealth >= 0.0 && maxHealth <= (double) Float.MAX_VALUE);
+            this.currentHealth = currentHealth;
+            this.maximumHealth = maxHealth;
+            this.registerGettersAndSetters();
+        }
+
+        ...
+
     }
 
 Since we know that both current health and maximum health are bounded values, we need to make sure no values
-outside of these bounds can be passed. To achieve this we use guava's ``Preconditions``.
+outside of these bounds can be passed. To achieve this we use guava's ``Preconditions`` of which we import the
+required methods statically.
 
 Accessors defined by the Interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
