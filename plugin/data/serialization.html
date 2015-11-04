@@ -390,11 +390,11 @@ values, one for the current and one for the maximum health, each identified by t
 <span class="n">currentHealth</span> <span class="o">==</span> <span class="n">healthData</span><span class="o">.</span><span class="na">health</span><span class="o">().</span><span class="na">get</span><span class="o">();</span>  <span class="c1">// true</span>
 </pre></div>
 </div>
-<p>Converting this container back into a <tt class="docutils literal"><span class="pre">HealthData</span></tt> instance is handled by the corresponding <tt class="docutils literal"><span class="pre">DataBuilder</span></tt>. Those are
-registered and managed by the <tt class="docutils literal"><span class="pre">SerializationService</span></tt>, which, as described on the <a class="reference internal" href="../services.html"><em>Services</em></a> page
-can be obtained from the <tt class="docutils literal"><span class="pre">ServiceManager</span></tt>. The <tt class="docutils literal"><span class="pre">SerializationService</span></tt> provides both the means to get the appropriate
-<tt class="docutils literal"><span class="pre">DataBuilder</span></tt> to deserialize a given class and a shorthand method to both get the <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> and have it do the
-deserialization in one step. Both of the following code examples are functionally equivalent.</p>
+<p>Converting this container back into a <tt class="docutils literal"><span class="pre">HealthData</span></tt> instance is done by the corresponding <tt class="docutils literal"><span class="pre">DataBuilder</span></tt>. Those are
+registered and managed by the <tt class="docutils literal"><span class="pre">SerializationService</span></tt>, which, as described on the <a class="reference internal" href="../services.html"><em>Services</em></a> page,
+can be obtained from the <tt class="docutils literal"><span class="pre">ServiceManager</span></tt>. The <tt class="docutils literal"><span class="pre">SerializationService</span></tt> provides a method to get the appropriate
+<tt class="docutils literal"><span class="pre">DataBuilder</span></tt> to deserialize a given class and additionally a shorthand method to get the <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> and have it
+do the deserialization in one step. Both of the following code examples are functionally equivalent.</p>
 <p><strong>Code Example: Deserialization, the long way</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">deserializeHealth</span><span class="o">(</span><span class="n">DataView</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
     <span class="kd">final</span> <span class="n">SerializationService</span> <span class="n">service</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">game</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provideUnchecked</span><span class="o">(</span><span class="n">SerializationService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
@@ -413,15 +413,15 @@ deserialization in one step. Both of the following code examples are functionall
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>In both cases, the <tt class="docutils literal"><span class="pre">deserializeHealth</span></tt> function will return <tt class="docutils literal"><span class="pre">Optional.empty()</span></tt> if there is no <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> for
-<tt class="docutils literal"><span class="pre">HealthData</span></tt> registered or the supplied <tt class="docutils literal"><span class="pre">DataContainer</span></tt> is empty. If invalid data is present in the <tt class="docutils literal"><span class="pre">DataContainer</span></tt>
-, an <tt class="docutils literal"><span class="pre">InvalidDataException</span></tt> will be thrown.</p>
+<p>The <tt class="docutils literal"><span class="pre">deserializeHealth</span></tt> function will return <tt class="docutils literal"><span class="pre">Optional.empty()</span></tt> if there is no <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> registered for
+<tt class="docutils literal"><span class="pre">HealthData</span></tt> or the supplied <tt class="docutils literal"><span class="pre">DataContainer</span></tt> is empty. If invalid data is present in the <tt class="docutils literal"><span class="pre">DataContainer</span></tt>, an
+<tt class="docutils literal"><span class="pre">InvalidDataException</span></tt> will be thrown.</p>
 </div>
 <div class="section" id="datatranslator">
 <h2>DataTranslator<a class="headerlink" href="#datatranslator" title="Permalink to this headline">¶</a></h2>
 <p>In Sponge, generally the implementations <tt class="docutils literal"><span class="pre">MemoryDataView</span></tt> and <tt class="docutils literal"><span class="pre">MemoryDataContainer</span></tt> are used, which reside in
 memory only and thus will not persist over a server restart. In order to persistently store a <tt class="docutils literal"><span class="pre">DataContainer</span></tt>, it
-first has to be converted into another representation. This can be done by using an implementation of the
+first has to be converted into a storable representation. This can be done by using an implementation of the
 <tt class="docutils literal"><span class="pre">DataTranslator</span></tt> interface, for example the <tt class="docutils literal"><span class="pre">ConfigurateTranslator</span></tt>, which can convert a <tt class="docutils literal"><span class="pre">DataView</span></tt> to a
 <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> and vice versa. <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt>s can then be written to and read from persistent files
 using the <a class="reference internal" href="../configuration/index.html"><em>Configurate Library</em></a>.</p>

@@ -27,11 +27,11 @@ values, one for the current and one for the maximum health, each identified by t
     double currentHealth = serializedHealth.getDouble(Keys.HEALTH.getQuery()).get();
     currentHealth == healthData.health().get();  // true
 
-Converting this container back into a ``HealthData`` instance is handled by the corresponding ``DataBuilder``. Those are
-registered and managed by the ``SerializationService``, which, as described on the :doc:`Services <../services>` page
-can be obtained from the ``ServiceManager``. The ``SerializationService`` provides both the means to get the appropriate
-``DataBuilder`` to deserialize a given class and a shorthand method to both get the ``DataBuilder`` and have it do the
-deserialization in one step. Both of the following code examples are functionally equivalent.
+Converting this container back into a ``HealthData`` instance is done by the corresponding ``DataBuilder``. Those are
+registered and managed by the ``SerializationService``, which, as described on the :doc:`Services <../services>` page,
+can be obtained from the ``ServiceManager``. The ``SerializationService`` provides a method to get the appropriate
+``DataBuilder`` to deserialize a given class and additionally a shorthand method to get the ``DataBuilder`` and have it
+do the deserialization in one step. Both of the following code examples are functionally equivalent.
 
 **Code Example: Deserialization, the long way**
 
@@ -55,16 +55,16 @@ deserialization in one step. Both of the following code examples are functionall
         return service.deserialize(HealthData.class, container);
     }
 
-In both cases, the ``deserializeHealth`` function will return ``Optional.empty()`` if there is no ``DataBuilder`` for
-``HealthData`` registered or the supplied ``DataContainer`` is empty. If invalid data is present in the ``DataContainer``
-, an ``InvalidDataException`` will be thrown.
+The ``deserializeHealth`` function will return ``Optional.empty()`` if there is no ``DataBuilder`` registered for
+``HealthData`` or the supplied ``DataContainer`` is empty. If invalid data is present in the ``DataContainer``, an
+``InvalidDataException`` will be thrown.
 
 DataTranslator
 ==============
 
 In Sponge, generally the implementations ``MemoryDataView`` and ``MemoryDataContainer`` are used, which reside in
 memory only and thus will not persist over a server restart. In order to persistently store a ``DataContainer``, it
-first has to be converted into another representation. This can be done by using an implementation of the
+first has to be converted into a storable representation. This can be done by using an implementation of the
 ``DataTranslator`` interface, for example the ``ConfigurateTranslator``, which can convert a ``DataView`` to a
 ``ConfigurationNode`` and vice versa. ``ConfigurationNode``\ s can then be written to and read from persistent files
 using the :doc:`Configurate Library <../configuration/index>`.
