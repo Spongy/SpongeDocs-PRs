@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../../_static/lights.js"></script>
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../../index.html" />
         <link rel="up" title="Configuring Your Plugin" href="index.html" />
-        <link rel="next" title="Navigating Through Nodes" href="paths.html" />
+        <link rel="next" title="Giving Nodes Value" href="values.html" />
         <link rel="prev" title="Configuration Loaders" href="loaders.html" />
     
   <script type="text/javascript">
@@ -58,7 +58,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="paths.html" title="Navigating Through Nodes"
+          <a href="values.html" title="Giving Nodes Value"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="loaders.html" title="Configuration Loaders"
@@ -223,9 +223,6 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="">Configuration Nodes</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="values.html">Giving Nodes Value</a><ul class="simple">
 </ul>
 </li>
@@ -371,46 +368,45 @@
                   
   <div class="section" id="configuration-nodes">
 <h1>Configuration Nodes<a class="headerlink" href="#configuration-nodes" title="Permalink to this headline">¶</a></h1>
-<p>Before we discuss the next section, let&#8217;s learn about what a <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> is. To put it in simplest terms, a
-<tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> holds all the data stored within a config file. From the root node of the config file, you can
-read values set by you or the user, or write values to save to a file with simple calls to the value retrieval methods,
-and <tt class="docutils literal"><span class="pre">setValue(Object[]</span> <span class="pre">path,</span> <span class="pre">Object</span> <span class="pre">value)</span></tt>.</p>
-<p>In previous topics, it was noted that the configuration loader holds a generic type to allow you to choose what type of
-node it should generate. Currently, the only extra node is a <tt class="docutils literal"><span class="pre">CommentedConfigurationNode</span></tt>. You&#8217;re free to use a normal
-<tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt>, but for configurations to be modified by server administrators, the <tt class="docutils literal"><span class="pre">CommentedConfigurationNode</span></tt>
-will help you write comments to values of the file to help them customize the configuration values. Documentation on the
-<tt class="docutils literal"><span class="pre">CommentedConfigurationNode</span></tt> is available on the Configurate wiki, linked at the index of these pages.</p>
-<div class="section" id="getting-your-configuration">
-<h2>Getting your Configuration<a class="headerlink" href="#getting-your-configuration" title="Permalink to this headline">¶</a></h2>
-<p>Now that we have a loader, we can load our configuration from it with a simple call to <tt class="docutils literal"><span class="pre">load()</span></tt>. This will give us a
-<tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> with all values found within the config file. From here, you can start reading the values to
-accommodate for features within your plugin, or write new values to store some data. Note the <tt class="docutils literal"><span class="pre">IOException</span></tt> that can
-be thrown when loading the node from the file and handle it accordingly.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">File</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;config.conf&quot;</span><span class="o">);</span>
-<span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span> <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setFile</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
-<span class="n">ConfigurationNode</span> <span class="n">rootNode</span><span class="o">;</span>
-<span class="k">try</span> <span class="o">{</span>
-    <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
-<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">rootNode</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-<span class="o">}</span>
+<p>In memory, the the configuration is represented using <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt>s. A <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> either holds a
+value (like a number, a string or a list) or has child nodes, thus allowing for tree-like configuration structure.
+When using a <tt class="docutils literal"><span class="pre">ConfigurationLoader</span></tt> to load or create a new configration, it will return you the <strong>root node</strong>. It is
+recommended that you always keep a reference to that root node stored somewhere.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Depending on the <tt class="docutils literal"><span class="pre">ConfigurationLoader</span></tt> used, you might even get a <tt class="docutils literal"><span class="pre">CommentedConfigurationNode</span></tt>, which in
+addition to normal <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> behavior is able to retain a comment that will be persisted on the saved
+config file.</p>
+</div>
+<div class="section" id="navigating-nodes">
+<h2>Navigating Nodes<a class="headerlink" href="#navigating-nodes" title="Permalink to this headline">¶</a></h2>
+<p>Every child node is identified by a key, most commonly a string. When going from one node (for example the root node)
+to a specific child node, it may be necessary to move through multiple layers of child nodes. The keys of the child
+nodes passed make up the <strong>path</strong> of the target node. In the following example, there is a node holding the value
+<tt class="docutils literal"><span class="pre">false</span></tt> at the path <tt class="docutils literal"><span class="pre">config</span></tt> <tt class="docutils literal"><span class="pre">blockCheats</span></tt> <tt class="docutils literal"><span class="pre">enabled</span></tt> (from the root node) in the following HOCON representation
+of a config.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When written down, paths are commonly represented by joining the keys together with a separator char, usually <tt class="docutils literal"><span class="pre">.</span></tt>.
+The above mentioned path would be written <tt class="docutils literal"><span class="pre">config.blockCheats.enabled</span></tt>.</p>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>config {
+    blockCheats {
+        enabled=false
+    }
+}
 </pre></div>
 </div>
-<p>Previously, it was mentioned that loaders can also load blank configuration nodes for you to write default data on. This
-can be done with a simple call to <tt class="docutils literal"><span class="pre">ConfigurationLoader.createEmptyNode(ConfigurationOptions)</span></tt>.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">File</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;config.conf&quot;</span><span class="o">);</span>
-<span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span> <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setFile</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
-<span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">createEmptyNode</span><span class="o">(</span><span class="n">ConfigurationOptions</span><span class="o">.</span><span class="na">defaults</span><span class="o">());</span>
+<p>In Java, you can get the child node for a path using the <tt class="docutils literal"><span class="pre">getNode(...)</span></tt> method. The method accepts any number of
+arguments, where each argument is one key in the path. The path <tt class="docutils literal"><span class="pre">config.blockCheats.enabled</span></tt> from a root node is
+acquired as follows.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">final</span> <span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="kd">final</span> <span class="n">ConfigurationNode</span> <span class="n">targetNode</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;config&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">);</span>
 </pre></div>
 </div>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Note the parameter passed to satisfy the method creating the empty node. While the value of <tt class="docutils literal"><span class="pre">null</span></tt> seems to work
-fine upon initializing, this will cause an internal <tt class="docutils literal"><span class="pre">NullPointerException</span></tt> while attempting to set values on the
-node. Pass a default <tt class="docutils literal"><span class="pre">ConfigurationOptions</span></tt> instance instead by using the static method
-<tt class="docutils literal"><span class="pre">ConfigurationOptions.defaults()</span></tt> to generate one. Note that the <tt class="docutils literal"><span class="pre">load()</span></tt> method can also be overloaded to
-accept custom <tt class="docutils literal"><span class="pre">ConfigurationOptions</span></tt>. If you make alterations to your <tt class="docutils literal"><span class="pre">ConfigurationOptions</span></tt>, note that every
-altering method (like <tt class="docutils literal"><span class="pre">setSerializers()</span></tt> or <tt class="docutils literal"><span class="pre">setObjectMapperFactory()</span></tt>) will return a new immutable instance.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The function calls <tt class="docutils literal"><span class="pre">node.getNode(&quot;foo&quot;,</span> <span class="pre">&quot;bar&quot;)</span></tt> and <tt class="docutils literal"><span class="pre">node.getNode(&quot;foo&quot;).getNode(&quot;bar&quot;)</span></tt> are equivalent.</p>
 </div>
 </div>
 </div>

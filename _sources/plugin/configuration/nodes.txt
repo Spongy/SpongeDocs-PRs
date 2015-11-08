@@ -2,50 +2,49 @@
 Configuration Nodes
 ===================
 
-Before we discuss the next section, let's learn about what a ``ConfigurationNode`` is. To put it in simplest terms, a
-``ConfigurationNode`` holds all the data stored within a config file. From the root node of the config file, you can
-read values set by you or the user, or write values to save to a file with simple calls to the value retrieval methods,
-and ``setValue(Object[] path, Object value)``.
+In memory, the the configuration is represented using ``ConfigurationNode``\ s. A ``ConfigurationNode`` either holds a
+value (like a number, a string or a list) or has child nodes, thus allowing for tree-like configuration structure.
+When using a ``ConfigurationLoader`` to load or create a new configration, it will return you the **root node**. It is
+recommended that you always keep a reference to that root node stored somewhere.
 
-In previous topics, it was noted that the configuration loader holds a generic type to allow you to choose what type of
-node it should generate. Currently, the only extra node is a ``CommentedConfigurationNode``. You're free to use a normal
-``ConfigurationNode``, but for configurations to be modified by server administrators, the ``CommentedConfigurationNode``
-will help you write comments to values of the file to help them customize the configuration values. Documentation on the
-``CommentedConfigurationNode`` is available on the Configurate wiki, linked at the index of these pages.
+.. note::
 
-Getting your Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Depending on the ``ConfigurationLoader`` used, you might even get a ``CommentedConfigurationNode``, which in
+    addition to normal ``ConfigurationNode`` behavior is able to retain a comment that will be persisted on the saved
+    config file.
 
-Now that we have a loader, we can load our configuration from it with a simple call to ``load()``. This will give us a
-``ConfigurationNode`` with all values found within the config file. From here, you can start reading the values to
-accommodate for features within your plugin, or write new values to store some data. Note the ``IOException`` that can
-be thrown when loading the node from the file and handle it accordingly.
 
-.. code-block:: java
+Navigating Nodes
+================
 
-    File potentialFile = new File("config.conf");
-    ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().setFile(potentialFile).build();
-    ConfigurationNode rootNode;
-    try {
-        rootNode = loader.load();
-    } catch(IOException e) {
-        rootNode = null;
+Every child node is identified by a key, most commonly a string. When going from one node (for example the root node)
+to a specific child node, it may be necessary to move through multiple layers of child nodes. The keys of the child
+nodes passed make up the **path** of the target node. In the following example, there is a node holding the value
+``false`` at the path ``config`` ``blockCheats`` ``enabled`` (from the root node) in the following HOCON representation
+of a config.
+
+.. note::
+
+    When written down, paths are commonly represented by joining the keys together with a separator char, usually ``.``.
+    The above mentioned path would be written ``config.blockCheats.enabled``.
+
+.. code-block:: none
+
+    config {
+        blockCheats {
+            enabled=false
+        }
     }
 
-Previously, it was mentioned that loaders can also load blank configuration nodes for you to write default data on. This
-can be done with a simple call to ``ConfigurationLoader.createEmptyNode(ConfigurationOptions)``.
+In Java, you can get the child node for a path using the ``getNode(...)`` method. The method accepts any number of
+arguments, where each argument is one key in the path. The path ``config.blockCheats.enabled`` from a root node is
+acquired as follows.
 
 .. code-block:: java
 
-    File potentialFile = new File("config.conf");
-    ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().setFile(potentialFile).build();
-    ConfigurationNode rootNode = loader.createEmptyNode(ConfigurationOptions.defaults());
+    final ConfigurationNode rootNode = ...;
+    final ConfigurationNode targetNode = rootNode.getNode("config", "blockCheats", "enabled");
 
-.. warning::
+.. note::
 
-    Note the parameter passed to satisfy the method creating the empty node. While the value of ``null`` seems to work
-    fine upon initializing, this will cause an internal ``NullPointerException`` while attempting to set values on the
-    node. Pass a default ``ConfigurationOptions`` instance instead by using the static method
-    ``ConfigurationOptions.defaults()`` to generate one. Note that the ``load()`` method can also be overloaded to
-    accept custom ``ConfigurationOptions``. If you make alterations to your ``ConfigurationOptions``, note that every
-    altering method (like ``setSerializers()`` or ``setObjectMapperFactory()``) will return a new immutable instance.
+    The function calls ``node.getNode("foo", "bar")`` and ``node.getNode("foo").getNode("bar")`` are equivalent.
