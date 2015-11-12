@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../../_static/lights.js"></script>
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../../index.html" />
         <link rel="up" title="Configuring Your Plugin" href="index.html" />
-        <link rel="next" title="Giving Nodes Value" href="values.html" />
+        <link rel="next" title="Serializing Objects" href="serialization.html" />
         <link rel="prev" title="Configuration Loaders" href="loaders.html" />
     
   <script type="text/javascript">
@@ -58,7 +58,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="values.html" title="Giving Nodes Value"
+          <a href="serialization.html" title="Serializing Objects"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="loaders.html" title="Configuration Loaders"
@@ -223,9 +223,6 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="">Configuration Nodes</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="values.html">Giving Nodes Value</a><ul class="simple">
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="serialization.html">Serializing Objects</a><ul class="simple">
 </ul>
 </li>
@@ -383,30 +380,67 @@ config file.</p>
 <p>Every child node is identified by a key, most commonly a string. When going from one node (for example the root node)
 to a specific child node, it may be necessary to move through multiple layers of child nodes. The keys of the child
 nodes passed make up the <strong>path</strong> of the target node. In the following example, there is a node holding the value
-<tt class="docutils literal"><span class="pre">false</span></tt> at the path <tt class="docutils literal"><span class="pre">config</span></tt> <tt class="docutils literal"><span class="pre">blockCheats</span></tt> <tt class="docutils literal"><span class="pre">enabled</span></tt> (from the root node) in the following HOCON representation
+<tt class="docutils literal"><span class="pre">false</span></tt> at the path <tt class="docutils literal"><span class="pre">modules</span></tt> <tt class="docutils literal"><span class="pre">blockCheats</span></tt> <tt class="docutils literal"><span class="pre">enabled</span></tt> (from the root node) in the following HOCON representation
 of a config.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">When written down, paths are commonly represented by joining the keys together with a separator char, usually <tt class="docutils literal"><span class="pre">.</span></tt>.
-The above mentioned path would be written <tt class="docutils literal"><span class="pre">config.blockCheats.enabled</span></tt>.</p>
+The above mentioned path would be written <tt class="docutils literal"><span class="pre">modules.blockCheats.enabled</span></tt>.</p>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>config {
+<div class="highlight-none"><div class="highlight"><pre>modules {
     blockCheats {
-        enabled=false
+        enabled=true
     }
 }
 </pre></div>
 </div>
 <p>In Java, you can get the child node for a path using the <tt class="docutils literal"><span class="pre">getNode(...)</span></tt> method. The method accepts any number of
-arguments, where each argument is one key in the path. The path <tt class="docutils literal"><span class="pre">config.blockCheats.enabled</span></tt> from a root node is
+arguments, where each argument is one key in the path. The path <tt class="docutils literal"><span class="pre">modules.blockCheats.enabled</span></tt> from a root node is
 acquired as follows.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">final</span> <span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="kd">final</span> <span class="n">ConfigurationNode</span> <span class="n">targetNode</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;config&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">);</span>
+<span class="kd">final</span> <span class="n">ConfigurationNode</span> <span class="n">targetNode</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The function calls <tt class="docutils literal"><span class="pre">node.getNode(&quot;foo&quot;,</span> <span class="pre">&quot;bar&quot;)</span></tt> and <tt class="docutils literal"><span class="pre">node.getNode(&quot;foo&quot;).getNode(&quot;bar&quot;)</span></tt> are equivalent.</p>
+</div>
+</div>
+<div class="section" id="values">
+<h2>Values<a class="headerlink" href="#values" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="basic-values">
+<h3>Basic Values<a class="headerlink" href="#basic-values" title="Permalink to this headline">¶</a></h3>
+<p>Basic value types like <tt class="docutils literal"><span class="pre">int</span></tt>, <tt class="docutils literal"><span class="pre">double</span></tt>, <tt class="docutils literal"><span class="pre">boolean</span></tt> or <tt class="docutils literal"><span class="pre">String</span></tt> each have their own convenience getter method
+which will return the value or a default if the node does not contain a value of that type. Let&#8217;s check if the server
+administrator wants our plugin to enable its blockCheats module by checking the value at the
+<tt class="docutils literal"><span class="pre">modules.blockCheats.enabled</span></tt> path.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">final</span> <span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">getBoolean</span><span class="o">();</span>
+</pre></div>
+</div>
+<p>Yes, it&#8217;s really as simple as that. Similar to the above example, methods like <tt class="docutils literal"><span class="pre">getInt()</span></tt>, <tt class="docutils literal"><span class="pre">getDouble()</span></tt> or
+<tt class="docutils literal"><span class="pre">getString()</span></tt> exist that allow you to conveniently grab a value of that type.</p>
+<p>To set a basic value to a node, just use the <tt class="docutils literal"><span class="pre">setValue()</span></tt> method. Don&#8217;t be confused that it accepts an <tt class="docutils literal"><span class="pre">Object</span></tt> -
+this means that it can take anything and will determine how to proceed from there by itself.</p>
+<p>Imagine the blockCheats module is deactivated by a user command. This change will need to be reflected in the config
+and can be done as follows:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">setValue</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Anything other than basic value types can not be handled by those basic functions and must instead be read and
+written using the (de)serializing Methods described below. Basic types are those that are natively handled by the
+underlying implementation of the file format used by the <tt class="docutils literal"><span class="pre">ConfigurationLoader</span></tt>, but generally include the
+primitive data types, <tt class="docutils literal"><span class="pre">String</span></tt>s as well as <tt class="docutils literal"><span class="pre">List</span></tt>s and <tt class="docutils literal"><span class="pre">Map</span></tt>s of basic types.</p>
+</div>
+</div>
+<div class="section" id="de-serialization">
+<h3>(De)Serialization<a class="headerlink" href="#de-serialization" title="Permalink to this headline">¶</a></h3>
+<p>TBD</p>
+</div>
+<div class="section" id="defaults">
+<h3>Defaults<a class="headerlink" href="#defaults" title="Permalink to this headline">¶</a></h3>
+<p>TBD</p>
 </div>
 </div>
 </div>

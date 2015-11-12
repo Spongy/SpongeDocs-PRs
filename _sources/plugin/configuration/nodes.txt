@@ -20,31 +20,77 @@ Navigating Nodes
 Every child node is identified by a key, most commonly a string. When going from one node (for example the root node)
 to a specific child node, it may be necessary to move through multiple layers of child nodes. The keys of the child
 nodes passed make up the **path** of the target node. In the following example, there is a node holding the value
-``false`` at the path ``config`` ``blockCheats`` ``enabled`` (from the root node) in the following HOCON representation
+``false`` at the path ``modules`` ``blockCheats`` ``enabled`` (from the root node) in the following HOCON representation
 of a config.
 
 .. note::
 
     When written down, paths are commonly represented by joining the keys together with a separator char, usually ``.``.
-    The above mentioned path would be written ``config.blockCheats.enabled``.
+    The above mentioned path would be written ``modules.blockCheats.enabled``.
 
 .. code-block:: none
 
-    config {
+    modules {
         blockCheats {
-            enabled=false
+            enabled=true
         }
     }
 
 In Java, you can get the child node for a path using the ``getNode(...)`` method. The method accepts any number of
-arguments, where each argument is one key in the path. The path ``config.blockCheats.enabled`` from a root node is
+arguments, where each argument is one key in the path. The path ``modules.blockCheats.enabled`` from a root node is
 acquired as follows.
 
 .. code-block:: java
 
     final ConfigurationNode rootNode = ...;
-    final ConfigurationNode targetNode = rootNode.getNode("config", "blockCheats", "enabled");
+    final ConfigurationNode targetNode = rootNode.getNode("modules", "blockCheats", "enabled");
 
 .. note::
 
     The function calls ``node.getNode("foo", "bar")`` and ``node.getNode("foo").getNode("bar")`` are equivalent.
+
+Values
+======
+
+Basic Values
+~~~~~~~~~~~~
+
+Basic value types like ``int``, ``double``, ``boolean`` or ``String`` each have their own convenience getter method
+which will return the value or a default if the node does not contain a value of that type. Let's check if the server
+administrator wants our plugin to enable its blockCheats module by checking the value at the
+``modules.blockCheats.enabled`` path.
+
+.. code-block:: java
+
+    final boolean shouldEnable = rootNode.getNode("modules", "blockCheats", "enabled").getBoolean();
+
+Yes, it's really as simple as that. Similar to the above example, methods like ``getInt()``, ``getDouble()`` or
+``getString()`` exist that allow you to conveniently grab a value of that type.
+
+To set a basic value to a node, just use the ``setValue()`` method. Don't be confused that it accepts an ``Object`` -
+this means that it can take anything and will determine how to proceed from there by itself.
+
+Imagine the blockCheats module is deactivated by a user command. This change will need to be reflected in the config
+and can be done as follows:
+
+.. code-block:: java
+
+    rootNode.getNode("modules", "blockCheats", "enabled").setValue(false);
+
+
+.. warning::
+
+    Anything other than basic value types can not be handled by those basic functions and must instead be read and
+    written using the (de)serializing Methods described below. Basic types are those that are natively handled by the
+    underlying implementation of the file format used by the ``ConfigurationLoader``, but generally include the
+    primitive data types, ``String``\ s as well as ``List``\ s and ``Map``\ s of basic types.
+
+(De)Serialization
+~~~~~~~~~~~~~~~~~
+
+TBD
+
+Defaults
+~~~~~~~~
+
+TBD
