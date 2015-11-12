@@ -130,7 +130,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/debugging.html">Log Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/logs.html">Log Files</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/debugging.html">Debugging</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -214,6 +219,24 @@
 <li class="toctree-l2"><a class="reference internal" href="../events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Your Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/values.html">Giving Nodes Value</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../data/keys.html">Using Keys</a><ul class="simple">
 </ul>
@@ -222,6 +245,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../data/serialization.html">Serializing Data</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -246,24 +272,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../items.html">Working with Items</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Your Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/loaders.html">Configuration Loaders</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/values.html">Giving Nodes Value</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/serialization.html">Serializing Objects</a><ul class="simple">
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a><ul class="simple">
@@ -390,7 +398,6 @@ is no world of that name loaded.</p>
 referenced block is any kind of banner by checking the blocks type.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockType</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockTypes</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isBanner</span><span class="o">(</span><span class="n">Location</span> <span class="n">block</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">BlockType</span> <span class="n">type</span> <span class="o">=</span> <span class="n">block</span><span class="o">.</span><span class="na">getBlock</span><span class="o">().</span><span class="na">getType</span><span class="o">();</span>
@@ -406,10 +413,7 @@ can be used instead of using the <tt class="docutils literal"><span class="pre">
 </div>
 <p>The <tt class="docutils literal"><span class="pre">Location</span></tt> class also provides means to check for environmental influences on the block (for example lighting and
 redstone power). The following example checks if a block is a regular chest directly or indirectly powered with redstone.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockTypes</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isPoweredChest</span><span class="o">(</span><span class="n">Location</span> <span class="n">block</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isPoweredChest</span><span class="o">(</span><span class="n">Location</span> <span class="n">block</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">block</span><span class="o">.</span><span class="na">getBlock</span><span class="o">().</span><span class="na">getType</span><span class="o">()</span> <span class="o">==</span> <span class="n">BlockTypes</span><span class="o">.</span><span class="na">CHEST</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">block</span><span class="o">.</span><span class="na">isBlockPowered</span><span class="o">()</span> <span class="o">||</span> <span class="n">block</span><span class="o">.</span><span class="na">isBlockIndirectlyPowered</span><span class="o">();</span>
     <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
@@ -426,9 +430,7 @@ a <tt class="docutils literal"><span class="pre">BlockState</span></tt>. A <tt c
 manipulators that all extend the <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> interface. The following example will return <tt class="docutils literal"><span class="pre">true</span></tt> if a the block
 at a given <tt class="docutils literal"><span class="pre">Location</span></tt> is a) a Sponge and b) wet, false otherwise.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockState</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockTypes</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.WetData</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isWet</span><span class="o">(</span><span class="n">Location</span> <span class="n">block</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">block</span><span class="o">.</span><span class="na">getBlock</span><span class="o">().</span><span class="na">getType</span><span class="o">()</span> <span class="o">!=</span> <span class="n">BlockTypes</span><span class="o">.</span><span class="na">SPONGE</span><span class="o">)</span> <span class="o">{</span>

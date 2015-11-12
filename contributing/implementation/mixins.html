@@ -130,7 +130,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/debugging.html">Log Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/logs.html">Log Files</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/debugging.html">Debugging</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -214,6 +219,24 @@
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/configuration/index.html">Configuring Your Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/values.html">Giving Nodes Value</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/data/index.html">The Data API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/data/keys.html">Using Keys</a><ul class="simple">
 </ul>
@@ -222,6 +245,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/data/serialization.html">Serializing Data</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -246,24 +272,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/items.html">Working with Items</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../plugin/configuration/index.html">Configuring Your Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/loaders.html">Configuration Loaders</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/values.html">Giving Nodes Value</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/serialization.html">Serializing Objects</a><ul class="simple">
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/injection.html">Dependency Injection</a><ul class="simple">
@@ -381,6 +389,46 @@ mixins themselves are actually discussed.</em></p>
 the <a class="reference external" href="https://github.com/SpongePowered/SpongeForge/tree/master/src/example/java/org/spongepowered">SpongeForge repository</a> which
 are extensively documented and cover many of the more complex scenarios. You should also consult the Javadoc of the Mixin
 repository itself, since almost everything is already documented.</p>
+<p><strong>Caveat: When contributing mixins, note that you can use neither anonymous classes nor lambda expressions.</strong></p>
+<p>This means expressions like the following will cause mixins to fail horribly and bring death and destruction upon all
+that attempt to use Sponge.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="k">return</span> <span class="k">new</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">input</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">Items</span><span class="o">.</span><span class="na">golden_apple</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span class="k">return</span> <span class="n">input</span> <span class="o">-&gt;</span> <span class="n">input</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">Items</span><span class="o">.</span><span class="na">golden_apple</span><span class="o">);</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span class="k">return</span> <span class="k">this</span><span class="o">::</span><span class="n">checkItem</span><span class="o">;</span>
+</pre></div>
+</div>
+<p>This applies to all classes that are annotated with <tt class="docutils literal"><span class="pre">&#64;Mixin</span></tt>. Classes that are not touched by the mixin processor may
+make use of those features. However, you can use a static utility class to create your anonymous classes, as unlike
+your mixin class that utility class will still exist at runtime, while your mixin class will be merged into the
+specified target class. The following code therefore will work.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemUtil</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;</span> <span class="nf">typeChecker</span><span class="o">(</span><span class="kd">final</span> <span class="n">Item</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">input</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nd">@Mixin</span><span class="o">(</span><span class="n">TargetClass</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">SomeMixin</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;</span> <span class="nf">someFunction</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">ItemUtil</span><span class="o">.</span><span class="na">typeChecker</span><span class="o">(</span><span class="n">Items</span><span class="o">.</span><span class="na">golden_apple</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The Mixin project will be servicing a number of other projects in addition to Sponge itself. Therefore Mixin has its&#8217;
