@@ -433,11 +433,7 @@ directory specific to your plugin.</p>
 </ul>
 <p><strong>Example - Field using</strong> <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.commented.CommentedConfigurationNode</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.loader.ConfigurationLoader</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.service.config.DefaultConfig</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
 <span class="nd">@DefaultConfig</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
@@ -459,12 +455,7 @@ not yet exist.</p>
 plugins is HOCON. Conversion from YAML to HOCON can be automated; a simple code snippet for converting a Bukkit
 plugin configuration folder with a dedicated data folder (sharedRoot = false) is provided below.</p>
 </div>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.yaml.YAMLConfigurationLoader</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">convertFromBukkit</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="kt">void</span> <span class="nf">convertFromBukkit</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
     <span class="n">File</span> <span class="n">bukkitConfigDir</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;plugins/&quot;</span> <span class="o">+</span> <span class="n">PomData</span><span class="o">.</span><span class="na">NAME</span><span class="o">);</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">bukkitConfigDir</span><span class="o">.</span><span class="na">isDirectory</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">configDir</span><span class="o">.</span><span class="na">isDirectory</span><span class="o">())</span> <span class="o">{</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">lf</span><span class="o">(</span><span class="n">_</span><span class="o">(</span><span class="s">&quot;Migrating configuration data from Bukkit&quot;</span><span class="o">)));</span>

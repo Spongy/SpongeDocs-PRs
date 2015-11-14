@@ -376,10 +376,7 @@ retrieving them first. We&#8217;ll continue to use the example path node discuss
 (<tt class="docutils literal"><span class="pre">config.blockCheats.enabled</span></tt>)</p>
 <div class="section" id="reading-values">
 <h2>Reading Values<a class="headerlink" href="#reading-values" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationOptions</span><span class="o">;</span>
-
-<span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">createEmptyNode</span><span class="o">(</span><span class="n">ConfigurationOptions</span><span class="o">.</span><span class="na">defaults</span><span class="o">());</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">createEmptyNode</span><span class="o">(</span><span class="n">ConfigurationOptions</span><span class="o">.</span><span class="na">defaults</span><span class="o">());</span>
 <span class="n">ConfigurationNode</span> <span class="n">valueNode</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">((</span><span class="n">Object</span><span class="o">[])</span> <span class="s">&quot;config.blockCheats.enabled&quot;</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&quot;\\.&quot;</span><span class="o">));</span>
 </pre></div>
 </div>
@@ -412,9 +409,7 @@ be discussed in a different section, but you can also check the official wiki, l
 <tt class="docutils literal"><span class="pre">save(ConfigurationNode)</span></tt> method of our <tt class="docutils literal"><span class="pre">ConfigurationLoader</span></tt>. The passed <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> should be the root
 node of your configuration file, the node that is able to list all the values existing within the configuration. Be sure
 to handle the IOException that can be thrown if saving goes wrong.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-
-<span class="k">try</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="k">try</span> <span class="o">{</span>
     <span class="n">loader</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">rootNode</span><span class="o">);</span>
 <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">//oops!</span>
