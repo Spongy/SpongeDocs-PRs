@@ -73,9 +73,9 @@ config.
     import ninja.leaping.configurate.objectmapping.serialize.TypeSerializerCollection;
     import ninja.leaping.configurate.objectmapping.serialize.TypeSerializers;
 
-    final TypeSerializerCollection serializers = TypeSerializers.getDefaultSerializers().newChild();
+    TypeSerializerCollection serializers = TypeSerializers.getDefaultSerializers().newChild();
     serializers.registerType(TypeToken.of(DiamondCounter.class), new DiamondCounterSerializer());
-    final ConfigurationOptions options = ConfigurationOptions.defaults().setSerializers(serializers);
+    ConfigurationOptions options = ConfigurationOptions.defaults().setSerializers(serializers);
     ConfigurationNode rootNode = someConfigurationLoader.load(options);
 
 .. warning::

@@ -44,8 +44,8 @@ acquired as follows.
 
     import ninja.leaping.configurate.ConfigurationNode;
 
-    final ConfigurationNode rootNode = ...;
-    final ConfigurationNode targetNode = rootNode.getNode("modules", "blockCheats", "enabled");
+    ConfigurationNode rootNode = ...;
+    ConfigurationNode targetNode = rootNode.getNode("modules", "blockCheats", "enabled");
 
 .. note::
 
@@ -64,7 +64,7 @@ administrator wants our plugin to enable its blockCheats module by checking the 
 
 .. code-block:: java
 
-    final boolean shouldEnable = rootNode.getNode("modules", "blockCheats", "enabled").getBoolean();
+    boolean shouldEnable = rootNode.getNode("modules", "blockCheats", "enabled").getBoolean();
 
 Yes, it's really as simple as that. Similar to the above example, methods like ``getInt()``, ``getDouble()`` or
 ``getString()`` exist that allow you to conveniently grab a value of that type.
@@ -152,7 +152,7 @@ Let us take a look at the example for reading a boolean value again.
 
 .. code-block:: java
 
-    final boolean shouldEnable = rootNode.getNode("modules", "blockCheats", "enabled").getBoolean();
+    boolean shouldEnable = rootNode.getNode("modules", "blockCheats", "enabled").getBoolean();
 
 This call will return ``false`` if either the value ``false`` is saved in the config or the value is not present in the
 config. Since those two cases are indistinguishable we have no simple way of setting our variable to ``false`` only if
@@ -160,7 +160,7 @@ that is the value specified on the config. Unless we specify ``true`` as the def
 
 .. code-block:: java
 
-    final boolean shouldEnable = rootNode.getNode("modules", "blockCheats", "enabled").getBoolean(true);
+    boolean shouldEnable = rootNode.getNode("modules", "blockCheats", "enabled").getBoolean(true);
 
 Similar like this you can specify defaults on any value you get from the config, thus avoiding ``null`` returns or
 ``ObjectMappingException`` caused by the absence of the whole value. It also works on the deserializing ``getValue()``
@@ -168,9 +168,9 @@ method. Some examples:
 
 .. code-block:: java
 
-    final String greeting = rootNode.getNode("messages", "greeting").getString("FLARD be with you good man!");
+    String greeting = rootNode.getNode("messages", "greeting").getString("FLARD be with you good man!");
 
-    final UUID mayor = rootNode.getNode("towns", "aFLARDia", "mayor")
+    UUID mayor = rootNode.getNode("towns", "aFLARDia", "mayor")
                             .getValue(TypeToken.of(UUID.class), somePlayer.getUniqueId());
 
 Another useful application of those defaults is that they can be copied to your configuration if needed. Upon creation

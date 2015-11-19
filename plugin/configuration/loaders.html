@@ -372,24 +372,25 @@ hard-coding default values or loading from a pre-written file.</p>
 <div class="section" id="getting-your-loader">
 <h2>Getting your Loader<a class="headerlink" href="#getting-your-loader" title="Permalink to this headline">¶</a></h2>
 <p>First, let&#8217;s grab a new <tt class="docutils literal"><span class="pre">HoconConfigurationLoader</span></tt> that points to our configuration file.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.commented.CommentedConfigurationNode</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.hocon.HoconConfigurationLoader</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.loader.ConfigurationLoader</span><span class="o">;</span>
 
-<span class="n">File</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;config.conf&quot;</span><span class="o">);</span>
+<span class="n">Path</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="n">getConfigPath</span><span class="o">();</span>
 <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span>
-  <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setFile</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+  <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setPath</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
 <p>The loader will also hold a generic type denoting what kind of node it&#8217;ll build for you. These nodes will be discussed
 in a later section.</p>
 <p><tt class="docutils literal"><span class="pre">ConfigurationLoader</span></tt>s usually hold a builder for you to statically access and create a new instance of the loader of
 your desired type. For a basic configuration, we don&#8217;t really need to specify anything other than the file we want to
-load from and/or save to, so all we&#8217;ll do is tell it exactly that, using <tt class="docutils literal"><span class="pre">HoconConfigurationLoader.builder().setFile(File)</span></tt>.
-We then tell the builder to build the instance (<tt class="docutils literal"><span class="pre">build()</span></tt>) for it to give it to our variable.</p>
+load from and/or save to, so all we&#8217;ll do is tell it exactly that, using
+<tt class="docutils literal"><span class="pre">HoconConfigurationLoader.builder().setPath(path)</span></tt>. We then tell the builder to build the instance (<tt class="docutils literal"><span class="pre">build()</span></tt>) for
+it to give it to our variable.</p>
 <p>Of course, this isn&#8217;t the only way to load a file. The builder also has the method <tt class="docutils literal"><span class="pre">setURL(URL)</span></tt>, in case you might
-want to load a resource without using a <tt class="docutils literal"><span class="pre">File</span></tt> object. Bear in mind that configuration loaders created from an <tt class="docutils literal"><span class="pre">URL</span></tt>
+want to load a resource without using a <tt class="docutils literal"><span class="pre">Path</span></tt> object. Bear in mind that configuration loaders created from an <tt class="docutils literal"><span class="pre">URL</span></tt>
 are read-only as they have no way of writing back data to the URL.</p>
 <p>This functionality may be used to bundle default configurations with your plugin jar file and load them as initial
 configuration to be edited by the server administrator (or your plugin itself).</p>
@@ -401,8 +402,8 @@ configuration to be edited by the server administrator (or your plugin itself).<
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationOptions</span><span class="o">;</span>
 
-<span class="n">File</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;config.conf&quot;</span><span class="o">);</span>
-<span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span> <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setFile</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="n">Path</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="n">getConfigPath</span><span class="o">();</span>
+<span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span> <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setPath</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 <span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">createEmptyNode</span><span class="o">(</span><span class="n">ConfigurationOptions</span><span class="o">.</span><span class="na">defaults</span><span class="o">());</span>
 </pre></div>
 </div>
@@ -414,8 +415,8 @@ of the <tt class="docutils literal"><span class="pre">ConfigurationLoader</span>
 that is shorthand for <tt class="docutils literal"><span class="pre">load(ConfigurationOptions.defauls())</span></tt>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
 
-<span class="n">File</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;config.conf&quot;</span><span class="o">);</span>
-<span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span> <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setFile</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="n">Path</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="n">getConfigPath</span><span class="o">();</span>
+<span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span> <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setPath</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 <span class="n">ConfigurationNode</span> <span class="n">rootNode</span><span class="o">;</span>
 <span class="k">try</span> <span class="o">{</span>
     <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
@@ -424,7 +425,7 @@ that is shorthand for <tt class="docutils literal"><span class="pre">load(Config
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>If the <tt class="docutils literal"><span class="pre">File</span></tt> given does not exist, the <tt class="docutils literal"><span class="pre">load()</span></tt> method will create an empty <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt>. Any other error
+<p>If the <tt class="docutils literal"><span class="pre">Path</span></tt> given does not exist, the <tt class="docutils literal"><span class="pre">load()</span></tt> method will create an empty <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt>. Any other error
 will lead to an <tt class="docutils literal"><span class="pre">IOException</span></tt> being thrown which you will need to handle properly.</p>
 <p>Once you modified your <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> to hold the data you like to be saved, you can use the
 <tt class="docutils literal"><span class="pre">ConfigurationLoader</span></tt> to save the node to the file specified while creating the loader. If that file does not exist,

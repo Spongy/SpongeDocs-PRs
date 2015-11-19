@@ -403,8 +403,8 @@ to store data, and they allow server administrators to customize plugin options 
 </div>
 <div class="section" id="getting-your-default-plugin-configuration">
 <span id="getting-default-config"></span><h3>Getting your Default Plugin Configuration<a class="headerlink" href="#getting-your-default-plugin-configuration" title="Permalink to this headline">¶</a></h3>
-<p>The Sponge API offers the use of the <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt> annotation on a field or method with the type <tt class="docutils literal"><span class="pre">File</span></tt> or
-<tt class="docutils literal"><span class="pre">Path</span></tt> to get the default configuration file for your plugin.</p>
+<p>The Sponge API offers the use of the <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt> annotation on a field or setter method with the type <tt class="docutils literal"><span class="pre">Path</span></tt>
+to get the default configuration file for your plugin.</p>
 <p>The <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt> annotation requires a <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> boolean. If you set <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt>, then the
 returned pathname will be in a shared configuration directory. In that case, the configuration file for your plugin
 will be <tt class="docutils literal"><span class="pre">your_plugin_id.conf</span></tt> (with &#8220;your_plugin_id&#8221; replaced with your plugin&#8217;s specified ID).</p>
@@ -419,11 +419,15 @@ directory specific to your plugin.</p>
 <li>If you plan on having multiple configuration files (complex plugins) in the future, set the value to <tt class="docutils literal"><span class="pre">false</span></tt>.</li>
 <li>If you plan on having a single configuration file (less-complex plugins), set the value to <tt class="docutils literal"><span class="pre">true</span></tt>.</li>
 </ul>
-<p>You can also obtain a <tt class="docutils literal"><span class="pre">File</span></tt> or <tt class="docutils literal"><span class="pre">Path</span></tt> instance pointing to the config directory instead of a particular file. Just
+<p>You can also obtain a <tt class="docutils literal"><span class="pre">Path</span></tt> instance pointing to the config directory instead of a particular file. Just
 have it injected using the <tt class="docutils literal"><span class="pre">&#64;ConfigDir</span></tt> annotation, either with <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> set to <tt class="docutils literal"><span class="pre">false</span></tt> for a plugin specific
 directory or to <tt class="docutils literal"><span class="pre">true</span></tt> to get the shared configuration directory.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">While it may be possible to get a <tt class="docutils literal"><span class="pre">File</span></tt> instead of a <tt class="docutils literal"><span class="pre">Path</span></tt>, configurate (and Sponge) recommend using <tt class="docutils literal"><span class="pre">Path</span></tt>.</p>
+</div>
 <p><strong>Example - Field using</strong> <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.service.config.ConfigDir</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.service.config.DefaultConfig</span><span class="o">;</span>
@@ -432,7 +436,7 @@ directory or to <tt class="docutils literal"><span class="pre">true</span></tt> 
 
 <span class="nd">@Inject</span>
 <span class="nd">@DefaultConfig</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
-<span class="kd">private</span> <span class="n">File</span> <span class="n">defaultConfig</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">Path</span> <span class="n">defaultConfig</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
 <span class="nd">@DefaultConfig</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
@@ -440,7 +444,7 @@ directory or to <tt class="docutils literal"><span class="pre">true</span></tt> 
 
 <span class="nd">@Inject</span>
 <span class="nd">@ConfigDir</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
-<span class="kd">private</span> <span class="n">File</span> <span class="n">privateConfigDir</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">Path</span> <span class="n">privateConfigDir</span><span class="o">;</span>
 </pre></div>
 </div>
 <div class="admonition warning">
