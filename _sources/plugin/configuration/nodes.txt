@@ -42,6 +42,8 @@ acquired as follows.
 
 .. code-block:: java
 
+    import ninja.leaping.configurate.ConfigurationNode;
+
     final ConfigurationNode rootNode = ...;
     final ConfigurationNode targetNode = rootNode.getNode("modules", "blockCheats", "enabled");
 
@@ -94,10 +96,12 @@ is a collection of ``TypeSerializer``\ s that configurate uses to convert your o
 vice versa.
 
 In order to tell configurate what type it is dealing with, we have to provide a guava ``TypeToken``. Imagine we want
-to read a player ``UUID`` from the config node ``towns.AFLARDia.mayor``. To do so, we need to call the ``getValue()``
+to read a player ``UUID`` from the config node ``towns.aFLARDia.mayor``. To do so, we need to call the ``getValue()``
 method while providing a ``TypeToken`` representing the ``UUID`` class.
 
 .. code-block:: java
+
+    import java.util.UUID;
 
     UUID mayor = rootNode.getNode("towns", "aFLARDia", "mayor").get(TypeToken.of(UUID.class));
 

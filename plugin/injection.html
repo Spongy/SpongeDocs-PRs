@@ -372,16 +372,19 @@
 <div class="section" id="temporary-list-of-injected-types">
 <h2>Temporary List of Injected Types<a class="headerlink" href="#temporary-list-of-injected-types" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
-<dt>ConfigDir</dt>
+<dt>ConfigDir (annotation on File or Path)</dt>
 <dd>Used to inject the plugin&#8217;s configuration directory:
 <tt class="docutils literal"><span class="pre">./mods/</span></tt> OR <tt class="docutils literal"><span class="pre">./mods/&lt;Plugin#id&gt;/</span></tt> depending on <tt class="docutils literal"><span class="pre">sharedRoot</span></tt></dd>
-<dt>ConfigFile</dt>
+<dt>ConfigurationLoader&lt;CommentedConfigurationNode&gt;</dt>
+<dd>Must be annotated with <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt>.
+Used to inject a pre-generated <tt class="docutils literal"><span class="pre">ConfigurationLoader</span></tt> for the <tt class="docutils literal"><span class="pre">File</span></tt> of the same annotation.</dd>
+<dt>DefaultConfig (annotation on File, Path or ConfigurationLoader)</dt>
 <dd>Used to inject the plugin&#8217;s specific configuration file: <tt class="docutils literal"><span class="pre">&lt;Plugin#id&gt;.conf</span></tt></dd>
 <dt>EventManager</dt>
 <dd>Manages the registration of event handlers and the dispatching of events.</dd>
-<dt>File</dt>
+<dt>File or Path</dt>
 <dd>This must have an additional annotation specifying specific file!
-Currently, specifications are <tt class="docutils literal"><span class="pre">ConfigFile</span></tt> and <tt class="docutils literal"><span class="pre">ConfigDir</span></tt>.</dd>
+Possible annotations are <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt> and <tt class="docutils literal"><span class="pre">&#64;ConfigDir</span></tt>.</dd>
 <dt>Game</dt>
 <dd>The <tt class="docutils literal"><span class="pre">Game</span></tt> object is the core accessor of the SpongeAPI.</dd>
 <dt>GameRegistry</dt>
@@ -464,6 +467,8 @@ the configuration for other plugins. In most cases where grabbing the <tt class=
 </div>
 <p><strong>Example - Field</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.config.ConfigDir</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
 <span class="nd">@ConfigDir</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>

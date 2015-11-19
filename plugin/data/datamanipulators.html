@@ -371,7 +371,14 @@
 be offered to or created from data holders which possess a matching component. Again, let&#8217;s use an example. And again
 try to heal someone (or something).</p>
 <p><strong>Code Example: Healing with data manipulators</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">DataTransactionResult</span> <span class="nf">heal</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataHolder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataTransactionResult</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.HealthData</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.MutableBoundedValue</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">DataTransactionResult</span> <span class="nf">heal</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="n">healthOptional</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">healthOptional</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
         <span class="n">HealthData</span> <span class="n">healthData</span> <span class="o">=</span> <span class="n">healthOptional</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
@@ -432,7 +439,9 @@ individual key by ourself. And if instead of health we swapped another data mani
 holder itself takes care of all data pertaining to it, we could even modify the above function to swap arbitrary
 data between two holders.</p>
 <p><strong>Code Example: Swapping any data manipulator</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span>  <span class="o">&lt;</span><span class="n">T</span> <span class="kd">extends</span> <span class="n">DataManipulator</span><span class="o">&lt;?,?&gt;&gt;</span> <span class="kt">void</span> <span class="nf">swapData</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">targetA</span><span class="o">,</span> <span class="n">DataHolder</span> <span class="n">targetB</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">dataClass</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.DataManipulator</span><span class="o">;</span>
+
+<span class="kd">public</span>  <span class="o">&lt;</span><span class="n">T</span> <span class="kd">extends</span> <span class="n">DataManipulator</span><span class="o">&lt;?,?&gt;&gt;</span> <span class="kt">void</span> <span class="nf">swapData</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">targetA</span><span class="o">,</span> <span class="n">DataHolder</span> <span class="n">targetB</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">dataClass</span><span class="o">)</span> <span class="o">{</span>
    <span class="k">if</span> <span class="o">(</span><span class="n">targetA</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">dataClass</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">targetB</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">dataClass</span><span class="o">))</span> <span class="o">{</span>
        <span class="n">T</span> <span class="n">dataA</span> <span class="o">=</span> <span class="n">targetA</span><span class="o">.</span><span class="na">getOrCreate</span><span class="o">(</span><span class="n">dataClass</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
        <span class="n">T</span> <span class="n">dataB</span> <span class="o">=</span> <span class="n">targetB</span><span class="o">.</span><span class="na">getOrCreate</span><span class="o">(</span><span class="n">dataClass</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>

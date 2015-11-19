@@ -29,6 +29,10 @@ and one to create an object from a given configuration node.
 
 .. code-block:: java
 
+    import com.google.common.reflect.TypeToken;
+    import ninja.leaping.configurate.objectmapping.ObjectMappingException;
+    import ninja.leaping.configurate.objectmapping.serialize.TypeSerializer;
+
     public class DiamondCounterSerializer implements TypeSerializer<DiamondCounter> {
 
         @Override
@@ -64,7 +68,10 @@ config.
 
 .. code-block:: java
 
-    import blah;
+    import ninja.leaping.configurate.ConfigurationNode;
+    import ninja.leaping.configurate.ConfigurationOptions;
+    import ninja.leaping.configurate.objectmapping.serialize.TypeSerializerCollection;
+    import ninja.leaping.configurate.objectmapping.serialize.TypeSerializers;
 
     final TypeSerializerCollection serializers = TypeSerializers.getDefaultSerializers().newChild();
     serializers.registerType(TypeToken.of(DiamondCounter.class), new DiamondCounterSerializer());
@@ -85,6 +92,9 @@ Since in many cases the (de)serialization boils down to mapping fields to config
 annotate our class with the ``@ConfigSerializable`` and ``@Setting`` annotations.
 
 .. code-block:: java
+
+    import ninja.leaping.configurate.objectmapping.Setting;
+    import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 
     @ConfigSerializable
     public class DiamondCounter {
@@ -126,6 +136,14 @@ Your plugin can just acquire a ``GuiceObjectMapperFactory`` simply by dependency
 (see :doc:`../injection`) and then pass it to the ``ConfigurationOptions``.
 
 .. code-block:: java
+
+    import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
+    import org.spongepowered.api.plugin.Plugin;
+    import com.google.common.eventbus.Subscribe;
+    import com.google.inject.Inject;
+    import ninja.leaping.configurate.commented.CommentedConfigurationNode;
+    import ninja.leaping.configurate.loader.ConfigurationLoader;
+    import ninja.leaping.configurate.objectmapping.GuiceObjectMapperFactory;
 
     @Plugin(name="IStoleThisFromZml", id="shamelesslystolen", version="0.8.15")
     public class StolenCodeExample {

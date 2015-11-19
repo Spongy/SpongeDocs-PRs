@@ -14,6 +14,11 @@ First, let's grab a new ``HoconConfigurationLoader`` that points to our configur
 
 .. code-block:: java
 
+    import java.io.File;
+    import ninja.leaping.configurate.commented.CommentedConfigurationNode;
+    import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
+    import ninja.leaping.configurate.loader.ConfigurationLoader;
+
     File potentialFile = new File("config.conf");
     ConfigurationLoader<CommentedConfigurationNode> loader =
       HoconConfigurationLoader.builder().setFile(potentialFile).build();
@@ -41,6 +46,9 @@ Once you obtained your ``ConfigurationLoader`` you can use it to obtain an empty
 
 .. code-block:: java
 
+    import ninja.leaping.configurate.ConfigurationNode;
+    import ninja.leaping.configurate.ConfigurationOptions;
+
     File potentialFile = new File("config.conf");
     ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().setFile(potentialFile).build();
     ConfigurationNode rootNode = loader.createEmptyNode(ConfigurationOptions.defaults());
@@ -50,10 +58,12 @@ type serialization, you can just use ``ConfigurationOptions.defaults()`` to crea
 values.
 
 Using the ``load()`` method you can attempt to load the configuration contents from the source specified upon creation
-of the ``ConfigurationLoader``. It also expects a ``ConfigurationOptions`` instance, but provides an overloaded form
+of the ``ConfigurationLoader``. It also expects a ``ConfigurationOptions`` instance, but also provides a no-args form
 that is shorthand for ``load(ConfigurationOptions.defauls())``.
 
 .. code-block:: java
+
+    import java.io.IOException;
 
     File potentialFile = new File("config.conf");
     ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().setFile(potentialFile).build();
@@ -85,6 +95,8 @@ Example: Loading a default config from the plugin jar file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: java
+
+    import java.net.URL;
 
     URL jarConfigFile = this.getClass().getResource("defaultConfig.conf");
     ConfigurationLoader<CommentedConfigurationNode> loader =

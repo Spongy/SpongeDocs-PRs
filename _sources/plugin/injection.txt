@@ -12,19 +12,23 @@ Dependency injection allows plugins to designate a few API types that will be in
 Temporary List of Injected Types
 ================================
 
-ConfigDir
+ConfigDir (annotation on File or Path)
   Used to inject the plugin's configuration directory:
   ``./mods/`` OR ``./mods/<Plugin#id>/`` depending on ``sharedRoot``
 
-ConfigFile
+ConfigurationLoader<CommentedConfigurationNode>
+  Must be annotated with ``@DefaultConfig``.
+  Used to inject a pre-generated ``ConfigurationLoader`` for the ``File`` of the same annotation.
+
+DefaultConfig (annotation on File, Path or ConfigurationLoader)
   Used to inject the plugin's specific configuration file: ``<Plugin#id>.conf``
 
 EventManager
   Manages the registration of event handlers and the dispatching of events.
 
-File
+File or Path
   This must have an additional annotation specifying specific file!
-  Currently, specifications are ``ConfigFile`` and ``ConfigDir``.
+  Possible annotations are ``@DefaultConfig`` and ``@ConfigDir``.
 
 Game
   The ``Game`` object is the core accessor of the SpongeAPI.
@@ -129,6 +133,8 @@ The recommended way to obtain your config file is through Guice, along with the 
 .. code-block:: java
 
     import org.spongepowered.api.service.config.ConfigDir;
+
+    import java.io.File;
 
     @Inject
     @ConfigDir(sharedRoot = false)

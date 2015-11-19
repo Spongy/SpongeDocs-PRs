@@ -382,7 +382,12 @@ is required. H2 is our recommended file-backed database implementation.</p>
 <div class="section" id="usage">
 <h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
 <p>A data source can be accessed through the plugin&#8217;s service manager:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">SqlService</span> <span class="n">sql</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.sql.SqlService</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.sql.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.SQLException</span><span class="o">;</span>
+
+<span class="kd">private</span> <span class="n">SqlService</span> <span class="n">sql</span><span class="o">;</span>
 <span class="kd">public</span> <span class="n">javax</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">DataSource</span> <span class="nf">getDataSource</span><span class="o">(</span><span class="n">String</span> <span class="n">jdbcUrl</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">sql</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">sql</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provide</span><span class="o">(</span><span class="n">SqlService</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
