@@ -394,7 +394,10 @@ A <tt class="docutils literal"><span class="pre">DataContainer</span></tt> is a 
 As an example, calling <tt class="docutils literal"><span class="pre">toContainer()</span></tt> on a <tt class="docutils literal"><span class="pre">HealthData</span></tt> instance will yield a <tt class="docutils literal"><span class="pre">DataContainer</span></tt> containing two
 values, one for the current and one for the maximum health, each identified by the <tt class="docutils literal"><span class="pre">DataQuery</span></tt> of the respective
 <tt class="docutils literal"><span class="pre">Key</span></tt>.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">DataContainer</span> <span class="n">serializedHealth</span> <span class="o">=</span> <span class="n">healthData</span><span class="o">.</span><span class="na">toContainer</span><span class="o">();</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
+
+<span class="n">DataContainer</span> <span class="n">serializedHealth</span> <span class="o">=</span> <span class="n">healthData</span><span class="o">.</span><span class="na">toContainer</span><span class="o">();</span>
 <span class="kt">double</span> <span class="n">currentHealth</span> <span class="o">=</span> <span class="n">serializedHealth</span><span class="o">.</span><span class="na">getDouble</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">.</span><span class="na">getQuery</span><span class="o">()).</span><span class="na">get</span><span class="o">();</span>
 <span class="n">currentHealth</span> <span class="o">==</span> <span class="n">healthData</span><span class="o">.</span><span class="na">health</span><span class="o">().</span><span class="na">get</span><span class="o">();</span>  <span class="c1">// true</span>
 </pre></div>
@@ -405,7 +408,14 @@ can be obtained from the <tt class="docutils literal"><span class="pre">ServiceM
 <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> to deserialize a given class and additionally a shorthand method to get the <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> and have it
 do the deserialization in one step. Both of the following code examples are functionally equivalent.</p>
 <p><strong>Code Example: Deserialization, the long way</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">deserializeHealth</span><span class="o">(</span><span class="n">DataView</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataView</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.HealthData</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.persistence.DataBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.persistence.SerializationService</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">deserializeHealth</span><span class="o">(</span><span class="n">DataView</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
     <span class="kd">final</span> <span class="n">SerializationService</span> <span class="n">service</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">game</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provideUnchecked</span><span class="o">(</span><span class="n">SerializationService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
     <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">DataBuilder</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">getBuilder</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
@@ -416,7 +426,9 @@ do the deserialization in one step. Both of the following code examples are func
 </pre></div>
 </div>
 <p><strong>Code Example: Deserialization, the short way</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">deserializeHealth</span><span class="o">(</span><span class="n">DataView</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.HealthData</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">deserializeHealth</span><span class="o">(</span><span class="n">DataView</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
     <span class="kd">final</span> <span class="n">SerializationService</span> <span class="n">service</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">game</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provideUnchecked</span><span class="o">(</span><span class="n">SerializationService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
     <span class="k">return</span> <span class="n">service</span><span class="o">.</span><span class="na">deserialize</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">container</span><span class="o">);</span>
 <span class="o">}</span>
@@ -435,7 +447,10 @@ first has to be converted into a storable representation. This can be done by us
 <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> and vice versa. <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt>s can then be written to and read from persistent files
 using the <a class="reference internal" href="../configuration/index.html"><em>Configurate Library</em></a>.</p>
 <p><strong>Code Example: Serializing a HealthData instance to Configurate</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeToConfig</span><span class="o">(</span><span class="n">HealthData</span> <span class="n">data</span><span class="o">,</span> <span class="n">ConfigurationNode</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.translator.ConfigurateTranslator</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeToConfig</span><span class="o">(</span><span class="n">HealthData</span> <span class="n">data</span><span class="o">,</span> <span class="n">ConfigurationNode</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
     <span class="kd">final</span> <span class="n">ConfigurateTranslator</span> <span class="n">translator</span> <span class="o">=</span> <span class="n">ConfigurateTranslator</span><span class="o">.</span><span class="na">instance</span><span class="o">();</span>
     <span class="kd">final</span> <span class="n">DataView</span> <span class="n">container</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">toContainer</span><span class="o">();</span>
     <span class="n">translator</span><span class="o">.</span><span class="na">translateContainerToData</span><span class="o">(</span><span class="n">config</span><span class="o">,</span> <span class="n">container</span><span class="o">);</span>

@@ -380,21 +380,26 @@
                   
   <div class="section" id="working-with-optionals">
 <h1>Working with Optionals<a class="headerlink" href="#working-with-optionals" title="Permalink to this headline">¶</a></h1>
-<p>TODO:</p>
+<p>Now that you&#8217;ve learned what <tt class="docutils literal"><span class="pre">Optionals</span></tt> are, we&#8217;re heading towards the usage and common use-cases.
+First we&#8217;ll invetigate what <tt class="docutils literal"><span class="pre">Optionals&lt;T&gt;</span></tt> does, how it works and what issues you may run into.</p>
 <div class="section" id="basic-usage">
 <h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>What <tt class="docutils literal"><span class="pre">Optional&lt;T&gt;</span></tt> means: a value that may or may not be there, meaning that your plugin has to handle both cases somehow.</li>
-<li>Why you should call <tt class="docutils literal"><span class="pre">Optional#get()</span></tt> very carefully: throwing hard-to-debug errors, essentially lifting NullPointerException into a NoSuchElementException</li>
-<li>Using <tt class="docutils literal"><span class="pre">Optional#orElse</span></tt> and <tt class="docutils literal"><span class="pre">Optional#orElseThrow</span></tt>: orElse for a default value, orElseThrow to throw a descriptive exception that you should handle later</li>
-</ul>
-<p>The standard pattern of:</p>
+<div class="section" id="optional-t">
+<h3>Optional &lt;T&gt;<a class="headerlink" href="#optional-t" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">Optionals</span></tt> are used when a <tt class="docutils literal"><span class="pre">value</span></tt> might be present or missing. So your plugin has to check the precense of the
+<tt class="docutils literal"><span class="pre">value</span></tt> and handle both cases. There are different possibilities to use <tt class="docutils literal"><span class="pre">Optionals</span></tt>:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="k">if</span> <span class="o">(</span><span class="n">opt</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
  <span class="n">T</span> <span class="n">value</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
 <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
   <span class="c1">// handle failure</span>
 <span class="o">}</span>
 </pre></div>
+</div>
+<ul class="simple">
+<li>Why you should call <tt class="docutils literal"><span class="pre">Optional#get()</span></tt> very carefully: throwing hard-to-debug errors, essentially lifting NullPointerException into a NoSuchElementException</li>
+<li>Using <tt class="docutils literal"><span class="pre">Optional#orElse</span></tt> and <tt class="docutils literal"><span class="pre">Optional#orElseThrow</span></tt>: orElse for a default value, orElseThrow to throw a descriptive exception that you should handle later</li>
+</ul>
+<p>The standard pattern of:</p>
 </div>
 </div>
 <div class="section" id="advanced-usage">
