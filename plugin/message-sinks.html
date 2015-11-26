@@ -1,0 +1,539 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <title>Message Sinks &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+    
+  <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:400italic,700italic,700,400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../_static/tomorrow.css" type="text/css" />
+  <link id="syntax-highlighting-ref" rel="stylesheet" href="../_static/tomorrow_night.css" type="text/css" />
+      
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT:    '../',
+      VERSION:     '2.1-SNAPSHOT',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE:  true
+    };
+  </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/store.min.js"></script>
+    <script type="text/javascript" src="../_static/lights.js"></script>
+        <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../index.html" />
+        <link rel="up" title="Creating a Plugin" href="index.html" />
+        <link rel="next" title="Tutorials" href="tutorials.html" />
+        <link rel="prev" title="Plugin Debugging" href="debugging.html" />
+    
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-59476017-2', 'auto');
+    ga('send', 'pageview');
+
+  </script> 
+  </head>
+  <body role="document">
+    <div class="container">
+  <div class="related" role="navigation" aria-label="related navigation">
+    <h3>Navigation</h3>
+    <ul>
+      <span style="float: right" class="lights" title="Toggles syntax highlighting between light and dark">
+        <i class="icon-lamp lights-icon"></i> Highlight Code Light/Dark
+      </span>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tutorials.html" title="Tutorials"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="debugging.html" title="Plugin Debugging"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
+        <li><a href="index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
+    </ul>
+  </div> 
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+    <form class="search" action="../search.html" method="get">
+      <div class="searchbox-inner">
+        <input class="field" type="text" name="q" autocomplete="off" />
+        <button class="submit" type="submit"><i class="icon-search"></i></button>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </div>
+    </form>
+    <p class="searchtip" style="font-size: 90%"></p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../server/index.html">Creating a Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../server/getting-started/index.html">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/jre.html">Installing Java</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/migrating.html">Migrating to Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/spongeforge.html">SpongeForge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/launch-script.html">Creating a Launch Script</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/port-forward.html">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/configuration/index.html">Configuring Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/hocon.html">Introduction to HOCON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/json.html">JSON Syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/sponge-conf.html">global.conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/server-properties.html">server.properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../server/management/index.html">Server Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/whitelist.html">Managing the Whitelist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/bans.html">Managing Bans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/permissions.html">Managing Permissions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/plugins.html">Installing Plugins</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../server/spongineer/index.html">Becoming an Expert Spongineer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/commands.html">Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/logs.html">Log Files</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/debugging.html">Debugging</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preparing/index.html">Preparing for Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/jdk.html">Installing the JDK</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/ide.html">Installing an IDE</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/text.html">Installing a Text Editor</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/git.html">Installing Git</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="workspace/index.html">Setting Up Your Workspace</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="workspace/idea.html">Setting Up IntelliJ IDEA</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="workspace/eclipse.html">Setting Up Eclipse</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="workspace/netbeans.html">Setting Up NetBeans</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="workspace/dependencies.html">Adding Sponge API Dependencies</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="practices.html">Best Practices</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html">Plugin Templates</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main-class.html">Creating Your Main Plugin Class</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lifecycle.html">Plugin Lifecycle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging and Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="text/index.html">Working with Text</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="text/text.html">Creating Text</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="text/pagination.html">The Pagination Service</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="commands/index.html">Creating Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands/creating.html">Building a Command</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/arguments.html">Argument Parsing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/childcommands.html">Child Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/service.html">The Command Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Your Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/values.html">Giving Nodes Value</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="data/index.html">The Data API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="data/keys.html">Using Keys</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/datamanipulators.html">Data Manipulators</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/serialization.html">Serializing Data</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blocks/index.html">Working with Blocks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blocks/concepts.html">Concepts</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blocks/accessing.html">Accessing Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blocks/modifying.html">Modifying Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blocks/tileentities.html">Working with Tile Entities</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="entities/index.html">Working with Entities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="entities/spawning.html">Spawning an Entity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="items.html">Working with Items</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="injection.html">Dependency Injection</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scheduler.html">Using the Scheduler</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html">Working with Databases</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="permissions.html">Working with the Permissions API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Working with Services</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manager.html">Using the Plugin Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Message Sinks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/api/index.html">API Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/api/git.html">Git Workflow for SpongeAPI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/implementation/index.html">Implementation Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/git.html">Git Workflow for Sponge implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/spongedocs.html">SpongeDocs Writing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About the Sponge Project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../about/introduction.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/future.html">Plans for the Future</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about/license.html">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about/posting.html">Forum Posting Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/rules.html">Forum &amp; IRC Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about/staff.html">Staff</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/glossary.html">Sponge Glossary</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/assets.html">Art Assets</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/history.html">The History of Sponge</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<ul class="simple">
+</ul>
+
+      </div>
+    </div> 
+
+        <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body" role="main">
+                  
+  <div class="section" id="message-sinks">
+<h1>Message Sinks<a class="headerlink" href="#message-sinks" title="Permalink to this headline">¶</a></h1>
+<p>A <tt class="docutils literal"><span class="pre">MessageSink</span></tt> enables you to easily control the recipients of a message. The
+<tt class="docutils literal"><span class="pre">org.spongepowered.api.text.sink.MessageSinks</span></tt> utility class provides methods for targeting appropriate recipients,
+as described below.</p>
+<div class="section" id="selecting-message-sink-recipients">
+<h2>Selecting Message Sink Recipients<a class="headerlink" href="#selecting-message-sink-recipients" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="permission-based-selection">
+<h3>Permission-based Selection<a class="headerlink" href="#permission-based-selection" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">MessageSinks</span></tt> class can be employed to target any player that holds the specified permission.</p>
+<p><strong>Example: Permission-based Targeting</strong></p>
+<p>For example, the code below will define a <tt class="docutils literal"><span class="pre">MessageSink</span></tt> targeting all players with the <cite>com.example.myplugin</cite> permission</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.sink.MessageSink</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.sink.MessageSinks</span><span class="o">;</span>
+
+<span class="n">MessageSink</span> <span class="n">permissionSink</span> <span class="o">=</span> <span class="n">MessageSinks</span><span class="o">.</span><span class="na">toPermission</span><span class="o">(</span><span class="s">&quot;com.example.myplugin&quot;</span><span class="o">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="broadcasting">
+<h3>Broadcasting<a class="headerlink" href="#broadcasting" title="Permalink to this headline">¶</a></h3>
+<p>In a broadcast, every <tt class="docutils literal"><span class="pre">CommandSource</span></tt> connected to the server will be sent the same message. This can be achieved
+with a <tt class="docutils literal"><span class="pre">MessageSink</span></tt>, as shown below:</p>
+<p><strong>Example: Broadcasting</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">MessageSink</span> <span class="n">broadcastSink</span> <span class="o">=</span> <span class="n">MessageSinks</span><span class="o">.</span><span class="na">toAll</span><span class="o">();</span>
+</pre></div>
+</div>
+<p>Alternatively, you could retrieve the broadcast <tt class="docutils literal"><span class="pre">MessageSink</span></tt> provided by Sponge:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">MessageSink</span> <span class="n">broadcastSink</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="na">getBroadcastSink</span><span class="o">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="combining-message-sinks">
+<h3>Combining Message Sinks<a class="headerlink" href="#combining-message-sinks" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">MessageSinks</span></tt> class can also be used to combine the recipients of any arbitrary number of other <tt class="docutils literal"><span class="pre">MessageSink</span></tt>s:</p>
+<p><strong>Example: Combined Message Sinks</strong></p>
+<p>In the following block of code, any <tt class="docutils literal"><span class="pre">CommandSource</span></tt> that holds either the <cite>com.example.myplugin.permission1</cite> or the
+<cite>com.example.myplugin.permission2</cite> permissions will be targeted by the <tt class="docutils literal"><span class="pre">MessageSink</span></tt>.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">MessageSink</span> <span class="n">sink1</span> <span class="o">=</span> <span class="n">MessageSinks</span><span class="o">.</span><span class="na">toPermission</span><span class="o">(</span><span class="s">&quot;com.example.myplugin.permission1&quot;</span><span class="o">);</span>
+<span class="n">MessageSink</span> <span class="n">sink2</span> <span class="o">=</span> <span class="n">MessageSinks</span><span class="o">.</span><span class="na">toPermission</span><span class="o">(</span><span class="s">&quot;com.example.myplugin.permission2&quot;</span><span class="o">);</span>
+
+<span class="n">MessageSink</span> <span class="n">combinedSink</span> <span class="o">=</span> <span class="n">MessageSinks</span><span class="o">.</span><span class="na">combined</span><span class="o">(</span><span class="n">sink1</span><span class="o">,</span> <span class="n">sink2</span><span class="o">);</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last"><tt class="docutils literal"><span class="pre">MessageSinks#combined(MessageSink...</span> <span class="pre">sinks)</span></tt> can also be used to apply message transformations, as discussed
+below.</p>
+</div>
+</div>
+<div class="section" id="targeting-command-sources">
+<h3>Targeting Command Sources<a class="headerlink" href="#targeting-command-sources" title="Permalink to this headline">¶</a></h3>
+<p>Lastly, a <tt class="docutils literal"><span class="pre">MessageSink</span></tt> can be used to target any number of CommandSources. This allows a finer control over who
+you would like to send the message to.</p>
+<p><strong>Example: Targeting Command Sources</strong></p>
+<p>In the following example, any <tt class="docutils literal"><span class="pre">Player</span></tt> whose display name contains the prefix &#8220;[Donor]&#8221; will be added as a recipient
+to a new <tt class="docutils literal"><span class="pre">MessageSink</span></tt>, which could then be used to send a message thanking the players for their donations.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.DisplayNameData</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.player.Player</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Texts</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandSource</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.HashSet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+
+<span class="n">Set</span><span class="o">&lt;</span><span class="n">CommandSource</span><span class="o">&gt;</span> <span class="n">donors</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;</span><span class="n">CommandSource</span><span class="o">&gt;();</span>
+<span class="k">for</span><span class="o">(</span><span class="n">Player</span> <span class="n">player</span><span class="o">:</span> <span class="n">event</span><span class="o">.</span><span class="na">getGame</span><span class="o">().</span><span class="na">getServer</span><span class="o">().</span><span class="na">getOnlinePlayers</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">DisplayNameData</span> <span class="n">displayNameData</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="na">getDisplayNameData</span><span class="o">();</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">toPlain</span><span class="o">(</span><span class="n">displayNameData</span><span class="o">.</span><span class="na">getDisplayName</span><span class="o">()).</span><span class="na">contains</span><span class="o">(</span><span class="s">&quot;[Donor]&quot;</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">donors</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">player</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">MessageSink</span> <span class="n">sink</span> <span class="o">=</span> <span class="n">MessageSinks</span><span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="n">donors</span><span class="o">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="sending-messages-with-message-sinks">
+<h2>Sending Messages with Message Sinks<a class="headerlink" href="#sending-messages-with-message-sinks" title="Permalink to this headline">¶</a></h2>
+<p>Once you have defined an appropriate <tt class="docutils literal"><span class="pre">MessageSink</span></tt>, you can use <tt class="docutils literal"><span class="pre">MessageSink#sendMessage(Text</span> <span class="pre">text)</span></tt> to send the
+message.</p>
+<p><strong>Example: Sending Messages with Message Sinks</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">messageSink</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Yay! Message sinks!&quot;</span><span class="o">));</span>
+</pre></div>
+</div>
+<div class="section" id="extended-application-chat-channels">
+<h3>Extended Application: Chat Channels<a class="headerlink" href="#extended-application-chat-channels" title="Permalink to this headline">¶</a></h3>
+<p>Message sinks have a very useful application that they can be used to establish chat channels. For example, you could
+establish a message sink for every chat channel you wish to have. Then, when a <tt class="docutils literal"><span class="pre">CommandSource</span></tt> joins a channel, such
+as with <tt class="docutils literal"><span class="pre">/join</span> <span class="pre">&lt;channel</span> <span class="pre">name&gt;</span></tt>, simply set the <tt class="docutils literal"><span class="pre">CommandSource</span></tt>&#8216;s <tt class="docutils literal"><span class="pre">MessageSink</span></tt> to the appropriate channel using
+<tt class="docutils literal"><span class="pre">CommandSource#setMessageSink(MessageSink</span> <span class="pre">sink)</span></tt>. Alternatively, you could listen to <tt class="docutils literal"><span class="pre">MessageSinkEvent</span></tt>, and set
+the appropriate <tt class="docutils literal"><span class="pre">MessageSink</span></tt> using <tt class="docutils literal"><span class="pre">MessageEvent#setSink(MessageSink</span> <span class="pre">sink)</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="transforming-messages-with-message-sinks">
+<h2>Transforming Messages with Message Sinks<a class="headerlink" href="#transforming-messages-with-message-sinks" title="Permalink to this headline">¶</a></h2>
+<p>You can apply a filter to all <tt class="docutils literal"><span class="pre">Text</span></tt>s that pass through a <tt class="docutils literal"><span class="pre">MessageSink</span></tt> to change the message however you like.
+This is possible by creating a <tt class="docutils literal"><span class="pre">Class</span></tt> that extends <tt class="docutils literal"><span class="pre">MessageSink</span></tt> and defining the appropriate behavior for the
+<tt class="docutils literal"><span class="pre">MessageSink#transformMessage(CommandSource</span> <span class="pre">target,</span> <span class="pre">Text</span> <span class="pre">text)</span></tt> method, as shown below.</p>
+<p><strong>Example: Transforming Messages with Message Sinks</strong></p>
+<p>The following code excerpt defines a <tt class="docutils literal"><span class="pre">DonorMessageSink</span></tt> class which overrides the default <tt class="docutils literal"><span class="pre">transformMessage</span></tt> method.
+The new transformation method will first check if the <tt class="docutils literal"><span class="pre">CommandSource</span></tt> has the <tt class="docutils literal"><span class="pre">com.example.myplugin.donor</span></tt>
+permission, and if so, will append a <cite>[Donor]</cite> prefix, such as in a ranking system.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.google.common.collect.Lists</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DonorMessageSink</span> <span class="kd">extends</span> <span class="n">MessageSink</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Text</span> <span class="nf">transformMessage</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">target</span><span class="o">,</span> <span class="n">Text</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">target</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;com.example.myplugin.donor&quot;</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;[Donor]&quot;</span><span class="o">,</span> <span class="n">input</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">input</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">CommandSource</span><span class="o">&gt;</span> <span class="nf">getRecipients</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Note that we do not wish to define any additional reecipients, so we return an empty <tt class="docutils literal"><span class="pre">List</span></tt> in the <tt class="docutils literal"><span class="pre">getRecipients</span></tt>
+method.</p>
+<p>Now that we have defined our custom <tt class="docutils literal"><span class="pre">DonorMessageSink</span></tt> that will append a prefix to a player&#8217;s name, we need to apply
+a new <tt class="docutils literal"><span class="pre">MessageSink</span></tt> combining the existing one and the new one to the <tt class="docutils literal"><span class="pre">CommandSource</span></tt>. We can do this by using the
+<tt class="docutils literal"><span class="pre">MessageSinks#combined(MessageSink...</span> <span class="pre">sinks)</span></tt> method. In the following code excerpt, the new <tt class="docutils literal"><span class="pre">DonorMessageSink</span></tt>
+will be applied to any <tt class="docutils literal"><span class="pre">Player</span></tt> that joins the server.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.network.ClientConnectionEvent</span><span class="o">;</span>
+
+<span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClientConnectionJoin</span><span class="o">(</span><span class="n">ClientConnectionEvent</span><span class="o">.</span><span class="na">Join</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getEntity</span><span class="o">();</span>
+
+    <span class="n">MessageSink</span> <span class="n">originalSink</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="na">getMessageSink</span><span class="o">();</span>
+    <span class="n">MessageSink</span> <span class="n">newSink</span> <span class="o">=</span> <span class="n">MessageSinks</span><span class="o">.</span><span class="na">combined</span><span class="o">(</span><span class="n">originalSink</span><span class="o">,</span> <span class="k">new</span> <span class="n">DonorMessageSink</span><span class="o">());</span>
+
+    <span class="n">player</span><span class="o">.</span><span class="na">setMessageSink</span><span class="o">(</span><span class="n">newSink</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When combining multiple <tt class="docutils literal"><span class="pre">MessageSink</span></tt>s defining different message transformations, the <tt class="docutils literal"><span class="pre">Text</span></tt> will be
+transformed in the order that the <tt class="docutils literal"><span class="pre">MessageSink</span></tt>s are passed in to the
+<tt class="docutils literal"><span class="pre">MessageSinks#combined(MessageSink...</span> <span class="pre">sinks)</span></tt> method.</p>
+</div>
+</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          <div class="clearer"></div>
+        </div>
+        <div class="footer" role="contentinfo">
+              &copy; Copyright 2014-2015, Sponge Contributors.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+        </div>
+    </div>
+  </body>
+</html>
