@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../../_static/lights.js"></script>
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../../index.html" />
         <link rel="up" title="Creating a Plugin" href="../index.html" />
-        <link rel="next" title="Working with Events" href="events.html" />
+        <link rel="next" title="Event Listeners" href="listeners.html" />
         <link rel="prev" title="Low-Level Command API" href="../commands/commandcallable.html" />
     
   <script type="text/javascript">
@@ -58,7 +58,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="events.html" title="Working with Events"
+          <a href="listeners.html" title="Event Listeners"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../commands/commandcallable.html" title="Low-Level Command API"
@@ -213,10 +213,14 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Working with Events</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
+<li class="toctree-l3"><a class="reference internal" href="listeners.html">Event Listeners</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="event-filters.html">Advansed Event Handling: Event Filters</a><ul class="simple">
+<li class="toctree-l3"><a class="reference internal" href="causes.html">Causes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">Event Filters</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="custom.html">Creating Custom Events</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -376,15 +380,35 @@
                   
   <div class="section" id="working-with-events">
 <h1>Working with Events<a class="headerlink" href="#working-with-events" title="Permalink to this headline">¶</a></h1>
-<p>Events are a key part of interacting with the game. Events let you execute code whenever certain in-game actions occur.</p>
+<p>Sponge provides a system to:</p>
+<ul class="simple">
+<li>Listen for events</li>
+<li>Fire events</li>
+</ul>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Events are used to inform plugins of certain happenings. Many events can also be <em>cancelled</em> &#8211; that is, the action that
+the event refers to can be prevented from occurring. Cancellable events implement the <tt class="docutils literal"><span class="pre">Cancellable</span></tt> interface.</p>
+<p>Sponge itself contains many events; however, plugins can create their own events which other plugins can listen to.</p>
+<p>Event listeners are assigned a priority that determines the order in which the event listener is run in context of other
+event listeners (such as those from other plugins). For example, an event listener with <tt class="docutils literal"><span class="pre">EARLY</span></tt> priority will return
+before most other event listeners.</p>
+<p>Events cannot be sent to a specific set of plugins. All plugins that listen to an event will be notified of the event.</p>
+<p>The event bus or event manager is the class that keeps track of which plugins are listening to which event,
+and is also responsible for distributing events to event listeners.</p>
+</div>
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="listeners.html">Event Listeners</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="event-filters.html">Advansed Event Handling: Event Filters</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="causes.html">Causes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Event Filters</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="custom.html">Creating Custom Events</a><ul class="simple">
 </ul>
 </li>
 </ul>
