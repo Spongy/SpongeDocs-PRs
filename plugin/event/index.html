@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Serializing Data &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+     <title>Working with Events &mdash; Sponge 2.1-SNAPSHOT documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -31,9 +31,9 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../../index.html" />
-        <link rel="up" title="The Data API" href="index.html" />
-        <link rel="next" title="Working with Blocks" href="../blocks/index.html" />
-        <link rel="prev" title="Transactions" href="transactions.html" />
+        <link rel="up" title="Creating a Plugin" href="../index.html" />
+        <link rel="next" title="Working with Events" href="events.html" />
+        <link rel="prev" title="Low-Level Command API" href="../commands/commandcallable.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -58,14 +58,13 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../blocks/index.html" title="Working with Blocks"
+          <a href="events.html" title="Working with Events"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="transactions.html" title="Transactions"
+          <a href="../commands/commandcallable.html" title="Low-Level Command API"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
-        <li><a href="../index.html" >Creating a Plugin</a> &raquo;</li>
-        <li><a href="index.html" accesskey="U">The Data API</a> &raquo;</li> 
+        <li><a href="../index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
     </ul>
   </div> 
     <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -213,11 +212,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../event/index.html">Working with Events</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../event/events.html">Working with Events</a><ul class="simple">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Working with Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../event/event-filters.html">Advansed Event Handling: Event Filters</a><ul class="simple">
+<li class="toctree-l3"><a class="reference internal" href="event-filters.html">Advansed Event Handling: Event Filters</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -240,17 +239,17 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">The Data API</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="keys.html">Using Keys</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data/keys.html">Using Keys</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="datamanipulators.html">Data Manipulators</a><ul class="simple">
+<li class="toctree-l3"><a class="reference internal" href="../data/datamanipulators.html">Data Manipulators</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="transactions.html">Transactions</a><ul class="simple">
+<li class="toctree-l3"><a class="reference internal" href="../data/transactions.html">Transactions</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">Serializing Data</a><ul class="simple">
+<li class="toctree-l3"><a class="reference internal" href="../data/serialization.html">Serializing Data</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -375,92 +374,20 @@
               <div class="bodywrapper">
                 <div class="body" role="main">
                   
-  <div class="section" id="serializing-data">
-<h1>Serializing Data<a class="headerlink" href="#serializing-data" title="Permalink to this headline">¶</a></h1>
-<p>While an <tt class="docutils literal"><span class="pre">ImmutableDataManipulator</span></tt> is a good way to store data while the server is running, it will not persist over
-a restart. However, every <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> implements the <tt class="docutils literal"><span class="pre">DataSerializable</span></tt> interface and thus can be serialized
-to a <tt class="docutils literal"><span class="pre">DataContainer</span></tt> and deserialized by a <tt class="docutils literal"><span class="pre">DataBuilder</span></tt>.</p>
-<p>After this initial conversion from the specialized <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> to a more general structure, the <tt class="docutils literal"><span class="pre">DataContainer</span></tt>
-can be further processed.</p>
-<div class="section" id="datacontainer-and-dataview">
-<h2>DataContainer and DataView<a class="headerlink" href="#datacontainer-and-dataview" title="Permalink to this headline">¶</a></h2>
-<p>A <tt class="docutils literal"><span class="pre">DataView</span></tt> is a general-purpose structure for holding any kind of data. It supports multiple values and even nested
-<tt class="docutils literal"><span class="pre">DataView</span></tt>s as a value, thus allowing for a tree-like structure. Every value is identified by a <tt class="docutils literal"><span class="pre">DataQuery</span></tt>.
-A <tt class="docutils literal"><span class="pre">DataContainer</span></tt> is a root <tt class="docutils literal"><span class="pre">DataView</span></tt>.</p>
-<p>Every <tt class="docutils literal"><span class="pre">DataSerializable</span></tt> provides a <tt class="docutils literal"><span class="pre">toContainer()</span></tt> method which will create and return a <tt class="docutils literal"><span class="pre">DataContainer</span></tt>.
-As an example, calling <tt class="docutils literal"><span class="pre">toContainer()</span></tt> on a <tt class="docutils literal"><span class="pre">HealthData</span></tt> instance will yield a <tt class="docutils literal"><span class="pre">DataContainer</span></tt> containing two
-values, one for the current and one for the maximum health, each identified by the <tt class="docutils literal"><span class="pre">DataQuery</span></tt> of the respective
-<tt class="docutils literal"><span class="pre">Key</span></tt>.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
-
-<span class="n">DataContainer</span> <span class="n">serializedHealth</span> <span class="o">=</span> <span class="n">healthData</span><span class="o">.</span><span class="na">toContainer</span><span class="o">();</span>
-<span class="kt">double</span> <span class="n">currentHealth</span> <span class="o">=</span> <span class="n">serializedHealth</span><span class="o">.</span><span class="na">getDouble</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">.</span><span class="na">getQuery</span><span class="o">()).</span><span class="na">get</span><span class="o">();</span>
-<span class="n">currentHealth</span> <span class="o">==</span> <span class="n">healthData</span><span class="o">.</span><span class="na">health</span><span class="o">().</span><span class="na">get</span><span class="o">();</span>  <span class="c1">// true</span>
-</pre></div>
-</div>
-<p>Converting this container back into a <tt class="docutils literal"><span class="pre">HealthData</span></tt> instance is done by the corresponding <tt class="docutils literal"><span class="pre">DataBuilder</span></tt>. Those are
-registered and managed by the <tt class="docutils literal"><span class="pre">SerializationService</span></tt>, which, as described on the <a class="reference internal" href="../services.html"><em>Services</em></a> page,
-can be obtained from the <tt class="docutils literal"><span class="pre">ServiceManager</span></tt>. The <tt class="docutils literal"><span class="pre">SerializationService</span></tt> provides a method to get the appropriate
-<tt class="docutils literal"><span class="pre">DataBuilder</span></tt> to deserialize a given class and additionally a shorthand method to get the <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> and have it
-do the deserialization in one step. Both of the following code examples are functionally equivalent.</p>
-<p><strong>Code Example: Deserialization, the long way</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataView</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.HealthData</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.persistence.DataBuilder</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.persistence.SerializationService</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">deserializeHealth</span><span class="o">(</span><span class="n">DataView</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">SerializationService</span> <span class="n">service</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">game</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provideUnchecked</span><span class="o">(</span><span class="n">SerializationService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">DataBuilder</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">getBuilder</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">build</span><span class="o">(</span><span class="n">container</span><span class="o">);</span>
-    <span class="o">}</span>
-    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-<p><strong>Code Example: Deserialization, the short way</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.HealthData</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">deserializeHealth</span><span class="o">(</span><span class="n">DataView</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">SerializationService</span> <span class="n">service</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">game</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provideUnchecked</span><span class="o">(</span><span class="n">SerializationService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="k">return</span> <span class="n">service</span><span class="o">.</span><span class="na">deserialize</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">container</span><span class="o">);</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-<p>The <tt class="docutils literal"><span class="pre">deserializeHealth</span></tt> function will return <tt class="docutils literal"><span class="pre">Optional.empty()</span></tt> if there is no <tt class="docutils literal"><span class="pre">DataBuilder</span></tt> registered for
-<tt class="docutils literal"><span class="pre">HealthData</span></tt> or the supplied <tt class="docutils literal"><span class="pre">DataContainer</span></tt> is empty. If invalid data is present in the <tt class="docutils literal"><span class="pre">DataContainer</span></tt>, an
-<tt class="docutils literal"><span class="pre">InvalidDataException</span></tt> will be thrown.</p>
-</div>
-<div class="section" id="datatranslator">
-<h2>DataTranslator<a class="headerlink" href="#datatranslator" title="Permalink to this headline">¶</a></h2>
-<p>In Sponge, generally the implementations <tt class="docutils literal"><span class="pre">MemoryDataView</span></tt> and <tt class="docutils literal"><span class="pre">MemoryDataContainer</span></tt> are used, which reside in
-memory only and thus will not persist over a server restart. In order to persistently store a <tt class="docutils literal"><span class="pre">DataContainer</span></tt>, it
-first has to be converted into a storable representation. This can be done by using an implementation of the
-<tt class="docutils literal"><span class="pre">DataTranslator</span></tt> interface, for example the <tt class="docutils literal"><span class="pre">ConfigurateTranslator</span></tt>, which can convert a <tt class="docutils literal"><span class="pre">DataView</span></tt> to a
-<tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> and vice versa. <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt>s can then be written to and read from persistent files
-using the <a class="reference internal" href="../configuration/index.html"><em>Configurate Library</em></a>.</p>
-<p><strong>Code Example: Serializing a HealthData instance to Configurate</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.translator.ConfigurateTranslator</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeToConfig</span><span class="o">(</span><span class="n">HealthData</span> <span class="n">data</span><span class="o">,</span> <span class="n">ConfigurationNode</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">ConfigurateTranslator</span> <span class="n">translator</span> <span class="o">=</span> <span class="n">ConfigurateTranslator</span><span class="o">.</span><span class="na">instance</span><span class="o">();</span>
-    <span class="kd">final</span> <span class="n">DataView</span> <span class="n">container</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">toContainer</span><span class="o">();</span>
-    <span class="n">translator</span><span class="o">.</span><span class="na">translateContainerToData</span><span class="o">(</span><span class="n">config</span><span class="o">,</span> <span class="n">container</span><span class="o">);</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-<p><strong>Code Example: Deserializing a HealthData instance from Configurate</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">readHealthFromConfig</span><span class="o">(</span><span class="n">ConfigurationNode</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">ConfigurateTranslator</span> <span class="n">translator</span> <span class="o">=</span> <span class="n">ConfigurateTranslator</span><span class="o">.</span><span class="na">instance</span><span class="o">();</span>
-    <span class="kd">final</span> <span class="n">DataView</span> <span class="n">container</span> <span class="o">=</span> <span class="n">translator</span><span class="o">.</span><span class="na">translateFrom</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
-    <span class="k">return</span> <span class="n">deserializeHealth</span><span class="o">(</span><span class="n">container</span><span class="o">);</span>
-<span class="o">}</span>
-</pre></div>
+  <div class="section" id="working-with-events">
+<h1>Working with Events<a class="headerlink" href="#working-with-events" title="Permalink to this headline">¶</a></h1>
+<p>Events are a key part of interacting with the game. Events let you execute code whenever certain in-game actions occur.</p>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="event-filters.html">Advansed Event Handling: Event Filters</a><ul class="simple">
+</ul>
+</li>
+</ul>
 </div>
 </div>
 </div>
