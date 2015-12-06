@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/lights.js"></script>
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
-        <link rel="next" title="Configuring Your Plugin" href="configuration/index.html" />
+        <link rel="next" title="Dependency Injection" href="injection.html" />
         <link rel="prev" title="Spawning an Entity" href="entities/spawning.html" />
     
   <script type="text/javascript">
@@ -58,7 +58,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="configuration/index.html" title="Configuring Your Plugin"
+          <a href="injection.html" title="Dependency Injection"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="entities/spawning.html" title="Spawning an Entity"
@@ -129,7 +129,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/debugging.html">Log Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/logs.html">Log Files</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/debugging.html">Debugging</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -210,6 +215,18 @@
 <li class="toctree-l2"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="data/index.html">The Data API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="data/keys.html">Using Keys</a><ul class="simple">
 </ul>
@@ -218,6 +235,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/serialization.html">Serializing Data</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -242,24 +262,6 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Working with Items</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Your Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="configuration/loaders.html">Configuration Loaders</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/values.html">Giving Nodes Value</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="injection.html">Dependency Injection</a><ul class="simple">
@@ -303,6 +305,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/mixins.html">Mixins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/git.html">Git Workflow for Sponge implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/spongedocs.html">SpongeDocs Writing</a><ul class="simple">
@@ -388,7 +393,11 @@
 </div>
 <p>In this, we specified that the <tt class="docutils literal"><span class="pre">UNBREAKABLE</span></tt> key is the key that we would like to change. We then set its value to <tt class="docutils literal"><span class="pre">true</span></tt> to imply that the item will never break. All of this is enclosed within the <tt class="docutils literal"><span class="pre">offer()</span></tt> method of the <tt class="docutils literal"><span class="pre">ItemStack</span></tt> to return our changes back to the <tt class="docutils literal"><span class="pre">ItemStack</span></tt>.</p>
 <p>Different keys will require different values based on their job. For example, to change the lore of an item, one would need to specify a <tt class="docutils literal"><span class="pre">List</span></tt> of <tt class="docutils literal"><span class="pre">Text</span></tt> rather than an boolean or other value. It is also important to perform checks to see if the key can actually apply to the item. For example, some items might not have durability or may already have lore applied to the item.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setLore</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">stack</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="n">itemLore</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setLore</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">stack</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="n">itemLore</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">ITEM_LORE</span><span class="o">).</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
         <span class="n">item</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">ITEM_LORE</span><span class="o">,</span> <span class="n">itemLore</span><span class="o">);</span>
     <span class="o">}</span>
@@ -399,7 +408,12 @@
 <div class="section" id="item-properties">
 <h2>Item Properties<a class="headerlink" href="#item-properties" title="Permalink to this headline">¶</a></h2>
 <p>Certain items can contain specific properties. For example, certain items can mine specific blocks, such as a diamond pickaxe to obsidian. Properties are used for determining if an item can cause an action without actually checking up the type of the item. We can check if a block can mine obsidian by using the <tt class="docutils literal"><span class="pre">HarvestingProperty</span></tt> of that item.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">canMineObsidian</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockTypes</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.property.item.HarvestingProperty</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">canMineObsidian</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HarvestingProperty</span><span class="o">&gt;</span> <span class="n">optional</span> <span class="o">=</span>
         <span class="n">item</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">HarvestingProperty</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 

@@ -129,7 +129,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/debugging.html">Log Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/logs.html">Log Files</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/debugging.html">Debugging</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -210,6 +215,18 @@
 <li class="toctree-l2"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="data/index.html">The Data API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="data/keys.html">Using Keys</a><ul class="simple">
 </ul>
@@ -218,6 +235,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/serialization.html">Serializing Data</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -242,24 +262,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="items.html">Working with Items</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Your Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="configuration/loaders.html">Configuration Loaders</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/values.html">Giving Nodes Value</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="injection.html">Dependency Injection</a><ul class="simple">
@@ -303,6 +305,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/mixins.html">Mixins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/git.html">Git Workflow for Sponge implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/spongedocs.html">SpongeDocs Writing</a><ul class="simple">
@@ -366,11 +371,12 @@ the given state. Additionally, lifecycle states are global. This means that all 
 transitioned through all states at once.</p>
 <div class="section" id="state-events">
 <h2>State Events<a class="headerlink" href="#state-events" title="Permalink to this headline">¶</a></h2>
-<p>There are two categories of state events:</p>
+<p>There are three categories of state events:</p>
 <ol class="arabic simple">
 <li><strong>Initialization:</strong> When Sponge and plugins are loading, before the actual game has started. Initialization states
 only occur once.</li>
 <li><strong>Running:</strong> When the game and world are loading. Running states may occur multiple times.</li>
+<li><strong>Stopping:</strong> When the game is shutting down. Stopping states, like initialization states, only occur once.</li>
 </ol>
 <div class="section" id="initialization-states">
 <h3>Initialization States<a class="headerlink" href="#initialization-states" title="Permalink to this headline">¶</a></h3>
@@ -413,6 +419,24 @@ This state occurs immediately before the final tick, before the worlds are saved
 <p><strong>SERVER_STOPPED</strong></p>
 <p>The <tt class="docutils literal"><span class="pre">GameStoppedServerEvent</span></tt> is triggered.
 During this state, no players are connected and no changes to worlds are saved.</p>
+</div>
+<div class="section" id="stopping-states">
+<h3>Stopping States<a class="headerlink" href="#stopping-states" title="Permalink to this headline">¶</a></h3>
+<p>Stopping states never occur more than once during a single run. They occur when the game stops normally. (On Servers:
+the <tt class="docutils literal"><span class="pre">/stop</span></tt> command is typed. On Clients: The &#8220;Close&#8221; button or the &#8220;Quit Game&#8221; button are clicked)</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Stopping states are not guaranteed to be run during shutdown. They may not fire if the game is force-stopped via
+Ctrl-C, Task Manager, a computer crash, or similar situations.</p>
+</div>
+<p><strong>GAME_STOPPING</strong></p>
+<p>The <tt class="docutils literal"><span class="pre">GameStoppingEvent</span></tt> is triggered.
+This state occurs immediately before <tt class="docutils literal"><span class="pre">GAME_STOPPED</span></tt>. Plugins providing an API should still be capable of accepting
+basic requests.</p>
+<p><strong>GAME_STOPPED</strong></p>
+<p>The <tt class="docutils literal"><span class="pre">GameStoppedEvent</span></tt> is triggered.
+Once this event has finished executing, Minecraft will shut down. No further interaction with the game or other plugins
+should be attempted at this point.</p>
 </div>
 </div>
 </div>

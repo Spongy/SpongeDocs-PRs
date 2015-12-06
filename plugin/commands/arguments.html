@@ -130,7 +130,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/debugging.html">Log Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/logs.html">Log Files</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/debugging.html">Debugging</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -211,6 +216,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../data/keys.html">Using Keys</a><ul class="simple">
 </ul>
@@ -219,6 +236,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../data/serialization.html">Serializing Data</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -243,24 +263,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../items.html">Working with Items</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Your Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/loaders.html">Configuration Loaders</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/values.html">Giving Nodes Value</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/serialization.html">Serializing Objects</a><ul class="simple">
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a><ul class="simple">
@@ -304,6 +306,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/mixins.html">Mixins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/git.html">Git Workflow for Sponge implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/spongedocs.html">SpongeDocs Writing</a><ul class="simple">
@@ -574,17 +579,14 @@ TAB completion.</p>
 <div class="section" id="example-vector2i-command-element-definition">
 <h3>Example: <tt class="docutils literal"><span class="pre">Vector2i</span></tt> command element definition<a class="headerlink" href="#example-vector2i-command-element-definition" title="Permalink to this headline">¶</a></h3>
 <p>The parser in this example reads two input arguments and converts them to a vector.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Texts</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.flowpowered.math.vector.Vector2i</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandSource</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.flowpowered.math.vector.Vector2i</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.args.ArgumentParseException</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.args.CommandArgs</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.args.CommandContext</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.args.CommandElement</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vector2iCommandElement</span> <span class="kd">extends</span> <span class="n">CommandElement</span> <span class="o">{</span>
 
@@ -629,11 +631,7 @@ TAB completion.</p>
 </div>
 <div class="section" id="example-vector2i-command-element-usage">
 <h3>Example: <tt class="docutils literal"><span class="pre">Vector2i</span></tt> command element usage<a class="headerlink" href="#example-vector2i-command-element-usage" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Texts</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.player.Player</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.spec.CommandSpec</span><span class="o">;</span>
-
-<span class="c1">// /plottp &lt;x&gt; &lt;y&gt;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="c1">// /plottp &lt;x&gt; &lt;y&gt;</span>
 <span class="n">CommandSpec</span> <span class="n">myCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
         <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Teleport to a plot&quot;</span><span class="o">))</span>
         <span class="o">.</span><span class="na">permission</span><span class="o">(</span><span class="s">&quot;myplugin.command.plot.tp&quot;</span><span class="o">)</span>

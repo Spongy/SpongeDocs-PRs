@@ -33,7 +33,7 @@
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../index.html" />
         <link rel="up" title="Contributing to Sponge" href="index.html" />
         <link rel="next" title="Porting Sponge to Other Platforms" href="porting.html" />
-        <link rel="prev" title="Git Workflow for Sponge implementations" href="implementation/git.html" />
+        <link rel="prev" title="Implementing DataManipulators" href="implementation/datamanipulator.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -61,7 +61,7 @@
           <a href="porting.html" title="Porting Sponge to Other Platforms"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="implementation/git.html" title="Git Workflow for Sponge implementations"
+          <a href="implementation/datamanipulator.html" title="Implementing DataManipulators"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Contributing to Sponge</a> &raquo;</li> 
@@ -129,7 +129,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/debugging.html">Log Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/logs.html">Log Files</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/debugging.html">Debugging</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -210,6 +215,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../plugin/events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin/configuration/index.html">Configuring Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../plugin/configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../plugin/configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../plugin/configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../plugin/data/index.html">The Data API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../plugin/data/keys.html">Using Keys</a><ul class="simple">
 </ul>
@@ -218,6 +235,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../plugin/data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../plugin/data/serialization.html">Serializing Data</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -242,24 +262,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../plugin/items.html">Working with Items</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../plugin/configuration/index.html">Configuring Your Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../plugin/configuration/loaders.html">Configuration Loaders</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../plugin/configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../plugin/configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../plugin/configuration/values.html">Giving Nodes Value</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../plugin/configuration/serialization.html">Serializing Objects</a><ul class="simple">
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../plugin/injection.html">Dependency Injection</a><ul class="simple">
@@ -303,6 +305,9 @@
 <li class="toctree-l3"><a class="reference internal" href="implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="implementation/mixins.html">Mixins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="implementation/git.html">Git Workflow for Sponge implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">SpongeDocs Writing</a><ul class="simple">
@@ -369,9 +374,22 @@ goal of SpongeDocs is to:</p>
 <li>Provide developers with information on how to get started with plugin development.</li>
 </ul>
 </div>
+<div class="section" id="reporting-problems">
+<h2>Reporting Problems<a class="headerlink" href="#reporting-problems" title="Permalink to this headline">¶</a></h2>
+<p>It may always occur that a page gets outdated, an error sneaks in or you just look at a page and think &#8220;Well, there is a
+better way of explaining this.&#8221; If that is the case and you are for some reason not able to provide a fix yourself,
+there are three ways of making us aware of the problem:</p>
+<ol class="arabic simple">
+<li>Create an <a class="reference external" href="https://github.com/SpongePowered/SpongeDocs/issues">Issue on the SpongeDocs GitHub</a></li>
+<li>Create a Posting on the <a class="reference external" href="https://forums.spongepowered.org/c/sponge-docs">SpongeDocs Forums Category</a></li>
+<li>Visit us in the <a class="reference external" href="irc://irc.esper.net:6667/spongedocs">#spongedocs channel on irc.esper.net</a> (need to be registered)</li>
+</ol>
+</div>
 <div class="section" id="writing-the-docs">
 <h2>Writing the Docs<a class="headerlink" href="#writing-the-docs" title="Permalink to this headline">¶</a></h2>
-<p>Changes and additions to SpongeDocs should be submitted as a pull request to the <a class="reference external" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs repository on GitHub</a>.</p>
+<p>Changes and additions to SpongeDocs should be submitted as a pull request to the <a class="reference external" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs repository on GitHub</a>. We do not require it to be perfect right away as it is common for pull
+requests to be refined during the review process. Incomplete explanations are also welcome, so don&#8217;t shy away if there
+are some parts you do not understand. There will always be someone able to fill in the gaps.</p>
 </div>
 <div class="section" id="style-guide">
 <h2>Style Guide<a class="headerlink" href="#style-guide" title="Permalink to this headline">¶</a></h2>
@@ -419,6 +437,8 @@ very likely to be rejected.</li>
 BlockState (a class name), rather than <em>block state</em>). They should also be formatted as a literal using double
 backticks (eg. <tt class="docutils literal"><span class="pre">blockState</span></tt>) in body text.</li>
 <li>Lines should have a maximum length of 120 characters.</li>
+<li>Imports should be written out in code blocks the first time they are referenced in each article, but not repeated
+after the first time.</li>
 </ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>

@@ -129,7 +129,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/debugging.html">Log Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/logs.html">Log Files</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/debugging.html">Debugging</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -210,6 +215,18 @@
 <li class="toctree-l2"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="data/index.html">The Data API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="data/keys.html">Using Keys</a><ul class="simple">
 </ul>
@@ -218,6 +235,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/serialization.html">Serializing Data</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -242,24 +262,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="items.html">Working with Items</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Your Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="configuration/loaders.html">Configuration Loaders</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/values.html">Giving Nodes Value</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="injection.html">Dependency Injection</a><ul class="simple">
@@ -303,6 +305,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/mixins.html">Mixins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/git.html">Git Workflow for Sponge implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/spongedocs.html">SpongeDocs Writing</a><ul class="simple">
@@ -434,9 +439,7 @@ it should be descriptive and aid users in debugging your plugin.</td>
 <p>Last, submit the task to the scheduler using <tt class="docutils literal"><span class="pre">TaskBuilder#submit(Object</span> <span class="pre">plugin)</span></tt>.</p>
 <p>And that&#8217;s it! To summarize, a fully functional scheduled task that would run asynchronously every 5 minutes after an
 initial delay of 100 milliseconds could be built and submitted using the following code:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.scheduler.SchedulerService</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.scheduler.Task</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.scheduler.TaskBuilder</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.scheduler.Task</span><span class="o">;</span>
 
 <span class="n">SchedulerService</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
 <span class="n">TaskBuilder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">createTaskBuilder</span><span class="o">();</span>

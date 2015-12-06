@@ -130,7 +130,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/debugging.html">Log Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/logs.html">Log Files</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/spongineer/debugging.html">Debugging</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -211,6 +216,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../data/keys.html">Using Keys</a><ul class="simple">
 </ul>
@@ -219,6 +236,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../data/serialization.html">Serializing Data</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -243,24 +263,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../items.html">Working with Items</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Your Plugin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/loaders.html">Configuration Loaders</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/values.html">Giving Nodes Value</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/serialization.html">Serializing Objects</a><ul class="simple">
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a><ul class="simple">
@@ -304,6 +306,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/mixins.html">Mixins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/git.html">Git Workflow for Sponge implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/spongedocs.html">SpongeDocs Writing</a><ul class="simple">
@@ -366,17 +371,17 @@ base for custom command APIs.</p>
 <div class="section" id="writing-a-command">
 <h2>Writing a command<a class="headerlink" href="#writing-a-command" title="Permalink to this headline">¶</a></h2>
 <p>The first step is to create a class for the command. The class has to implement the interface <tt class="docutils literal"><span class="pre">CommandCallable</span></tt>:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.Server</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.Server</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Texts</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandCallable</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandException</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandResult</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandSource</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyBroadcastCommand</span> <span class="kd">implements</span> <span class="n">CommandCallable</span> <span class="o">{</span>
 
@@ -428,7 +433,9 @@ purposes of each method in this example.</p>
 <p>Now we can register the class in the <tt class="docutils literal"><span class="pre">CommandService</span></tt>. The <tt class="docutils literal"><span class="pre">CommandService</span></tt> stands as the manager for watching what
 commands get typed into chat, and redirecting them to the right command handler. To register your command, use the
 method <tt class="docutils literal"><span class="pre">CommandService.register()</span></tt>, passing your plugin, an instance of the command, and any needed aliases as parameters.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">CommandService</span> <span class="n">cmdService</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getCommandDispatcher</span><span class="o">();</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.command.CommandService</span><span class="o">;</span>
+
+<span class="n">CommandService</span> <span class="n">cmdService</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getCommandDispatcher</span><span class="o">();</span>
 <span class="n">cmdService</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="k">new</span> <span class="n">MyBroadcastCommand</span><span class="o">(</span><span class="n">server</span><span class="o">),</span> <span class="s">&quot;message&quot;</span><span class="o">,</span> <span class="s">&quot;broadcast&quot;</span><span class="o">);</span>
 </pre></div>
 </div>
@@ -444,7 +451,9 @@ used by another command are ignored.</p>
 <p>Command dispatchers can be used to create hierarchical command structures (subcommands).</p>
 <p>The default implementation of the <tt class="docutils literal"><span class="pre">Dispatcher</span></tt> interface is the <tt class="docutils literal"><span class="pre">SimpleDispatcher</span></tt> class.</p>
 <p>A <tt class="docutils literal"><span class="pre">Dispatcher</span></tt> is also a <tt class="docutils literal"><span class="pre">CommandCallable</span></tt>, so it can be registered like any other command.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">CommandCallable</span> <span class="n">subCommand1</span> <span class="o">=</span> <span class="o">...;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.dispatcher.SimpleDispatcher</span><span class="o">;</span>
+
+<span class="n">CommandCallable</span> <span class="n">subCommand1</span> <span class="o">=</span> <span class="o">...;</span>
 <span class="n">CommandCallable</span> <span class="n">subCommand2</span> <span class="o">=</span> <span class="o">...;</span>
 
 <span class="n">SimpleDispatcher</span> <span class="n">rootCommand</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleDispatcher</span><span class="o">();</span>
