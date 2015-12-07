@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Configuring Your Plugin &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+     <title>Configuring Plugins &mdash; Sponge 2.1-SNAPSHOT documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -227,17 +227,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Configuring Your Plugin</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Configuring Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="loaders.html">Configuration Loaders</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="values.html">Giving Nodes Value</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="serialization.html">Serializing Objects</a><ul class="simple">
@@ -380,12 +374,12 @@
               <div class="bodywrapper">
                 <div class="body" role="main">
                   
-  <div class="section" id="configuring-your-plugin">
-<h1>Configuring Your Plugin<a class="headerlink" href="#configuring-your-plugin" title="Permalink to this headline">¶</a></h1>
-<p>Configuration files allow your plugins to store data, as well as allow server administrators to easily take control over
-specific portions of your plugin, if you so choose to let them. Sponge uses Configurate to allow you to easily
-manipulate your configuration files. These pages will explain how to utilize Configurate in order to use configuration
-files to your full advantage.</p>
+  <div class="section" id="configuring-plugins">
+<h1>Configuring Plugins<a class="headerlink" href="#configuring-plugins" title="Permalink to this headline">¶</a></h1>
+<p>Configuration files allow plugins to store data, as well as allow server administrators to easily take control over
+specific portions of a plugin, if you so choose to let them. Sponge uses Configurate to allow you to easily
+manipulate configuration files. These pages will explain how to utilize Configurate in order to use configuration
+files to full advantage.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">See the official <a class="reference external" href="https://github.com/zml2008/configurate/wiki">Configurate wiki</a> to gain more in-depth information
@@ -407,12 +401,6 @@ pose too much of an issue if you use an alternate format instead.</p>
 <li class="toctree-l1"><a class="reference internal" href="nodes.html">Configuration Nodes</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="values.html">Giving Nodes Value</a><ul class="simple">
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="serialization.html">Serializing Objects</a><ul class="simple">
 </ul>
 </li>
@@ -427,8 +415,8 @@ to store data, and they allow server administrators to customize plugin options 
 </div>
 <div class="section" id="getting-your-default-plugin-configuration">
 <span id="getting-default-config"></span><h3>Getting your Default Plugin Configuration<a class="headerlink" href="#getting-your-default-plugin-configuration" title="Permalink to this headline">¶</a></h3>
-<p>The Sponge API offers the use of the <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt> annotation on a field or method with the type <tt class="docutils literal"><span class="pre">File</span></tt> to get
-the default configuration file for your plugin.</p>
+<p>The Sponge API offers the use of the <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt> annotation on a field or setter method with the type <tt class="docutils literal"><span class="pre">Path</span></tt>
+to get the default configuration file for your plugin.</p>
 <p>The <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt> annotation requires a <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> boolean. If you set <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt>, then the
 returned pathname will be in a shared configuration directory. In that case, the configuration file for your plugin
 will be <tt class="docutils literal"><span class="pre">your_plugin_id.conf</span></tt> (with &#8220;your_plugin_id&#8221; replaced with your plugin&#8217;s specified ID).</p>
@@ -443,50 +431,45 @@ directory specific to your plugin.</p>
 <li>If you plan on having multiple configuration files (complex plugins) in the future, set the value to <tt class="docutils literal"><span class="pre">false</span></tt>.</li>
 <li>If you plan on having a single configuration file (less-complex plugins), set the value to <tt class="docutils literal"><span class="pre">true</span></tt>.</li>
 </ul>
+<p>You can also obtain a <tt class="docutils literal"><span class="pre">Path</span></tt> instance pointing to the config directory instead of a particular file. Just
+have it injected using the <tt class="docutils literal"><span class="pre">&#64;ConfigDir</span></tt> annotation, either with <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> set to <tt class="docutils literal"><span class="pre">false</span></tt> for a plugin specific
+directory or to <tt class="docutils literal"><span class="pre">true</span></tt> to get the shared configuration directory.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">While it may be possible to get a <tt class="docutils literal"><span class="pre">File</span></tt> instead of a <tt class="docutils literal"><span class="pre">Path</span></tt>, Configurate (and Sponge) recommend using <tt class="docutils literal"><span class="pre">Path</span></tt>.</p>
+</div>
 <p><strong>Example - Field using</strong> <tt class="docutils literal"><span class="pre">&#64;DefaultConfig</span></tt></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.config.ConfigDir</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.service.config.DefaultConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.commented.CommentedConfigurationNode</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.loader.ConfigurationLoader</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
 <span class="nd">@DefaultConfig</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
-<span class="kd">private</span> <span class="n">File</span> <span class="n">defaultConfig</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">Path</span> <span class="n">defaultConfig</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
 <span class="nd">@DefaultConfig</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
 <span class="kd">private</span> <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">configManager</span><span class="o">;</span>
+
+<span class="nd">@Inject</span>
+<span class="nd">@ConfigDir</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="kd">private</span> <span class="n">Path</span> <span class="n">privateConfigDir</span><span class="o">;</span>
 </pre></div>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">When your plugin is running for the first time, the returned pathname may refer to a configuration file that does
-not yet exist.</p>
+<p class="last">When your plugin is running for the first time, returned pathnames for configuration files and directories may not
+yet exist. If you delegate all reading / writing of files to Configurate, you do not need to worry about
+non-existant paths as the library will handle them appropriately.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The use of YAML format (<a class="reference external" href="http://yaml.org/spec/1.1/">http://yaml.org/spec/1.1/</a>) is also supported, but the preferred config format for Sponge
-plugins is HOCON. Conversion from YAML to HOCON can be automated; a simple code snippet for converting a Bukkit
-plugin configuration folder with a dedicated data folder (sharedRoot = false) is provided below.</p>
-</div>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="kt">void</span> <span class="nf">convertFromBukkit</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-    <span class="n">File</span> <span class="n">bukkitConfigDir</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;plugins/&quot;</span> <span class="o">+</span> <span class="n">PomData</span><span class="o">.</span><span class="na">NAME</span><span class="o">);</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">bukkitConfigDir</span><span class="o">.</span><span class="na">isDirectory</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">configDir</span><span class="o">.</span><span class="na">isDirectory</span><span class="o">())</span> <span class="o">{</span>
-    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">lf</span><span class="o">(</span><span class="n">_</span><span class="o">(</span><span class="s">&quot;Migrating configuration data from Bukkit&quot;</span><span class="o">)));</span>
-        <span class="k">if</span> <span class="o">(!</span><span class="n">bukkitConfigDir</span><span class="o">.</span><span class="na">renameTo</span><span class="o">(</span><span class="n">configDir</span><span class="o">))</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">IOException</span><span class="o">(</span><span class="n">lf</span><span class="o">(</span><span class="n">_</span><span class="o">(</span><span class="s">&quot;Unable to move Bukkit configuration directory to location for Sponge!&quot;</span><span class="o">)));</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-    <span class="n">File</span> <span class="n">bukkitConfigFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">configDir</span><span class="o">,</span> <span class="s">&quot;config.yml&quot;</span><span class="o">);</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">bukkitConfigFile</span><span class="o">.</span><span class="na">isFile</span><span class="o">())</span> <span class="o">{</span>
-        <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">ConfigurationNode</span><span class="o">&gt;</span> <span class="n">yamlReader</span> <span class="o">=</span>
-          <span class="n">YAMLConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setFile</span><span class="o">(</span><span class="n">bukkitConfigFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
-        <span class="n">ConfigurationNode</span> <span class="n">bukkitConfig</span> <span class="o">=</span> <span class="n">yamlReader</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
-        <span class="n">configLoader</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">bukkitConfig</span><span class="o">);</span>
-        <span class="k">if</span> <span class="o">(!</span><span class="n">bukkitConfigFile</span><span class="o">.</span><span class="na">renameTo</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">configDir</span><span class="o">,</span> <span class="s">&quot;config.yml.bukkit&quot;</span><span class="o">)))</span> <span class="o">{</span>
-            <span class="n">logger</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="n">lf</span><span class="o">(</span><span class="n">_</span><span class="o">(</span><span class="s">&quot;Could not rename old Bukkit configuration file to old name&quot;</span><span class="o">)));</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
+plugins is HOCON. Conversion from YAML to HOCON can be automated by using a <tt class="docutils literal"><span class="pre">YamlConfigurationLoader</span></tt> to load
+the old config and then saving it using a <tt class="docutils literal"><span class="pre">HoconConfigurationLoader</span></tt>.</p>
 </div>
 </div>
 </div>
