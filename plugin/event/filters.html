@@ -381,7 +381,7 @@
 very commonly check while writing an event listener. Event filters are a group of annotations that assist you by allowing you
 to automatically validate aspects of the event, and if the validation fails then your listener will not be called. This allows
 your listener to be dedicated to the logic of your handler, rather than the preconditions, resulting in cleaner code.</p>
-<p>Event filters come in two varieties, event type and parameter filters.</p>
+<p>Event filters come in two varieties, event type filters and parameter filters.</p>
 <p>Event type filters are method annotations that are applied to your listener method along with the <tt class="docutils literal"><span class="pre">&#64;Listener</span></tt> annotation and
 provide several filters based on the type or state of the event.</p>
 <p>Parameter filters validate objects contained within the event such as the cause. They come in a further two varieties
@@ -395,33 +395,35 @@ events that you receive to just a subset of the events extending the event you&#
 <p>For example:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="nd">@Listener</span>
 <span class="nd">@Exclude</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Primary</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInterace</span><span class="o">(</span><span class="n">InteractBlockEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="o">(</span><span class="n">InteractBlockEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">// do something</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>This listener will be called for all events extending InteractBlockEvent <strong>except</strong> for the <tt class="docutils literal"><span class="pre">InteractBlockEvent.Primary</span></tt>
-event (leaving just the <tt class="docutils literal"><span class="pre">InteractBlockEvent.Secondary</span></tt> event).</p>
+<p>This listener would normally be called for all events extending InteractBlockEvent. However, the <tt class="docutils literal"><span class="pre">Exclude</span></tt> annotation
+will prevent your listener from being called for the <tt class="docutils literal"><span class="pre">InteractBlockEvent.Primary</span></tt> event (leaving just the
+<tt class="docutils literal"><span class="pre">InteractBlockEvent.Secondary</span></tt> event).</p>
 <p>An example with <tt class="docutils literal"><span class="pre">&#64;Include</span></tt> could be:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="nd">@Listener</span>
-<span class="nd">@Include</span><span class="o">({</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Primary</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Secondary</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInterace</span><span class="o">(</span><span class="n">InteractBlockEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+<span class="nd">@Include</span><span class="o">({</span><span class="n">DamageEntityEvent</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">DestructEntityEvent</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onEvent</span><span class="o">(</span><span class="n">EntityEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">// do something</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>This listener will be called for all events extending InteractBlockEvent which are also in the list of events within the
-<tt class="docutils literal"><span class="pre">&#64;Include</span></tt> annotation (which is all of them as it happens).</p>
+<p>This listener would normally be called for all EntityEvents, however the <tt class="docutils literal"><span class="pre">Include</span></tt> annotation narrows it to
+only recieve <tt class="docutils literal"><span class="pre">DamageEntityEvent</span></tt> and <tt class="docutils literal"><span class="pre">DestructEntityEvent</span></tt>s.</p>
 <p><strong>&#64;IsCancelled</strong>
 This annotation allows filtering events by their cancellation state at the time that your event listener would normally be
 called. By default your event listener will not be called if the event has been cancelled by a previous event listener.
-However you can change this behavior to one of three states depending on the Cancellation state value in the <tt class="docutils literal"><span class="pre">&#64;IsCancelled</span></tt>
+However you can change this behavior to one of three states depending on the <tt class="docutils literal"><span class="pre">Tristate</span></tt> value in the <tt class="docutils literal"><span class="pre">&#64;IsCancelled</span></tt>
 annotation.</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">CancellationState.FALSE</span></tt> is the default behavior and will not call your listener if the event has been cancelled.</li>
-<li><tt class="docutils literal"><span class="pre">CancellationState.IGNORE</span></tt> will cause your listener to be called regardless of the cancellation state of the event.</li>
-<li><tt class="docutils literal"><span class="pre">CancellationState.TRUE</span></tt> will cause your listener to be called only if the event has been cancelled by a previous event listener.</li>
+<li><tt class="docutils literal"><span class="pre">Tristate.FALSE</span></tt> is the default behavior if the <tt class="docutils literal"><span class="pre">IsCancelled</span></tt> annotation is not present, and will not call your</li>
 </ul>
+<p>listener if the event has been cancelled.
+- <tt class="docutils literal"><span class="pre">Tristate.UNDEFINED</span></tt> will cause your listener to be called regardless of the cancellation state of the event.
+- <tt class="docutils literal"><span class="pre">Tristate.TRUE</span></tt> will cause your listener to be called only if the event has been cancelled by a previous event listener.</p>
 </div>
 <div class="section" id="parameter-filters">
 <h2>Parameter Filters<a class="headerlink" href="#parameter-filters" title="Permalink to this headline">¶</a></h2>
@@ -450,9 +452,9 @@ will be set to the first player present the cause.</strong></p>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p><strong>&#64;All</strong> This parameter source annotation is a little special in that it requires that the annotated parameter be an array
-type. The returned array will be equivalent to the result of <tt class="docutils literal"><span class="pre">Cause#all(Class&lt;?&gt;)</span></tt>. By default if the returned array would
-be empty then the validation fails however this can be disabled by setting <tt class="docutils literal"><span class="pre">ignoreEmpty=false</span></tt>.</p>
+<p><strong>&#64;All</strong> This parameter source annotation requires that the annotated parameter be an array
+type. The returned array will be equivalent to the contents of calling <tt class="docutils literal"><span class="pre">Cause#all(Class&lt;?&gt;)</span></tt>. By default if the
+returned array would be empty then the validation fails however this can be disabled by setting <tt class="docutils literal"><span class="pre">ignoreEmpty=false</span></tt>.</p>
 <p><strong>In this example your listener will always be called, although the players array may be empty if the event&#8217;s cause contained
 no players.</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="nd">@Listener</span>
@@ -461,15 +463,17 @@ no players.</strong></p>
 <span class="o">}</span>
 </pre></div>
 </div>
+<p><strong>&#64;Root</strong> This parameter source annotation will fetch the root object of the cause, equivalent to <tt class="docutils literal"><span class="pre">Cause#root()</span></tt>.
+It also performs an additional check that the type of the root object matches the type of your parameter.</p>
 </div>
 <div class="section" id="parameter-filter-annotations">
 <h3>Parameter Filter Annotations<a class="headerlink" href="#parameter-filter-annotations" title="Permalink to this headline">¶</a></h3>
 <p>Parameter filter annotations add additional validation to objects returned from parameter source annotations. As with all
 event filters if any of these validations fail then your listener will not be called.</p>
 <p><strong>&#64;Supports</strong>
-This parameter filter may be applied to any type which is a <tt class="docutils literal"><span class="pre">DataHolder</span></tt>. It takes a class extending <tt class="docutils literal"><span class="pre">DataManipulator</span></tt> as
-its parameter and validates that the annotated DataHolder supports the given DataManipulator type. This validation is
-equivalent to <tt class="docutils literal"><span class="pre">DataHolder#supports(Class&lt;?</span> <span class="pre">extends</span> <span class="pre">DataManipulator&gt;)</span></tt>.</p>
+This parameter filter may be applied to any parameter type which is a <tt class="docutils literal"><span class="pre">DataHolder</span></tt>. It takes a class extending
+<tt class="docutils literal"><span class="pre">DataManipulator</span></tt> as its parameter and validates that the annotated DataHolder supports the given DataManipulator
+ype. This validation is equivalent to <tt class="docutils literal"><span class="pre">DataHolder#supports(Class&lt;?</span> <span class="pre">extends</span> <span class="pre">DataManipulator&gt;)</span></tt>.</p>
 <p><strong>In this example the listener will be called only if there is an entity in the event&#8217;s cause, and if that entity supports
 the data manipulator ``FlyingData``.</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="nd">@Listener</span>
@@ -489,6 +493,11 @@ instance of ``FlyingData`` available.</strong></p>
     <span class="c1">// do something</span>
 <span class="o">}</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Both <tt class="docutils literal"><span class="pre">&#64;Has</span></tt> and <tt class="docutils literal"><span class="pre">&#64;Supports</span></tt> have an optional parameter <tt class="docutils literal"><span class="pre">inverse()</span></tt> which can be set to cause validation
+to fail if the does have, or does support, the target DataManipulator.</p>
 </div>
 </div>
 </div>
