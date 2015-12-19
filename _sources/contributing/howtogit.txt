@@ -7,7 +7,7 @@ then you'll need to get familiar with ``git`` and GitHub. If you're already fami
 issues, pull-requests and commits, then just skip this topic. If you have no clue what we're talking about, then read on.
 
 .. note::
-  This guide assumes that you've read :doc:`../preparing/git` and that you've already setup your machine with a GitHub
+  This guide assumes that you've read :doc:`../preparing/git` and that you've already setup your machine with a Git
   client of your choice.
 
 The Basic Concept of Git and GitHub
@@ -17,23 +17,23 @@ Git allows different developers to develop a single piece of software at the sam
 short glossary for you to get familiar with:
 
 +---------------------------------------+----------------------------------------------------------------+
-|Git                                    | tool to manage a project with many contributors                |
+|Git                                    | Tool to manage a project with many contributors                |
 +---------------------------------------+----------------------------------------------------------------+
-|GitHub                                 | website where different organizations can store their          |
+|GitHub                                 | Website where different organizations can store their          |
 |                                       | repositories uses Git to manage the repositiories              |
 +---------------------------------------+----------------------------------------------------------------+
-|Repository                             | folder where a project (for example Sponge) is stored at       |
+|Repository                             | Folder where a project (for example Sponge) is stored at       |
 +---------------------------------------+----------------------------------------------------------------+
-|Fork                                   | a copy of a repository, usually by you or another user         |
+|Fork                                   | A copy of a repository, usually by you or another user         |
 +---------------------------------------+----------------------------------------------------------------+
 |Branch                                 | .. todo: add branch explanation here                           |
 +---------------------------------------+----------------------------------------------------------------+
-|Pull-Request "PR"                      | a proposed addition or change to a repository                  |
+|Pull-Request "PR"                      | A proposed addition or change to a repository                  |
 +---------------------------------------+----------------------------------------------------------------+
-|Issue                                  | this one is self-explanatory, this is a flaw in the            |
+|Issue                                  | This one is self-explanatory, this is a flaw in the            |
 |                                       | repository that needs to be addressed                          |
 +---------------------------------------+----------------------------------------------------------------+
-|Commit                                 | changes to the repository that are packed to a single package  |
+|Commit                                 | Changes to the repository that are packed to a single package  |
 +---------------------------------------+----------------------------------------------------------------+
 
 Now that you know some of the most important vocabularies, we must put them into context. Let's start with the repository.
@@ -41,9 +41,9 @@ The repository (short: repo) is the place where a project stores its files. Our 
 `GitHub <http://github.com/spongepowered>`__. However our repo has some access restrictions to preserve it from
 unwanted or abusive changes. You can't add changes yourself, as the repo is read-only for normal users. Now you ask
 yourself how you're supposed to file proposes and changes, right? Well, that's where forks come into play. You can grab
-yourself a copy of our repos and make your changes there. After you're done you open a PR on our repository, by doing
-this you propose your additions to us. We'll now review your changes, tell you if something is wrong or needs
-improvement and will then pull them in.
+yourself a copy of our repos and make your changes there. After you're done you open a PR on our repository. By doing
+this you propose your additions and changes to us. We'll review your changes, tell you if something is wrong or needs
+improvement and will hopefully pull them in.
 
 Here's a short summary of the above said, before we go into details:
 
@@ -51,19 +51,26 @@ Here's a short summary of the above said, before we go into details:
 #. clone it to your local machine
 #. create a new branch
 #. make the desired changes
+#. Test if everything working
 #. commit the changes
 #. sync them to GitHub
 #. propose the changes in a PR on our repo
 #. adjust your PR if necessary
 #. your PR gets pulled in
 
-Spare me the details!
+Spare me the Details!
 =====================
+
+1. Forking a Repo
+-----------------
 
 Now that you know the basic concept, we'll talk about the details. First you need to fork the repository you want to
 make changes to. This can be done on GitHub.com, you'll find a ``Fork`` button at the top of the repositories page.
 After pressing it, GitHub will do some work and present a clone of the original repo to you. You'll notice that the
 clone is now located at ``YourGitHubAccount/ClonedRepoName``. Alright, first step completed.
+
+2. Cloning the Fork to your Machine
+-----------------------------------
 
 Now you need to get this fork to your local machine to make your changes. Open the Git Client of your choice
 (:doc:`../preparing/git`) and ``clone`` your fork to your local machine. The client will ask you for a folder to store
@@ -74,6 +81,8 @@ CLI. Note that you need to create the folder everything is getting cloned to you
 
   git clone git://github.com/YourGitHubAccount/ClonedRepoName.git
 
+3. Creating a new Branch
+------------------------
 
 Ok, now that you've got a local copy of your fork, it's time to introduce branches. Branches were designed to be able
 to develop and test different features or additions at the same time without causing problems and errors due to
@@ -94,7 +103,16 @@ done! Good job so far! To get an overview of your branches, just have a look at 
 
   git branch
 
+4. Making your Changes
+----------------------
+
 **Now it's time to make your changes**. Use the editor or IDE of your choice to do this.
+
+5. Test if your changes work
+----------------------------
+
+6. Commit the changes
+---------------------
 
 When you're done, you need to bundle them into a nice package (a ``commit``) and get them into the branch. Again your
 git client will help you out. Add a meaningful name to your commit and a short description if needed. This can be done
@@ -119,7 +137,12 @@ It will open a text window, where you can add a message if you want to.
   You can have multiple commits in a PR. So just change everything you need and commit the changes. You can merge the
   commits onto a single commit later.
 
-So, fourth step is done. Again: Well done! Now we need to get the changes to your fork on GitHub. Everything you've
+So, sixth step is done. Again: Well done!
+
+7. Sync to GitHub
+-----------------
+
+Now we need to get the changes to your fork on GitHub. Everything you've
 made so far is only stored locally right now. As always you can use your git client to do this
 (there's a button somewhere) or you can do it via CLI:
 
@@ -127,9 +150,44 @@ made so far is only stored locally right now. As always you can use your git cli
 
   git push
 
+8. propose the changes in a PR on our repo
+------------------------------------------
+
 Now you can either go to your forks page on GitHub.com (there should be a notice to guide you) or you can use your
 GitHub client to create a pull-request. The official GitHub client uses the the top right corner of the window for this.
 
+9. adjust your PR if necessary
+------------------------------
+
+If we want you to make changes to your PR, then just commit to the above created branch. The commits will be added to
+your PR automatically.
+
+10. your PR gets pulled in
+--------------------------
+
 That's it. We're all set! Great job!
 
+Advanced Git
+============
+
 .. ToDo: add squashing, setting up a remote, rebasing
+
+Squashing
+---------
+
+Setting up a remote
+-------------------
+
+.. tip::
+
+    If you see this warning...
+
+    ``fatal: The current branch YourBranchName has no upstream branch.``
+
+    ...the branch may not be on the upstream remote. This may happen if this is the first time you are pushing a commit
+    for the new branch. To push the current branch and set the remote as upstream, use
+
+    ``git push --set-upstream origin YourBranchName``
+
+Rebasing
+--------

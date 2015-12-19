@@ -207,7 +207,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="childcommands.html">Child Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="service.html">The Command Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="service.html">The Command Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
@@ -301,13 +301,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/howtogit.html">How to Git(Hub)</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/implementation/index.html">Developing Sponge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/git-implementation.html">Git Workflow for Sponge API and Implementations</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/implementation/index.html">Implementation Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/pr.html">Submitting a Pull-Request</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/mixins.html">Mixins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/git.html">Git Workflow for Sponge implementations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
 </ul>
 </li>
@@ -316,18 +318,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/spongedocs.html">SpongeDocs Writing</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/pr.html">Submitting a Pull-Request</a><ul class="simple">
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/sibo/index.html">sibo PR</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../contributing/sibo/gitusage.html">How to Work with Git and Sponge</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../contributing/sibo/gitusageApi.html">Git-Fu for SpongeAPI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../contributing/sibo/gitusageImpl.html">Git Usage for Sponge Implementation</a></li>
 </ul>
 </li>
 </ul>
@@ -399,14 +390,14 @@ effect as wrapping the <tt class="docutils literal"><span class="pre">CommandEle
 <div class="section" id="example-building-a-command-with-multiple-arguments">
 <h2>Example: Building a Command with Multiple Arguments<a class="headerlink" href="#example-building-a-command-with-multiple-arguments" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Texts</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.player.Player</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandResult</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.CommandSource</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.args.CommandContext</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.args.GenericArguments</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.spec.CommandExecutor</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.spec.CommandSpec</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandResult</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandSource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.CommandContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.GenericArguments</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandExecutor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandSpec</span><span class="o">;</span>
 
 <span class="n">CommandSpec</span> <span class="n">myCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
         <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Send a message to a player&quot;</span><span class="o">))</span>
@@ -430,7 +421,7 @@ effect as wrapping the <tt class="docutils literal"><span class="pre">CommandEle
         <span class="o">})</span>
         <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 
-<span class="n">game</span><span class="o">.</span><span class="na">getCommandDispatcher</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="n">myCommandSpec</span><span class="o">,</span> <span class="s">&quot;message&quot;</span><span class="o">,</span> <span class="s">&quot;msg&quot;</span><span class="o">,</span> <span class="s">&quot;m&quot;</span><span class="o">);</span>
+<span class="n">game</span><span class="o">.</span><span class="na">getCommandManager</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="n">myCommandSpec</span><span class="o">,</span> <span class="s">&quot;message&quot;</span><span class="o">,</span> <span class="s">&quot;msg&quot;</span><span class="o">,</span> <span class="s">&quot;m&quot;</span><span class="o">);</span>
 </pre></div>
 </div>
 </div>
@@ -573,7 +564,7 @@ command argument</td>
 </table>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">See the <a class="reference external" href="http://spongepowered.github.io/SpongeAPI/org/spongepowered/api/util/command/args/GenericArguments.html">documentation for GenericArguments</a>
+<p class="last">See the <a class="reference external" href="https://jd.spongepowered.org/org/spongepowered/api/command/args/GenericArguments.html">documentation for GenericArguments</a>
 for more information.</p>
 </div>
 </div>
@@ -593,15 +584,16 @@ TAB completion.</p>
 <h3>Example: <tt class="docutils literal"><span class="pre">Vector2i</span></tt> command element definition<a class="headerlink" href="#example-vector2i-command-element-definition" title="Permalink to this headline">¶</a></h3>
 <p>The parser in this example reads two input arguments and converts them to a vector.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.flowpowered.math.vector.Vector2i</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.args.ArgumentParseException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.args.CommandArgs</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.ArgumentParseException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.CommandArgs</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.args.CommandElement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.CommandElement</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vector2iCommandElement</span> <span class="kd">extends</span> <span class="n">CommandElement</span> <span class="o">{</span>
+    <span class="n">CommandArgs</span> <span class="n">errorargs</span><span class="o">;</span>
 
     <span class="kd">protected</span> <span class="nf">Vector2iCommandElement</span><span class="o">(</span><span class="n">Text</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
@@ -611,6 +603,7 @@ TAB completion.</p>
     <span class="kd">protected</span> <span class="n">Object</span> <span class="nf">parseValue</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">,</span> <span class="n">CommandArgs</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ArgumentParseException</span> <span class="o">{</span>
 
         <span class="c1">// &lt;x&gt; &lt;y&gt;</span>
+        <span class="n">errorargs</span><span class="o">=</span><span class="n">args</span><span class="o">;</span>
 
         <span class="n">String</span> <span class="n">xInput</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
         <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">parseInt</span><span class="o">(</span><span class="n">xInput</span><span class="o">);</span>
@@ -625,7 +618,7 @@ TAB completion.</p>
         <span class="k">try</span> <span class="o">{</span>
             <span class="k">return</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
         <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="n">args</span><span class="o">.</span><span class="na">createError</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="n">input</span> <span class="o">+</span> <span class="s">&quot;&#39; is not a valid number!&quot;</span><span class="o">));</span>
+            <span class="k">throw</span> <span class="n">errorargs</span><span class="o">.</span><span class="na">createError</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="n">input</span> <span class="o">+</span> <span class="s">&quot;&#39; is not a valid number!&quot;</span><span class="o">));</span>
         <span class="o">}</span>
     <span class="o">}</span>
 

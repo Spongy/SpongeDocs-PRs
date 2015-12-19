@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/lights.js"></script>
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../index.html" />
         <link rel="up" title="Contributing to Sponge" href="index.html" />
-        <link rel="next" title="API Development" href="api/index.html" />
+        <link rel="next" title="Developing Sponge" href="implementation/index.html" />
         <link rel="prev" title="Contribution Guidelines" href="guidelines.html" />
     
   <script type="text/javascript">
@@ -58,7 +58,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="api/index.html" title="API Development"
+          <a href="implementation/index.html" title="Developing Sponge"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="guidelines.html" title="Contribution Guidelines"
@@ -206,7 +206,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../plugin/commands/childcommands.html">Child Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../plugin/commands/service.html">The Command Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plugin/commands/service.html">The Command Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../plugin/commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
@@ -300,13 +300,15 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="">How to Git(Hub)</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api/index.html">API Development</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="implementation/index.html">Developing Sponge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="implementation/git-implementation.html">Git Workflow for Sponge API and Implementations</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/index.html">Implementation Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="implementation/pr.html">Submitting a Pull-Request</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="implementation/mixins.html">Mixins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="implementation/git.html">Git Workflow for Sponge implementations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
 </ul>
 </li>
@@ -315,18 +317,7 @@
 <li class="toctree-l2"><a class="reference internal" href="spongedocs.html">SpongeDocs Writing</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="pr.html">Submitting a Pull-Request</a><ul class="simple">
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="sibo/index.html">sibo PR</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="sibo/gitusage.html">How to Work with Git and Sponge</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="sibo/gitusageApi.html">Git-Fu for SpongeAPI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="sibo/gitusageImpl.html">Git Usage for Sponge Implementation</a></li>
 </ul>
 </li>
 </ul>
@@ -382,7 +373,7 @@ then you&#8217;ll need to get familiar with <tt class="docutils literal"><span c
 issues, pull-requests and commits, then just skip this topic. If you have no clue what we&#8217;re talking about, then read on.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This guide assumes that you&#8217;ve read <a class="reference internal" href="../preparing/git.html"><em>Installing Git</em></a> and that you&#8217;ve already setup your machine with a GitHub
+<p class="last">This guide assumes that you&#8217;ve read <a class="reference internal" href="../preparing/git.html"><em>Installing Git</em></a> and that you&#8217;ve already setup your machine with a Git
 client of your choice.</p>
 </div>
 <div class="section" id="the-basic-concept-of-git-and-github">
@@ -396,30 +387,30 @@ short glossary for you to get familiar with:</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>Git</td>
-<td>tool to manage a project with many contributors</td>
+<td>Tool to manage a project with many contributors</td>
 </tr>
 <tr class="row-even"><td>GitHub</td>
-<td>website where different organizations can store their
+<td>Website where different organizations can store their
 repositories uses Git to manage the repositiories</td>
 </tr>
 <tr class="row-odd"><td>Repository</td>
-<td>folder where a project (for example Sponge) is stored at</td>
+<td>Folder where a project (for example Sponge) is stored at</td>
 </tr>
 <tr class="row-even"><td>Fork</td>
-<td>a copy of a repository, usually by you or another user</td>
+<td>A copy of a repository, usually by you or another user</td>
 </tr>
 <tr class="row-odd"><td>Branch</td>
 <td></td>
 </tr>
 <tr class="row-even"><td>Pull-Request &#8220;PR&#8221;</td>
-<td>a proposed addition or change to a repository</td>
+<td>A proposed addition or change to a repository</td>
 </tr>
 <tr class="row-odd"><td>Issue</td>
-<td>this one is self-explanatory, this is a flaw in the
+<td>This one is self-explanatory, this is a flaw in the
 repository that needs to be addressed</td>
 </tr>
 <tr class="row-even"><td>Commit</td>
-<td>changes to the repository that are packed to a single package</td>
+<td>Changes to the repository that are packed to a single package</td>
 </tr>
 </tbody>
 </table>
@@ -428,15 +419,16 @@ The repository (short: repo) is the place where a project stores its files. Our 
 <a class="reference external" href="http://github.com/spongepowered">GitHub</a>. However our repo has some access restrictions to preserve it from
 unwanted or abusive changes. You can&#8217;t add changes yourself, as the repo is read-only for normal users. Now you ask
 yourself how you&#8217;re supposed to file proposes and changes, right? Well, that&#8217;s where forks come into play. You can grab
-yourself a copy of our repos and make your changes there. After you&#8217;re done you open a PR on our repository, by doing
-this you propose your additions to us. We&#8217;ll now review your changes, tell you if something is wrong or needs
-improvement and will then pull them in.</p>
+yourself a copy of our repos and make your changes there. After you&#8217;re done you open a PR on our repository. By doing
+this you propose your additions and changes to us. We&#8217;ll review your changes, tell you if something is wrong or needs
+improvement and will hopefully pull them in.</p>
 <p>Here&#8217;s a short summary of the above said, before we go into details:</p>
 <ol class="arabic simple">
 <li>Fork the repo of your choice</li>
 <li>clone it to your local machine</li>
 <li>create a new branch</li>
 <li>make the desired changes</li>
+<li>Test if everything working</li>
 <li>commit the changes</li>
 <li>sync them to GitHub</li>
 <li>propose the changes in a PR on our repo</li>
@@ -445,11 +437,16 @@ improvement and will then pull them in.</p>
 </ol>
 </div>
 <div class="section" id="spare-me-the-details">
-<h2>Spare me the details!<a class="headerlink" href="#spare-me-the-details" title="Permalink to this headline">¶</a></h2>
+<h2>Spare me the Details!<a class="headerlink" href="#spare-me-the-details" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="forking-a-repo">
+<h3>1. Forking a Repo<a class="headerlink" href="#forking-a-repo" title="Permalink to this headline">¶</a></h3>
 <p>Now that you know the basic concept, we&#8217;ll talk about the details. First you need to fork the repository you want to
 make changes to. This can be done on GitHub.com, you&#8217;ll find a <tt class="docutils literal"><span class="pre">Fork</span></tt> button at the top of the repositories page.
 After pressing it, GitHub will do some work and present a clone of the original repo to you. You&#8217;ll notice that the
 clone is now located at <tt class="docutils literal"><span class="pre">YourGitHubAccount/ClonedRepoName</span></tt>. Alright, first step completed.</p>
+</div>
+<div class="section" id="cloning-the-fork-to-your-machine">
+<h3>2. Cloning the Fork to your Machine<a class="headerlink" href="#cloning-the-fork-to-your-machine" title="Permalink to this headline">¶</a></h3>
 <p>Now you need to get this fork to your local machine to make your changes. Open the Git Client of your choice
 (<a class="reference internal" href="../preparing/git.html"><em>Installing Git</em></a>) and <tt class="docutils literal"><span class="pre">clone</span></tt> your fork to your local machine. The client will ask you for a folder to store
 everything. Second step finished, well done! Time to give yourself a pat on the back. Alternatively you can do this via
@@ -457,6 +454,9 @@ CLI. Note that you need to create the folder everything is getting cloned to you
 <div class="highlight-none"><div class="highlight"><pre>git clone git://github.com/YourGitHubAccount/ClonedRepoName.git
 </pre></div>
 </div>
+</div>
+<div class="section" id="creating-a-new-branch">
+<h3>3. Creating a new Branch<a class="headerlink" href="#creating-a-new-branch" title="Permalink to this headline">¶</a></h3>
 <p>Ok, now that you&#8217;ve got a local copy of your fork, it&#8217;s time to introduce branches. Branches were designed to be able
 to develop and test different features or additions at the same time without causing problems and errors due to
 interferences of the additions. It&#8217;s strongly advised that you <strong>don&#8217;t</strong> make your changes on the <tt class="docutils literal"><span class="pre">master</span></tt> branch but
@@ -472,7 +472,16 @@ done! Good job so far! To get an overview of your branches, just have a look at 
 <div class="highlight-none"><div class="highlight"><pre>git branch
 </pre></div>
 </div>
+</div>
+<div class="section" id="making-your-changes">
+<h3>4. Making your Changes<a class="headerlink" href="#making-your-changes" title="Permalink to this headline">¶</a></h3>
 <p><strong>Now it&#8217;s time to make your changes</strong>. Use the editor or IDE of your choice to do this.</p>
+</div>
+<div class="section" id="test-if-your-changes-work">
+<h3>5. Test if your changes work<a class="headerlink" href="#test-if-your-changes-work" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="commit-the-changes">
+<h3>6. Commit the changes<a class="headerlink" href="#commit-the-changes" title="Permalink to this headline">¶</a></h3>
 <p>When you&#8217;re done, you need to bundle them into a nice package (a <tt class="docutils literal"><span class="pre">commit</span></tt>) and get them into the branch. Again your
 git client will help you out. Add a meaningful name to your commit and a short description if needed. This can be done
 via CLI too:</p>
@@ -491,15 +500,51 @@ git add &lt;folder&gt;
 <p class="last">You can have multiple commits in a PR. So just change everything you need and commit the changes. You can merge the
 commits onto a single commit later.</p>
 </div>
-<p>So, fourth step is done. Again: Well done! Now we need to get the changes to your fork on GitHub. Everything you&#8217;ve
+<p>So, sixth step is done. Again: Well done!</p>
+</div>
+<div class="section" id="sync-to-github">
+<h3>7. Sync to GitHub<a class="headerlink" href="#sync-to-github" title="Permalink to this headline">¶</a></h3>
+<p>Now we need to get the changes to your fork on GitHub. Everything you&#8217;ve
 made so far is only stored locally right now. As always you can use your git client to do this
 (there&#8217;s a button somewhere) or you can do it via CLI:</p>
 <div class="highlight-none"><div class="highlight"><pre>git push
 </pre></div>
 </div>
+</div>
+<div class="section" id="propose-the-changes-in-a-pr-on-our-repo">
+<h3>8. propose the changes in a PR on our repo<a class="headerlink" href="#propose-the-changes-in-a-pr-on-our-repo" title="Permalink to this headline">¶</a></h3>
 <p>Now you can either go to your forks page on GitHub.com (there should be a notice to guide you) or you can use your
 GitHub client to create a pull-request. The official GitHub client uses the the top right corner of the window for this.</p>
+</div>
+<div class="section" id="adjust-your-pr-if-necessary">
+<h3>9. adjust your PR if necessary<a class="headerlink" href="#adjust-your-pr-if-necessary" title="Permalink to this headline">¶</a></h3>
+<p>If we want you to make changes to your PR, then just commit to the above created branch. The commits will be added to
+your PR automatically.</p>
+</div>
+<div class="section" id="your-pr-gets-pulled-in">
+<h3>10. your PR gets pulled in<a class="headerlink" href="#your-pr-gets-pulled-in" title="Permalink to this headline">¶</a></h3>
 <p>That&#8217;s it. We&#8217;re all set! Great job!</p>
+</div>
+</div>
+<div class="section" id="advanced-git">
+<h2>Advanced Git<a class="headerlink" href="#advanced-git" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="squashing">
+<h3>Squashing<a class="headerlink" href="#squashing" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="setting-up-a-remote">
+<h3>Setting up a remote<a class="headerlink" href="#setting-up-a-remote" title="Permalink to this headline">¶</a></h3>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>If you see this warning...</p>
+<p><tt class="docutils literal"><span class="pre">fatal:</span> <span class="pre">The</span> <span class="pre">current</span> <span class="pre">branch</span> <span class="pre">YourBranchName</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">upstream</span> <span class="pre">branch.</span></tt></p>
+<p>...the branch may not be on the upstream remote. This may happen if this is the first time you are pushing a commit
+for the new branch. To push the current branch and set the remote as upstream, use</p>
+<p class="last"><tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">--set-upstream</span> <span class="pre">origin</span> <span class="pre">YourBranchName</span></tt></p>
+</div>
+</div>
+<div class="section" id="rebasing">
+<h3>Rebasing<a class="headerlink" href="#rebasing" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 </div>
 
