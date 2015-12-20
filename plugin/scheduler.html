@@ -371,21 +371,21 @@
                   
   <div class="section" id="using-the-scheduler">
 <h1>Using the Scheduler<a class="headerlink" href="#using-the-scheduler" title="Permalink to this headline">¶</a></h1>
-<p>Sponge exposes the <tt class="docutils literal"><span class="pre">SchedulerService</span></tt> to allow you to designate tasks to be executed in the future. The
-<tt class="docutils literal"><span class="pre">SchedulerService</span></tt> provides a <tt class="docutils literal"><span class="pre">TaskBuilder</span></tt> with which you can specify task properties such as the delay, interval,
+<p>Sponge exposes the <tt class="docutils literal"><span class="pre">Scheduler</span></tt> to allow you to designate tasks to be executed in the future. The
+<tt class="docutils literal"><span class="pre">Scheduler</span></tt> provides a <tt class="docutils literal"><span class="pre">Task.Builder</span></tt> with which you can specify task properties such as the delay, interval,
 name, (a)synchronicity, and <tt class="docutils literal"><span class="pre">Runnable</span></tt> (see <a class="reference internal" href="#task-properties"><em>Task Properties</em></a>).</p>
-<div class="section" id="working-with-the-taskbuilder">
-<h2>Working With the TaskBuilder<a class="headerlink" href="#working-with-the-taskbuilder" title="Permalink to this headline">¶</a></h2>
-<p>First, obtain an instance of the <tt class="docutils literal"><span class="pre">SchedulerService</span></tt>, and retrieve the <tt class="docutils literal"><span class="pre">TaskBuilder</span></tt>:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.scheduler.SchedulerService</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.scheduler.TaskBuilder</span><span class="o">;</span>
+<div class="section" id="working-with-the-task-builder">
+<h2>Working With the Task.Builder<a class="headerlink" href="#working-with-the-task-builder" title="Permalink to this headline">¶</a></h2>
+<p>First, obtain an instance of the <tt class="docutils literal"><span class="pre">Scheduler</span></tt>, and retrieve the <tt class="docutils literal"><span class="pre">Task.Builder</span></tt>:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.scheduler.Scheduler</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.scheduler.Task</span><span class="o">;</span>
 
-<span class="n">SchedulerService</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
-<span class="n">TaskBuilder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">createTaskBuilder</span><span class="o">();</span>
+<span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+<span class="n">Task</span><span class="o">.</span><span class="na">Builder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">createTaskBuilder</span><span class="o">();</span>
 </pre></div>
 </div>
 <p>The only required property is the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html">Runnable</a>,
-which you can specify using <tt class="docutils literal"><span class="pre">TaskBuilder#execute(Runnable</span> <span class="pre">runnable)</span></tt>:</p>
+which you can specify using <tt class="docutils literal"><span class="pre">Task.Builder#execute(Runnable</span> <span class="pre">runnable)</span></tt>:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="o">);</span>
@@ -395,7 +395,7 @@ which you can specify using <tt class="docutils literal"><span class="pre">TaskB
 </div>
 <div class="section" id="task-properties">
 <span id="id1"></span><h3>Task Properties<a class="headerlink" href="#task-properties" title="Permalink to this headline">¶</a></h3>
-<p>Using the <tt class="docutils literal"><span class="pre">TaskBuilder</span></tt>, you can specify other, optional properties, as described below.</p>
+<p>Using the <tt class="docutils literal"><span class="pre">Task.Builder</span></tt>, you can specify other, optional properties, as described below.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="15%" />
@@ -410,26 +410,39 @@ which you can specify using <tt class="docutils literal"><span class="pre">TaskB
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>delay</td>
-<td>delay(long delay)</td>
-<td>The amount of time in ticks before the task is to be run. Optionally,
-specify a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/TimeUnit.html">TimeUnit</a> as the second argument (applicable only for
-asynchronous tasks). If a <tt class="docutils literal"><span class="pre">TimeUnit</span></tt>  is not specified  for an
-asynchronous task, the specified time in ticks will be converted to the
-equivalent wall clock time.</td>
+<td><p class="first">delayTicks(long delay)</p>
+<dl class="last docutils">
+<dt>delay(long delay,</dt>
+<dd>TimeUnit unit)</dd>
+</dl>
+</td>
+<td><p class="first">The optional amount of time to pass before the task is to be run.</p>
+<p>The time is specified as a number of ticks with the <tt class="docutils literal"><span class="pre">delayTicks()</span></tt>
+method, or it may be provided as a number of a more convenient time
+unit by specifying a <a class="reference external" href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html">TimeUnit</a> with the delay() method.</p>
+<p class="last"><em>Either method, but not both, can specified per task.</em></p>
+</td>
 </tr>
 <tr class="row-odd"><td>interval</td>
-<td>interval(long interval)</td>
-<td>The amount of time in ticks between repetitions of the task. If an
-interval is not specified, the task will not be repeated. Optionally,
-specify a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/TimeUnit.html">TimeUnit</a> as the second argument (applicable only for
-asynchronous tasks). If a <tt class="docutils literal"><span class="pre">TimeUnit</span></tt> is not specified for an
-asynchronous task, the specified time in ticks will be converted to the
-equivalent wall clock time.</td>
+<td><dl class="first last docutils">
+<dt>intervalTicks(</dt>
+<dd>long interval)</dd>
+<dt>interval(long interval,</dt>
+<dd>TimeUnit unit)</dd>
+</dl>
+</td>
+<td><p class="first">The amount of time between repetitions of the task.  If an interval is
+not specified, the task will not be repeated.</p>
+<p>The time is specified as a number of ticks with the <tt class="docutils literal"><span class="pre">intervalTicks()</span></tt>
+method, or it may be provided as a number of a more convenient time
+unit by specifying a <a class="reference external" href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html">TimeUnit</a> with the interval() method.</p>
+<p class="last"><em>Either method, but not both, can specified per task.</em></p>
+</td>
 </tr>
 <tr class="row-even"><td>synchronization</td>
 <td>async()</td>
 <td>A synchronous task is run in the game&#8217;s main loop in series with the
-tick cycle. If <tt class="docutils literal"><span class="pre">TaskBuilder#async</span></tt> is used, the task will be run
+tick cycle. If <tt class="docutils literal"><span class="pre">Task.Builder#async</span></tt> is used, the task will be run
 asynchronously. Therefore, it will run in its own thread, independently
 of the tick cycle, and will not be thread safe with game data.</td>
 </tr>
@@ -443,20 +456,17 @@ it should be descriptive and aid users in debugging your plugin.</td>
 </tr>
 </tbody>
 </table>
-<p>Last, submit the task to the scheduler using <tt class="docutils literal"><span class="pre">TaskBuilder#submit(Object</span> <span class="pre">plugin)</span></tt>.</p>
+<p>Lastly, submit the task to the scheduler using <tt class="docutils literal"><span class="pre">Task.Builder#submit(Object</span> <span class="pre">plugin)</span></tt>.</p>
 <p>And that&#8217;s it! To summarize, a fully functional scheduled task that would run asynchronously every 5 minutes after an
 initial delay of 100 milliseconds could be built and submitted using the following code:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.scheduler.Task</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
 
-<span class="n">SchedulerService</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
-<span class="n">TaskBuilder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">createTaskBuilder</span><span class="o">();</span>
+<span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+<span class="n">Task</span><span class="o">.</span><span class="na">Builder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">createTaskBuilder</span><span class="o">();</span>
 
-<span class="n">Task</span> <span class="n">task</span> <span class="o">=</span> <span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-                <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="o">);</span>
-        <span class="o">}</span>
-<span class="o">}).</span><span class="na">async</span><span class="o">().</span><span class="na">delay</span><span class="o">(</span><span class="mi">100</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">).</span><span class="na">interval</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">)</span>
-<span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;ExamplePlugin - Fetch Stats from Database&quot;</span><span class="o">).</span><span class="na">submit</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
+<span class="n">Task</span> <span class="n">task</span> <span class="o">=</span> <span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="o">))</span>
+      <span class="o">.</span><span class="na">async</span><span class="o">().</span><span class="na">delay</span><span class="o">(</span><span class="mi">100</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">).</span><span class="na">interval</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;ExamplePlugin - Fetch Stats from Database&quot;</span><span class="o">).</span><span class="na">submit</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
 </pre></div>
 </div>
 <p>To cancel a task, simply call the <tt class="docutils literal"><span class="pre">Task#cancel</span></tt> method:</p>
