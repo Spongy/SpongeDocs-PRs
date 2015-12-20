@@ -36,10 +36,10 @@ is a short glossary to help you to get familiar with the topic:
 |Commit                                 | Changes to the repository that are packed to a single package  |
 +---------------------------------------+----------------------------------------------------------------+
 
-Now that you know some of the vocabulary, let's put these terms into context - beginning with the *repository*.
-The repository (*repo*) is the place where a project stores its files. The SpongePowered repositories are located at
-`GitHub <http://github.com/spongepowered>`__. However, this repo has some access restrictions to preserve it from
-unwanted or malicious changes. You can't simply make changes yourself, as the repo is read-only for regular users.
+Now that you know some of the vocabulary, let's put these terms into context - beginning with the
+*repository*. The repository (*repo*) is the place where a project stores its files. The SpongePowered repositories are
+located at `GitHub <http://github.com/spongepowered>`__. However, this repo has some access restrictions to preserve it
+from unwanted or malicious changes. You can't simply make changes yourself, as the repo is read-only for regular users.
 Now you may wonder how you're supposed to file proposals and changes. Well, that's where *forks* come into play.
 You can grab a copy of the SpongePowered repos, and make your changes there. When you're done, you open it as a PR
 on our repository. Your proposed additions and changes can then be reviewed, and staff will tell you if something is
@@ -61,6 +61,14 @@ Here's a short summary of the procedure described above, before we go into detai
 Spare Me the Details!
 =====================
 
+Before we go into detail, we'll introduce a basic repo we'll be working with:
+
+.. image:: /images/contributing/repo-overview.svg
+    :alt: Repo Overview
+
+In this case the repo is named ``SpongePowered``, has two branches named ``master`` and
+``feature 1`` and also some commits on both branches.
+
 1. Forking a Repo
 -----------------
 
@@ -69,12 +77,15 @@ make changes to. This can be done on GitHub.com, where you'll find a ``Fork`` bu
 After pressing it, GitHub will do some work and present a clone of the original repo to you. You'll notice that the
 clone is now located at ``YourGitHubAccount/ClonedRepoName``. Alright, first step completed.
 
+.. image:: /images/contributing/repo-fork.svg
+    :alt: Repo forking
+
 2. Cloning the Fork to Your Machine
 -----------------------------------
 
 Now you need to get this fork to your local machine to make your changes. Open the Git Client of your choice
 (:doc:`../preparing/git`) and ``clone`` your fork to your local machine. The client will ask you for a folder to store
-everything in. Second step finished, well done! 
+everything in. Second step finished, well done!
 
 Alternatively you can do this via CLI. Note that you need to create the folder everything is getting cloned
 to yourself:
@@ -83,10 +94,13 @@ to yourself:
 
   git clone git://github.com/YourGitHubAccount/ClonedRepoName.git
 
+.. image:: /images/contributing/repo-clone.svg
+    :alt: Repo forking
+
 3. Creating a New Branch
 ------------------------
 
-Now that you have a local copy of your fork, it's time to introduce branches. Branches were designed to be able
+Now that you have a local clone of your fork, it's time to create a branch to work on. Branches were designed to be able
 to develop and test different features or additions at the same time, without causing problems and errors due to
 interferences of the additions. It's strongly advised that you **don't** make your changes on the ``master`` branch; instead,
 create a new branch yourself (with a sensible name) and make the changes there.
@@ -106,12 +120,12 @@ done! Good job so far! To get an overview of your branches, just have a look at 
 
   git branch
 
-4. Making Your Changes
-----------------------
+.. image:: /images/contributing/repo-branch.svg
+    :alt: Repo forking
 
 **Now it's time to make your changes**. Use the editor or IDE of your choice to do this.
 
-5. Test if Your Changes Work
+4. Test if Your Changes Work
 ----------------------------
 
 For SpongeAPI and the implementations you have to run ``gradle compileJava``. Proceed to the next step if it finishes
@@ -121,7 +135,7 @@ For SpongeDocs you can just submit your PR. It will get built automatically and 
 is to build the Docs locally. Have a look at the
 `Readme.md on the Docs <https://github.com/SpongePowered/SpongeDocs/blob/master/README.md>`_ for further instructions.
 
-6. Commit the Changes
+5. Commit the Changes
 ---------------------
 
 When you're done, you need to bundle them into a single package (a ``commit``) and get them into the branch. Again your
@@ -149,7 +163,10 @@ It will open a text window, where you can add a message if you desire.
 
 So now, the sixth step is done. Almost there!
 
-7. Sync to GitHub
+.. image:: /images/contributing/repo-commit.svg
+    :alt: Repo commit
+
+6. Sync to GitHub
 -----------------
 
 Now we need to get the changes to your fork on GitHub. Everything you've made so far is only stored locally
@@ -159,19 +176,25 @@ right now. As always, you can use your git client to do this (there's a button s
 
   git push
 
-8. Propose the Changes in a PR to the SpongePowered Repo
+.. image:: /images/contributing/repo-push.svg
+    :alt: Repo commit
+
+7. Propose the Changes in a PR to the SpongePowered Repo
 --------------------------------------------------------
 
 You can either go to your forks page on GitHub.com (there should be a notice to guide you), or you can use your
 GitHub client to create a pull-request. The official GitHub client uses the the top right corner of the window for this.
 
-9. Amend Your PR if Necessary
+.. image:: /images/contributing/repo-pr.svg
+    :alt: Repo commit
+
+8. Amend Your PR if Necessary
 -----------------------------
 
 If we want you to make changes to your PR, then just make more commits to the branch created above.
 Further commits will be added to your PR automatically.
 
-10. Your PR Gets Pulled
+9. Your PR Gets Pulled
 -----------------------
 
 That's it. We're all set! Great job!
