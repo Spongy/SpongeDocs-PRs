@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Working with Optionals &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+     <title>Usage Examples &mdash; Sponge 2.1-SNAPSHOT documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -191,7 +191,7 @@
 <li class="toctree-l3"><a class="reference internal" href="basic.html">Optionals Explained</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">Working with Optionals</a><ul class="simple">
+<li class="toctree-l3 current"><a class="current reference internal" href="">Usage Examples</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -216,7 +216,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../commands/childcommands.html">Child Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/service.html">The Command Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../commands/service.html">The Command Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
@@ -225,17 +225,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Your Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../configuration/loaders.html">Configuration Loaders</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/values.html">Giving Nodes Value</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../configuration/serialization.html">Serializing Objects</a><ul class="simple">
@@ -313,8 +307,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../contributing/api/git.html">Git Workflow for SpongeAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/implementation/index.html">Implementation Development</a><ul>
@@ -378,37 +371,222 @@
               <div class="bodywrapper">
                 <div class="body" role="main">
                   
-  <div class="section" id="working-with-optionals">
-<h1>Working with Optionals<a class="headerlink" href="#working-with-optionals" title="Permalink to this headline">¶</a></h1>
-<p>Now that you&#8217;ve learned what <tt class="docutils literal"><span class="pre">Optionals</span></tt> are, we&#8217;re heading towards the usage and common use-cases.
-First we&#8217;ll invetigate what <tt class="docutils literal"><span class="pre">Optionals&lt;T&gt;</span></tt> does, how it works and what issues you may run into.</p>
-<div class="section" id="basic-usage">
-<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="optional-t">
-<h3>Optional &lt;T&gt;<a class="headerlink" href="#optional-t" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">Optionals</span></tt> are used when a <tt class="docutils literal"><span class="pre">value</span></tt> might be present or missing. So your plugin has to check the precense of the
-<tt class="docutils literal"><span class="pre">value</span></tt> and handle both cases. There are different possibilities to use <tt class="docutils literal"><span class="pre">Optionals</span></tt>:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="k">if</span> <span class="o">(</span><span class="n">opt</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
- <span class="n">T</span> <span class="n">value</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-  <span class="c1">// handle failure</span>
+  <div class="section" id="usage-examples">
+<h1>Usage Examples<a class="headerlink" href="#usage-examples" title="Permalink to this headline">¶</a></h1>
+<p>Now that we learned why <tt class="docutils literal"><span class="pre">Optional</span></tt>s are used, let us take a look what we can actually do with them in java. These
+code examples (and Sponge) use the <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html">java.util.Optional</a>
+class available in Java 8.</p>
+<div class="section" id="obtaining-the-wrapped-value">
+<h2>Obtaining the wrapped Value<a class="headerlink" href="#obtaining-the-wrapped-value" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">get()</span></tt> method will unwrap an <tt class="docutils literal"><span class="pre">Optional</span></tt> and return the wrapped value. If no value is present, calling <tt class="docutils literal"><span class="pre">get()</span></tt>
+will throw a <tt class="docutils literal"><span class="pre">NoSuchElementException</span></tt>, so a presence check should be performed first.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">getOptionalString</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">wrappedString</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="handling-absent-values">
+<h2>Handling absent Values<a class="headerlink" href="#handling-absent-values" title="Permalink to this headline">¶</a></h2>
+<p>The purpose of the <tt class="docutils literal"><span class="pre">Optional</span></tt> type is representing a value that might or might not be there. As such, many use cases
+revolve around handling absent values.</p>
+<div class="section" id="presence-check">
+<h3>Presence Check<a class="headerlink" href="#presence-check" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">isPresent()</span></tt> method returns true if a value is present on the <tt class="docutils literal"><span class="pre">Optional</span></tt>. It can provide the most basic
+verification and is an equivalent to a classic <tt class="docutils literal"><span class="pre">null</span></tt> check.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">getOptionalString</span><span class="o">();</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">opt</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">wrappedString</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="c1">// more code</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li>Why you should call <tt class="docutils literal"><span class="pre">Optional#get()</span></tt> very carefully: throwing hard-to-debug errors, essentially lifting NullPointerException into a NoSuchElementException</li>
-<li>Using <tt class="docutils literal"><span class="pre">Optional#orElse</span></tt> and <tt class="docutils literal"><span class="pre">Optional#orElseThrow</span></tt>: orElse for a default value, orElseThrow to throw a descriptive exception that you should handle later</li>
-</ul>
-<p>The standard pattern of:</p>
+</div>
+<div class="section" id="using-default-values">
+<h3>Using default Values<a class="headerlink" href="#using-default-values" title="Permalink to this headline">¶</a></h3>
+<p>A common pattern is falling back to a default value if none is present. The <tt class="docutils literal"><span class="pre">orElse()</span></tt> method allows for a single
+line statement that will return either the value present on the <tt class="docutils literal"><span class="pre">Optional</span></tt> or the supplied default value.</p>
+<p>Instead of</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">optionalString</span> <span class="o">=</span> <span class="n">optionalString</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">someString</span><span class="o">;</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">optionalString</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">someString</span> <span class="o">=</span> <span class="n">optionalString</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="n">someString</span> <span class="o">=</span> <span class="n">DEFAULT_STRING</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>just use</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">String</span> <span class="n">someString</span> <span class="o">=</span> <span class="n">getOptionalString</span><span class="o">().</span><span class="na">orElse</span><span class="o">(</span><span class="n">DEFAULT_STRING</span><span class="o">);</span>
+</pre></div>
+</div>
+<p>In some cases a default value has to be calculated in a way that has side effects or is particularly expensive. In such
+a case it is desirable to calculate the default value only if needed (<em>lazy evaluation</em>). The <tt class="docutils literal"><span class="pre">orElseGet()</span></tt> method
+accepts a <tt class="docutils literal"><span class="pre">Supplier</span></tt> instead of a pre-calculated value. If no value is present on the <tt class="docutils literal"><span class="pre">Optional</span></tt> itself, the
+<tt class="docutils literal"><span class="pre">Supplier</span></tt> will be called. Since <tt class="docutils literal"><span class="pre">Supplier</span></tt> is a functional interface, a lambda expression or method reference can
+be passed instead.</p>
+<p>Instead of</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">optionalString</span> <span class="o">=</span> <span class="n">optionalString</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">someString</span><span class="o">;</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">optionalString</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">someString</span> <span class="o">=</span> <span class="n">optionalString</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="n">someString</span> <span class="o">=</span> <span class="n">myPlugin</span><span class="o">.</span><span class="na">defaultString</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>just use</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">String</span> <span class="n">someString</span> <span class="o">=</span> <span class="n">getOptionalString</span><span class="o">().</span><span class="na">orElseGet</span><span class="o">(</span><span class="n">myPlugin</span><span class="o">::</span><span class="n">defaultString</span><span class="o">);</span>
+</pre></div>
 </div>
 </div>
-<div class="section" id="advanced-usage">
-<h2>Advanced Usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="fail-on-absent-values">
+<h3>Fail on absent Values<a class="headerlink" href="#fail-on-absent-values" title="Permalink to this headline">¶</a></h3>
+<p>If a value being absent should lead to an exception, it is almost always better to throw a custom exception instead of
+relying on the default <tt class="docutils literal"><span class="pre">NoSuchElementException</span></tt>. If you call the <tt class="docutils literal"><span class="pre">orElseThrow()</span></tt> method with a <tt class="docutils literal"><span class="pre">Supplier</span></tt>, it will
+return the wrapped value if it is present, or throw a <tt class="docutils literal"><span class="pre">Throwable</span></tt> obtained from the <tt class="docutils literal"><span class="pre">Supplier</span></tt> if the <tt class="docutils literal"><span class="pre">Optional</span></tt>
+is empty. Again, as <tt class="docutils literal"><span class="pre">Supplier</span></tt> is a functional interface, lambda expressions or method references may be used instead.</p>
+<p>Instead of</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">optionalString</span> <span class="o">=</span> <span class="n">optionalString</span><span class="o">();</span>
+<span class="k">if</span> <span class="o">(!</span><span class="n">optionalString</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="n">MyException</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="n">String</span> <span class="n">someString</span> <span class="o">=</span> <span class="n">optionalString</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+</pre></div>
+</div>
+<p>just use</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">String</span> <span class="n">someString</span> <span class="o">=</span> <span class="n">getOptionalString</span><span class="o">().</span><span class="na">orElseThrow</span><span class="o">();</span><span class="c1">//MyException::new);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the <tt class="docutils literal"><span class="pre">Throwable</span></tt> provided by the supplier is a checked exception, it will also have to be included in the
+signature of the surrounding function (for example <tt class="docutils literal"><span class="pre">public</span> <span class="pre">void</span> <span class="pre">doStuff()</span> <span class="pre">throws</span> <span class="pre">MyException</span></tt>)</p>
+</div>
+</div>
+</div>
+<div class="section" id="conditional-code-execution">
+<h2>Conditional Code Execution<a class="headerlink" href="#conditional-code-execution" title="Permalink to this headline">¶</a></h2>
+<p>If no default value can be used, the code that relies on a value being present cannot be executed. While this might be
+dealt with in a simple condition, there are other convenient methods.</p>
+<div class="section" id="consuming-values">
+<h3>Consuming Values<a class="headerlink" href="#consuming-values" title="Permalink to this headline">¶</a></h3>
+<p>If your logic to handle the present value is already encapsulated in a <tt class="docutils literal"><span class="pre">Consumer</span></tt> or a single-parameter function, the
+<tt class="docutils literal"><span class="pre">ifPresent()</span></tt> method will accept the consumer (or a method reference). If a value is present on the <tt class="docutils literal"><span class="pre">Optional</span></tt>, it
+will be passed to the consumer. If the <tt class="docutils literal"><span class="pre">Optional</span></tt> is empty, nothing will happen.</p>
+<p>Instead of</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">optionalString</span> <span class="o">=</span> <span class="n">getOptionalString</span><span class="o">();</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">optionalString</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">myPlugin</span><span class="o">.</span><span class="na">doSomethingWithString</span><span class="o">(</span><span class="n">optionalString</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>just use</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">optionalString</span> <span class="o">=</span> <span class="n">getOptionalString</span><span class="o">();</span>
+<span class="n">optionalString</span><span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">myPlugin</span><span class="o">.</span><span class="na">doSomethingWithString</span><span class="o">(</span><span class="n">s</span><span class="o">));</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">getOptionalString</span><span class="o">().</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">myPlugin</span><span class="o">::</span><span class="n">doSomethingWithString</span><span class="o">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtering">
+<h3>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h3>
+<p>It is also possible to pass a <tt class="docutils literal"><span class="pre">Predicate</span></tt>. Only values that this <tt class="docutils literal"><span class="pre">Predicate</span></tt> returns true for will be retained. If
+no value is present or the <tt class="docutils literal"><span class="pre">Predicate</span></tt> returns <tt class="docutils literal"><span class="pre">false</span></tt>, an empty <tt class="docutils literal"><span class="pre">Optional</span></tt> will be returned. Since this method
+returns an optional, it allows for chaining with other methods.</p>
+<p>Instead of</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">optionalString</span> <span class="o">=</span> <span class="n">getOptionalString</span><span class="o">();</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">optinalString</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">someString</span> <span class="o">=</span> <span class="n">optionalString</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">stringTester</span><span class="o">.</span><span class="na">isPalindromic</span><span class="o">(</span><span class="n">someString</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">myPlugin</span><span class="o">.</span><span class="na">doSomethingWithString</span><span class="o">(</span><span class="n">someString</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>just use</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">getOptionalString</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">stringTester</span><span class="o">::</span><span class="n">isPalindromic</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">myPlugin</span><span class="o">::</span><span class="n">doSomethingWithString</span><span class="o">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Neither this filtering function nor the mapping functions described below modify the instance they are called on.
+<tt class="docutils literal"><span class="pre">Optional</span></tt>s are always immutable.</p>
+</div>
+</div>
+<div class="section" id="mapping">
+<h3>Mapping<a class="headerlink" href="#mapping" title="Permalink to this headline">¶</a></h3>
+<p>Another chainable operation is mapping the potential value to a different one. If no value is present, nothing will
+change. But if it is present, the <tt class="docutils literal"><span class="pre">map()</span></tt> method will return an <tt class="docutils literal"><span class="pre">Optional</span></tt> of the value returned by the provided
+<tt class="docutils literal"><span class="pre">Function</span></tt> (or an empty <tt class="docutils literal"><span class="pre">Optional</span></tt> if that return value is <tt class="docutils literal"><span class="pre">null</span></tt>).</p>
+<p>Instead of</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">optionalString</span> <span class="o">=</span> <span class="n">getOptionalString</span><span class="o">();</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">optionalString</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">someString</span> <span class="o">=</span> <span class="n">optionalString</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">();</span>
+    <span class="n">myPlugin</span><span class="o">.</span><span class="na">doSomethingWithString</span><span class="o">(</span><span class="n">someString</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>just use</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">getOptionalString</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">myPlugin</span><span class="o">::</span><span class="n">doSomethingWithString</span><span class="o">);</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If your mapping function already returns an <tt class="docutils literal"><span class="pre">Optional</span></tt>, use the <tt class="docutils literal"><span class="pre">flatMap()</span></tt> method instead. It will behave just
+like <tt class="docutils literal"><span class="pre">map()</span></tt>, except that it expects the mapping function to already return an <tt class="docutils literal"><span class="pre">Optional</span></tt> and therefore will
+not wrap the result.</p>
+</div>
+</div>
+<div class="section" id="combined-example">
+<h3>Combined Example<a class="headerlink" href="#combined-example" title="Permalink to this headline">¶</a></h3>
+<p>Imagine a plugin that allows each player to have a pet following. Assume the existance of the following methods:</p>
 <ul class="simple">
-<li>Using Optional#ifPresent: Only do something if it exists, no errors otherwise</li>
-<li>Using Optional#flatMap to chain optionals: useful especially with Data API, you can use this to chain an optional value with methods that return additional methods, i.e. opt.flatMap(value -&gt; value.getData(SomeData.class))</li>
-<li>Constructing your own optionals: using Optional.empty() for empty, Optional.of for present, and Optional.ofNullable to lift a null into an Optional</li>
+<li><tt class="docutils literal"><span class="pre">petRegistry.getPetForPlayer()</span></tt> accepting a <tt class="docutils literal"><span class="pre">Player</span></tt> and returning an <tt class="docutils literal"><span class="pre">Optional&lt;Pet&gt;</span></tt>. This method looks up the pet associated with a given player</li>
+<li><tt class="docutils literal"><span class="pre">petHelper.canSpawn()</span></tt> accepting a <tt class="docutils literal"><span class="pre">Pet</span></tt> and returning a <tt class="docutils literal"><span class="pre">boolean</span></tt>. This method performs all the necessary checks to make sure the given pet may be spawned.</li>
+<li><tt class="docutils literal"><span class="pre">petHelper.spawnPet()</span></tt> accepting a <tt class="docutils literal"><span class="pre">Pet</span></tt> and returning nothing. This method will spawn a previously not spawned pet.</li>
 </ul>
+<p>Now from somewhere (probably the execution of a command) we got the <tt class="docutils literal"><span class="pre">optionalPlayer</span></tt> variable holding an
+<tt class="docutils literal"><span class="pre">Optional&lt;Player&gt;</span></tt>. We now want to obtain this players pet, check if the pet is spawned and if it is not spawned,
+spawn it while performing the according checks if each and every <tt class="docutils literal"><span class="pre">Optional</span></tt> actually contains a value. The code only
+using the basic <tt class="docutils literal"><span class="pre">isPresent()</span></tt> and <tt class="docutils literal"><span class="pre">get()</span></tt> methods gets nasty really quickly.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="k">if</span> <span class="o">(</span><span class="n">optionalPlayer</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="n">optionalPlayer</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Pet</span><span class="o">&gt;</span> <span class="n">optionalPet</span> <span class="o">=</span> <span class="n">petRegistry</span><span class="o">.</span><span class="na">getPetForPlayer</span><span class="o">(</span><span class="n">player</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">optionalPet</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">Pet</span> <span class="n">pet</span> <span class="o">=</span> <span class="n">optionalPet</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">petHelper</span><span class="o">.</span><span class="na">canSpawn</span><span class="o">(</span><span class="n">pet</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">petHelper</span><span class="o">.</span><span class="na">spawnPet</span><span class="o">(</span><span class="n">pet</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>However through use of <tt class="docutils literal"><span class="pre">Optional</span></tt>s methods for conditional code execution, all those presence checks are hidden,
+reducing the boilerplate and indentation levels and thus leaving the code much more readable:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">optionalPlayer</span>
+      <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">petRegistry</span><span class="o">::</span><span class="n">getPetForPlayer</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">petHelper</span><span class="o">::</span><span class="n">canSpawn</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">petHelper</span><span class="o">::</span><span class="n">spawnPet</span><span class="o">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="creating-optionals">
+<h2>Creating Optionals<a class="headerlink" href="#creating-optionals" title="Permalink to this headline">¶</a></h2>
+<p>Should you choose to provide an API following the same contract of using <tt class="docutils literal"><span class="pre">Optional</span></tt> instead of returning <tt class="docutils literal"><span class="pre">null</span></tt>
+values, you will have to create <tt class="docutils literal"><span class="pre">Optional</span></tt>s in order to be able to return them. This is done by calling one of the
+three static constructor methods.</p>
+<p><tt class="docutils literal"><span class="pre">Optional.empty()</span></tt> will always return an empty <tt class="docutils literal"><span class="pre">Optional</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">Optional.of()</span></tt> will return an optional wrapping the given value and raise a <tt class="docutils literal"><span class="pre">NullPointerException</span></tt> if the value was
+<tt class="docutils literal"><span class="pre">null</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">Optional.ofNullable()</span></tt> will return an empty <tt class="docutils literal"><span class="pre">Optional</span></tt> if the supplied value is <tt class="docutils literal"><span class="pre">null</span></tt>, otherwise it will return
+an <tt class="docutils literal"><span class="pre">Optional</span></tt> wrapping the value.</p>
 </div>
 </div>
 

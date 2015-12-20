@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/lights.js"></script>
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
-        <link rel="next" title="Configuring Your Plugin" href="configuration/index.html" />
+        <link rel="next" title="Configuring Plugins" href="configuration/index.html" />
         <link rel="prev" title="Low-Level Command API" href="commands/commandcallable.html" />
     
   <script type="text/javascript">
@@ -58,7 +58,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="configuration/index.html" title="Configuring Your Plugin"
+          <a href="configuration/index.html" title="Configuring Plugins"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="commands/commandcallable.html" title="Low-Level Command API"
@@ -190,7 +190,7 @@
 <li class="toctree-l3"><a class="reference internal" href="optional/basic.html">Optionals Explained</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="optional/usage.html">Working with Optionals</a><ul class="simple">
+<li class="toctree-l3"><a class="reference internal" href="optional/usage.html">Usage Examples</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -215,7 +215,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="commands/childcommands.html">Child Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/service.html">The Command Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/service.html">The Command Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
@@ -224,17 +224,11 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="">Working with Events</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Your Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="configuration/loaders.html">Configuration Loaders</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/values.html">Giving Nodes Value</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
@@ -312,8 +306,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../contributing/api/index.html">API Development</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../contributing/api/git.html">Git Workflow for SpongeAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/api/index.html">API Development</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/implementation/index.html">Implementation Development</a><ul>
@@ -379,13 +372,7 @@
                   
   <div class="section" id="working-with-events">
 <h1>Working with Events<a class="headerlink" href="#working-with-events" title="Permalink to this headline">¶</a></h1>
-<p>Sponge provides a system to:</p>
-<ul class="simple">
-<li>Listen for events</li>
-<li>Fire events</li>
-</ul>
-<div class="section" id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Sponge currently provides a system to listen for events and fire them.</p>
 <p>Events are used to inform plugins of certain happenings. Many events can also be <em>cancelled</em> &#8211; that is, the action that
 the event refers to can be prevented from occurring. Cancellable events implement the <tt class="docutils literal"><span class="pre">Cancellable</span></tt> interface.</p>
 <p>Sponge itself contains many events; however, plugins can create their own events which other plugins can listen to.</p>
@@ -400,7 +387,6 @@ and is also responsible for distributing events to event listeners.</p>
 <p class="last">The event bus <strong>supports supertypes</strong>. For example, <tt class="docutils literal"><span class="pre">ChangeBlockEvent.Break</span></tt> extends <tt class="docutils literal"><span class="pre">ChangeBlockEvent</span></tt>.
 Therefore, a plugin could listen to <tt class="docutils literal"><span class="pre">ChangeBlockEvent</span></tt> and still receive <tt class="docutils literal"><span class="pre">ChangeBlockEvent.Break</span></tt>s. However,
 a plugin listening to just <tt class="docutils literal"><span class="pre">ChangeBlockEvent.Break</span></tt> would not be notified of other types of <tt class="docutils literal"><span class="pre">ChangeBlockEvent</span></tt>.</p>
-</div>
 </div>
 <div class="section" id="event-listeners">
 <h2>Event Listeners<a class="headerlink" href="#event-listeners" title="Permalink to this headline">¶</a></h2>

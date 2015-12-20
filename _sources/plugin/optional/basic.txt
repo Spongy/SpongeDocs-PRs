@@ -23,10 +23,10 @@ In the olden times of yore, our plugin might fetch and use the ``Foo`` from the 
 
 .. code-block:: java
 
- public void someEventHandler(Entity someEntity) {
-  Foo entityFoo = someEntity.getFoo();
-  entityFoo.bar();
- }
+    public void someEventHandler(Entity someEntity) {
+        Foo entityFoo = someEntity.getFoo();
+        entityFoo.bar();
+    }
 
 The problem arises because - when designing the API - we have to rely an *implicit* contract on the ``getFoo`` method
 with respect to whether the method can (or cannot) return ``null``. This *implicit contract* can be defined in one of
@@ -38,34 +38,28 @@ two ways:
 .. image:: /images/optionals2.png
 
 Let's assume that the ``getFoo()`` method can - as part of its contract - return null. This suddenly means that our
-code above is unsafe as it may result in a ``NullPointerException``:
+code above is unsafe as it may result in a ``NullPointerException`` if ``entityFoo`` is null.
 
 .. code-block:: java
 
- public void someEventHandler(Entity someEntity) {
-  Foo entityFoo = someEntity.getFoo();
-  entityFoo.bar(); // If entityFoo is null, this line now
-                     // generates a NullPointerException!
- }
+    public void someEventHandler(Entity someEntity) {
+        Foo entityFoo = someEntity.getFoo();
+        entityFoo.bar();
+    }
 
 Let's assume our plugin author is savvy to the nullable nature of our ``getFoo`` method and decides to fix the problem
-with null checking. The resultant code looks like this:
+with null checking. Assuming he has defined a local constant ``Foo``, he resultant code looks like this:
 
 
 .. code-block:: java
 
- public void someEventHandler(Entity someEntity) {
-  Foo entityFoo = someEntity.getFoo();
-  if (entityFoo == null) {
-        // Assume we have some local constant Foo to use as
-        // a backup.
-        entityFoo = MyPlugin.DEFAULT_FOO;
+    public void someEventHandler(Entity someEntity) {
+        Foo entityFoo = someEntity.getFoo();
+        if (entityFoo == null) {
+            entityFoo = MyPlugin.DEFAULT_FOO;
+        }
+        entityFoo.bar();
     }
-    // Definitely not null now, but this call has ended up
-    // disconnected (visually) from the original getter by
-    // the need to explicitly handle the possible null.
-    entityFoo.bar();
- }
 
 In this example, the plugin author is aware that the method can return null and has a constant available with a
 default instance of ``Foo`` which can be used instead. Of course the plugin could just short-circuit the call entirely,
@@ -128,12 +122,12 @@ To see why, let's take a look at the above example, converted to use a ``getFoo`
 
 .. code-block:: java
 
- public void someEventHandler(Entity someEntity) {
-    Optional<Foo> entityFoo = someEntity.getFoo();
-    if (entityFoo.isPresent()) {
-        entityFoo.get().bar();
+    public void someEventHandler(Entity someEntity) {
+        Optional<Foo> entityFoo = someEntity.getFoo();
+        if (entityFoo.isPresent()) {
+            entityFoo.get().bar();
+        }
     }
- }
 
 You may note that this example looks very much like a standard null-check, however the use of ``Optional`` actually
 carries a little more information in the same amount of code. For example, it is not necessary for someone reading
@@ -148,19 +142,19 @@ make them orders of magnitude more elegant: consider the following code:
 
 .. code-block:: java
 
- public void someEventHandler(Entity someEntity) {
-    Foo entityFoo = someEntity.getFoo().orElse(MyPlugin.DEFAULT_FOO);
-    entityFoo.bar();
- }
+    public void someEventHandler(Entity someEntity) {
+        Foo entityFoo = someEntity.getFoo().orElse(MyPlugin.DEFAULT_FOO);
+        entityFoo.bar();
+    }
 
 Hold the phone! Did we just replace the tedious null-check-and-default-assignment from the example above with a
 single line of code? Yes indeed we did. In fact, for simple use cases we can even dispense with the assignment:
 
 .. code-block:: java
 
- public void someEventHandler(Entity someEntity) {
-    someEntity.getFoo().orElse(MyPlugin.DEFAULT_FOO).bar();
- }
+    public void someEventHandler(Entity someEntity) {
+        someEntity.getFoo().orElse(MyPlugin.DEFAULT_FOO).bar();
+    }
 
 This is perfectly safe provided that ``MyPlugin.DEFAULT_FOO`` is always available.
 
@@ -170,30 +164,32 @@ available:
 
 .. code-block:: java
 
- public void someEventHandler(Entity someEntity, Entity entity2) {
-    Foo entityFoo = someEntity.getFoo();
-    if (entityFoo == null) {
-        entityFoo = entity2.getFoo();
+    public void someEventHandler(Entity someEntity, Entity entity2) {
+        Foo entityFoo = someEntity.getFoo();
+        if (entityFoo == null) {
+            entityFoo = entity2.getFoo();
+        }
+        if (entityFoo == null) {
+            entityFoo = MyPlugin.DEFAULT_FOO;
+        }
+        entityFoo.bar();
     }
-    if (entityFoo == null) {
-        entityFoo = MyPlugin.DEFAULT_FOO;
-    }
-    entityFoo.bar();
- }
 
 Using ``Optional`` we can encode this much much more cleanly as:
 
 .. code-block:: java
 
- public void someEventHandler(Entity someEntity, Entity entity2) {
-    someEntity.getFoo().orElse(entity2.getFoo().orElse(MyPlugin.DEFAULT_FOO)).bar();
- }
+    public void someEventHandler(Entity someEntity, Entity entity2) {
+        someEntity.getFoo().orElse(entity2.getFoo().orElse(MyPlugin.DEFAULT_FOO)).bar();
+    }
 
 This is merely the tip of the ``Optional`` iceberg. In java 8 ``Optional`` also supports the ``Consumer`` and
-``Supplier`` interfaces, allowing lambas to be used for *absent* failover.
+``Supplier`` interfaces, allowing lambas to be used for *absent* failover. Usage examples for those can be found on the
+:doc:`usage` page.
 
 .. note::
 
- Further explanations are provided here: `Guava: Using And Avoiding Null Explained <https://github.com/google/guava/wiki/UsingAndAvoidingNullExplained/>`_
-
-If you want to know more about the usage of Optionals, then head over to: :doc:`usage`
+    Another explanation on the rationale behind avoiding null references can be found on
+    `Guava: Using And Avoiding Null Explained <https://github.com/google/guava/wiki/UsingAndAvoidingNullExplained/>`_.
+    Beware that the guava ``Optional`` class mentioned in the linked article is different from java's
+    ``java.util.Optional`` and therefore will have method names different from those used here.
