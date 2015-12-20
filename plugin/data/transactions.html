@@ -374,30 +374,30 @@
 <h1>Transactions<a class="headerlink" href="#transactions" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="reading-the-result">
 <h2>Reading the Result<a class="headerlink" href="#reading-the-result" title="Permalink to this headline">¶</a></h2>
-<p>For everything you <tt class="docutils literal"><span class="pre">offer</span></tt> to a data holder, the <tt class="docutils literal"><span class="pre">offer</span></tt> method will yield a <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt>. This
+<p>For everything you <code class="docutils literal"><span class="pre">offer</span></code> to a data holder, the <code class="docutils literal"><span class="pre">offer</span></code> method will yield a <code class="docutils literal"><span class="pre">DataTransactionResult</span></code>. This
 object will contain the following:</p>
 <div class="section" id="type">
 <h3>Type<a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">Type</span></tt> indicates whether the transaction was completed successfully and, if not, how it failed.</p>
+<p>The <code class="docutils literal"><span class="pre">Type</span></code> indicates whether the transaction was completed successfully and, if not, how it failed.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="16%" />
 <col width="84%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">UNDEFINED</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">UNDEFINED</span></code></td>
 <td>No clear result for the transaction - indicates that something went wrong</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">SUCCESS</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">SUCCESS</span></code></td>
 <td>Transaction was completed successfully</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">FAILURE</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">FAILURE</span></code></td>
 <td>Transaction failed for expected reasons (e.g. incompatible data)</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">ERROR</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">ERROR</span></code></td>
 <td>Transaction failed for unexpected reasons</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">CANCELLED</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">CANCELLED</span></code></td>
 <td>An event for this transaction was cancelled</td>
 </tr>
 </tbody>
@@ -413,13 +413,13 @@ the data that was involved in the transaction.</p>
 <col width="72%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">getSuccessfulData()</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">getSuccessfulData()</span></code></td>
 <td>contains all data that was successfully set</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">getReplacedData()</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">getReplacedData()</span></code></td>
 <td>contains all data that got replaced by successfully set data</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">getRejectedData()</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">getRejectedData()</span></code></td>
 <td>contains all data that could not be set</td>
 </tr>
 </tbody>
@@ -431,28 +431,28 @@ the data that was involved in the transaction.</p>
 <div class="section" id="healing-a-player">
 <h3>Healing a Player<a class="headerlink" href="#healing-a-player" title="Permalink to this headline">¶</a></h3>
 <p>Surely you remember the healing example in the <a class="reference internal" href="keys.html"><em>Using Keys</em></a> page. Imagine a player who is down to half a heart
-(which equals 1 health) being healed that way. The <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt> in that case would look like this:</p>
+(which equals 1 health) being healed that way. The <code class="docutils literal"><span class="pre">DataTransactionResult</span></code> in that case would look like this:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">getType()</span></tt> would return <tt class="docutils literal"><span class="pre">SUCCESS</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">getRejectedData()</span></tt> would be an empty list</li>
-<li><tt class="docutils literal"><span class="pre">getReplacedData()</span></tt> would contain one value container for the <tt class="docutils literal"><span class="pre">Keys.HEALTH</span></tt> key with a value of 1.0</li>
-<li><tt class="docutils literal"><span class="pre">getSuccessfulData()</span></tt> would contain one value container for the <tt class="docutils literal"><span class="pre">Keys.HEALTH</span></tt> key with a value of 20.0</li>
+<li><code class="docutils literal"><span class="pre">getType()</span></code> would return <code class="docutils literal"><span class="pre">SUCCESS</span></code></li>
+<li><code class="docutils literal"><span class="pre">getRejectedData()</span></code> would be an empty list</li>
+<li><code class="docutils literal"><span class="pre">getReplacedData()</span></code> would contain one value container for the <code class="docutils literal"><span class="pre">Keys.HEALTH</span></code> key with a value of 1.0</li>
+<li><code class="docutils literal"><span class="pre">getSuccessfulData()</span></code> would contain one value container for the <code class="docutils literal"><span class="pre">Keys.HEALTH</span></code> key with a value of 20.0</li>
 </ul>
 <p>Now what would be different if we used the healing example from the <a class="reference internal" href="datamanipulators.html"><em>Data Manipulators</em></a> page instead? Since
-the <tt class="docutils literal"><span class="pre">HealthData</span></tt> data manipulator contains values for both the current and the maximum health, in addition to
-the above result, both the <tt class="docutils literal"><span class="pre">getReplacedData()</span></tt> list and the <tt class="docutils literal"><span class="pre">getSuccessfulData()</span></tt> list would contain one more
-element: A value container for the <tt class="docutils literal"><span class="pre">Keys.MAX_HEALTH</span></tt> key with a value of 20.0.</p>
+the <code class="docutils literal"><span class="pre">HealthData</span></code> data manipulator contains values for both the current and the maximum health, in addition to
+the above result, both the <code class="docutils literal"><span class="pre">getReplacedData()</span></code> list and the <code class="docutils literal"><span class="pre">getSuccessfulData()</span></code> list would contain one more
+element: A value container for the <code class="docutils literal"><span class="pre">Keys.MAX_HEALTH</span></code> key with a value of 20.0.</p>
 </div>
 <div class="section" id="offering-healthdata-to-a-block-of-stone">
 <h3>Offering HealthData to a block of stone<a class="headerlink" href="#offering-healthdata-to-a-block-of-stone" title="Permalink to this headline">¶</a></h3>
 <p>Now our above-mentioned examples are coded in a such a way that they will fail silently rather than try to offer the
-incompatible data. But imagine we took a (fully healed) player&#8217;s <tt class="docutils literal"><span class="pre">HealthData</span></tt> and tried to offer it to the
-<tt class="docutils literal"><span class="pre">Location</span></tt> of the stone block he&#8217;s currently standing on. We can do this, since <tt class="docutils literal"><span class="pre">Location</span></tt> is also a data
-holder. And if we do, it would reward us with a <tt class="docutils literal"><span class="pre">DataTransactionResult</span></tt> like this:</p>
+incompatible data. But imagine we took a (fully healed) player&#8217;s <code class="docutils literal"><span class="pre">HealthData</span></code> and tried to offer it to the
+<code class="docutils literal"><span class="pre">Location</span></code> of the stone block he&#8217;s currently standing on. We can do this, since <code class="docutils literal"><span class="pre">Location</span></code> is also a data
+holder. And if we do, it would reward us with a <code class="docutils literal"><span class="pre">DataTransactionResult</span></code> like this:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">getType()</span></tt> would return <tt class="docutils literal"><span class="pre">FAILURE</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">getRejectedData()</span></tt> would contain two value containers for the <tt class="docutils literal"><span class="pre">HEALTH</span></tt> and <tt class="docutils literal"><span class="pre">MAX_HEALTH</span></tt> keys, each with a value of 20.0</li>
-<li><tt class="docutils literal"><span class="pre">getReplacedData()</span></tt> and <tt class="docutils literal"><span class="pre">getSuccessfulData()</span></tt> would be empty lists</li>
+<li><code class="docutils literal"><span class="pre">getType()</span></code> would return <code class="docutils literal"><span class="pre">FAILURE</span></code></li>
+<li><code class="docutils literal"><span class="pre">getRejectedData()</span></code> would contain two value containers for the <code class="docutils literal"><span class="pre">HEALTH</span></code> and <code class="docutils literal"><span class="pre">MAX_HEALTH</span></code> keys, each with a value of 20.0</li>
+<li><code class="docutils literal"><span class="pre">getReplacedData()</span></code> and <code class="docutils literal"><span class="pre">getSuccessfulData()</span></code> would be empty lists</li>
 </ul>
 </div>
 </div>
@@ -460,7 +460,7 @@ holder. And if we do, it would reward us with a <tt class="docutils literal"><sp
 <h2>Reverting Transactions<a class="headerlink" href="#reverting-transactions" title="Permalink to this headline">¶</a></h2>
 <p>Since everything about a transaction result is immutable, it can serve for documentation of data changes. And it
 also allows for those changes it documents to be undone. For that, simply pass a transaction result to the data
-holder&#8217;s <tt class="docutils literal"><span class="pre">undo()</span></tt> method. This is particularly useful since some data offerings may be partially successful, so
+holder&#8217;s <code class="docutils literal"><span class="pre">undo()</span></code> method. This is particularly useful since some data offerings may be partially successful, so
 that one or more values are successfully written to the data holder, yet one more value cannot be accepted. Since
 you may wish to undo the partial successes.</p>
 <p><strong>Code Example: Reverting a transaction</strong></p>
@@ -487,7 +487,7 @@ you may wish to undo the partial successes.</p>
         </div>
         <div class="footer" role="contentinfo">
               &copy; Copyright 2014-2015, Sponge Contributors.
-            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>
   </body>
