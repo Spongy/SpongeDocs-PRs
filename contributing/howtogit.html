@@ -382,7 +382,7 @@ client of your choice.</p>
 <div class="section" id="the-basic-concept-of-git-and-github">
 <h2>The Basic Concept of Git and GitHub<a class="headerlink" href="#the-basic-concept-of-git-and-github" title="Permalink to this headline">¶</a></h2>
 <p>Git allows many different developers to develop a single piece of software at the same time. Before we start, here
-is a short glossary to help you to get familiar with the topic:</p>
+is a short glossary to help you to get familiar with the topic and an image of a basic github repo:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="38%" />
@@ -396,7 +396,7 @@ is a short glossary to help you to get familiar with the topic:</p>
 <td>Website where different organizations can store their
 repositories uses Git to manage the repositiories</td>
 </tr>
-<tr class="row-odd"><td>Repository</td>
+<tr class="row-odd"><td>Repository &#8220;Repo&#8221;</td>
 <td>Folder where a project (for example Sponge) is stored at</td>
 </tr>
 <tr class="row-even"><td>Fork</td>
@@ -417,14 +417,16 @@ repository.</td>
 </tr>
 </tbody>
 </table>
+<img alt="Repo Overview" src="../_images/repo-overview.svg" /><p>In this case the repo is named <code class="docutils literal"><span class="pre">SpongePowered</span></code>, has two branches named <code class="docutils literal"><span class="pre">master</span></code> and
+<code class="docutils literal"><span class="pre">feature</span> <span class="pre">1</span></code> and also some commits on both branches.</p>
 <p>Now that you know some of the vocabulary, let&#8217;s put these terms into context - beginning with the
-<em>repository</em>. The repository (<em>repo</em>) is the place where a project stores its files. The SpongePowered repositories are
-located at <a class="reference external" href="http://github.com/spongepowered">GitHub</a>. However, this repo has some access restrictions to preserve it
-from unwanted or malicious changes. You can&#8217;t simply make changes yourself, as the repo is read-only for regular users.
-Now you may wonder how you&#8217;re supposed to file proposals and changes. Well, that&#8217;s where <em>forks</em> come into play.
-You can grab a copy of the SpongePowered repos, and make your changes there. When you&#8217;re done, you open it as a PR
-on our repository. Your proposed additions and changes can then be reviewed, and staff will tell you if something is
-wrong, or needs improvement, and eventually merge the final PR.</p>
+<em>repository</em>. The repository (short: <em>repo</em>) is the place where a project stores its files. The SpongePowered
+repositories are located at <a class="reference external" href="http://github.com/spongepowered">GitHub</a>. However, this repo has some access
+restrictions to preserve it from unwanted or malicious changes. You can&#8217;t simply make changes yourself, as the repo is
+read-only for regular users. Now you may wonder how you&#8217;re supposed to file proposals and changes. Well, that&#8217;s where
+<em>forks</em> come into play. You can grab a copy of the SpongePowered repos, and make your changes there. When you&#8217;re done,
+you open it as a pull request (<em>PR</em>) on our repository. Your proposed additions and changes can then be reviewed, and
+staff will tell you if something is wrong, or needs improvement, and eventually merge the final PR.</p>
 <p>Here&#8217;s a short summary of the procedure described above, before we go into detail:</p>
 <ol class="arabic simple">
 <li>Fork the repo of your choice</li>
@@ -441,23 +443,31 @@ wrong, or needs improvement, and eventually merge the final PR.</p>
 </div>
 <div class="section" id="spare-me-the-details">
 <h2>Spare Me the Details!<a class="headerlink" href="#spare-me-the-details" title="Permalink to this headline">¶</a></h2>
-<p>Before we go into detail, we&#8217;ll introduce a basic repo we&#8217;ll be working with:</p>
-<img alt="Repo Overview" src="../_images/repo-overview.svg" /><p>In this case the repo is named <code class="docutils literal"><span class="pre">SpongePowered</span></code>, has two branches named <code class="docutils literal"><span class="pre">master</span></code> and
-<code class="docutils literal"><span class="pre">feature</span> <span class="pre">1</span></code> and also some commits on both branches.</p>
 <div class="section" id="forking-a-repo">
 <h3>1. Forking a Repo<a class="headerlink" href="#forking-a-repo" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This step is only required if you don&#8217;t have push rights on the repo you&#8217;re making changes to. If you&#8217;re qorking on
+your own repo, no fork is required. Just skip this step and <code class="docutils literal"><span class="pre">clone</span></code> directly. If you&#8217;re making changes to Sponge
+and you <strong>aren&#8217;t</strong> staff, this step is required.</p>
+</div>
 <p>Now that you know the basic concept, we&#8217;ll discuss the details. First you need to fork the repository you want to
 make changes to. This can be done on GitHub.com, where you&#8217;ll find a <code class="docutils literal"><span class="pre">Fork</span></code> button at the top of the repositories page.
 After pressing it, GitHub will do some work and present a clone of the original repo to you. You&#8217;ll notice that the
 clone is now located at <code class="docutils literal"><span class="pre">YourGitHubAccount/ClonedRepoName</span></code>. Alright, first step completed.</p>
 <img alt="Repo forking" src="../_images/repo-fork.svg" /></div>
-<div class="section" id="cloning-the-fork-to-your-machine">
-<h3>2. Cloning the Fork to Your Machine<a class="headerlink" href="#cloning-the-fork-to-your-machine" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="cloning-the-fork-to-your-local-machine">
+<h3>2. Cloning the Fork to Your local Machine<a class="headerlink" href="#cloning-the-fork-to-your-local-machine" title="Permalink to this headline">¶</a></h3>
 <p>Now you need to get this fork to your local machine to make your changes. Open the Git Client of your choice
 (<a class="reference internal" href="../preparing/git.html"><em>Installing Git</em></a>) and <code class="docutils literal"><span class="pre">clone</span></code> your fork to your local machine. The client will ask you for a folder to store
 everything in. Second step finished, well done!</p>
-<p>Alternatively you can do this via CLI. Note that you need to create the folder everything is getting cloned
-to yourself:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Most steps can be done via GUI of your choice. If you&#8217;re experienced with a command line interface, then you can use
+it too. Each steps will show you the required commands to achieve the desired result.</p>
+</div>
+<p>Alternatively you can do this via CLI (command line interface, <code class="docutils literal"><span class="pre">CMD</span></code> or <code class="docutils literal"><span class="pre">powershell</span></code> on windows). Note
+that you need to create the folder everything is getting cloned to yourself before typing this command:</p>
 <div class="highlight-none"><div class="highlight"><pre>git clone git://github.com/YourGitHubAccount/ClonedRepoName.git
 </pre></div>
 </div>
@@ -503,7 +513,8 @@ git add &lt;folder&gt;
 <div class="highlight-none"><div class="highlight"><pre>git commit
 </pre></div>
 </div>
-<p>It will open a text window, where you can add a message if you desire.</p>
+<p>It will open a text window, where you can add a message if you desire. Have a look at the image below. You&#8217;ll notice
+that your commits are still stored locally only and not on your fork on Github.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">You can have multiple commits in a PR. Just go ahead and change everything you need and commit the changes.
@@ -514,15 +525,17 @@ You can merge the commits onto a single commit later.</p>
 <div class="section" id="sync-to-github">
 <h3>6. Sync to GitHub<a class="headerlink" href="#sync-to-github" title="Permalink to this headline">¶</a></h3>
 <p>Now we need to get the changes to your fork on GitHub. Everything you&#8217;ve made so far is only stored locally
-right now. As always, you can use your git client to do this (there&#8217;s a button somewhere), or you can do it via CLI:</p>
+right now. As always, you can use your git client to do this (there&#8217;s a button somewhere in your GUI), or you can do
+it via CLI:</p>
 <div class="highlight-none"><div class="highlight"><pre>git push
 </pre></div>
 </div>
 <img alt="Repo commit" src="../_images/repo-push.svg" /></div>
 <div class="section" id="propose-the-changes-in-a-pr-to-the-spongepowered-repo">
 <h3>7. Propose the Changes in a PR to the SpongePowered Repo<a class="headerlink" href="#propose-the-changes-in-a-pr-to-the-spongepowered-repo" title="Permalink to this headline">¶</a></h3>
-<p>You can either go to your forks page on GitHub.com (there should be a notice to guide you), or you can use your
-GitHub client to create a pull-request. The official GitHub client uses the the top right corner of the window for this.</p>
+<p>You can either go to your forks page on GitHub.com (there should be a notice at the top of your forks page to
+guide you), or you can use your GitHub client to create a pull-request. The official GitHub for Win client uses the
+the top right corner of the window for this.</p>
 <img alt="Repo commit" src="../_images/repo-pr.svg" /></div>
 <div class="section" id="amend-your-pr-if-necessary">
 <h3>8. Amend Your PR if Necessary<a class="headerlink" href="#amend-your-pr-if-necessary" title="Permalink to this headline">¶</a></h3>
@@ -544,26 +557,86 @@ Too many trivial commits also clutters the project commit history. Fortunately G
 called a <code class="docutils literal"><span class="pre">rebase</span></code>. Rebasing can take your 137 small commits and just turn them into one big commit. Awesome, isn&#8217;t it?
 Instead of reinventing the wheel, we&#8217;ll just pass you a link to a very short and easily understandable squashing tutorial:</p>
 <p><a class="reference external" href="http://gitready.com/advanced/2009/02/10/squashing-commits-with-rebase.html">Gitready: Squashing with Rebase</a></p>
-</div>
+<p>This is what it does, nicely visualized:</p>
+<img alt="Repo commit" src="../_images/repo-squash.svg" /></div>
 <div class="section" id="setting-up-a-remote">
 <h3>Setting Up a Remote<a class="headerlink" href="#setting-up-a-remote" title="Permalink to this headline">¶</a></h3>
-<p>If you see the warning <code class="docutils literal"><span class="pre">fatal:</span> <span class="pre">The</span> <span class="pre">current</span> <span class="pre">branch</span> <span class="pre">YourBranchName</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">upstream</span> <span class="pre">branch.</span></code>, then the branch may not be on
+<p>Naturally the original repo is the dircet parent of your fork and your fork is the direct parent of your local clone.
+However the original repo <strong>isn&#8217;t</strong> the direct parent of your clone. This isn&#8217;t a problem in the first place, but it
+prevents you from updating your clone to the latest changes on the original repo. If you setup the original repo as a
+remote (read: &#8220;parent&#8221;) of your clone, you&#8217;ll be able to grab all changes made to this repo and apply it to your local
+clone. Look below to see how grabbing and updating works.</p>
+<img alt="Repo commit" src="../_images/repo-remote.svg" /><p>Alright. This step is done through CLI as most GUIs are missing this (rather advanced) functionality:</p>
+<div class="highlight-none"><div class="highlight"><pre>git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
+</pre></div>
+</div>
+<p>If you&#8217;re unsure if that worked as intended or if you want to check which remotes are currently set, you can check via:</p>
+<div class="highlight-none"><div class="highlight"><pre>git remote -v
+</pre></div>
+</div>
+<p>the output should look like:</p>
+<div class="highlight-none"><div class="highlight"><pre>origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)
+origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)
+upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (fetch)
+upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (push)
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you see the warning <code class="docutils literal"><span class="pre">fatal:</span> <span class="pre">The</span> <span class="pre">current</span> <span class="pre">branch</span> <span class="pre">YourBranchName</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">upstream</span> <span class="pre">branch.</span></code>, then the branch may not be on
 the upstream remote. This may happen if this is the first time you are pushing a commit for the new branch. To push the
 current branch and set the remote as upstream, use <code class="docutils literal"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">--set-upstream</span> <span class="pre">origin</span> <span class="pre">YourBranchName</span></code>.</p>
+</div>
 </div>
 <div class="section" id="rebasing">
 <h3>Rebasing<a class="headerlink" href="#rebasing" title="Permalink to this headline">¶</a></h3>
 <p>Let&#8217;s say you made some changes to your desired branch, but in the meantime someone else updated the repo. This
-means that your fork is outdated, which is not a big problem, but to avoid problems when merging your additions later on,
-it&#8217;s strongly advised to <code class="docutils literal"><span class="pre">rebase</span></code> your changes against the lastest changes in the original repo. If you haven&#8217;t set up
-the remote repo yet, do it before trying to rebase.</p>
+means that your fork and your clone are outdated. This is not a big problem, but to avoid problems when merging your
+additions later on, it&#8217;s strongly advised to <code class="docutils literal"><span class="pre">rebase</span></code> your changes against the latest changes on the original repo.
+If you haven&#8217;t set up the remote repo yet, do it before trying to rebase.</p>
 <p>A successfull rebase requires several steps:</p>
-<ol class="arabic simple">
-<li>you must fetch the changes in the remote repo</li>
-<li>you merge the remote changes into your local folder (preferably into your master branch)</li>
-<li>you rebase the local branch which contains your changes against your local master branch</li>
-<li>push everything to your fork on GitHub</li>
-</ol>
+<div class="section" id="fetch-the-changes-on-the-remote-repo">
+<h4>1. Fetch the Changes on the Remote Repo<a class="headerlink" href="#fetch-the-changes-on-the-remote-repo" title="Permalink to this headline">¶</a></h4>
+<p>First you need to fetch the changes on the remote repository. This is (again) done via CLI:</p>
+<div class="highlight-none"><div class="highlight"><pre>git fetch upstream
+</pre></div>
+</div>
+<p>This will add all changes from the remote <code class="docutils literal"><span class="pre">upstream</span></code> and put them into a temporary <code class="docutils literal"><span class="pre">upstream/master</span></code> branch.</p>
+</div>
+<div class="section" id="merge-remote-changes-locally">
+<h4>2. Merge Remote Changes locally<a class="headerlink" href="#merge-remote-changes-locally" title="Permalink to this headline">¶</a></h4>
+<p>Now we need to select our local <code class="docutils literal"><span class="pre">master</span></code> branch:</p>
+<div class="highlight-none"><div class="highlight"><pre>git checkout master
+</pre></div>
+</div>
+<p>After that we&#8217;ll merge the changes that are included in <code class="docutils literal"><span class="pre">upstream/master</span></code> into our local <code class="docutils literal"><span class="pre">master</span></code> branch:</p>
+<div class="highlight-none"><div class="highlight"><pre>git merge upstream/master
+</pre></div>
+</div>
+<p>Alright, this is what we&#8217;ve done so far:</p>
+<img alt="rebase 1" src="../_images/repo-rebase1.svg" /></div>
+<div class="section" id="rebase-local-branch-against-updated-master">
+<h4>3. Rebase Local Branch against Updated Master<a class="headerlink" href="#rebase-local-branch-against-updated-master" title="Permalink to this headline">¶</a></h4>
+<p>Next up is rebasing the local branch you&#8217;re working in against local <code class="docutils literal"><span class="pre">master</span></code>. We need to switch to your working
+branch (here: <code class="docutils literal"><span class="pre">feature/yourfeature</span></code>) and then perform a rebase. This is done via:</p>
+<div class="highlight-none"><div class="highlight"><pre>git checkout feature/yourfeature
+git rebase master
+</pre></div>
+</div>
+<p>This will rewind your branch, add the commits from master and then apply your own changes again. The result looks like
+this:</p>
+<img alt="rebase 1" src="../_images/repo-rebase2.svg" /></div>
+<div class="section" id="push-everything-to-your-fork">
+<h4>4. Push Everything to your Fork<a class="headerlink" href="#push-everything-to-your-fork" title="Permalink to this headline">¶</a></h4>
+<p>The last thing we need to do is to push everything to the fork:</p>
+<div class="highlight-none"><div class="highlight"><pre>git checkout master
+git push -f
+git checkout feature/yourfeature
+git push -f
+</pre></div>
+</div>
+<img alt="rebase 1" src="../_images/repo-rebase3.svg" /><p>You made it, awesome! Good job and well done and thanks for flying Rebase-Air!</p>
+</div>
 </div>
 </div>
 </div>
