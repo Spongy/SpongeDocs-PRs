@@ -373,9 +373,9 @@
                   
   <div class="section" id="building-a-command">
 <h1>Building a Command<a class="headerlink" href="#building-a-command" title="Permalink to this headline">¶</a></h1>
-<p>The first step is to get a new <tt class="docutils literal"><span class="pre">CommandSpec</span></tt> builder. The builder provides methods to modify the command help
+<p>The first step is to get a new <code class="docutils literal"><span class="pre">CommandSpec</span></code> builder. The builder provides methods to modify the command help
 messages, command arguments and the command logic. These methods can be chained.</p>
-<p>To finally build the command, call the <tt class="docutils literal"><span class="pre">build()</span></tt> method of the builder.</p>
+<p>To finally build the command, call the <code class="docutils literal"><span class="pre">build()</span></code> method of the builder.</p>
 <p>After that, you have to register the command.</p>
 <div class="section" id="example-building-a-simple-command">
 <h2>Example: Building a Simple Command<a class="headerlink" href="#example-building-a-simple-command" title="Permalink to this headline">¶</a></h2>
@@ -405,36 +405,36 @@ messages, command arguments and the command logic. These methods can be chained.
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">executor</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">executor</span></code></td>
 <td><p class="first">Defines the command logic (See <a class="reference internal" href="#writing-a-command-executor">Writing a Command Executor</a>).</p>
 <p class="last"><strong>Setting the executor is required</strong> if no child commands are set.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">arguments</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">arguments</span></code></td>
 <td>Sets the argument specification for this command (See <a class="reference internal" href="arguments.html"><em>Argument Parsing</em></a>).</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">permission</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">permission</span></code></td>
 <td>Set the permission that will be checked before using this command.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">description</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">description</span></code></td>
 <td>A short, one-line description of this command&#8217;s purpose that will be displayed by the help system.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">extendedDescription</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">extendedDescription</span></code></td>
 <td>Sets an extended description to use in longer help listings. Will be appended to the short description.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">child</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">child</span></code></td>
 <td>Adds a child command to this command with its aliases (See <a class="reference internal" href="childcommands.html"><em>Child Commands</em></a>).</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">children</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">children</span></code></td>
 <td>Sets the child commands of this command with their aliases (See <a class="reference internal" href="childcommands.html"><em>Child Commands</em></a>).</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">inputTokenizer</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">inputTokenizer</span></code></td>
 <td><p class="first">Defines how the arguments will be parsed. By default, the parser splits the command input by spaces.
 Quotations count as a single argument.</p>
-<p class="last">Example: <tt class="docutils literal"><span class="pre">/tpworld</span> <span class="pre">Notch</span> <span class="pre">&quot;My</span> <span class="pre">World&quot;</span></tt> would result in two arguments: <tt class="docutils literal"><span class="pre">Notch</span></tt> and <tt class="docutils literal"><span class="pre">My</span> <span class="pre">World</span></tt>.</p>
+<p class="last">Example: <code class="docutils literal"><span class="pre">/tpworld</span> <span class="pre">Notch</span> <span class="pre">&quot;My</span> <span class="pre">World&quot;</span></code> would result in two arguments: <code class="docutils literal"><span class="pre">Notch</span></code> and <code class="docutils literal"><span class="pre">My</span> <span class="pre">World</span></code>.</p>
 </td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">build</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">build</span></code></td>
 <td>Builds the command. After that, you have to register the command.</td>
 </tr>
 </tbody>
@@ -443,7 +443,7 @@ Quotations count as a single argument.</p>
 <h3>Writing a Command Executor<a class="headerlink" href="#writing-a-command-executor" title="Permalink to this headline">¶</a></h3>
 <p>The only required component to build a simple command is the command executor class, which contains the logic of the
 command.</p>
-<p>The class has to implement the <tt class="docutils literal"><span class="pre">CommandExecutor</span></tt> interface, which defines the <tt class="docutils literal"><span class="pre">execute</span></tt> method. The method is called
+<p>The class has to implement the <code class="docutils literal"><span class="pre">CommandExecutor</span></code> interface, which defines the <code class="docutils literal"><span class="pre">execute</span></code> method. The method is called
 on command execution and has two arguments:</p>
 <ul class="simple">
 <li>The source of the command call (e.g. the console, a command block or a player)</li>
@@ -477,8 +477,8 @@ define the command executor in the command build process (See the example in the
 </div>
 <div class="section" id="player-only-commands">
 <h2>Player-Only Commands<a class="headerlink" href="#player-only-commands" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes it is neccessary that only players can execute a command (e.g. a <tt class="docutils literal"><span class="pre">/suicide</span></tt> command).</p>
-<p>Perform an <tt class="docutils literal"><span class="pre">instanceof</span></tt> check to determine the type of the <tt class="docutils literal"><span class="pre">CommandSource</span></tt>:</p>
+<p>Sometimes it is neccessary that only players can execute a command (e.g. a <code class="docutils literal"><span class="pre">/suicide</span></code> command).</p>
+<p>Perform an <code class="docutils literal"><span class="pre">instanceof</span></code> check to determine the type of the <code class="docutils literal"><span class="pre">CommandSource</span></code>:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.command.source.CommandBlockSource</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.command.source.ConsoleSource</span><span class="o">;</span>
@@ -499,16 +499,16 @@ define the command executor in the command build process (See the example in the
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>We recommend you to add an optional <tt class="docutils literal"><span class="pre">[player]</span></tt> argument to make the command <strong>console-friendly</strong> (e.g. <tt class="docutils literal"><span class="pre">/suicide</span>
-<span class="pre">[player]</span></tt>).</p>
-<p class="last">The easiest solution for this is to append a <tt class="docutils literal"><span class="pre">playerOrSource</span></tt> command element (See <a class="reference internal" href="arguments.html"><em>Argument Parsing</em></a>).</p>
+<p>We recommend you to add an optional <code class="docutils literal"><span class="pre">[player]</span></code> argument to make the command <strong>console-friendly</strong> (e.g. <code class="docutils literal"><span class="pre">/suicide</span>
+<span class="pre">[player]</span></code>).</p>
+<p class="last">The easiest solution for this is to append a <code class="docutils literal"><span class="pre">playerOrSource</span></code> command element (See <a class="reference internal" href="arguments.html"><em>Argument Parsing</em></a>).</p>
 </div>
 <div class="section" id="command-results">
 <h3>Command Results<a class="headerlink" href="#command-results" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">CommandExecutor::execute()</span></tt> method must always return a <tt class="docutils literal"><span class="pre">CommandResult</span></tt>. In most cases it is sufficient to
-return <tt class="docutils literal"><span class="pre">CommandResult.success()</span></tt> if the command was successful or <tt class="docutils literal"><span class="pre">CommandResult.empty()</span></tt> if it wasn&#8217;t. In cases
-where more information needs to be conveyed, a <tt class="docutils literal"><span class="pre">CommandResult.builder()</span></tt> should be used. It provides the methods
-<tt class="docutils literal"><span class="pre">affectedBlocks()</span></tt>, <tt class="docutils literal"><span class="pre">affectedEntities()</span></tt>, <tt class="docutils literal"><span class="pre">affectedItems()</span></tt>, <tt class="docutils literal"><span class="pre">queryResult()</span></tt> and <tt class="docutils literal"><span class="pre">successCount()</span></tt> methods,
+<p>The <code class="docutils literal"><span class="pre">CommandExecutor::execute()</span></code> method must always return a <code class="docutils literal"><span class="pre">CommandResult</span></code>. In most cases it is sufficient to
+return <code class="docutils literal"><span class="pre">CommandResult.success()</span></code> if the command was successful or <code class="docutils literal"><span class="pre">CommandResult.empty()</span></code> if it wasn&#8217;t. In cases
+where more information needs to be conveyed, a <code class="docutils literal"><span class="pre">CommandResult.builder()</span></code> should be used. It provides the methods
+<code class="docutils literal"><span class="pre">affectedBlocks()</span></code>, <code class="docutils literal"><span class="pre">affectedEntities()</span></code>, <code class="docutils literal"><span class="pre">affectedItems()</span></code>, <code class="docutils literal"><span class="pre">queryResult()</span></code> and <code class="docutils literal"><span class="pre">successCount()</span></code> methods,
 each accepting an integer and setting the attribute of the same name. All attributes that are not set by the builder
 will be empty.</p>
 <p>Command blocks can use those values to modify scoreboard stats, which then can be used for elaborate constructions
@@ -524,12 +524,12 @@ consisting of multiple command blocks. A tutorial how the data is accessed can b
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
-<p>This example uses a builder to create a <tt class="docutils literal"><span class="pre">CommandResult</span></tt> for a command which affected 42 entities and was successful.</p>
+<p>This example uses a builder to create a <code class="docutils literal"><span class="pre">CommandResult</span></code> for a command which affected 42 entities and was successful.</p>
 <div class="section" id="error-handling">
 <h3>Error Handling<a class="headerlink" href="#error-handling" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">execute()</span></tt> method may also throw a <tt class="docutils literal"><span class="pre">CommandException</span></tt>, signaling that an error occured while trying to execute
+<p>The <code class="docutils literal"><span class="pre">execute()</span></code> method may also throw a <code class="docutils literal"><span class="pre">CommandException</span></code>, signaling that an error occured while trying to execute
 the command. If such an Exception is thrown, its message will be displayed to the command source, formatted as an error.
-Also, the commands usage message will be displayed. An <tt class="docutils literal"><span class="pre">ArgumentParseException</span></tt>, a subtype of <tt class="docutils literal"><span class="pre">CommandException</span></tt> is
+Also, the commands usage message will be displayed. An <code class="docutils literal"><span class="pre">ArgumentParseException</span></code>, a subtype of <code class="docutils literal"><span class="pre">CommandException</span></code> is
 automatically thrown if the commands arguments could not be parsed.</p>
 </div>
 </div>
@@ -543,7 +543,7 @@ automatically thrown if the commands arguments could not be parsed.</p>
         </div>
         <div class="footer" role="contentinfo">
               &copy; Copyright 2014-2015, Sponge Contributors.
-            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>
   </body>

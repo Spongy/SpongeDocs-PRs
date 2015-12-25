@@ -372,16 +372,16 @@
                   
   <div class="section" id="message-sinks">
 <h1>Message Sinks<a class="headerlink" href="#message-sinks" title="Permalink to this headline">¶</a></h1>
-<p>A <tt class="docutils literal"><span class="pre">MessageSink</span></tt> enables you to easily control the recipients of a message. The
-<tt class="docutils literal"><span class="pre">org.spongepowered.api.text.sink.MessageSinks</span></tt> utility class provides methods for targeting appropriate recipients,
+<p>A <code class="docutils literal"><span class="pre">MessageSink</span></code> enables you to easily control the recipients of a message. The
+<code class="docutils literal"><span class="pre">org.spongepowered.api.text.sink.MessageSinks</span></code> utility class provides methods for targeting appropriate recipients,
 as described below.</p>
 <div class="section" id="selecting-message-sink-recipients">
 <h2>Selecting Message Sink Recipients<a class="headerlink" href="#selecting-message-sink-recipients" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="permission-based-selection">
 <h3>Permission-based Selection<a class="headerlink" href="#permission-based-selection" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">MessageSinks</span></tt> class can be employed to target any player that holds the specified permission.</p>
+<p>The <code class="docutils literal"><span class="pre">MessageSinks</span></code> class can be employed to target any player that holds the specified permission.</p>
 <p><strong>Example: Permission-based Targeting</strong></p>
-<p>For example, the code below will define a <tt class="docutils literal"><span class="pre">MessageSink</span></tt> targeting all players with the <cite>com.example.myplugin</cite> permission</p>
+<p>For example, the code below will define a <code class="docutils literal"><span class="pre">MessageSink</span></code> targeting all players with the <cite>com.example.myplugin</cite> permission</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.sink.MessageSink</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.sink.MessageSinks</span><span class="o">;</span>
 
@@ -391,23 +391,23 @@ as described below.</p>
 </div>
 <div class="section" id="broadcasting">
 <h3>Broadcasting<a class="headerlink" href="#broadcasting" title="Permalink to this headline">¶</a></h3>
-<p>In a broadcast, every <tt class="docutils literal"><span class="pre">CommandSource</span></tt> connected to the server will be sent the same message. This can be achieved
-with a <tt class="docutils literal"><span class="pre">MessageSink</span></tt>, as shown below:</p>
+<p>In a broadcast, every <code class="docutils literal"><span class="pre">CommandSource</span></code> connected to the server will be sent the same message. This can be achieved
+with a <code class="docutils literal"><span class="pre">MessageSink</span></code>, as shown below:</p>
 <p><strong>Example: Broadcasting</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">MessageSink</span> <span class="n">broadcastSink</span> <span class="o">=</span> <span class="n">MessageSinks</span><span class="o">.</span><span class="na">toAll</span><span class="o">();</span>
 </pre></div>
 </div>
-<p>Alternatively, you could retrieve the broadcast <tt class="docutils literal"><span class="pre">MessageSink</span></tt> provided by Sponge:</p>
+<p>Alternatively, you could retrieve the broadcast <code class="docutils literal"><span class="pre">MessageSink</span></code> provided by Sponge:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">MessageSink</span> <span class="n">broadcastSink</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="na">getBroadcastSink</span><span class="o">();</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="combining-message-sinks">
 <h3>Combining Message Sinks<a class="headerlink" href="#combining-message-sinks" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">MessageSinks</span></tt> class can also be used to combine the recipients of any arbitrary number of other <tt class="docutils literal"><span class="pre">MessageSink</span></tt>s:</p>
+<p>The <code class="docutils literal"><span class="pre">MessageSinks</span></code> class can also be used to combine the recipients of any arbitrary number of other <code class="docutils literal"><span class="pre">MessageSink</span></code>s:</p>
 <p><strong>Example: Combined Message Sinks</strong></p>
-<p>In the following block of code, any <tt class="docutils literal"><span class="pre">CommandSource</span></tt> that holds either the <cite>com.example.myplugin.permission1</cite> or the
-<cite>com.example.myplugin.permission2</cite> permissions will be targeted by the <tt class="docutils literal"><span class="pre">MessageSink</span></tt>.</p>
+<p>In the following block of code, any <code class="docutils literal"><span class="pre">CommandSource</span></code> that holds either the <cite>com.example.myplugin.permission1</cite> or the
+<cite>com.example.myplugin.permission2</cite> permissions will be targeted by the <code class="docutils literal"><span class="pre">MessageSink</span></code>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">MessageSink</span> <span class="n">sink1</span> <span class="o">=</span> <span class="n">MessageSinks</span><span class="o">.</span><span class="na">toPermission</span><span class="o">(</span><span class="s">&quot;com.example.myplugin.permission1&quot;</span><span class="o">);</span>
 <span class="n">MessageSink</span> <span class="n">sink2</span> <span class="o">=</span> <span class="n">MessageSinks</span><span class="o">.</span><span class="na">toPermission</span><span class="o">(</span><span class="s">&quot;com.example.myplugin.permission2&quot;</span><span class="o">);</span>
 
@@ -416,17 +416,17 @@ with a <tt class="docutils literal"><span class="pre">MessageSink</span></tt>, a
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last"><tt class="docutils literal"><span class="pre">MessageSinks#combined(MessageSink...</span> <span class="pre">sinks)</span></tt> can also be used to apply message transformations, as discussed
+<p class="last"><code class="docutils literal"><span class="pre">MessageSinks#combined(MessageSink...</span> <span class="pre">sinks)</span></code> can also be used to apply message transformations, as discussed
 below.</p>
 </div>
 </div>
 <div class="section" id="targeting-command-sources">
 <h3>Targeting Command Sources<a class="headerlink" href="#targeting-command-sources" title="Permalink to this headline">¶</a></h3>
-<p>Lastly, a <tt class="docutils literal"><span class="pre">MessageSink</span></tt> can be used to target any number of CommandSources. This allows a finer control over who
+<p>Lastly, a <code class="docutils literal"><span class="pre">MessageSink</span></code> can be used to target any number of CommandSources. This allows a finer control over who
 you would like to send the message to.</p>
 <p><strong>Example: Targeting Command Sources</strong></p>
-<p>In the following example, any <tt class="docutils literal"><span class="pre">Player</span></tt> whose display name contains the prefix &#8220;[Donor]&#8221; will be added as a recipient
-to a new <tt class="docutils literal"><span class="pre">MessageSink</span></tt>, which could then be used to send a message thanking the players for their donations.</p>
+<p>In the following example, any <code class="docutils literal"><span class="pre">Player</span></code> whose display name contains the prefix &#8220;[Donor]&#8221; will be added as a recipient
+to a new <code class="docutils literal"><span class="pre">MessageSink</span></code>, which could then be used to send a message thanking the players for their donations.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.DisplayNameData</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.player.Player</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Texts</span><span class="o">;</span>
@@ -450,7 +450,7 @@ to a new <tt class="docutils literal"><span class="pre">MessageSink</span></tt>,
 </div>
 <div class="section" id="sending-messages-with-message-sinks">
 <h2>Sending Messages with Message Sinks<a class="headerlink" href="#sending-messages-with-message-sinks" title="Permalink to this headline">¶</a></h2>
-<p>Once you have defined an appropriate <tt class="docutils literal"><span class="pre">MessageSink</span></tt>, you can use <tt class="docutils literal"><span class="pre">MessageSink#sendMessage(Text</span> <span class="pre">text)</span></tt> to send the
+<p>Once you have defined an appropriate <code class="docutils literal"><span class="pre">MessageSink</span></code>, you can use <code class="docutils literal"><span class="pre">MessageSink#sendMessage(Text</span> <span class="pre">text)</span></code> to send the
 message.</p>
 <p><strong>Example: Sending Messages with Message Sinks</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">messageSink</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Yay! Message sinks!&quot;</span><span class="o">));</span>
@@ -459,20 +459,20 @@ message.</p>
 <div class="section" id="extended-application-chat-channels">
 <h3>Extended Application: Chat Channels<a class="headerlink" href="#extended-application-chat-channels" title="Permalink to this headline">¶</a></h3>
 <p>Message sinks have a very useful application that they can be used to establish chat channels. For example, you could
-establish a message sink for every chat channel you wish to have. Then, when a <tt class="docutils literal"><span class="pre">CommandSource</span></tt> joins a channel, such
-as with <tt class="docutils literal"><span class="pre">/join</span> <span class="pre">&lt;channel</span> <span class="pre">name&gt;</span></tt>, simply set the <tt class="docutils literal"><span class="pre">CommandSource</span></tt>&#8216;s <tt class="docutils literal"><span class="pre">MessageSink</span></tt> to the appropriate channel using
-<tt class="docutils literal"><span class="pre">CommandSource#setMessageSink(MessageSink</span> <span class="pre">sink)</span></tt>. Alternatively, you could listen to <tt class="docutils literal"><span class="pre">MessageSinkEvent</span></tt>, and set
-the appropriate <tt class="docutils literal"><span class="pre">MessageSink</span></tt> using <tt class="docutils literal"><span class="pre">MessageEvent#setSink(MessageSink</span> <span class="pre">sink)</span></tt>.</p>
+establish a message sink for every chat channel you wish to have. Then, when a <code class="docutils literal"><span class="pre">CommandSource</span></code> joins a channel, such
+as with <code class="docutils literal"><span class="pre">/join</span> <span class="pre">&lt;channel</span> <span class="pre">name&gt;</span></code>, simply set the <code class="docutils literal"><span class="pre">CommandSource</span></code>&#8216;s <code class="docutils literal"><span class="pre">MessageSink</span></code> to the appropriate channel using
+<code class="docutils literal"><span class="pre">CommandSource#setMessageSink(MessageSink</span> <span class="pre">sink)</span></code>. Alternatively, you could listen to <code class="docutils literal"><span class="pre">MessageSinkEvent</span></code>, and set
+the appropriate <code class="docutils literal"><span class="pre">MessageSink</span></code> using <code class="docutils literal"><span class="pre">MessageEvent#setSink(MessageSink</span> <span class="pre">sink)</span></code>.</p>
 </div>
 </div>
 <div class="section" id="transforming-messages-with-message-sinks">
 <h2>Transforming Messages with Message Sinks<a class="headerlink" href="#transforming-messages-with-message-sinks" title="Permalink to this headline">¶</a></h2>
-<p>You can apply a filter to all <tt class="docutils literal"><span class="pre">Text</span></tt>s that pass through a <tt class="docutils literal"><span class="pre">MessageSink</span></tt> to change the message however you like.
-This is possible by creating a <tt class="docutils literal"><span class="pre">Class</span></tt> that extends <tt class="docutils literal"><span class="pre">MessageSink</span></tt> and defining the appropriate behavior for the
-<tt class="docutils literal"><span class="pre">MessageSink#transformMessage(CommandSource</span> <span class="pre">target,</span> <span class="pre">Text</span> <span class="pre">text)</span></tt> method, as shown below.</p>
+<p>You can apply a filter to all <code class="docutils literal"><span class="pre">Text</span></code>s that pass through a <code class="docutils literal"><span class="pre">MessageSink</span></code> to change the message however you like.
+This is possible by creating a <code class="docutils literal"><span class="pre">Class</span></code> that extends <code class="docutils literal"><span class="pre">MessageSink</span></code> and defining the appropriate behavior for the
+<code class="docutils literal"><span class="pre">MessageSink#transformMessage(CommandSource</span> <span class="pre">target,</span> <span class="pre">Text</span> <span class="pre">text)</span></code> method, as shown below.</p>
 <p><strong>Example: Transforming Messages with Message Sinks</strong></p>
-<p>The following code excerpt defines a <tt class="docutils literal"><span class="pre">DonorMessageSink</span></tt> class which overrides the default <tt class="docutils literal"><span class="pre">transformMessage</span></tt> method.
-The new transformation method will first check if the <tt class="docutils literal"><span class="pre">CommandSource</span></tt> has the <tt class="docutils literal"><span class="pre">com.example.myplugin.donor</span></tt>
+<p>The following code excerpt defines a <code class="docutils literal"><span class="pre">DonorMessageSink</span></code> class which overrides the default <code class="docutils literal"><span class="pre">transformMessage</span></code> method.
+The new transformation method will first check if the <code class="docutils literal"><span class="pre">CommandSource</span></code> has the <code class="docutils literal"><span class="pre">com.example.myplugin.donor</span></code>
 permission, and if so, will append a <cite>[Donor]</cite> prefix, such as in a ranking system.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="o">;</span>
@@ -497,12 +497,12 @@ permission, and if so, will append a <cite>[Donor]</cite> prefix, such as in a r
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Note that we do not wish to define any additional reecipients, so we return an empty <tt class="docutils literal"><span class="pre">List</span></tt> in the <tt class="docutils literal"><span class="pre">getRecipients</span></tt>
+<p>Note that we do not wish to define any additional reecipients, so we return an empty <code class="docutils literal"><span class="pre">List</span></code> in the <code class="docutils literal"><span class="pre">getRecipients</span></code>
 method.</p>
-<p>Now that we have defined our custom <tt class="docutils literal"><span class="pre">DonorMessageSink</span></tt> that will append a prefix to a player&#8217;s name, we need to apply
-a new <tt class="docutils literal"><span class="pre">MessageSink</span></tt> combining the existing one and the new one to the <tt class="docutils literal"><span class="pre">CommandSource</span></tt>. We can do this by using the
-<tt class="docutils literal"><span class="pre">MessageSinks#combined(MessageSink...</span> <span class="pre">sinks)</span></tt> method. In the following code excerpt, the new <tt class="docutils literal"><span class="pre">DonorMessageSink</span></tt>
-will be applied to any <tt class="docutils literal"><span class="pre">Player</span></tt> that joins the server.</p>
+<p>Now that we have defined our custom <code class="docutils literal"><span class="pre">DonorMessageSink</span></code> that will append a prefix to a player&#8217;s name, we need to apply
+a new <code class="docutils literal"><span class="pre">MessageSink</span></code> combining the existing one and the new one to the <code class="docutils literal"><span class="pre">CommandSource</span></code>. We can do this by using the
+<code class="docutils literal"><span class="pre">MessageSinks#combined(MessageSink...</span> <span class="pre">sinks)</span></code> method. In the following code excerpt, the new <code class="docutils literal"><span class="pre">DonorMessageSink</span></code>
+will be applied to any <code class="docutils literal"><span class="pre">Player</span></code> that joins the server.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.network.ClientConnectionEvent</span><span class="o">;</span>
 
@@ -519,9 +519,9 @@ will be applied to any <tt class="docutils literal"><span class="pre">Player</sp
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">When combining multiple <tt class="docutils literal"><span class="pre">MessageSink</span></tt>s defining different message transformations, the <tt class="docutils literal"><span class="pre">Text</span></tt> will be
-transformed in the order that the <tt class="docutils literal"><span class="pre">MessageSink</span></tt>s are passed in to the
-<tt class="docutils literal"><span class="pre">MessageSinks#combined(MessageSink...</span> <span class="pre">sinks)</span></tt> method.</p>
+<p class="last">When combining multiple <code class="docutils literal"><span class="pre">MessageSink</span></code>s defining different message transformations, the <code class="docutils literal"><span class="pre">Text</span></code> will be
+transformed in the order that the <code class="docutils literal"><span class="pre">MessageSink</span></code>s are passed in to the
+<code class="docutils literal"><span class="pre">MessageSinks#combined(MessageSink...</span> <span class="pre">sinks)</span></code> method.</p>
 </div>
 </div>
 </div>
@@ -534,7 +534,7 @@ transformed in the order that the <tt class="docutils literal"><span class="pre"
         </div>
         <div class="footer" role="contentinfo">
               &copy; Copyright 2014-2015, Sponge Contributors.
-            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>
   </body>

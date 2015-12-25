@@ -373,13 +373,13 @@
                   
   <div class="section" id="configuration-loaders">
 <h1>Configuration Loaders<a class="headerlink" href="#configuration-loaders" title="Permalink to this headline">¶</a></h1>
-<p>Let&#8217;s break down how Configurate works, beginning with the loading process. Configurate provides <tt class="docutils literal"><span class="pre">ConfigurationLoaders</span></tt>
+<p>Let&#8217;s break down how Configurate works, beginning with the loading process. Configurate provides <code class="docutils literal"><span class="pre">ConfigurationLoaders</span></code>
 for common configuration formats, standing as the manager of the physical configuration file, allowing you to
 save and load data from the given resource. They also allow you to load empty configurations, giving you the option of
 hard-coding default values or loading from a pre-written file.</p>
 <div class="section" id="getting-your-loader">
 <h2>Getting your Loader<a class="headerlink" href="#getting-your-loader" title="Permalink to this headline">¶</a></h2>
-<p>First, let&#8217;s grab a new <tt class="docutils literal"><span class="pre">HoconConfigurationLoader</span></tt> that points to our configuration file.</p>
+<p>First, let&#8217;s grab a new <code class="docutils literal"><span class="pre">HoconConfigurationLoader</span></code> that points to our configuration file.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.commented.CommentedConfigurationNode</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.hocon.HoconConfigurationLoader</span><span class="o">;</span>
@@ -392,21 +392,21 @@ hard-coding default values or loading from a pre-written file.</p>
 </div>
 <p>The loader will also hold a generic type depending what kind of node it will build. These <em>Configuration Nodes</em> will be
 discussed in <a class="reference internal" href="nodes.html"><em>a later section</em></a>.</p>
-<p><tt class="docutils literal"><span class="pre">ConfigurationLoader</span></tt>s usually hold a builder for you to statically access and create a new instance of the loader of
+<p><code class="docutils literal"><span class="pre">ConfigurationLoader</span></code>s usually hold a builder for you to statically access and create a new instance of the loader of
 your desired type. For a basic configuration, we don&#8217;t really need to specify anything other than the file we want to
 load from and/or save to, so all we&#8217;ll do is tell it exactly that, using
-<tt class="docutils literal"><span class="pre">HoconConfigurationLoader.builder().setPath(path)</span></tt>. We then tell the builder to build the instance (<tt class="docutils literal"><span class="pre">build()</span></tt>) for
+<code class="docutils literal"><span class="pre">HoconConfigurationLoader.builder().setPath(path)</span></code>. We then tell the builder to build the instance (<code class="docutils literal"><span class="pre">build()</span></code>) for
 it and store it in a variable.</p>
-<p>Of course, this isn&#8217;t the only way to load a file. The builder also has the method <tt class="docutils literal"><span class="pre">setURL(URL)</span></tt>, in case you want
-to load a resource without using a <tt class="docutils literal"><span class="pre">Path</span></tt> object. Bear in mind that configuration loaders created from an <tt class="docutils literal"><span class="pre">URL</span></tt>
+<p>Of course, this isn&#8217;t the only way to load a file. The builder also has the method <code class="docutils literal"><span class="pre">setURL(URL)</span></code>, in case you want
+to load a resource without using a <code class="docutils literal"><span class="pre">Path</span></code> object. Bear in mind that configuration loaders created from an <code class="docutils literal"><span class="pre">URL</span></code>
 are read-only as they have no way of writing back data to the URL.</p>
 <p>This functionality may be used to bundle default configurations with your plugin jar file and load them as initial
 configuration to be edited by the server administrator (or your plugin itself).</p>
 </div>
 <div class="section" id="loading-and-saving">
 <h2>Loading and Saving<a class="headerlink" href="#loading-and-saving" title="Permalink to this headline">¶</a></h2>
-<p>Once you obtained your <tt class="docutils literal"><span class="pre">ConfigurationLoader</span></tt> you can use it to obtain an empty <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> using the
-<tt class="docutils literal"><span class="pre">createEmptyNode()</span></tt> method.</p>
+<p>Once you obtained your <code class="docutils literal"><span class="pre">ConfigurationLoader</span></code> you can use it to obtain an empty <code class="docutils literal"><span class="pre">ConfigurationNode</span></code> using the
+<code class="docutils literal"><span class="pre">createEmptyNode()</span></code> method.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationOptions</span><span class="o">;</span>
 
@@ -415,12 +415,12 @@ configuration to be edited by the server administrator (or your plugin itself).<
 <span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">createEmptyNode</span><span class="o">(</span><span class="n">ConfigurationOptions</span><span class="o">.</span><span class="na">defaults</span><span class="o">());</span>
 </pre></div>
 </div>
-<p>This method expects the <tt class="docutils literal"><span class="pre">ConfigurationOptions</span></tt> to use as a parameter. Unless you want to use features like custom
-type serialization, you can just use <tt class="docutils literal"><span class="pre">ConfigurationOptions.defaults()</span></tt> to create an options object with default
+<p>This method expects the <code class="docutils literal"><span class="pre">ConfigurationOptions</span></code> to use as a parameter. Unless you want to use features like custom
+type serialization, you can just use <code class="docutils literal"><span class="pre">ConfigurationOptions.defaults()</span></code> to create an options object with default
 values.</p>
-<p>Using the <tt class="docutils literal"><span class="pre">load()</span></tt> method you can attempt to load the configuration contents from the source specified upon creation
-of the <tt class="docutils literal"><span class="pre">ConfigurationLoader</span></tt>. It also expects a <tt class="docutils literal"><span class="pre">ConfigurationOptions</span></tt> instance, but also provides a no-args form
-that is shorthand for <tt class="docutils literal"><span class="pre">load(ConfigurationOptions.defaults())</span></tt>.</p>
+<p>Using the <code class="docutils literal"><span class="pre">load()</span></code> method you can attempt to load the configuration contents from the source specified upon creation
+of the <code class="docutils literal"><span class="pre">ConfigurationLoader</span></code>. It also expects a <code class="docutils literal"><span class="pre">ConfigurationOptions</span></code> instance, but also provides a no-args form
+that is shorthand for <code class="docutils literal"><span class="pre">load(ConfigurationOptions.defaults())</span></code>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
 
 <span class="n">Path</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="n">getConfigPath</span><span class="o">();</span>
@@ -433,10 +433,10 @@ that is shorthand for <tt class="docutils literal"><span class="pre">load(Config
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>If the <tt class="docutils literal"><span class="pre">Path</span></tt> given does not exist, the <tt class="docutils literal"><span class="pre">load()</span></tt> method will create an empty <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt>. Any other error
-will lead to an <tt class="docutils literal"><span class="pre">IOException</span></tt> being thrown which you will need to handle properly.</p>
-<p>Once you modified your <tt class="docutils literal"><span class="pre">ConfigurationNode</span></tt> to hold the data you like to be saved, you can use the
-<tt class="docutils literal"><span class="pre">ConfigurationLoader</span></tt> to save the node to the file specified while creating the loader. If that file does not exist,
+<p>If the <code class="docutils literal"><span class="pre">Path</span></code> given does not exist, the <code class="docutils literal"><span class="pre">load()</span></code> method will create an empty <code class="docutils literal"><span class="pre">ConfigurationNode</span></code>. Any other error
+will lead to an <code class="docutils literal"><span class="pre">IOException</span></code> being thrown which you will need to handle properly.</p>
+<p>Once you modified your <code class="docutils literal"><span class="pre">ConfigurationNode</span></code> to hold the data you like to be saved, you can use the
+<code class="docutils literal"><span class="pre">ConfigurationLoader</span></code> to save the node to the file specified while creating the loader. If that file does not exist,
 it will be created. If it does exist, all contents will be overwritten.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="k">try</span> <span class="o">{</span>
     <span class="n">loader</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">rootNode</span><span class="o">);</span>
@@ -445,7 +445,7 @@ it will be created. If it does exist, all contents will be overwritten.</p>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Again, errors will be propagated as an <tt class="docutils literal"><span class="pre">IOException</span></tt> and must be handled.</p>
+<p>Again, errors will be propagated as an <code class="docutils literal"><span class="pre">IOException</span></code> and must be handled.</p>
 </div>
 <div class="section" id="example-loading-a-default-config-from-the-plugin-jar-file">
 <h2>Example: Loading a default config from the plugin jar file<a class="headerlink" href="#example-loading-a-default-config-from-the-plugin-jar-file" title="Permalink to this headline">¶</a></h2>
@@ -456,12 +456,12 @@ it will be created. If it does exist, all contents will be overwritten.</p>
   <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setURL</span><span class="o">(</span><span class="n">jarConfigFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
-<p>For this example it is important to note that the <tt class="docutils literal"><span class="pre">getResource(...)</span></tt> method works relative to the location of the
-class it is called on. So if in the above example the class lies in the package <tt class="docutils literal"><span class="pre">me.username.myplugin</span></tt>, the
-<tt class="docutils literal"><span class="pre">defaultConfig.conf</span></tt> file must not lie in the jar file root, but instead in the directory <tt class="docutils literal"><span class="pre">me/username/myplugin</span></tt>.</p>
+<p>For this example it is important to note that the <code class="docutils literal"><span class="pre">getResource(...)</span></code> method works relative to the location of the
+class it is called on. So if in the above example the class lies in the package <code class="docutils literal"><span class="pre">me.username.myplugin</span></code>, the
+<code class="docutils literal"><span class="pre">defaultConfig.conf</span></code> file must not lie in the jar file root, but instead in the directory <code class="docutils literal"><span class="pre">me/username/myplugin</span></code>.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Since all Sponge plugins share a single namespace, all resources available to the <tt class="docutils literal"><span class="pre">getResource()</span></tt> method are
+<p class="last">Since all Sponge plugins share a single namespace, all resources available to the <code class="docutils literal"><span class="pre">getResource()</span></code> method are
 visible to all other plugins as well. Therefore, resources placed in the root of a jar may overwrite (or be
 overwritten by) identically named resources in another jar. Placing those resources in unique folder structures
 similar to your java packages will mitigate the danger of accidentally having a resource file overwritten by
@@ -478,7 +478,7 @@ another plugin.</p>
         </div>
         <div class="footer" role="contentinfo">
               &copy; Copyright 2014-2015, Sponge Contributors.
-            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>
   </body>

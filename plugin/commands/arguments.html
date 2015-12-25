@@ -376,21 +376,21 @@
 <p>The Command Builder API comes with a powerful argument parser. It converts the string input to java base types
 (integers, booleans, strings) or game objects (players, worlds, block types , ...). The parser supports optional
 arguments and flags. It also handles TAB completion of arguments.</p>
-<p>The parsed arguments are stored in the <tt class="docutils literal"><span class="pre">CommandContext</span></tt> object. If the parser returns a single object, obtain it with
-<tt class="docutils literal"><span class="pre">args.&lt;T&gt;getOne(String</span> <span class="pre">key)</span></tt> (<tt class="docutils literal"><span class="pre">T</span></tt> is the value type). Optional and weak arguments may return <tt class="docutils literal"><span class="pre">Optional.empty()</span></tt>.</p>
+<p>The parsed arguments are stored in the <code class="docutils literal"><span class="pre">CommandContext</span></code> object. If the parser returns a single object, obtain it with
+<code class="docutils literal"><span class="pre">args.&lt;T&gt;getOne(String</span> <span class="pre">key)</span></code> (<code class="docutils literal"><span class="pre">T</span></code> is the value type). Optional and weak arguments may return <code class="docutils literal"><span class="pre">Optional.empty()</span></code>.</p>
 <p>Many of the parsers may return more than one object (e.g. multiple players with a matching username). In that case, you
-must use the <tt class="docutils literal"><span class="pre">args.&lt;T&gt;getAll(String</span> <span class="pre">key)</span></tt> method to get the <tt class="docutils literal"><span class="pre">Collection</span></tt> of possible matches. <strong>Otherwise, the
+must use the <code class="docutils literal"><span class="pre">args.&lt;T&gt;getAll(String</span> <span class="pre">key)</span></code> method to get the <code class="docutils literal"><span class="pre">Collection</span></code> of possible matches. <strong>Otherwise, the
 context object will throw an exception!</strong></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">You can use the <tt class="docutils literal"><span class="pre">onlyOne</span></tt> element to limit the amount of returned values to a single one, so you can safely use
-<tt class="docutils literal"><span class="pre">args.&lt;T&gt;getOne(String</span> <span class="pre">key)</span></tt>.</p>
+<p class="last">You can use the <code class="docutils literal"><span class="pre">onlyOne</span></code> element to limit the amount of returned values to a single one, so you can safely use
+<code class="docutils literal"><span class="pre">args.&lt;T&gt;getOne(String</span> <span class="pre">key)</span></code>.</p>
 </div>
-<p>To create a new <tt class="docutils literal"><span class="pre">CommandElement</span></tt> (argument), use the <tt class="docutils literal"><span class="pre">GenericArguments</span></tt> factory class. Many command elements require
+<p>To create a new <code class="docutils literal"><span class="pre">CommandElement</span></code> (argument), use the <code class="docutils literal"><span class="pre">GenericArguments</span></code> factory class. Many command elements require
 a short text key, which is displayed in error and help messages.</p>
-<p>Apply the <tt class="docutils literal"><span class="pre">CommandElement</span></tt> to the command builder with the <tt class="docutils literal"><span class="pre">setArguments()</span></tt> method. It is possible to pass more than
-one <tt class="docutils literal"><span class="pre">CommandElement</span></tt> to the method, thus chaining multiple arguments (e.g <tt class="docutils literal"><span class="pre">/msg</span> <span class="pre">&lt;player&gt;</span> <span class="pre">&lt;msg&gt;</span></tt>). This has the same
-effect as wrapping the <tt class="docutils literal"><span class="pre">CommandElement</span></tt> objects in a <tt class="docutils literal"><span class="pre">GenericArguments.seq()</span></tt> element.</p>
+<p>Apply the <code class="docutils literal"><span class="pre">CommandElement</span></code> to the command builder with the <code class="docutils literal"><span class="pre">setArguments()</span></code> method. It is possible to pass more than
+one <code class="docutils literal"><span class="pre">CommandElement</span></code> to the method, thus chaining multiple arguments (e.g <code class="docutils literal"><span class="pre">/msg</span> <span class="pre">&lt;player&gt;</span> <span class="pre">&lt;msg&gt;</span></code>). This has the same
+effect as wrapping the <code class="docutils literal"><span class="pre">CommandElement</span></code> objects in a <code class="docutils literal"><span class="pre">GenericArguments.seq()</span></code> element.</p>
 <div class="section" id="example-building-a-command-with-multiple-arguments">
 <h2>Example: Building a Command with Multiple Arguments<a class="headerlink" href="#example-building-a-command-with-multiple-arguments" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Texts</span><span class="o">;</span>
@@ -430,7 +430,7 @@ effect as wrapping the <tt class="docutils literal"><span class="pre">CommandEle
 </div>
 </div>
 <div class="section" id="overview-of-the-genericarguments-command-elements">
-<h2>Overview of the <tt class="docutils literal"><span class="pre">GenericArguments</span></tt> command elements<a class="headerlink" href="#overview-of-the-genericarguments-command-elements" title="Permalink to this headline">¶</a></h2>
+<h2>Overview of the <code class="docutils literal"><span class="pre">GenericArguments</span></code> command elements<a class="headerlink" href="#overview-of-the-genericarguments-command-elements" title="Permalink to this headline">¶</a></h2>
 <table border="1" class="docutils">
 <colgroup>
 <col width="19%" />
@@ -444,72 +444,72 @@ effect as wrapping the <tt class="docutils literal"><span class="pre">CommandEle
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">none</span></tt></td>
-<td>Expects no arguments. This is the default behavior of a <tt class="docutils literal"><span class="pre">CommandSpec</span></tt>.</td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">none</span></code></td>
+<td>Expects no arguments. This is the default behavior of a <code class="docutils literal"><span class="pre">CommandSpec</span></code>.</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td colspan="3"><strong>Java Base Types</strong></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">string</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">string</span></code></td>
 <td>Require an argument to be a string.</td>
-<td>one <tt class="docutils literal"><span class="pre">String</span></tt></td>
+<td>one <code class="docutils literal"><span class="pre">String</span></code></td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">remainingJoinedStrings</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">remainingJoinedStrings</span></code></td>
 <td>Concatenates all remaining arguments separated by spaces (useful for message commands).</td>
-<td>one <tt class="docutils literal"><span class="pre">String</span></tt></td>
+<td>one <code class="docutils literal"><span class="pre">String</span></code></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">bool</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">bool</span></code></td>
 <td>Require an argument to be a boolean.</td>
-<td>one <tt class="docutils literal"><span class="pre">Boolean</span></tt></td>
+<td>one <code class="docutils literal"><span class="pre">Boolean</span></code></td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">integer</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">integer</span></code></td>
 <td>Require an argument to be an integer.</td>
-<td>one <tt class="docutils literal"><span class="pre">Integer</span></tt></td>
+<td>one <code class="docutils literal"><span class="pre">Integer</span></code></td>
 </tr>
 <tr class="row-even"><td colspan="3"><strong>Game Objects</strong></td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">player</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">player</span></code></td>
 <td>Expect an argument to represent an online player. <strong>May return multiple players!</strong></td>
-<td>multiple <tt class="docutils literal"><span class="pre">Player</span></tt> instances</td>
+<td>multiple <code class="docutils literal"><span class="pre">Player</span></code> instances</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">playerOrSource</span></tt></td>
-<td>Like <tt class="docutils literal"><span class="pre">player</span></tt>, but returns the sender of the command if no matching player was found.</td>
-<td>multiple <tt class="docutils literal"><span class="pre">Player</span></tt> instances</td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">playerOrSource</span></code></td>
+<td>Like <code class="docutils literal"><span class="pre">player</span></code>, but returns the sender of the command if no matching player was found.</td>
+<td>multiple <code class="docutils literal"><span class="pre">Player</span></code> instances</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">world</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">world</span></code></td>
 <td>Expect an argument to represent a world (also includes unloaded worlds).</td>
-<td>multiple <tt class="docutils literal"><span class="pre">WorldProperties</span></tt></td>
+<td>multiple <code class="docutils literal"><span class="pre">WorldProperties</span></code></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">dimension</span></tt></td>
-<td>Expect an argument to represent a dimension (<tt class="docutils literal"><span class="pre">END</span></tt>, <tt class="docutils literal"><span class="pre">NETHER</span></tt>, <tt class="docutils literal"><span class="pre">OVERWORLD</span></tt>).</td>
-<td>multiple <tt class="docutils literal"><span class="pre">DimensionType</span></tt>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">dimension</span></code></td>
+<td>Expect an argument to represent a dimension (<code class="docutils literal"><span class="pre">END</span></code>, <code class="docutils literal"><span class="pre">NETHER</span></code>, <code class="docutils literal"><span class="pre">OVERWORLD</span></code>).</td>
+<td>multiple <code class="docutils literal"><span class="pre">DimensionType</span></code>
 instances</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">location</span></tt></td>
-<td>Expect an argument to represent a <tt class="docutils literal"><span class="pre">Location</span></tt>.</td>
-<td>one <tt class="docutils literal"><span class="pre">Location</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">location</span></code></td>
+<td>Expect an argument to represent a <code class="docutils literal"><span class="pre">Location</span></code>.</td>
+<td>one <code class="docutils literal"><span class="pre">Location</span></code></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">vector3d</span></tt></td>
-<td>Expect an argument to represent a <tt class="docutils literal"><span class="pre">Vector3d</span></tt>.</td>
-<td>one <tt class="docutils literal"><span class="pre">Vector3d</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">vector3d</span></code></td>
+<td>Expect an argument to represent a <code class="docutils literal"><span class="pre">Vector3d</span></code>.</td>
+<td>one <code class="docutils literal"><span class="pre">Vector3d</span></code></td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">catalogedElement</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">catalogedElement</span></code></td>
 <td>Expect an argument that is a member of the specified <a class="reference external" href="http://spongepowered.github.io/SpongeAPI/org/spongepowered/api/CatalogTypes.html">catalog type</a>.</td>
 <td>multiple matching elements
 of the specified catalog type</td>
 </tr>
 <tr class="row-even"><td colspan="3"><strong>Matchers</strong></td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">choices</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">choices</span></code></td>
 <td>Return an argument that allows selecting from a limited set of values.</td>
 <td>one specified value</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">literal</span></tt></td>
-<td>Expect a literal sequence of arguments (e.g. <tt class="docutils literal"><span class="pre">&quot;i&quot;,</span> <span class="pre">&quot;luv&quot;,</span> <span class="pre">&quot;u&quot;</span></tt>: <tt class="docutils literal"><span class="pre">/cmd</span> <span class="pre">i</span> <span class="pre">luv</span> <span class="pre">u</span></tt>).
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">literal</span></code></td>
+<td>Expect a literal sequence of arguments (e.g. <code class="docutils literal"><span class="pre">&quot;i&quot;,</span> <span class="pre">&quot;luv&quot;,</span> <span class="pre">&quot;u&quot;</span></code>: <code class="docutils literal"><span class="pre">/cmd</span> <span class="pre">i</span> <span class="pre">luv</span> <span class="pre">u</span></code>).
 Throws an error if the arguments do not match.</td>
 <td>one specified value</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">enumValue</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">enumValue</span></code></td>
 <td>Require the argument to be a key under the provided enum.</td>
 <td>multiple matching elements
 of the specified enum</td>
@@ -518,48 +518,48 @@ of the specified enum</td>
 <p class="last">Can be wrapped around command elements. The value type is inherited from the wrapped element.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">seq</span></tt></td>
-<td>Builds a sequence of command elements (e.g. <tt class="docutils literal"><span class="pre">/cmd</span> <span class="pre">&lt;arg1&gt;</span> <span class="pre">&lt;arg2&gt;</span> <span class="pre">&lt;arg3&gt;</span></tt>).</td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">seq</span></code></td>
+<td>Builds a sequence of command elements (e.g. <code class="docutils literal"><span class="pre">/cmd</span> <span class="pre">&lt;arg1&gt;</span> <span class="pre">&lt;arg2&gt;</span> <span class="pre">&lt;arg3&gt;</span></code>).</td>
 <td>inherited</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">repeated</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">repeated</span></code></td>
 <td>Require a given command element to be provided a certain number of times.</td>
 <td>multiple inherited</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">allOf</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">allOf</span></code></td>
 <td>Require all remaining args to match the provided command element.</td>
 <td>multiple inherited</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">optional</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">optional</span></code></td>
 <td>Make the provided command element optional. Throws an error if the argument
 is of invalid format and there are no more args.</td>
 <td>inherited</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">optionalWeak</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">optionalWeak</span></code></td>
 <td>Make the provided command element optional. Does not throw an error if the argument
 is of invalid format and there are no more args.</td>
 <td>inherited</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">firstParsing</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">firstParsing</span></code></td>
 <td>Returns a command element that matches the first of the provided elements that parses
-(useful for command overloading, e.g. <tt class="docutils literal"><span class="pre">/settime</span> <span class="pre">&lt;day|night|&lt;number&gt;&gt;</span></tt>).</td>
+(useful for command overloading, e.g. <code class="docutils literal"><span class="pre">/settime</span> <span class="pre">&lt;day|night|&lt;number&gt;&gt;</span></code>).</td>
 <td>inherited</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">onlyOne</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">onlyOne</span></code></td>
 <td>Restricts the given command element to only insert one value into the context at the
 provided key.</td>
 <td>inherited</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">flags</span></tt></td>
-<td><p class="first">Returns a builder for command flags (e.g. <tt class="docutils literal"><span class="pre">/cmd</span> <span class="pre">[-a]</span> <span class="pre">[-b</span> <span class="pre">&lt;value&gt;]</span></tt>).</p>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">flags</span></code></td>
+<td><p class="first">Returns a builder for command flags (e.g. <code class="docutils literal"><span class="pre">/cmd</span> <span class="pre">[-a]</span> <span class="pre">[-b</span> <span class="pre">&lt;value&gt;]</span></code>).</p>
 <p class="last">See <a class="reference internal" href="#flags">Flags</a></p>
 </td>
-<td><p class="first">Short Flag: one <tt class="docutils literal"><span class="pre">Boolean</span></tt></p>
-<p>Long Flag: one <tt class="docutils literal"><span class="pre">String</span></tt></p>
+<td><p class="first">Short Flag: one <code class="docutils literal"><span class="pre">Boolean</span></code></p>
+<p>Long Flag: one <code class="docutils literal"><span class="pre">String</span></code></p>
 <p class="last">Value Flag: inherited</p>
 </td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">requiringPermission</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">requiringPermission</span></code></td>
 <td>Requires the command sender to have the specified permission in order to use the given
 command argument</td>
 <td>inherited</td>
@@ -578,14 +578,14 @@ for more information.</p>
 </div>
 <div class="section" id="custom-command-elements">
 <h2>Custom Command Elements<a class="headerlink" href="#custom-command-elements" title="Permalink to this headline">¶</a></h2>
-<p>It is possible to create custom command elements (e.g. a URL parser or a <tt class="docutils literal"><span class="pre">Vector2i</span></tt> element) by extending the abstract
-<tt class="docutils literal"><span class="pre">CommandElement</span></tt> class.</p>
-<p>The <tt class="docutils literal"><span class="pre">parseValue</span></tt> method should fetch a raw argument string with <tt class="docutils literal"><span class="pre">args.next()</span></tt> and convert it to an object. The method
-should throw an <tt class="docutils literal"><span class="pre">ArgumentParseException</span></tt> if the parsing fails</p>
-<p>The <tt class="docutils literal"><span class="pre">complete</span></tt> method should use <tt class="docutils literal"><span class="pre">args.peek()</span></tt> to read the next raw argument. It returns a list of suggestions for
+<p>It is possible to create custom command elements (e.g. a URL parser or a <code class="docutils literal"><span class="pre">Vector2i</span></code> element) by extending the abstract
+<code class="docutils literal"><span class="pre">CommandElement</span></code> class.</p>
+<p>The <code class="docutils literal"><span class="pre">parseValue</span></code> method should fetch a raw argument string with <code class="docutils literal"><span class="pre">args.next()</span></code> and convert it to an object. The method
+should throw an <code class="docutils literal"><span class="pre">ArgumentParseException</span></code> if the parsing fails</p>
+<p>The <code class="docutils literal"><span class="pre">complete</span></code> method should use <code class="docutils literal"><span class="pre">args.peek()</span></code> to read the next raw argument. It returns a list of suggestions for
 TAB completion.</p>
 <div class="section" id="example-vector2i-command-element-definition">
-<h3>Example: <tt class="docutils literal"><span class="pre">Vector2i</span></tt> command element definition<a class="headerlink" href="#example-vector2i-command-element-definition" title="Permalink to this headline">¶</a></h3>
+<h3>Example: <code class="docutils literal"><span class="pre">Vector2i</span></code> command element definition<a class="headerlink" href="#example-vector2i-command-element-definition" title="Permalink to this headline">¶</a></h3>
 <p>The parser in this example reads two input arguments and converts them to a vector.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.flowpowered.math.vector.Vector2i</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.ArgumentParseException</span><span class="o">;</span>
@@ -640,7 +640,7 @@ TAB completion.</p>
 </div>
 </div>
 <div class="section" id="example-vector2i-command-element-usage">
-<h3>Example: <tt class="docutils literal"><span class="pre">Vector2i</span></tt> command element usage<a class="headerlink" href="#example-vector2i-command-element-usage" title="Permalink to this headline">¶</a></h3>
+<h3>Example: <code class="docutils literal"><span class="pre">Vector2i</span></code> command element usage<a class="headerlink" href="#example-vector2i-command-element-usage" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-java"><div class="highlight"><pre><span class="c1">// /plottp &lt;x&gt; &lt;y&gt;</span>
 <span class="n">CommandSpec</span> <span class="n">myCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
         <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Teleport to a plot&quot;</span><span class="o">))</span>
@@ -655,7 +655,7 @@ TAB completion.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">Look at the <a class="reference external" href="https://github.com/SpongePowered/SpongeAPI/blob/master/src/main/java/org/spongepowered/api/util/command/args/GenericArguments.java">source code</a>
-of the <tt class="docutils literal"><span class="pre">GenericArguments</span></tt> class for more examples.</p>
+of the <code class="docutils literal"><span class="pre">GenericArguments</span></code> class for more examples.</p>
 </div>
 </div>
 </div>
@@ -669,7 +669,7 @@ of the <tt class="docutils literal"><span class="pre">GenericArguments</span></t
         </div>
         <div class="footer" role="contentinfo">
               &copy; Copyright 2014-2015, Sponge Contributors.
-            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>
   </body>
