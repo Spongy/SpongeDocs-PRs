@@ -187,6 +187,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/lifecycle.html">Plugin Lifecycle</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/optional/index.html">Optionals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/optional/basic.html">Optionals Explained</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/optional/usage.html">Usage Examples</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/logging.html">Logging and Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -207,7 +216,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/childcommands.html">Child Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/service.html">The Command Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/service.html">The Command Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
@@ -216,17 +225,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../plugin/configuration/index.html">Configuring Your Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/configuration/index.html">Configuring Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/loaders.html">Configuration Loaders</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/values.html">Giving Nodes Value</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/serialization.html">Serializing Objects</a><ul class="simple">
@@ -310,8 +313,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API Development</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../api/git.html">Git Workflow for SpongeAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API Development</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Implementation Development</a><ul class="current">
@@ -377,40 +379,38 @@
                   
   <div class="section" id="git-workflow-for-sponge-implementations">
 <h1>Git Workflow for Sponge implementations<a class="headerlink" href="#git-workflow-for-sponge-implementations" title="Permalink to this headline">¶</a></h1>
-<blockquote>
-<div><div class="admonition warning">
+<div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">This page is probably outdated, the developers currently try to create better documentation for contributors.
 You can find a temporary site here: <a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/wiki/">SpongeCommon Wiki</a></p>
 </div>
-</div></blockquote>
 <p>Development of Sponge implementations is focused in repositories on GitHub. Thus, working with Git is an essential
 element of contributing.</p>
 <p>The process of working with Git is shown below, and assumes a basic knowledge of using the Terminal or command line for
 your operating system:</p>
 <ol class="arabic simple">
-<li>Navigate to the directory in which you are working on the project (e.g. <tt class="docutils literal"><span class="pre">cd</span> <span class="pre">Sponge</span></tt>).</li>
-<li>Ensure your master branch is up-to-date with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></tt>.</li>
-<li>Create a new branch with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">feature/your-feature-name-here</span></tt>.</li>
+<li>Navigate to the directory in which you are working on the project (e.g. <code class="docutils literal"><span class="pre">cd</span> <span class="pre">Sponge</span></code>).</li>
+<li>Ensure your master branch is up-to-date with <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code>.</li>
+<li>Create a new branch with <code class="docutils literal"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">feature/your-feature-name-here</span></code>.</li>
 <li>Complete your work in the branch - moving files, deleting files, or editing them.</li>
-<li>Prior to making a commit, ensure the module will compile with <tt class="docutils literal"><span class="pre">gradle</span> <span class="pre">compileJava</span></tt>. This will run a simple build of
+<li>Prior to making a commit, ensure the module will compile with <code class="docutils literal"><span class="pre">gradle</span> <span class="pre">compileJava</span></code>. This will run a simple build of
 the source files.</li>
-<li>Use <tt class="docutils literal"><span class="pre">git</span> <span class="pre">status</span></tt> and <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">FILE(S)</span></tt> as necessary to look for files that are not yet staged for a commit.</li>
+<li>Use <code class="docutils literal"><span class="pre">git</span> <span class="pre">status</span></code> and <code class="docutils literal"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">FILE(S)</span></code> as necessary to look for files that are not yet staged for a commit.</li>
 <li>Since you are working on the implementation, there is a possibility that your work included changes in the API.
 This is okay. Just remember to ensure the pointers for the version of the SpongeAPI match the version of your branch
 prior to committing and pushing. To do this, you may need to add the submodules to the commit
-(with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">SpongeAPI</span></tt> and/or <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">Mixin</span></tt>) prior to committing on your implementation work.</li>
-<li>When you are ready, do <tt class="docutils literal"><span class="pre">git</span> <span class="pre">commit</span></tt>.</li>
+(with <code class="docutils literal"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">SpongeAPI</span></code> and/or <code class="docutils literal"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">Mixin</span></code>) prior to committing on your implementation work.</li>
+<li>When you are ready, do <code class="docutils literal"><span class="pre">git</span> <span class="pre">commit</span></code>.</li>
 <li>Edit the commit message. This message should be detailed, yet concise.</li>
-<li>You can now push the commit to the repository with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></tt>.</li>
+<li>You can now push the commit to the repository with <code class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></code>.</li>
 </ol>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>If you see this warning...</p>
-<p><tt class="docutils literal"><span class="pre">fatal:</span> <span class="pre">The</span> <span class="pre">current</span> <span class="pre">branch</span> <span class="pre">YourBranchName</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">upstream</span> <span class="pre">branch.</span></tt></p>
+<p><code class="docutils literal"><span class="pre">fatal:</span> <span class="pre">The</span> <span class="pre">current</span> <span class="pre">branch</span> <span class="pre">YourBranchName</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">upstream</span> <span class="pre">branch.</span></code></p>
 <p>...the branch may not be on the upstream remote. This may happen if this is the first time you are pushing a commit
 for the new branch. To push the current branch and set the remote as upstream, use</p>
-<p class="last"><tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">--set-upstream</span> <span class="pre">origin</span> <span class="pre">YourBranchName</span></tt></p>
+<p class="last"><code class="docutils literal"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">--set-upstream</span> <span class="pre">origin</span> <span class="pre">YourBranchName</span></code></p>
 </div>
 <p>You may open a pull request once your commit is pushed to the repository.</p>
 </div>
@@ -423,7 +423,7 @@ for the new branch. To push the current branch and set the remote as upstream, u
         </div>
         <div class="footer" role="contentinfo">
               &copy; Copyright 2014-2015, Sponge Contributors.
-            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>
   </body>

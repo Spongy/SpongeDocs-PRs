@@ -33,7 +33,7 @@
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
         <link rel="next" title="Working with Text" href="text/index.html" />
-        <link rel="prev" title="Plugin Lifecycle" href="lifecycle.html" />
+        <link rel="prev" title="Usage Examples" href="optional/usage.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -61,7 +61,7 @@
           <a href="text/index.html" title="Working with Text"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="lifecycle.html" title="Plugin Lifecycle"
+          <a href="optional/usage.html" title="Usage Examples"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
@@ -186,6 +186,15 @@
 <li class="toctree-l2"><a class="reference internal" href="lifecycle.html">Plugin Lifecycle</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="optional/index.html">Optionals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optional/basic.html">Optionals Explained</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="optional/usage.html">Usage Examples</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Logging and Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -206,7 +215,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="commands/childcommands.html">Child Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/service.html">The Command Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/service.html">The Command Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
@@ -215,17 +224,11 @@
 <li class="toctree-l2"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Your Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="configuration/loaders.html">Configuration Loaders</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/values.html">Giving Nodes Value</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
@@ -309,8 +312,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../contributing/api/index.html">API Development</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../contributing/api/git.html">Git Workflow for SpongeAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/api/index.html">API Development</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/implementation/index.html">Implementation Development</a><ul>
@@ -377,17 +379,17 @@
   <div class="section" id="logging-and-debugging">
 <h1>Logging and Debugging<a class="headerlink" href="#logging-and-debugging" title="Permalink to this headline">¶</a></h1>
 <p>There are a few logging frameworks available for use in Java. Logging is preferable to printing to stdout or stderr with
-<tt class="docutils literal"><span class="pre">System.out.println()</span></tt> for a number of reasons:</p>
+<code class="docutils literal"><span class="pre">System.out.println()</span></code> for a number of reasons:</p>
 <ul class="simple">
 <li>Logged messages are labeled with a source name, making it easier to figure out where the logged messages are coming from.</li>
 <li>Logged messages have a severity level which allows for simple filtering (e.g. disable all non-critical notices).</li>
 <li>The available logger frameworks allow you to enable or disable messages from certain sources.</li>
 </ul>
-<p>Sponge uses <tt class="docutils literal"><span class="pre">org.slf4j.Logger</span></tt>, not <tt class="docutils literal"><span class="pre">java.util.logging.Logger</span></tt>.</p>
+<p>Sponge uses <code class="docutils literal"><span class="pre">org.slf4j.Logger</span></code>, not <code class="docutils literal"><span class="pre">java.util.logging.Logger</span></code>.</p>
 <div class="section" id="getting-a-logger">
 <h2>Getting a Logger<a class="headerlink" href="#getting-a-logger" title="Permalink to this headline">¶</a></h2>
 <p>The Guice module used during the initialization of plugins has a plugin-scoped logger. This allows you to annotate a
-field, method, or constructor with <tt class="docutils literal"><span class="pre">&#64;Inject</span></tt> to get the logger for your plugin, which is pre-configured with the
+field, method, or constructor with <code class="docutils literal"><span class="pre">&#64;Inject</span></code> to get the logger for your plugin, which is pre-configured with the
 correct plugin ID.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -436,7 +438,7 @@ example getter method is illustrated below.</p>
 <p>Emitting a message with your logger is very simple.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The following example assumes that the getter method for your logger is named <tt class="docutils literal"><span class="pre">getLogger()</span></tt>, as shown in the
+<p class="last">The following example assumes that the getter method for your logger is named <code class="docutils literal"><span class="pre">getLogger()</span></code>, as shown in the
 previous section. This may differ for you depending on what you named your getter method.</p>
 </div>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">getLogger</span><span class="o">().</span><span class="na">info</span><span class="o">(</span><span class="n">String</span><span class="o">);</span>
@@ -460,7 +462,7 @@ previous section. This may differ for you depending on what you named your gette
         </div>
         <div class="footer" role="contentinfo">
               &copy; Copyright 2014-2015, Sponge Contributors.
-            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>
   </body>

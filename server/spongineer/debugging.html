@@ -187,6 +187,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/lifecycle.html">Plugin Lifecycle</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/optional/index.html">Optionals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/optional/basic.html">Optionals Explained</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/optional/usage.html">Usage Examples</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/logging.html">Logging and Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -207,7 +216,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/childcommands.html">Child Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/service.html">The Command Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/service.html">The Command Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
@@ -216,17 +225,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../plugin/configuration/index.html">Configuring Your Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/configuration/index.html">Configuring Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/loaders.html">Configuration Loaders</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/values.html">Giving Nodes Value</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/serialization.html">Serializing Objects</a><ul class="simple">
@@ -310,8 +313,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../contributing/api/git.html">Git Workflow for SpongeAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/implementation/index.html">Implementation Development</a><ul>
@@ -453,14 +455,14 @@ SpongeForge build, take a look at: <a class="reference internal" href="../gettin
 Caused by: java.lang.NullPointerException
 </pre></div>
 </div>
-<p>The first error indicates that a <tt class="docutils literal"><span class="pre">Class</span></tt> is missing, the second is a NullPointer Exception which indicated that the
+<p>The first error indicates that a <code class="docutils literal"><span class="pre">Class</span></code> is missing, the second is a NullPointer Exception which indicated that the
 plugin you&#8217;re trying to use relies on missing parameters. This happens when you try to run and older plugin on a newer
 SpongeForge or SpongeVanilla build and vice versa.</p>
 <div class="highlight-none"><div class="highlight"><pre>java.lang.AbstractMethodError: net.minecraft.entity.player.EntityPlayerMP.getTabList()Lorg/spongepowered/api/entity/living/player/tab/TabList;
 at (...)
 </pre></div>
 </div>
-<p>An <tt class="docutils literal"><span class="pre">AbstractMethodError</span></tt> occurs when a plugin tries to call a method which isn&#8217;t implemented yet. Please check if you&#8217;re
+<p>An <code class="docutils literal"><span class="pre">AbstractMethodError</span></code> occurs when a plugin tries to call a method which isn&#8217;t implemented yet. Please check if you&#8217;re
 running the most current build of Sponge and update if a newer version is available. If the problem still exists, either
 report it on the official Issuetracker, on the forums or on IRC. You can request the implementation of the missing
 feature too.</p>
@@ -472,9 +474,9 @@ java.lang.NoClassDefFoundError: org/spongepowered/api/event/game/state/GameStart
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Read the full example crashlog here:
-<a class="reference download internal" href="../../_downloads/crashlog-sponge575-plugin750.txt"><tt class="xref download docutils literal"><span class="pre">SpongeForge</span> <span class="pre">575</span> <span class="pre">crashlog</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">plugin</span> <span class="pre">built</span> <span class="pre">against</span> <span class="pre">build</span> <span class="pre">750</span></tt></a></p>
+<a class="reference download internal" href="../../_downloads/crashlog-sponge575-plugin750.txt"><code class="xref download docutils literal"><span class="pre">SpongeForge</span> <span class="pre">575</span> <span class="pre">crashlog</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">plugin</span> <span class="pre">built</span> <span class="pre">against</span> <span class="pre">build</span> <span class="pre">750</span></code></a></p>
 </div>
-<p>A <tt class="docutils literal"><span class="pre">NoClassDefFoundError</span></tt> occurs when the plugin tries to access a class that isn&#8217;t on the classpath. This happens
+<p>A <code class="docutils literal"><span class="pre">NoClassDefFoundError</span></code> occurs when the plugin tries to access a class that isn&#8217;t on the classpath. This happens
 when the API got adjusted or refactored lately and you&#8217;re trying to run an older plugin on a newer build of Sponge
 and vice versa. Always try to use the correct version! Either ask the Plugin author which Sponge version he build
 against or try updating/downgrading your SpongeForge or SpongeVanilla to solve this.</p>
@@ -490,7 +492,7 @@ against or try updating/downgrading your SpongeForge or SpongeVanilla to solve t
         </div>
         <div class="footer" role="contentinfo">
               &copy; Copyright 2014-2015, Sponge Contributors.
-            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>
   </body>

@@ -187,6 +187,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../optional/basic.html">Optionals Explained</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../optional/usage.html">Usage Examples</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -207,7 +216,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../commands/childcommands.html">Child Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/service.html">The Command Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../commands/service.html">The Command Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
@@ -216,17 +225,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Your Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../configuration/loaders.html">Configuration Loaders</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/values.html">Giving Nodes Value</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../configuration/serialization.html">Serializing Objects</a><ul class="simple">
@@ -310,8 +313,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../contributing/api/git.html">Git Workflow for SpongeAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/implementation/index.html">Implementation Development</a><ul>
@@ -388,68 +390,89 @@
 </ul>
 <p>For a brief overview of the World Generation process in Sponge, please read <a class="reference internal" href="index.html"><em>World Generation</em></a>.
 Now, let&#8217;s show how you can begin making your mark on world generation.
-All plugins wishing to make changes to a worlds generator must register a <tt class="docutils literal"><span class="pre">WorldGeneratorModifier</span></tt>.
+All plugins wishing to make changes to a worlds generator must register a <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code>.
 These modifiers are registered globally with a unique name, which must be added to the config of a world
-by a server admin. With the name specified in the world config, a <tt class="docutils literal"><span class="pre">WorldGeneratorModifer</span></tt> will be
+by a server admin. With the name specified in the world config, a <code class="docutils literal"><span class="pre">WorldGeneratorModifer</span></code> will be
 automatically called when the generator for that world is set up, allowing it to make changes to the generator.</p>
 <div class="section" id="creating-a-worldgeneratormodifer">
 <h2>Creating a WorldGeneratorModifer<a class="headerlink" href="#creating-a-worldgeneratormodifer" title="Permalink to this headline">¶</a></h2>
-<p>Let&#8217;s start with the format of a <tt class="docutils literal"><span class="pre">WorldGeneratorModifier</span></tt>. First, you need a class which implements
+<p>Let&#8217;s start with the format of a <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code>. First, you need a class which implements
 the WorldGeneratorModifier interface:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyModifier</span> <span class="kd">implements</span> <span class="n">WorldGeneratorModifier</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.WorldCreationSettings</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.gen.WorldGenerator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.gen.WorldGeneratorModifier</span><span class="o">;</span>
 
-        <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="n">String</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
-                <span class="k">return</span> <span class="s">&quot;myplugin:mymodifier&quot;</span>
-        <span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyModifier</span> <span class="kd">implements</span> <span class="n">WorldGeneratorModifier</span> <span class="o">{</span>
 
-        <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">modifyWorldGenerator</span><span class="o">(</span><span class="n">WorldCreationSettings</span> <span class="n">world</span><span class="o">,</span> <span class="n">DataContainer</span> <span class="n">settings</span><span class="o">,</span> <span class="n">WorldGenerator</span> <span class="n">worldGenerator</span><span class="o">)</span> <span class="o">{</span>
-                <span class="c1">//Make changes here</span>
-        <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&quot;myplugin:mymodifier&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&quot;MyAwesomeModifier&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">modifyWorldGenerator</span><span class="o">(</span><span class="n">WorldCreationSettings</span> <span class="n">world</span><span class="o">,</span> <span class="n">DataContainer</span> <span class="n">settings</span><span class="o">,</span> <span class="n">WorldGenerator</span> <span class="n">worldGenerator</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//Make changes here</span>
+    <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>As you can see, <tt class="docutils literal"><span class="pre">WorldGeneratorModifier</span></tt> has two methods which we override. The first method is <tt class="docutils literal"><span class="pre">getId()</span></tt>,
-which must be overridden to return a constant and unique identifier for your <tt class="docutils literal"><span class="pre">WorldGeneratorModifier</span></tt>.
-This value will be used to refer to your <tt class="docutils literal"><span class="pre">WorldGeneratorModifier</span></tt> from the world configuration.</p>
-<p>The second overridden method is where you make your changes to the world generator. This method is called by
+<p>As you can see, <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code> has three methods which we override. The first method is <code class="docutils literal"><span class="pre">getId()</span></code>,
+which must be overridden to return a constant and unique identifier for your <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code>.
+This value will be used to refer to your <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code> from the world configuration.</p>
+<p>The second one returns a name, which is a more human-readable form of identification. It does not need to be unique but
+nonetheless should be descriptive.</p>
+<p>The third overridden method is where you make your changes to the world generator. This method is called by
 the implementation when it is creating the world generator for a world which has specified that your
-<tt class="docutils literal"><span class="pre">WorldGeneratorModifier</span></tt> should be applied.</p>
-<p>The <tt class="docutils literal"><span class="pre">WorldGenerationSettings</span></tt> and a <tt class="docutils literal"><span class="pre">DataContainer</span></tt> of additional properties for the world are passed to this method
-in order to give context for your changes. For instance, you can use the <tt class="docutils literal"><span class="pre">WorldCreationSettings</span></tt> to only apply your
+<code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code> should be applied.</p>
+<p>The <code class="docutils literal"><span class="pre">WorldGenerationSettings</span></code> and a <code class="docutils literal"><span class="pre">DataContainer</span></code> of additional properties for the world are passed to this method
+in order to give context for your changes. For instance, you can use the <code class="docutils literal"><span class="pre">WorldCreationSettings</span></code> to only apply your
 generator changes to nether worlds.</p>
 </div>
 <div class="section" id="registering-a-worldgeneratormodifer">
 <h2>Registering a WorldGeneratorModifer<a class="headerlink" href="#registering-a-worldgeneratormodifer" title="Permalink to this headline">¶</a></h2>
 <p>Now that you have created our modifier, you need to register it. A good place to do this is in an
-<tt class="docutils literal"><span class="pre">InitializationEvent</span></tt> {Citation needed}. To register it, simply call <tt class="docutils literal"><span class="pre">GameRegistry.registerWorldGeneratorModifier</span></tt>.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Inject</span> <span class="n">GameRegistry</span> <span class="n">registry</span><span class="o">;</span>
+<code class="docutils literal"><span class="pre">GamePreInitializationEvent</span></code> {Citation needed}. To register it, simply call <code class="docutils literal"><span class="pre">GameRegistry.registerWorldGeneratorModifier</span></code>.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.GameRegistry</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.state.GamePreInitializationEvent</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
+
+<span class="nd">@Inject</span> <span class="n">GameRegistry</span> <span class="n">registry</span><span class="o">;</span>
 
 <span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(</span><span class="n">InitializationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">registry</span><span class="o">.</span><span class="na">register</span><span class="o">(...)</span>
-    <span class="n">blahh</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(</span><span class="n">GamePreInitializationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">registry</span><span class="o">.</span><span class="na">registerWorldGeneratorModifier</span><span class="o">(</span><span class="k">new</span> <span class="n">MyModifier</span><span class="o">());</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 <p>[TODO something about how to specify to use the modifier in the world configuration.]</p>
-<p>In the next articles we will look deeper at the changes we can make from our <tt class="docutils literal"><span class="pre">WorldGeneratorModifer</span></tt>.</p>
+<p>In the next articles we will look deeper at the changes we can make from our <code class="docutils literal"><span class="pre">WorldGeneratorModifer</span></code>.</p>
 </div>
 <div class="section" id="modifying-vanilla-generation">
 <h2>Modifying Vanilla Generation<a class="headerlink" href="#modifying-vanilla-generation" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This page assumes that you are familiar with setting up your <tt class="docutils literal"><span class="pre">WorldGeneratorModifier</span></tt>.
+<p class="last">This page assumes that you are familiar with setting up your <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code>.
 If not then please see the article on setting up your plugin. {Citation needed}</p>
 </div>
 <p>Sponge exposes a great deal of vanilla world generation, which can be manipulated through the various interfaces.
 Currently, the only elements of the generation process that are <em>easily</em> exposed to manipulation are the populators.</p>
 <p>For a quick example, let&#8217;s look at how we would change the cactii that spawn in deserts to be taller.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Override</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.biome.BiomeGenerationSettings</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.biome.BiomeTypes</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.gen.Populator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.gen.populator.Cactus</span><span class="o">;</span>
+
+<span class="nd">@Override</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">modifyWorldGenerator</span><span class="o">(</span><span class="n">WorldCreationSettings</span> <span class="n">world</span><span class="o">,</span> <span class="n">DataContainer</span> <span class="n">settings</span><span class="o">,</span> <span class="n">WorldGenerator</span> <span class="n">worldGenerator</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">BiomeGenerationSettings</span> <span class="n">desertSettings</span> <span class="o">=</span> <span class="n">BiomeTypes</span><span class="o">.</span><span class="na">DESERT</span><span class="o">.</span><span class="na">getGenerationSettings</span><span class="o">();</span>
-    <span class="k">for</span><span class="o">(</span><span class="n">Populator</span> <span class="n">populator</span><span class="o">:</span> <span class="n">desertSettings</span><span class="o">.</span><span class="na">getPopulators</span><span class="o">())</span> <span class="o">{</span>
+     <span class="n">BiomeGenerationSettings</span> <span class="n">desertSettings</span> <span class="o">=</span> <span class="n">worldGenerator</span><span class="o">.</span><span class="na">getBiomeSettings</span><span class="o">(</span><span class="n">BiomeTypes</span><span class="o">.</span><span class="na">DESERT</span><span class="o">);</span>
+     <span class="k">for</span><span class="o">(</span><span class="n">Populator</span> <span class="n">populator</span><span class="o">:</span> <span class="n">desertSettings</span><span class="o">.</span><span class="na">getPopulators</span><span class="o">())</span> <span class="o">{</span>
         <span class="k">if</span><span class="o">(</span><span class="n">populator</span> <span class="k">instanceof</span> <span class="n">Cactus</span><span class="o">)</span> <span class="o">{</span>
             <span class="o">((</span><span class="n">Cactus</span><span class="o">)</span> <span class="n">populator</span><span class="o">).</span><span class="na">setHeight</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
         <span class="o">}</span>
@@ -457,15 +480,15 @@ Currently, the only elements of the generation process that are <em>easily</em> 
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Start by getting the <tt class="docutils literal"><span class="pre">BiomeGenerationSettings</span></tt> for the desert biome. This object is a container for all generation
+<p>Start by getting the <code class="docutils literal"><span class="pre">BiomeGenerationSettings</span></code> for the desert biome. This object is a container for all generation
 settings relating to that biome. Next, iterate through the list of populators and check for the Cactus populator.
 Every cactus populator found is set to height 5, which means it can only generate cactii which are 5 blocks tall.</p>
-<p>However there is a problem with the code example above. It calls <tt class="docutils literal"><span class="pre">BiomeTypes.DESERT</span></tt>, and that means modifying <em>every</em>
+<p>However there is a problem with the code example above. It calls <code class="docutils literal"><span class="pre">BiomeTypes.DESERT</span></code>, and that means modifying <em>every</em>
 desert, in <em>every</em> world. If you only want to modify the deserts in a specific world, you must use <em>Biome Overrides</em>.</p>
-<p>Within the <tt class="docutils literal"><span class="pre">WorldGenerator</span></tt> interface there are a number of methods that deal with Biome Overrides.
-These overrides are alternate instances of <tt class="docutils literal"><span class="pre">BiomeGenerationSettings</span></tt> that are used in place of the default
-generation settings specified on the <tt class="docutils literal"><span class="pre">BiomeType</span></tt>.</p>
-<p>Start by creating a new <tt class="docutils literal"><span class="pre">BiomeGenerationSettings</span></tt> instance which is a perfect copy of the settings specified
+<p>Within the <code class="docutils literal"><span class="pre">WorldGenerator</span></code> interface there are a number of methods that deal with Biome Overrides.
+These overrides are alternate instances of <code class="docutils literal"><span class="pre">BiomeGenerationSettings</span></code> that are used in place of the default
+generation settings specified on the <code class="docutils literal"><span class="pre">BiomeType</span></code>.</p>
+<p>Start by creating a new <code class="docutils literal"><span class="pre">BiomeGenerationSettings</span></code> instance which is a perfect copy of the settings specified
 by the desert biome. Then apply your changes to this instance, and finally apply this new instance to the world
 generator as an override for the desert biome.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="nd">@Override</span>
@@ -494,19 +517,19 @@ settings are applied back to the world generator as an override for the desert b
 instance of a vanilla populator. This time the populator will be added globally, which means it will be
 applied to all chunks regardless of the biome. Let&#8217;s add a Pumpkin populator globally, causing pumpkins to be
 scattered everywhere throughout the world.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">PopulatorFactory</span> <span class="n">factory</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.gen.populator.Pumpkin</span><span class="o">;</span>
 
 <span class="nd">@Override</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">modifyWorldGenerator</span><span class="o">(</span><span class="n">WorldCreationSettings</span> <span class="n">world</span><span class="o">,</span> <span class="n">DataContainer</span> <span class="n">settings</span><span class="o">,</span> <span class="n">WorldGenerator</span> <span class="n">worldGenerator</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Pumpkin</span><span class="o">.</span><span class="na">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newPumpkinBuilder</span><span class="o">();</span>
-    <span class="n">builder</span><span class="o">.</span><span class="na">count</span><span class="o">(</span><span class="mi">12</span><span class="o">);</span>
+    <span class="n">Pumpkin</span><span class="o">.</span><span class="na">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">Pumpkin</span><span class="o">.</span><span class="na">builder</span><span class="o">();</span>
+    <span class="n">builder</span><span class="o">.</span><span class="na">perChunk</span><span class="o">(</span><span class="mi">12</span><span class="o">);</span>
     <span class="n">Pumpkin</span> <span class="n">pumpkinPopulator</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
     <span class="n">worldGenerator</span><span class="o">.</span><span class="na">getPopulators</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">pumpkinPopulator</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 <p>Contrary to the previous example, this time you are creating an entirely new populator. To do this, first you need to
-get a builder for that populator from the <tt class="docutils literal"><span class="pre">PopulatorFactory</span></tt> (which can be fetched from the game registry).
+get a builder for that populator from the <code class="docutils literal"><span class="pre">PopulatorFactory</span></code> (which can be fetched from the game registry).
 Then set your desired settings for the populator into it - in this case, we want a dozen pumpkins to spawn per patch.
 Finally, add your new populator to the list of populators that are applied globally to the world.</p>
 <p>Voila, now we have pumpkins everywhere.</p>
@@ -516,38 +539,39 @@ properties, see the javadocs for a complete listing of available populators and 
 </div>
 <div class="section" id="creating-custom-base-terrain">
 <h2>Creating Custom Base Terrain<a class="headerlink" href="#creating-custom-base-terrain" title="Permalink to this headline">¶</a></h2>
-<p>Changing the base <tt class="docutils literal"><span class="pre">GenerationPopulator</span></tt> of a world generator allows you to change the base terrain shape
+<p>Changing the base <code class="docutils literal"><span class="pre">GenerationPopulator</span></code> of a world generator allows you to change the base terrain shape
 generation of the world. A generator populator will roughly follow the procedure of using the seed and biome
 information to seed and modify a series of noise maps, from which the terrain is formed. The terrain created
 in a modified base generator populator should only consist of stone blocks, to allow the biomes to properly replace
 blocks for biome-specific ground cover.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SinusoidalGenerator</span> <span class="kd">implements</span> <span class="n">GenerationPopulator</span> <span class="o">{</span>
-        <span class="nd">@Override</span>
+
+    <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">populate</span><span class="o">(</span><span class="n">World</span> <span class="n">world</span><span class="o">,</span> <span class="n">MutableBlockVolume</span> <span class="n">buffer</span><span class="o">,</span> <span class="n">ImmutableBiomeArea</span> <span class="n">biomes</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getBlockMin</span><span class="o">().</span><span class="na">getX</span><span class="o">(),</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getBlockMax</span><span class="o">().</span><span class="na">getX</span><span class="o">();</span> <span class="n">x</span><span class="o">++)</span> <span class="o">{</span>
-                        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getBlockMin</span><span class="o">().</span><span class="na">getZ</span><span class="o">(),</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getBlockMax</span><span class="o">().</span><span class="na">getZ</span><span class="o">();</span> <span class="n">z</span><span class="o">++)</span> <span class="o">{</span>
-                                <span class="n">BiomeType</span> <span class="n">biome</span> <span class="o">=</span> <span class="n">biomes</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">z</span><span class="o">);</span>
-                                <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">getHeight</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">z</span><span class="o">,</span> <span class="n">biome</span><span class="o">);</span>
-                                <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">height</span> <span class="o">||</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">64</span><span class="o">;</span> <span class="n">y</span><span class="o">++)</span> <span class="o">{</span>
-                                        <span class="k">if</span><span class="o">(</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">height</span><span class="o">)</span> <span class="o">{</span>
-                                                <span class="n">buffer</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">z</span><span class="o">,</span> <span class="n">BlockTypes</span><span class="o">.</span><span class="na">STONE</span><span class="o">);</span>
-                                        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-                                                <span class="n">buffer</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">z</span><span class="o">,</span> <span class="n">BlockTypes</span><span class="o">.</span><span class="na">WATER</span><span class="o">);</span>
-                                        <span class="o">}</span>
-                                <span class="o">}</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getBlockMin</span><span class="o">().</span><span class="na">getX</span><span class="o">();</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getBlockMax</span><span class="o">().</span><span class="na">getX</span><span class="o">();</span> <span class="n">x</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getBlockMin</span><span class="o">().</span><span class="na">getZ</span><span class="o">();</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getBlockMax</span><span class="o">().</span><span class="na">getZ</span><span class="o">();</span> <span class="n">z</span><span class="o">++)</span> <span class="o">{</span>
+                    <span class="n">BiomeType</span> <span class="n">biome</span> <span class="o">=</span> <span class="n">biomes</span><span class="o">.</span><span class="na">getBiome</span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="n">z</span><span class="o">);</span>
+                    <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">getHeight</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">z</span><span class="o">,</span> <span class="n">biome</span><span class="o">);</span>
+                    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">height</span> <span class="o">||</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">64</span><span class="o">;</span> <span class="n">y</span><span class="o">++)</span> <span class="o">{</span>
+                        <span class="k">if</span><span class="o">(</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">height</span><span class="o">)</span> <span class="o">{</span>
+                            <span class="n">buffer</span><span class="o">.</span><span class="na">setBlockType</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">z</span><span class="o">,</span> <span class="n">BlockTypes</span><span class="o">.</span><span class="na">STONE</span><span class="o">);</span>
+                        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                            <span class="n">buffer</span><span class="o">.</span><span class="na">setBlockType</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">z</span><span class="o">,</span> <span class="n">BlockTypes</span><span class="o">.</span><span class="na">WATER</span><span class="o">);</span>
                         <span class="o">}</span>
+                    <span class="o">}</span>
                 <span class="o">}</span>
+            <span class="o">}</span>
         <span class="o">}</span>
 
-        <span class="kd">private</span> <span class="kt">int</span> <span class="nf">getHeight</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">z</span><span class="o">,</span> <span class="n">BiomeType</span> <span class="n">biome</span><span class="o">)</span> <span class="o">{</span>
-                <span class="kt">double</span> <span class="n">sx</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">sin</span><span class="o">(</span><span class="n">x</span><span class="o">/</span><span class="mi">64</span><span class="n">d</span><span class="o">)+</span><span class="mi">1</span><span class="o">;</span>
-                <span class="kt">double</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">sin</span><span class="o">(</span><span class="n">z</span><span class="o">/</span><span class="mi">64</span><span class="n">d</span><span class="o">)+</span><span class="mi">1</span><span class="o">;</span>
-                <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="o">(</span><span class="n">sx</span> <span class="o">+</span> <span class="n">sz</span><span class="o">)</span> <span class="o">/</span> <span class="mi">4</span><span class="n">d</span><span class="o">;</span>
-                <span class="n">BiomeGenerationSettings</span> <span class="n">settings</span> <span class="o">=</span> <span class="n">biome</span><span class="o">.</span><span class="na">getGenerationSettings</span><span class="o">();</span>
-                <span class="kt">double</span> <span class="n">heightRange</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="na">getMaxHeight</span><span class="o">()</span> <span class="o">-</span> <span class="n">settings</span><span class="o">.</span><span class="na">getMinHeight</span><span class="o">();</span>
-                <span class="kt">double</span> <span class="n">height</span> <span class="o">=</span> <span class="n">heightRange</span> <span class="o">*</span> <span class="n">value</span> <span class="o">|</span> <span class="n">settings</span><span class="o">.</span><span class="na">getMinHeight</span><span class="o">;</span>
-                <span class="k">return</span> <span class="n">GenericMath</span><span class="o">.</span><span class="na">floor</span><span class="o">(</span><span class="n">height</span> <span class="o">*</span> <span class="mi">256</span><span class="o">);</span>
-        <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">getHeight</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">z</span><span class="o">,</span> <span class="n">BiomeType</span> <span class="n">biome</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">double</span> <span class="n">sx</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">sin</span><span class="o">(</span><span class="n">x</span> <span class="o">/</span> <span class="mi">64</span><span class="n">d</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="kt">double</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">sin</span><span class="o">(</span><span class="n">z</span> <span class="o">/</span> <span class="mi">64</span><span class="n">d</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="o">(</span><span class="n">sx</span> <span class="o">+</span> <span class="n">sz</span><span class="o">)</span> <span class="o">/</span> <span class="mi">4</span><span class="n">d</span><span class="o">;</span>
+        <span class="n">BiomeGenerationSettings</span> <span class="n">settings</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">// No object of that type obtainable</span>
+        <span class="kt">double</span> <span class="n">heightRange</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="na">getMaxHeight</span><span class="o">()</span> <span class="o">-</span> <span class="n">settings</span><span class="o">.</span><span class="na">getMinHeight</span><span class="o">();</span>
+        <span class="kt">double</span> <span class="n">height</span> <span class="o">=</span> <span class="n">heightRange</span> <span class="o">*</span> <span class="n">value</span> <span class="o">/</span> <span class="n">settings</span><span class="o">.</span><span class="na">getMinHeight</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">GenericMath</span><span class="o">.</span><span class="na">floor</span><span class="o">(</span><span class="n">height</span> <span class="o">*</span> <span class="mi">256</span><span class="o">);</span>
+    <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -585,7 +609,7 @@ offset by 8 in both the x and z axes</p>
         </div>
         <div class="footer" role="contentinfo">
               &copy; Copyright 2014-2015, Sponge Contributors.
-            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>
   </body>
