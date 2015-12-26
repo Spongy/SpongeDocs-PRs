@@ -408,7 +408,7 @@ code above is unsafe as it may result in a <code class="docutils literal"><span 
 </pre></div>
 </div>
 <p>Let&#8217;s assume our plugin author is savvy to the nullable nature of our <code class="docutils literal"><span class="pre">getFoo</span></code> method and decides to fix the problem
-with null checking. Assuming he has defined a local constant <code class="docutils literal"><span class="pre">Foo</span></code>, he resultant code looks like this:</p>
+with null checking. Assuming they have defined a local constant <code class="docutils literal"><span class="pre">Foo</span></code>, the resultant code looks like this:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="o">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Foo</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="o">.</span><span class="na">getFoo</span><span class="o">();</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">entityFoo</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
@@ -420,14 +420,14 @@ with null checking. Assuming he has defined a local constant <code class="docuti
 </div>
 <p>In this example, the plugin author is aware that the method can return null and has a constant available with a
 default instance of <code class="docutils literal"><span class="pre">Foo</span></code> which can be used instead. Of course the plugin could just short-circuit the call entirely,
-or it could attempt to fetch <cite>Foo</cite> from somewhere else. The key take-away is that handling nulls even in simple cases
+or it could attempt to fetch <cite>Foo</cite> from somewhere else. The key message is that handling nulls even in simple cases
 can lead to spaghetti code quite quickly, and moreover relies on the plugin author to explicitly visit the method&#8217;s
 contract to check whether a null check is necessary in the first place.</p>
 <p>That&#8217;s not the only drawback however. Let&#8217;s consider the API over the longer term and assume that at the time the author
 writes their plugin, they visit the method javadoc and see that the method is guaranteed to never return null
 (since every <cite>Entity</cite> always has a <code class="docutils literal"><span class="pre">Foo</span></code> available). Great! No convoluted null check required!</p>
-<p>However, let&#8217;s now assume that several versions of the game along the line, the game developers remove or deprecate
-the concept of <code class="docutils literal"><span class="pre">Foo</span></code>. The API authors update the API accordingly and state that from now on the <code class="docutils literal"><span class="pre">getFoo()</span></code> method
+<p>However, let&#8217;s now assume that in a later version of the game, the game developers remove or deprecate the concept of
+<code class="docutils literal"><span class="pre">Foo</span></code>. The API authors update the API accordingly and state that from now on the <code class="docutils literal"><span class="pre">getFoo()</span></code> method
 <strong>can</strong> return <code class="docutils literal"><span class="pre">null</span></code> and write this into the method javadoc. Now there&#8217;s a problem: even diligent plugin authors who
 checked the method contract when they first wrote their code are unwittingly handling the method incorrectly: with no
 null check in place any code using the <code class="docutils literal"><span class="pre">Foo</span></code> returned from <code class="docutils literal"><span class="pre">getFoo</span></code> is going to raise an NPE.</p>
@@ -445,7 +445,7 @@ choose from:</p>
 </ul>
 </div></blockquote>
 <p>It should be pretty clear by now that there are some sizable headaches attached to <em>implicit</em> nullable contracts, made
-all the more poingant when the API in question is a layer over an extremely unstable base product. Fortunately,
+all the more poignant when the API in question is a layer over an extremely unstable base product. Fortunately,
 there is a better way:</p>
 </div>
 <div class="section" id="optional-and-the-explicit-nullable-contract">
@@ -462,10 +462,10 @@ any time for any reason in any way imaginable; up to and including being removed
 <p>By encoding the possibility of returning <code class="docutils literal"><span class="pre">null</span></code> into an explicit contract, we replace the concept of
 <em>null checking</em> with the more nuanced concept of <em>may not exist</em>. We also stipulate this contract <em>from day one</em>.</p>
 <p>So what does this mean?</p>
-<p>In a nutshell, no longer do plugin authors have to worry about may/may not return <code class="docutils literal"><span class="pre">null</span></code>, instead the very
-possibility of a particular object not being available becomes encoded in the very fabric of their plugin code. This
-has the same level of inherent safety as just null-checking the hell out of everything, but with the benefit of much
-more elegant and readable code in order to do so.</p>
+<p>In a nutshell, no longer do plugin authors have to worry about the possibility of <code class="docutils literal"><span class="pre">null</span></code> being returned. Instead the
+very possibility of a particular object not being available becomes encoded in the very fabric of their plugin code.
+This has the same level of inherent safety as constantly performing null-checks, but with the benefit of much more
+elegant and readable code in order to do so.</p>
 <p>To see why, let&#8217;s take a look at the above example, converted to use a <code class="docutils literal"><span class="pre">getFoo</span></code> method which returns
 <code class="docutils literal"><span class="pre">Optional&lt;Foo&gt;</span></code> instead:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="o">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="o">)</span> <span class="o">{</span>
@@ -483,7 +483,7 @@ of the value&#8217;s absence is explicit and clear.</p>
 <p>So what? Our explicit contract in this case results in basically the same amount of code as a null check - albeit
 one that is contractually <em>enforced</em> by the getter. <em>&#8220;Whoop de do,&#8221;</em> you say, <em>&#8220;so what?&#8221;</em></p>
 <p>Well the <cite>Optional</cite> boxing allows us to take some of the traditionally more awkward aspects of null-checking and
-make them orders of magnitude more elegant: consider the following code:</p>
+make them more elegant: consider the following code:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="o">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Foo</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="o">.</span><span class="na">getFoo</span><span class="o">().</span><span class="na">orElse</span><span class="o">(</span><span class="n">MyPlugin</span><span class="o">.</span><span class="na">DEFAULT_FOO</span><span class="o">);</span>
     <span class="n">entityFoo</span><span class="o">.</span><span class="na">bar</span><span class="o">();</span>
