@@ -186,6 +186,15 @@
 <li class="toctree-l2"><a class="reference internal" href="lifecycle.html">Plugin Lifecycle</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="optional/index.html">Optionals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optional/basic.html">Optionals Explained</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="optional/usage.html">Usage Examples</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging and Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -206,7 +215,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="commands/childcommands.html">Child Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/service.html">The Command Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/service.html">The Command Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
@@ -215,17 +224,11 @@
 <li class="toctree-l2"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Your Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="configuration/loaders.html">Configuration Loaders</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="configuration/values.html">Giving Nodes Value</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
@@ -303,8 +306,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../contributing/api/index.html">API Development</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../contributing/api/git.html">Git Workflow for SpongeAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/api/index.html">API Development</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/implementation/index.html">Implementation Development</a><ul>
@@ -370,42 +372,47 @@
                   
   <div class="section" id="dependency-injection">
 <h1>Dependency Injection<a class="headerlink" href="#dependency-injection" title="Permalink to this headline">¶</a></h1>
-<p>Sponge uses dependency injection to provide instances of the API to plugins.</p>
-<div class="section" id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>Dependency injection allows plugins to designate a few API types that will be injected after construction.</p>
-</div>
+<p>Sponge uses dependency injection to provide instances of the API to plugins.
+Dependency injection allows plugins to designate a few API types that will be injected after construction.</p>
 <div class="section" id="temporary-list-of-injected-types">
 <h2>Temporary List of Injected Types<a class="headerlink" href="#temporary-list-of-injected-types" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
-<dt>ConfigDir</dt>
+<dt>ConfigDir (annotation on Path or File)</dt>
 <dd>Used to inject the plugin&#8217;s configuration directory:
-<tt class="docutils literal"><span class="pre">./mods/</span></tt> OR <tt class="docutils literal"><span class="pre">./mods/&lt;Plugin#id&gt;/</span></tt> depending on <tt class="docutils literal"><span class="pre">sharedRoot</span></tt></dd>
-<dt>ConfigFile</dt>
-<dd>Used to inject the plugin&#8217;s specific configuration file: <tt class="docutils literal"><span class="pre">&lt;Plugin#id&gt;.conf</span></tt></dd>
+<code class="docutils literal"><span class="pre">./mods/</span></code> OR <code class="docutils literal"><span class="pre">./mods/&lt;Plugin#id&gt;/</span></code> depending on <code class="docutils literal"><span class="pre">sharedRoot</span></code></dd>
+<dt>ConfigurationLoader&lt;CommentedConfigurationNode&gt;</dt>
+<dd>Must be annotated with <code class="docutils literal"><span class="pre">&#64;DefaultConfig</span></code>.
+Used to inject a pre-generated <code class="docutils literal"><span class="pre">ConfigurationLoader</span></code> for the <code class="docutils literal"><span class="pre">File</span></code> of the same annotation.</dd>
+<dt>DefaultConfig (annotation on Path, ConfigurationLoader or File)</dt>
+<dd>Used to inject the plugin&#8217;s specific configuration file: <code class="docutils literal"><span class="pre">&lt;Plugin#id&gt;.conf</span></code></dd>
 <dt>EventManager</dt>
 <dd>Manages the registration of event handlers and the dispatching of events.</dd>
 <dt>File</dt>
-<dd>This must have an additional annotation specifying specific file!
-Currently, specifications are <tt class="docutils literal"><span class="pre">ConfigFile</span></tt> and <tt class="docutils literal"><span class="pre">ConfigDir</span></tt>.</dd>
+<dd>Must be annotated with either <code class="docutils literal"><span class="pre">&#64;DefaultConfig</span></code> or <code class="docutils literal"><span class="pre">&#64;ConfigDir</span></code>.
+Depending on the annotation given this will contain a file reference to the plugins default config file or the
+directory used for storing configuration files. However, Path (see below) should be preferred.</dd>
 <dt>Game</dt>
-<dd>The <tt class="docutils literal"><span class="pre">Game</span></tt> object is the core accessor of the SpongeAPI.</dd>
+<dd>The <code class="docutils literal"><span class="pre">Game</span></code> object is the core accessor of the SpongeAPI.</dd>
 <dt>GameRegistry</dt>
-<dd>Provides an easy way to retrieve types from a <tt class="docutils literal"><span class="pre">Game</span></tt>.</dd>
+<dd>Provides an easy way to retrieve types from a <code class="docutils literal"><span class="pre">Game</span></code>.</dd>
 <dt>GuiceObjectMapperFactory</dt>
-<dd>A tool provided by configurate to allow easier mapping of objects to configuration nodes.
+<dd>A tool provided by Configurate to allow easier mapping of objects to configuration nodes.
 See <a class="reference internal" href="configuration/serialization.html"><em>Serializing Objects</em></a> for usage.</dd>
 <dt>Injector</dt>
-<dd><tt class="docutils literal"><span class="pre">com.google.inject.Injector</span></tt> is available from Guice, it is the injector that was used to inject your plugin&#8217;s
+<dd><code class="docutils literal"><span class="pre">com.google.inject.Injector</span></code> is available from Guice, it is the injector that was used to inject your plugin&#8217;s
 dependencies. You can use it to create a child injector with your own module in order to inject your own classes
 with either the Sponge provided dependencies listed on this page, or configure your own classes</dd>
 <dt>Logger</dt>
 <dd>Used to identify the plugin from which logged messages are sent.</dd>
+<dt>Path</dt>
+<dd>Must be annotated with either <code class="docutils literal"><span class="pre">&#64;DefaultConfig</span></code> or <code class="docutils literal"><span class="pre">&#64;ConfigDir</span></code>.
+Depending on the annotation given this will contain a path reference to the plugins default config file or the
+directory used for storing configuration files.</dd>
 <dt>PluginContainer</dt>
-<dd>A <tt class="docutils literal"><span class="pre">&#64;Plugin</span></tt> class wrapper, used to retrieve information from the annotation for easier use.</dd>
+<dd>A <code class="docutils literal"><span class="pre">&#64;Plugin</span></code> class wrapper, used to retrieve information from the annotation for easier use.</dd>
 <dt>PluginManager</dt>
 <dd>Manages the plugins loaded by the implementation.
-Can retrieve another plugin&#8217;s <tt class="docutils literal"><span class="pre">PluginContainer</span></tt>.</dd>
+Can retrieve another plugin&#8217;s <code class="docutils literal"><span class="pre">PluginContainer</span></code>.</dd>
 </dl>
 </div>
 <div class="section" id="injection-examples">
@@ -426,9 +433,9 @@ instantiated with the Guice injector when the plugin is loaded.</p>
 </div>
 <div class="section" id="game">
 <h3>Game<a class="headerlink" href="#game" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">Game</span></tt> object is the opening for many of the internal functions of the SpongeAPI, from the <tt class="docutils literal"><span class="pre">EventManager</span></tt> to the
-<tt class="docutils literal"><span class="pre">Server</span></tt> and even the Sync/Async <tt class="docutils literal"><span class="pre">Scheduler</span></tt>.</p>
-<p>It&#8217;s entirely possible to receive the <tt class="docutils literal"><span class="pre">Game</span></tt> object from within most events, however it is commonly obtained through
+<p>The <code class="docutils literal"><span class="pre">Game</span></code> object is the opening for many of the internal functions of the SpongeAPI, from the <code class="docutils literal"><span class="pre">EventManager</span></code> to the
+<code class="docutils literal"><span class="pre">Server</span></code> and even the Sync/Async <code class="docutils literal"><span class="pre">Scheduler</span></code>.</p>
+<p>It&#8217;s entirely possible to receive the <code class="docutils literal"><span class="pre">Game</span></code> object from within most events, however it is commonly obtained through
 an injection.</p>
 <p><strong>Example - Field</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
@@ -464,24 +471,26 @@ an injection.</p>
 <p>The recommended way to obtain your config file is through Guice, along with the &#64;ConfigFile annotation.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">If you set <tt class="docutils literal"><span class="pre">sharedRoot</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt>, your <tt class="docutils literal"><span class="pre">ConfigDir</span></tt> will be the same directory which - potentially - houses
-the configuration for other plugins. In most cases where grabbing the <tt class="docutils literal"><span class="pre">ConfigDir</span></tt> is required, this should be
-<tt class="docutils literal"><span class="pre">false</span></tt>.</p>
+<p class="last">If you set <code class="docutils literal"><span class="pre">sharedRoot</span></code> to <code class="docutils literal"><span class="pre">true</span></code>, your <code class="docutils literal"><span class="pre">ConfigDir</span></code> will be the same directory which - potentially - houses
+the configuration for other plugins. In most cases where grabbing the <code class="docutils literal"><span class="pre">ConfigDir</span></code> is required, this should be
+<code class="docutils literal"><span class="pre">false</span></code>.</p>
 </div>
 <p><strong>Example - Field</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.config.ConfigDir</span><span class="o">;</span>
 
-<span class="nd">@Inject</span>
-<span class="nd">@ConfigDir</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
-<span class="kd">private</span> <span class="n">File</span> <span class="n">configDir</span><span class="o">;</span>
-</pre></div>
-</div>
-<p><strong>Example - Method</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">File</span> <span class="n">configDir</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
 <span class="nd">@ConfigDir</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setConfigDir</span><span class="o">(</span><span class="n">File</span> <span class="n">configDir</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="n">Path</span> <span class="n">configDir</span><span class="o">;</span>
+</pre></div>
+</div>
+<p><strong>Example - Method</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">Path</span> <span class="n">configDir</span><span class="o">;</span>
+
+<span class="nd">@Inject</span>
+<span class="nd">@ConfigDir</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setConfigDir</span><span class="o">(</span><span class="n">Path</span> <span class="n">configDir</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">configDir</span> <span class="o">=</span> <span class="n">configDir</span><span class="o">;</span>
 <span class="o">}</span>
 </pre></div>
@@ -489,10 +498,10 @@ the configuration for other plugins. In most cases where grabbing the <tt class=
 <p><strong>Example - Constructor</strong></p>
 <blockquote>
 <div><em>For the purposes of this tutorial, &#8220;Orange&#8221; is the class name.</em></div></blockquote>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">File</span> <span class="n">configDir</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">Path</span> <span class="n">configDir</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
-<span class="kd">public</span> <span class="nf">Orange</span><span class="o">(</span><span class="nd">@ConfigDir</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">File</span> <span class="n">configDir</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nf">Orange</span><span class="o">(</span><span class="nd">@ConfigDir</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">Path</span> <span class="n">configDir</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">configDir</span> <span class="o">=</span> <span class="n">configDir</span><span class="o">;</span>
 <span class="o">}</span>
 </pre></div>
@@ -500,11 +509,11 @@ the configuration for other plugins. In most cases where grabbing the <tt class=
 </div>
 <div class="section" id="defaultconfig">
 <h3>DefaultConfig<a class="headerlink" href="#defaultconfig" title="Permalink to this headline">¶</a></h3>
-<p>The way that <tt class="docutils literal"><span class="pre">DefaultConfig</span></tt> works is very similar to <tt class="docutils literal"><span class="pre">ConfigDir</span></tt>. The biggest difference obviously being that
-<tt class="docutils literal"><span class="pre">DefaultConfig</span></tt> refers to a specific file, where <tt class="docutils literal"><span class="pre">ConfigDir</span></tt> refers to a directory.</p>
+<p>The way that <code class="docutils literal"><span class="pre">DefaultConfig</span></code> works is very similar to <code class="docutils literal"><span class="pre">ConfigDir</span></code>. The biggest difference obviously being that
+<code class="docutils literal"><span class="pre">DefaultConfig</span></code> refers to a specific file, where <code class="docutils literal"><span class="pre">ConfigDir</span></code> refers to a directory.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">View <a class="reference internal" href="configuration/index.html"><em>Configuring Your Plugin</em></a> for a complete guide, specifically for <tt class="docutils literal"><span class="pre">DefaultConfig</span></tt>.</p>
+<p class="last">View <a class="reference internal" href="configuration/index.html"><em>Configuring Plugins</em></a> for a complete guide, specifically for <code class="docutils literal"><span class="pre">DefaultConfig</span></code>.</p>
 </div>
 </div>
 </div>
@@ -518,7 +527,7 @@ the configuration for other plugins. In most cases where grabbing the <tt class=
         </div>
         <div class="footer" role="contentinfo">
               &copy; Copyright 2014-2015, Sponge Contributors.
-            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>
   </body>

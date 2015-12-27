@@ -187,6 +187,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../optional/basic.html">Optionals Explained</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../optional/usage.html">Usage Examples</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -207,7 +216,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../commands/childcommands.html">Child Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/service.html">The Command Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../commands/service.html">The Command Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
@@ -216,17 +225,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../events.html">Working with Events</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Your Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../configuration/loaders.html">Configuration Loaders</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../configuration/nodes.html">Configuration Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/paths.html">Navigating Through Nodes</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../configuration/values.html">Giving Nodes Value</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../configuration/serialization.html">Serializing Objects</a><ul class="simple">
@@ -304,8 +307,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../contributing/api/git.html">Git Workflow for SpongeAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/implementation/index.html">Implementation Development</a><ul>
@@ -372,7 +374,7 @@
   <div class="section" id="creating-text">
 <h1>Creating Text<a class="headerlink" href="#creating-text" title="Permalink to this headline">¶</a></h1>
 <p>The Text API is used to create formatted text, which can be sent to players in chat messages, and can also be used in
-places such as books and signs. Sponge provides the <tt class="docutils literal"><span class="pre">org.spongepowered.api.text.Texts</span></tt> utility class to assist in
+places such as books and signs. Sponge provides the <code class="docutils literal"><span class="pre">org.spongepowered.api.text.Texts</span></code> utility class to assist in
 creating and formatting text.</p>
 <div class="section" id="unformatted-text">
 <h2>Unformatted Text<a class="headerlink" href="#unformatted-text" title="Permalink to this headline">¶</a></h2>
@@ -386,7 +388,7 @@ simplest form of text to create.</p>
 <span class="n">Text</span> <span class="n">unformattedText</span> <span class="o">=</span> <span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Hey! This is unformatted text!&quot;</span><span class="o">);</span>
 </pre></div>
 </div>
-<p>The code excerpt illustrated above will return uncolored, unformatted text with no <a class="reference internal" href="#text-actions"><em>text actions</em></a>
+<p>The code excerpt illustrated above will return uncolored, unformatted text with no <a class="reference internal" href="#text-actions"><span>text actions</span></a>
 configured.</p>
 </div>
 </div>
@@ -409,7 +411,7 @@ of the builder pattern in software design.</p>
 <span class="n">Text</span> <span class="n">coloredText</span> <span class="o">=</span> <span class="n">Texts</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;Woot! Golden text is golden.&quot;</span><span class="o">).</span><span class="na">color</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">GOLD</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
-<p>Any color specified within the <tt class="docutils literal"><span class="pre">org.spongepowered.api.text.format.TextColors</span></tt> class can be used when coloring text.
+<p>Any color specified within the <code class="docutils literal"><span class="pre">org.spongepowered.api.text.format.TextColors</span></code> class can be used when coloring text.
 Multiple colors can be used in text by appending additional texts with different colors:</p>
 </div>
 <div class="section" id="example-multi-colored-text">
@@ -441,7 +443,7 @@ Multiple colors can be used in text by appending additional texts with different
 </div>
 <div class="section" id="coloring-styling-shortcut">
 <h3>Coloring &amp; Styling Shortcut<a class="headerlink" href="#coloring-styling-shortcut" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">org.spongepowered.api.text.Texts#of(Object...</span> <span class="pre">objects)</span></tt> method provides a simple way to add color and styling to
+<p>The <code class="docutils literal"><span class="pre">org.spongepowered.api.text.Texts#of(Object...</span> <span class="pre">objects)</span></code> method provides a simple way to add color and styling to
 your text in a much more concise way.</p>
 </div>
 <div class="section" id="example-color-style-shortcut">
@@ -453,7 +455,7 @@ your text in a much more concise way.</p>
 <div class="section" id="text-actions">
 <span id="id1"></span><h3>Text Actions<a class="headerlink" href="#text-actions" title="Permalink to this headline">¶</a></h3>
 <p>The text builder also offers the ability to create actions for text. Any action specified within the
-<tt class="docutils literal"><span class="pre">org.spongepowered.api.text.action.TextActions</span></tt> class can be used when creating text actions for text. The method
+<code class="docutils literal"><span class="pre">org.spongepowered.api.text.action.TextActions</span></code> class can be used when creating text actions for text. The method
 below is a small example of what text actions can do.</p>
 </div>
 <div class="section" id="example-text-with-an-action">
@@ -466,7 +468,7 @@ below is a small example of what text actions can do.</p>
 <p>In the method above, players can click the &#8220;Click here!&#8221; text to run the specified command.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Some text actions, such as <tt class="docutils literal"><span class="pre">ChangePage</span></tt>, can only be used with book items.</p>
+<p class="last">Some text actions, such as <code class="docutils literal"><span class="pre">ChangePage</span></code>, can only be used with book items.</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -483,7 +485,7 @@ useful when creating minigame plugins, but have a broad range of applications.</
 <p class="last">Read this <a class="reference external" href="http://minecraft.gamepedia.com/Commands#Target_selectors">Minecraft wiki article</a> for help understanding
 what target selectors are in Minecraft, and how to use them.</p>
 </div>
-<p>To use selectors in text, you must use the <tt class="docutils literal"><span class="pre">org.spongepowered.api.text.selector.SelectorBuilder</span></tt> interface. This is
+<p>To use selectors in text, you must use the <code class="docutils literal"><span class="pre">org.spongepowered.api.text.selector.SelectorBuilder</span></code> interface. This is
 illustrated in the example below.</p>
 </div>
 <div class="section" id="example-selector-generated-text">
@@ -495,7 +497,7 @@ illustrated in the example below.</p>
 <span class="o">).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
-<p>In this example, the target selector <tt class="docutils literal"><span class="pre">&#64;a[m=2]</span></tt> is targeting every online player who is in adventure mode. When the
+<p>In this example, the target selector <code class="docutils literal"><span class="pre">&#64;a[m=2]</span></code> is targeting every online player who is in adventure mode. When the
 method is called, a Text will be returned containing the usernames of every online player who is in adventure mode.</p>
 </div>
 </div>
@@ -509,7 +511,7 @@ method is called, a Text will be returned containing the usernames of every onli
         </div>
         <div class="footer" role="contentinfo">
               &copy; Copyright 2014-2015, Sponge Contributors.
-            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>
   </body>
