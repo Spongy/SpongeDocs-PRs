@@ -34,7 +34,7 @@
         <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../../index.html" />
         <link rel="up" title="Creating Commands" href="index.html" />
         <link rel="next" title="Working with Events" href="../events.html" />
-        <link rel="prev" title="The Command Service" href="service.html" />
+        <link rel="prev" title="The Command Manager" href="service.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -62,7 +62,7 @@
           <a href="../events.html" title="Working with Events"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="service.html" title="The Command Service"
+          <a href="service.html" title="The Command Manager"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
         <li><a href="../index.html" >Creating a Plugin</a> &raquo;</li>
@@ -188,6 +188,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../optional/basic.html">Optionals Explained</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../optional/usage.html">Usage Examples</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -208,7 +217,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="childcommands.html">Child Commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="service.html">The Command Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="service.html">The Command Manager</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="">Low-Level Command API</a><ul class="simple">
 </ul>
 </li>
@@ -299,8 +308,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../contributing/api/git.html">Git Workflow for SpongeAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/implementation/index.html">Implementation Development</a><ul>
@@ -366,12 +374,12 @@
                   
   <div class="section" id="low-level-command-api">
 <h1>Low-Level Command API<a class="headerlink" href="#low-level-command-api" title="Permalink to this headline">¶</a></h1>
-<p>The <tt class="docutils literal"><span class="pre">CommandCallable</span></tt> and <tt class="docutils literal"><span class="pre">Dispatcher</span></tt> interfaces can be used to define commands. The interfaces can be used as a
+<p>The <code class="docutils literal"><span class="pre">CommandCallable</span></code> and <code class="docutils literal"><span class="pre">Dispatcher</span></code> interfaces can be used to define commands. The interfaces can be used as a
 base for custom command APIs.</p>
 <p>It is recommended to use the <a class="reference external" href="../../basics/commands">Command Builder API</a> for simple command definitions.</p>
 <div class="section" id="writing-a-command">
 <h2>Writing a command<a class="headerlink" href="#writing-a-command" title="Permalink to this headline">¶</a></h2>
-<p>The first step is to create a class for the command. The class has to implement the interface <tt class="docutils literal"><span class="pre">CommandCallable</span></tt>:</p>
+<p>The first step is to create a class for the command. The class has to implement the interface <code class="docutils literal"><span class="pre">CommandCallable</span></code>:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.Server</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Texts</span><span class="o">;</span>
@@ -431,9 +439,9 @@ purposes of each method in this example.</p>
 </div>
 <div class="section" id="registering-the-command">
 <h2>Registering the command<a class="headerlink" href="#registering-the-command" title="Permalink to this headline">¶</a></h2>
-<p>Now we can register the class in the <tt class="docutils literal"><span class="pre">CommandService</span></tt>. The <tt class="docutils literal"><span class="pre">CommandService</span></tt> stands as the manager for watching what
+<p>Now we can register the class in the <code class="docutils literal"><span class="pre">CommandService</span></code>. The <code class="docutils literal"><span class="pre">CommandService</span></code> stands as the manager for watching what
 commands get typed into chat, and redirecting them to the right command handler. To register your command, use the
-method <tt class="docutils literal"><span class="pre">CommandService.register()</span></tt>, passing your plugin, an instance of the command, and any needed aliases as parameters.</p>
+method <code class="docutils literal"><span class="pre">CommandService.register()</span></code>, passing your plugin, an instance of the command, and any needed aliases as parameters.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.command.CommandService</span><span class="o">;</span>
 
 <span class="n">CommandService</span> <span class="n">cmdService</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getCommandDispatcher</span><span class="o">();</span>
@@ -450,8 +458,8 @@ used by another command are ignored.</p>
 <div class="section" id="command-dispatchers">
 <h2>Command Dispatchers<a class="headerlink" href="#command-dispatchers" title="Permalink to this headline">¶</a></h2>
 <p>Command dispatchers can be used to create hierarchical command structures (subcommands).</p>
-<p>The default implementation of the <tt class="docutils literal"><span class="pre">Dispatcher</span></tt> interface is the <tt class="docutils literal"><span class="pre">SimpleDispatcher</span></tt> class.</p>
-<p>A <tt class="docutils literal"><span class="pre">Dispatcher</span></tt> is also a <tt class="docutils literal"><span class="pre">CommandCallable</span></tt>, so it can be registered like any other command.</p>
+<p>The default implementation of the <code class="docutils literal"><span class="pre">Dispatcher</span></code> interface is the <code class="docutils literal"><span class="pre">SimpleDispatcher</span></code> class.</p>
+<p>A <code class="docutils literal"><span class="pre">Dispatcher</span></code> is also a <code class="docutils literal"><span class="pre">CommandCallable</span></code>, so it can be registered like any other command.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.util.command.dispatcher.SimpleDispatcher</span><span class="o">;</span>
 
 <span class="n">CommandCallable</span> <span class="n">subCommand1</span> <span class="o">=</span> <span class="o">...;</span>
@@ -476,7 +484,7 @@ used by another command are ignored.</p>
         </div>
         <div class="footer" role="contentinfo">
               &copy; Copyright 2014-2015, Sponge Contributors.
-            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>
   </body>
