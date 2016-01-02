@@ -1,0 +1,566 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <title>Plugin Debugging &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+    
+  <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:400italic,700italic,700,400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../_static/tomorrow.css" type="text/css" />
+  <link id="syntax-highlighting-ref" rel="stylesheet" href="../_static/tomorrow_night.css" type="text/css" />
+      
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT:    '../',
+      VERSION:     '2.1-SNAPSHOT',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE:  true
+    };
+  </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/store.min.js"></script>
+    <script type="text/javascript" src="../_static/lights.js"></script>
+        <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../index.html" />
+        <link rel="up" title="Creating a Plugin" href="index.html" />
+        <link rel="next" title="Message Sinks" href="message-sinks.html" />
+        <link rel="prev" title="Using the Plugin Manager" href="manager.html" />
+    
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-59476017-2', 'auto');
+    ga('send', 'pageview');
+
+  </script> 
+  </head>
+  <body role="document">
+    <div class="container">
+  <div class="related" role="navigation" aria-label="related navigation">
+    <h3>Navigation</h3>
+    <ul>
+      <span style="float: right" class="lights" title="Toggles syntax highlighting between light and dark">
+        <i class="icon-lamp lights-icon"></i> Highlight Code Light/Dark
+      </span>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="message-sinks.html" title="Message Sinks"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="manager.html" title="Using the Plugin Manager"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
+        <li><a href="index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
+    </ul>
+  </div> 
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+    <form class="search" action="../search.html" method="get">
+      <div class="searchbox-inner">
+        <input class="field" type="text" name="q" autocomplete="off" />
+        <button class="submit" type="submit"><i class="icon-search"></i></button>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </div>
+    </form>
+    <p class="searchtip" style="font-size: 90%"></p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../server/index.html">Creating a Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../server/getting-started/index.html">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/jre.html">Installing Java</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/migrating.html">Migrating to Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/spongeforge.html">SpongeForge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/launch-script.html">Creating a Launch Script</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/port-forward.html">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/bungeecord.html">Using Sponge with BungeeCord</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/configuration/index.html">Configuring Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/hocon.html">Introduction to HOCON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/json.html">JSON Syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/sponge-conf.html">global.conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/server-properties.html">server.properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../server/management/index.html">Server Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/whitelist.html">Managing the Whitelist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/bans.html">Managing Bans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/permissions.html">Managing Permissions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/plugins.html">Installing Plugins</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../server/spongineer/index.html">Becoming an Expert Spongineer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/commands.html">Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/logs.html">Log Files</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/debugging.html">Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/bugreport.html">Reporting Bugs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preparing/index.html">Preparing for Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/jdk.html">Installing the JDK</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/ide.html">Installing an IDE</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/text.html">Installing a Text Editor</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/git.html">Installing Git</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="workspace/index.html">Setting Up Your Workspace</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="workspace/idea.html">Setting Up IntelliJ IDEA</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="workspace/eclipse.html">Setting Up Eclipse</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="workspace/netbeans.html">Setting Up NetBeans</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="workspace/dependencies.html">Adding Sponge API Dependencies</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="practices.html">Best Practices</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html">Plugin Templates</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main-class.html">Creating Your Main Plugin Class</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lifecycle.html">Plugin Lifecycle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="optional/index.html">Optionals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optional/basic.html">Optionals Explained</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="optional/usage.html">Usage Examples</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging and Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="text/index.html">Working with Text</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="text/text.html">Creating Text</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="text/pagination.html">The Pagination Service</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="commands/index.html">Creating Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands/creating.html">Building a Command</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/arguments.html">Argument Parsing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/childcommands.html">Child Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/service.html">The Command Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="data/index.html">The Data API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="data/keys.html">Using Keys</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/datamanipulators.html">Data Manipulators</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/serialization.html">Serializing Data</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blocks/index.html">Working with Blocks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blocks/concepts.html">Concepts</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blocks/accessing.html">Accessing Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blocks/modifying.html">Modifying Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blocks/tileentities.html">Working with Tile Entities</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="entities/index.html">Working with Entities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="entities/spawning.html">Spawning an Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="entities/modifying.html">Modifying an Entity</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="items.html">Working with Items</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="injection.html">Dependency Injection</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scheduler.html">Using the Scheduler</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html">Working with Databases</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="permissions.html">Working with the Permissions API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Working with Services</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manager.html">Using the Plugin Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Plugin Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="message-sinks.html">Message Sinks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/api/index.html">API Development</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/implementation/index.html">Implementation Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/git.html">Git Workflow for Sponge implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/spongedocs.html">SpongeDocs Writing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/versioning.html">The Sponge Versioning System and Repository Layout</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About the Sponge Project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../about/introduction.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/future.html">Plans for the Future</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about/license.html">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about/posting.html">Forum Posting Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/rules.html">Forum &amp; IRC Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about/staff.html">Staff</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/glossary.html">Sponge Glossary</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/assets.html">Art Assets</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/history.html">The History of Sponge</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<ul class="simple">
+</ul>
+
+      </div>
+    </div> 
+
+        <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body" role="main">
+                  
+  <div class="section" id="plugin-debugging">
+<h1>Plugin Debugging<a class="headerlink" href="#plugin-debugging" title="Permalink to this headline">¶</a></h1>
+<p>When bugs in your plugin&#8217;s code are hard to pinpoint, you are tired of recompiling after every single change
+and logger outputs are cluttering your code, debugging can be very tedious. Therefore, this section will
+explain how to set up your plugin to utilize Java&#8217;s debugging capabilities.</p>
+<div class="section" id="preparing-your-workspace">
+<h2>Preparing your workspace<a class="headerlink" href="#preparing-your-workspace" title="Permalink to this headline">¶</a></h2>
+<p>Since we will be running both Sponge and your plugin from within your IDE, you&#8217;ll need to import either
+<a class="reference external" href="https://github.com/SpongePowered/SpongeForge">SpongeForge</a> or <a class="reference external" href="https://github.com/SpongePowered/SpongeVanilla">SpongeVanilla</a>, depending on which you want to use, as a project into your
+workspace. The instructions to do so are found on the respective project&#8217;s github page. Follow those instructions
+carefully before proceeding here.</p>
+<p>Now you need to make sure your plugin project is visible to the <strong>Sponge(Vanilla)</strong> project you just created.
+The steps necessary depend on your IDE.</p>
+<div class="section" id="intellij-idea">
+<h3>IntelliJ IDEA<a class="headerlink" href="#intellij-idea" title="Permalink to this headline">¶</a></h3>
+<p>In IntelliJ, every project has its own workspace(s). To make your project visible to the <strong>Sponge(Vanilla)</strong> project, it needs to be a <em>Module</em>. Assuming you already created your project as described in
+<a class="reference internal" href="workspace/idea.html"><em>Setting Up IntelliJ IDEA</em></a>, import it using the following steps.</p>
+<ul class="simple">
+<li>Open the <strong>Sponge(Vanilla)</strong> project.</li>
+<li>Click <code class="docutils literal"><span class="pre">File</span></code>, followed by <code class="docutils literal"><span class="pre">New</span></code>, then <code class="docutils literal"><span class="pre">Module</span> <span class="pre">from</span> <span class="pre">Existing</span> <span class="pre">Sources...</span></code>.</li>
+<li>Navigate to the directory of your plugin project and select its <code class="docutils literal"><span class="pre">.iml</span></code> file (e.g. <code class="docutils literal"><span class="pre">MyPlugin.iml</span></code>)</li>
+<li>Click <code class="docutils literal"><span class="pre">Finish</span></code>.</li>
+</ul>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you have not yet created your plugin, click <code class="docutils literal"><span class="pre">Module...</span></code> instead of <code class="docutils literal"><span class="pre">Module</span> <span class="pre">from</span> <span class="pre">Existing</span> <span class="pre">Sources...</span></code>,
+then create your project in the following dialogue.</p>
+</div>
+</div>
+<div class="section" id="eclipse">
+<h3>Eclipse<a class="headerlink" href="#eclipse" title="Permalink to this headline">¶</a></h3>
+<p>Just create your project as described here: <a class="reference internal" href="workspace/eclipse.html"><em>Setting Up Eclipse</em></a>. As long as it is in the same workspace
+as your <strong>Sponge(Vanilla)</strong> project, it will be visible.</p>
+</div>
+</div>
+<div class="section" id="adding-plugin-to-sponge-classpath">
+<h2>Adding Plugin to Sponge classpath<a class="headerlink" href="#adding-plugin-to-sponge-classpath" title="Permalink to this headline">¶</a></h2>
+<p>The idea behind this is that we&#8217;ll launch Sponge from within your IDE, like normal. However, the difference is that
+we&#8217;ll be adding your plugin to the classpath. Since Sponge will per default load all plugins found in the classpath,
+adding the plugin project to Sponge&#8217;s classpath will rid you of the necessity to rebuild and copy the artifact
+file into your server directory after every change.</p>
+<p>First you need to ensure that you have your Run/Debug Configuration(s) set appropriately, as shown in the Sponge <a class="reference external" href="https://github.com/SpongePowered/Sponge/blob/master/README.md#Running">README.md</a></p>
+<p>Then you&#8217;ll need to edit that Run/Debug Configuration so that it will include your project on the class path.
+How to do this, depends on your IDE again:</p>
+<div class="section" id="id1">
+<h3>IntelliJ IDEA<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Open your Project Structure.<ul>
+<li>Click <code class="docutils literal"><span class="pre">File</span></code>, followed by <code class="docutils literal"><span class="pre">Project</span> <span class="pre">Structure...</span></code>.</li>
+<li>OR, click the <code class="docutils literal"><span class="pre">Project</span> <span class="pre">Structure</span></code> icon, in the upper right-hand corner of the IDE, next to the <code class="docutils literal"><span class="pre">Search</span></code> icon.</li>
+</ul>
+</li>
+<li>Click <code class="docutils literal"><span class="pre">Modules</span></code>. Make sure Sponge / SpongeVanilla (depending on what you chose) is selected in the middle column</li>
+<li>On the right column, select the <code class="docutils literal"><span class="pre">Dependencies</span></code> tab</li>
+<li>Click the Green <code class="docutils literal"><span class="pre">+</span></code> symbol (<code class="docutils literal"><span class="pre">Add</span></code>) on the far right, and select <code class="docutils literal"><span class="pre">Module</span> <span class="pre">Dependency</span></code></li>
+<li>Select your Module (Plugin).</li>
+<li>Do NOT check the module, after it is added to the list.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>Eclipse<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Find your Run/Debug Configuration<ul>
+<li>Click <code class="docutils literal"><span class="pre">Run</span></code>, followed by <code class="docutils literal"><span class="pre">Run</span> <span class="pre">Configurations...</span></code></li>
+<li>OR, click the drop-down arrow beside the Run/Debug icons and then <code class="docutils literal"><span class="pre">Run</span> <span class="pre">Configurations...</span></code> or
+<code class="docutils literal"><span class="pre">Debug</span> <span class="pre">Configurations...</span></code>, respectively.</li>
+</ul>
+</li>
+<li>Select your Run/Debug Configuration for Sponge (Server) on the left side.</li>
+<li>Switch to the <code class="docutils literal"><span class="pre">Classpath</span></code> tab.</li>
+<li>Select <code class="docutils literal"><span class="pre">User</span> <span class="pre">Entries</span></code>, followed by the <code class="docutils literal"><span class="pre">Add</span> <span class="pre">Projects...</span></code> button.</li>
+<li>Select the appropriate Project for your Plugin.</li>
+<li>Click the <code class="docutils literal"><span class="pre">OK</span></code> button.</li>
+<li>Click the <code class="docutils literal"><span class="pre">Apply</span></code> button on the bottom right corner.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="running-the-configuration">
+<h2>Running the Configuration<a class="headerlink" href="#running-the-configuration" title="Permalink to this headline">¶</a></h2>
+<p>After you&#8217;ve followed the previous steps, you should be ready to start debugging.
+If you start your server from your IDE as if it were run from the <code class="docutils literal"><span class="pre">run/server</span></code> directory in your
+Sponge(Vanilla) project. Which means, all config files, world files etc will be stored there and persist
+over multiple launches.</p>
+<div class="section" id="id3">
+<h3>IntelliJ IDEA<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Rather than pressing the Green right-pointing arrow to run your Run/Debug configuration, click the Green icon to the
+right of it, <code class="docutils literal"><span class="pre">Debug</span></code>.</p>
+</div>
+<div class="section" id="id4">
+<h3>Eclipse<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Rather than pressing the green right-pointing arrow to run your Run/Debug configuration, click the drop down arrow of
+the Debug icon (the one displaying a bug) and click your Sponge (Server) configuration. If it doesn&#8217;t appear in the
+drop-down menu, click <code class="docutils literal"><span class="pre">Debug</span> <span class="pre">Configurations</span></code>. Select <code class="docutils literal"><span class="pre">Sponge</span> <span class="pre">(Server)</span></code> configuration and hit the <code class="docutils literal"><span class="pre">Debug</span></code> button
+on the bottom left.</p>
+</div>
+</div>
+<div class="section" id="using-the-debugger">
+<h2>Using the Debugger<a class="headerlink" href="#using-the-debugger" title="Permalink to this headline">¶</a></h2>
+<p>Now that your server (and your Plugin) are running in the Debugger, you can make use of the features it holds.
+The most prominently used are explained below in short, though they are not features of Sponge, but the Java
+Debugger your IDE makes use of.</p>
+<div class="section" id="breakpoints">
+<h3>Breakpoints<a class="headerlink" href="#breakpoints" title="Permalink to this headline">¶</a></h3>
+<p>Breakpoints are a useful tool to take a closer look at the code. A breakpoint can be set at the beginning of a
+line of code or a function. When reaching a breakpoint, the debugger will halt the code execution and your IDE
+will open up a view allowing you to inspect the content of all variables in the current scope. Code execution
+will not resume unless you press the according button in your IDE&#8217;s debugging view.</p>
+<p>Breakpoints may also be added, removed or temporarily disabled while the debugging is in process.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Once a single server tick takes more than a given amount of time, the watchdog will consider the server crashed
+and forcefully shut it down. When working with breakpoints this might occur, so it is recommended that you
+edit your test environments <code class="docutils literal"><span class="pre">server.properties</span></code> file and set the value of <code class="docutils literal"><span class="pre">max-tick-time</span></code> to either a
+very large number (the amount of milliseconds a tick may take) or <code class="docutils literal"><span class="pre">-1</span></code> (to disable the Watchdog completely).</p>
+</div>
+<div class="section" id="id5">
+<h4>IntelliJ IDEA<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>To add or remove a breakpoint, just left click in the blank space just to the left of your editor.</p>
+<p>Alternatively, have your cursor be in the line where you want the breakpoint added or removed and then click
+<code class="docutils literal"><span class="pre">Run</span></code> followed by <code class="docutils literal"><span class="pre">Toggle</span> <span class="pre">Line</span> <span class="pre">Breakpoint</span></code>.</p>
+</div>
+<div class="section" id="id6">
+<h4>Eclipse<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>To add or remove a breakpoint, just right click in the blank space just to the left of your editor and click
+<code class="docutils literal"><span class="pre">Toggle</span> <span class="pre">Breakpoint</span></code>.</p>
+<p>Alternatively, have your cursor be in the line where you want the breakpoint added or removed and then click <code class="docutils literal"><span class="pre">Run</span></code> followed by <code class="docutils literal"><span class="pre">Toggle</span> <span class="pre">Breakpoint</span></code>.</p>
+</div>
+</div>
+<div class="section" id="code-hotswapping">
+<h3>Code Hotswapping<a class="headerlink" href="#code-hotswapping" title="Permalink to this headline">¶</a></h3>
+<p>The other major feat of the debugger is that you will not have to restart your server for every small change you
+make, thanks to code hotswapping. This means that you can just recompile portions of your code while it is
+running in the debugger. However, there are a couple of limitations, the most important of which are:</p>
+<ul>
+<li><p class="first">You cannot create or remove methods.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Changes to methods are limited to code <em>within</em> the method. You cannot modify its signature (that means its name, return type and parameter types)</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">You cannot remove classes.</p>
+<blockquote>
+<div><ul class="simple">
+<li>You cannot modify a class&#8217; name, superclass or the list of interfaces it implements.</li>
+<li>You can add classes. However, once it&#8217;s been built and hotswapped, the class follows the above rules.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>You can test this functionality: Introduce a simple command to your plugin that just writes a word, like <code class="docutils literal"><span class="pre">Sponge</span></code>
+Then save it and start the server as described above. Run the command. It will output sponge. Now change the command
+to write a different word to console, save the file. After a change, do as follows to hotswap the changes to
+the running program:</p>
+<div class="section" id="id7">
+<h4>IntelliJ IDEA<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Open the <code class="docutils literal"><span class="pre">Run</span></code> menu, from the top of the IDE.</li>
+<li>Below the first category break, click <code class="docutils literal"><span class="pre">Reload</span> <span class="pre">Changed</span> <span class="pre">Classes</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h4>Eclipse<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<p>No action needed. As soon as you save the file, it will be rebuilt and automatically hotswapped with the
+currently running debug. So as long as you did not change this particular default behavior, you will not have to
+trigger a manual hotswap.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          <div class="clearer"></div>
+        </div>
+        <div class="footer" role="contentinfo">
+              &copy; Copyright 2014-2015, Sponge Contributors.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+        </div>
+    </div>
+  </body>
+</html>
