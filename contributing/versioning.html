@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>The Sponge Versioning System and Repository Layout &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+     <title>The Sponge Versioning System and Repository Branch Layout &mdash; Sponge 2.1-SNAPSHOT documentation</title>
     
   <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
@@ -331,7 +331,7 @@
 <li class="toctree-l2"><a class="reference internal" href="porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">The Sponge Versioning System and Repository Layout</a><ul class="simple">
+<li class="toctree-l2 current"><a class="current reference internal" href="">The Sponge Versioning System and Repository Branch Layout</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -380,17 +380,20 @@
               <div class="bodywrapper">
                 <div class="body" role="main">
                   
-  <div class="section" id="the-sponge-versioning-system-and-repository-layout">
-<h1>The Sponge Versioning System and Repository Layout<a class="headerlink" href="#the-sponge-versioning-system-and-repository-layout" title="Permalink to this headline">¶</a></h1>
-<p>With the release for beta we&#8217;ve moved the sponge api versioning to semer (see <a class="reference external" href="http://semver.org/">http://semver.org/</a>).
-This change means that every time we&#8217;re making a release which has non-backwards-compatible
-(breaking) changes we have to increment the major version of the api by one (eg. from 3.0.0 -&gt;
-4.0.0). The layout of our branches which is described below are designed to assist with being able
+  <div class="section" id="the-sponge-versioning-system-and-repository-branch-layout">
+<h1>The Sponge Versioning System and Repository Branch Layout<a class="headerlink" href="#the-sponge-versioning-system-and-repository-branch-layout" title="Permalink to this headline">¶</a></h1>
+<p>With the release for beta we&#8217;ve moved the sponge API versioning to semantic versioning (see <a class="reference external" href="http://semver.org/">http://semver.org/</a>).
+This change means that every time that we make a release we have to increment the version according to the rules
+of semver. This means that a release containing changes which are not backwards-compatible must be one
+<em>major</em> version ahead of the previous release. If there are only new features or binary compatible bugfixes then
+the new release will be one <em>minor</em> version ahead of the previous release, and if the release strictly contains
+bugfixes then only the <em>patch</em> version will be incremented.</p>
+<p>The layout of our branches (described below) is designed to assist this process by allowing us
 to make minor releases without a breaking change forcing us to make it a major release. This branch
 layout applies to the SpongeAPI, SpongeCommon, SpongeForge, and SpongeVanilla repositories.</p>
 <div class="section" id="the-core-branches">
 <h2>The Core Branches<a class="headerlink" href="#the-core-branches" title="Permalink to this headline">¶</a></h2>
-<p>There are three branches which form the core of our repositories, they are master, bleeding, and
+<p>There are three branches which form the core of our repositories; they are master, bleeding, and
 release. The master and bleeding branches are for active development and the release branch tracks
 the commit as of the most recent release build.</p>
 <p>The key differences between the master and bleeding branches is that any feature branches which are
@@ -402,24 +405,24 @@ backwards-compatible changes allowing minor versions to be released based on it 
 <p>Prior to releasing builds the content of the release should be first moved to a release branch.
 This branch allows dedicated testing to be performed for a release without forcing a code freeze on
 the development branches. Any bugfixes applied to the release branch are merged back to the master
-branch when the release if finalized. Once a release if made the version of the master and bleeding
-branches are both updated, the master branch to the next patch version and the bleeding branch to
+branch when the release is finalized. Once a release is made the version of the master and bleeding
+branches are both updated: the master branch to the next patch version and the bleeding branch to
 the next major version (assuming it was not already on the next major version).</p>
 </div>
 <div class="section" id="hotfix-branches">
 <h2>Hotfix Branches<a class="headerlink" href="#hotfix-branches" title="Permalink to this headline">¶</a></h2>
-<p>If after a release is made a significant bug is found a hotfix branch can be created based on the
+<p>If after a release is made, and a significant bug is found, a hotfix branch can be created based on the
 last release version and a new release can be made from this hotfix branch with the patch version
-incremented by one. The hotfix can then be merged back into master for included into future versions
-as well.</p>
+incremented by one. The hotfix branch can then be merged back into master for inclusion into future
+versions.</p>
 </div>
 <div class="section" id="feature-branches">
 <h2>Feature Branches<a class="headerlink" href="#feature-branches" title="Permalink to this headline">¶</a></h2>
-<p>New features or changes will continue to be done in a feature/foo or fix/bar branch. When merging
+<p>New features or changes will continue to be done in a <code class="docutils literal"><span class="pre">feature/foo</span></code> or <code class="docutils literal"><span class="pre">fix/bar</span></code> branch. When merging
 back into a development branch (master or bleeding) you should consider whether the changes are
-breaking or are strictly backwards-compatible. If the changes are purely new features or
-binary-compatible bugfixes then the feature branch can be merged into the master branch. If the
-changes include any breaking changes however then the feature branch must be merged into the
+breaking or are strictly backwards-compatible. If the changes are purely new features, or
+binary-compatible bugfixes, then the feature branch can be merged into the master branch. If the
+changes include any breaking changes however, then the feature branch must be merged into the
 bleeding branch to be included in the next major release.</p>
 <p><a class="reference external" href="https://dl.dropboxusercontent.com/u/17223377/bin/Sponge/sponge-flow.png">https://dl.dropboxusercontent.com/u/17223377/bin/Sponge/sponge-flow.png</a></p>
 </div>
