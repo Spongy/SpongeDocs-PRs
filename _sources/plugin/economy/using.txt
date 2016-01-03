@@ -30,10 +30,7 @@ Example: Loading the EconomyService
 	@Listener
 	public void onChangeServiceProvider(ChangeServiceProviderEvent event) {
 		if (event.getService().equals(EconomyService.class)) {
-			Object rawProvider = event.getNewProviderRegistration().getProvider();
-			if (rawProvider instanceof EconomyService) {
-				economyService = (EconomyService) rawProvider;
-			}
+			economyService = (EconomyService) event.getNewProviderRegistration().getProvider();
 		}
 	}
 
