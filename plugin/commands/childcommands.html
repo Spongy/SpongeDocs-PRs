@@ -273,6 +273,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Working with Entities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../entities/spawning.html">Spawning an Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../entities/modifying.html">Modifying an Entity</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../items.html">Working with Items</a><ul class="simple">
@@ -395,20 +398,20 @@
 </li>
 </ul>
 <p>Every child command is a separate <code class="docutils literal"><span class="pre">CommandSpec</span></code> and can be created in the same way a regular command is.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Texts</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandSpec</span><span class="o">;</span>
 
 <span class="c1">// /mail read</span>
 <span class="n">CommandSpec</span> <span class="n">readCmd</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">permission</span><span class="o">(</span><span class="s">&quot;myplugin.mail.read&quot;</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Read your inbox&quot;</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Read your inbox&quot;</span><span class="o">))</span>
     <span class="o">.</span><span class="na">executor</span><span class="o">(...)</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 
 <span class="c1">// /mail send</span>
 <span class="n">CommandSpec</span> <span class="n">sendCmd</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">permission</span><span class="o">(</span><span class="s">&quot;myplugin.mail.send&quot;</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Send a mail&quot;</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Send a mail&quot;</span><span class="o">))</span>
     <span class="o">.</span><span class="na">arguments</span><span class="o">(...)</span>
     <span class="o">.</span><span class="na">executor</span><span class="o">(...)</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
@@ -419,7 +422,7 @@
 appear in the usage message.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">CommandSpec</span> <span class="n">mailCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">permission</span><span class="o">(</span><span class="s">&quot;myplugin.mail&quot;</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Send and receive mails&quot;</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Send and receive mails&quot;</span><span class="o">))</span>
     <span class="o">.</span><span class="na">child</span><span class="o">(</span><span class="n">readCmd</span><span class="o">,</span> <span class="s">&quot;read&quot;</span><span class="o">,</span> <span class="s">&quot;r&quot;</span><span class="o">,</span> <span class="s">&quot;inbox&quot;</span><span class="o">)</span>
     <span class="o">.</span><span class="na">child</span><span class="o">(</span><span class="n">sendCmd</span><span class="o">,</span> <span class="s">&quot;send&quot;</span><span class="o">,</span> <span class="s">&quot;s&quot;</span><span class="o">,</span> <span class="s">&quot;write&quot;</span><span class="o">)</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>

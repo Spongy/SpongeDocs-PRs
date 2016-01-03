@@ -273,6 +273,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Working with Entities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../entities/spawning.html">Spawning an Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../entities/modifying.html">Modifying an Entity</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../items.html">Working with Items</a><ul class="simple">
@@ -387,8 +390,7 @@
   <div class="section" id="creating-text">
 <h1>Creating Text<a class="headerlink" href="#creating-text" title="Permalink to this headline">¶</a></h1>
 <p>The Text API is used to create formatted text, which can be sent to players in chat messages, and can also be used in
-places such as books and signs. Sponge provides the <code class="docutils literal"><span class="pre">org.spongepowered.api.text.Texts</span></code> utility class to assist in
-creating and formatting text.</p>
+places such as books and signs.</p>
 <div class="section" id="unformatted-text">
 <h2>Unformatted Text<a class="headerlink" href="#unformatted-text" title="Permalink to this headline">¶</a></h2>
 <p>Oftentimes, all you need is unformatted text. Unformatted text does not require the use of a text builder, and is the
@@ -396,9 +398,8 @@ simplest form of text to create.</p>
 <div class="section" id="example">
 <h3>Example:<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Texts</span><span class="o">;</span>
 
-<span class="n">Text</span> <span class="n">unformattedText</span> <span class="o">=</span> <span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Hey! This is unformatted text!&quot;</span><span class="o">);</span>
+<span class="n">Text</span> <span class="n">unformattedText</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Hey! This is unformatted text!&quot;</span><span class="o">);</span>
 </pre></div>
 </div>
 <p>The code excerpt illustrated above will return uncolored, unformatted text with no <a class="reference internal" href="#text-actions"><span>text actions</span></a>
@@ -421,7 +422,7 @@ of the builder pattern in software design.</p>
 <h3>Example: Colored Text<a class="headerlink" href="#example-colored-text" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="o">;</span>
 
-<span class="n">Text</span> <span class="n">coloredText</span> <span class="o">=</span> <span class="n">Texts</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;Woot! Golden text is golden.&quot;</span><span class="o">).</span><span class="na">color</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">GOLD</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="n">Text</span> <span class="n">coloredText</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;Woot! Golden text is golden.&quot;</span><span class="o">).</span><span class="na">color</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">GOLD</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
 <p>Any color specified within the <code class="docutils literal"><span class="pre">org.spongepowered.api.text.format.TextColors</span></code> class can be used when coloring text.
@@ -429,8 +430,8 @@ Multiple colors can be used in text by appending additional texts with different
 </div>
 <div class="section" id="example-multi-colored-text">
 <h3>Example: Multi-colored Text<a class="headerlink" href="#example-multi-colored-text" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">Text</span> <span class="n">multiColoredText</span> <span class="o">=</span> <span class="n">Texts</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;Sponges are &quot;</span><span class="o">).</span><span class="na">color</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">YELLOW</span><span class="o">).</span><span class="na">append</span><span class="o">(</span>
-        <span class="n">Texts</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;invincible!&quot;</span><span class="o">).</span><span class="na">color</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">RED</span><span class="o">).</span><span class="na">build</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">Text</span> <span class="n">multiColoredText</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;Sponges are &quot;</span><span class="o">).</span><span class="na">color</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">YELLOW</span><span class="o">).</span><span class="na">append</span><span class="o">(</span>
+        <span class="n">Text</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;invincible!&quot;</span><span class="o">).</span><span class="na">color</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">RED</span><span class="o">).</span><span class="na">build</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
 </div>
@@ -442,26 +443,26 @@ Multiple colors can be used in text by appending additional texts with different
 <h3>Example: Styled Text<a class="headerlink" href="#example-styled-text" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextStyles</span><span class="o">;</span>
 
-<span class="n">Text</span> <span class="n">styledText</span> <span class="o">=</span> <span class="n">Texts</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;Yay! Styled text!&quot;</span><span class="o">).</span><span class="na">style</span><span class="o">(</span><span class="n">TextStyles</span><span class="o">.</span><span class="na">ITALIC</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="n">Text</span> <span class="n">styledText</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;Yay! Styled text!&quot;</span><span class="o">).</span><span class="na">style</span><span class="o">(</span><span class="n">TextStyles</span><span class="o">.</span><span class="na">ITALIC</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
 <p>Just like with colors, multiple styles can be used by chaining together separately styled texts.</p>
 </div>
 <div class="section" id="example-multi-styled-text">
 <h3>Example: Multi-styled Text<a class="headerlink" href="#example-multi-styled-text" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">Text</span> <span class="n">multiStyledText</span> <span class="o">=</span> <span class="n">Texts</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;I&#39;m italicized! &quot;</span><span class="o">).</span><span class="na">style</span><span class="o">(</span><span class="n">TextStyles</span><span class="o">.</span><span class="na">ITALIC</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">Texts</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;I&#39;m bold!&quot;</span><span class="o">).</span><span class="na">style</span><span class="o">(</span><span class="n">TextStyles</span><span class="o">.</span><span class="na">BOLD</span><span class="o">).</span><span class="na">build</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">Text</span> <span class="n">multiStyledText</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;I&#39;m italicized! &quot;</span><span class="o">).</span><span class="na">style</span><span class="o">(</span><span class="n">TextStyles</span><span class="o">.</span><span class="na">ITALIC</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;I&#39;m bold!&quot;</span><span class="o">).</span><span class="na">style</span><span class="o">(</span><span class="n">TextStyles</span><span class="o">.</span><span class="na">BOLD</span><span class="o">).</span><span class="na">build</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="coloring-styling-shortcut">
 <h3>Coloring &amp; Styling Shortcut<a class="headerlink" href="#coloring-styling-shortcut" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">org.spongepowered.api.text.Texts#of(Object...</span> <span class="pre">objects)</span></code> method provides a simple way to add color and styling to
+<p>The <code class="docutils literal"><span class="pre">org.spongepowered.api.text.Text#of(Object...</span> <span class="pre">objects)</span></code> method provides a simple way to add color and styling to
 your text in a much more concise way.</p>
 </div>
 <div class="section" id="example-color-style-shortcut">
 <h3>Example: Color &amp; Style Shortcut<a class="headerlink" href="#example-color-style-shortcut" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">Text</span> <span class="n">colorAndStyleText</span> <span class="o">=</span> <span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">RED</span><span class="o">,</span> <span class="n">TextStyles</span><span class="o">.</span><span class="na">ITALIC</span><span class="o">,</span> <span class="s">&quot;Shortcuts for the win!&quot;</span><span class="o">);</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">Text</span> <span class="n">colorAndStyleText</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">RED</span><span class="o">,</span> <span class="n">TextStyles</span><span class="o">.</span><span class="na">ITALIC</span><span class="o">,</span> <span class="s">&quot;Shortcuts for the win!&quot;</span><span class="o">);</span>
 </pre></div>
 </div>
 </div>
@@ -475,7 +476,7 @@ below is a small example of what text actions can do.</p>
 <h3>Example: Text with an Action<a class="headerlink" href="#example-text-with-an-action" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.action.TextActions</span><span class="o">;</span>
 
-<span class="n">Text</span> <span class="n">clickableText</span> <span class="o">=</span> <span class="n">Texts</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;Click here!&quot;</span><span class="o">).</span><span class="na">onClick</span><span class="o">(</span><span class="n">TextActions</span><span class="o">.</span><span class="na">runCommand</span><span class="o">(</span><span class="s">&quot;tell Spongesquad I&#39;m ready!&quot;</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
+<span class="n">Text</span> <span class="n">clickableText</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;Click here!&quot;</span><span class="o">).</span><span class="na">onClick</span><span class="o">(</span><span class="n">TextActions</span><span class="o">.</span><span class="na">runCommand</span><span class="o">(</span><span class="s">&quot;tell Spongesquad I&#39;m ready!&quot;</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
 <p>In the method above, players can click the &#8220;Click here!&#8221; text to run the specified command.</p>
@@ -505,8 +506,8 @@ illustrated in the example below.</p>
 <h3>Example: Selector-generated Text<a class="headerlink" href="#example-selector-generated-text" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.selector.Selectors</span><span class="o">;</span>
 
-<span class="n">Text</span> <span class="n">adventurers</span> <span class="o">=</span> <span class="n">Texts</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;These players are in adventure mode: &quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span>
-        <span class="n">Texts</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">Selectors</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">&quot;@a[m=2]&quot;</span><span class="o">))</span>
+<span class="n">Text</span> <span class="n">adventurers</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">&quot;These players are in adventure mode: &quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span>
+        <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">Selector</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">&quot;@a[m=2]&quot;</span><span class="o">))</span>
 <span class="o">).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
