@@ -31,9 +31,9 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
         <link rel="top" title="Sponge 3.0.0 documentation" href="../../index.html" />
-        <link rel="up" title="Economy API" href="index.html" />
+        <link rel="up" title="The Economy API" href="index.html" />
         <link rel="next" title="Using the Economy API" href="using.html" />
-        <link rel="prev" title="Economy API" href="index.html" />
+        <link rel="prev" title="The Economy API" href="index.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -61,11 +61,11 @@
           <a href="using.html" title="Using the Economy API"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Economy API"
+          <a href="index.html" title="The Economy API"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
         <li><a href="../index.html" >Creating a Plugin</a> &raquo;</li>
-        <li><a href="index.html" accesskey="U">Economy API</a> &raquo;</li> 
+        <li><a href="index.html" accesskey="U">The Economy API</a> &raquo;</li> 
     </ul>
   </div> 
     <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -291,14 +291,16 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../permissions.html">Working with the Permissions API</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Economy API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">The Economy API</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="">Basic Concepts</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="using.html">Using the Economy API</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="implementing.html">Implementing the Economy API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="implementing.html">Implementing the Economy API</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../services.html">Working with Services</a><ul class="simple">
@@ -420,25 +422,16 @@ currency for the economy. If the economy plugin chooses, it can support multiple
 <h3>Accounts<a class="headerlink" href="#accounts" title="Permalink to this headline">¶</a></h3>
 <p>Accounts are used to store economy information about a specific player or other object (i.e. bank, business, entity).
 There are two account types in the Sponge Economy API:</p>
-<ul class="simple">
-<li><strong>Virtual Accounts</strong></li>
-</ul>
-<blockquote>
-<div><ul class="simple">
-<li>Virtual accounts are tied to an identifier, which is stored as a string. Virtual accounts can be tied to almost
-anything, but are commonly used for things such as banks, or non-players. To get the id of a virtual account,
-use <code class="docutils literal"><span class="pre">getIdentifier()</span></code>.</li>
-</ul>
-</div></blockquote>
-<ul class="simple">
-<li><strong>Unique Accounts</strong></li>
-</ul>
-<blockquote>
-<div><ul class="simple">
-<li>Unique accounts are tied to a UUID, usually a player. To get the UUID of an unique account,
-use <code class="docutils literal"><span class="pre">getUUID()</span></code>.</li>
-</ul>
-</div></blockquote>
+<div class="section" id="virtual-accounts">
+<h4>Virtual Accounts<a class="headerlink" href="#virtual-accounts" title="Permalink to this headline">¶</a></h4>
+<p>Virtual accounts are tied to an identifier, which is stored as a string. Virtual accounts can be tied to almost
+anything, but are commonly used for things such as banks, or non-players. To get the id of a virtual account, use
+<code class="docutils literal"><span class="pre">getIdentifier()</span></code>.</p>
+</div>
+<div class="section" id="unique-accounts">
+<h4>Unique Accounts<a class="headerlink" href="#unique-accounts" title="Permalink to this headline">¶</a></h4>
+<p>Unique accounts are tied to a UUID, usually a player. To get the UUID of an unique account, use <code class="docutils literal"><span class="pre">getUUID()</span></code>.</p>
+</div>
 </div>
 <div class="section" id="transactions">
 <h3>Transactions<a class="headerlink" href="#transactions" title="Permalink to this headline">¶</a></h3>
@@ -448,9 +441,8 @@ use <code class="docutils literal"><span class="pre">getUUID()</span></code>.</l
 <li>Withdraw: Occurs when an account has funds removed from it</li>
 <li>Transfer: Occurs when an account exchanges funds with another account</li>
 </ul>
-<p>When a transfer occurs, the <code class="docutils literal"><span class="pre">EconomyTransactionEvent</span></code> is fired. Using
-this event, you can get the <code class="docutils literal"><span class="pre">TransactionResult</span></code>. The <code class="docutils literal"><span class="pre">TransactionResult</span></code> stores data about the transaction that
-occurred, including:</p>
+<p>When a transfer occurs, the <code class="docutils literal"><span class="pre">EconomyTransactionEvent</span></code> is fired. Using this event, you can get the <code class="docutils literal"><span class="pre">TransactionResult</span></code>.
+The <code class="docutils literal"><span class="pre">TransactionResult</span></code> stores data about the transaction that occurred, including:</p>
 <ul class="simple">
 <li>Account involved</li>
 <li>Currency involved</li>
@@ -458,11 +450,8 @@ occurred, including:</p>
 <li>Transaction type</li>
 <li>Result of the transaction</li>
 </ul>
-<blockquote>
-<div><ul class="simple">
-<li>You can view all possible transaction results at the <a class="reference external" href="https://jd.spongepowered.org/index.html?org/spongepowered/api/service/economy/transaction/ResultType.html">Sponge JavaDocs</a>.</li>
-</ul>
-</div></blockquote>
+<p>You can view all possible transaction results at the
+<a class="reference external" href="https://jd.spongepowered.org/index.html?org/spongepowered/api/service/economy/transaction/ResultType.html">Sponge JavaDocs</a>.</p>
 </div>
 </div>
 </div>
