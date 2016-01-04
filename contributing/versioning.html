@@ -393,7 +393,7 @@
                   
   <div class="section" id="the-sponge-versioning-system-and-repository-branch-layout">
 <h1>The Sponge Versioning System and Repository Branch Layout<a class="headerlink" href="#the-sponge-versioning-system-and-repository-branch-layout" title="Permalink to this headline">¶</a></h1>
-<p>With the release for beta we&#8217;ve moved the Sponge API versioning to semantic versioning (see <a class="reference external" href="http://semver.org/">http://semver.org/</a>).
+<p>With the release for beta we&#8217;ve moved the SpongeAPI versioning to semantic versioning (see <a class="reference external" href="http://semver.org/">http://semver.org/</a>).
 This change means that every time that we make a release we have to increment the version according to the rules
 of semver.</p>
 <div class="section" id="semver">
@@ -410,8 +410,10 @@ be incremented.</p>
 without a breaking change forcing us to make it a major release. This branch layout applies to the SpongeAPI,
 SpongeCommon, SpongeForge, and SpongeVanilla repositories but not to the SpongeDocs.</p>
 </div>
+<div class="section" id="spongeapi-spongecommon-spongeforge-and-spongevanilla">
+<h2>SpongeAPI, SpongeCommon, SpongeForge and SpongeVanilla<a class="headerlink" href="#spongeapi-spongecommon-spongeforge-and-spongevanilla" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="the-core-branches">
-<h2>The Core Branches<a class="headerlink" href="#the-core-branches" title="Permalink to this headline">¶</a></h2>
+<h3>The Core Branches<a class="headerlink" href="#the-core-branches" title="Permalink to this headline">¶</a></h3>
 <p>There are three branches which form the core of our repositories; they are <code class="docutils literal"><span class="pre">master</span></code>, <code class="docutils literal"><span class="pre">bleeding</span></code>, and
 <code class="docutils literal"><span class="pre">release</span></code>. The <code class="docutils literal"><span class="pre">master</span></code> and <code class="docutils literal"><span class="pre">bleeding</span></code> branches are for active development and the <code class="docutils literal"><span class="pre">release</span></code> branch tracks
 the commit as of the most recent release build.</p>
@@ -420,7 +422,7 @@ breaking <em>must</em> be merged into the bleeding branch. This allows the <code
 backwards-compatible changes allowing minor versions to be released based on it if necessary.</p>
 </div>
 <div class="section" id="release-branches">
-<h2>Release Branches<a class="headerlink" href="#release-branches" title="Permalink to this headline">¶</a></h2>
+<h3>Release Branches<a class="headerlink" href="#release-branches" title="Permalink to this headline">¶</a></h3>
 <p>Prior to releasing builds the content of the release should be first moved to a release prep branch.
 This branch allows dedicated testing to be performed for a release without forcing a code freeze on
 the development branches. Any bugfixes applied to the <code class="docutils literal"><span class="pre">release</span></code> branch are merged back to the <code class="docutils literal"><span class="pre">master</span></code>
@@ -429,20 +431,26 @@ branches are both updated: the <code class="docutils literal"><span class="pre">
 the next major version (assuming it was not already on the next major version).</p>
 </div>
 <div class="section" id="hotfix-branches">
-<h2>Hotfix Branches<a class="headerlink" href="#hotfix-branches" title="Permalink to this headline">¶</a></h2>
+<h3>Hotfix Branches<a class="headerlink" href="#hotfix-branches" title="Permalink to this headline">¶</a></h3>
 <p>If after a release is made, and a significant bug is found, a <code class="docutils literal"><span class="pre">hotfix/foo</span></code> branch can be created based on the
 last release version and a new release can be made from this hotfix branch with the patch version
 incremented by one. The hotfix branch can then be merged back into <code class="docutils literal"><span class="pre">master</span></code> for inclusion into future
 versions.</p>
 </div>
 <div class="section" id="feature-branches">
-<h2>Feature Branches<a class="headerlink" href="#feature-branches" title="Permalink to this headline">¶</a></h2>
+<h3>Feature Branches<a class="headerlink" href="#feature-branches" title="Permalink to this headline">¶</a></h3>
 <p>New features or changes will continue to be done in a <code class="docutils literal"><span class="pre">feature/foo</span></code> or <code class="docutils literal"><span class="pre">fix/bar</span></code> branch. When merging
 back into a development branch (<code class="docutils literal"><span class="pre">master</span></code> or <code class="docutils literal"><span class="pre">bleeding</span></code>) you should consider whether the changes are
 breaking or are strictly backwards-compatible. If the changes are purely new features, or
 binary-compatible bugfixes, then the feature branch can be merged into the <code class="docutils literal"><span class="pre">master</span></code> branch. If the
 changes include any breaking changes however, then the feature branch must be merged into the
 <code class="docutils literal"><span class="pre">bleeding</span></code> branch to be included in the next major release.</p>
+</div>
+</div>
+<div class="section" id="spongedocs">
+<h2>SpongeDocs<a class="headerlink" href="#spongedocs" title="Permalink to this headline">¶</a></h2>
+<p>The SpongeDocs follow their own versioning scheme which takes the other projcts parts versioning scheme (see above) into
+account.</p>
 </div>
 </div>
 
