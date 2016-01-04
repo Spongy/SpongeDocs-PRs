@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>The Sponge Versioning System and Repository Branch Layout &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+     <title>The Sponge Versioning System and Repository Branch Layout &mdash; Sponge 3.0.0 documentation</title>
     
   <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
@@ -19,7 +19,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../',
-      VERSION:     '2.1-SNAPSHOT',
+      VERSION:     '3.0.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -30,7 +30,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/store.min.js"></script>
     <script type="text/javascript" src="../_static/lights.js"></script>
-        <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../index.html" />
+        <link rel="top" title="Sponge 3.0.0 documentation" href="../index.html" />
         <link rel="up" title="Contributing to Sponge" href="index.html" />
         <link rel="next" title="About the Sponge Project" href="../about/index.html" />
         <link rel="prev" title="Porting Sponge to Other Platforms" href="porting.html" />
@@ -63,7 +63,7 @@
         <li class="right" >
           <a href="porting.html" title="Porting Sponge to Other Platforms"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
+        <li><a href="../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Contributing to Sponge</a> &raquo;</li> 
     </ul>
   </div> 
@@ -382,15 +382,23 @@
                   
   <div class="section" id="the-sponge-versioning-system-and-repository-branch-layout">
 <h1>The Sponge Versioning System and Repository Branch Layout<a class="headerlink" href="#the-sponge-versioning-system-and-repository-branch-layout" title="Permalink to this headline">¶</a></h1>
-<p>With the release for beta we&#8217;ve moved the sponge API versioning to semantic versioning (see <a class="reference external" href="http://semver.org/">http://semver.org/</a>).
+<p>With the release for beta we&#8217;ve moved the Sponge API versioning to semantic versioning (see <a class="reference external" href="http://semver.org/">http://semver.org/</a>).
 This change means that every time that we make a release we have to increment the version according to the rules
-of semver. This means that a release containing changes which are not backwards-compatible must be one
-<em>major</em> version ahead of the previous release. If there are only new features or binary compatible bugfixes then
-the new release will be one <em>minor</em> version ahead of the previous release, and if the release strictly contains
-bugfixes then only the <em>patch</em> version will be incremented.</p>
-<p>The layout of our branches (described below) is designed to assist this process by allowing us
-to make minor releases without a breaking change forcing us to make it a major release. This branch
-layout applies to the SpongeAPI, SpongeCommon, SpongeForge, and SpongeVanilla repositories.</p>
+of semver.</p>
+<div class="section" id="semver">
+<h2>SemVer<a class="headerlink" href="#semver" title="Permalink to this headline">¶</a></h2>
+<p>SemVer uses the scheme <code class="docutils literal"><span class="pre">X.Y.Z</span></code>, where <code class="docutils literal"><span class="pre">X</span></code> is a <em>major</em> version, <code class="docutils literal"><span class="pre">Y</span></code> is a <em>minor</em> one and <code class="docutils literal"><span class="pre">Z</span></code> finally is a
+<em>patch</em> version.
+A release containing changes which are not backwards-compatible must be one <em>major</em> version ahead of the previous
+release. If there are only new features that are still backwards compatible, then the new release will be one <em>minor</em>
+version ahead of the previous release, and if the release strictly contains bugfixes then only the <em>patch</em> version will
+be incremented.</p>
+<p>This means that for example <code class="docutils literal"><span class="pre">3.2.0</span></code> is fully compatible to <code class="docutils literal"><span class="pre">3.0.0</span></code> while <code class="docutils literal"><span class="pre">4.0.0</span></code> isn&#8217;t binary compatible to
+<code class="docutils literal"><span class="pre">3.0.0</span></code>. <code class="docutils literal"><span class="pre">3.1.0</span></code> and <code class="docutils literal"><span class="pre">3.1.2</span></code> are fully interchangeable besides the bugs that were fixed.</p>
+<p>The layout of our branches (described below) is designed to assist this process by allowing us to make minor releases
+without a breaking change forcing us to make it a major release. This branch layout applies to the SpongeAPI,
+SpongeCommon, SpongeForge, and SpongeVanilla repositories but not to the SpongeDocs.</p>
+</div>
 <div class="section" id="the-core-branches">
 <h2>The Core Branches<a class="headerlink" href="#the-core-branches" title="Permalink to this headline">¶</a></h2>
 <p>There are three branches which form the core of our repositories; they are <code class="docutils literal"><span class="pre">master</span></code>, <code class="docutils literal"><span class="pre">bleeding</span></code>, and
@@ -434,7 +442,7 @@ changes include any breaking changes however, then the feature branch must be me
           <div class="clearer"></div>
         </div>
         <div class="footer" role="contentinfo">
-              &copy; Copyright 2014-2015, Sponge Contributors.
+              &copy; Copyright 2014-2016, Sponge Contributors.
             Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>
