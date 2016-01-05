@@ -415,14 +415,14 @@ follow some guidelines when working with it:</p>
 sound counter-intuitive, it allows economy plugins to fully control how they handle negative balances.</p>
 <p>By checking yourself if the account has enough money, you prevent the economy plugin from (potentially)
 allowing a negative balance. For example, one economy plugin might want to allow negative balances to admins,
-or players with a certain permission. By performign the check yourself, you take this power away from the economy plugin.</p>
+or players with a certain permission. By performing the check yourself, you take this power away from the economy plugin.</p>
 <p>This code illustrates what <strong>not</strong> to do:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">EconomyService</span> <span class="n">service</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">BigDecimal</span> <span class="n">requiredAmount</span> <span class="o">=</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
 
 <span class="c1">// BAD: Don&#39;t perform this check</span>
-<span class="k">if</span> <span class="o">(</span><span class="n">account</span><span class="o">.</span><span class="na">getBalance</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getDefaultCurrency</span><span class="o">()).</span><span class="na">compareTo</span><span class="o">(</span><span class="n">requiredAmount</span><span class="o">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">account</span><span class="o">.</span><span class="na">getBalance</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getDefaultCurrency</span><span class="o">()).</span><span class="na">compareTo</span><span class="o">(</span><span class="n">requiredAmount</span><span class="o">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">// You don&#39;t have enough money!</span>
 <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
     <span class="c1">// The account has enough, let&#39;s withdraw some cash!</span>
