@@ -298,6 +298,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/economy/using.html">Using the Economy API</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/economy/practices.html">Economy API Best Practices</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/economy/implementing.html">Implementing the Economy API</a><ul class="simple">
 </ul>
 </li>
@@ -323,16 +326,27 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/structure.html">The Structure of the Sponge Project</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/howtogit.html">How to Git(Hub)</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/implementation/index.html">Implementation Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/implementation/index.html">Developing Sponge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/codestyle.html">Code Style</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/git-implementation.html">Git Workflow for API and Implementations</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/pr.html">Submitting a Pull-Request</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/mixins.html">Mixins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/git.html">Git Workflow for Sponge implementations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
 </ul>
 </li>
@@ -433,7 +447,7 @@ enable mixin debugging.</td>
 dimension, or globally.</td>
 <td>sponge.command.chunks</td>
 </tr>
-<tr class="row-even"><td>/sponge conf</td>
+<tr class="row-even"><td>/sponge config</td>
 <td>Alters a global, world, or a dimension
 config.</td>
 <td>sponge.command.config</td>
@@ -442,23 +456,14 @@ config.</td>
 <td>Dumps the JVM heap.</td>
 <td>sponge.command.heap</td>
 </tr>
-<tr class="row-even"><td>/sponge help</td>
-<td>Returns a list of all sponge commands</td>
-<td>sponge.command.help</td>
-</tr>
-<tr class="row-odd"><td>/sponge plugins</td>
+<tr class="row-even"><td>/sponge plugins</td>
 <td>Lists currently installed plugins.</td>
 <td>sponge.command.plugins</td>
 </tr>
-<tr class="row-even"><td>/sponge reload</td>
+<tr class="row-odd"><td>/sponge reload</td>
 <td>Reloads the global, world, or dimension
 config.</td>
 <td>sponge.command.reload</td>
-</tr>
-<tr class="row-odd"><td>/sponge reloadconfig</td>
-<td>Send a message to all plugins and Sponge
-to reload their configuration.</td>
-<td><em>Not yet available</em></td>
 </tr>
 <tr class="row-even"><td>/sponge save</td>
 <td>Saves the global, world, or dimension
@@ -470,6 +475,11 @@ config.</td>
 the console.</td>
 <td>sponge.command.version</td>
 </tr>
+<tr class="row-even"><td>/sponge timings</td>
+<td>Generates a report on the server
+performance.</td>
+<td>sponge.command.timings</td>
+</tr>
 </tbody>
 </table>
 <div class="line-block">
@@ -478,7 +488,7 @@ the console.</td>
 <p><strong>Sponge Command Parameters</strong></p>
 <ul class="simple">
 <li>/sponge chunks [-g] [-d dim] [-w world]</li>
-<li>/sponge conf [-g] [-d dim] [-w world] key value</li>
+<li>/sponge config [-g] [-d dim] [-w world] key value</li>
 <li>/sponge save [-g] [-d dim|*] [-w world|*]</li>
 <li>/sponge reload [-g] [-d dim|*] [-w world|*]</li>
 </ul>
@@ -490,20 +500,20 @@ the <a class="reference external" href="https://github.com/SpongePowered/Mixin/w
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p>Here are a few simple examples of the sponge conf command in action. Please see
+<p>Here are a few simple examples of the sponge config command in action. Please see
 <a class="reference internal" href="../getting-started/configuration/index.html"><em>Configuring Sponge</em></a> for a more detailed explanation.</p>
 <ol class="loweralpha simple">
-<li><code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">conf</span> <span class="pre">logging.chunk-load</span> <span class="pre">true</span></code></li>
+<li><code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">config</span> <span class="pre">logging.chunk-load</span> <span class="pre">true</span></code></li>
 </ol>
 <blockquote>
 <div>Since no dimension was specified, the dimension would default to the sender(player) dimension. So if you were in a
 mystcraft dimension, this would alter the mystcraft dimension config.</div></blockquote>
 <ol class="loweralpha simple" start="2">
-<li><code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">conf</span> <span class="pre">-d</span> <span class="pre">nether</span> <span class="pre">logging.chunk-load</span> <span class="pre">true</span></code></li>
+<li><code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">config</span> <span class="pre">-d</span> <span class="pre">nether</span> <span class="pre">logging.chunk-load</span> <span class="pre">true</span></code></li>
 </ol>
 <p>Since a dimension type was specified, this would alter the nether dimension config (and hence all nether worlds).</p>
 <ol class="loweralpha simple" start="3">
-<li><code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">conf</span> <span class="pre">-w</span> <span class="pre">DIM1</span> <span class="pre">logging.chunk-load</span> <span class="pre">true</span></code></li>
+<li><code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">config</span> <span class="pre">-w</span> <span class="pre">DIM1</span> <span class="pre">logging.chunk-load</span> <span class="pre">true</span></code></li>
 </ol>
 <p class="last">This would alter the config of world named DIM1.</p>
 </div>
