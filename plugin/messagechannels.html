@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Message Channels &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+     <title>Message Channels &mdash; Sponge 3.0.0 documentation</title>
     
   <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
@@ -19,7 +19,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../',
-      VERSION:     '2.1-SNAPSHOT',
+      VERSION:     '3.0.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -30,7 +30,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/store.min.js"></script>
     <script type="text/javascript" src="../_static/lights.js"></script>
-        <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../index.html" />
+        <link rel="top" title="Sponge 3.0.0 documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
         <link rel="next" title="Tutorials" href="tutorials.html" />
         <link rel="prev" title="Plugin Debugging" href="debugging.html" />
@@ -63,7 +63,7 @@
         <li class="right" >
           <a href="debugging.html" title="Plugin Debugging"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
+        <li><a href="../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
     </ul>
   </div> 
@@ -310,16 +310,27 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/structure.html">The Structure of the Sponge Project</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../contributing/api/index.html">API Development</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../contributing/howtogit.html">How to Git(Hub)</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../contributing/implementation/index.html">Implementation Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/implementation/index.html">Developing Sponge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/codestyle.html">Code Style</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/git-implementation.html">Git Workflow for API and Implementations</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/pr.html">Submitting a Pull-Request</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/mixins.html">Mixins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/git.html">Git Workflow for Sponge implementations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
 </ul>
 </li>
@@ -400,8 +411,8 @@ different channel may be set using the <code class="docutils literal"><span clas
 <p>It is also possible to send a message not to all players connected, but to a number of hand-selected receivers. This
 can be done by passing the list of the intended recipients to the <code class="docutils literal"><span class="pre">MessageChannel.fixed()</span></code> method. Unlike most other
 channels, the list of recipients will not be generated dynamically every time something is sent through the channel but
-remains static for the rest of its existance. However, the references kept are <em>weak</em>. This means that if for example
-a player disconnects and the corresponding <code class="docutils literal"><span class="pre">Player</span></code> object is removed by Javas <em>garbage collector</em>, that player will
+remains static for the rest of its existence. However, the references kept are <em>weak</em>. This means that if for example
+a player disconnects and the corresponding <code class="docutils literal"><span class="pre">Player</span></code> object is removed by Java&#8217;s <em>garbage collector</em>, that player will
 also vanish from the channels recipient list.</p>
 </div>
 <div class="section" id="permission-based-selection">
@@ -420,15 +431,16 @@ at least one of the combined channels.</p>
 </div>
 <div class="section" id="sending-messages">
 <h2>Sending Messages<a class="headerlink" href="#sending-messages" title="Permalink to this headline">¶</a></h2>
-<p>Once you have obtained a <code class="docutils literal"><span class="pre">MessageChannel</span></code> you can send a message through it via the <code class="docutils literal"><span class="pre">send(Text</span> <span class="pre">message)</span></code> method.
-It is also possible specify a sender (which can be any <code class="docutils literal"><span class="pre">Object</span></code>). However, that sender is only used for message
-transforming. The channel will then transform the message for every recipient and send the transformed message.</p>
+<p>Once you have obtained a <code class="docutils literal"><span class="pre">MessageChannel</span></code> you can send a message through it via the <code class="docutils literal"><span class="pre">send(Object</span> <span class="pre">sender,</span> <span class="pre">Text</span>
+<span class="pre">message)</span></code> method. This method should be used instead of the <code class="docutils literal"><span class="pre">send(Text</span> <span class="pre">message)</span></code> method, as the <code class="docutils literal"><span class="pre">Object</span></code> can be
+used for identification or for performing other various actions.
+The channel will then transform the message for every recipient and send the transformed message.</p>
 <div class="section" id="extended-application-chat-channels">
 <h3>Extended Application: Chat Channels<a class="headerlink" href="#extended-application-chat-channels" title="Permalink to this headline">¶</a></h3>
 <p>Message channels have a very useful application as they can be used to establish chat channels. For example, you could
 establish a message channel for every chat channel you wish to have. Then, when a <code class="docutils literal"><span class="pre">MessageReceiver</span></code> joins a channel,
-such as with <code class="docutils literal"><span class="pre">/join</span> <span class="pre">&lt;channel</span> <span class="pre">name&gt;</span></code>, simply set the <code class="docutils literal"><span class="pre">MessageReceiver</span></code>&#8216;s <code class="docutils literal"><span class="pre">MessageChannel</span></code> to the appropriate c
-hannel using the <code class="docutils literal"><span class="pre">MessageReceiver#setMessageChannel(MessageChannel</span> <span class="pre">channel)</span></code>. This will cause every message sent
+such as with <code class="docutils literal"><span class="pre">/join</span> <span class="pre">&lt;channel</span> <span class="pre">name&gt;</span></code>, simply set the <code class="docutils literal"><span class="pre">MessageReceiver</span></code>&#8216;s <code class="docutils literal"><span class="pre">MessageChannel</span></code> to the appropriate
+channel using the <code class="docutils literal"><span class="pre">MessageReceiver#setMessageChannel(MessageChannel</span> <span class="pre">channel)</span></code>. This will cause every message sent
 <em>from</em> the <code class="docutils literal"><span class="pre">MessageReceiver</span></code> to be passed to the given <code class="docutils literal"><span class="pre">MessageChannel</span></code> instead of the default one. Alternatively,
 you could listen to <code class="docutils literal"><span class="pre">MessageChannelEvent</span></code>, and set the appropriate <code class="docutils literal"><span class="pre">MessageChannel</span></code> using
 <code class="docutils literal"><span class="pre">MessageChannelEvent#setChannel(MessageChannel</span> <span class="pre">channel)</span></code>. Passing <code class="docutils literal"><span class="pre">null</span></code> to that method will unset any custom
@@ -438,8 +450,8 @@ channel, causing the message to be sent to the originalMessageChannel instead.</
 <div class="section" id="transforming-messages">
 <h2>Transforming Messages<a class="headerlink" href="#transforming-messages" title="Permalink to this headline">¶</a></h2>
 <p>You can apply a filter to all <code class="docutils literal"><span class="pre">Text</span></code>s that pass through a <code class="docutils literal"><span class="pre">MessageSink</span></code> to change the message however you like.
-This is possible by extending <code class="docutils literal"><span class="pre">MessageChannel</span></code> and overriding the <code class="docutils literal"><span class="pre">transformMessage()</span></code> method as demonstrated
-below.</p>
+This is possible by extending <code class="docutils literal"><span class="pre">MessageChannel</span></code> and overriding the <code class="docutils literal"><span class="pre">transformMessage(Object</span> <span class="pre">sender,</span> <span class="pre">MessageReceiver</span>
+<span class="pre">recipient,</span> <span class="pre">Text</span> <span class="pre">original)</span></code> method as demonstrated below.</p>
 <p><strong>Example: Transforming Messages</strong></p>
 <p>The following code excerpt defines a <code class="docutils literal"><span class="pre">AdminMessageSink</span></code> class which overrides the default <code class="docutils literal"><span class="pre">transformMessage</span></code> method.
 The new transformation method will first check if a source exists and, if it exists and is a permission <code class="docutils literal"><span class="pre">Subject</span></code>,
@@ -450,7 +462,7 @@ has the <code class="docutils literal"><span class="pre">myplugin.admin</span></
 <p>Note that we do not wish to define any additional recipients, so we return an empty collection in the <code class="docutils literal"><span class="pre">getMembers</span></code>
 method.</p>
 <p>Thanks to the capabilities of combined <code class="docutils literal"><span class="pre">MessageChannel</span></code>s, we can combine our newly created <code class="docutils literal"><span class="pre">AdminMessageChannel</span></code>
-with any other <code class="docutils literal"><span class="pre">MessageChannel</span></code>. Now if a player joins that has the <code class="docutils literal"><span class="pre">`myplugin.admin</span></code> permission, we will obtain
+with any other <code class="docutils literal"><span class="pre">MessageChannel</span></code>. Now if a player joins that has the <code class="docutils literal"><span class="pre">myplugin.admin</span></code> permission, we will obtain
 the <code class="docutils literal"><span class="pre">MessageChannel</span></code> his messages are sent to, combine it with an <code class="docutils literal"><span class="pre">AdminMessageChannel</span></code> and set the combined
 channel back on the player. That way all his messages are sent to everyone specified in the original channel, but
 due to the addition of the <code class="docutils literal"><span class="pre">AdminMessageChannel</span></code> will be prefixed.</p>
@@ -459,9 +471,7 @@ due to the addition of the <code class="docutils literal"><span class="pre">Admi
 
 <span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClientConnectionJoin</span><span class="o">(</span><span class="n">ClientConnectionEvent</span><span class="o">.</span><span class="na">Join</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getEntity</span><span class="o">();</span>
-
-    <span class="n">MessageChannel</span> <span class="n">originalChannel</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="na">getChannel</span><span class="o">();</span>
+    <span class="n">MessageChannel</span> <span class="n">originalChannel</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getOriginalChannel</span><span class="o">();</span>
     <span class="n">MessageChannel</span> <span class="n">newChannel</span> <span class="o">=</span> <span class="n">MessageChannel</span><span class="o">.</span><span class="na">combined</span><span class="o">(</span><span class="n">originalChannel</span><span class="o">,</span> <span class="k">new</span> <span class="n">AdminMessageChannel</span><span class="o">());</span>
 
     <span class="n">player</span><span class="o">.</span><span class="na">setChannel</span><span class="o">(</span><span class="n">newChannel</span><span class="o">);</span>
@@ -485,7 +495,7 @@ empty <code class="docutils literal"><span class="pre">Optional</span></code> wi
           <div class="clearer"></div>
         </div>
         <div class="footer" role="contentinfo">
-              &copy; Copyright 2014-2015, Sponge Contributors.
+              &copy; Copyright 2014-2016, Sponge Contributors.
             Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>

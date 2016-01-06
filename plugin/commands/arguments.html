@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Argument Parsing &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+     <title>Argument Parsing &mdash; Sponge 3.0.0 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -19,7 +19,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '2.1-SNAPSHOT',
+      VERSION:     '3.0.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -30,7 +30,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
-        <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../../index.html" />
+        <link rel="top" title="Sponge 3.0.0 documentation" href="../../index.html" />
         <link rel="up" title="Creating Commands" href="index.html" />
         <link rel="next" title="Child Commands" href="childcommands.html" />
         <link rel="prev" title="Building a Command" href="creating.html" />
@@ -63,7 +63,7 @@
         <li class="right" >
           <a href="creating.html" title="Building a Command"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
+        <li><a href="../../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
         <li><a href="../index.html" >Creating a Plugin</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Creating Commands</a> &raquo;</li> 
     </ul>
@@ -311,16 +311,27 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/structure.html">The Structure of the Sponge Project</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/api/index.html">API Development</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/howtogit.html">How to Git(Hub)</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/implementation/index.html">Implementation Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/implementation/index.html">Developing Sponge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/codestyle.html">Code Style</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/git-implementation.html">Git Workflow for API and Implementations</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/pr.html">Submitting a Pull-Request</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/mixins.html">Mixins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/git.html">Git Workflow for Sponge implementations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
 </ul>
 </li>
@@ -473,91 +484,95 @@ effect as wrapping the <code class="docutils literal"><span class="pre">CommandE
 <td>Require an argument to be an integer.</td>
 <td>one <code class="docutils literal"><span class="pre">Integer</span></code></td>
 </tr>
-<tr class="row-even"><td colspan="3"><strong>Game Objects</strong></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">doubleNum</span></code></td>
+<td>Require an argument to be a double.</td>
+<td>one <code class="docutils literal"><span class="pre">Double</span></code></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">player</span></code></td>
+<tr class="row-odd"><td colspan="3"><strong>Game Objects</strong></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">player</span></code></td>
 <td>Expect an argument to represent an online player. <strong>May return multiple players!</strong></td>
 <td>multiple <code class="docutils literal"><span class="pre">Player</span></code> instances</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">playerOrSource</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">playerOrSource</span></code></td>
 <td>Like <code class="docutils literal"><span class="pre">player</span></code>, but returns the sender of the command if no matching player was found.</td>
 <td>multiple <code class="docutils literal"><span class="pre">Player</span></code> instances</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">world</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">world</span></code></td>
 <td>Expect an argument to represent a world (also includes unloaded worlds).</td>
 <td>multiple <code class="docutils literal"><span class="pre">WorldProperties</span></code></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">dimension</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">dimension</span></code></td>
 <td>Expect an argument to represent a dimension (<code class="docutils literal"><span class="pre">END</span></code>, <code class="docutils literal"><span class="pre">NETHER</span></code>, <code class="docutils literal"><span class="pre">OVERWORLD</span></code>).</td>
 <td>multiple <code class="docutils literal"><span class="pre">DimensionType</span></code>
 instances</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">location</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">location</span></code></td>
 <td>Expect an argument to represent a <code class="docutils literal"><span class="pre">Location</span></code>.</td>
 <td>one <code class="docutils literal"><span class="pre">Location</span></code></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">vector3d</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">vector3d</span></code></td>
 <td>Expect an argument to represent a <code class="docutils literal"><span class="pre">Vector3d</span></code>.</td>
 <td>one <code class="docutils literal"><span class="pre">Vector3d</span></code></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">catalogedElement</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">catalogedElement</span></code></td>
 <td>Expect an argument that is a member of the specified <a class="reference external" href="http://spongepowered.github.io/SpongeAPI/org/spongepowered/api/CatalogTypes.html">catalog type</a>.</td>
 <td>multiple matching elements
 of the specified catalog type</td>
 </tr>
-<tr class="row-even"><td colspan="3"><strong>Matchers</strong></td>
+<tr class="row-odd"><td colspan="3"><strong>Matchers</strong></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">choices</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">choices</span></code></td>
 <td>Return an argument that allows selecting from a limited set of values.</td>
 <td>one specified value</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">literal</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">literal</span></code></td>
 <td>Expect a literal sequence of arguments (e.g. <code class="docutils literal"><span class="pre">&quot;i&quot;,</span> <span class="pre">&quot;luv&quot;,</span> <span class="pre">&quot;u&quot;</span></code>: <code class="docutils literal"><span class="pre">/cmd</span> <span class="pre">i</span> <span class="pre">luv</span> <span class="pre">u</span></code>).
 Throws an error if the arguments do not match.</td>
 <td>one specified value</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">enumValue</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">enumValue</span></code></td>
 <td>Require the argument to be a key under the provided enum.</td>
 <td>multiple matching elements
 of the specified enum</td>
 </tr>
-<tr class="row-even"><td colspan="3"><p class="first"><strong>Utilities</strong></p>
+<tr class="row-odd"><td colspan="3"><p class="first"><strong>Utilities</strong></p>
 <p class="last">Can be wrapped around command elements. The value type is inherited from the wrapped element.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">seq</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">seq</span></code></td>
 <td>Builds a sequence of command elements (e.g. <code class="docutils literal"><span class="pre">/cmd</span> <span class="pre">&lt;arg1&gt;</span> <span class="pre">&lt;arg2&gt;</span> <span class="pre">&lt;arg3&gt;</span></code>).</td>
 <td>inherited</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">repeated</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">repeated</span></code></td>
 <td>Require a given command element to be provided a certain number of times.</td>
 <td>multiple inherited</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">allOf</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">allOf</span></code></td>
 <td>Require all remaining args to match the provided command element.</td>
 <td>multiple inherited</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">optional</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">optional</span></code></td>
 <td>Make the provided command element optional. Throws an error if the argument
 is of invalid format and there are no more args.</td>
 <td>inherited</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">optionalWeak</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">optionalWeak</span></code></td>
 <td>Make the provided command element optional. Does not throw an error if the argument
 is of invalid format and there are no more args.</td>
 <td>inherited</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">firstParsing</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">firstParsing</span></code></td>
 <td>Returns a command element that matches the first of the provided elements that parses
 (useful for command overloading, e.g. <code class="docutils literal"><span class="pre">/settime</span> <span class="pre">&lt;day|night|&lt;number&gt;&gt;</span></code>).</td>
 <td>inherited</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">onlyOne</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">onlyOne</span></code></td>
 <td>Restricts the given command element to only insert one value into the context at the
 provided key.</td>
 <td>inherited</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">flags</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">flags</span></code></td>
 <td><p class="first">Returns a builder for command flags (e.g. <code class="docutils literal"><span class="pre">/cmd</span> <span class="pre">[-a]</span> <span class="pre">[-b</span> <span class="pre">&lt;value&gt;]</span></code>).</p>
 <p class="last">See <a class="reference internal" href="#flags">Flags</a></p>
 </td>
@@ -566,7 +581,7 @@ provided key.</td>
 <p class="last">Value Flag: inherited</p>
 </td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">requiringPermission</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">requiringPermission</span></code></td>
 <td>Requires the command sender to have the specified permission in order to use the given
 command argument</td>
 <td>inherited</td>
@@ -675,7 +690,7 @@ of the <code class="docutils literal"><span class="pre">GenericArguments</span><
           <div class="clearer"></div>
         </div>
         <div class="footer" role="contentinfo">
-              &copy; Copyright 2014-2015, Sponge Contributors.
+              &copy; Copyright 2014-2016, Sponge Contributors.
             Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>

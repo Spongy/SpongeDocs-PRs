@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Mixins &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+     <title>Mixins &mdash; Sponge 3.0.0 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -19,7 +19,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '2.1-SNAPSHOT',
+      VERSION:     '3.0.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -30,9 +30,9 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
-        <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../../index.html" />
-        <link rel="up" title="Implementation Development" href="index.html" />
-        <link rel="next" title="Git Workflow for Sponge implementations" href="git.html" />
+        <link rel="top" title="Sponge 3.0.0 documentation" href="../../index.html" />
+        <link rel="up" title="Developing Sponge" href="index.html" />
+        <link rel="next" title="Implementing DataManipulators" href="datamanipulator.html" />
         <link rel="prev" title="Debugging Sponge Within the IDE" href="debugging.html" />
     
   <script type="text/javascript">
@@ -58,14 +58,14 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="git.html" title="Git Workflow for Sponge implementations"
+          <a href="datamanipulator.html" title="Implementing DataManipulators"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="debugging.html" title="Debugging Sponge Within the IDE"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
+        <li><a href="../../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
         <li><a href="../index.html" >Contributing to Sponge</a> &raquo;</li>
-        <li><a href="index.html" accesskey="U">Implementation Development</a> &raquo;</li> 
+        <li><a href="index.html" accesskey="U">Developing Sponge</a> &raquo;</li> 
     </ul>
   </div> 
     <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -311,16 +311,27 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Contributing to Sponge</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../structure.html">The Structure of the Sponge Project</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api/index.html">API Development</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../howtogit.html">How to Git(Hub)</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Implementation Development</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Developing Sponge</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="codestyle.html">Code Style</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="git-implementation.html">Git Workflow for API and Implementations</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pr.html">Submitting a Pull-Request</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="debugging.html">Debugging Sponge Within the IDE</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="">Mixins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="git.html">Git Workflow for Sponge implementations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
 </ul>
 </li>
@@ -382,7 +393,8 @@
 <h1>Mixins<a class="headerlink" href="#mixins" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This page applies to SpongeCommon, SpongeForge, and SpongeVanilla.</p>
+<p class="last">This page applies to SpongeCommon, SpongeForge, and SpongeVanilla as these three repositories utilize Mixins to hook
+into the underlying implementations (Vanilla Minecraft server and Forge).</p>
 </div>
 <p>Mixins are a way of modifying java code at runtime by adding additional behavior to classes. They enable transplanting
 of intended behavior into existing Minecraft objects. Mixins are necessary for all official Sponge implementations
@@ -449,7 +461,7 @@ own documentation together with the repository.</p>
           <div class="clearer"></div>
         </div>
         <div class="footer" role="contentinfo">
-              &copy; Copyright 2014-2015, Sponge Contributors.
+              &copy; Copyright 2014-2016, Sponge Contributors.
             Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>

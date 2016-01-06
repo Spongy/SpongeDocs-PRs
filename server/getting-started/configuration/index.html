@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Configuring Sponge &mdash; Sponge 2.1-SNAPSHOT documentation</title>
+     <title>Configuring Sponge &mdash; Sponge 3.0.0 documentation</title>
     
   <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sponge.css" type="text/css" />
@@ -19,7 +19,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../../',
-      VERSION:     '2.1-SNAPSHOT',
+      VERSION:     '3.0.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -30,7 +30,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../../_static/lights.js"></script>
-        <link rel="top" title="Sponge 2.1-SNAPSHOT documentation" href="../../../index.html" />
+        <link rel="top" title="Sponge 3.0.0 documentation" href="../../../index.html" />
         <link rel="up" title="Getting Started" href="../index.html" />
         <link rel="next" title="Introduction to HOCON" href="hocon.html" />
         <link rel="prev" title="Using Sponge with BungeeCord" href="../bungeecord.html" />
@@ -63,7 +63,7 @@
         <li class="right" >
           <a href="../bungeecord.html" title="Using Sponge with BungeeCord"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../../index.html">Sponge 2.1-SNAPSHOT documentation</a> &raquo;</li>
+        <li><a href="../../../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
         <li><a href="../../index.html" >Creating a Server</a> &raquo;</li>
         <li><a href="../index.html" accesskey="U">Getting Started</a> &raquo;</li> 
     </ul>
@@ -311,16 +311,27 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing to Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/structure.html">The Structure of the Sponge Project</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../contributing/api/index.html">API Development</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/howtogit.html">How to Git(Hub)</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../contributing/implementation/index.html">Implementation Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/implementation/index.html">Developing Sponge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/implementation/codestyle.html">Code Style</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/implementation/git-implementation.html">Git Workflow for API and Implementations</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/implementation/pr.html">Submitting a Pull-Request</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../contributing/implementation/mixins.html">Mixins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../contributing/implementation/git.html">Git Workflow for Sponge implementations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
 </ul>
 </li>
@@ -421,23 +432,56 @@
 Dimension configuration files are used to affect a certain dimension or group of worlds. These types of configs will
 override the global config files. World configuration files are used to modify individual worlds only. World configs
 override dimension and global configs.</p>
-<p>It is possible to modify these configs through the in-game command <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">conf</span></code>.</p>
-<p>The sponge conf command syntax looks like this:</p>
-<p><code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">conf</span> <span class="pre">&lt;flag&gt;</span> <span class="pre">&lt;name&gt;</span> <span class="pre">&lt;key&gt;</span> <span class="pre">&lt;value&gt;</span></code></p>
-<p>The <em>flag</em> is the group you are targeting, such as global, dimension, or world.</p>
+<div class="section" id="modifying-the-config-in-game">
+<h3>Modifying the Config In-Game<a class="headerlink" href="#modifying-the-config-in-game" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to modify these configs through the in-game command <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">config</span></code>. The syntax for the config
+command looks like this:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="o">/</span><span class="n">sponge</span> <span class="n">config</span> <span class="o">&lt;</span><span class="n">flag</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">key</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>There are <em>flags</em> for specifying the target that you would wish to change. These flags are global, dimension, and world.</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">-g</span></code> is the flag for global</li>
-<li><code class="docutils literal"><span class="pre">-d</span> <span class="pre">dim</span></code> targets a dimension (replacing <em>dim</em> with the dimension you want to configure)</li>
-<li><code class="docutils literal"><span class="pre">-w</span> <span class="pre">world</span></code> targets one world (replacing <em>world</em> with your chosen world).</li>
+<li><code class="docutils literal"><span class="pre">-d</span> <span class="pre">&lt;dim&gt;</span></code> targets a dimension (replacing <em>&lt;dim&gt;</em> with the dimension you want to configure)</li>
+<li><code class="docutils literal"><span class="pre">-w</span> <span class="pre">&lt;world&gt;</span></code> targets one world (replacing <em>&lt;world&gt;</em> with your chosen world).</li>
 </ul>
 <p>The <em>key</em> is the value you want to change. The <em>value</em> is whatever you want to change the value of the key to.</p>
-<p>An example of this command in action:</p>
-<p><code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">conf</span> <span class="pre">-d</span> <span class="pre">nether</span> <span class="pre">logging.chunk-load</span> <span class="pre">true</span></code></p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">Changing a configuration file will not necessarily take effect right away if your game or server is currently
-running. Use the <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">reloadconfig</span></code> command to send a message to all plugins and Sponge to reload their
-configuration. However, you may need to restart your game or server for some changes to take effect.</p>
+<p>Here is an example of this command in action:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="o">/</span><span class="n">sponge</span> <span class="n">config</span> <span class="o">-</span><span class="n">d</span> <span class="n">nether</span> <span class="n">logging</span><span class="o">.</span><span class="na">chunk</span><span class="o">-</span><span class="n">load</span> <span class="kc">true</span>
+</pre></div>
+</div>
+<p>This will set the config to log when chunks are loaded for the nether.</p>
+<p>If you need to check the value of a key, you would need to omit the <em>value</em>. Checking the value of a key such as
+<code class="docutils literal"><span class="pre">logging.chunk-load</span></code> in the nether would be done like so:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="o">/</span><span class="n">sponge</span> <span class="n">config</span> <span class="o">-</span><span class="n">d</span> <span class="n">nether</span> <span class="n">logging</span><span class="o">.</span><span class="na">chunk</span><span class="o">-</span><span class="n">load</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="saving-a-world-config">
+<h3>Saving a World Config<a class="headerlink" href="#saving-a-world-config" title="Permalink to this headline">¶</a></h3>
+<p>Saving a world config may be desired after making modifications to the file. This would be useful in the event of an
+unexpected server crash. This would be done by using the <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">save</span></code> command on the sponge server. The syntax for
+this command is similar to the config command:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="o">/</span><span class="n">sponge</span> <span class="n">save</span> <span class="o">&lt;</span><span class="n">flag</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Here is an example for saving the global config:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="o">/</span><span class="n">sponge</span> <span class="n">save</span> <span class="o">-</span><span class="n">g</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reloading-a-world-config">
+<h3>Reloading a World Config<a class="headerlink" href="#reloading-a-world-config" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes it may be desired that a world config is reloaded while the server is still running. This would be useful if
+you have made changes to the local config file and would like to reload it for use on the live server. This is made
+possible by the command <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">reload</span></code>. The syntax for the command is as follows:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="o">/</span><span class="n">sponge</span> <span class="n">reload</span> <span class="o">&lt;</span><span class="n">flag</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Here is an example of reloading the end world config file:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="o">/</span><span class="n">sponge</span> <span class="n">reload</span> <span class="o">-</span><span class="n">d</span> <span class="n">the_end</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -449,7 +493,7 @@ configuration. However, you may need to restart your game or server for some cha
           <div class="clearer"></div>
         </div>
         <div class="footer" role="contentinfo">
-              &copy; Copyright 2014-2015, Sponge Contributors.
+              &copy; Copyright 2014-2016, Sponge Contributors.
             Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
         </div>
     </div>

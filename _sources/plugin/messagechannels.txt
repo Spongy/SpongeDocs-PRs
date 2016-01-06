@@ -30,8 +30,8 @@ Sending to a Fixed List of MessageReceivers
 It is also possible to send a message not to all players connected, but to a number of hand-selected receivers. This
 can be done by passing the list of the intended recipients to the ``MessageChannel.fixed()`` method. Unlike most other
 channels, the list of recipients will not be generated dynamically every time something is sent through the channel but
-remains static for the rest of its existance. However, the references kept are *weak*. This means that if for example
-a player disconnects and the corresponding ``Player`` object is removed by Javas *garbage collector*, that player will
+remains static for the rest of its existence. However, the references kept are *weak*. This means that if for example
+a player disconnects and the corresponding ``Player`` object is removed by Java's *garbage collector*, that player will
 also vanish from the channels recipient list.
 
 Permission-based Selection
@@ -52,17 +52,18 @@ at least one of the combined channels.
 Sending Messages
 ================
 
-Once you have obtained a ``MessageChannel`` you can send a message through it via the ``send(Text message)`` method.
-It is also possible specify a sender (which can be any ``Object``). However, that sender is only used for message
-transforming. The channel will then transform the message for every recipient and send the transformed message.
+Once you have obtained a ``MessageChannel`` you can send a message through it via the ``send(Object sender, Text
+message)`` method. This method should be used instead of the ``send(Text message)`` method, as the ``Object`` can be
+used for identification or for performing other various actions.
+The channel will then transform the message for every recipient and send the transformed message.
 
 Extended Application: Chat Channels
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Message channels have a very useful application as they can be used to establish chat channels. For example, you could
 establish a message channel for every chat channel you wish to have. Then, when a ``MessageReceiver`` joins a channel,
-such as with ``/join <channel name>``, simply set the ``MessageReceiver``'s ``MessageChannel`` to the appropriate c
-hannel using the ``MessageReceiver#setMessageChannel(MessageChannel channel)``. This will cause every message sent
+such as with ``/join <channel name>``, simply set the ``MessageReceiver``'s ``MessageChannel`` to the appropriate
+channel using the ``MessageReceiver#setMessageChannel(MessageChannel channel)``. This will cause every message sent
 *from* the ``MessageReceiver`` to be passed to the given ``MessageChannel`` instead of the default one. Alternatively,
 you could listen to ``MessageChannelEvent``, and set the appropriate ``MessageChannel`` using
 ``MessageChannelEvent#setChannel(MessageChannel channel)``. Passing ``null`` to that method will unset any custom
@@ -72,8 +73,8 @@ Transforming Messages
 =====================
 
 You can apply a filter to all ``Text``\ s that pass through a ``MessageSink`` to change the message however you like.
-This is possible by extending ``MessageChannel`` and overriding the ``transformMessage()`` method as demonstrated
-below.
+This is possible by extending ``MessageChannel`` and overriding the ``transformMessage(Object sender, MessageReceiver
+recipient, Text original)`` method as demonstrated below.
 
 **Example: Transforming Messages**
 
@@ -90,7 +91,7 @@ Note that we do not wish to define any additional recipients, so we return an em
 method.
 
 Thanks to the capabilities of combined ``MessageChannel``\ s, we can combine our newly created ``AdminMessageChannel``
-with any other ``MessageChannel``. Now if a player joins that has the ```myplugin.admin`` permission, we will obtain
+with any other ``MessageChannel``. Now if a player joins that has the ``myplugin.admin`` permission, we will obtain
 the ``MessageChannel`` his messages are sent to, combine it with an ``AdminMessageChannel`` and set the combined
 channel back on the player. That way all his messages are sent to everyone specified in the original channel, but
 due to the addition of the ``AdminMessageChannel`` will be prefixed.
@@ -102,9 +103,7 @@ due to the addition of the ``AdminMessageChannel`` will be prefixed.
 
     @Listener
     public void onClientConnectionJoin(ClientConnectionEvent.Join event) {
-        Player player = event.getEntity();
-
-        MessageChannel originalChannel = player.getChannel();
+        MessageChannel originalChannel = event.getOriginalChannel();
         MessageChannel newChannel = MessageChannel.combined(originalChannel, new AdminMessageChannel());
 
         player.setChannel(newChannel);
