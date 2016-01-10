@@ -123,6 +123,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../server/management/plugins.html">Installing Plugins</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/exploit-patches.html">Exploit Patches</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../server/spongineer/index.html">Becoming an Expert Spongineer</a><ul>
@@ -290,6 +293,21 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="permissions.html">Working with the Permissions API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="economy/index.html">The Economy API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="economy/basics.html">Basic Concepts</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="economy/using.html">Using the Economy API</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="economy/practices.html">Economy API Best Practices</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="economy/implementing.html">Implementing the Economy API</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="services.html">Working with Services</a><ul class="simple">
 </ul>
 </li>
@@ -409,24 +427,25 @@ different channel may be set using the <code class="docutils literal"><span clas
 <div class="section" id="sending-to-a-fixed-list-of-messagereceivers">
 <h3>Sending to a Fixed List of MessageReceivers<a class="headerlink" href="#sending-to-a-fixed-list-of-messagereceivers" title="Permalink to this headline">¶</a></h3>
 <p>It is also possible to send a message not to all players connected, but to a number of hand-selected receivers. This
-can be done by passing the list of the intended recipients to the <code class="docutils literal"><span class="pre">MessageChannel.fixed()</span></code> method. Unlike most other
-channels, the list of recipients will not be generated dynamically every time something is sent through the channel but
-remains static for the rest of its existence. However, the references kept are <em>weak</em>. This means that if for example
-a player disconnects and the corresponding <code class="docutils literal"><span class="pre">Player</span></code> object is removed by Java&#8217;s <em>garbage collector</em>, that player will
-also vanish from the channels recipient list.</p>
+can be done by passing the list of the intended recipients to the <a href="#id1"><span class="problematic" id="id2">``</span></a>MessageChannel.fixed(MessageReceiver... receiver)`</p>
+<blockquote>
+<div>method. Unlike most other channels, the list of recipients will not be generated dynamically every time something is</div></blockquote>
+<p>sent through the channel but remains static for the rest of its existence. However, the references kept are <em>weak</em>.
+This means that if for example a player disconnects and the corresponding <code class="docutils literal"><span class="pre">Player</span></code> object is removed by Java&#8217;s
+<em>garbage collector</em>, that player will also vanish from the channels recipient list.</p>
 </div>
 <div class="section" id="permission-based-selection">
 <h3>Permission-based Selection<a class="headerlink" href="#permission-based-selection" title="Permalink to this headline">¶</a></h3>
 <p>It is also possible to create a channel sending to all recipients that hold a specific permission. The channel is
-obtained from the <code class="docutils literal"><span class="pre">MessageChannel.permission()</span></code> method with the permission to check for as an argument. When a
-message is then sent through this channel, it will obtain all subjects from the <code class="docutils literal"><span class="pre">PermissionManager</span></code> that have the
-given permission.</p>
+obtained from the <code class="docutils literal"><span class="pre">MessageChannel.permission(String</span> <span class="pre">permission)</span></code> method with the permission to check for as an
+argument. When a message is then sent through this channel, it will obtain all subjects from the <code class="docutils literal"><span class="pre">PermissionManager</span></code>
+that have the given permission.</p>
 </div>
 <div class="section" id="combining-channels">
 <h3>Combining Channels<a class="headerlink" href="#combining-channels" title="Permalink to this headline">¶</a></h3>
 <p>It is also possible to combine multiple channels into one. This can be done by passing all channels into the
-<code class="docutils literal"><span class="pre">MessageChannel.combined()</span></code> method. The resulting channel will relay messages to every recipient that is targeted by
-at least one of the combined channels.</p>
+<code class="docutils literal"><span class="pre">MessageChannel.combined(MessageChannel...</span> <span class="pre">channels)</span></code> method. The resulting channel will relay messages to every
+recipient that is targeted by at least one of the combined channels.</p>
 </div>
 </div>
 <div class="section" id="sending-messages">
@@ -449,11 +468,11 @@ channel, causing the message to be sent to the originalMessageChannel instead.</
 </div>
 <div class="section" id="transforming-messages">
 <h2>Transforming Messages<a class="headerlink" href="#transforming-messages" title="Permalink to this headline">¶</a></h2>
-<p>You can apply a filter to all <code class="docutils literal"><span class="pre">Text</span></code>s that pass through a <code class="docutils literal"><span class="pre">MessageSink</span></code> to change the message however you like.
+<p>You can apply a filter to all <code class="docutils literal"><span class="pre">Text</span></code>s that pass through a <code class="docutils literal"><span class="pre">MessageChannel</span></code> to change the message however you like.
 This is possible by extending <code class="docutils literal"><span class="pre">MessageChannel</span></code> and overriding the <code class="docutils literal"><span class="pre">transformMessage(Object</span> <span class="pre">sender,</span> <span class="pre">MessageReceiver</span>
 <span class="pre">recipient,</span> <span class="pre">Text</span> <span class="pre">original)</span></code> method as demonstrated below.</p>
 <p><strong>Example: Transforming Messages</strong></p>
-<p>The following code excerpt defines a <code class="docutils literal"><span class="pre">AdminMessageSink</span></code> class which overrides the default <code class="docutils literal"><span class="pre">transformMessage</span></code> method.
+<p>The following code excerpt defines a <code class="docutils literal"><span class="pre">AdminMessageChannel</span></code> class which overrides the default <code class="docutils literal"><span class="pre">transformMessage</span></code> method.
 The new transformation method will first check if a source exists and, if it exists and is a permission <code class="docutils literal"><span class="pre">Subject</span></code>,
 has the <code class="docutils literal"><span class="pre">myplugin.admin</span></code> permission. If that is the case, the text will be prefixed with a red <code class="docutils literal"><span class="pre">[Admin]</span></code>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="c1">// TODO Update code example</span>

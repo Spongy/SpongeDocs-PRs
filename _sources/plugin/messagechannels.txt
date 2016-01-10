@@ -28,26 +28,26 @@ Sending to a Fixed List of MessageReceivers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 It is also possible to send a message not to all players connected, but to a number of hand-selected receivers. This
-can be done by passing the list of the intended recipients to the ``MessageChannel.fixed()`` method. Unlike most other
-channels, the list of recipients will not be generated dynamically every time something is sent through the channel but
-remains static for the rest of its existence. However, the references kept are *weak*. This means that if for example
-a player disconnects and the corresponding ``Player`` object is removed by Java's *garbage collector*, that player will
-also vanish from the channels recipient list.
+can be done by passing the list of the intended recipients to the ``MessageChannel.fixed(MessageReceiver... receiver)`
+ method. Unlike most other channels, the list of recipients will not be generated dynamically every time something is
+sent through the channel but remains static for the rest of its existence. However, the references kept are *weak*.
+This means that if for example a player disconnects and the corresponding ``Player`` object is removed by Java's
+*garbage collector*, that player will also vanish from the channels recipient list.
 
 Permission-based Selection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 It is also possible to create a channel sending to all recipients that hold a specific permission. The channel is
-obtained from the ``MessageChannel.permission()`` method with the permission to check for as an argument. When a
-message is then sent through this channel, it will obtain all subjects from the ``PermissionManager`` that have the
-given permission.
+obtained from the ``MessageChannel.permission(String permission)`` method with the permission to check for as an
+argument. When a message is then sent through this channel, it will obtain all subjects from the ``PermissionManager``
+that have the given permission.
 
 Combining Channels
 ~~~~~~~~~~~~~~~~~~
 
 It is also possible to combine multiple channels into one. This can be done by passing all channels into the
-``MessageChannel.combined()`` method. The resulting channel will relay messages to every recipient that is targeted by
-at least one of the combined channels.
+``MessageChannel.combined(MessageChannel... channels)`` method. The resulting channel will relay messages to every
+recipient that is targeted by at least one of the combined channels.
 
 Sending Messages
 ================
@@ -72,13 +72,13 @@ channel, causing the message to be sent to the originalMessageChannel instead.
 Transforming Messages
 =====================
 
-You can apply a filter to all ``Text``\ s that pass through a ``MessageSink`` to change the message however you like.
+You can apply a filter to all ``Text``\ s that pass through a ``MessageChannel`` to change the message however you like.
 This is possible by extending ``MessageChannel`` and overriding the ``transformMessage(Object sender, MessageReceiver
 recipient, Text original)`` method as demonstrated below.
 
 **Example: Transforming Messages**
 
-The following code excerpt defines a ``AdminMessageSink`` class which overrides the default ``transformMessage`` method.
+The following code excerpt defines a ``AdminMessageChannel`` class which overrides the default ``transformMessage`` method.
 The new transformation method will first check if a source exists and, if it exists and is a permission ``Subject``,
 has the ``myplugin.admin`` permission. If that is the case, the text will be prefixed with a red ``[Admin]``.
 
