@@ -422,8 +422,9 @@ only occur once.</li>
 <li><strong>Running:</strong> When the game and world are loading. Running states may occur multiple times.</li>
 <li><strong>Stopping:</strong> When the game is shutting down. Stopping states, like initialization states, only occur once.</li>
 </ol>
+</div>
 <div class="section" id="initialization-states">
-<h3>Initialization States<a class="headerlink" href="#initialization-states" title="Permalink to this headline">¶</a></h3>
+<h2>Initialization States<a class="headerlink" href="#initialization-states" title="Permalink to this headline">¶</a></h2>
 <p>Initialization states only occur once during a single run.</p>
 <p><strong>CONSTRUCTION</strong></p>
 <p>The <code class="docutils literal"><span class="pre">GameConstructionEvent</span></code> is triggered.
@@ -434,8 +435,8 @@ During this state, the plugin gets ready for initialization. Access to a default
 information regarding preferred configuration file locations is available.</p>
 <p><strong>INITIALIZATION</strong></p>
 <p>The <code class="docutils literal"><span class="pre">GameInitializationEvent</span></code> is triggered.
-During this state, the plugin should finish any work needed in order to be functional. Global event handlers and command
-registration are handled during initialization.</p>
+During this state, the plugin should finish any work needed in order to be functional. Global event handlers should get
+registered in this stage.</p>
 <p><strong>POST_INITIALIZATION</strong></p>
 <p>The <code class="docutils literal"><span class="pre">GamePostInitializationEvent</span></code> is triggered.
 By this state, inter-plugin communication should be ready to occur. Plugins providing an API should be ready to accept
@@ -445,7 +446,7 @@ basic requests.</p>
 By this state, all plugin initialization should be completed.</p>
 </div>
 <div class="section" id="running-states">
-<h3>Running States<a class="headerlink" href="#running-states" title="Permalink to this headline">¶</a></h3>
+<h2>Running States<a class="headerlink" href="#running-states" title="Permalink to this headline">¶</a></h2>
 <p>Running States can occur multiple times during a single run. <code class="docutils literal"><span class="pre">SERVER_ABOUT_TO_START</span></code> may follow <code class="docutils literal"><span class="pre">SERVER_STOPPED</span></code>,
 and <code class="docutils literal"><span class="pre">SERVER_STOPPED</span></code> may occur at any point during the process if there is an error.</p>
 <p><strong>SERVER_ABOUT_TO_START</strong></p>
@@ -453,7 +454,7 @@ and <code class="docutils literal"><span class="pre">SERVER_STOPPED</span></code
 The server instance exists, but worlds are not yet loaded.</p>
 <p><strong>SERVER_STARTING</strong></p>
 <p>The <code class="docutils literal"><span class="pre">GameStartingServerEvent</span></code> is triggered.
-The server instance exists, and worlds are loaded.</p>
+The server instance exists, and worlds are loaded. Command registration is handled during this state.</p>
 <p><strong>SERVER_STARTED</strong></p>
 <p>The <code class="docutils literal"><span class="pre">GameStartedServerEvent</span></code> event is triggered.
 The server instance exists, and worlds are loaded.</p>
@@ -465,12 +466,12 @@ This state occurs immediately before the final tick, before the worlds are saved
 During this state, no players are connected and no changes to worlds are saved.</p>
 </div>
 <div class="section" id="stopping-states">
-<h3>Stopping States<a class="headerlink" href="#stopping-states" title="Permalink to this headline">¶</a></h3>
+<h2>Stopping States<a class="headerlink" href="#stopping-states" title="Permalink to this headline">¶</a></h2>
 <p>Stopping states never occur more than once during a single run. They occur when the game stops normally. (On Servers:
 the <code class="docutils literal"><span class="pre">/stop</span></code> command is typed. On Clients: The &#8220;Close&#8221; button or the &#8220;Quit Game&#8221; button are clicked)</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Stopping states are not guaranteed to be run during shutdown. They may not fire if the game is force-stopped via
+<p class="last">Stopping states are not guaranteed to be run during shutdown. They may <strong>not</strong> fire if the game is force-stopped via
 Ctrl-C, Task Manager, a computer crash, or similar situations.</p>
 </div>
 <p><strong>GAME_STOPPING</strong></p>
@@ -481,7 +482,6 @@ basic requests.</p>
 <p>The <code class="docutils literal"><span class="pre">GameStoppedEvent</span></code> is triggered.
 Once this event has finished executing, Minecraft will shut down. No further interaction with the game or other plugins
 should be attempted at this point.</p>
-</div>
 </div>
 </div>
 
