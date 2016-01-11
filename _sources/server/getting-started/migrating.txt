@@ -11,6 +11,9 @@ to Sponge.
    :depth: 2
    :local:
 
+.. warning::
+  Please update your server files **before** migrating. In case something goes wrong, you still have your backups!
+
 Migrating to Sponge
 ===================
 
@@ -29,21 +32,43 @@ Worlds
 
 Forge, and thus SpongeForge (and also SpongeVanilla), use the same world structure as vanilla Minecraft. Vanilla Minecraft
 places the nether (typically ``world_nether``) and the end (typically ``world_the_end``) dimensions within the
-``world`` folder.
+``world`` folder. However Bukkit and Spigot *don't* use this system to save the worlds, thus migration is needed.
 
-SpongeForge and SpongeVanilla provide a fully automated conversion script which converts your worlds for you. To make
-use of it, you have to:
+SpongeForge and SpongeVanilla provide a fully automated conversion script which converts your worlds for you.
+This is how it works:
 
-1. Stop your CraftBukkit server if it is running.
-#. copy the entire world folder into the ``world`` folder of your Sponge server
-#. edit the ``level-name`` key of your servers :doc:`configuration/server-properties` file to match
-   your worlds folder name
-#. start the server, your Bukkit world will be migrated automatically
+1. Shutdown your Bukkit or Spigot server and Backup the entire folder.
 
-.. tip::
+#. Place SpongeForge or SpongeVanilla in the folder where you ran your old server, remove the Bukkit or Spigot jars.
 
-    It is a good idea to make a backup of your worlds in case you make a mistake.
+#. Start the Sponge server, the migrator will be loaded automatically.
 
+#. The Migrator will look into the ``bukkit.yml`` for a config key called ``world-container`` and will search that folder for
+   worlds to transfer. If that file isn't around (or something caused it to fail to read), then the migrator will use
+   the ``root`` folder of the server (which is CraftBukkit standard).
+
+#. Now the migration is performed. At this point, worlds are moved over from what we call the ``world container`` into
+   the folder defined in the :doc:`configuration/server-properties` file via the ``level-name`` key.
+
+#. Bukkit puts things in weird places (with weird names), thus two important fixes have to be applied. Keep in mind that
+   these fixes are based on *assumptions* (due to Bukkit's structure).
+
+   * The first fix is to rename any folder whose name starts with ``level-name`` property and ends with a Vanilla
+     dimension name (``_nether``/``_the_end``) to ``DIM-1`` and ``DIM1`` respectively.
+
+   * The second fix is to migrate up the ``region`` data within a Bukkit Vanilla nether/the_end. Bukkit puts this data
+     into ``DIM-1\region`` and ``DIM1\region`` respectively whereas Vanilla/Forge expect ``region`` to be in the
+     **root** of the world's folder structure.
+
+#. The last step is to generate a config file for the new world.
+
+.. note::
+  As already pointed out, we have to deal with several assumptions while migrating your world. This is the reason why we
+  **won't** load your migrated world directly.
+
+The migrator can't provide all needed configuration values. This is the reason why you need to change several
+parameters by hand to make the world work properly upon loading it on SpongeForge or SpongeVanilla. Usually a
+*World Management Plugin* is used to set the right parameters and actually load the world.
 
 Server and World Configuration Files
 ------------------------------------
