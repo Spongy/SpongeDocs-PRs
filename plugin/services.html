@@ -30,9 +30,10 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/store.min.js"></script>
     <script type="text/javascript" src="../_static/lights.js"></script>
+      <link rel="shortcut icon" href="../_static/favicon.ico"/>
         <link rel="top" title="Sponge 3.0.0 documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
-        <link rel="next" title="Using the Plugin Manager" href="manager.html" />
+        <link rel="next" title="World Generation" href="wgen/index.html" />
         <link rel="prev" title="Implementing the Economy API" href="economy/implementing.html" />
     
   <script type="text/javascript">
@@ -58,13 +59,20 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="manager.html" title="Using the Plugin Manager"
+          <a href="wgen/index.html" title="World Generation"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="economy/implementing.html" title="Implementing the Economy API"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
+        <li class="right">
+          
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/plugin/services.rst" class="right">
+            <img src="../_static/GitHub-Mark-32px.png" height="12px"/> Edit on GitHub</a>
+             |
+          
+        </li>
     </ul>
   </div> 
     <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -228,7 +236,19 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="events.html">Working with Events</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="event/index.html">Working with Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="event/listeners.html">Event Listeners</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="event/causes.html">Event Causes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="event/filters.html">Event Filters</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="event/custom.html">Creating Custom Events</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a><ul>
@@ -311,6 +331,15 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="">Working with Services</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="wgen/index.html">World Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="wgen/modifiers.html">Working with WorldGeneratorModifiers</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wgen/customwgen.html">Modifying World Generation</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="manager.html">Using the Plugin Manager</a><ul class="simple">
 </ul>
 </li>
@@ -358,6 +387,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/versioning.html">Versioning System and Repository Branch Layout</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -414,6 +446,19 @@ service manager:</p>
 </pre></div>
 </div>
 <p>If you need to get an object reference to something, just get it off the service manager.</p>
+<div class="section" id="service-guidelines">
+<h2>Service Guidelines<a class="headerlink" href="#service-guidelines" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Services should be registered during the <code class="docutils literal"><span class="pre">POST_INITIALIZATION</span></code> game state at the latest.</li>
+<li>Services should be fully operational by the <code class="docutils literal"><span class="pre">SERVER_ABOUT_TO_START</span></code> game state.</li>
+</ul>
+<p>You can read more about game states on the <a class="reference internal" href="lifecycle.html"><em>Plugin Lifecycle</em></a> page.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is a good practice to register services as soon as possible so that other plugins can note that the service will
+be provided.</p>
+</div>
+</div>
 <div class="section" id="providing-your-own-service">
 <h2>Providing your own service<a class="headerlink" href="#providing-your-own-service" title="Permalink to this headline">¶</a></h2>
 <p>Your plugin can provide the implementation for a core interface like <code class="docutils literal"><span class="pre">PermissionService</span></code>, or for a custom interface
