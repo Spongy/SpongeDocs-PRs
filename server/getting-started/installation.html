@@ -30,6 +30,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
+      <link rel="shortcut icon" href="../../_static/favicon.ico"/>
         <link rel="top" title="Sponge 3.0.0 documentation" href="../../index.html" />
         <link rel="up" title="Getting Started" href="index.html" />
         <link rel="next" title="Creating a Launch Script" href="launch-script.html" />
@@ -66,6 +67,13 @@
         <li><a href="../../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
         <li><a href="../index.html" >Creating a Server</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Getting Started</a> &raquo;</li> 
+        <li class="right">
+          
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/server/getting-started/installation.rst" class="right">
+            <img src="../../_static/GitHub-Mark-32px.png" height="12px"/> Edit on GitHub</a>
+             |
+          
+        </li>
     </ul>
   </div> 
     <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -122,6 +130,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../management/plugins.html">Installing Plugins</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../management/exploit-patches.html">Exploit Patches</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -226,7 +237,19 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../plugin/events.html">Working with Events</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/event/index.html">Working with Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/event/listeners.html">Event Listeners</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/event/causes.html">Event Causes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/event/filters.html">Event Filters</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/event/custom.html">Creating Custom Events</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/configuration/index.html">Configuring Plugins</a><ul>
@@ -307,6 +330,15 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/services.html">Working with Services</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/wgen/index.html">World Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/wgen/modifiers.html">Working with WorldGeneratorModifiers</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/wgen/customwgen.html">Modifying World Generation</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/manager.html">Using the Plugin Manager</a><ul class="simple">
@@ -411,20 +443,27 @@
 <h1>Installing Sponge<a class="headerlink" href="#installing-sponge" title="Permalink to this headline">¶</a></h1>
 <p>Recall that there are two official variants of Sponge (SpongeForge and SpongeVanilla) — they both run Sponge plugins
 identically (that&#8217;s the goal), but how either work behind the scenes (the code) differs. This is better explained in
-the <a class="reference internal" href="implementations/index.html"><em>Choosing an Implementation</em></a> page.</p>
-<p>Instructions for both are listed on this page.</p>
-<p>You will also need to <a class="reference internal" href="jre.html"><em>install Java</em></a>. To recap, Java 8 is the minimum version required; older versions (ie Java 6 and 7) are no longer supported.</p>
+the <a class="reference internal" href="implementations/index.html"><em>Choosing an Implementation</em></a> page. Instructions for both are listed on this page.</p>
+<p>You will also need to <a class="reference internal" href="jre.html"><em>install Java</em></a>. To recap, Java 8 is the minimum version required; older versions
+(ie Java 6 and 7) are no longer supported.</p>
 <div class="section" id="installing-spongeforge">
 <h2>Installing SpongeForge<a class="headerlink" href="#installing-spongeforge" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If you use (or are planning to use) a game server host, they may have a control panel that can install Sponge for you.</p>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">When using the Mojang installer, Mojang makes use of their own Java version and not the one you installed on your
+system. The installer currently ships with Java <code class="docutils literal"><span class="pre">1.8.0_25</span></code> for Windows and <code class="docutils literal"><span class="pre">1.8.0_60</span></code> for OSX. Note that Sponge
+requires <strong>at least</strong> <code class="docutils literal"><span class="pre">1.8.0_40</span></code> or above to run properly. You can grab the Launcher without included Java here:
+<a class="reference external" href="https://minecraft.net/download">official Minecraft Launcher</a></p>
+</div>
 <div class="section" id="single-player-in-game-lan-servers">
 <h3>Single Player / In-Game LAN Servers<a class="headerlink" href="#single-player-in-game-lan-servers" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>Download the Minecraft Forge installer from the <a class="reference external" href="http://files.minecraftforge.net/">Minecraft Forge website</a>. The
-latest version, or any version that&#8217;s newer than the one listed <a class="reference internal" href="implementations/spongeforge.html"><em>in the filename of the Sponge download</em></a>, should work.</li>
+<li>Download the Minecraft Forge installer from the <a class="reference external" href="http://files.minecraftforge.net/">Minecraft Forge website</a>. Make
+sure to use <strong>exactly the same build number</strong> as <a class="reference internal" href="implementations/spongeforge.html"><em>the one listed in the filename of the Sponge download</em></a>.</li>
 <li>Run the provided Forge installer. A new Forge profile will be created in the Minecraft launcher.</li>
 <li>Open the Minecraft launcher, and select the new Forge profile.</li>
 <li>Click &#8220;Options&#8221; and click &#8220;Open Game Dir&#8221;.</li>
