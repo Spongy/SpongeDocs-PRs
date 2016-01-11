@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Contribution Guidelines &mdash; Sponge 3.0.0 documentation</title>
+     <title>Versioning System and Repository Branch Layout &mdash; Sponge 3.0.0 documentation</title>
     
   <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
@@ -33,8 +33,8 @@
       <link rel="shortcut icon" href="../_static/favicon.ico"/>
         <link rel="top" title="Sponge 3.0.0 documentation" href="../index.html" />
         <link rel="up" title="Contributing to Sponge" href="index.html" />
-        <link rel="next" title="How to Git(Hub)" href="howtogit.html" />
-        <link rel="prev" title="The Structure of the Sponge Project" href="structure.html" />
+        <link rel="next" title="About the Sponge Project" href="../about/index.html" />
+        <link rel="prev" title="Porting Sponge to Other Platforms" href="porting.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -59,16 +59,16 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="howtogit.html" title="How to Git(Hub)"
+          <a href="../about/index.html" title="About the Sponge Project"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="structure.html" title="The Structure of the Sponge Project"
+          <a href="porting.html" title="Porting Sponge to Other Platforms"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Contributing to Sponge</a> &raquo;</li> 
         <li class="right">
           
-            <a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/contributing/guidelines.rst" class="right">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/contributing/versioning.rst" class="right">
             <img src="../_static/GitHub-Mark-32px.png" height="12px"/> Edit on GitHub</a>
              |
           
@@ -360,7 +360,7 @@
 <li class="toctree-l2"><a class="reference internal" href="structure.html">The Structure of the Sponge Project</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Contribution Guidelines</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="howtogit.html">How to Git(Hub)</a><ul class="simple">
@@ -389,7 +389,7 @@
 <li class="toctree-l2"><a class="reference internal" href="porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning System and Repository Branch Layout</a><ul class="simple">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Versioning System and Repository Branch Layout</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -438,45 +438,87 @@
               <div class="bodywrapper">
                 <div class="body" role="main">
                   
-  <div class="section" id="contribution-guidelines">
-<h1>Contribution Guidelines<a class="headerlink" href="#contribution-guidelines" title="Permalink to this headline">¶</a></h1>
-<p>There will always be a need for developers to help us improve SpongeAPI. There is no such thing as a perfect project and
-things can always be improved. If you are a developer and are interested in helping then please do not hesitate. Just
-make sure you follow our guidelines.</p>
-<div class="section" id="general-steps">
-<h2>General steps<a class="headerlink" href="#general-steps" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li>Setup your workspace as described in <a class="reference internal" href="../preparing/index.html"><em>Preparing for Development</em></a>.</li>
-<li>Make sure you&#8217;re familiar with Git and GitHub. If your knowledge needs a refresh, take a look here: <a class="reference internal" href="howtogit.html"><em>How to Git(Hub)</em></a></li>
-<li>Check for existing issues in the <a class="reference external" href="https://github.com/SpongePowered/SpongeAPI/issues">SpongeAPI</a>,
-<a class="reference external" href="https://github.com/SpongePowered/SpongeCommon">SpongeCommon</a>,
-<a class="reference external" href="https://github.com/SpongePowered/SpongeForge">SpongeForge</a>,
-<a class="reference external" href="https://github.com/SpongePowered/SpongeVanilla">SpongeVanilla</a>, and
-<a class="reference external" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a> repositories. There is possibly someone else already
-working on the same thing. You can also check
-<a class="reference external" href="https://github.com/SpongePowered/SpongeAPI/labels/help%20wanted">issues marked with &#8220;help wanted&#8221;</a> for existing
-issues we need your help with.</li>
-</ol>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Please don&#8217;t submit pull request for small changes under 20 lines. Instead, <a class="reference external" href="https://webchat.esper.net/?channels=sponge">join #sponge on IRC (irc.esper.net)</a> or <a class="reference external" href="https://webchat.esper.net/?channels=spongedev">join #spongedev on IRC (irc.esper.net)</a> and we&#8217;ll change it together with the other smaller changes.</p>
+  <div class="section" id="versioning-system-and-repository-branch-layout">
+<h1>Versioning System and Repository Branch Layout<a class="headerlink" href="#versioning-system-and-repository-branch-layout" title="Permalink to this headline">¶</a></h1>
+<p>With the release for beta we&#8217;ve moved the SpongeAPI versioning to semantic versioning (see <a class="reference external" href="http://semver.org/">http://semver.org/</a>).
+This change means that every time that we make a release we have to increment the version according to the rules
+of semver.</p>
+<div class="section" id="semver">
+<h2>SemVer<a class="headerlink" href="#semver" title="Permalink to this headline">¶</a></h2>
+<p>SemVer uses the scheme <code class="docutils literal"><span class="pre">X.Y.Z</span></code>, where <code class="docutils literal"><span class="pre">X</span></code> is a <em>major</em> version, <code class="docutils literal"><span class="pre">Y</span></code> is a <em>minor</em> one and <code class="docutils literal"><span class="pre">Z</span></code> finally is a
+<em>patch</em> version.
+A release containing changes which are not backwards-compatible must be one <em>major</em> version ahead of the previous
+release. If there are only new features that are still backwards compatible, then the new release will be one <em>minor</em>
+version ahead of the previous release, and if the release strictly contains bugfixes then only the <em>patch</em> version will
+be incremented.</p>
+<p>This means that for example <code class="docutils literal"><span class="pre">3.2.0</span></code> is fully compatible to <code class="docutils literal"><span class="pre">3.0.0</span></code> while <code class="docutils literal"><span class="pre">4.0.0</span></code> isn&#8217;t binary compatible to
+<code class="docutils literal"><span class="pre">3.0.0</span></code>. <code class="docutils literal"><span class="pre">3.1.0</span></code> and <code class="docutils literal"><span class="pre">3.1.2</span></code> are fully interchangeable besides the bugs that were fixed.</p>
+<p>The layout of our branches (described below) is designed to assist this process by allowing us to make minor releases
+without a breaking change forcing us to make it a major release. This branch layout applies to the SpongeAPI,
+SpongeCommon, SpongeForge, and SpongeVanilla repositories but not to the SpongeDocs.</p>
 </div>
-<ol class="arabic simple" start="4">
-<li>If the issue requires a bigger change you may want to submit the issues without the necessary changes first, so we
-can confirm the issue and know that you&#8217;re working on fixing it. You should also create a WIP (work in process) pull
-request prefixed with <code class="docutils literal"><span class="pre">[WIP]</span></code> early so we can already start reviewing them.</li>
-<li>Fork the project, clone it and make your changes in an extra branch.</li>
-<li>Test your changes (make sure it compiles!), commit and push them to your fork.</li>
-<li>Submit the pull request with a short summary what you&#8217;ve changed and why it should be changed in that way.</li>
-<li>If you make additional changes, push new commits to your branch. <strong>Do not squash your changes</strong>, that makes it
-extremely hard to see what you&#8217;ve changed compared to the previous version of your pull request.</li>
-<li>Make sure your PR is rebased to the latest changes of the branch you&#8217;re intending to merge it into. If you need help
-rebasing it, just ask!</li>
-</ol>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">If you&#8217;re unsure which branch you should base your work on, read about our <a class="reference internal" href="versioning.html"><em>Versioning System and Repository Branch Layout</em></a> before submitting your PR.</p>
+<div class="section" id="spongeapi-spongecommon-spongeforge-and-spongevanilla">
+<h2>SpongeAPI, SpongeCommon, SpongeForge and SpongeVanilla<a class="headerlink" href="#spongeapi-spongecommon-spongeforge-and-spongevanilla" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-core-branches">
+<h3>The Core Branches<a class="headerlink" href="#the-core-branches" title="Permalink to this headline">¶</a></h3>
+<p>There are three branches which form the core of our repositories; they are <code class="docutils literal"><span class="pre">master</span></code>, <code class="docutils literal"><span class="pre">bleeding</span></code>, and
+<code class="docutils literal"><span class="pre">release</span></code>. The <code class="docutils literal"><span class="pre">master</span></code> and <code class="docutils literal"><span class="pre">bleeding</span></code> branches are for active development and the <code class="docutils literal"><span class="pre">release</span></code> branch tracks
+the commit as of the most recent release build.</p>
+<p>The key differences between the <code class="docutils literal"><span class="pre">master</span></code> and <code class="docutils literal"><span class="pre">bleeding</span></code> branches is that any <code class="docutils literal"><span class="pre">feature</span></code> branches which are
+breaking <em>must</em> be merged into the bleeding branch. This allows the <code class="docutils literal"><span class="pre">master</span></code> branch to only contain
+backwards-compatible changes allowing minor versions to be released based on it if necessary.</p>
 </div>
+<div class="section" id="release-branches">
+<h3>Release Branches<a class="headerlink" href="#release-branches" title="Permalink to this headline">¶</a></h3>
+<p>Prior to releasing builds the content of the release should be first moved to a release prep branch.
+This branch allows dedicated testing to be performed for a release without forcing a code freeze on
+the development branches. Any bugfixes applied to the <code class="docutils literal"><span class="pre">release</span></code> branch are merged back to the <code class="docutils literal"><span class="pre">master</span></code>
+branch when the release is finalized. Once a release is made the version of the <code class="docutils literal"><span class="pre">master</span></code> and <code class="docutils literal"><span class="pre">bleeding</span></code>
+branches are both updated: the <code class="docutils literal"><span class="pre">master</span></code> branch to the next minor version and the <code class="docutils literal"><span class="pre">bleeding</span></code> branch to
+the next major version (assuming it was not already on the next major version).</p>
+</div>
+<div class="section" id="hotfix-branches">
+<h3>Hotfix Branches<a class="headerlink" href="#hotfix-branches" title="Permalink to this headline">¶</a></h3>
+<p>If after a release is made, and a significant bug is found, a <code class="docutils literal"><span class="pre">hotfix/foo</span></code> branch can be created based on the
+last release version and a new release can be made from this hotfix branch with the patch version
+incremented by one. The hotfix branch can then be merged back into <code class="docutils literal"><span class="pre">master</span></code> for inclusion into future
+versions.</p>
+</div>
+<div class="section" id="feature-branches">
+<h3>Feature Branches<a class="headerlink" href="#feature-branches" title="Permalink to this headline">¶</a></h3>
+<p>New features or changes will continue to be done in a <code class="docutils literal"><span class="pre">feature/foo</span></code> or <code class="docutils literal"><span class="pre">fix/bar</span></code> branch. When merging
+back into a development branch (<code class="docutils literal"><span class="pre">master</span></code> or <code class="docutils literal"><span class="pre">bleeding</span></code>) you should consider whether the changes are
+breaking or are strictly backwards-compatible. If the changes are purely new features, or
+binary-compatible bugfixes, then the feature branch can be merged into the <code class="docutils literal"><span class="pre">master</span></code> branch. If the
+changes include any breaking changes however, then the feature branch must be merged into the
+<code class="docutils literal"><span class="pre">bleeding</span></code> branch to be included in the next major release.</p>
+</div>
+</div>
+<div class="section" id="spongedocs">
+<h2>SpongeDocs<a class="headerlink" href="#spongedocs" title="Permalink to this headline">¶</a></h2>
+<p>The SpongeDocs themselves are unversioned following our philosophy that they will never be finished, but instead in a
+constant flux of ever increasing usability. However they <em>target</em> a specific version of the API, generally the most
+recent <em>release</em> of SpongeAPI.</p>
+<div class="section" id="core-branch">
+<h3>Core Branch<a class="headerlink" href="#core-branch" title="Permalink to this headline">¶</a></h3>
+<p>The core branch for the SpongeDocs is <code class="docutils literal"><span class="pre">master</span></code>. Each new commit to <code class="docutils literal"><span class="pre">master</span></code> triggers a rebuild of the <a class="reference external" href="https://docs.spongepowered.org/">docs website</a>. Commits to <code class="docutils literal"><span class="pre">master</span></code> are generally only made when a feature branch is merged or
+a small fix not requiring review is made by SpongeDocs Staff.</p>
+</div>
+<div class="section" id="id1">
+<h3>Feature Branches<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Whenever a new feature is described, older texts are updated or reworded or the documents are restructured it is done
+in a <code class="docutils literal"><span class="pre">feature/foo</span></code> or <code class="docutils literal"><span class="pre">fix/bar</span></code> branch. Those branches will then be reviewed and, once they are deemed complete,
+may be merged.</p>
+<p>A feature branch may only be merged into master if the changes / additions made in it are correct regarding the
+<strong>SpongeAPI release currently targeted by the SpongeDocs</strong>. Any feature branches that describe features not yet included
+in a release stay unmerged until the corresponding API version is released and becomes the new targeted version for the
+SpongeDocs.</p>
+<img alt="release branch example" src="../_images/versioning-release-branch.svg" /></div>
+<div class="section" id="id2">
+<h3>Release Branches<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>If two or more feature branches are waiting on the release of their corresponding API version, they will be accumulated
+in a <code class="docutils literal"><span class="pre">release/x.y.z</span></code> branch before being merged into master so that any conflics may be resolved beforehand.</p>
+<img alt="future release branch example" src="../_images/versioning-future-release-branch.svg" /></div>
 </div>
 </div>
 

@@ -390,6 +390,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/versioning.html">Versioning System and Repository Branch Layout</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -466,15 +469,14 @@ registered and managed by the <code class="docutils literal"><span class="pre">D
 <code class="docutils literal"><span class="pre">DataBuilder</span></code> to deserialize a given class and additionally a shorthand method to get the <code class="docutils literal"><span class="pre">DataBuilder</span></code> and have it
 do the deserialization in one step. Both of the following code examples are functionally equivalent.</p>
 <p><strong>Code Example: Deserialization, the long way</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataView</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataView</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.HealthData</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.util.persistence.DataBuilder</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">deserializeHealth</span><span class="o">(</span><span class="n">DataView</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">DataBuilder</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getDataManager</span><span class="o">().</span><span class="na">getBuilder</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">DataBuilder</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">game</span><span class="o">.</span><span class="na">getDataManager</span><span class="o">().</span><span class="na">getBuilder</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">build</span><span class="o">(</span><span class="n">container</span><span class="o">);</span>
     <span class="o">}</span>
@@ -486,7 +488,7 @@ do the deserialization in one step. Both of the following code examples are func
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.HealthData</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">deserializeHealth</span><span class="o">(</span><span class="n">DataView</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getDataManager</span><span class="o">().</span><span class="na">deserialize</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">container</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">game</span><span class="o">.</span><span class="na">getDataManager</span><span class="o">().</span><span class="na">deserialize</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">container</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
