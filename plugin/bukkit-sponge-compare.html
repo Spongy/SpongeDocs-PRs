@@ -1,0 +1,2469 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <title>Comparing Bukkit to Sponge &mdash; Sponge 3.0.0 documentation</title>
+    
+  <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:400italic,700italic,700,400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="../_static/tomorrow.css" type="text/css" />
+  <link id="syntax-highlighting-ref" rel="stylesheet" href="../_static/tomorrow_night.css" type="text/css" />
+      
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT:    '../',
+      VERSION:     '3.0.0',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE:  true
+    };
+  </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/store.min.js"></script>
+    <script type="text/javascript" src="../_static/lights.js"></script>
+      <link rel="shortcut icon" href="../_static/favicon.ico"/>
+        <link rel="top" title="Sponge 3.0.0 documentation" href="../index.html" />
+        <link rel="up" title="Creating a Plugin" href="index.html" />
+        <link rel="next" title="Creating Your Main Plugin Class" href="main-class.html" />
+        <link rel="prev" title="Plugin Templates" href="templates.html" />
+    
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-59476017-2', 'auto');
+    ga('send', 'pageview');
+
+  </script> 
+  </head>
+  <body role="document">
+    <div class="container">
+  <div class="related" role="navigation" aria-label="related navigation">
+    <h3>Navigation</h3>
+    <ul>
+      <span style="float: right" class="lights" title="Toggles syntax highlighting between light and dark">
+        <i class="icon-lamp lights-icon"></i> Highlight Code Light/Dark
+      </span>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="main-class.html" title="Creating Your Main Plugin Class"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="templates.html" title="Plugin Templates"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
+        <li><a href="index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
+        <li class="right">
+          
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/plugin/bukkit-sponge-compare.rst" class="right">
+            <img src="../_static/GitHub-Mark-32px.png" height="12px"/> Edit on GitHub</a>
+             |
+          
+        </li>
+    </ul>
+  </div> 
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+    <form class="search" action="../search.html" method="get">
+      <div class="searchbox-inner">
+        <input class="field" type="text" name="q" autocomplete="off" />
+        <button class="submit" type="submit"><i class="icon-search"></i></button>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </div>
+    </form>
+    <p class="searchtip" style="font-size: 90%"></p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../server/index.html">Creating a Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../server/getting-started/index.html">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/jre.html">Installing Java</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/migrating.html">Migrating to Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/spongeforge.html">SpongeForge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/launch-script.html">Creating a Launch Script</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/port-forward.html">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/bungeecord.html">Using Sponge with BungeeCord</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/configuration/index.html">Configuring Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/hocon.html">Introduction to HOCON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/json.html">JSON Syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/sponge-conf.html">global.conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/configuration/server-properties.html">server.properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../server/management/index.html">Server Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/whitelist.html">Managing the Whitelist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/bans.html">Managing Bans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/permissions.html">Managing Permissions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/plugins.html">Installing Plugins</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/management/exploit-patches.html">Exploit Patches</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../server/spongineer/index.html">Becoming an Expert Spongineer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/commands.html">Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/logs.html">Log Files</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/debugging.html">Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../server/spongineer/bugreport.html">Reporting Bugs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preparing/index.html">Preparing for Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/jdk.html">Installing the JDK</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/ide.html">Installing an IDE</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/text.html">Installing a Text Editor</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preparing/git.html">Installing Git</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="workspace/index.html">Setting Up Your Workspace</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="workspace/idea.html">Setting Up IntelliJ IDEA</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="workspace/eclipse.html">Setting Up Eclipse</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="workspace/netbeans.html">Setting Up NetBeans</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="workspace/dependencies.html">Adding Sponge API Dependencies</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="practices.html">Best Practices</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html">Plugin Templates</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Comparing Bukkit to Sponge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main-class.html">Creating Your Main Plugin Class</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lifecycle.html">Plugin Lifecycle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="optional/index.html">Optionals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optional/basic.html">Optionals Explained</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="optional/usage.html">Usage Examples</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging and Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="text/index.html">Working with Text</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="text/text.html">Creating Text</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="text/pagination.html">The Pagination Service</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="commands/index.html">Creating Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands/creating.html">Building a Command</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/arguments.html">Argument Parsing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/childcommands.html">Child Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/service.html">The Command Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="event/index.html">Working with Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="event/listeners.html">Event Listeners</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="event/causes.html">Event Causes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="event/filters.html">Event Filters</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="event/custom.html">Creating Custom Events</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="data/index.html">The Data API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="data/keys.html">Using Keys</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/datamanipulators.html">Data Manipulators</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data/serialization.html">Serializing Data</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blocks/index.html">Working with Blocks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blocks/concepts.html">Concepts</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blocks/accessing.html">Accessing Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blocks/modifying.html">Modifying Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blocks/tileentities.html">Working with Tile Entities</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="entities/index.html">Working with Entities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="entities/spawning.html">Spawning an Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="entities/modifying.html">Modifying an Entity</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="items.html">Working with Items</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="injection.html">Dependency Injection</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scheduler.html">Using the Scheduler</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html">Working with Databases</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="permissions.html">Working with the Permissions API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="economy/index.html">The Economy API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="economy/basics.html">Basic Concepts</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="economy/using.html">Using the Economy API</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="economy/practices.html">Economy API Best Practices</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="economy/implementing.html">Implementing the Economy API</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Working with Services</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="wgen/index.html">World Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="wgen/modifiers.html">Working with WorldGeneratorModifiers</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wgen/customwgen.html">Modifying World Generation</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manager.html">Using the Plugin Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="message-sinks.html">Message Sinks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/structure.html">The Structure of the Sponge Project</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/howtogit.html">How to Git(Hub)</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/implementation/index.html">Developing Sponge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/codestyle.html">Code Style</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/git-implementation.html">Git Workflow for API and Implementations</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/pr.html">Submitting a Pull-Request</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/spongedocs.html">SpongeDocs Writing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/versioning.html">Versioning System and Repository Branch Layout</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About the Sponge Project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../about/introduction.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/future.html">Plans for the Future</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about/license.html">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about/posting.html">Forum Posting Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/rules.html">Forum &amp; IRC Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about/staff.html">Staff</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/glossary.html">Sponge Glossary</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/assets.html">Art Assets</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/history.html">The History of Sponge</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<ul class="simple">
+</ul>
+
+      </div>
+    </div> 
+
+        <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body" role="main">
+                  
+  <div class="section" id="comparing-bukkit-to-sponge">
+<h1>Comparing Bukkit to Sponge<a class="headerlink" href="#comparing-bukkit-to-sponge" title="Permalink to this headline">¶</a></h1>
+<p>While the BukkitAPI is notably different to SpongAPI, there are some Events and classes which have an equivalent. This
+page is intended to provide a (probably incomplete) list to help former Bukkit devs out when first trying SpongeAPI.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To keep the table small, <code class="docutils literal"><span class="pre">org.bukkit.</span></code> and <code class="docutils literal"><span class="pre">org.spongepowered.api.</span></code> were removed in front of the class names.</p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="46%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">BukkitAPI (<code class="docutils literal"><span class="pre">org.bukkit.*</span></code>)</th>
+<th class="head">SpongeAPI (<code class="docutils literal"><span class="pre">org.spongepowered.api.*</span></code>)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>block.banner.Pattern</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>block.banner.PatternType</td>
+<td>data.type.BannerPatternShapes</td>
+</tr>
+<tr class="row-even"><td>block.Banner</td>
+<td>block.tileentity.Banner</td>
+</tr>
+<tr class="row-odd"><td>block.Beacon</td>
+<td>block.tileentity.carrier.Beacon</td>
+</tr>
+<tr class="row-even"><td>block.Biome</td>
+<td>world.biome.BiomeType</td>
+</tr>
+<tr class="row-odd"><td>block.Block</td>
+<td>block.BlockState</td>
+</tr>
+<tr class="row-even"><td>block.BlockFace</td>
+<td>util.Direction</td>
+</tr>
+<tr class="row-odd"><td>block.BlockState</td>
+<td>block.BlockSnapshot</td>
+</tr>
+<tr class="row-even"><td>block.BrewingStand</td>
+<td>block.tileentity.carrier.BrewingStand</td>
+</tr>
+<tr class="row-odd"><td>block.Chest</td>
+<td>block.tileentity.carrier.Chest</td>
+</tr>
+<tr class="row-even"><td>block.CommandBlock</td>
+<td>block.tileentity.CommandBlock</td>
+</tr>
+<tr class="row-odd"><td>block.ContainerBlock</td>
+<td>block.tileentity.carrier.TileEntityCarrier</td>
+</tr>
+<tr class="row-even"><td>block.CreatureSpawner</td>
+<td>block.tileentity.MobSpawner</td>
+</tr>
+<tr class="row-odd"><td>block.Dispenser</td>
+<td>block.tileentity.carrier.Dispenser</td>
+</tr>
+<tr class="row-even"><td>block.DoubleChest</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>block.Dropper</td>
+<td>block.tileentity.carrier.Dropper</td>
+</tr>
+<tr class="row-even"><td>block.Furnace</td>
+<td>block.tileentity.carrier.Furnace</td>
+</tr>
+<tr class="row-odd"><td>block.Hopper</td>
+<td>block.tileentity.carrier.Hopper</td>
+</tr>
+<tr class="row-even"><td>block.Jukebox</td>
+<td>block.tileentity.Jukebox</td>
+</tr>
+<tr class="row-odd"><td>block.NoteBlock</td>
+<td>block.tileentity.Note</td>
+</tr>
+<tr class="row-even"><td>block.PistonMoveReaction</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>block.Sign</td>
+<td>block.tileentity.Sign</td>
+</tr>
+<tr class="row-even"><td>block.Skull</td>
+<td>block.tileentity.Skull</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.AchievementCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.BanCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.BanIpCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.BanListCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.BukkitCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.ClearCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.DefaultGameModeCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.DeopCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.DifficultyCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.EffectCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.EnchantCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.ExpCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.GameModeCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.GameRuleCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.GiveCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.HelpCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.KickCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.KillCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.ListCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.MeCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.OpCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.PardonCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.PardonIpCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.PlaySoundCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.PluginsCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.ReloadCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.SaveCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.SaveOffCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.SaveOnCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.SayCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.ScoreboardCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.SeedCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.SetIdleTimeoutCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.SetWorldSpawnCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.SpawnpointCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.SpreadPlayersCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.StopCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.TeleportCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.TellCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.TestForCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.TimeCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.TimingsCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.ToggleDownfallCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.VanillaCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.VersionCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.defaults.WeatherCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.defaults.WhitelistCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.BlockCommandSender</td>
+<td>command.source.CommandBlockSource</td>
+</tr>
+<tr class="row-odd"><td>command.Command</td>
+<td>command.CommandCallable</td>
+</tr>
+<tr class="row-even"><td>command.CommandException</td>
+<td>command.CommandException</td>
+</tr>
+<tr class="row-odd"><td>command.CommandExecutor</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>command.CommandMap</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.CommandSender</td>
+<td>command.CommandSource</td>
+</tr>
+<tr class="row-even"><td>command.ConsoleCommandSender</td>
+<td>command.source.ConsoleSource</td>
+</tr>
+<tr class="row-odd"><td>command.FormattedCommandAlias</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.MultipleCommandAlias</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.PluginCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.PluginCommandYamlParser</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.PluginIdentifiableCommand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.ProxiedCommandSender</td>
+<td>command.source.ProxySource</td>
+</tr>
+<tr class="row-odd"><td>command.RemoteConsoleCommandSender</td>
+<td>command.source.RconSource</td>
+</tr>
+<tr class="row-even"><td>command.SimpleCommandMap</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.TabCommandExecutor</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>command.TabCompleter</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>command.TabExecutor</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>configuration.file.FileConfiguration</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>configuration.file.FileConfigurationOptions</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>configuration.file.YamlConfiguration</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>configuration.file.YamlConfigurationOptions</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>configuration.file.YamlConstructor</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>configuration.file.YamlRepresenter</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>configuration.serialization.ConfigurationSerializable</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>configuration.serialization.ConfigurationSerialization</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>configuration.serialization.DelegateDeserialization</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>configuration.serialization.SerializableAs</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>configuration.Configuration</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>configuration.ConfigurationOptions</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>configuration.ConfigurationSection</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>configuration.InvalidConfigurationException</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>configuration.MemoryConfiguration</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>configuration.MemoryConfigurationOptions</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>configuration.MemorySection</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>conversations.BooleanPrompt</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>conversations.Conversable</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>conversations.Conversation</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>conversations.ConversationAbandonedEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>conversations.ConversationAbandonedListener</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>conversations.ConversationCanceller</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>conversations.ConversationContext</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>conversations.ConversationFactory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>conversations.ConversationPrefix</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>conversations.ExactMatchConversationCanceller</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>conversations.FixedSetPrompt</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>conversations.InactivityConversationCanceller</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>conversations.ManuallyAbandonedConversationCanceller</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>conversations.MessagePrompt</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>conversations.NullConversationPrefix</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>conversations.NumericPrompt</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>conversations.PlayerNamePrompt</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>conversations.PluginNameConversationPrefix</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>conversations.Prompt</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>conversations.RegexPrompt</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>conversations.StringPrompt</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>conversations.ValidatingPrompt</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>enchantments.Enchantment</td>
+<td>item.Enchantment</td>
+</tr>
+<tr class="row-even"><td>enchantments.EnchantmentTarget</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>enchantments.EnchantmentWrapper</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>entity.minecart.CommandMinecart</td>
+<td>entity.vehicle.minecart.MinecartCommandBlock</td>
+</tr>
+<tr class="row-odd"><td>entity.minecart.ExplosiveMinecart</td>
+<td>entity.vehicle.minecart.MinecartTNT</td>
+</tr>
+<tr class="row-even"><td>entity.minecart.HopperMinecart</td>
+<td>entity.vehicle.minecart.MinecartHopper</td>
+</tr>
+<tr class="row-odd"><td>entity.minecart.PoweredMinecart</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>entity.minecart.RideableMinecart</td>
+<td>entity.vehicle.minecart.MinecartRideable</td>
+</tr>
+<tr class="row-odd"><td>entity.minecart.SpawnerMinecart</td>
+<td>entity.vehicle.minecart.MinecartMobSpawner</td>
+</tr>
+<tr class="row-even"><td>entity.minecart.StorageMinecart</td>
+<td>entity.vehicle.minecart.MinecartChest</td>
+</tr>
+<tr class="row-odd"><td>entity.Ageable</td>
+<td>entity.living.Ageable</td>
+</tr>
+<tr class="row-even"><td>entity.Ambient</td>
+<td>entity.living.Ambient</td>
+</tr>
+<tr class="row-odd"><td>entity.Animals</td>
+<td>entity.living.animal.Animal</td>
+</tr>
+<tr class="row-even"><td>entity.AnimalTamer</td>
+<td>entity.Tamer</td>
+</tr>
+<tr class="row-odd"><td>entity.ArmorStand</td>
+<td>entity.living.ArmorStand</td>
+</tr>
+<tr class="row-even"><td>entity.Arrow</td>
+<td>entity.projectile.Arrow</td>
+</tr>
+<tr class="row-odd"><td>entity.Bat</td>
+<td>entity.living.Bat</td>
+</tr>
+<tr class="row-even"><td>entity.Blaze</td>
+<td>entity.living.monster.Blaze</td>
+</tr>
+<tr class="row-odd"><td>entity.Boat</td>
+<td>entity.vehicle.Boat</td>
+</tr>
+<tr class="row-even"><td>entity.CaveSpider</td>
+<td>entity.living.monster.CaveSpider</td>
+</tr>
+<tr class="row-odd"><td>entity.Chicken</td>
+<td>entity.living.animal.Chicken</td>
+</tr>
+<tr class="row-even"><td>entity.ComplexEntityPart</td>
+<td>entity.living.complex.ComplexLivingPart</td>
+</tr>
+<tr class="row-odd"><td>entity.ComplexLivingEntity</td>
+<td>entity.living.complex.ComplexLiving</td>
+</tr>
+<tr class="row-even"><td>entity.Cow</td>
+<td>entity.living.animal.Cow</td>
+</tr>
+<tr class="row-odd"><td>entity.Creature</td>
+<td>entity.living.Creature</td>
+</tr>
+<tr class="row-even"><td>entity.CreatureType</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>entity.Creeper</td>
+<td>entity.living.monster.Creeper</td>
+</tr>
+<tr class="row-even"><td>entity.Damageable</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>entity.Egg</td>
+<td>entity.projectile.Egg</td>
+</tr>
+<tr class="row-even"><td>entity.EnderCrystal</td>
+<td>entity.EnderCrystal</td>
+</tr>
+<tr class="row-odd"><td>entity.EnderDragon</td>
+<td>entity.living.complex.EnderDragon</td>
+</tr>
+<tr class="row-even"><td>entity.EnderDragonPart</td>
+<td>entity.living.complex.EnderDragonPart</td>
+</tr>
+<tr class="row-odd"><td>entity.Enderman</td>
+<td>entity.living.monster.Enderman</td>
+</tr>
+<tr class="row-even"><td>entity.Endermite</td>
+<td>entity.living.monster.Endermite</td>
+</tr>
+<tr class="row-odd"><td>entity.EnderPearl</td>
+<td>entity.projectile.EnderPearl</td>
+</tr>
+<tr class="row-even"><td>entity.EnderSignal</td>
+<td>entity.projectile.EyeOfEnder</td>
+</tr>
+<tr class="row-odd"><td>entity.Entity</td>
+<td>entity.Entity</td>
+</tr>
+<tr class="row-even"><td>entity.EntityType</td>
+<td>entity.EntityType</td>
+</tr>
+<tr class="row-odd"><td>entity.ExperienceOrb</td>
+<td>entity.ExperienceOrb</td>
+</tr>
+<tr class="row-even"><td>entity.Explosive</td>
+<td>entity.explosive.Explosive</td>
+</tr>
+<tr class="row-odd"><td>entity.FallingBlock</td>
+<td>entity.FallingBlock</td>
+</tr>
+<tr class="row-even"><td>entity.FallingSand</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>entity.Fireball</td>
+<td>entity.projectile.explosive.fireball.Fireball</td>
+</tr>
+<tr class="row-even"><td>entity.Firework</td>
+<td>entity.projectile.Firework</td>
+</tr>
+<tr class="row-odd"><td>entity.Fish</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>entity.FishHook</td>
+<td>entity.projectile.FishHook</td>
+</tr>
+<tr class="row-odd"><td>entity.Flying</td>
+<td>entity.living.Aerial</td>
+</tr>
+<tr class="row-even"><td>entity.Ghast</td>
+<td>entity.living.monster.Ghast</td>
+</tr>
+<tr class="row-odd"><td>entity.Giant</td>
+<td>entity.living.monster.Giant</td>
+</tr>
+<tr class="row-even"><td>entity.Golem</td>
+<td>entity.living.golem.Golem</td>
+</tr>
+<tr class="row-odd"><td>entity.Guardian</td>
+<td>entity.living.monster.Guardian</td>
+</tr>
+<tr class="row-even"><td>entity.Hanging</td>
+<td>entity.hanging.Hanging</td>
+</tr>
+<tr class="row-odd"><td>entity.Horse</td>
+<td>entity.living.animal.Horse</td>
+</tr>
+<tr class="row-even"><td>entity.HumanEntity</td>
+<td>entity.living.Humanoid</td>
+</tr>
+<tr class="row-odd"><td>entity.IronGolem</td>
+<td>entity.living.golem.IronGolem</td>
+</tr>
+<tr class="row-even"><td>entity.Item</td>
+<td>entity.Item</td>
+</tr>
+<tr class="row-odd"><td>entity.ItemFrame</td>
+<td>entity.hanging.ItemFrame</td>
+</tr>
+<tr class="row-even"><td>entity.LargeFireball</td>
+<td>entity.projectile.explosive.fireball.LargeFireball</td>
+</tr>
+<tr class="row-odd"><td>entity.LeashHitch</td>
+<td>entity.hanging.LeashHitch</td>
+</tr>
+<tr class="row-even"><td>entity.LightningStrike</td>
+<td>entity.weather.Lightning</td>
+</tr>
+<tr class="row-odd"><td>entity.LivingEntity</td>
+<td>entity.living.Living</td>
+</tr>
+<tr class="row-even"><td>entity.MagmaCube</td>
+<td>entity.living.monster.MagmaCube</td>
+</tr>
+<tr class="row-odd"><td>entity.Minecart</td>
+<td>entity.vehicle.minecart.Minecart</td>
+</tr>
+<tr class="row-even"><td>entity.Monster</td>
+<td>entity.living.monster.Monster</td>
+</tr>
+<tr class="row-odd"><td>entity.MushroomCow</td>
+<td>entity.living.animal.Mooshroom</td>
+</tr>
+<tr class="row-even"><td>entity.NPC</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>entity.Ocelot</td>
+<td>entity.living.animal.Ocelot</td>
+</tr>
+<tr class="row-even"><td>entity.Painting</td>
+<td>entity.hanging.Painting</td>
+</tr>
+<tr class="row-odd"><td>entity.Pig</td>
+<td>entity.living.animal.Pig</td>
+</tr>
+<tr class="row-even"><td>entity.PigZombie</td>
+<td>entity.living.monster.ZombiePigman</td>
+</tr>
+<tr class="row-odd"><td>entity.Player</td>
+<td>entity.living.player.Player</td>
+</tr>
+<tr class="row-even"><td>entity.PoweredMinecart</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>entity.Projectile</td>
+<td>entity.projectile.Projectile</td>
+</tr>
+<tr class="row-even"><td>entity.Rabbit</td>
+<td>entity.living.animal.Rabbit</td>
+</tr>
+<tr class="row-odd"><td>entity.Sheep</td>
+<td>entity.living.animal.Sheep</td>
+</tr>
+<tr class="row-even"><td>entity.Silverfish</td>
+<td>entity.living.monster.Silverfish</td>
+</tr>
+<tr class="row-odd"><td>entity.Skeleton</td>
+<td>entity.living.monster.Skeleton</td>
+</tr>
+<tr class="row-even"><td>entity.Slime</td>
+<td>entity.living.monster.Slime</td>
+</tr>
+<tr class="row-odd"><td>entity.SmallFireball</td>
+<td>entity.projectile.explosive.fireball.SmallFireball</td>
+</tr>
+<tr class="row-even"><td>entity.Snowball</td>
+<td>entity.projectile.Snowball</td>
+</tr>
+<tr class="row-odd"><td>entity.Snowman</td>
+<td>entity.living.golem.SnowGolem</td>
+</tr>
+<tr class="row-even"><td>entity.Spider</td>
+<td>entity.living.monster.Spider</td>
+</tr>
+<tr class="row-odd"><td>entity.Squid</td>
+<td>entity.living.Squid</td>
+</tr>
+<tr class="row-even"><td>entity.StorageMinecart</td>
+<td>entity.vehicle.minecart.MinecartChest</td>
+</tr>
+<tr class="row-odd"><td>entity.Tameable</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>entity.ThrownExpBottle</td>
+<td>entity.projectile.ThrownExpBottle</td>
+</tr>
+<tr class="row-odd"><td>entity.ThrownPotion</td>
+<td>entity.projectile.ThrownPotion</td>
+</tr>
+<tr class="row-even"><td>entity.TNTPrimed</td>
+<td>entity.explosive.PrimedTNT</td>
+</tr>
+<tr class="row-odd"><td>entity.Vehicle</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>entity.Villager</td>
+<td>entity.living.Villager</td>
+</tr>
+<tr class="row-odd"><td>entity.WaterMob</td>
+<td>entity.living.Aquatic</td>
+</tr>
+<tr class="row-even"><td>entity.Weather</td>
+<td>entity.weather.WeatherEffect</td>
+</tr>
+<tr class="row-odd"><td>entity.Witch</td>
+<td>entity.living.monster.Witch</td>
+</tr>
+<tr class="row-even"><td>entity.Wither</td>
+<td>entity.living.monster.Wither</td>
+</tr>
+<tr class="row-odd"><td>entity.WitherSkull</td>
+<td>entity.projectile.explosive.WitherSkull</td>
+</tr>
+<tr class="row-even"><td>entity.Wolf</td>
+<td>entity.living.animal.Wolf</td>
+</tr>
+<tr class="row-odd"><td>entity.Zombie</td>
+<td>entity.living.monster.Zombie</td>
+</tr>
+<tr class="row-even"><td>event.block.Action</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>event.block.BlockBreakEvent</td>
+<td>event.block.ChangeBlockEvent.Break</td>
+</tr>
+<tr class="row-even"><td>event.block.BlockBurnEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.block.BlockCanBuildEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.block.BlockDamageEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.block.BlockDispenseEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.block.BlockEvent</td>
+<td>event.block.TargetBlockEvent</td>
+</tr>
+<tr class="row-odd"><td>event.block.BlockExpEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.block.BlockExplodeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.block.BlockFadeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.block.BlockFormEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.block.BlockFromToEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.block.BlockGrowEvent</td>
+<td>event.block.ChangeBlockEvent.Grow</td>
+</tr>
+<tr class="row-odd"><td>event.block.BlockIgniteEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.block.BlockMultiPlaceEvent</td>
+<td>event.block.ChangeBlockEvent.Place</td>
+</tr>
+<tr class="row-odd"><td>event.block.BlockPhysicsEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.block.BlockPistonEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.block.BlockPistonExtendEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.block.BlockPistonRetractEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.block.BlockPlaceEvent</td>
+<td>event.block.ChangeBlockEvent.Place</td>
+</tr>
+<tr class="row-even"><td>event.block.BlockRedstoneEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.block.BlockSpreadEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.block.EntityBlockFormEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.block.LeavesDecayEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.block.NotePlayEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.block.SignChangeEvent</td>
+<td>event.block.tileentity.ChangeSignEvent</td>
+</tr>
+<tr class="row-even"><td>event.enchantment.EnchantItemEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.enchantment.PrepareItemEnchantEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.CreatureSpawnEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.CreeperPowerEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.EntityBreakDoorEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.EntityChangeBlockEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.EntityCombustByBlockEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.EntityCombustByEntityEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.EntityCombustEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.EntityCreatePortalEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.EntityDamageByBlockEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.EntityDamageByEntityEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.EntityDamageEvent</td>
+<td>event.entity.DamageEntityEvent</td>
+</tr>
+<tr class="row-odd"><td>event.entity.EntityDeathEvent</td>
+<td>event.entity.DestructEntityEvent.Death</td>
+</tr>
+<tr class="row-even"><td>event.entity.EntityEvent</td>
+<td>event.entity.TargetEntityEvent</td>
+</tr>
+<tr class="row-odd"><td>event.entity.EntityExplodeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.EntityInteractEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.EntityPortalEnterEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.EntityPortalEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.EntityPortalExitEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.EntityRegainHealthEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.EntityShootBowEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.EntityTameEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.EntityTargetEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.EntityTargetLivingEntityEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.EntityTeleportEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.EntityUnleashEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.ExpBottleEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.ExplosionPrimeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.FireworkExplodeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.FoodLevelChangeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.HorseJumpEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.ItemDespawnEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.ItemMergeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.ItemSpawnEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.PigZapEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.PlayerDeathEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.PlayerLeashEntityEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.PotionSplashEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.ProjectileHitEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.ProjectileLaunchEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.SheepDyeWoolEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.entity.SheepRegrowWoolEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.entity.SlimeSplitEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.hanging.HangingBreakByEntityEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.hanging.HangingBreakEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.hanging.HangingEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.hanging.HangingPlaceEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.inventory.BrewEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.inventory.ClickType</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.inventory.CraftItemEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.inventory.DragType</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.inventory.FurnaceBurnEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.inventory.FurnaceExtractEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.inventory.FurnaceSmeltEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.inventory.InventoryAction</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.inventory.InventoryClickEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.inventory.InventoryCloseEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.inventory.InventoryCreativeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.inventory.InventoryDragEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.inventory.InventoryEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.inventory.InventoryInteractEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.inventory.InventoryMoveItemEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.inventory.InventoryOpenEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.inventory.InventoryPickupItemEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.inventory.InventoryType</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.inventory.PrepareItemCraftEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.painting.PaintingBreakByEntityEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.painting.PaintingBreakEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.painting.PaintingEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.painting.PaintingPlaceEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.AsyncPlayerChatEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.AsyncPlayerPreLoginEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerAchievementAwardedEvent</td>
+<td>event.achievement.GrantAchievementEvent.TargetPlayer</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerAnimationEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerAnimationType</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerArmorStandManipulateEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerBedEnterEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerBedLeaveEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerBucketEmptyEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerBucketEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerBucketFillEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerChangedWorldEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerChannelEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerChatEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerChatTabCompleteEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerCommandPreprocessEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerDropItemEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerEditBookEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerEggThrowEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerEvent</td>
+<td>event.entity.living.humanoid.player.TargetPlayerEvent</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerExpChangeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerFishEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerGameModeChangeEvent</td>
+<td>event.entity.living.humanoid.ChangeGameModeEvent.TargetPlayer</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerInteractAtEntityEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerInteractEntityEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerInteractEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerInventoryEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerItemBreakEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerItemConsumeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerItemHeldEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerJoinEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerKickEvent</td>
+<td>event.entity.living.humanoid.player.KickPlayerEvent</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerLevelChangeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerLoginEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerMoveEvent</td>
+<td>event.entity.DisplaceEntityEvent.Move.TargetPlayer</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerPickupItemEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerPortalEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerPreLoginEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerQuitEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerRegisterChannelEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerResourcePackStatusEvent</td>
+<td>event.entity.living.humanoid.player.ResourcePackStatusEvent</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerRespawnEvent</td>
+<td>event.entity.living.humanoid.player.RespawnPlayerEvent</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerShearEntityEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerStatisticIncrementEvent</td>
+<td>event.statistic.ChangeStatisticEvent.TargetPlayer</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerTeleportEvent</td>
+<td>event.entity.DisplaceEntityEvent.Teleport.TargetPlayer</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerToggleFlightEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerToggleSneakEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerToggleSprintEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerUnleashEntityEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.player.PlayerUnregisterChannelEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.player.PlayerVelocityEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.server.MapInitializeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.server.PluginDisableEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.server.PluginEnableEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.server.PluginEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.server.RemoteServerCommandEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.server.ServerCommandEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.server.ServerEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.server.ServerListPingEvent</td>
+<td>event.server.ClientPingServerEvent</td>
+</tr>
+<tr class="row-even"><td>event.server.ServiceEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.server.ServiceRegisterEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.server.ServiceUnregisterEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.vehicle.VehicleBlockCollisionEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.vehicle.VehicleCollisionEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.vehicle.VehicleCreateEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.vehicle.VehicleDamageEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.vehicle.VehicleDestroyEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.vehicle.VehicleEnterEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.vehicle.VehicleEntityCollisionEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.vehicle.VehicleEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.vehicle.VehicleExitEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.vehicle.VehicleMoveEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.vehicle.VehicleUpdateEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.weather.LightningStrikeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.weather.ThunderChangeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.weather.WeatherChangeEvent</td>
+<td>event.world.ChangeWorldWeatherEvent</td>
+</tr>
+<tr class="row-odd"><td>event.weather.WeatherEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.world.ChunkEvent</td>
+<td>event.world.chunk.TargetChunkEvent</td>
+</tr>
+<tr class="row-odd"><td>event.world.ChunkLoadEvent</td>
+<td>event.world.chunk.LoadChunkEvent</td>
+</tr>
+<tr class="row-even"><td>event.world.ChunkPopulateEvent</td>
+<td>event.world.chunk.PopulateChunkEvent</td>
+</tr>
+<tr class="row-odd"><td>event.world.ChunkUnloadEvent</td>
+<td>event.world.chunk.UnloadChunkEvent</td>
+</tr>
+<tr class="row-even"><td>event.world.PortalCreateEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.world.SpawnChangeEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.world.StructureGrowEvent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.world.WorldEvent</td>
+<td>event.world.TargetWorldEvent</td>
+</tr>
+<tr class="row-even"><td>event.world.WorldInitEvent</td>
+<td>event.world.ConstructWorldEvent</td>
+</tr>
+<tr class="row-odd"><td>event.world.WorldLoadEvent</td>
+<td>event.world.LoadWorldEvent</td>
+</tr>
+<tr class="row-even"><td>event.world.WorldSaveEvent</td>
+<td>event.world.SaveWorldEvent</td>
+</tr>
+<tr class="row-odd"><td>event.world.WorldUnloadEvent</td>
+<td>event.world.UnloadWorldEvent</td>
+</tr>
+<tr class="row-even"><td>event.Cancellable</td>
+<td>event.Cancellable</td>
+</tr>
+<tr class="row-odd"><td>event.Event</td>
+<td>event.Event</td>
+</tr>
+<tr class="row-even"><td>event.EventException</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>event.EventHandler</td>
+<td>event.Listener</td>
+</tr>
+<tr class="row-even"><td>event.EventPriority</td>
+<td>event.Order</td>
+</tr>
+<tr class="row-odd"><td>event.HandlerList</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>event.Listener</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>generator.BlockPopulator</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>generator.ChunkGenerator</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>help.GenericCommandHelpTopic</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>help.HelpMap</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>help.HelpTopic</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>help.HelpTopicComparator</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>help.HelpTopicFactory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>help.IndexHelpTopic</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.meta.BannerMeta</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.meta.BlockStateMeta</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.meta.BookMeta</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.meta.EnchantmentStorageMeta</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.meta.FireworkEffectMeta</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.meta.FireworkMeta</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.meta.ItemMeta</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.meta.LeatherArmorMeta</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.meta.MapMeta</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.meta.PotionMeta</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.meta.Repairable</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.meta.SkullMeta</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.AnvilInventory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.BeaconInventory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.BrewerInventory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.CraftingInventory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.DoubleChestInventory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.EnchantingInventory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.EntityEquipment</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.EquipmentSlot</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.FurnaceInventory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.FurnaceRecipe</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.HorseInventory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.Inventory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.InventoryHolder</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.InventoryView</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.ItemFactory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.ItemFlag</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.ItemStack</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.MerchantInventory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.PlayerInventory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.Recipe</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>inventory.ShapedRecipe</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>inventory.ShapelessRecipe</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>map.MapCanvas</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>map.MapCursor</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>map.MapCursorCollection</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>map.MapFont</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>map.MapPalette</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>map.MapRenderer</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>map.MapView</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>map.MinecraftFont</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Attachable</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Banner</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Bed</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Button</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Cake</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Cauldron</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Chest</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Coal</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.CocoaPlant</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Colorable</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Command</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Crops</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.DetectorRail</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Diode</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Directional</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.DirectionalContainer</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Dispenser</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Door</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Dye</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.EnderChest</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.ExtendedRails</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.FlowerPot</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Furnace</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.FurnaceAndDispenser</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Gate</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Ladder</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Leaves</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Lever</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.LongGrass</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.MaterialData</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.MonsterEggs</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Mushroom</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.NetherWarts</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Openable</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.PistonBaseMaterial</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.PistonExtensionMaterial</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.PoweredRail</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.PressurePlate</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.PressureSensor</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Pumpkin</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Rails</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Redstone</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.RedstoneTorch</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.RedstoneWire</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Sandstone</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Sign</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.SimpleAttachableMaterialData</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Skull</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.SmoothBrick</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.SpawnEgg</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Stairs</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Step</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.TexturedMaterial</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Torch</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.TrapDoor</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.Tree</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Tripwire</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.TripwireHook</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Vine</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>material.WoodenStep</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>material.Wool</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>metadata.FixedMetadataValue</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>metadata.LazyMetadataValue</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>metadata.Metadatable</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>metadata.MetadataConversionException</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>metadata.MetadataEvaluationException</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>metadata.MetadataStore</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>metadata.MetadataStoreBase</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>metadata.MetadataValue</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>metadata.MetadataValueAdapter</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>permissions.Permissible</td>
+<td>service.permission.Subject</td>
+</tr>
+<tr class="row-even"><td>permissions.PermissibleBase</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>permissions.Permission</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>permissions.PermissionAttachment</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>permissions.PermissionAttachmentInfo</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>permissions.PermissionDefault</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>permissions.PermissionRemovedExecutor</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>permissions.ServerOperator</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.java.JavaPlugin</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.java.PluginLoader</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.java.PluginClassLoader</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.messaging.ChannelNameTooLongException</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.messaging.ChannelNotRegisteredException</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.messaging.MessageTooLargeException</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.messaging.Messenger</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.messaging.PluginChannelDirection</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.messaging.PluginMessageListener</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.messaging.PluginMessageListenerRegistration</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.messaging.PluginMessageRecipient</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.messaging.ReservedChannelException</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.messaging.StandardMessenger</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.AuthorNagException</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.EventExecutor</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.IllegalPluginAccessException</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.InvalidDescriptionException</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.InvalidPluginException</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.Plugin</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.PluginAwareness</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.PluginBase</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.PluginDescriptionFile</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.PluginLoader</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.PluginLoadOrder</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.PluginLogger</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.PluginManager</td>
+<td>plugin.PluginManager</td>
+</tr>
+<tr class="row-odd"><td>plugin.RegisteredListener</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.RegisteredServiceProvider</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>plugin.ServicePriority</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.ServicesManager</td>
+<td>service.ServiceManager</td>
+</tr>
+<tr class="row-odd"><td>plugin.SimplePluginManager</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.SimpleServicesManager</td>
+<td>service.SimpleServiceManager</td>
+</tr>
+<tr class="row-odd"><td>plugin.TimedRegisteredListener</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>plugin.UnknownDependencyException</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>potion.Potion</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>potion.PotionBrewer</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>potion.PotionEffect</td>
+<td>effect.potion.PotionEffect</td>
+</tr>
+<tr class="row-even"><td>potion.PotionEffectType</td>
+<td>effect.potion.PotionEffectType</td>
+</tr>
+<tr class="row-odd"><td>potion.PotionEffectTypeWrapper</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>potion.PotionType</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>projectiles.BlockProjectileSource</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>projectiles.ProjectileSource</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>scheduler.BukkitRunnable</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>scheduler.BukkitScheduler</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>scheduler.BukkitTask</td>
+<td>scheduler.Task</td>
+</tr>
+<tr class="row-even"><td>scheduler.BukkitWorker</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>scoreboard.Criterias</td>
+<td>scoreboard.critieria.Criterion</td>
+</tr>
+<tr class="row-even"><td>scoreboard.DisplaySlot</td>
+<td>scoreboard.displayslot.DisplaySlot</td>
+</tr>
+<tr class="row-odd"><td>scoreboard.NameTagVisibility</td>
+<td>scoreboard.Visibility</td>
+</tr>
+<tr class="row-even"><td>scoreboard.Objective</td>
+<td>scoreboard.objective.Objective</td>
+</tr>
+<tr class="row-odd"><td>scoreboard.Score</td>
+<td>scoreboard.Score</td>
+</tr>
+<tr class="row-even"><td>scoreboard.Scoreboard</td>
+<td>scoreboard.Scoreboard</td>
+</tr>
+<tr class="row-odd"><td>scoreboard.ScoreboardManager</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>scoreboard.Team</td>
+<td>scoreboard.Team</td>
+</tr>
+<tr class="row-odd"><td>util.io.BukkitObjectInputStream</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>util.io.BukkitObjectOutputStream</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>util.io.Wrapper</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>util.noise.NoiseGenerator</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>util.noise.OctaveGenerator</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>util.noise.PerlinNoiseGenerator</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>util.noise.PerlinOctaveGenerator</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>util.noise.SimplexNoiseGenerator</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>util.noise.SimplexOctaveGenerator</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>util.permissions.BroadcastPermissions</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>util.permissions.CommandPermissions</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>util.permissions.DefaultPermissions</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>util.BlockIterator</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>util.BlockVector</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>util.CachedServerIcon</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>util.ChatPaginator</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>util.EulerAngle</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>util.FileUtil</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>util.Java15Compat</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>util.NumberConversions</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>util.StringUtil</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>util.Vector</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Achievement</td>
+<td>statistic.achievement.Achievement</td>
+</tr>
+<tr class="row-even"><td>Art</td>
+<td>data.type.Art</td>
+</tr>
+<tr class="row-odd"><td>BanEntry</td>
+<td>util.ban.Ban</td>
+</tr>
+<tr class="row-even"><td>BanList</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>BlockChangeDelegate</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Bukkit</td>
+<td>Sponge</td>
+</tr>
+<tr class="row-odd"><td>ChatColor</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Chunk</td>
+<td>world.Chunk</td>
+</tr>
+<tr class="row-odd"><td>ChunkSnapshot</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>CoalType</td>
+<td>data.type.CoalType</td>
+</tr>
+<tr class="row-odd"><td>Color</td>
+<td>util.Color</td>
+</tr>
+<tr class="row-even"><td>CropState</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Difficulty</td>
+<td>world.difficulty.Difficulty</td>
+</tr>
+<tr class="row-even"><td>DyeColor</td>
+<td>data.type.DyeColor</td>
+</tr>
+<tr class="row-odd"><td>Effect</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>EntityEffect</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>FireworkEffect</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>GameMode</td>
+<td>entity.living.player.gamemode.GameMode</td>
+</tr>
+<tr class="row-odd"><td>GrassSpecies</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Instrument</td>
+<td>data.type.InstrumentType</td>
+</tr>
+<tr class="row-odd"><td>Location</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Material</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>NetherWartsState</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Note</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>OfflinePlayer</td>
+<td>entity.living.player.User</td>
+</tr>
+<tr class="row-even"><td>PortalType</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Rotation</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>SandstoneType</td>
+<td>data.type.SandstoneType</td>
+</tr>
+<tr class="row-odd"><td>Server</td>
+<td>Server</td>
+</tr>
+<tr class="row-even"><td>SkullType</td>
+<td>data.type.SkullType</td>
+</tr>
+<tr class="row-odd"><td>Sound</td>
+<td>effect.sound.SoundType</td>
+</tr>
+<tr class="row-even"><td>Statistic</td>
+<td>statistic.Statistic</td>
+</tr>
+<tr class="row-odd"><td>TravelAgent</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>TreeSpecies</td>
+<td>data.type.TreeType</td>
+</tr>
+<tr class="row-odd"><td>TreeType</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>UnsafeValues</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>Utility</td>
+<td>(none)</td>
+</tr>
+<tr class="row-even"><td>Warning</td>
+<td>(none)</td>
+</tr>
+<tr class="row-odd"><td>WeatherType</td>
+<td>world.weather.Weather</td>
+</tr>
+<tr class="row-even"><td>World</td>
+<td>world.World</td>
+</tr>
+<tr class="row-odd"><td>WorldBorder</td>
+<td>world.WorldBorder</td>
+</tr>
+<tr class="row-even"><td>WorldCreator</td>
+<td>world.WorldCreationSettings.Builder</td>
+</tr>
+<tr class="row-odd"><td>WorldType</td>
+<td>world.GeneratorType</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          <div class="clearer"></div>
+        </div>
+        <div class="footer" role="contentinfo">
+              &copy; Copyright 2014-2016, Sponge Contributors.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+        </div>
+    </div>
+  </body>
+</html>
