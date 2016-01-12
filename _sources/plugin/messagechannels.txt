@@ -101,7 +101,7 @@ front of the message.
         public Optional<Text> transformMessage(Object sender, MessageReceiver recipient,
                                                                     Text original) {
             Text text = original;
-            text = Text.of(TextColors.RED, "[Admin]", TextColors.YELLOW, text);
+            text = Text.of(TextColors.RED, "[Admin]", TextColors.RESET, text);
             return Optional.of(text);
         }
 
@@ -123,15 +123,21 @@ due to the addition of the ``AdminMessageChannel``, a red ``[Admin]`` tag will b
 
 .. code-block:: java
 
+    import org.spongepowered.api.entity.living.player.Player;
     import org.spongepowered.api.event.Listener;
-    import org.spongepowered.api.event.network.ClientConnectionEvent;
+    import org.spongepowered.api.event.message.MessageChannelEvent;
 
     @Listener
-    public void onClientConnectionJoin(ClientConnectionEvent.Join event) {
-        if(event.getTargetEntity().hasPermission("myplugin.admin")) {
-            MessageChannel originalChannel = event.getOriginalChannel();
-            MessageChannel newChannel = MessageChannel.combined(originalChannel, new AdminMessageChannel());
-            event.setChannel(newChannel);
+    public void onClientConnectionJoin(MessageChannelEvent.Chat event) {
+        Optional<Player> playerOptional = event.getCause().<Player>first(Player.class);
+        if(playerOptional.isPresent()) {
+            Player player = playerOptional.get();
+            if(player.hasPermission("myplugin.admin")) {
+                MessageChannel originalChannel = event.getOriginalChannel();
+                MessageChannel newChannel = MessageChannel.combined(originalChannel,
+                    new AdminMessageChannel());
+                event.setChannel(newChannel);
+            }
         }
     }
 
