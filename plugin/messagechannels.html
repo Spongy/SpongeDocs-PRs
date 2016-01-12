@@ -452,9 +452,9 @@ such as <code class="docutils literal"><span class="pre">AbstractMutableMessageC
 <div class="section" id="broadcasting">
 <h3>Broadcasting<a class="headerlink" href="#broadcasting" title="Permalink to this headline">¶</a></h3>
 <p>The most common channel will be the broadcasting channel. It can be obtained either from the <code class="docutils literal"><span class="pre">Server</span></code> via the
-<code class="docutils literal"><span class="pre">getBroadcastChannel()</span></code> method or from either the <code class="docutils literal"><span class="pre">MessageChannel.TO_PLAYERS</span></code> or <code class="docutils literal"><span class="pre">MessageChannel.TO_ALL</span></code> constant.
-The only difference is that <code class="docutils literal"><span class="pre">TO_ALL</span></code> includes not only every player connected to the server but also the server
-<code class="docutils literal"><span class="pre">Console</span></code>.</p>
+<code class="docutils literal"><span class="pre">getBroadcastChannel()</span></code> method or from either the <code class="docutils literal"><span class="pre">MessageChannel.TO_PLAYERS</span></code> or <code class="docutils literal"><span class="pre">MessageChannel.TO_ALL</span></code>
+constant. The only difference is that <code class="docutils literal"><span class="pre">TO_ALL</span></code> includes not only every player connected to the server but also the
+server <code class="docutils literal"><span class="pre">Console</span></code>.</p>
 <p>The channel returned by <code class="docutils literal"><span class="pre">getBroadcastChannel()</span></code> will generally be the <code class="docutils literal"><span class="pre">MessageChannel.TO_ALL</span></code> channel, however a
 different channel may be set using the <code class="docutils literal"><span class="pre">setBroadcastChannel()</span></code> method.</p>
 </div>
@@ -501,15 +501,38 @@ channel, causing the message to be sent to the originalMessageChannel instead.</
 </div>
 <div class="section" id="transforming-messages">
 <h2>Transforming Messages<a class="headerlink" href="#transforming-messages" title="Permalink to this headline">¶</a></h2>
-<p>You can apply a filter to all <code class="docutils literal"><span class="pre">Text</span></code>s that pass through a <code class="docutils literal"><span class="pre">MessageChannel</span></code> to change the message however you like.
-This is possible by extending <code class="docutils literal"><span class="pre">MessageChannel</span></code> and overriding the <code class="docutils literal"><span class="pre">transformMessage(Object</span> <span class="pre">sender,</span> <span class="pre">MessageReceiver</span>
-<span class="pre">recipient,</span> <span class="pre">Text</span> <span class="pre">original)</span></code> method as demonstrated below.</p>
+<p>You can apply a filter to all <code class="docutils literal"><span class="pre">Text</span></code>s that pass through a <code class="docutils literal"><span class="pre">MessageChannel</span></code> to change the message however you
+like. This is possible by extending <code class="docutils literal"><span class="pre">MessageChannel</span></code> and overriding the <code class="docutils literal"><span class="pre">transformMessage(Object</span> <span class="pre">sender,</span>
+<span class="pre">MessageReceiver</span> <span class="pre">recipient,</span> <span class="pre">Text</span> <span class="pre">original)</span></code> method as demonstrated below.</p>
 <p><strong>Example: Transforming Messages</strong></p>
 <p>The following code excerpt defines an <code class="docutils literal"><span class="pre">AdminMessageChannel</span></code> class which overrides the default <code class="docutils literal"><span class="pre">transformMessage</span></code>
-method. The new transformation method will first check if a source exists and, if it exists and is a permission
-<code class="docutils literal"><span class="pre">Subject</span></code>, has the <code class="docutils literal"><span class="pre">myplugin.admin</span></code> permission. If that is the case, the text will be prefixed with a red
-<code class="docutils literal"><span class="pre">[Admin]</span></code>.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="c1">// TODO Update code example</span>
+method. The new <code class="docutils literal"><span class="pre">transformMessage</span></code> method will take the original message and append a red <code class="docutils literal"><span class="pre">[Admin]</span></code> tag to the
+front of the message.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MessageChannel</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MessageReceiver</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.google.common.collect.Lists</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AdminMessageChannel</span> <span class="kd">implements</span> <span class="n">MessageChannel</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="nf">transformMessage</span><span class="o">(</span><span class="n">Object</span> <span class="n">sender</span><span class="o">,</span> <span class="n">MessageReceiver</span> <span class="n">recipient</span><span class="o">,</span>
+                                                                <span class="n">Text</span> <span class="n">original</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="n">original</span><span class="o">;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">RED</span><span class="o">,</span> <span class="s">&quot;[Admin]&quot;</span><span class="o">,</span> <span class="n">TextColors</span><span class="o">.</span><span class="na">RESET</span><span class="o">,</span> <span class="n">text</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="nf">getMembers</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 <p>Note that we do not wish to define any additional recipients, so we return an empty collection in the <code class="docutils literal"><span class="pre">getMembers</span></code>
@@ -524,10 +547,11 @@ due to the addition of the <code class="docutils literal"><span class="pre">Admi
 
 <span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClientConnectionJoin</span><span class="o">(</span><span class="n">ClientConnectionEvent</span><span class="o">.</span><span class="na">Join</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">MessageChannel</span> <span class="n">originalChannel</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getOriginalChannel</span><span class="o">();</span>
-    <span class="n">MessageChannel</span> <span class="n">newChannel</span> <span class="o">=</span> <span class="n">MessageChannel</span><span class="o">.</span><span class="na">combined</span><span class="o">(</span><span class="n">originalChannel</span><span class="o">,</span> <span class="k">new</span> <span class="n">AdminMessageChannel</span><span class="o">());</span>
-
-    <span class="n">event</span><span class="o">.</span><span class="na">setChannel</span><span class="o">(</span><span class="n">newChannel</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getTargetEntity</span><span class="o">().</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myplugin.admin&quot;</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">MessageChannel</span> <span class="n">originalChannel</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getOriginalChannel</span><span class="o">();</span>
+        <span class="n">MessageChannel</span> <span class="n">newChannel</span> <span class="o">=</span> <span class="n">MessageChannel</span><span class="o">.</span><span class="na">combined</span><span class="o">(</span><span class="n">originalChannel</span><span class="o">,</span> <span class="k">new</span> <span class="n">AdminMessageChannel</span><span class="o">());</span>
+        <span class="n">event</span><span class="o">.</span><span class="na">setChannel</span><span class="o">(</span><span class="n">newChannel</span><span class="o">);</span>
+    <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
 </div>

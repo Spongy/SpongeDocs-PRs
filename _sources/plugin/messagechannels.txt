@@ -18,9 +18,9 @@ Broadcasting
 ~~~~~~~~~~~~
 
 The most common channel will be the broadcasting channel. It can be obtained either from the ``Server`` via the
-``getBroadcastChannel()`` method or from either the ``MessageChannel.TO_PLAYERS`` or ``MessageChannel.TO_ALL`` constant.
-The only difference is that ``TO_ALL`` includes not only every player connected to the server but also the server
-``Console``.
+``getBroadcastChannel()`` method or from either the ``MessageChannel.TO_PLAYERS`` or ``MessageChannel.TO_ALL``
+constant. The only difference is that ``TO_ALL`` includes not only every player connected to the server but also the
+server ``Console``.
 
 The channel returned by ``getBroadcastChannel()`` will generally be the ``MessageChannel.TO_ALL`` channel, however a
 different channel may be set using the ``setBroadcastChannel()`` method.
@@ -74,20 +74,43 @@ channel, causing the message to be sent to the originalMessageChannel instead.
 Transforming Messages
 =====================
 
-You can apply a filter to all ``Text``\ s that pass through a ``MessageChannel`` to change the message however you like.
-This is possible by extending ``MessageChannel`` and overriding the ``transformMessage(Object sender, MessageReceiver
-recipient, Text original)`` method as demonstrated below.
+You can apply a filter to all ``Text``\ s that pass through a ``MessageChannel`` to change the message however you
+like. This is possible by extending ``MessageChannel`` and overriding the ``transformMessage(Object sender,
+MessageReceiver recipient, Text original)`` method as demonstrated below.
 
 **Example: Transforming Messages**
 
 The following code excerpt defines an ``AdminMessageChannel`` class which overrides the default ``transformMessage``
-method. The new transformation method will first check if a source exists and, if it exists and is a permission
-``Subject``, has the ``myplugin.admin`` permission. If that is the case, the text will be prefixed with a red
-``[Admin]``.
+method. The new ``transformMessage`` method will take the original message and append a red ``[Admin]`` tag to the
+front of the message.
 
 .. code-block:: java
 
-    // TODO Update code example
+    import java.util.Collection;
+    import java.util.Optional;
+
+    import org.spongepowered.api.text.Text;
+    import org.spongepowered.api.text.channel.MessageChannel;
+    import org.spongepowered.api.text.channel.MessageReceiver;
+    import org.spongepowered.api.text.format.TextColors;
+
+    import com.google.common.collect.Lists;
+
+    public class AdminMessageChannel implements MessageChannel {
+
+        @Override
+        public Optional<Text> transformMessage(Object sender, MessageReceiver recipient,
+                                                                    Text original) {
+            Text text = original;
+            text = Text.of(TextColors.RED, "[Admin]", TextColors.RESET, text);
+            return Optional.of(text);
+        }
+
+        @Override
+        public Collection<MessageReceiver> getMembers() {
+            return Lists.newArrayList();
+        }
+    }
 
 
 Note that we do not wish to define any additional recipients, so we return an empty collection in the ``getMembers``
@@ -106,10 +129,11 @@ due to the addition of the ``AdminMessageChannel`` will be prefixed.
 
     @Listener
     public void onClientConnectionJoin(ClientConnectionEvent.Join event) {
-        MessageChannel originalChannel = event.getOriginalChannel();
-        MessageChannel newChannel = MessageChannel.combined(originalChannel, new AdminMessageChannel());
-
-        event.setChannel(newChannel);
+        if(event.getTargetEntity().hasPermission("myplugin.admin")) {
+            MessageChannel originalChannel = event.getOriginalChannel();
+            MessageChannel newChannel = MessageChannel.combined(originalChannel, new AdminMessageChannel());
+            event.setChannel(newChannel);
+        }
     }
 
 .. note::
