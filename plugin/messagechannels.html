@@ -496,7 +496,7 @@ channel using the <code class="docutils literal"><span class="pre">MessageReceiv
 <em>from</em> the <code class="docutils literal"><span class="pre">MessageReceiver</span></code> to be passed to the given <code class="docutils literal"><span class="pre">MessageChannel</span></code> instead of the default one. Alternatively,
 you could listen to <code class="docutils literal"><span class="pre">MessageChannelEvent</span></code>, and set the appropriate <code class="docutils literal"><span class="pre">MessageChannel</span></code> using
 <code class="docutils literal"><span class="pre">MessageChannelEvent#setChannel(MessageChannel</span> <span class="pre">channel)</span></code>. Passing <code class="docutils literal"><span class="pre">null</span></code> to that method will unset any custom
-channel, causing the message to be sent to the originalMessageChannel instead.</p>
+channel, causing the message to be sent to the original MessageChannel instead.</p>
 </div>
 </div>
 <div class="section" id="transforming-messages">
@@ -543,19 +543,15 @@ channel back on the message. That way all his messages are sent to everyone spec
 due to the addition of the <code class="docutils literal"><span class="pre">AdminMessageChannel</span></code>, a red <code class="docutils literal"><span class="pre">[Admin]</span></code> tag will be prefixed.</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.message.MessageChannelEvent</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.network.ClientConnectionEvent</span><span class="o">;</span>
 
 <span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClientConnectionJoin</span><span class="o">(</span><span class="n">MessageChannelEvent</span><span class="o">.</span><span class="na">Chat</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Player</span><span class="o">&gt;</span> <span class="n">playerOptional</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getCause</span><span class="o">().&lt;</span><span class="n">Player</span><span class="o">&gt;</span><span class="n">first</span><span class="o">(</span><span class="n">Player</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="k">if</span><span class="o">(</span><span class="n">playerOptional</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-        <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="n">playerOptional</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-        <span class="k">if</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myplugin.admin&quot;</span><span class="o">))</span> <span class="o">{</span>
-            <span class="n">MessageChannel</span> <span class="n">originalChannel</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getOriginalChannel</span><span class="o">();</span>
-            <span class="n">MessageChannel</span> <span class="n">newChannel</span> <span class="o">=</span> <span class="n">MessageChannel</span><span class="o">.</span><span class="na">combined</span><span class="o">(</span><span class="n">originalChannel</span><span class="o">,</span>
-                <span class="k">new</span> <span class="n">AdminMessageChannel</span><span class="o">());</span>
-            <span class="n">event</span><span class="o">.</span><span class="na">setChannel</span><span class="o">(</span><span class="n">newChannel</span><span class="o">);</span>
-        <span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClientConnectionJoin</span><span class="o">(</span><span class="n">ClientConnectionEvent</span><span class="o">.</span><span class="na">Join</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getTargetEntity</span><span class="o">();</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myplugin.admin&quot;</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">MessageChannel</span> <span class="n">originalChannel</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getOriginalChannel</span><span class="o">();</span>
+        <span class="n">MessageChannel</span> <span class="n">newChannel</span> <span class="o">=</span> <span class="n">MessageChannel</span><span class="o">.</span><span class="na">combined</span><span class="o">(</span><span class="n">originalChannel</span><span class="o">,</span> <span class="k">new</span> <span class="n">AdminMessageChannel</span><span class="o">());</span>
+        <span class="n">player</span><span class="o">.</span><span class="na">setMessageChannel</span><span class="o">(</span><span class="n">newChannel</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>

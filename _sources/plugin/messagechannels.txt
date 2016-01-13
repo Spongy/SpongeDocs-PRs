@@ -69,7 +69,7 @@ channel using the ``MessageReceiver#setMessageChannel(MessageChannel channel)``.
 *from* the ``MessageReceiver`` to be passed to the given ``MessageChannel`` instead of the default one. Alternatively,
 you could listen to ``MessageChannelEvent``, and set the appropriate ``MessageChannel`` using
 ``MessageChannelEvent#setChannel(MessageChannel channel)``. Passing ``null`` to that method will unset any custom
-channel, causing the message to be sent to the originalMessageChannel instead.
+channel, causing the message to be sent to the original MessageChannel instead.
 
 Transforming Messages
 =====================
@@ -125,19 +125,15 @@ due to the addition of the ``AdminMessageChannel``, a red ``[Admin]`` tag will b
 
     import org.spongepowered.api.entity.living.player.Player;
     import org.spongepowered.api.event.Listener;
-    import org.spongepowered.api.event.message.MessageChannelEvent;
+    import org.spongepowered.api.event.network.ClientConnectionEvent;
 
     @Listener
-    public void onClientConnectionJoin(MessageChannelEvent.Chat event) {
-        Optional<Player> playerOptional = event.getCause().<Player>first(Player.class);
-        if(playerOptional.isPresent()) {
-            Player player = playerOptional.get();
-            if(player.hasPermission("myplugin.admin")) {
-                MessageChannel originalChannel = event.getOriginalChannel();
-                MessageChannel newChannel = MessageChannel.combined(originalChannel,
-                    new AdminMessageChannel());
-                event.setChannel(newChannel);
-            }
+    public void onClientConnectionJoin(ClientConnectionEvent.Join event) {
+        Player player = event.getTargetEntity();
+        if(player.hasPermission("myplugin.admin")) {
+            MessageChannel originalChannel = event.getOriginalChannel();
+            MessageChannel newChannel = MessageChannel.combined(originalChannel, new AdminMessageChannel());
+            player.setMessageChannel(newChannel);
         }
     }
 
