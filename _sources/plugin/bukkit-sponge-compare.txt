@@ -12,692 +12,1362 @@ page is intended to provide a (probably incomplete) list to help former Bukkit d
 
 We start with Bukkit 1.7. The additions the Spigot Team made to the API for 1.8 are in a separate table below.
 
-========================================================== ===============================================================
-BukkitAPI 1.7 (``org.bukkit.*``)                           SpongeAPI (``org.spongepowered.api.*``)
-========================================================== ===============================================================
-block.Beacon                                               block.tileentity.carrier.Beacon
-block.Biome                                                world.biome.BiomeType
-block.Block                                                block.BlockState
-block.BlockFace                                            util.Direction
-block.BlockState                                           block.BlockSnapshot
-block.BrewingStand                                         block.tileentity.carrier.BrewingStand
-block.Chest                                                block.tileentity.carrier.Chest
-block.CommandBlock                                         block.tileentity.CommandBlock
-block.ContainerBlock                                       block.tileentity.carrier.TileEntityCarrier
-block.CreatureSpawner                                      block.tileentity.MobSpawner
-block.Dispenser                                            block.tileentity.carrier.Dispenser
-block.DoubleChest                                          (none)
-block.Dropper                                              block.tileentity.carrier.Dropper
-block.Furnace                                              block.tileentity.carrier.Furnace
-block.Hopper                                               block.tileentity.carrier.Hopper
-block.Jukebox                                              block.tileentity.Jukebox
-block.NoteBlock                                            block.tileentity.Note
-block.PistonMoveReaction
-block.Sign                                                 block.tileentity.Sign
-block.Skull                                                block.tileentity.Skull
-command.defaults.AchievementCommand                        (none)
-command.defaults.BanCommand                                (none)
-command.defaults.BanIpCommand                              (none)
-command.defaults.BanListCommand                            (none)
-command.defaults.BukkitCommand                             (none)
-command.defaults.ClearCommand                              (none)
-command.defaults.DefaultGameModeCommand                    (none)
-command.defaults.DeopCommand                               (none)
-command.defaults.DifficultyCommand                         (none)
-command.defaults.EffectCommand                             (none)
-command.defaults.EnchantCommand                            (none)
-command.defaults.ExpCommand                                (none)
-command.defaults.GameModeCommand                           (none)
-command.defaults.GameRuleCommand                           (none)
-command.defaults.GiveCommand                               (none)
-command.defaults.HelpCommand                               (none)
-command.defaults.KickCommand                               (none)
-command.defaults.KillCommand                               (none)
-command.defaults.ListCommand                               (none)
-command.defaults.MeCommand                                 (none)
-command.defaults.OpCommand                                 (none)
-command.defaults.PardonCommand                             (none)
-command.defaults.PardonIpCommand                           (none)
-command.defaults.PlaySoundCommand                          (none)
-command.defaults.PluginsCommand                            (none)
-command.defaults.ReloadCommand                             (none)
-command.defaults.SaveCommand                               (none)
-command.defaults.SaveOffCommand                            (none)
-command.defaults.SaveOnCommand                             (none)
-command.defaults.SayCommand                                (none)
-command.defaults.ScoreboardCommand                         (none)
-command.defaults.SeedCommand                               (none)
-command.defaults.SetIdleTimeoutCommand                     (none)
-command.defaults.SetWorldSpawnCommand                      (none)
-command.defaults.SpawnpointCommand                         (none)
-command.defaults.SpreadPlayersCommand                      (none)
-command.defaults.StopCommand                               (none)
-command.defaults.TeleportCommand                           (none)
-command.defaults.TellCommand                               (none)
-command.defaults.TestForCommand                            (none)
-command.defaults.TimeCommand                               (none)
-command.defaults.TimingsCommand                            (none)
-command.defaults.ToggleDownfallCommand                     (none)
-command.defaults.VanillaCommand                            (none)
-command.defaults.VersionCommand                            (none)
-command.defaults.WeatherCommand                            (none)
-command.defaults.WhitelistCommand                          (none)
-command.BlockCommandSender                                 command.source.CommandBlockSource
-command.Command                                            command.CommandCallable
-command.CommandException                                   command.CommandException
-command.CommandExecutor
-command.CommandMap
-command.CommandSender                                      command.CommandSource
-command.ConsoleCommandSender                               command.source.ConsoleSource
-command.FormattedCommandAlias
-command.MultipleCommandAlias
-command.PluginCommand
-command.PluginCommandYamlParser
-command.PluginIdentifiableCommand
-command.RemoteConsoleCommandSender                         command.source.RconSource
-command.SimpleCommandMap
-command.TabCommandExecutor
-command.TabCompleter
-command.TabExecutor
-configuration.file.FileConfiguration
-configuration.file.FileConfigurationOptions
-configuration.file.YamlConfiguration
-configuration.file.YamlConfigurationOptions
-configuration.file.YamlConstructor
-configuration.file.YamlRepresenter
-configuration.serialization.ConfigurationSerializable
-configuration.serialization.ConfigurationSerialization
-configuration.serialization.DelegateDeserialization
-configuration.serialization.SerializableAs
-configuration.Configuration
-configuration.ConfigurationOptions
-configuration.ConfigurationSection
-configuration.InvalidConfigurationException
-configuration.MemoryConfiguration
-configuration.MemoryConfigurationOptions
-configuration.MemorySection
-conversations.BooleanPrompt                                (api #432)
-conversations.Conversable                                  (api #432)
-conversations.Conversation                                 (api #432)
-conversations.ConversationAbandonedEvent                   (api #432)
-conversations.ConversationAbandonedListener                (api #432)
-conversations.ConversationCanceller                        (api #432)
-conversations.ConversationContext                          (api #432)
-conversations.ConversationFactory                          (api #432)
-conversations.ConversationPrefix                           (api #432)
-conversations.ExactMatchConversationCanceller              (api #432)
-conversations.FixedSetPrompt                               (api #432)
-conversations.InactivityConversationCanceller              (api #432)
-conversations.ManuallyAbandonedConversationCanceller       (api #432)
-conversations.MessagePrompt                                (api #432)
-conversations.NullConversationPrefix                       (api #432)
-conversations.NumericPrompt                                (api #432)
-conversations.PlayerNamePrompt                             (api #432)
-conversations.PluginNameConversationPrefix                 (api #432)
-conversations.Prompt                                       (api #432)
-conversations.RegexPrompt                                  (api #432)
-conversations.StringPrompt                                 (api #432)
-conversations.ValidatingPrompt                             (api #432)
-enchantments.Enchantment                                   item.Enchantment
-enchantments.EnchantmentTarget
-enchantments.EnchantmentWrapper
-entity.minecart.CommandMinecart                            entity.vehicle.minecart.MinecartCommandBlock
-entity.minecart.ExplosiveMinecart                          entity.vehicle.minecart.MinecartTNT
-entity.minecart.HopperMinecart                             entity.vehicle.minecart.MinecartHopper
-entity.minecart.PoweredMinecart                            entity.vehicle.minecart.MinecartFurnace
-entity.minecart.RideableMinecart                           entity.vehicle.minecart.MinecartRideable
-entity.minecart.SpawnerMinecart                            entity.vehicle.minecart.MinecartMobSpawner
-entity.minecart.StorageMinecart                            entity.vehicle.minecart.MinecartChest
-entity.Ageable                                             entity.living.Ageable
-entity.Ambient                                             entity.living.Ambient
-entity.Animals                                             entity.living.animal.Animal
-entity.AnimalTamer                                         entity.Tamer
-entity.Arrow                                               entity.projectile.Arrow
-entity.Bat                                                 entity.living.Bat
-entity.Blaze                                               entity.living.monster.Blaze
-entity.Boat                                                entity.vehicle.Boat
-entity.CaveSpider                                          entity.living.monster.CaveSpider
-entity.Chicken                                             entity.living.animal.Chicken
-entity.ComplexEntityPart                                   entity.living.complex.ComplexLivingPart
-entity.ComplexLivingEntity                                 entity.living.complex.ComplexLiving
-entity.Cow                                                 entity.living.animal.Cow
-entity.Creature                                            entity.living.Creature
-entity.CreatureType
-entity.Creeper                                             entity.living.monster.Creeper
-entity.Damageable
-entity.Egg                                                 entity.projectile.Egg
-entity.EnderCrystal                                        entity.EnderCrystal
-entity.EnderDragon                                         entity.living.complex.EnderDragon
-entity.EnderDragonPart                                     entity.living.complex.EnderDragonPart
-entity.Enderman                                            entity.living.monster.Enderman
-entity.EnderPearl                                          entity.projectile.EnderPearl
-entity.EnderSignal                                         entity.projectile.EyeOfEnder
-entity.Entity                                              entity.Entity
-entity.EntityType                                          entity.EntityType
-entity.ExperienceOrb                                       entity.ExperienceOrb
-entity.Explosive                                           entity.explosive.Explosive
-entity.FallingBlock                                        entity.FallingBlock
-entity.FallingSand                                         (none)
-entity.Fireball                                            entity.projectile.explosive.fireball.Fireball
-entity.Firework                                            entity.projectile.Firework
-entity.Fish                                                (none)
-entity.FishHook                                            entity.projectile.FishHook
-entity.Flying                                              entity.living.Aerial
-entity.Ghast                                               entity.living.monster.Ghast
-entity.Giant                                               entity.living.monster.Giant
-entity.Golem                                               entity.living.golem.Golem
-entity.Hanging                                             entity.hanging.Hanging
-entity.Horse                                               entity.living.animal.Horse
-entity.HumanEntity                                         entity.living.Humanoid
-entity.IronGolem                                           entity.living.golem.IronGolem
-entity.Item                                                entity.Item
-entity.ItemFrame                                           entity.hanging.ItemFrame
-entity.LargeFireball                                       entity.projectile.explosive.fireball.LargeFireball
-entity.LeashHitch                                          entity.hanging.LeashHitch
-entity.LightningStrike                                     entity.weather.Lightning
-entity.LivingEntity                                        entity.living.Living
-entity.MagmaCube                                           entity.living.monster.MagmaCube
-entity.Minecart                                            entity.vehicle.minecart.Minecart
-entity.Monster                                             entity.living.monster.Monster
-entity.MushroomCow                                         entity.living.animal.Mooshroom
-entity.NPC
-entity.Ocelot                                              entity.living.animal.Ocelot
-entity.Painting                                            entity.hanging.Painting
-entity.Pig                                                 entity.living.animal.Pig
-entity.PigZombie                                           entity.living.monster.ZombiePigman
-entity.Player                                              entity.living.player.Player
-entity.PoweredMinecart                                     entity.vehicle.minecart.MinecartFurnace
-entity.Projectile                                          entity.projectile.Projectile
-entity.Sheep                                               entity.living.animal.Sheep
-entity.Silverfish                                          entity.living.monster.Silverfish
-entity.Skeleton                                            entity.living.monster.Skeleton
-entity.Slime                                               entity.living.monster.Slime
-entity.SmallFireball                                       entity.projectile.explosive.fireball.SmallFireball
-entity.Snowball                                            entity.projectile.Snowball
-entity.Snowman                                             entity.living.golem.SnowGolem
-entity.Spider                                              entity.living.monster.Spider
-entity.Squid                                               entity.living.Squid
-entity.StorageMinecart                                     entity.vehicle.minecart.MinecartChest
-entity.Tameable
-entity.ThrownExpBottle                                     entity.projectile.ThrownExpBottle
-entity.ThrownPotion                                        entity.projectile.ThrownPotion
-entity.TNTPrimed                                           entity.explosive.PrimedTNT
-entity.Vehicle
-entity.Villager                                            entity.living.Villager
-entity.WaterMob                                            entity.living.Aquatic
-entity.Weather                                             entity.weather.WeatherEffect
-entity.Witch                                               entity.living.monster.Witch
-entity.Wither                                              entity.living.monster.Wither
-entity.WitherSkull                                         entity.projectile.explosive.WitherSkull
-entity.Wolf                                                entity.living.animal.Wolf
-entity.Zombie                                              entity.living.monster.Zombie
-event.block.Action
-event.block.BlockBreakEvent                                event.block.ChangeBlockEvent.Break
-event.block.BlockBurnEvent
-event.block.BlockCanBuildEvent
-event.block.BlockDamageEvent
-event.block.BlockDispenseEvent
-event.block.BlockEvent                                     event.block.TargetBlockEvent
-event.block.BlockExpEvent
-event.block.BlockFadeEvent
-event.block.BlockFormEvent
-event.block.BlockFromToEvent
-event.block.BlockGrowEvent                                 event.block.ChangeBlockEvent.Grow
-event.block.BlockIgniteEvent
-event.block.BlockMultiPlaceEvent                           event.block.ChangeBlockEvent.Place
-event.block.BlockPhysicsEvent
-event.block.BlockPistonEvent
-event.block.BlockPistonExtendEvent
-event.block.BlockPistonRetractEvent
-event.block.BlockPlaceEvent                                event.block.ChangeBlockEvent.Place
-event.block.BlockRedstoneEvent
-event.block.BlockSpreadEvent
-event.block.EntityBlockFormEvent
-event.block.LeavesDecayEvent
-event.block.NotePlayEvent
-event.block.SignChangeEvent                                event.block.tileentity.ChangeSignEvent
-event.enchantment.EnchantItemEvent
-event.enchantment.PrepareItemEnchantEvent
-event.entity.CreatureSpawnEvent
-event.entity.CreeperPowerEvent
-event.entity.EntityBreakDoorEvent
-event.entity.EntityChangeBlockEvent
-event.entity.EntityCombustByBlockEvent
-event.entity.EntityCombustByEntityEvent
-event.entity.EntityCombustEvent
-event.entity.EntityCreatePortalEvent
-event.entity.EntityDamageByBlockEvent
-event.entity.EntityDamageByEntityEvent
-event.entity.EntityDamageEvent                             event.entity.DamageEntityEvent
-event.entity.EntityDeathEvent                              event.entity.DestructEntityEvent.Death
-event.entity.EntityEvent                                   event.entity.TargetEntityEvent
-event.entity.EntityExplodeEvent
-event.entity.EntityInteractEvent
-event.entity.EntityPortalEnterEvent
-event.entity.EntityPortalEvent
-event.entity.EntityPortalExitEvent
-event.entity.EntityRegainHealthEvent
-event.entity.EntityShootBowEvent
-event.entity.EntityTameEvent
-event.entity.EntityTargetEvent
-event.entity.EntityTargetLivingEntityEvent
-event.entity.EntityTeleportEvent
-event.entity.EntityUnleashEvent
-event.entity.ExpBottleEvent
-event.entity.ExplosionPrimeEvent
-event.entity.FoodLevelChangeEvent
-event.entity.HorseJumpEvent
-event.entity.ItemDespawnEvent
-event.entity.ItemSpawnEvent
-event.entity.PigZapEvent
-event.entity.PlayerDeathEvent
-event.entity.PlayerLeashEntityEvent
-event.entity.PotionSplashEvent
-event.entity.ProjectileHitEvent
-event.entity.ProjectileLaunchEvent
-event.entity.SheepDyeWoolEvent
-event.entity.SheepRegrowWoolEvent
-event.entity.SlimeSplitEvent
-event.hanging.HangingBreakByEntityEvent
-event.hanging.HangingBreakEvent
-event.hanging.HangingEvent
-event.hanging.HangingPlaceEvent
-event.inventory.BrewEvent
-event.inventory.ClickType
-event.inventory.CraftItemEvent
-event.inventory.DragType
-event.inventory.FurnaceBurnEvent
-event.inventory.FurnaceExtractEvent
-event.inventory.FurnaceSmeltEvent
-event.inventory.InventoryAction
-event.inventory.InventoryClickEvent
-event.inventory.InventoryCloseEvent
-event.inventory.InventoryCreativeEvent
-event.inventory.InventoryDragEvent
-event.inventory.InventoryEvent
-event.inventory.InventoryInteractEvent
-event.inventory.InventoryMoveItemEvent
-event.inventory.InventoryOpenEvent
-event.inventory.InventoryPickupItemEvent
-event.inventory.InventoryType
-event.inventory.PrepareItemCraftEvent
-event.painting.PaintingBreakByEntityEvent
-event.painting.PaintingBreakEvent
-event.painting.PaintingEvent
-event.painting.PaintingPlaceEvent
-event.player.AsyncPlayerChatEvent
-event.player.AsyncPlayerPreLoginEvent
-event.player.PlayerAchievementAwardedEvent                 event.achievement.GrantAchievementEvent.TargetPlayer
-event.player.PlayerAnimationEvent
-event.player.PlayerAnimationType
-event.player.PlayerBedEnterEvent
-event.player.PlayerBedLeaveEvent
-event.player.PlayerBucketEmptyEvent
-event.player.PlayerBucketEvent
-event.player.PlayerBucketFillEvent
-event.player.PlayerChangedWorldEvent
-event.player.PlayerChannelEvent
-event.player.PlayerChatEvent
-event.player.PlayerChatTabCompleteEvent
-event.player.PlayerCommandPreprocessEvent
-event.player.PlayerDropItemEvent
-event.player.PlayerEditBookEvent
-event.player.PlayerEggThrowEvent
-event.player.PlayerEvent                                   event.entity.living.humanoid.player.TargetPlayerEvent
-event.player.PlayerExpChangeEvent
-event.player.PlayerFishEvent
-event.player.PlayerGameModeChangeEvent                     event.entity.living.humanoid.ChangeGameModeEvent.TargetPlayer
-event.player.PlayerInteractEntityEvent
-event.player.PlayerInteractEvent
-event.player.PlayerInventoryEvent
-event.player.PlayerItemBreakEvent
-event.player.PlayerItemConsumeEvent
-event.player.PlayerItemHeldEvent
-event.player.PlayerJoinEvent
-event.player.PlayerKickEvent                               event.entity.living.humanoid.player.KickPlayerEvent
-event.player.PlayerLevelChangeEvent
-event.player.PlayerLoginEvent
-event.player.PlayerMoveEvent                               event.entity.DisplaceEntityEvent.Move.TargetPlayer
-event.player.PlayerPickupItemEvent
-event.player.PlayerPortalEvent
-event.player.PlayerPreLoginEvent
-event.player.PlayerQuitEvent
-event.player.PlayerRegisterChannelEvent
-event.player.PlayerRespawnEvent                            event.entity.living.humanoid.player.RespawnPlayerEvent
-event.player.PlayerShearEntityEvent
-event.player.PlayerStatisticIncrementEvent                 event.statistic.ChangeStatisticEvent.TargetPlayer
-event.player.PlayerTeleportEvent                           event.entity.DisplaceEntityEvent.Teleport.TargetPlayer
-event.player.PlayerToggleFlightEvent
-event.player.PlayerToggleSneakEvent
-event.player.PlayerToggleSprintEvent
-event.player.PlayerUnleashEntityEvent
-event.player.PlayerUnregisterChannelEvent
-event.player.PlayerVelocityEvent
-event.server.MapInitializeEvent
-event.server.PluginDisableEvent                            (none)
-event.server.PluginEnableEvent
-event.server.PluginEvent
-event.server.RemoteServerCommandEvent
-event.server.ServerCommandEvent
-event.server.ServerEvent
-event.server.ServerListPingEvent                           event.server.ClientPingServerEvent
-event.server.ServiceEvent
-event.server.ServiceRegisterEvent
-event.server.ServiceUnregisterEvent
-event.vehicle.VehicleBlockCollisionEvent
-event.vehicle.VehicleCollisionEvent
-event.vehicle.VehicleCreateEvent
-event.vehicle.VehicleDamageEvent
-event.vehicle.VehicleDestroyEvent
-event.vehicle.VehicleEnterEvent
-event.vehicle.VehicleEntityCollisionEvent
-event.vehicle.VehicleEvent
-event.vehicle.VehicleExitEvent
-event.vehicle.VehicleMoveEvent
-event.vehicle.VehicleUpdateEvent
-event.weather.LightningStrikeEvent
-event.weather.ThunderChangeEvent
-event.weather.WeatherChangeEvent                           event.world.ChangeWorldWeatherEvent
-event.weather.WeatherEvent
-event.world.ChunkEvent                                     event.world.chunk.TargetChunkEvent
-event.world.ChunkLoadEvent                                 event.world.chunk.LoadChunkEvent
-event.world.ChunkPopulateEvent                             event.world.chunk.PopulateChunkEvent
-event.world.ChunkUnloadEvent                               event.world.chunk.UnloadChunkEvent
-event.world.PortalCreateEvent
-event.world.SpawnChangeEvent
-event.world.StructureGrowEvent
-event.world.WorldEvent                                     event.world.TargetWorldEvent
-event.world.WorldInitEventevent.world.ConstructWorldEvent
-event.world.WorldLoadEvent                                 event.world.LoadWorldEvent
-event.world.WorldSaveEvent                                 event.world.SaveWorldEvent
-event.world.WorldUnloadEvent                               event.world.UnloadWorldEvent
-event.Cancellable                                          event.Cancellable
-event.Event                                                event.Event
-event.EventException
-event.EventHandler                                         event.Listener
-event.EventPriority                                        event.Order
-event.HandlerList
-event.Listener                                             (none)
-generator.BlockPopulator                                   world.gen.Populator
-generator.ChunkGenerator
-help.GenericCommandHelpTopic
-help.HelpMap
-help.HelpTopic
-help.HelpTopicComparator
-help.HelpTopicFactory
-help.IndexHelpTopic
-inventory.meta.BookMeta
-inventory.meta.EnchantmentStorageMeta
-inventory.meta.FireworkEffectMeta
-inventory.meta.FireworkMeta
-inventory.meta.ItemMeta
-inventory.meta.LeatherArmorMeta                            data.manipulator.mutable.ColoredData
-inventory.meta.MapMeta
-inventory.meta.PotionMeta
-inventory.meta.Repairable
-inventory.meta.SkullMeta                                   data.manipulator.mutable.RepresentedPlayerData
-inventory.AnvilInventory                                   item.inventory.type.TileEntityInventory
-inventory.BeaconInventory                                  item.inventory.type.TileEntityInventory
-inventory.BrewerInventory                                  item.inventory.type.TileEntityInventory
-inventory.CraftingInventory
-inventory.DoubleChestInventory                             (none)
-inventory.EnchantingInventory
-inventory.EntityEquipment
-inventory.FurnaceInventory
-inventory.FurnaceRecipe                                    (api #1027)
-inventory.HorseInventory
-inventory.Inventory                                        item.inventory.Inventory
-inventory.InventoryHolder                                  item.inventory.Carrier
-inventory.InventoryView
-inventory.ItemFactory
-inventory.ItemStack                                        item.inventory.ItemStack
-inventory.MerchantInventory
-inventory.PlayerInventory                                  item.inventory.entity.HumanInventory
-inventory.Recipe                                           item.recipe.Recipe
-inventory.ShapedRecipe                                     item.recipe.ShapedRecipe
-inventory.ShapelessRecipe                                  item.recipe.ShapelessRecipe
-map.MapCanvas
-map.MapCursor
-map.MapCursorCollection
-map.MapFont
-map.MapPalette
-map.MapRenderer
-map.MapView
-map.MinecraftFont
-material.Attachable
-material.Bed
-material.Button
-material.Cake
-material.Cauldron
-material.Chest
-material.Coal
-material.CocoaPlant
-material.Colorable
-material.Command
-material.Crops
-material.DetectorRail
-material.Diode
-material.Directional
-material.DirectionalContainer
-material.Dispenser
-material.Door
-material.Dye
-material.EnderChest
-material.ExtendedRails
-material.FlowerPot
-material.Furnace
-material.FurnaceAndDispenser
-material.Gate
-material.Ladder
-material.Leaves
-material.Lever
-material.LongGrass
-material.MaterialData
-material.MonsterEggs
-material.Mushroom
-material.NetherWarts
-material.Openable
-material.PistonBaseMaterial
-material.PistonExtensionMaterial
-material.PoweredRail
-material.PressurePlate
-material.PressureSensor
-material.Pumpkin
-material.Rails
-material.Redstone
-material.RedstoneTorch
-material.RedstoneWire
-material.Sandstone
-material.Sign
-material.SimpleAttachableMaterialData
-material.Skull
-material.SmoothBrick
-material.SpawnEgg
-material.Stairs
-material.Step
-material.TexturedMaterial
-material.Torch
-material.TrapDoor
-material.Tree
-material.Tripwire
-material.TripwireHook
-material.Vine
-material.WoodenStep
-material.Wool
-metadata.FixedMetadataValue
-metadata.LazyMetadataValue
-metadata.Metadatable
-metadata.MetadataConversionException
-metadata.MetadataEvaluationException
-metadata.MetadataStore
-metadata.MetadataStoreBase
-metadata.MetadataValue
-metadata.MetadataValueAdapter
-permissions.Permissible                                    service.permission.Subject
-permissions.PermissibleBase
-permissions.Permission
-permissions.PermissionAttachment
-permissions.PermissionAttachmentInfo
-permissions.PermissionDefault
-permissions.PermissionRemovedExecutor
-permissions.ServerOperator
-plugin.java.JavaPlugin                                     (none)
-plugin.java.JavaPluginLoader                               (none)
-plugin.java.PluginClassLoader                              (none)
-plugin.messaging.ChannelNameTooLongException
-plugin.messaging.ChannelNotRegisteredException
-plugin.messaging.MessageTooLargeException
-plugin.messaging.Messenger
-plugin.messaging.PluginChannelDirection
-plugin.messaging.PluginMessageListener
-plugin.messaging.PluginMessageListenerRegistration
-plugin.messaging.PluginMessageRecipient
-plugin.messaging.ReservedChannelException
-plugin.messaging.StandardMessenger
-plugin.AuthorNagException                                  (none)
-plugin.EventExecutor
-plugin.IllegalPluginAccessException
-plugin.InvalidDescriptionException
-plugin.InvalidPluginException
-plugin.Plugin
-plugin.PluginAwareness
-plugin.PluginBase                                          (none)
-plugin.PluginDescriptionFile
-plugin.PluginLoader                                        (none)
-plugin.PluginLoadOrder
-plugin.PluginLogger
-plugin.PluginManager                                       plugin.PluginManager
-plugin.RegisteredListener
-plugin.RegisteredServiceProvider
-plugin.ServicePriority
-plugin.ServicesManager                                     service.ServiceManager
-plugin.SimplePluginManager                                 (none)
-plugin.SimpleServicesManager
-plugin.TimedRegisteredListener                             (none)
-plugin.UnknownDependencyException                          (none)
-potion.Potion
-potion.PotionBrewer
-potion.PotionEffect                                        effect.potion.PotionEffect
-potion.PotionEffectType                                    effect.potion.PotionEffectType
-potion.PotionEffectTypeWrapper
-potion.PotionType
-projectiles.BlockProjectileSource                          entity.projectile.source.BlockProjectileSource
-projectiles.ProjectileSource                               entity.projectile.source.ProjectileSource
-scheduler.BukkitRunnable                                   (none)
-scheduler.BukkitScheduler                                  scheduler.Scheduler
-scheduler.BukkitTask                                       scheduler.Task
-scheduler.BukkitWorker
-scoreboard.Criterias                                       scoreboard.critieria.Criterion
-scoreboard.DisplaySlot                                     scoreboard.displayslot.DisplaySlot
-scoreboard.Objective                                       scoreboard.objective.Objective
-scoreboard.Score                                           scoreboard.Score
-scoreboard.Scoreboard                                      scoreboard.Scoreboard
-scoreboard.ScoreboardManager
-scoreboard.Team                                            scoreboard.Team
-util.io.BukkitObjectInputStream
-util.io.BukkitObjectOutputStream
-util.io.Wrapper
-util.noise.NoiseGenerator
-util.noise.OctaveGenerator
-util.noise.PerlinNoiseGenerator
-util.noise.PerlinOctaveGenerator
-util.noise.SimplexNoiseGenerator
-util.noise.SimplexOctaveGenerator
-util.permissions.BroadcastPermissions                      (none)
-util.permissions.CommandPermissions                        (none)
-util.permissions.DefaultPermissions                        (none)
-util.BlockIterator
-util.BlockVector
-util.CachedServerIcon                                      network.status.Favicon
-util.ChatPaginator
-util.FileUtil                                              (none)
-util.Java15Compat                                          (none)
-util.NumberConversions                                     (none)
-util.StringUtil                                            (none)
-util.Vector
-Achievement                                                statistic.achievement.Achievement
-Art                                                        data.type.Art
-BanEntry                                                   util.ban.Ban
-BanList
-BlockChangeDelegate
-Bukkit                                                     Sponge
-ChatColor
-Chunk                                                      world.Chunk
-ChunkSnapshot
-CoalType                                                   data.type.CoalType
-Color                                                      util.Color
-CropState
-Difficulty                                                 world.difficulty.Difficulty
-DyeColor                                                   data.type.DyeColor
-Effect
-EntityEffect
-FireworkEffect                                             item.FireworkEffect
-GameMode                                                   entity.living.player.gamemode.GameMode
-GrassSpecies                                               data.type.ShrubType
-Instrument                                                 data.type.InstrumentType
-Location                                                   entity.Transform
-Material
-NetherWartsState                                           data.manipulator.mutable.block.GrowthData
-Note
-OfflinePlayer                                              entity.living.player.User
-PortalType
-Rotation
-SandstoneType                                              data.type.SandstoneType
-Server                                                     Server
-SkullType                                                  data.type.SkullType
-Sound                                                      effect.sound.SoundType
-Statistic                                                  statistic.Statistic
-TravelAgent
-TreeSpecies                                                data.type.TreeType
-TreeType                                                   world.gen.type.BiomeTreeType
-UnsafeValues                                               (none)
-Utility                                                    (none)
-Warning                                                    (none)
-WeatherType                                                world.weather.Weather
-World                                                      world.World
-WorldCreator                                               world.WorldCreationSettings.Builder
-WorldType                                                  world.GeneratorType
-========================================================== ===============================================================
++----------------------------------------------------------+-----------------------------------------------------------+
+| BukkitAPI 1.7 (``org.bukkit.*``)                         | SpongeAPI (``org.spongepowered.api.*``)                   |
++==========================================================+===========================================================+
+|block.Beacon                                              |block.tileentity.carrier.Beacon                            |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.Biome                                               |world.biome.BiomeType                                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.Block                                               |block.BlockState                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.BlockFace                                           |util.Direction                                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.BlockState                                          |block.BlockSnapshot                                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.BrewingStand                                        |block.tileentity.carrier.BrewingStand                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.Chest                                               |block.tileentity.carrier.Chest                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.CommandBlock                                        |block.tileentity.CommandBlock                              |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.ContainerBlock                                      |block.tileentity.carrier.TileEntityCarrier                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.CreatureSpawner                                     |block.tileentity.MobSpawner                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.Dispenser                                           |block.tileentity.carrier.Dispenser                         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.DoubleChest                                         |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.Dropper                                             |block.tileentity.carrier.Dropper                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.Furnace                                             |block.tileentity.carrier.Furnace                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.Hopper                                              |block.tileentity.carrier.Hopper                            |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.NoteBlock                                           |block.tileentity.Note                                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.Jukebox                                             |block.tileentity.Jukebox                                   |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.PistonMoveReaction                                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.Sign                                                |block.tileentity.Sign                                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.Skull                                               |block.tileentity.Skull                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.AchievementCommand                       |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.BanCommand                               |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.BanIpCommand                             |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.BanListCommand                           |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.BukkitCommand                            |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.ClearCommand                             |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.DefaultGameModeCommand                   |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.DeopCommand                              |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.DifficultyCommand                        |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.EffectCommand                            |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.EnchantCommand                           |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.ExpCommand                               |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.GameModeCommand                          |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.GameRuleCommand                          |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.GiveCommand                              |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.HelpCommand                              |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.KickCommand                              |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.KillCommand                              |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.ListCommand                              |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.MeCommand                                |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.OpCommand                                |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.PardonCommand                            |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.PardonIpCommand                          |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.PlaySoundCommand                         |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.PluginsCommand                           |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.ReloadCommand                            |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.SaveCommand                              |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.SaveOffCommand                           |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.SaveOnCommand                            |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.SayCommand                               |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.ScoreboardCommand                        |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.SeedCommand                              |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.SetIdleTimeoutCommand                    |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.SetWorldSpawnCommand                     |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.SpawnpointCommand                        |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.SpreadPlayersCommand                     |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.StopCommand                              |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.TeleportCommand                          |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.TellCommand                              |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.TestForCommand                           |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.TimeCommand                              |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.TimingsCommand                           |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.ToggleDownfallCommand                    |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.VanillaCommand                           |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.VersionCommand                           |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.WeatherCommand                           |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.defaults.WhitelistCommand                         |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.BlockCommandSender                                |command.source.CommandBlockSource                          |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.Command                                           |command.CommandCallable                                    |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.CommandException                                  |command.CommandException                                   |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.CommandExecutor                                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.CommandMap                                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.CommandSender                                     |command.CommandSource                                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.ConsoleCommandSender                              |command.source.ConsoleSource                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.FormattedCommandAlias                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.MultipleCommandAlias                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.PluginCommand                                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.PluginCommandYamlParser                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.PluginIdentifiableCommand                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.RemoteConsoleCommandSender                        |command.source.RconSource                                  |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.SimpleCommandMap                                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.TabCommandExecutor                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.TabCompleter                                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.TabExecutor                                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.file.FileConfiguration                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.file.FileConfigurationOptions               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.file.YamlConfiguration                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.file.YamlConfigurationOptions               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.file.YamlConstructor                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.file.YamlRepresenter                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.serialization.ConfigurationSerializable     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.serialization.ConfigurationSerialization    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.serialization.DelegateDeserialization       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.serialization.SerializableAs                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.Configuration                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.ConfigurationOptions                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.ConfigurationSection                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.InvalidConfigurationException               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.MemoryConfiguration                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.MemoryConfigurationOptions                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|configuration.MemorySection                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.BooleanPrompt                               |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.Conversable                                 |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.Conversation                                |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.ConversationAbandonedEvent                  |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.ConversationAbandonedListener               |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.ConversationCanceller                       |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.ConversationContext                         |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.ConversationFactory                         |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.ConversationPrefix                          |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.ExactMatchConversationCanceller             |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.FixedSetPrompt                              |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.InactivityConversationCanceller             |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.ManuallyAbandonedConversationCanceller      |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.MessagePrompt                               |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.NullConversationPrefix                      |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.NumericPrompt                               |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.PlayerNamePrompt                            |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.PluginNameConversationPrefix                |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.Prompt                                      |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.RegexPrompt                                 |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.StringPrompt                                |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|conversations.ValidatingPrompt                            |(api #432)                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|enchantments.Enchantment                                  |item.Enchantment                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|enchantments.EnchantmentTarget                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|enchantments.EnchantmentWrapper                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.minecart.CommandMinecart                           |entity.vehicle.minecart.MinecartCommandBlock               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.minecart.ExplosiveMinecart                         |entity.vehicle.minecart.MinecartTNT                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.minecart.HopperMinecart                            |entity.vehicle.minecart.MinecartHopper                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.minecart.PoweredMinecart                           |entity.vehicle.minecart.MinecartFurnace                    |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.minecart.RideableMinecart                          |entity.vehicle.minecart.MinecartRideable                   |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.minecart.SpawnerMinecart                           |entity.vehicle.minecart.MinecartMobSpawner                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.minecart.StorageMinecart                           |entity.vehicle.minecart.MinecartChest                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Ageable                                            |entity.living.Ageable                                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Ambient                                            |entity.living.Ambient                                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Animals                                            |entity.living.animal.Animal                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.AnimalTamer                                        |entity.Tamer                                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Arrow                                              |entity.projectile.Arrow                                    |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Bat                                                |entity.living.Bat                                          |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Blaze                                              |entity.living.monster.Blaze                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Boat                                               |entity.vehicle.Boat                                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.CaveSpider                                         |entity.living.monster.CaveSpider                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Chicken                                            |entity.living.animal.Chicken                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.ComplexEntityPart                                  |entity.living.complex.ComplexLivingPart                    |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.ComplexLivingEntity                                |entity.living.complex.ComplexLiving                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Cow                                                |entity.living.animal.Cow                                   |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Creature                                           |entity.living.Creature                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.CreatureType                                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Creeper                                            |entity.living.monster.Creeper                              |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Damageable                                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Egg                                                |entity.projectile.Egg                                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.EnderCrystal                                       |entity.EnderCrystal                                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.EnderDragon                                        |entity.living.complex.EnderDragon                          |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.EnderDragonPart                                    |entity.living.complex.EnderDragonPart                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Enderman                                           |entity.living.monster.Enderman                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.EnderPearl                                         |entity.projectile.EnderPearl                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.EnderSignal                                        |entity.projectile.EyeOfEnder                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Entity                                             |entity.Entity                                              |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.EntityType                                         |entity.EntityType                                          |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.ExperienceOrb                                      |entity.ExperienceOrb                                       |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Explosive                                          |entity.explosive.Explosive                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.FallingBlock                                       |entity.FallingBlock                                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.FallingSand                                        |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Fireball                                           |entity.projectile.explosive.fireball.Fireball              |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Firework                                           |entity.projectile.Firework                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Fish                                               |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.FishHook                                           |entity.projectile.FishHook                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Flying                                             |entity.living.Aerial                                       |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Ghast                                              |entity.living.monster.Ghast                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Giant                                              |entity.living.monster.Giant                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Golem                                              |entity.living.golem.Golem                                  |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Hanging                                            |entity.hanging.Hanging                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Horse                                              |entity.living.animal.Horse                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.HumanEntity                                        |entity.living.Humanoid                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.IronGolem                                          |entity.living.golem.IronGolem                              |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Item                                               |entity.Item                                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.ItemFrame                                          |entity.hanging.ItemFrame                                   |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.LargeFireball                                      |entity.projectile.explosive.fireball.LargeFireball         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.LeashHitch                                         |entity.hanging.LeashHitch                                  |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.LightningStrike                                    |entity.weather.Lightning                                   |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.LivingEntity                                       |entity.living.Living                                       |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.MagmaCube                                          |entity.living.monster.MagmaCube                            |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Minecart                                           |entity.vehicle.minecart.Minecart                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Monster                                            |entity.living.monster.Monster                              |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.MushroomCow                                        |entity.living.animal.Mooshroom                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.NPC                                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Ocelot                                             |entity.living.animal.Ocelot                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Painting                                           |entity.hanging.Painting                                    |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Pig                                                |entity.living.animal.Pig                                   |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.PigZombie                                          |entity.living.monster.ZombiePigman                         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Player                                             |entity.living.player.Player                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.PoweredMinecart                                    |entity.vehicle.minecart.MinecartFurnace                    |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Projectile                                         |entity.projectile.Projectile                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Sheep                                              |entity.living.animal.Sheep                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Silverfish                                         |entity.living.monster.Silverfish                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Skeleton                                           |entity.living.monster.Skeleton                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Slime                                              |entity.living.monster.Slime                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.SmallFireball                                      |entity.projectile.explosive.fireball.SmallFireball         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Snowball                                           |entity.projectile.Snowball                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Snowman                                            |entity.living.golem.SnowGolem                              |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Spider                                             |entity.living.monster.Spider                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Squid                                              |entity.living.Squid                                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.StorageMinecart                                    |entity.vehicle.minecart.MinecartChest                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Tameable                                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.ThrownExpBottle                                    |entity.projectile.ThrownExpBottle                          |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.ThrownPotion                                       |entity.projectile.ThrownPotion                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.TNTPrimed                                          |entity.explosive.PrimedTNT                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Vehicle                                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Villager                                           |entity.living.Villager                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.WaterMob                                           |entity.living.Aquatic                                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Weather                                            |entity.weather.WeatherEffect                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Witch                                              |entity.living.monster.Witch                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Wither                                             |entity.living.monster.Wither                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.WitherSkull                                        |entity.projectile.explosive.WitherSkull                    |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Wolf                                               |entity.living.animal.Wolf                                  |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Zombie                                             |entity.living.monster.Zombie                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.Action                                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockBreakEvent                               |event.block.ChangeBlockEvent.Break                         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockBurnEvent                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockCanBuildEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockDamageEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockDispenseEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockEvent                                    |event.block.TargetBlockEvent                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockExpEvent                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockFadeEvent                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockFormEvent                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockFromToEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockGrowEvent                                |event.block.ChangeBlockEvent.Grow                          |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockIgniteEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockMultiPlaceEvent                          |event.block.ChangeBlockEvent.Place                         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockPhysicsEvent                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockPistonEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockPistonExtendEvent                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockPistonRetractEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockPlaceEvent                               |event.block.ChangeBlockEvent.Place                         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockRedstoneEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockSpreadEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.EntityBlockFormEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.LeavesDecayEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.NotePlayEvent                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.SignChangeEvent                               |event.block.tileentity.ChangeSignEvent                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.enchantment.EnchantItemEvent                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.enchantment.PrepareItemEnchantEvent                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.CreatureSpawnEvent                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.CreeperPowerEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityBreakDoorEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityChangeBlockEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityCombustByBlockEvent                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityCombustByEntityEvent                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityCombustEvent                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityCreatePortalEvent                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityDamageByBlockEvent                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityDamageByEntityEvent                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityDamageEvent                            |event.entity.DamageEntityEvent                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityDeathEvent                             |event.entity.DestructEntityEvent.Death                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityEvent                                  |event.entity.TargetEntityEvent                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityExplodeEvent                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityInteractEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityPortalEnterEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityPortalEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityPortalExitEvent                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityRegainHealthEvent                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityShootBowEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityTameEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityTargetEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityTargetLivingEntityEvent                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityTeleportEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.EntityUnleashEvent                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.ExpBottleEvent                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.ExplosionPrimeEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.FoodLevelChangeEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.HorseJumpEvent                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.ItemDespawnEvent                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.ItemSpawnEvent                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.PigZapEvent                                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.PlayerDeathEvent                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.PlayerLeashEntityEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.PotionSplashEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.ProjectileHitEvent                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.ProjectileLaunchEvent                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.SheepDyeWoolEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.SheepRegrowWoolEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.SlimeSplitEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.hanging.HangingBreakByEntityEvent                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.hanging.HangingBreakEvent                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.hanging.HangingEvent                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.hanging.HangingPlaceEvent                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.BrewEvent                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.ClickType                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.CraftItemEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.DragType                                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.FurnaceBurnEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.FurnaceExtractEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.FurnaceSmeltEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.InventoryAction                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.InventoryClickEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.InventoryCloseEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.InventoryCreativeEvent                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.InventoryDragEvent                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.InventoryEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.InventoryInteractEvent                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.InventoryMoveItemEvent                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.InventoryOpenEvent                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.InventoryPickupItemEvent                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.InventoryType                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.inventory.PrepareItemCraftEvent                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.painting.PaintingBreakByEntityEvent                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.painting.PaintingBreakEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.painting.PaintingEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.painting.PaintingPlaceEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.AsyncPlayerChatEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.AsyncPlayerPreLoginEvent                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerAchievementAwardedEvent                |event.achievement.GrantAchievementEvent.TargetPlayer       |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerAnimationEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerAnimationType                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerBedEnterEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerBedLeaveEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerBucketEmptyEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerBucketEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerBucketFillEvent                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerChangedWorldEvent                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerChannelEvent                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerChatEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerChatTabCompleteEvent                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerCommandPreprocessEvent                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerDropItemEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerEditBookEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerEggThrowEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerEvent                                  |event.entity.living.humanoid.player.TargetPlayerEvent      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerExpChangeEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerFishEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerGameModeChangeEvent                    |event.entity.living.humanoid.                              |
+|                                                          |ChangeGameModeEvent.TargetPlayer                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerInteractEntityEvent                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerInteractEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerInventoryEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerItemBreakEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerItemConsumeEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerItemHeldEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerJoinEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerKickEvent                              |event.entity.living.humanoid.player.KickPlayerEvent        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerLevelChangeEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerLoginEvent                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerMoveEvent                              |event.entity.DisplaceEntityEvent.Move.TargetPlayer         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerPickupItemEvent                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerPortalEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerPreLoginEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerQuitEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerRegisterChannelEvent                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerRespawnEvent                           |event.entity.living.humanoid.player.RespawnPlayerEvent     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerShearEntityEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerStatisticIncrementEvent                |event.statistic.ChangeStatisticEvent.TargetPlayer          |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerTeleportEvent                          |event.entity.DisplaceEntityEvent.Teleport.TargetPlayer     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerToggleFlightEvent                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerToggleSneakEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerToggleSprintEvent                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerUnleashEntityEvent                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerUnregisterChannelEvent                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerVelocityEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.server.MapInitializeEvent                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.server.PluginDisableEvent                           |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.server.PluginEnableEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.server.PluginEvent                                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.server.RemoteServerCommandEvent                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.server.ServerCommandEvent                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.server.ServerEvent                                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.server.ServerListPingEvent                          |event.server.ClientPingServerEvent                         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.server.ServiceEvent                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.server.ServiceRegisterEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.server.ServiceUnregisterEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.vehicle.VehicleBlockCollisionEvent                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.vehicle.VehicleCollisionEvent                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.vehicle.VehicleCreateEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.vehicle.VehicleDamageEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.vehicle.VehicleDestroyEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.vehicle.VehicleEnterEvent                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.vehicle.VehicleEntityCollisionEvent                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.vehicle.VehicleEvent                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.vehicle.VehicleExitEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.vehicle.VehicleMoveEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.vehicle.VehicleUpdateEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.weather.LightningStrikeEvent                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.weather.ThunderChangeEvent                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.weather.WeatherChangeEvent                          |event.world.ChangeWorldWeatherEvent                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.weather.WeatherEvent                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.world.ChunkEvent                                    |event.world.chunk.TargetChunkEvent                         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.world.ChunkLoadEvent                                |event.world.chunk.LoadChunkEvent                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.world.ChunkPopulateEvent                            |event.world.chunk.PopulateChunkEvent                       |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.world.ChunkUnloadEvent                              |event.world.chunk.UnloadChunkEvent                         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.world.PortalCreateEvent                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.world.SpawnChangeEvent                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.world.StructureGrowEvent                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.world.WorldEvent                                    |event.world.TargetWorldEvent                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.world.WorldInitEventevent.                          |                                                           |
+|world.ConstructWorldEvent                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.world.WorldLoadEvent                                |event.world.LoadWorldEvent                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.world.WorldSaveEvent                                |event.world.SaveWorldEvent                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.world.WorldUnloadEvent                              |event.world.UnloadWorldEvent                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.Cancellable                                         |event.Cancellable                                          |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.Event                                               |event.Event                                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.EventException                                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.EventHandler                                        |event.Listener                                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.EventPriority                                       |event.Order                                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.HandlerList                                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.Listener                                            |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|generator.BlockPopulator                                  |world.gen.Populator                                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|generator.ChunkGenerator                                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|help.GenericCommandHelpTopic                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|help.HelpMap                                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|help.HelpTopic                                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|help.HelpTopicComparator                                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|help.HelpTopicFactory                                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|help.IndexHelpTopic                                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.meta.BookMeta                                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.meta.EnchantmentStorageMeta                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.meta.FireworkEffectMeta                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.meta.FireworkMeta                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.meta.ItemMeta                                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.meta.LeatherArmorMeta                           |data.manipulator.mutable.ColoredData                       |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.meta.MapMeta                                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.meta.PotionMeta                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.meta.Repairable                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.meta.SkullMeta                                  |data.manipulator.mutable.RepresentedPlayerData             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.AnvilInventory                                  |item.inventory.type.TileEntityInventory                    |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.BeaconInventory                                 |item.inventory.type.TileEntityInventory                    |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.BrewerInventory                                 |item.inventory.type.TileEntityInventory                    |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.CraftingInventory                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.DoubleChestInventory                            |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.EnchantingInventory                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.EntityEquipment                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.FurnaceInventory                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.FurnaceRecipe                                   |(api #1027)                                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.HorseInventory                                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.Inventory                                       |item.inventory.Inventory                                   |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.InventoryHolder                                 |item.inventory.Carrier                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.InventoryView                                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.ItemFactory                                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.ItemStack                                       |item.inventory.ItemStack                                   |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.MerchantInventory                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.PlayerInventory                                 |item.inventory.entity.HumanInventory                       |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.Recipe                                          |item.recipe.Recipe                                         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.ShapedRecipe                                    |item.recipe.ShapedRecipe                                   |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.ShapelessRecipe                                 |item.recipe.ShapelessRecipe                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|map.MapCanvas                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|map.MapCursor                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|map.MapCursorCollection                                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|map.MapFont                                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|map.MapPalette                                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|map.MapRenderer                                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|map.MapView                                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|map.MinecraftFont                                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Attachable                                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Bed                                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Button                                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Cake                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Cauldron                                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Chest                                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Coal                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.CocoaPlant                                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Colorable                                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Command                                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Crops                                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.DetectorRail                                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Diode                                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Directional                                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.DirectionalContainer                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Dispenser                                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Door                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Dye                                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.EnderChest                                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.ExtendedRails                                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.FlowerPot                                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Furnace                                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.FurnaceAndDispenser                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Gate                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Ladder                                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Leaves                                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Lever                                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.LongGrass                                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.MaterialData                                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.MonsterEggs                                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Mushroom                                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.NetherWarts                                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Openable                                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.PistonBaseMaterial                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.PistonExtensionMaterial                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.PoweredRail                                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.PressurePlate                                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.PressureSensor                                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Pumpkin                                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Rails                                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Redstone                                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.RedstoneTorch                                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.RedstoneWire                                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Sandstone                                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Sign                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.SimpleAttachableMaterialData                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Skull                                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.SmoothBrick                                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.SpawnEgg                                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Stairs                                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Step                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.TexturedMaterial                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Torch                                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.TrapDoor                                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Tree                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Tripwire                                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.TripwireHook                                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Vine                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.WoodenStep                                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Wool                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|metadata.FixedMetadataValue                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|metadata.LazyMetadataValue                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|metadata.Metadatable                                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|metadata.MetadataConversionException                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|metadata.MetadataEvaluationException                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|metadata.MetadataStore                                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|metadata.MetadataStoreBase                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|metadata.MetadataValue                                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|metadata.MetadataValueAdapter                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|permissions.Permissible                                   |service.permission.Subject                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|permissions.PermissibleBase                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|permissions.Permission                                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|permissions.PermissionAttachment                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|permissions.PermissionAttachmentInfo                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|permissions.PermissionDefault                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|permissions.PermissionRemovedExecutor                     |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|permissions.ServerOperator                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.java.JavaPlugin                                    |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.java.JavaPluginLoader                              |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.java.PluginClassLoader                             |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.messaging.ChannelNameTooLongException              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.messaging.ChannelNotRegisteredException            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.messaging.MessageTooLargeException                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.messaging.Messenger                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.messaging.PluginChannelDirection                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.messaging.PluginMessageListener                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.messaging.PluginMessageListenerRegistration        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.messaging.PluginMessageRecipient                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.messaging.ReservedChannelException                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.messaging.StandardMessenger                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.AuthorNagException                                 |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.EventExecutor                                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.IllegalPluginAccessException                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.InvalidDescriptionException                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.InvalidPluginException                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.Plugin                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.PluginAwareness                                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.PluginBase                                         |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.PluginDescriptionFile                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.PluginLoader                                       |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.PluginLoadOrder                                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.PluginLogger                                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.PluginManager                                      |plugin.PluginManager                                       |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.RegisteredListener                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.RegisteredServiceProvider                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.ServicePriority                                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.ServicesManager                                    |service.ServiceManager                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.SimplePluginManager                                |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.SimpleServicesManager                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.TimedRegisteredListener                            |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|plugin.UnknownDependencyException                         |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|potion.Potion                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|potion.PotionBrewer                                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|potion.PotionEffect                                       |effect.potion.PotionEffect                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|potion.PotionEffectType                                   |effect.potion.PotionEffectType                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|potion.PotionEffectTypeWrapper                            |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|potion.PotionType                                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|projectiles.BlockProjectileSource                         |entity.projectile.source.BlockProjectileSource             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|projectiles.ProjectileSource                              |entity.projectile.source.ProjectileSource                  |
++----------------------------------------------------------+-----------------------------------------------------------+
+|scheduler.BukkitRunnable                                  |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|scheduler.BukkitScheduler                                 |scheduler.Scheduler                                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|scheduler.BukkitTask                                      |scheduler.Task                                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|scheduler.BukkitWorker                                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|scoreboard.Criterias                                      |scoreboard.critieria.Criterion                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|scoreboard.DisplaySlot                                    |scoreboard.displayslot.DisplaySlot                         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|scoreboard.Objective                                      |scoreboard.objective.Objective                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|scoreboard.Score                                          |scoreboard.Score                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|scoreboard.Scoreboard                                     |scoreboard.Scoreboard                                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|scoreboard.ScoreboardManager                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|scoreboard.Team                                           |scoreboard.Team                                            |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.io.BukkitObjectInputStream                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.io.BukkitObjectOutputStream                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.io.Wrapper                                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.noise.NoiseGenerator                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.noise.OctaveGenerator                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.noise.PerlinNoiseGenerator                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.noise.PerlinOctaveGenerator                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.noise.SimplexNoiseGenerator                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.noise.SimplexOctaveGenerator                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.permissions.BroadcastPermissions                     |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.permissions.CommandPermissions                       |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.permissions.DefaultPermissions                       |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.BlockIterator                                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.BlockVector                                          |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.CachedServerIcon                                     |network.status.Favicon                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.ChatPaginator                                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.FileUtil                                             |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.Java15Compat                                         |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.NumberConversions                                    |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.StringUtil                                           |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.Vector                                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Achievement                                               |statistic.achievement.Achievement                          |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Art                                                       |data.type.Art                                              |
++----------------------------------------------------------+-----------------------------------------------------------+
+|BanEntry                                                  |util.ban.Ban                                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|BanList                                                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|BlockChangeDelegate                                       |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Bukkit                                                    |Sponge                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|ChatColor                                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Chunk                                                     |world.Chunk                                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|ChunkSnapshot                                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|CoalType                                                  |data.type.CoalType                                         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Color                                                     |util.Color                                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|CropState                                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Difficulty                                                |world.difficulty.Difficulty                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|DyeColor                                                  |data.type.DyeColor                                         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Effect                                                    |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|EntityEffect                                              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|FireworkEffect                                            |item.FireworkEffect                                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|GameMode                                                  |entity.living.player.gamemode.GameMode                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|GrassSpecies                                              |data.type.ShrubType                                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Instrument                                                |data.type.InstrumentType                                   |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Location                                                  |entity.Transform                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Material                                                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|NetherWartsState                                          |data.manipulator.mutable.block.GrowthData                  |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Note                                                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|OfflinePlayer                                             |entity.living.player.User                                  |
++----------------------------------------------------------+-----------------------------------------------------------+
+|PortalType                                                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Rotation                                                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|SandstoneType                                             |data.type.SandstoneType                                    |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Server                                                    |Server                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|SkullType                                                 |data.type.SkullType                                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Sound                                                     |effect.sound.SoundType                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Statistic                                                 |statistic.Statistic                                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|TravelAgent                                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|TreeSpecies                                               |data.type.TreeType                                         |
++----------------------------------------------------------+-----------------------------------------------------------+
+|TreeType                                                  |world.gen.type.BiomeTreeType                               |
++----------------------------------------------------------+-----------------------------------------------------------+
+|UnsafeValues                                              |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Utility                                                   |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|Warning                                                   |(none)                                                     |
++----------------------------------------------------------+-----------------------------------------------------------+
+|WeatherType                                               |world.weather.Weather                                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|World                                                     |world.World                                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|WorldCreator                                              |world.WorldCreationSettings.Builder                        |
++----------------------------------------------------------+-----------------------------------------------------------+
+|WorldType                                                 |world.GeneratorType                                        |
++----------------------------------------------------------+-----------------------------------------------------------+
 
 The general additions the Spigot Team made to Bukkit are listed here:
 
-=============================================================================== ===============================================================
-SpigotAPI                                                                       SpongeAPI (``org.spongepowered.api.*``)
-=============================================================================== ===============================================================
-org.bukkit.event.entity.EntitySpawnEvent                                        event.entity.SpawnEntityEvent
-org.bukkit.event.entity.SpawnerSpawnEvent                                       event.entity.SpawnEntityEvent.Spawner
-org.bukkit.event.player.PlayerItemDamageEvent
-org.spigotmc.event.entity.EntityDismountEvent
-org.spigotmc.event.entity.EntityMountEvent
-org.spigotmc.event.player.PlayerSpawnLocationEvent                              event.network.ClientConnectionEvent.Login
-org.spigotmc.CustomTimingsHandler
-=============================================================================== ===============================================================
++----------------------------------------------------------+-----------------------------------------------------------+
+|SpigotAPI                                                 |SpongeAPI (``org.spongepowered.api.*``)                    |
++==========================================================+===========================================================+
+|org.bukkit.event.entity.EntitySpawnEvent                  |event.entity.SpawnEntityEvent                              |
++----------------------------------------------------------+-----------------------------------------------------------+
+|org.bukkit.event.entity.SpawnerSpawnEvent                 |event.entity.SpawnEntityEvent.Spawner                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|org.bukkit.event.player.PlayerItemDamageEvent             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|org.spigotmc.event.entity.EntityDismountEvent             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|org.spigotmc.event.entity.EntityMountEvent                |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|org.spigotmc.event.player.PlayerSpawnLocationEvent        |event.network.ClientConnectionEvent.Login                  |
++----------------------------------------------------------+-----------------------------------------------------------+
+|org.spigotmc.CustomTimingsHandler                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
 
 The 1.8 specific additions the Spigot Team made are listed here:
 
-======================================================== ===============================================================
-Spigot Bukkit 1.8 additions (``org.bukkit.*``)           SpongeAPI (``org.spongepowered.api.*``)
-======================================================== ===============================================================
-block.banner.Pattern
-block.banner.PatternType                                 data.type.BannerPatternShapes
-block.Banner                                             block.tileentity.Banner
-command.ProxiedCommandSender                             command.source.ProxySource
-entity.ArmorStand                                        entity.living.ArmorStand
-entity.Endermite                                         entity.living.monster.Endermite
-entity.Guardian                                          entity.living.monster.Guardian
-entity.Rabbit                                            entity.living.animal.Rabbit
-event.block.BlockExplodeEvent
-event.entity.FireworkExplodeEvent
-event.entity.ItemMergeEvent
-event.player.PlayerArmorStandManipulateEvent
-event.player.PlayerInteractAtEntityEvent
-event.player.PlayerResourcePackStatusEvent               event.entity.living.humanoid.player.ResourcePackStatusEvent
-inventory.meta.BannerMeta
-inventory.meta.BlockStateMeta
-inventory.EquipmentSlot
-inventory.ItemFlag
-material.Banner
-scoreboard.NameTagVisibility                             scoreboard.Visibility
-util.EulerAngle
-WorldBorder                                              world.WorldBorder
-======================================================== ===============================================================
++----------------------------------------------------------+-----------------------------------------------------------+
+|Spigot Bukkit 1.8 additions (``org.bukkit.*``)            |SpongeAPI (``org.spongepowered.api.*``)                    |
++==========================================================+===========================================================+
+|block.banner.Pattern                                      |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.banner.PatternType                                  |data.type.BannerPatternShapes                              |
++----------------------------------------------------------+-----------------------------------------------------------+
+|block.Banner                                              |block.tileentity.Banner                                    |
++----------------------------------------------------------+-----------------------------------------------------------+
+|command.ProxiedCommandSender                              |command.source.ProxySource                                 |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.ArmorStand                                         |entity.living.ArmorStand                                   |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Endermite                                          |entity.living.monster.Endermite                            |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Guardian                                           |entity.living.monster.Guardian                             |
++----------------------------------------------------------+-----------------------------------------------------------+
+|entity.Rabbit                                             |entity.living.animal.Rabbit                                |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.block.BlockExplodeEvent                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.FireworkExplodeEvent                         |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.entity.ItemMergeEvent                               |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerArmorStandManipulateEvent              |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerInteractAtEntityEvent                  |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|event.player.PlayerResourcePackStatusEvent                |event.entity.living.humanoid.player.ResourcePackStatusEvent|
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.meta.BannerMeta                                 |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.meta.BlockStateMeta                             |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.EquipmentSlot                                   |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|inventory.ItemFlag                                        |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|material.Banner                                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|scoreboard.NameTagVisibility                              |scoreboard.Visibility                                      |
++----------------------------------------------------------+-----------------------------------------------------------+
+|util.EulerAngle                                           |                                                           |
++----------------------------------------------------------+-----------------------------------------------------------+
+|WorldBorder                                               |world.WorldBorder                                          |
++----------------------------------------------------------+-----------------------------------------------------------+
