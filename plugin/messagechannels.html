@@ -217,6 +217,12 @@
 <li class="toctree-l3"><a class="reference internal" href="text/text.html">Creating Text</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="text/representations/index.html">Text Serializers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="text/representations/xml.html">TextXML Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="text/representations/json.html">JSON Format</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
@@ -545,12 +551,15 @@ addition of the <code class="docutils literal"><span class="pre">AdminMessageCha
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.network.ClientConnectionEvent</span><span class="o">;</span>
 
+<span class="kd">private</span> <span class="n">AdminMessageChannel</span> <span class="n">adminChannel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AdminMessageChannel</span><span class="o">();</span>
+
 <span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClientConnectionJoin</span><span class="o">(</span><span class="n">ClientConnectionEvent</span><span class="o">.</span><span class="na">Join</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getTargetEntity</span><span class="o">();</span>
     <span class="k">if</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myplugin.admin&quot;</span><span class="o">))</span> <span class="o">{</span>
         <span class="n">MessageChannel</span> <span class="n">originalChannel</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getOriginalChannel</span><span class="o">();</span>
-        <span class="n">MessageChannel</span> <span class="n">newChannel</span> <span class="o">=</span> <span class="n">MessageChannel</span><span class="o">.</span><span class="na">combined</span><span class="o">(</span><span class="n">originalChannel</span><span class="o">,</span> <span class="k">new</span> <span class="n">AdminMessageChannel</span><span class="o">());</span>
+        <span class="n">MessageChannel</span> <span class="n">newChannel</span> <span class="o">=</span> <span class="n">MessageChannel</span><span class="o">.</span><span class="na">combined</span><span class="o">(</span><span class="n">originalChannel</span><span class="o">,</span>
+            <span class="n">adminChannel</span><span class="o">);</span>
         <span class="n">player</span><span class="o">.</span><span class="na">setMessageChannel</span><span class="o">(</span><span class="n">newChannel</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -562,6 +571,79 @@ addition of the <code class="docutils literal"><span class="pre">AdminMessageCha
 transformed in the order that the <code class="docutils literal"><span class="pre">MessageChannel</span></code>s are passed in to the
 <code class="docutils literal"><span class="pre">MessageChannel#combined(MessageChannel...</span> <span class="pre">channels)</span></code> method. Note that any transformations resulting in an
 empty <code class="docutils literal"><span class="pre">Optional</span></code> will be ignored unless performed by the last channel in the chain.</p>
+</div>
+</div>
+<div class="section" id="mutable-message-channels">
+<h2>Mutable Message Channels<a class="headerlink" href="#mutable-message-channels" title="Permalink to this headline">¶</a></h2>
+<p>A <code class="docutils literal"><span class="pre">MutableMessageChannel</span></code> contains methods for changing who may receive the messages sent through our channel. As
+such, we must implement methods for performing actions that modify our members. To do this, we simply will create a
+class named <code class="docutils literal"><span class="pre">MutableAdminMessageChannel</span></code> that will implement a <code class="docutils literal"><span class="pre">MutableMessageChannel</span></code>.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.HashSet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MutableMessageChannel</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MutableAdminMessageChannel</span> <span class="kd">implements</span> <span class="n">MutableMessageChannel</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="n">members</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">MutableAdminMessageChannel</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">MutableAdminMessageChannel</span><span class="o">(</span><span class="n">Set</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="n">members</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">members</span> <span class="o">=</span> <span class="n">members</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="nf">getMembers</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">members</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">addMember</span><span class="o">(</span><span class="n">MessageReceiver</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">members</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">removeMember</span><span class="o">(</span><span class="n">MessageReceiver</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">members</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">clearMembers</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">members</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="nf">transformMessage</span><span class="o">(</span><span class="n">Object</span> <span class="n">sender</span><span class="o">,</span> <span class="n">MessageReceiver</span> <span class="n">recipient</span><span class="o">,</span>
+                                                                <span class="n">Text</span> <span class="n">original</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="n">original</span><span class="o">;</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">members</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">recipient</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">RED</span><span class="o">,</span> <span class="s">&quot;[Admin]&quot;</span><span class="o">,</span> <span class="n">TextColors</span><span class="o">.</span><span class="na">RESET</span><span class="o">,</span> <span class="n">text</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>The main difference between our <code class="docutils literal"><span class="pre">AdminMessageChannel</span></code> and our new <code class="docutils literal"><span class="pre">MutableAdminMessageChannel</span></code> is that we check if
+the recipient is in the member list before transforming the message. If it is, then we may alter the message that is
+sent, appending the red <code class="docutils literal"><span class="pre">[Admin]</span></code> prefix.</p>
+<p>Note that an abstract implementation for <code class="docutils literal"><span class="pre">MutableMessageChannel</span></code>s exists in the Sponge API as
+<code class="docutils literal"><span class="pre">AbstractMutableMessageChannel</span></code>. Also note that our members do not persist. If they were to leave the server, they
+would be removed from the set.</p>
+<div class="section" id="modifying-the-members">
+<h3>Modifying the Members<a class="headerlink" href="#modifying-the-members" title="Permalink to this headline">¶</a></h3>
+<p>To make full use of our <code class="docutils literal"><span class="pre">MutableAdminMessageChannel</span></code>, we need to be able to add and remove members from the channel.
+To do this, we can simply call our <code class="docutils literal"><span class="pre">addMember(MessageReceiver</span> <span class="pre">member)</span></code> and <code class="docutils literal"><span class="pre">removeMember(MessageReceiver</span> <span class="pre">member)</span></code>
+methods we implemented previously whenever we need to add or remove a member from the member set.</p>
+</div>
+<div class="section" id="sending-messages-to-a-channel">
+<h3>Sending Messages To a Channel<a class="headerlink" href="#sending-messages-to-a-channel" title="Permalink to this headline">¶</a></h3>
+<p>Sending messages to only a specific <code class="docutils literal"><span class="pre">MessageChannel</span></code> can be done using the <code class="docutils literal"><span class="pre">send(Text</span> <span class="pre">original)</span></code> method. This way,
+only members specified in our member set will receive the message. Note that this will also transform the message
+through the <code class="docutils literal"><span class="pre">transformMessage()</span></code> method.</p>
 </div>
 </div>
 </div>

@@ -127,12 +127,15 @@ addition of the ``AdminMessageChannel``, a red ``[Admin]`` tag will be prefixed.
     import org.spongepowered.api.event.Listener;
     import org.spongepowered.api.event.network.ClientConnectionEvent;
 
+    private AdminMessageChannel adminChannel = new AdminMessageChannel();
+
     @Listener
     public void onClientConnectionJoin(ClientConnectionEvent.Join event) {
         Player player = event.getTargetEntity();
         if(player.hasPermission("myplugin.admin")) {
             MessageChannel originalChannel = event.getOriginalChannel();
-            MessageChannel newChannel = MessageChannel.combined(originalChannel, new AdminMessageChannel());
+            MessageChannel newChannel = MessageChannel.combined(originalChannel,
+                adminChannel);
             player.setMessageChannel(newChannel);
         }
     }
@@ -143,3 +146,82 @@ addition of the ``AdminMessageChannel``, a red ``[Admin]`` tag will be prefixed.
     transformed in the order that the ``MessageChannel``\ s are passed in to the
     ``MessageChannel#combined(MessageChannel... channels)`` method. Note that any transformations resulting in an
     empty ``Optional`` will be ignored unless performed by the last channel in the chain.
+
+Mutable Message Channels
+========================
+
+A ``MutableMessageChannel`` contains methods for changing who may receive the messages sent through our channel. As
+such, we must implement methods for performing actions that modify our members. To do this, we simply will create a
+class named ``MutableAdminMessageChannel`` that will implement a ``MutableMessageChannel``.
+
+.. code-block:: java
+
+    import java.util.HashSet;
+    import java.util.Set;
+
+    import org.spongepowered.api.text.channel.MutableMessageChannel;
+
+    public class MutableAdminMessageChannel implements MutableMessageChannel {
+
+        private Set<MessageReceiver> members;
+
+        public MutableAdminMessageChannel() {
+            this(new HashSet<>());
+        }
+
+        public MutableAdminMessageChannel(Set<MessageReceiver> members) {
+            this.members = members;
+        }
+
+        @Override
+        public Collection<MessageReceiver> getMembers() {
+            return members;
+        }
+
+        @Override
+        public boolean addMember(MessageReceiver member) {
+            return members.add(member);
+        }
+
+        @Override
+        public boolean removeMember(MessageReceiver member) {
+            return members.remove(member);
+        }
+
+        @Override
+        public void clearMembers() {
+            members.clear();
+        }
+
+        @Override
+        public Optional<Text> transformMessage(Object sender, MessageReceiver recipient,
+                                                                    Text original) {
+            Text text = original;
+            if(members.contains(recipient)) {
+                text = Text.of(TextColors.RED, "[Admin]", TextColors.RESET, text);
+            }
+            return Optional.of(text);
+        }
+    }
+
+The main difference between our ``AdminMessageChannel`` and our new ``MutableAdminMessageChannel`` is that we check if
+the recipient is in the member list before transforming the message. If it is, then we may alter the message that is
+sent, appending the red ``[Admin]`` prefix.
+
+Note that an abstract implementation for ``MutableMessageChannel``\ s exists in the Sponge API as
+``AbstractMutableMessageChannel``. Also note that our members do not persist. If they were to leave the server, they
+would be removed from the set.
+
+Modifying the Members
+~~~~~~~~~~~~~~~~~~~~~
+
+To make full use of our ``MutableAdminMessageChannel``, we need to be able to add and remove members from the channel.
+To do this, we can simply call our ``addMember(MessageReceiver member)`` and ``removeMember(MessageReceiver member)``
+methods we implemented previously whenever we need to add or remove a member from the member set.
+
+Sending Messages To a Channel
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sending messages to only a specific ``MessageChannel`` can be done using the ``send(Text original)`` method. This way,
+only members specified in our member set will receive the message. Note that this will also transform the message
+through the ``transformMessage()`` method.
