@@ -460,7 +460,7 @@ graphical representation of an <code class="docutils literal"><span class="pre">
 <div class="section" id="checking-an-item-s-type">
 <h2>Checking an Item&#8217;s Type<a class="headerlink" href="#checking-an-item-s-type" title="Permalink to this headline">¶</a></h2>
 <p>Checking the type of the item is very simple. You just need to call the <code class="docutils literal"><span class="pre">getItem()</span></code> method in the <code class="docutils literal"><span class="pre">ItemStack</span></code>.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.item.ItemType</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.item.ItemType</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.item.ItemTypes</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.item.inventory.ItemStack</span><span class="o">;</span>
 
@@ -478,7 +478,7 @@ graphical representation of an <code class="docutils literal"><span class="pre">
 <h2>Modifying ItemStack Data<a class="headerlink" href="#modifying-itemstack-data" title="Permalink to this headline">¶</a></h2>
 <p>Manipulating data such as durability or the lore of an item is accomplished by simply using keys. You just need to
 specify the key that needs to be changed:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUnbreakable</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">stack</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">stack</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">UNBREAKABLE</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
@@ -492,13 +492,13 @@ specify the key that needs to be changed:</p>
 need to specify a <code class="docutils literal"><span class="pre">List</span></code> of <code class="docutils literal"><span class="pre">Text</span></code> rather than an boolean or other value. It is also important to perform checks to
 see if the key can actually apply to the item. For example, some items might not have durability or may already have
 lore applied to the item.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setLore</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">stack</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="n">itemLore</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">ITEM_LORE</span><span class="o">).</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-        <span class="n">item</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">ITEM_LORE</span><span class="o">,</span> <span class="n">itemLore</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">stack</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">ITEM_LORE</span><span class="o">).</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">ITEM_LORE</span><span class="o">,</span> <span class="n">itemLore</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
@@ -509,14 +509,14 @@ lore applied to the item.</p>
 <p>Certain items may hold specific properties. For example, certain items can mine specific blocks, such as a diamond
 pickaxe to obsidian. Properties are used for determining if an item can cause an action without actually checking up
 the type of the item. We can check if a block can mine obsidian by using the <code class="docutils literal"><span class="pre">HarvestingProperty</span></code> of that item.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockTypes</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockTypes</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.property.item.HarvestingProperty</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">canMineObsidian</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">canMineObsidian</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">stack</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HarvestingProperty</span><span class="o">&gt;</span> <span class="n">optional</span> <span class="o">=</span>
-        <span class="n">item</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">HarvestingProperty</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">HarvestingProperty</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
     <span class="k">if</span> <span class="o">(</span><span class="n">optional</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
         <span class="n">HarvestingProperty</span> <span class="n">property</span> <span class="o">=</span> <span class="n">optional</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>

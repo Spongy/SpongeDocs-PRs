@@ -481,7 +481,7 @@ by means of your calling plugin.</p>
 </div>
 <p>The <code class="docutils literal"><span class="pre">PluginManager</span></code> is one of the few API instances that are injected into the main class upon being loaded. To ask
 for a reference, create a new variable to hold the <code class="docutils literal"><span class="pre">PluginManager</span></code> instance and simply annotate it with <code class="docutils literal"><span class="pre">&#64;Inject</span></code>.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.plugin.PluginManager</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
@@ -497,7 +497,7 @@ for a reference, create a new variable to hold the <code class="docutils literal
 </div>
 <p>The service manager also holds an instance of the server&#8217;s <code class="docutils literal"><span class="pre">PluginManager</span></code>. Simply use the method
 <code class="docutils literal"><span class="pre">ServiceManager.provide()</span></code>, passing the <code class="docutils literal"><span class="pre">PluginManager</span></code>&#8216;s class (<code class="docutils literal"><span class="pre">PluginManager.class</span></code>) as a parameter.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">PluginManager</span> <span class="n">pluginManager</span> <span class="o">=</span> <span class="n">serviceManager</span><span class="o">.</span><span class="na">provide</span><span class="o">(</span><span class="n">PluginManager</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">PluginManager</span> <span class="n">pluginManager</span> <span class="o">=</span> <span class="n">serviceManager</span><span class="o">.</span><span class="na">provide</span><span class="o">(</span><span class="n">PluginManager</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 </pre></div>
 </div>
 </div>
@@ -508,7 +508,7 @@ for a reference, create a new variable to hold the <code class="docutils literal
 <p class="last">See the <a class="reference external" href="http://spongepowered.github.io/SpongeAPI/org/spongepowered/api/Game.html">documentation for Game</a> for full information about the class, as well as its methods and their usage.</p>
 </div>
 <p>A game instance can provide a reference to the server&#8217;s <code class="docutils literal"><span class="pre">PluginManager</span></code> as well for convenience.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">PluginManager</span> <span class="n">pluginManager</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getPluginManager</span><span class="o">();</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">PluginManager</span> <span class="n">pluginManager</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getPluginManager</span><span class="o">();</span>
 </pre></div>
 </div>
 <p>Now that you have an instance to the plugin manager, let&#8217;s use it.</p>
@@ -518,7 +518,7 @@ for a reference, create a new variable to hold the <code class="docutils literal
 <p>The <code class="docutils literal"><span class="pre">Sponge</span></code> class works similarly to <code class="docutils literal"><span class="pre">Game</span></code>, with the exception that since <code class="docutils literal"><span class="pre">Sponge</span></code> contains static methods,
 it can be accessed anywhere throughout your plugin. You also do not need to store an instance of it, as you would need
 to do with <code class="docutils literal"><span class="pre">Game</span></code>.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
 
 <span class="kd">private</span> <span class="n">PluginManager</span> <span class="n">pluginManager</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getPluginManager</span><span class="o">();</span>
 </pre></div>
@@ -531,7 +531,7 @@ to do with <code class="docutils literal"><span class="pre">Game</span></code>.<
 <p>A lot of methods return plugin containers, which will be discussed in the next section. Plugin containers are pretty
 much self-explanatory &#8220;containers&#8221; of the actual plugin instance.</p>
 <p>With the plugin manager, it is possible to get all plugins currently loaded through the plugin manager:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.plugin.PluginContainer</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.plugin.PluginContainer</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
 
@@ -539,7 +539,7 @@ much self-explanatory &#8220;containers&#8221; of the actual plugin instance.</p
 </pre></div>
 </div>
 <p>Or, it is possible to obtain an instance to a plugin container directly, by the example shown below:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">PluginContainer</span> <span class="n">myOtherPlugin</span> <span class="o">=</span> <span class="n">pluginManager</span><span class="o">.</span><span class="na">getPlugin</span><span class="o">(</span><span class="s">&quot;myOtherPluginId&quot;</span><span class="o">).</span><span class="na">orNull</span><span class="o">();</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">PluginContainer</span> <span class="n">myOtherPlugin</span> <span class="o">=</span> <span class="n">pluginManager</span><span class="o">.</span><span class="na">getPlugin</span><span class="o">(</span><span class="s">&quot;myOtherPluginId&quot;</span><span class="o">).</span><span class="na">orNull</span><span class="o">();</span>
 </pre></div>
 </div>
 </div>
@@ -557,7 +557,7 @@ plugin attained from its <code class="docutils literal"><span class="pre">&#64;P
 information from here instead of hard-coding what you know about it in your supporting plugin. An example scenario would
 be if the owning developer changes the name of the plugin, references to the latter in the supporting plugin would not
 become wrong as a result of this change, provided you&#8217;ve used the method <code class="docutils literal"><span class="pre">PluginContainer.getName()</span></code> to get its name.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">PluginContainer</span> <span class="n">myOtherPlugin</span> <span class="o">=</span> <span class="n">pluginManager</span><span class="o">.</span><span class="na">getPlugin</span><span class="o">(</span><span class="s">&quot;myOtherPluginId&quot;</span><span class="o">).</span><span class="na">orNull</span><span class="o">();</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">PluginContainer</span> <span class="n">myOtherPlugin</span> <span class="o">=</span> <span class="n">pluginManager</span><span class="o">.</span><span class="na">getPlugin</span><span class="o">(</span><span class="s">&quot;myOtherPluginId&quot;</span><span class="o">).</span><span class="na">orNull</span><span class="o">();</span>
 <span class="kd">private</span> <span class="n">MyOtherPlugin</span> <span class="n">pluginInstance</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyOtherPlugin</span><span class="o">)</span> <span class="n">myOtherPlugin</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
 </pre></div>
 </div>

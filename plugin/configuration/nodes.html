@@ -475,7 +475,7 @@ of a config.</p>
 <p class="last">When written down, paths are commonly represented by joining the keys together with a separator char, usually <code class="docutils literal"><span class="pre">.</span></code>.
 The above mentioned path would be written <code class="docutils literal"><span class="pre">modules.blockCheats.enabled</span></code>.</p>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>modules {
+<div class="highlight-none"><div class="highlight"><pre><span></span>modules {
     blockCheats {
         enabled=true
     }
@@ -485,7 +485,7 @@ The above mentioned path would be written <code class="docutils literal"><span c
 <p>In Java, you can get the child node for a path using the <code class="docutils literal"><span class="pre">getNode(...)</span></code> method. The method accepts any number of
 arguments, where each argument is one key in the path. The path <code class="docutils literal"><span class="pre">modules.blockCheats.enabled</span></code> from a root node is
 acquired as follows.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
 
 <span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="o">...;</span>
 <span class="n">ConfigurationNode</span> <span class="n">targetNode</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">);</span>
@@ -504,7 +504,7 @@ acquired as follows.</p>
 which will return the value or a default if the node does not contain a value of that type. Let&#8217;s check if the server
 administrator wants our plugin to enable its blockCheats module by checking the value at the
 <code class="docutils literal"><span class="pre">modules.blockCheats.enabled</span></code> path.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">getBoolean</span><span class="o">();</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">getBoolean</span><span class="o">();</span>
 </pre></div>
 </div>
 <p>Yes, it&#8217;s really as simple as that. Similar to the above example, methods like <code class="docutils literal"><span class="pre">getInt()</span></code>, <code class="docutils literal"><span class="pre">getDouble()</span></code> or
@@ -513,7 +513,7 @@ administrator wants our plugin to enable its blockCheats module by checking the 
 this means that it can take anything and will determine how to proceed from there by itself.</p>
 <p>Imagine the blockCheats module is deactivated by a user command. This change will need to be reflected in the config
 and can be done as follows:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">setValue</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">setValue</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -533,7 +533,7 @@ vice versa.</p>
 <p>In order to tell Configurate what type it is dealing with, we have to provide a guava <code class="docutils literal"><span class="pre">TypeToken</span></code>. Imagine we want
 to read a player <code class="docutils literal"><span class="pre">UUID</span></code> from the config node <code class="docutils literal"><span class="pre">towns.aFLARDia.mayor</span></code>. To do so, we need to call the <code class="docutils literal"><span class="pre">getValue()</span></code>
 method while providing a <code class="docutils literal"><span class="pre">TypeToken</span></code> representing the <code class="docutils literal"><span class="pre">UUID</span></code> class.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
 
 <span class="n">UUID</span> <span class="n">mayor</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;towns&quot;</span><span class="o">,</span> <span class="s">&quot;aFLARDia&quot;</span><span class="o">,</span> <span class="s">&quot;mayor&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
 </pre></div>
@@ -543,7 +543,7 @@ value into a <code class="docutils literal"><span class="pre">UUID</span></code>
 if it encounters incomplete or invalid data.</p>
 <p>Now if we we want to write a new <code class="docutils literal"><span class="pre">UUID</span></code> to that config node, the syntax is very similar. Use the <code class="docutils literal"><span class="pre">setValue()</span></code>
 method with a <code class="docutils literal"><span class="pre">TypeToken</span></code> and the object you want to serialize.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;towns&quot;</span><span class="o">,</span><span class="s">&quot;aFLARDia&quot;</span><span class="o">,</span> <span class="s">&quot;mayor&quot;</span><span class="o">).</span><span class="na">setValue</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">newUuid</span><span class="o">);</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;towns&quot;</span><span class="o">,</span><span class="s">&quot;aFLARDia&quot;</span><span class="o">,</span> <span class="s">&quot;mayor&quot;</span><span class="o">).</span><span class="na">setValue</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">newUuid</span><span class="o">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -576,19 +576,19 @@ that would return an object (like <code class="docutils literal"><span class="pr
 manually handle those special cases, you can use <em>default values</em>. Every <code class="docutils literal"><span class="pre">getXXX()</span></code> method discussed above has an
 overloaded form accepting an additional parameter as a default value.</p>
 <p>Let us take a look at the example for reading a boolean value again.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">getBoolean</span><span class="o">();</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">getBoolean</span><span class="o">();</span>
 </pre></div>
 </div>
 <p>This call will return <code class="docutils literal"><span class="pre">false</span></code> if either the value <code class="docutils literal"><span class="pre">false</span></code> is saved in the config or the value is not present in the
 config. Since those two cases are indistinguishable we have no simple way of setting our variable to <code class="docutils literal"><span class="pre">false</span></code> only if
 that is the value specified on the config. Unless we specify <code class="docutils literal"><span class="pre">true</span></code> as the default value.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">getBoolean</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">getBoolean</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 </pre></div>
 </div>
 <p>Similarly, you can specify defaults on any value you get from the config, thus avoiding <code class="docutils literal"><span class="pre">null</span></code> returns or
 <code class="docutils literal"><span class="pre">ObjectMappingException</span></code> caused by the absence of the whole value. It also works on the deserializing <code class="docutils literal"><span class="pre">getValue()</span></code>
 method. Some examples:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">String</span> <span class="n">greeting</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;messages&quot;</span><span class="o">,</span> <span class="s">&quot;greeting&quot;</span><span class="o">).</span><span class="na">getString</span><span class="o">(</span><span class="s">&quot;FLARD be with you good man!&quot;</span><span class="o">);</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">greeting</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;messages&quot;</span><span class="o">,</span> <span class="s">&quot;greeting&quot;</span><span class="o">).</span><span class="na">getString</span><span class="o">(</span><span class="s">&quot;FLARD be with you good man!&quot;</span><span class="o">);</span>
 
 <span class="n">UUID</span> <span class="n">mayor</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;towns&quot;</span><span class="o">,</span> <span class="s">&quot;aFLARDia&quot;</span><span class="o">,</span> <span class="s">&quot;mayor&quot;</span><span class="o">)</span>
                         <span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">somePlayer</span><span class="o">.</span><span class="na">getUniqueId</span><span class="o">());</span>

@@ -460,7 +460,7 @@ hard-coding default values or loading from a pre-written file.</p>
 <div class="section" id="getting-your-loader">
 <h2>Getting your Loader<a class="headerlink" href="#getting-your-loader" title="Permalink to this headline">¶</a></h2>
 <p>First, let&#8217;s grab a new <code class="docutils literal"><span class="pre">HoconConfigurationLoader</span></code> that points to our configuration file.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.commented.CommentedConfigurationNode</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.hocon.HoconConfigurationLoader</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.loader.ConfigurationLoader</span><span class="o">;</span>
@@ -487,7 +487,7 @@ configuration to be edited by the server administrator (or your plugin itself).<
 <h2>Loading and Saving<a class="headerlink" href="#loading-and-saving" title="Permalink to this headline">¶</a></h2>
 <p>Once you obtained your <code class="docutils literal"><span class="pre">ConfigurationLoader</span></code> you can use it to obtain an empty <code class="docutils literal"><span class="pre">ConfigurationNode</span></code> using the
 <code class="docutils literal"><span class="pre">createEmptyNode()</span></code> method.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationOptions</span><span class="o">;</span>
 
 <span class="n">Path</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="n">getConfigPath</span><span class="o">();</span>
@@ -501,7 +501,7 @@ values.</p>
 <p>Using the <code class="docutils literal"><span class="pre">load()</span></code> method you can attempt to load the configuration contents from the source specified upon creation
 of the <code class="docutils literal"><span class="pre">ConfigurationLoader</span></code>. It also expects a <code class="docutils literal"><span class="pre">ConfigurationOptions</span></code> instance, but also provides a no-args form
 that is shorthand for <code class="docutils literal"><span class="pre">load(ConfigurationOptions.defaults())</span></code>.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
 
 <span class="n">Path</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="n">getConfigPath</span><span class="o">();</span>
 <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span> <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setPath</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
@@ -518,7 +518,7 @@ will lead to an <code class="docutils literal"><span class="pre">IOException</sp
 <p>Once you modified your <code class="docutils literal"><span class="pre">ConfigurationNode</span></code> to hold the data you like to be saved, you can use the
 <code class="docutils literal"><span class="pre">ConfigurationLoader</span></code> to save the node to the file specified while creating the loader. If that file does not exist,
 it will be created. If it does exist, all contents will be overwritten.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="k">try</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="o">{</span>
     <span class="n">loader</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">rootNode</span><span class="o">);</span>
 <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">// error</span>
@@ -529,7 +529,7 @@ it will be created. If it does exist, all contents will be overwritten.</p>
 </div>
 <div class="section" id="example-loading-a-default-config-from-the-plugin-jar-file">
 <h2>Example: Loading a default config from the plugin jar file<a class="headerlink" href="#example-loading-a-default-config-from-the-plugin-jar-file" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
 
 <span class="n">URL</span> <span class="n">jarConfigFile</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getResource</span><span class="o">(</span><span class="s">&quot;defaultConfig.conf&quot;</span><span class="o">);</span>
 <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span>

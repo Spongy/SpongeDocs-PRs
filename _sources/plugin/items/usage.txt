@@ -58,8 +58,8 @@ lore applied to the item.
     import java.util.List;
 
     public void setLore(ItemStack stack, List<Text> itemLore) {
-        if (item.get(Keys.ITEM_LORE).isPresent()) {
-            item.offer(Keys.ITEM_LORE, itemLore);
+        if (stack.get(Keys.ITEM_LORE).isPresent()) {
+            stack.offer(Keys.ITEM_LORE, itemLore);
         }
     }
 
@@ -77,9 +77,9 @@ the type of the item. We can check if a block can mine obsidian by using the ``H
 
     import java.util.Optional;
 
-    public boolean canMineObsidian(ItemStack item) {
+    public boolean canMineObsidian(ItemStack stack) {
         Optional<HarvestingProperty> optional =
-            item.getProperty(HarvestingProperty.class);
+            stack.getProperty(HarvestingProperty.class);
 
         if (optional.isPresent()) {
             HarvestingProperty property = optional.get();
