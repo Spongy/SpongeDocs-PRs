@@ -219,6 +219,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../text/text.html">Creating Text</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../text/representations/index.html">Text Serializers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/xml.html">TextXML Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/json.html">JSON Format</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
@@ -348,7 +354,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../message-sinks.html">Message Sinks</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../messagechannels.html">Message Channels</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="simple">
@@ -448,7 +454,7 @@ base for custom command APIs.</p>
 <div class="section" id="writing-a-command">
 <h2>Writing a command<a class="headerlink" href="#writing-a-command" title="Permalink to this headline">¶</a></h2>
 <p>The first step is to create a class for the command. The class has to implement the interface <code class="docutils literal"><span class="pre">CommandCallable</span></code>:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.Server</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Server</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandCallable</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandException</span><span class="o">;</span>
@@ -509,9 +515,10 @@ purposes of each method in this example.</p>
 <p>Now we can register the class in the <code class="docutils literal"><span class="pre">CommandManager</span></code>. The <code class="docutils literal"><span class="pre">CommandManager</span></code> stands as the manager for watching what
 commands get typed into chat, and redirecting them to the right command handler. To register your command, use the
 method <code class="docutils literal"><span class="pre">CommandManager.register()</span></code>, passing your plugin, an instance of the command, and any needed aliases as parameters.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandManager</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandManager</span><span class="o">;</span>
 
-<span class="n">CommandManager</span> <span class="n">cmdService</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getCommandManager</span><span class="o">();</span>
+<span class="n">CommandManager</span> <span class="n">cmdService</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getCommandManager</span><span class="o">();</span>
 <span class="n">cmdService</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="k">new</span> <span class="n">MyBroadcastCommand</span><span class="o">(</span><span class="n">server</span><span class="o">),</span> <span class="s">&quot;message&quot;</span><span class="o">,</span> <span class="s">&quot;broadcast&quot;</span><span class="o">);</span>
 </pre></div>
 </div>
@@ -527,7 +534,7 @@ used by another command are ignored.</p>
 <p>Command dispatchers can be used to create hierarchical command structures (subcommands).</p>
 <p>The default implementation of the <code class="docutils literal"><span class="pre">Dispatcher</span></code> interface is the <code class="docutils literal"><span class="pre">SimpleDispatcher</span></code> class.</p>
 <p>A <code class="docutils literal"><span class="pre">Dispatcher</span></code> is also a <code class="docutils literal"><span class="pre">CommandCallable</span></code>, so it can be registered like any other command.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.dispatcher.SimpleDispatcher</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.dispatcher.SimpleDispatcher</span><span class="o">;</span>
 
 <span class="n">CommandCallable</span> <span class="n">subCommand1</span> <span class="o">=</span> <span class="o">...;</span>
 <span class="n">CommandCallable</span> <span class="n">subCommand2</span> <span class="o">=</span> <span class="o">...;</span>
@@ -537,7 +544,7 @@ used by another command are ignored.</p>
 <span class="n">rootCommand</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">subCommand1</span><span class="o">,</span> <span class="s">&quot;subcommand1&quot;</span><span class="o">,</span> <span class="s">&quot;sub1&quot;</span><span class="o">);</span>
 <span class="n">rootCommand</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">subCommand2</span><span class="o">,</span> <span class="s">&quot;subcommand2&quot;</span><span class="o">,</span> <span class="s">&quot;sub2&quot;</span><span class="o">);</span>
 
-<span class="n">game</span><span class="o">.</span><span class="na">getCommandManager</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">rootCommand</span><span class="o">,</span> <span class="s">&quot;root&quot;</span><span class="o">);</span>
+<span class="n">Sponge</span><span class="o">.</span><span class="na">getCommandManager</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">rootCommand</span><span class="o">,</span> <span class="s">&quot;root&quot;</span><span class="o">);</span>
 </pre></div>
 </div>
 </div>

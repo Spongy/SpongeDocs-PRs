@@ -219,6 +219,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../text/text.html">Creating Text</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../text/representations/index.html">Text Serializers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/xml.html">TextXML Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/json.html">JSON Format</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
@@ -348,7 +354,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../message-sinks.html">Message Sinks</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../messagechannels.html">Message Channels</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="simple">
@@ -459,7 +465,7 @@ If not, then please read the article on setting up your modifier at <a class="re
 <p>Sponge exposes a great deal of vanilla world generation, which can be manipulated through the various interfaces.
 Currently, the only elements of the generation process that are <em>easily</em> exposed to manipulation are the populators.</p>
 <p>For a quick example, let&#8217;s look at how we would change the cactii that spawn in deserts to be taller.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.biome.BiomeGenerationSettings</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.biome.BiomeGenerationSettings</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.biome.BiomeTypes</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.gen.Populator</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.gen.populator.Cactus</span><span class="o">;</span>
@@ -485,7 +491,7 @@ can be used to specify the height as a range or other custom value.</p>
 instance of a vanilla populator. This time the populator will be added globally, which means it will be
 applied to all chunks regardless of the biome. Let&#8217;s add a Pumpkin populator globally, causing pumpkins to be
 scattered everywhere throughout the world.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.gen.populator.Pumpkin</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.gen.populator.Pumpkin</span><span class="o">;</span>
 
 <span class="nd">@Override</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">modifyWorldGenerator</span><span class="o">(</span><span class="n">WorldCreationSettings</span> <span class="n">world</span><span class="o">,</span> <span class="n">DataContainer</span> <span class="n">settings</span><span class="o">,</span> <span class="n">WorldGenerator</span> <span class="n">worldGenerator</span><span class="o">)</span> <span class="o">{</span>
@@ -516,7 +522,7 @@ generation of the world. A generator populator will roughly follow the procedure
 information to seed and modify a series of noise maps, from which the terrain is formed. The terrain created
 in a modified base generator populator should only consist of stone blocks, to allow the biomes to properly replace
 blocks for biome-specific ground cover.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SinusoidalGenerator</span> <span class="kd">implements</span> <span class="n">GenerationPopulator</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SinusoidalGenerator</span> <span class="kd">implements</span> <span class="n">GenerationPopulator</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">populate</span><span class="o">(</span><span class="n">World</span> <span class="n">world</span><span class="o">,</span> <span class="n">MutableBlockVolume</span> <span class="n">buffer</span><span class="o">,</span> <span class="n">ImmutableBiomeArea</span> <span class="n">biomes</span><span class="o">)</span> <span class="o">{</span>
@@ -538,7 +544,7 @@ blocks for biome-specific ground cover.</p>
     <span class="kd">private</span> <span class="kt">int</span> <span class="nf">getHeight</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">z</span><span class="o">,</span> <span class="n">BiomeGenerationSettings</span> <span class="n">biome</span><span class="o">)</span> <span class="o">{</span>
         <span class="kt">double</span> <span class="n">sx</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">sin</span><span class="o">(</span><span class="n">x</span> <span class="o">/</span> <span class="mi">64</span><span class="n">d</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
         <span class="kt">double</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">sin</span><span class="o">(</span><span class="n">z</span> <span class="o">/</span> <span class="mi">64</span><span class="n">d</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
-        <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="o">(</span><span class="n">sx</span> <span class="o">+</span> <span class="n">sz</span><span class="o">)</span> <span class="o">/</span> <span class="mi">4</span><span class="n">d</span><span class="o">;</span>
+        <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="o">(</span><span class="n">sx</span> <span class="o">+</span> <span class="n">sz</span><span class="o">)</span> <span class="o">/</span> <span class="mf">4d</span><span class="o">;</span>
         <span class="kt">double</span> <span class="n">heightRange</span> <span class="o">=</span> <span class="n">biome</span><span class="o">.</span><span class="na">getMaxHeight</span><span class="o">()</span> <span class="o">-</span> <span class="n">biome</span><span class="o">.</span><span class="na">getMinHeight</span><span class="o">();</span>
         <span class="kt">double</span> <span class="n">height</span> <span class="o">=</span> <span class="n">heightRange</span> <span class="o">*</span> <span class="n">value</span> <span class="o">/</span> <span class="n">biome</span><span class="o">.</span><span class="na">getMinHeight</span><span class="o">();</span>
         <span class="k">return</span> <span class="n">GenericMath</span><span class="o">.</span><span class="na">floor</span><span class="o">(</span><span class="n">height</span> <span class="o">*</span> <span class="mi">256</span><span class="o">);</span>
@@ -571,7 +577,7 @@ offset by 8 in both the x and z directions.</p>
 by which they are arranged in the world be implementing the <code class="docutils literal"><span class="pre">BiomeGenerator</span></code> interface and setting your custom
 biome generator onto a WorldGenerator.</p>
 <p>Below is an example of a biome generator which creates one large island centered around (0, 0).</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IslandBiomeGen</span> <span class="kd">implements</span> <span class="n">BiomeGenerator</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IslandBiomeGen</span> <span class="kd">implements</span> <span class="n">BiomeGenerator</span> <span class="o">{</span>
 
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">ISLAND_SIZE</span> <span class="o">=</span> <span class="mi">200</span><span class="n">f</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">BEACH_RADIUS</span> <span class="o">=</span> <span class="n">ISLAND_SIZE</span> <span class="o">*</span> <span class="n">ISLAND_SIZE</span><span class="o">;</span>

@@ -219,6 +219,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../text/text.html">Creating Text</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../text/representations/index.html">Text Serializers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/xml.html">TextXML Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/json.html">JSON Format</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
@@ -348,7 +354,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../message-sinks.html">Message Sinks</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../messagechannels.html">Message Channels</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="simple">
@@ -447,7 +453,7 @@
 <p>A data holder provides methods to retrieve or alter a single point of data identified by a <code class="docutils literal"><span class="pre">Key</span></code>. Let&#8217;s just start
 out with an example:</p>
 <p><strong>Code Example: Healing a data holder, if possible</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataHolder</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataHolder</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">heal</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
@@ -479,7 +485,7 @@ holder supports it), we can silently discard the result.</p>
 <p>It is also possible to completely remove data from a <code class="docutils literal"><span class="pre">DataHolder</span></code> using the <code class="docutils literal"><span class="pre">remove()</span></code> function. Simply provide a
 <code class="docutils literal"><span class="pre">Key</span></code> representing the data you want removed. The following example will attempt to remove a custom name from a given
 data holder</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">removeName</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">removeName</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">target</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">DISPLAY_NAME</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
@@ -492,7 +498,7 @@ holder&#8217;s <code class="docutils literal"><span class="pre">transform()</spa
 retrieved and the given function applied to it. The result is then stored under the key and the <code class="docutils literal"><span class="pre">transform()</span></code>
 method will return a <code class="docutils literal"><span class="pre">DataTransactionResult</span></code> accordingly.</p>
 <p>Now, as an example, imagine we want to buff a data holder by doubling his maximum health.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.function.Function</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.function.Function</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buff</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">target</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="k">new</span> <span class="n">Function</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">,</span><span class="n">Double</span><span class="o">&gt;()</span> <span class="o">{</span>
@@ -505,7 +511,7 @@ method will return a <code class="docutils literal"><span class="pre">DataTransa
 </pre></div>
 </div>
 <p>Or, if you use Java 8, you&#8217;re able to shorten the line with lambda expressions:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">buff</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">buff</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">target</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="n">d</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">d</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">d</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
@@ -522,7 +528,7 @@ object inheriting from <code class="docutils literal"><span class="pre">BaseValu
 health is a <code class="docutils literal"><span class="pre">MutableBoundedValue</span></code>, we can find out what is the minimum possible value and set our target&#8217;s
 health just a tiny bit above that.</p>
 <p><strong>Code Example: Bring a target to the brink of death</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.MutableBoundedValue</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.MutableBoundedValue</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">scare</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">target</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">))</span> <span class="o">{</span>

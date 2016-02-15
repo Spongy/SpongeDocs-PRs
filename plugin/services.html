@@ -218,6 +218,12 @@
 <li class="toctree-l3"><a class="reference internal" href="text/text.html">Creating Text</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="text/representations/index.html">Text Serializers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="text/representations/xml.html">TextXML Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="text/representations/json.html">JSON Format</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
@@ -347,7 +353,7 @@
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="message-sinks.html">Message Sinks</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="messagechannels.html">Message Channels</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="simple">
@@ -443,7 +449,9 @@
 <h1>Working with Services<a class="headerlink" href="#working-with-services" title="Permalink to this headline">¶</a></h1>
 <p>Pretty much everything (events, permissions, etc.) is handled through services. All services are accessed through the
 service manager:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">game</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provide</span><span class="o">(</span><span class="n">EventManager</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
+
+<span class="n">Sponge</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provide</span><span class="o">(</span><span class="n">EventManager</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 </pre></div>
 </div>
 <p>If you need to get an object reference to something, just get it off the service manager.</p>
@@ -464,7 +472,7 @@ be provided.</p>
 <h2>Providing your own service<a class="headerlink" href="#providing-your-own-service" title="Permalink to this headline">¶</a></h2>
 <p>Your plugin can provide the implementation for a core interface like <code class="docutils literal"><span class="pre">PermissionService</span></code>, or for a custom interface
 that is not part of the Sponge API (e.g. economy, web server):</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">game</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">setProvider</span><span class="o">(</span><span class="n">Object</span> <span class="n">plugin</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">service</span><span class="o">,</span> <span class="n">T</span> <span class="n">provider</span><span class="o">);</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">Sponge</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">setProvider</span><span class="o">(</span><span class="n">Object</span> <span class="n">plugin</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">service</span><span class="o">,</span> <span class="n">T</span> <span class="n">provider</span><span class="o">);</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal"><span class="pre">provider</span></code> object has to implement the <code class="docutils literal"><span class="pre">service</span></code> interface or class.</p>
@@ -476,7 +484,7 @@ that is not part of the Sponge API (e.g. economy, web server):</p>
 <div class="section" id="example-providing-a-simple-warp-service">
 <h3>Example: Providing a simple warp service<a class="headerlink" href="#example-providing-a-simple-warp-service" title="Permalink to this headline">¶</a></h3>
 <p>The first step is optional, but recommended. You specify the public methods of your service class in an interface:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
 
@@ -487,7 +495,7 @@ that is not part of the Sponge API (e.g. economy, web server):</p>
 </pre></div>
 </div>
 <p>Now you can write the class that implements your interface:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleWarpService</span> <span class="kd">implements</span> <span class="n">WarpService</span> <span class="o">{</span>
     <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;&gt;</span> <span class="n">warpMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;&gt;();</span>
@@ -512,11 +520,11 @@ that is not part of the Sponge API (e.g. economy, web server):</p>
 <code class="docutils literal"><span class="pre">WarpService.class</span></code> as the <code class="docutils literal"><span class="pre">service</span></code> key.</p>
 <p>This makes it possible for other plugin developers to write their own implementation of your service (that implements
 the interface) and replace your version.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">game</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">setProvider</span><span class="o">(</span><span class="n">yourPluginInstance</span><span class="o">,</span> <span class="n">WarpService</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="k">new</span> <span class="n">SimpleWarpService</span><span class="o">());</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">Sponge</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">setProvider</span><span class="o">(</span><span class="n">yourPluginInstance</span><span class="o">,</span> <span class="n">WarpService</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="k">new</span> <span class="n">SimpleWarpService</span><span class="o">());</span>
 </pre></div>
 </div>
 <p>Other plugins can now access your service through the service manager:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">game</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provide</span><span class="o">(</span><span class="n">WarpService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">Sponge</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provide</span><span class="o">(</span><span class="n">WarpService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 </pre></div>
 </div>
 <div class="admonition tip">

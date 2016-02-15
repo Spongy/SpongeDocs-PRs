@@ -218,6 +218,12 @@
 <li class="toctree-l3"><a class="reference internal" href="text/text.html">Creating Text</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="text/representations/index.html">Text Serializers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="text/representations/xml.html">TextXML Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="text/representations/json.html">JSON Format</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
@@ -347,7 +353,7 @@
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="message-sinks.html">Message Sinks</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="messagechannels.html">Message Channels</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="simple">
@@ -447,20 +453,37 @@ name, (a)synchronicity, and <code class="docutils literal"><span class="pre">Run
 <div class="section" id="working-with-the-task-builder">
 <h2>Working With the Task.Builder<a class="headerlink" href="#working-with-the-task-builder" title="Permalink to this headline">¶</a></h2>
 <p>First, obtain an instance of the <code class="docutils literal"><span class="pre">Scheduler</span></code>, and retrieve the <code class="docutils literal"><span class="pre">Task.Builder</span></code>:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.scheduler.Scheduler</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.scheduler.Scheduler</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.scheduler.Task</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
 
-<span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+<span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
 <span class="n">Task</span><span class="o">.</span><span class="na">Builder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">createTaskBuilder</span><span class="o">();</span>
 </pre></div>
 </div>
 <p>The only required property is the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html">Runnable</a>,
 which you can specify using <code class="docutils literal"><span class="pre">Task.Builder#execute(Runnable</span> <span class="pre">runnable)</span></code>:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">});</span>
+</pre></div>
+</div>
+<p>or using Java 8 syntax with <code class="docutils literal"><span class="pre">Task.Builder#execute(Runnable</span> <span class="pre">runnable)</span></code></p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span>
+    <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">);</span>
+</pre></div>
+</div>
+<p>or using Java 8 syntax with <code class="docutils literal"><span class="pre">Task.Builder#execute(Consumer&lt;Task&gt;</span> <span class="pre">task)</span></code></p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span>
+    <span class="n">task</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers! :&quot;</span> <span class="o">+</span> <span class="n">task</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">);</span>
 </pre></div>
 </div>
 <div class="section" id="task-properties">
@@ -529,18 +552,44 @@ it should be descriptive and aid users in debugging your plugin.</td>
 <p>Lastly, submit the task to the scheduler using <code class="docutils literal"><span class="pre">Task.Builder#submit(Object</span> <span class="pre">plugin)</span></code>.</p>
 <p>And that&#8217;s it! To summarize, a fully functional scheduled task that would run asynchronously every 5 minutes after an
 initial delay of 100 milliseconds could be built and submitted using the following code:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
 
-<span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+<span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
 <span class="n">Task</span><span class="o">.</span><span class="na">Builder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">createTaskBuilder</span><span class="o">();</span>
 
 <span class="n">Task</span> <span class="n">task</span> <span class="o">=</span> <span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="o">))</span>
-      <span class="o">.</span><span class="na">async</span><span class="o">().</span><span class="na">delay</span><span class="o">(</span><span class="mi">100</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">).</span><span class="na">interval</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">)</span>
-      <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;ExamplePlugin - Fetch Stats from Database&quot;</span><span class="o">).</span><span class="na">submit</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
+    <span class="o">.</span><span class="na">async</span><span class="o">().</span><span class="na">delay</span><span class="o">(</span><span class="mi">100</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">).</span><span class="na">interval</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;ExamplePlugin - Fetch Stats from Database&quot;</span><span class="o">).</span><span class="na">submit</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
 </pre></div>
 </div>
 <p>To cancel a task, simply call the <code class="docutils literal"><span class="pre">Task#cancel</span></code> method:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">task</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">task</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
+</pre></div>
+</div>
+<p>If you need to cancel the task from within the runnable itself, you can instead opt to use a <cite>Consumer&lt;Task&gt;</cite> in order to
+access the task. The below example will schedule a task that will count down from 60 and cancel itself upon reaching 0.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
+<span class="n">onGameInit</span><span class="o">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="o">){</span>
+    <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+    <span class="n">Task</span><span class="o">.</span><span class="na">Builder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">createTaskBuilder</span><span class="o">();</span>
+    <span class="n">Task</span> <span class="n">task</span> <span class="o">=</span> <span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">CancellingTimerTask</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">interval</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;Self-Cancelling Timer Task&quot;</span><span class="o">).</span><span class="na">submit</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kd">class</span> <span class="nc">CancellingTimerTask</span> <span class="kd">implements</span> <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Task</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">seconds</span> <span class="o">=</span> <span class="mi">60</span><span class="o">;</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">Task</span> <span class="n">task</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">seconds</span><span class="o">--;</span>
+        <span class="n">Sponge</span><span class="o">.</span><span class="na">getServer</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">getBroadcastChannel</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Remaining Time: &quot;</span><span class="o">+</span><span class="n">seconds</span><span class="o">+</span><span class="s">&quot;s&quot;</span><span class="o">));</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">seconds</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">task</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 </div>

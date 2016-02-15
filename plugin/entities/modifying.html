@@ -219,6 +219,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../text/text.html">Creating Text</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../text/representations/index.html">Text Serializers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/xml.html">TextXML Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/json.html">JSON Format</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
@@ -348,7 +354,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../message-sinks.html">Message Sinks</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../messagechannels.html">Message Channels</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="simple">
@@ -454,7 +460,7 @@ all entities.</p>
 <p>Before we can jump behind the wheel with our <code class="docutils literal"><span class="pre">Entity</span></code>, we should check what type of <code class="docutils literal"><span class="pre">Entity</span></code> it is, as we may
 receive an <code class="docutils literal"><span class="pre">Entity</span></code> we didn&#8217;t create and thus, do not know it&#8217;s type. Doing this is a simple equality check. Here is
 an example of checking if our <code class="docutils literal"><span class="pre">Entity</span></code> is a creeper:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.Entity</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.Entity</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.EntityTypes</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isCreeper</span><span class="o">(</span><span class="n">Entity</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
@@ -471,7 +477,7 @@ an example of checking if our <code class="docutils literal"><span class="pre">E
 <p>Now that we are certain that our <code class="docutils literal"><span class="pre">Entity</span></code> is a creeper, we can apply creeper specific <code class="docutils literal"><span class="pre">DataManipulator</span></code>s to it.
 For example, <code class="docutils literal"><span class="pre">ExplosiveRadiusData</span></code> is a <code class="docutils literal"><span class="pre">DataManipulator</span></code> that creepers can have, but not all <code class="docutils literal"><span class="pre">Entity</span></code>s. An
 example of changing an <code class="docutils literal"><span class="pre">Entity</span></code>s explosive radius to 50 can be seen below:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.ExplosiveRadiusData</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.ExplosiveRadiusData</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">explosionRadius50</span><span class="o">(</span><span class="n">Entity</span> <span class="n">creeper</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">ExplosiveRadiusData</span> <span class="n">radiusData</span> <span class="o">=</span> <span class="n">creeper</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">ExplosiveRadiusData</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
@@ -484,7 +490,7 @@ radius of our creeper to 50. We then have to offer the data back to the creeper,
 <code class="docutils literal"><span class="pre">Entity</span></code> is only a copy of the live data.</p>
 <p>Perhaps we want to give our <code class="docutils literal"><span class="pre">Entity</span></code> a name to customize it a bit! This would be done by using <code class="docutils literal"><span class="pre">DisplayNameData</span></code>.
 An example of this in action can be seen below:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.DisplayNameData</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.DisplayNameData</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="o">;</span>
 
@@ -497,7 +503,7 @@ An example of this in action can be seen below:</p>
 </div>
 <p>Another, shorter way to do this is by just using <code class="docutils literal"><span class="pre">Keys</span></code> on our <code class="docutils literal"><span class="pre">Entity</span></code> instead of using <code class="docutils literal"><span class="pre">DataManipulator</span></code>s.
 This would be done like so:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">explosionRadius50</span><span class="o">(</span><span class="n">Entity</span> <span class="n">creeper</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">creeper</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">EXPLOSIVE_RADIUS</span><span class="o">,</span> <span class="mi">50</span><span class="o">);</span>

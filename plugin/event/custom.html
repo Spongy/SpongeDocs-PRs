@@ -219,6 +219,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../text/text.html">Creating Text</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../text/representations/index.html">Text Serializers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/xml.html">TextXML Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/json.html">JSON Format</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
@@ -348,7 +354,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../message-sinks.html">Message Sinks</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../messagechannels.html">Message Channels</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="simple">
@@ -458,7 +464,7 @@ implements both the <code class="docutils literal"><span class="pre">TargetPlaye
 <p>Since generally custom events are intended to be listened to by other plugins, it is in your best interest to document
 them appropriately. This includes a list of objects typically found in the <code class="docutils literal"><span class="pre">Cause</span></code>. In the below example, it would
 probably be mentioned that the root cause is generally an object of the fictitious <code class="docutils literal"><span class="pre">FLARDSource</span></code> class.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Cancellable</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.Cause</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.entity.living.humanoid.player.TargetPlayerEvent</span><span class="o">;</span>
@@ -512,11 +518,11 @@ probably be mentioned that the root cause is generally an object of the fictitio
 </div>
 <div class="section" id="example-fire-custom-event">
 <h2>Example: Fire Custom Event<a class="headerlink" href="#example-fire-custom-event" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.Game</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
 
 <span class="n">PlayerMutationEvent</span> <span class="n">event</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PlayerMutationEvent</span><span class="o">(</span><span class="n">victim</span><span class="o">,</span> <span class="n">PlayerMutationEvent</span><span class="o">.</span><span class="na">Mutation</span><span class="o">.</span><span class="na">ROTTED_SOCKS</span><span class="o">,</span>
         <span class="n">Cause</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">flardSource</span><span class="o">));</span>
-<span class="n">game</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">post</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+<span class="n">Sponge</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">post</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
 <span class="k">if</span> <span class="o">(!</span><span class="n">event</span><span class="o">.</span><span class="na">isCancelled</span><span class="o">())</span> <span class="o">{</span>
     <span class="c1">// Mutation code</span>
 <span class="o">}</span>
@@ -527,7 +533,7 @@ cancelled before performing the action described by the event.</p>
 </div>
 <div class="section" id="example-listen-for-custom-event">
 <h2>Example: Listen for Custom Event<a class="headerlink" href="#example-listen-for-custom-event" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 
 <span class="nd">@Listener</span>

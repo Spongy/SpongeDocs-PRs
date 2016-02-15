@@ -219,6 +219,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../text/text.html">Creating Text</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../text/representations/index.html">Text Serializers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/xml.html">TextXML Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/json.html">JSON Format</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
@@ -348,7 +354,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../message-sinks.html">Message Sinks</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../messagechannels.html">Message Channels</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="simple">
@@ -448,7 +454,7 @@
 be offered to or created from data holders which possess a matching component. Again, let&#8217;s use an example. And again
 try to heal someone (or something).</p>
 <p><strong>Code Example: Healing with data manipulators</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataHolder</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataHolder</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataTransactionResult</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.HealthData</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.MutableBoundedValue</span><span class="o">;</span>
@@ -492,7 +498,7 @@ accepts a class reference for the type of <code class="docutils literal"><span c
 do so will always return a <code class="docutils literal"><span class="pre">DataTransactionResult</span></code> indicating failure. The following code attempts to remove a
 custom name from a given <code class="docutils literal"><span class="pre">DataHolder</span></code>. Again, the result of the transaction is discarded.</p>
 <p><strong>Code Example: Removing a custom display name</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.DisplayNameData</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.DisplayNameData</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">removeName</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">dataHolder</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">DisplayNameData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
@@ -506,7 +512,7 @@ custom name from a given <code class="docutils literal"><span class="pre">DataHo
 so much easier&#8217; and be right - for getting and setting single values. But the true merit of a data manipulator is
 that it contains <em>all</em> data pertaining to a certain component. Let us take a look at another example.</p>
 <p><strong>Code Example: Swapping two data holders&#8217; health</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">swapHealth</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">targetA</span><span class="o">,</span> <span class="n">DataHolder</span> <span class="n">targetB</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">swapHealth</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">targetA</span><span class="o">,</span> <span class="n">DataHolder</span> <span class="n">targetB</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">targetA</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">targetB</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
         <span class="n">HealthData</span> <span class="n">healthA</span> <span class="o">=</span> <span class="n">targetA</span><span class="o">.</span><span class="na">getOrCreate</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
         <span class="n">HealthData</span> <span class="n">healthB</span> <span class="o">=</span> <span class="n">targetB</span><span class="o">.</span><span class="na">getOrCreate</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
@@ -526,7 +532,7 @@ individual key by ourself. And if instead of health we swapped another data mani
 holder itself takes care of all data pertaining to it, we could even modify the above function to swap arbitrary
 data between two holders.</p>
 <p><strong>Code Example: Swapping any data manipulator</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.DataManipulator</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.DataManipulator</span><span class="o">;</span>
 
 <span class="kd">public</span>  <span class="o">&lt;</span><span class="n">T</span> <span class="kd">extends</span> <span class="n">DataManipulator</span><span class="o">&lt;?,?&gt;&gt;</span> <span class="kt">void</span> <span class="nf">swapData</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">targetA</span><span class="o">,</span> <span class="n">DataHolder</span> <span class="n">targetB</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">dataClass</span><span class="o">)</span> <span class="o">{</span>
    <span class="k">if</span> <span class="o">(</span><span class="n">targetA</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">dataClass</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">targetB</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">dataClass</span><span class="o">))</span> <span class="o">{</span>
