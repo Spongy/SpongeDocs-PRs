@@ -219,7 +219,7 @@
 <li class="toctree-l4"><a class="reference internal" href="representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="representations/xml.html">TextXML Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="representations/json.html">JSON Format</a></li>
-<li class="toctree-l4"><a class="reference internal" href="representations/configurate.html">Saving Text to a configuration file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="representations/configurate.html">Configuration Format</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="pagination.html">The Pagination Service</a><ul class="simple">
@@ -476,7 +476,7 @@ name of their server.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">To learn more about how to use Configurate to create configuration files for your plugin please refer to
-<code class="xref doc docutils literal"><span class="pre">plugins/configuration</span></code>.</p>
+<a class="reference internal" href="../configuration/index.html"><em>Configuring Plugins</em></a>.</p>
 </div>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">com.google.common.reflect.TypeToken</span><span class="o">;</span>
@@ -488,6 +488,43 @@ name of their server.</p>
 </pre></div>
 </div>
 <p>This will produce the following output:</p>
+<div class="highlight-guess"><div class="highlight"><pre><span></span>serverName=&quot;My Sponge Server&quot;
+mytemplate {
+    arguments {
+        player {
+            optional=false
+        }
+        server {
+            optional=false
+        }
+    }
+    content {
+        color=yellow
+        extra=[
+            &quot;Welcome to &quot;,
+            {
+                bold=true
+                color=red
+                text=&quot;{server}&quot;
+            },
+            &quot; &quot;,
+            {
+                bold=true
+                color=aqua
+                text=&quot;{player}&quot;
+            },
+            &quot;!&quot;
+        ]
+        italic=true
+        text=&quot;&quot;
+    }
+    options {
+        closeArg=&quot;}&quot;
+        openArg=&quot;{&quot;
+    }
+}
+</pre></div>
+</div>
 <p>You can retrieve TextTemplate&#8217;s from configurations using the following code:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">TextTemplate</span> <span class="n">template</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;mytemplate&quot;</span><span class="o">).</span><span class="na">getValue</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">TextTemplate</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
 </pre></div>
@@ -514,7 +551,8 @@ the server for the first time. We can achieve that using the following code:</p>
         <span class="c1">// Player has not been to this server before</span>
         <span class="c1">// First we will get the server name from our configuration file</span>
         <span class="n">String</span> <span class="n">serverName</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;serverName&quot;</span><span class="o">).</span><span class="na">getString</span><span class="o">();</span>
-        <span class="c1">// Next we will send the template to the server, using the &quot;server&quot; and &quot;player&quot; template parameters</span>
+        <span class="c1">// Next we will send the template to the server,</span>
+        <span class="c1">// using the &quot;server&quot; and &quot;player&quot; template parameters</span>
         <span class="n">Text</span> <span class="n">message</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">template</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">ImmutableMap</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
                 <span class="s">&quot;server&quot;</span><span class="o">,</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">serverName</span><span class="o">),</span> <span class="s">&quot;player&quot;</span><span class="o">,</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">getName</span><span class="o">())</span>
         <span class="o">)).</span><span class="na">build</span><span class="o">();</span>

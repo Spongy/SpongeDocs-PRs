@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Saving Text to a configuration file &mdash; Sponge 3.0.0 documentation</title>
+     <title>Configuration Format &mdash; Sponge 3.0.0 documentation</title>
     
   <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sponge.css" type="text/css" />
@@ -220,7 +220,7 @@
 <li class="toctree-l4"><a class="reference internal" href="formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="xml.html">TextXML Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="json.html">JSON Format</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="">Saving Text to a configuration file</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">Configuration Format</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../pagination.html">The Pagination Service</a><ul class="simple">
@@ -451,17 +451,24 @@
               <div class="bodywrapper">
                 <div class="body" role="main">
                   
-  <div class="section" id="saving-text-to-a-configuration-file">
-<h1>Saving Text to a configuration file<a class="headerlink" href="#saving-text-to-a-configuration-file" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="configuration-format">
+<h1>Configuration Format<a class="headerlink" href="#configuration-format" title="Permalink to this headline">¶</a></h1>
 <p>SpongeAPI offers support to serialize text directly to a Configurate configuration file through the use of TypeTokens.
 Text are saved using the same node structure as the Text&#8217;s JSON representation.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">For information on how to use Configurate to create configuration files for your plugin, please refer to
-<code class="xref doc docutils literal"><span class="pre">plugin/configuration</span></code>.</p>
+<a class="reference internal" href="../../configuration/index.html"><em>Configuring Plugins</em></a>.</p>
 </div>
 <p>For example, the text &#8220;Hello World!&#8221;, formatted with the color red and and underline would have the following HOCON
 representation:</p>
+<div class="highlight-guess"><div class="highlight"><pre><span></span>{
+    underlined=true
+    color=red
+    text=Hello, world!
+}
+</pre></div>
+</div>
 <p>To save a Text object simply set the value of your desired node using the following code:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.google.common.reflect.TypeToken</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
