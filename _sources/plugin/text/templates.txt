@@ -24,13 +24,14 @@ using the following code:
     );
 
 You can obtain the result of this text template with the ``apply()`` method. The ``apply()`` method accepts a
-``Map<String, TextElement>`` of parameters where the key is the name of the argument and the value is the ``TextElement``
-you wish to replace the argument with.
+``Map<String, TextElement>`` of parameters where the keys are the names of the arguments and the values are the
+``TextElement`` values you wish to replace the arguments with.
 
 .. note::
 
-    Unless an argument is specified as "optional" when it is created, missing parameters supplied to the ``apply()`` method
-    will throw a TextTemplateArgumentException. Arguments may also specify a default value during their creation.
+    Unless an argument is specified as "optional" via ``Arg.optional()`` when it is created, missing parameters
+    supplied to the ``apply()`` method will throw a ``TextTemplateArgumentException``. Arguments may also specify a default
+    value during their creation with ``Arg.defaultValue()``
 
 .. note::
 
@@ -105,6 +106,10 @@ You can retrieve TextTemplate's from configurations using the following code:
 Once you are happy with the layout of your new TextTemplate, let's go ahead and send it to the server when a player
 joins the server for the first time. We can achieve that using the following code:
 
+.. tip::
+
+    To learn more about how to handle events, please refer to :doc:`/plugin/event/index`.
+
 .. code-block:: java
 
     import com.google.common.collect.ImmutableMap;
@@ -133,8 +138,4 @@ joins the server for the first time. We can achieve that using the following cod
             event.setMessage(message);
         }
     }
-
-.. tip::
-
-    To learn more about how to handle events, please refer to :doc:`/plugin/event/index`.
 
