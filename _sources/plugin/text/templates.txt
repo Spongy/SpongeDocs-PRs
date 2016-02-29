@@ -23,6 +23,20 @@ using the following code:
         arg("player").color(TextColors.AQUA).style(TextStyles.BOLD), "!"
     );
 
+You can obtain the result of this text template with the ``apply()`` method. The ``apply()`` method accepts a
+`Map<String, TextElement>` of parameters where the key is the name of the argument and the value is the ``TextElement``
+you wish to replace the argument with.
+
+.. note::
+
+    Unless an argument is specified as "optional" when it is created, missing parameters supplied to the ``apply()`` method
+    will throw a TextTemplateArgumentException. Arguments may also specify a default value during their creation.
+
+.. note::
+
+    Although arguments can have text formatting associated with them, this can be overridden by providing a Text object
+    with custom formatting to the parameter map via the ``apply()`` method.
+
 TextTemplates, like Text objects themselves are serializable to Configurate. To save a TextTemplate to
 a configuration file use the following code. We are also going to add some settings here so the user can define the
 name of their server.
@@ -124,12 +138,3 @@ joins the server for the first time. We can achieve that using the following cod
 
     To learn more about how to handle events, please refer to :doc:`/plugin/event/index`.
 
-.. note::
-
-    Unless an argument is specified as "optional" when it is created, missing parameters supplied to the ``apply()`` method
-    will throw a TextTemplateArgumentException. Arguments may also specify a default value during their creation.
-
-.. note::
-
-    Although arguments can have text formatting associated with them, this can be overridden by providing a Text object
-    with custom formatting to the parameter map via the ``apply()`` method.
