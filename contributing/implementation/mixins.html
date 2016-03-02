@@ -100,11 +100,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongeforge.html">SpongeForge</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongeforge.html">Installing SpongeForge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongevanilla.html">Installing SpongeVanilla</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/launch-script.html">Creating a Launch Script</a><ul class="simple">
@@ -307,7 +304,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../plugin/items.html">Working with Items</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/items/index.html">Working with Items</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/items/usage.html">Basic Item Usage</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/items/creating.html">Creating an ItemStack</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/injection.html">Dependency Injection</a><ul class="simple">
@@ -364,9 +367,6 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Contributing to Sponge</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../structure.html">The Structure of the Sponge Project</a><ul class="simple">
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
@@ -408,6 +408,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/structure.html">The Structure of the Sponge Project</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../about/future.html">Plans for the Future</a></li>
@@ -466,7 +469,7 @@ repository itself, since almost everything is already documented.</p>
 <p><strong>Caveat: When contributing mixins, note that you can use neither anonymous classes nor lambda expressions.</strong></p>
 <p>This means expressions like the following will cause mixins to fail horribly and bring death and destruction upon all
 that attempt to use Sponge.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="k">return</span> <span class="k">new</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;()</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="k">new</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;()</span> <span class="o">{</span>
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">input</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">Items</span><span class="o">.</span><span class="na">golden_apple</span><span class="o">);</span>
@@ -474,17 +477,17 @@ that attempt to use Sponge.</p>
 <span class="o">}</span>
 </pre></div>
 </div>
-<div class="highlight-java"><div class="highlight"><pre><span class="k">return</span> <span class="n">input</span> <span class="o">-&gt;</span> <span class="n">input</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">Items</span><span class="o">.</span><span class="na">golden_apple</span><span class="o">);</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="n">input</span> <span class="o">-&gt;</span> <span class="n">input</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">Items</span><span class="o">.</span><span class="na">golden_apple</span><span class="o">);</span>
 </pre></div>
 </div>
-<div class="highlight-java"><div class="highlight"><pre><span class="k">return</span> <span class="k">this</span><span class="o">::</span><span class="n">checkItem</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="k">this</span><span class="o">::</span><span class="n">checkItem</span><span class="o">;</span>
 </pre></div>
 </div>
 <p>This applies to all classes that are annotated with <code class="docutils literal"><span class="pre">&#64;Mixin</span></code>. Classes that are not touched by the mixin processor may
 make use of those features. However, you can use a static utility class to create your anonymous classes, as unlike
 your mixin class that utility class will still exist at runtime, while your mixin class will be merged into the
 specified target class. The following code therefore will work.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemUtil</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemUtil</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;</span> <span class="nf">typeChecker</span><span class="o">(</span><span class="kd">final</span> <span class="n">Item</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="k">new</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;()</span> <span class="o">{</span>
             <span class="nd">@Override</span>

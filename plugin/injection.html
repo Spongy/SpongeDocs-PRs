@@ -34,7 +34,7 @@
         <link rel="top" title="Sponge 3.0.0 documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
         <link rel="next" title="Using the Scheduler" href="scheduler.html" />
-        <link rel="prev" title="Working with Items" href="items.html" />
+        <link rel="prev" title="Creating an ItemStack" href="items/creating.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -62,7 +62,7 @@
           <a href="scheduler.html" title="Using the Scheduler"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="items.html" title="Working with Items"
+          <a href="items/creating.html" title="Creating an ItemStack"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
@@ -99,11 +99,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/spongeforge.html">SpongeForge</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/spongeforge.html">Installing SpongeForge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/getting-started/implementations/spongevanilla.html">Installing SpongeVanilla</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../server/getting-started/launch-script.html">Creating a Launch Script</a><ul class="simple">
@@ -306,7 +303,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="items.html">Working with Items</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="items/index.html">Working with Items</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="items/usage.html">Basic Item Usage</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="items/creating.html">Creating an ItemStack</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Dependency Injection</a><ul class="simple">
@@ -363,9 +366,6 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to Sponge</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../contributing/structure.html">The Structure of the Sponge Project</a><ul class="simple">
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
@@ -407,6 +407,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about/structure.html">The Structure of the Sponge Project</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../about/future.html">Plans for the Future</a></li>
@@ -512,7 +515,7 @@ instantiated with the Guice injector when the plugin is loaded.</p>
 <p>It&#8217;s entirely possible to receive the <code class="docutils literal"><span class="pre">Game</span></code> object from within most events, however it is commonly obtained through
 an injection.</p>
 <p><strong>Example - Field</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.Game</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
@@ -520,7 +523,7 @@ an injection.</p>
 </pre></div>
 </div>
 <p><strong>Example - Method</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">Game</span> <span class="n">game</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">Game</span> <span class="n">game</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
 <span class="kd">private</span> <span class="kt">void</span> <span class="nf">setGame</span><span class="o">(</span><span class="n">Game</span> <span class="n">game</span><span class="o">)</span> <span class="o">{</span>
@@ -531,7 +534,7 @@ an injection.</p>
 <p><strong>Example - Constructor</strong></p>
 <blockquote>
 <div><em>For the purpose of this tutorial, &#8220;Apple&#8221; is the class name.</em></div></blockquote>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">Game</span> <span class="n">game</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">Game</span> <span class="n">game</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
 <span class="kd">public</span> <span class="nf">Apple</span><span class="o">(</span><span class="n">Game</span> <span class="n">game</span><span class="o">)</span> <span class="o">{</span>
@@ -550,7 +553,7 @@ the configuration for other plugins. In most cases where grabbing the <code clas
 <code class="docutils literal"><span class="pre">false</span></code>.</p>
 </div>
 <p><strong>Example - Field</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.config.ConfigDir</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.config.ConfigDir</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="o">;</span>
 
@@ -560,7 +563,7 @@ the configuration for other plugins. In most cases where grabbing the <code clas
 </pre></div>
 </div>
 <p><strong>Example - Method</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">Path</span> <span class="n">configDir</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">Path</span> <span class="n">configDir</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
 <span class="nd">@ConfigDir</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
@@ -572,7 +575,7 @@ the configuration for other plugins. In most cases where grabbing the <code clas
 <p><strong>Example - Constructor</strong></p>
 <blockquote>
 <div><em>For the purposes of this tutorial, &#8220;Orange&#8221; is the class name.</em></div></blockquote>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">Path</span> <span class="n">configDir</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">Path</span> <span class="n">configDir</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
 <span class="kd">public</span> <span class="nf">Orange</span><span class="o">(</span><span class="nd">@ConfigDir</span><span class="o">(</span><span class="n">sharedRoot</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">Path</span> <span class="n">configDir</span><span class="o">)</span> <span class="o">{</span>

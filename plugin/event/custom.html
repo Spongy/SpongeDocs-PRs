@@ -100,11 +100,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongeforge.html">SpongeForge</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongeforge.html">Installing SpongeForge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongevanilla.html">Installing SpongeVanilla</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/launch-script.html">Creating a Launch Script</a><ul class="simple">
@@ -307,7 +304,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../items.html">Working with Items</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../items/index.html">Working with Items</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../items/usage.html">Basic Item Usage</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../items/creating.html">Creating an ItemStack</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a><ul class="simple">
@@ -364,9 +367,6 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/structure.html">The Structure of the Sponge Project</a><ul class="simple">
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
@@ -408,6 +408,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/structure.html">The Structure of the Sponge Project</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../about/future.html">Plans for the Future</a></li>
@@ -463,7 +466,7 @@ implements both the <code class="docutils literal"><span class="pre">TargetPlaye
 <p>Since generally custom events are intended to be listened to by other plugins, it is in your best interest to document
 them appropriately. This includes a list of objects typically found in the <code class="docutils literal"><span class="pre">Cause</span></code>. In the below example, it would
 probably be mentioned that the root cause is generally an object of the fictitious <code class="docutils literal"><span class="pre">FLARDSource</span></code> class.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Cancellable</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.Cause</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.entity.living.humanoid.player.TargetPlayerEvent</span><span class="o">;</span>
@@ -517,7 +520,7 @@ probably be mentioned that the root cause is generally an object of the fictitio
 </div>
 <div class="section" id="example-fire-custom-event">
 <h2>Example: Fire Custom Event<a class="headerlink" href="#example-fire-custom-event" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
 
 <span class="n">PlayerMutationEvent</span> <span class="n">event</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PlayerMutationEvent</span><span class="o">(</span><span class="n">victim</span><span class="o">,</span> <span class="n">PlayerMutationEvent</span><span class="o">.</span><span class="na">Mutation</span><span class="o">.</span><span class="na">ROTTED_SOCKS</span><span class="o">,</span>
         <span class="n">Cause</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">flardSource</span><span class="o">));</span>
@@ -532,7 +535,7 @@ cancelled before performing the action described by the event.</p>
 </div>
 <div class="section" id="example-listen-for-custom-event">
 <h2>Example: Listen for Custom Event<a class="headerlink" href="#example-listen-for-custom-event" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 
 <span class="nd">@Listener</span>

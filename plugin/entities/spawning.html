@@ -100,11 +100,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongeforge.html">SpongeForge</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongeforge.html">Installing SpongeForge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongevanilla.html">Installing SpongeVanilla</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/launch-script.html">Creating a Launch Script</a><ul class="simple">
@@ -307,7 +304,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../items.html">Working with Items</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../items/index.html">Working with Items</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../items/usage.html">Basic Item Usage</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../items/creating.html">Creating an ItemStack</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a><ul class="simple">
@@ -364,9 +367,6 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/structure.html">The Structure of the Sponge Project</a><ul class="simple">
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
@@ -410,6 +410,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../about/faq.html">Frequently Asked Questions</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/structure.html">The Structure of the Sponge Project</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../about/future.html">Plans for the Future</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../about/license.html">License</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../about/posting.html">Forum Posting Guidelines</a><ul class="simple">
@@ -451,9 +454,10 @@
 The process for getting these is quite simple, you just need to grab a <code class="docutils literal"><span class="pre">Location</span></code> from somewhere in your plugin
 code and choose the type of <code class="docutils literal"><span class="pre">Entity</span></code> you wish to spawn.</p>
 <p>For example, let&#8217;s try to spawn a Creeper:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.Entity</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.Entity</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.EntityTypes</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.entity.spawn.SpawnCause</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.Cause</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.entity.spawn.EntitySpawnCause</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.entity.spawn.SpawnTypes</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="o">;</span>
@@ -481,6 +485,14 @@ specify the type of <code class="docutils literal"><span class="pre">Entity</spa
 <code class="docutils literal"><span class="pre">Entity</span></code> into the world. We will need to specify a <code class="docutils literal"><span class="pre">Cause</span></code> for the spawning. For spawning <code class="docutils literal"><span class="pre">Entity</span></code>s, it is best to
 use <code class="docutils literal"><span class="pre">EntitySpawnCause</span></code>. In this example, we stated that our entity was spawned from a plugin, however we can make it
 any cause that best describes why we are spawning this in, such as a mob spawner, or spawn egg.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Note that as of API 3.0, <code class="docutils literal"><span class="pre">SpawnCause</span></code> is NOT implemented. Until then, you will need to specify some other cause,
+such as a <code class="docutils literal"><span class="pre">CommandSource</span></code> or a <code class="docutils literal"><span class="pre">Player</span></code>. If you cannot find one that would suit your needs, simply specify your
+main plugin instance as the <code class="docutils literal"><span class="pre">Cause</span></code>. Here is an example of specifying a <code class="docutils literal"><span class="pre">CommandSource</span></code> as the <code class="docutils literal"><span class="pre">Cause</span></code>:</p>
+<p><code class="docutils literal"><span class="pre">extent.spawnEntity(item,</span> <span class="pre">Cause.of(src));</span></code></p>
+<p class="last">Take a look at the <a class="reference internal" href="../event/causes.html"><em>cause documentation</em></a> for more information.</p>
+</div>
 </div>
 
 

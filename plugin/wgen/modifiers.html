@@ -100,11 +100,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongeforge.html">SpongeForge</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongeforge.html">Installing SpongeForge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongevanilla.html">Installing SpongeVanilla</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/launch-script.html">Creating a Launch Script</a><ul class="simple">
@@ -307,7 +304,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../items.html">Working with Items</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../items/index.html">Working with Items</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../items/usage.html">Basic Item Usage</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../items/creating.html">Creating an ItemStack</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a><ul class="simple">
@@ -364,9 +367,6 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/structure.html">The Structure of the Sponge Project</a><ul class="simple">
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
@@ -408,6 +408,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/structure.html">The Structure of the Sponge Project</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../about/future.html">Plans for the Future</a></li>
@@ -457,7 +460,7 @@ automatically called when the generator for that world is set up, allowing it to
 <h2>Creating a WorldGeneratorModifier<a class="headerlink" href="#creating-a-worldgeneratormodifier" title="Permalink to this headline">¶</a></h2>
 <p>Let&#8217;s start with the format of a <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code>. First, you need a class which implements
 the <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code> interface:</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.gen.WorldGeneratorModifier</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.gen.WorldGeneratorModifier</span><span class="o">;</span>
 
 <span class="kd">private</span> <span class="kd">class</span> <span class="nc">MyModifier</span> <span class="kd">implements</span> <span class="n">WorldGeneratorModifier</span> <span class="o">{</span>
 
@@ -495,7 +498,7 @@ generator changes to nether worlds.</p>
 <p>Now that you have created our modifier, you need to register it. A good time to do this is during the <code class="docutils literal"><span class="pre">INITIALIZATION</span></code>
 State. To register it, simply call <code class="docutils literal"><span class="pre">GameRegistry.register()</span></code> with <code class="docutils literal"><span class="pre">WorldGeneratorModifier.class</span></code>
 as the first argument and your modifier as the second.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="nd">@Listener</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGameInitialization</span><span class="o">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Sponge</span><span class="o">.</span><span class="na">getRegistry</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="n">WorldGeneratorModifier</span><span class="o">.</span><span class="na">class</span> <span class="o">,</span> <span class="k">new</span> <span class="n">MyModifier</span><span class="o">());</span>
 <span class="o">}</span>
@@ -504,7 +507,7 @@ as the first argument and your modifier as the second.</p>
 <p>To apply your WorldGeneratorModifier to a world you must add it to the <code class="docutils literal"><span class="pre">world-generation-modifiers</span></code> array within
 the world config file found at <code class="docutils literal"><span class="pre">config/sponge/worlds/[dimension]/[worldName]/world.conf</span></code>. For example to apply
 the skylands WorldGeneratorModifier to a world you would add the skylands modifier&#8217;s id to the modifiers list.</p>
-<div class="highlight-none"><div class="highlight"><pre># WorldGenerationModifiers to apply to the world
+<div class="highlight-none"><div class="highlight"><pre><span></span># WorldGenerationModifiers to apply to the world
 world-generation-modifiers=[
 &quot;sponge:skylands&quot;
 ]

@@ -100,11 +100,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/implementations/index.html">Choosing an Implementation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongeforge.html">SpongeForge</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongevanilla.html">SpongeVanilla</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/installation.html">Installing Sponge</a><ul class="simple">
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongeforge.html">Installing SpongeForge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/getting-started/implementations/spongevanilla.html">Installing SpongeVanilla</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../server/getting-started/launch-script.html">Creating a Launch Script</a><ul class="simple">
@@ -307,7 +304,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../items.html">Working with Items</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../items/index.html">Working with Items</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../items/usage.html">Basic Item Usage</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../items/creating.html">Creating an ItemStack</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a><ul class="simple">
@@ -364,9 +367,6 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/structure.html">The Structure of the Sponge Project</a><ul class="simple">
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
 </li>
@@ -408,6 +408,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/structure.html">The Structure of the Sponge Project</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../about/future.html">Plans for the Future</a></li>
@@ -456,7 +459,7 @@
 </li>
 </ul>
 <p>Every child command is a separate <code class="docutils literal"><span class="pre">CommandSpec</span></code> and can be created in the same way a regular command is.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandSpec</span><span class="o">;</span>
 
 <span class="c1">// /mail read</span>
@@ -478,7 +481,7 @@
 <p>Instead of registering them to the command service, child commands are registered on their parent command using the
 <code class="docutils literal"><span class="pre">child()</span></code> method. They are registered with a list of aliases. The first alias supplied is the primary one and will
 appear in the usage message.</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="n">CommandSpec</span> <span class="n">mailCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">CommandSpec</span> <span class="n">mailCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">permission</span><span class="o">(</span><span class="s">&quot;myplugin.mail&quot;</span><span class="o">)</span>
     <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Send and receive mails&quot;</span><span class="o">))</span>
     <span class="o">.</span><span class="na">child</span><span class="o">(</span><span class="n">readCmd</span><span class="o">,</span> <span class="s">&quot;read&quot;</span><span class="o">,</span> <span class="s">&quot;r&quot;</span><span class="o">,</span> <span class="s">&quot;inbox&quot;</span><span class="o">)</span>
