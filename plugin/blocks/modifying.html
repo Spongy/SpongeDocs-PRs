@@ -305,7 +305,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../items.html">Working with Items</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../items/index.html">Working with Items</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../items/usage.html">Basic Item Usage</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../items/creating.html">Creating an ItemStack</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a><ul class="simple">
@@ -500,14 +506,14 @@ data set, overwriting existing values. The following example will change any dir
 
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dirtToPodzol</span><span class="o">(</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockLoc</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">BlockState</span> <span class="n">state</span> <span class="o">=</span> <span class="n">blockLoc</span><span class="o">.</span><span class="na">getBlock</span><span class="o">();</span>
-    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">ImmutableDirtData</span><span class="o">&gt;</span> <span class="n">dirtData</span> <span class="o">=</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">ImmutableDirtData</span><span class="o">&gt;</span> <span class="n">dirtDataOpt</span> <span class="o">=</span>
         <span class="n">state</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">ImmutableDirtData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
-    <span class="k">if</span> <span class="o">(</span><span class="n">dirtData</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-        <span class="n">DirtData</span> <span class="n">coarseData</span> <span class="o">=</span> <span class="n">dirtData</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">asMutable</span><span class="o">();</span>
-        <span class="n">coarseData</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">DIRT_TYPE</span><span class="o">,</span> <span class="n">DirtTypes</span><span class="o">.</span><span class="na">PODZOL</span><span class="o">);</span>
-        <span class="n">BlockState</span> <span class="n">courseState</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">coarseData</span><span class="o">.</span><span class="na">asImmutable</span><span class="o">()).</span><span class="na">get</span><span class="o">();</span>
-        <span class="n">blockLoc</span><span class="o">.</span><span class="na">setBlock</span><span class="o">(</span><span class="n">courseState</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">dirtDataOpt</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">DirtData</span> <span class="n">dirtData</span> <span class="o">=</span> <span class="n">dirtDataOpt</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">asMutable</span><span class="o">();</span>
+        <span class="n">dirtData</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">DIRT_TYPE</span><span class="o">,</span> <span class="n">DirtTypes</span><span class="o">.</span><span class="na">PODZOL</span><span class="o">);</span>
+        <span class="n">BlockState</span> <span class="n">dirtState</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">dirtData</span><span class="o">.</span><span class="na">asImmutable</span><span class="o">()).</span><span class="na">get</span><span class="o">();</span>
+        <span class="n">blockLoc</span><span class="o">.</span><span class="na">setBlock</span><span class="o">(</span><span class="n">dirtState</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
