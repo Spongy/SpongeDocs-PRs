@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Plugin Templates &mdash; Sponge 3.0.0 documentation</title>
+     <title>Comparing Bukkit to SpongeAPI &mdash; Sponge 3.0.0 documentation</title>
     
   <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
@@ -33,8 +33,8 @@
       <link rel="shortcut icon" href="../_static/favicon.ico"/>
         <link rel="top" title="Sponge 3.0.0 documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
-        <link rel="next" title="Comparing Bukkit to SpongeAPI" href="bukkit-sponge-compare.html" />
-        <link rel="prev" title="Best Practices" href="practices.html" />
+        <link rel="next" title="Creating Your Main Plugin Class" href="main-class.html" />
+        <link rel="prev" title="Plugin Templates" href="templates.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -59,16 +59,16 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="bukkit-sponge-compare.html" title="Comparing Bukkit to SpongeAPI"
+          <a href="main-class.html" title="Creating Your Main Plugin Class"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="practices.html" title="Best Practices"
+          <a href="templates.html" title="Plugin Templates"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
         <li class="right">
           
-            <a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/plugin/templates.rst" class="right">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/plugin/bukkit-sponge-compare.rst" class="right">
             <img src="../_static/GitHub-Mark-32px.png" height="12px"/> Edit on GitHub</a>
              |
           
@@ -189,10 +189,10 @@
 <li class="toctree-l2"><a class="reference internal" href="practices.html">Best Practices</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Plugin Templates</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="templates.html">Plugin Templates</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bukkit-sponge-compare.html">Comparing Bukkit to SpongeAPI</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Comparing Bukkit to SpongeAPI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="main-class.html">Creating Your Main Plugin Class</a><ul class="simple">
 </ul>
 </li>
@@ -448,73 +448,14 @@
               <div class="bodywrapper">
                 <div class="body" role="main">
                   
-  <div class="section" id="plugin-templates">
-<h1>Plugin Templates<a class="headerlink" href="#plugin-templates" title="Permalink to this headline">¶</a></h1>
-<p>For convenience, plugin templates are provided for several build systems.</p>
-<div class="section" id="gradle">
-<h2>Gradle<a class="headerlink" href="#gradle" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="maven">
-<h2>Maven<a class="headerlink" href="#maven" title="Permalink to this headline">¶</a></h2>
-<p>Sponge has a simple archetype that generates the basic structure for a plugin.</p>
-<p>The generated pom includes a release profile that generates gpg-signed jars for javadocs, binary, and sources as
-recommended in the guidelines for submitting projects to Sonatype OSS (However, this option is not currently available
-for Sponge plugins due to the fact that Sponge API is not currently hosted on Maven Central).</p>
-<div class="section" id="properties">
-<h3>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h3>
-<p>The archetype plugin accepts a few properties</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="12%" />
-<col width="22%" />
-<col width="66%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Property</th>
-<th class="head">Example value</th>
-<th class="head">Description</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>groupId</td>
-<td>io.github.user</td>
-<td>The maven groupId, useful more for plugins used as dependencies, but should
-more or less match your package name</td>
-</tr>
-<tr class="row-odd"><td>artifactId</td>
-<td>myproject</td>
-<td>The project id, also used as plugin id and name of the generated folder</td>
-</tr>
-<tr class="row-even"><td>version</td>
-<td>1.0-SNAPSHOT</td>
-<td>The initial version for your plugin. Can (and should) be changed as
-development progresses</td>
-</tr>
-<tr class="row-odd"><td>package</td>
-<td>io.github.user.myproject</td>
-<td>The package your plugin class will be generated in</td>
-</tr>
-<tr class="row-even"><td>githubProject</td>
-<td>user/repo</td>
-<td>The Github project. If a value is specified that is not user/repo, issue
-tracking and SCM sections are added to the pom</td>
-</tr>
-</tbody>
-</table>
-<p>These can be specified as arguments to Maven in the form <code class="docutils literal"><span class="pre">-Dproperty=value</span></code></p>
-</div>
-<div class="section" id="usage">
-<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
-<p>This archetype requires Maven 3 or newer. Invoke maven with the goal <code class="docutils literal"><span class="pre">archetype:generate</span></code>. Maven will prompt for any
-required properties, but optional properties must be specified on the command line.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mvn archetype:generate -DarchetypeArtifactId<span class="o">=</span>sponge-plugin-archetype -DarchetypeGroupId<span class="o">=</span>org.spongepowered -DarchetypeRepository<span class="o">=</span>http://repo.spongepowered.org/maven -DarchetypeVersion<span class="o">=</span>1.1 -DgithubProject<span class="o">=</span>waylon531/spongeparty
-</pre></div>
-</div>
-<p>The first four arguments specify where maven will find the archetype and which version to use. The
-<code class="docutils literal"><span class="pre">-DgithubProject=waylon531/spongeparty</span></code> parameter is an optional property for the generated project and can be left
-out if you do not intend to host your plugin on GitHub.</p>
-</div>
-</div>
+  <div class="section" id="comparing-bukkit-to-spongeapi">
+<h1>Comparing Bukkit to SpongeAPI<a class="headerlink" href="#comparing-bukkit-to-spongeapi" title="Permalink to this headline">¶</a></h1>
+<p>While the Bukkit API is notably different to SpongeAPI, there are some events and classes which have an equivalent. This
+page is intended to provide a (probably incomplete) list to help former Bukkit devs out when first trying SpongeAPI. The
+table will receive updates from time to time. If you discovered that something&#8217;s missing, report it on the
+<a class="reference external" href="https://forums.spongepowered.org/">forums</a> or the <a class="reference external" href="https://github.com/SpongePowered/SpongeDocs/issues">SpongeDocs Issue Tracker</a></p>
+<p>You can view the table here:
+<a class="reference external" href="https://docs.google.com/spreadsheets/d/1phlRmbPHCVhRIaZBi9xMjUuiDQkW-j8rSEV_tQnD47E/edit?usp=sharing">Sponge to Bukkit comparison Table on GoogleSheets</a></p>
 </div>
 
 
