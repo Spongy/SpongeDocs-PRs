@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Using the Scheduler &mdash; Sponge 3.0.0 documentation</title>
+     <title>Using the Scheduler &mdash; Sponge 3.1.0 documentation</title>
     
   <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
@@ -19,7 +19,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../',
-      VERSION:     '3.0.0',
+      VERSION:     '3.1.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/store.min.js"></script>
     <script type="text/javascript" src="../_static/lights.js"></script>
       <link rel="shortcut icon" href="../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 3.0.0 documentation" href="../index.html" />
+        <link rel="top" title="Sponge 3.1.0 documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
         <link rel="next" title="Working with Services" href="services.html" />
         <link rel="prev" title="Creating an ItemStack" href="items/creating.html" />
@@ -64,7 +64,7 @@
         <li class="right" >
           <a href="items/creating.html" title="Creating an ItemStack"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Sponge 3.1.0 documentation</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
         <li class="right">
           
@@ -174,6 +174,7 @@
 <li class="toctree-l2"><a class="reference internal" href="buildsystem.html">Choosing a Build System</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="plugin-identifier.html">Choosing a Plugin Identifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="workspace/index.html">Setting Up Your Workspace</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="workspace/idea.html">Setting Up IntelliJ IDEA</a><ul class="simple">
 </ul>
@@ -549,7 +550,8 @@ unit by specifying a <a class="reference external" href="http://docs.oracle.com/
 <td>A synchronous task is run in the game&#8217;s main loop in series with the
 tick cycle. If <code class="docutils literal"><span class="pre">Task.Builder#async</span></code> is used, the task will be run
 asynchronously. Therefore, it will run in its own thread, independently
-of the tick cycle, and will not be thread safe with game data.</td>
+of the tick cycle, and may not safely use game state.
+(See <a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a>.)</td>
 </tr>
 <tr class="row-odd"><td>name</td>
 <td>name(String name)</td>
@@ -581,7 +583,7 @@ initial delay of 100 milliseconds could be built and submitted using the followi
 <p>If you need to cancel the task from within the runnable itself, you can instead opt to use a <cite>Consumer&lt;Task&gt;</cite> in order to
 access the task. The below example will schedule a task that will count down from 60 and cancel itself upon reaching 0.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="n">onGameInit</span><span class="o">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="o">){</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGameInit</span><span class="o">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="o">){</span>
     <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
     <span class="n">Task</span><span class="o">.</span><span class="na">Builder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">createTaskBuilder</span><span class="o">();</span>
     <span class="n">Task</span> <span class="n">task</span> <span class="o">=</span> <span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">CancellingTimerTask</span><span class="o">())</span>
@@ -617,6 +619,7 @@ with <cite>asynchronously</cite>, including:</p>
 <ul class="simple">
 <li>Chat</li>
 <li>Sponge&#8217;s built-in Permissions handling</li>
+<li>Sponge&#8217;s scheduler</li>
 </ul>
 <p>In addition, there are a few other operations that are safe to do asynchronously:</p>
 <ul class="simple">
