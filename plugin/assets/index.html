@@ -481,7 +481,7 @@ the plugin parameter.</p>
 <p>The <code class="docutils literal"><span class="pre">Asset</span></code> class is essentially just a wrapper around a <code class="docutils literal"><span class="pre">URL</span></code> with some common I/O operations built in. The use
 cases of <code class="docutils literal"><span class="pre">Assets</span></code>s is essentially unbounded but one common use case is to generate a default configuration file if
 your plugin&#8217;s configuration file is not found. You can achieve this with the following code:</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">(!</span><span class="n">Files</span><span class="o">.</span><span class="na">exists</span><span class="o">(</span><span class="n">configPath</span><span class="o">))</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">(</span><span class="n">Files</span><span class="o">.</span><span class="na">notExists</span><span class="o">(</span><span class="n">configPath</span><span class="o">))</span> <span class="o">{</span>
     <span class="n">plugin</span><span class="o">.</span><span class="na">getAsset</span><span class="o">(</span><span class="s">&quot;default.conf&quot;</span><span class="o">).</span><span class="na">copyToFile</span><span class="o">(</span><span class="n">configPath</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
