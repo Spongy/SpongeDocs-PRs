@@ -460,15 +460,15 @@
 <code class="docutils literal"><span class="pre">com.example.myplugin</span></code> is the plugin ID. In most cases this default directory should be used but if you <em>need</em> to
 change it, you may do so by setting the <code class="docutils literal"><span class="pre">assets</span></code> attribute in your <code class="docutils literal"><span class="pre">&#64;Plugin</span></code> annotation or <code class="docutils literal"><span class="pre">mcmod.info</span></code> file.</p>
 <p>Once properly configured you can retrieve a resource for your (or any) plugin using the following code:</p>
-<div class="code java highlight-python"><div class="highlight"><pre><span></span>import org.spongepowered.api.asset.Asset;
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.asset.Asset</span><span class="o">;</span>
 
-Asset asset = plugin.getAsset(&quot;myfile.txt&quot;);
+<span class="n">Asset</span> <span class="n">asset</span> <span class="o">=</span> <span class="n">plugin</span><span class="o">.</span><span class="na">getAsset</span><span class="o">(</span><span class="s">&quot;myfile.txt&quot;</span><span class="o">);</span>
 </pre></div>
 </div>
 <p>Alternatively, you can retrieve assets through the <code class="docutils literal"><span class="pre">AssetManager</span></code> class:</p>
-<div class="code java highlight-python"><div class="highlight"><pre><span></span>import org.spongepowered.api.asset.AssetManager;
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.asset.AssetManager</span><span class="o">;</span>
 
-Asset asset = Sponge.getAssetManager().getAsset(plugin, &quot;myfile.txt&quot;);
+<span class="n">Asset</span> <span class="n">asset</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getAssetManager</span><span class="o">().</span><span class="na">getAsset</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="s">&quot;myfile.txt&quot;</span><span class="o">);</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -481,9 +481,9 @@ the plugin parameter.</p>
 <p>The <code class="docutils literal"><span class="pre">Asset</span></code> class is essentially just a wrapper around a <code class="docutils literal"><span class="pre">URL</span></code> with some common I/O operations built in. The use
 cases of <code class="docutils literal"><span class="pre">Assets</span></code>s is essentially unbounded but one common use case is to generate a default configuration file if
 your plugin&#8217;s configuration file is not found. You can achieve this with the following code:</p>
-<div class="code java highlight-python"><div class="highlight"><pre><span></span>if (!Files.exists(configPath)) {
-    plugin.getAsset(&quot;default.conf&quot;).copyToFile(configPath);
-}
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">(!</span><span class="n">Files</span><span class="o">.</span><span class="na">exists</span><span class="o">(</span><span class="n">configPath</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">plugin</span><span class="o">.</span><span class="na">getAsset</span><span class="o">(</span><span class="s">&quot;default.conf&quot;</span><span class="o">).</span><span class="na">copyToFile</span><span class="o">(</span><span class="n">configPath</span><span class="o">);</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
