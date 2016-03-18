@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Event Causes &mdash; Sponge 3.0.0 documentation</title>
+     <title>Event Causes &mdash; Sponge 4.0.3 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -19,7 +19,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '3.0.0',
+      VERSION:     '4.0.3',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
       <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 3.0.0 documentation" href="../../index.html" />
+        <link rel="top" title="Sponge 4.0.3 documentation" href="../../index.html" />
         <link rel="up" title="Working with Events" href="index.html" />
         <link rel="next" title="Event Filters" href="filters.html" />
         <link rel="prev" title="Event Listeners" href="listeners.html" />
@@ -49,46 +49,71 @@
   </head>
   <body role="document" id="top">
     <div class="topbar">
-  <div class="menubar" role="navigation" aria-label="related navigation">
-    <h3>Navigation</h3>
-    <div class="logo"><a href="https://docs.spongepowered.org"><img src="../../_static/spongelogo.png" height="40px" style="vertical-align:middle"/><i class="icon-down-open-big lights-icon" style="vertical-align:middle"></i></a>
-      <ul class="dropdown">
+  <div role="navigation" aria-label="related navigation">
+    <div class="menu-left">
+      <a href="https://docs.spongepowered.org">
+        <img src="../../_static/spongelogo.png" height="40px" style="vertical-align:middle"/>
+        <i class="icon-down-open-big lights-icon" style="vertical-align:middle"></i>
+      </a>
+      <ul class="dropdown" id="ddleft">
         <a href="https://www.spongepowered.org"><li><i class="icon-home lights-icon"></i> Homepage</li></a>
         <a href="https://forums.spongepowered.org"><li><i class="icon-pencil lights-icon"></i> Forums</li></a>
         <a href="https://github.com/SpongePowered"><li><i class="icon-code lights-icon"></i> Code</li></a>
-        <a href="https://docs.spongepowered.org"><li id="active"><i class="icon-book-open lights-icon"></i> SpongeDocs</li></a>
+        <a href="https://docs.spongepowered.org"><li class="active"><i class="icon-book-open lights-icon"></i> SpongeDocs</li></a>
         <a href="https://jd.spongepowered.org"><li><i class="icon-graduation-cap lights-icon"></i> JavaDocs</li></a>
         <a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><li><i class="icon-tools lights-icon"></i> Plugins</li></a>
         <a href="https://forums.spongepowered.org/t/sponge-downloads/11448"><li><i class="icon-download lights-icon"></i> Get Sponge</li></a>
       </ul>
     </div>
-    <div class="navbar">
-      <ul>
-          <span class="lights" title="Toggle syntax highlighting between light and dark">
-            <i class="icon-lamp lights-icon"></i>
-          </span>
-          <li>|</li>
+    <div class="menu-right">
+      <div>language</div>
+        <ul class="dropdown" id="ddlang">
+          {§#curver§}
+          {|#langs|}
+          <li><a href="/test-repo/{§currentversion§}/{|crowdin_code|}/" class="lang"><img src="http://d1ztvzf22lmr1j.cloudfront.net/images/flags/{|crowdin_code|}.png" alt="Flag for {|name|}"/></a></li>
+          {|/langs|}
+          {§/curver§}
+        </ul>
+    </div>
+    <div class="menu-right">
+      <div>API 4.0.3</div>
+        <ul class="dropdown" id="ddvers">
+          <li><a href="/test-repo/master/en/"> latest </a></li>
+          {[#vers]}
+          <li><a href="/test-repo/{[apiversion]}/en/"> API {[apiversion]}</a></li>
+          {[/vers]}
+        </ul>
+    </div>
+    <div class="menu-right">
+      <div title="Toggle syntax highlighting between light and dark" id="lights">
+        <i class="icon-lamp lights-icon"></i>
+      </div>
+    </div>
+    <div>
+      <ul class="controls">
+        <li>|</li>
         
-          <li><a href="filters.html" title="Next Page"><i class="icon-right-open-big lights-icon"></i></a></li>
+        <li><a href="filters.html" title="Next Page"><i class="icon-right-open-big lights-icon"></i></a></li>
         
-          <li><a href="#top" title="To the top"><i class="icon-up-open-big lights-icon"></i></a></li>
-          <li><a href="../../index.html" title="Home"><i class="icon-home lights-icon"></i></a></li>
+        <li><a href="#top" title="To the top"><i class="icon-up-open-big lights-icon"></i></a></li>
+        <li><a href="../../index.html" title="Home"><i class="icon-home lights-icon"></i></a></li>
         
-          <li><a href="listeners.html" title="Previous Page"><i class="icon-left-open-big lights-icon"></i></a></li>
+        <li><a href="listeners.html" title="Previous Page"><i class="icon-left-open-big lights-icon"></i></a></li>
         
+        <li>|</li>
         
-          <li>|</li>
           <li><a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/plugin/event/causes.rst" title="Edit on GitHub"><i class="icon-github lights-icon"></i></a></li>
         
       </ul>
     </div>
+    <h3>Navigation</h3>
   </div>
     </div>
     <div class="container">
 
       <div class="breadcrumbs">
         <ul>
-        <li><a href="../../index.html">Sponge 3.0.0 documentation</a><i class="icon-right-open lights-icon"></i></li>
+        <li><a href="../../index.html">Sponge 4.0.3 documentation</a><i class="icon-right-open lights-icon"></i></li>
         <li><a href="../index.html" >Creating a Plugin</a><i class="icon-right-open lights-icon"></i></li>
         <li><a href="index.html" accesskey="U">Working with Events</a><i class="icon-right-open lights-icon"></i></li>
         </ul>
@@ -210,6 +235,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../templates.html">Plugin Templates</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../bukkit-sponge-compare.html">Comparing Bukkit to SpongeAPI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../main-class.html">Creating Your Main Plugin Class</a><ul class="simple">
 </ul>
 </li>
@@ -236,11 +262,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../text/representations/xml.html">TextXML Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../text/representations/json.html">JSON Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/configurate.html">Configuration Format</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../text/templates.html">Working with TextTemplates</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Creating Commands</a><ul>
@@ -519,16 +547,16 @@ contains any object matching the provided type.</p>
 an object represents in relation to the event. This is where <code class="docutils literal"><span class="pre">NamedCause</span></code> comes in. Named
 causes provide a method for tagging objects within a cause with a <strong>unique</strong> name allowing them
 to be easily identified and requested. Some examples of use cases for named causes is the
-<cite>Notifier</cite> of a GrowBlockEvent or the <cite>Source</cite> of a DamageEntityEvent.</p>
+<cite>Notifier</cite> of a ChangeBlockEvent.Grow or the <cite>Source</cite> of a DamageEntityEvent.</p>
 <p><strong>Retrieving a named entry from a cause</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGrow</span><span class="o">(</span><span class="n">GrowBlockEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Player</span><span class="o">&gt;</span> <span class="n">notifier</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getCause</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">NamedCause</span><span class="o">.</span><span class="na">NOTIFIER</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGrow</span><span class="o">(</span><span class="n">ChangeBlockEvent</span><span class="o">.</span><span class="na">Grow</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Player</span><span class="o">&gt;</span> <span class="n">notifier</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getCause</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">NamedCause</span><span class="o">.</span><span class="na">NOTIFIER</span><span class="o">,</span> <span class="n">Player</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>This example makes use of <code class="docutils literal"><span class="pre">Cause.get(String</span> <span class="pre">name)</span></code> which can be used to retrive the object
-associated with a name if it is present within the cause chain. Additionally
+<p>This example makes use of <code class="docutils literal"><span class="pre">Cause.get(String</span> <span class="pre">named,</span> <span class="pre">Class&lt;T&gt;</span> <span class="pre">expected)</span></code> which can be used to retrieve the expected
+object associated with a name if it is present within the cause chain. Additionally
 <code class="docutils literal"><span class="pre">Cause.getNamedCauses()</span></code> provides a <code class="docutils literal"><span class="pre">Map&lt;String,</span> <span class="pre">Object&gt;</span></code> which can be used to find all
 present names and their associated objects.</p>
 <div class="admonition note">
@@ -550,19 +578,17 @@ the cause.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Cause objects are immutable therefore cannot be modified once created.</p>
 </div>
-<p>Using <code class="docutils literal"><span class="pre">Cause.of(Object,</span> <span class="pre">Object...)</span></code> or <code class="docutils literal"><span class="pre">Cause.ofNullable(Object,</span> <span class="pre">Object...)</span></code> you can construct a cause
+<p>Using <code class="docutils literal"><span class="pre">Cause.of(NamedCause)</span></code>, you can construct a cause
 from a series of objects. The objects will be added to the cause chain in the order that they
 are passed to the method, so the first object parameter will become the root cause.
 Remember that a <code class="docutils literal"><span class="pre">Cause</span></code> may not be empty, so at least one non-null parameter is always required.</p>
 <p>If you already have a cause object and would like to append some more objects to the
-chain you can use <code class="docutils literal"><span class="pre">Cause.with(Object...)</span></code>. This constructs a new Cause object containing
+chain you can use <code class="docutils literal"><span class="pre">Cause.with(NamedCause)</span></code>. This constructs a new Cause object containing
 first the objects already present in the original cause, then followed by the additional
 objects that you provided.</p>
 <p>Finally if you wish to add an object to a cause with a defined named first call
 <code class="docutils literal"><span class="pre">NamedCause.of(String</span> <span class="pre">name,</span> <span class="pre">Object</span> <span class="pre">object)</span></code> and then pass the returned <code class="docutils literal"><span class="pre">NamedCause</span></code> instance
-to the cause chain as you would a normal object. Simply calling <code class="docutils literal"><span class="pre">Cause.of(name,</span> <span class="pre">object)</span></code>
-will result in a cause chain containing two objects (the String name, and then the object),
-rather than one object with an attached name.</p>
+to the cause chain as you would a normal object.</p>
 </div>
 </div>
 

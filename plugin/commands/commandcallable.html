@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Low-Level Command API &mdash; Sponge 3.0.0 documentation</title>
+     <title>Low-Level Command API &mdash; Sponge 4.0.3 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -19,7 +19,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '3.0.0',
+      VERSION:     '4.0.3',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
       <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 3.0.0 documentation" href="../../index.html" />
+        <link rel="top" title="Sponge 4.0.3 documentation" href="../../index.html" />
         <link rel="up" title="Creating Commands" href="index.html" />
         <link rel="next" title="Working with Events" href="../event/index.html" />
         <link rel="prev" title="The Command Manager" href="service.html" />
@@ -49,46 +49,71 @@
   </head>
   <body role="document" id="top">
     <div class="topbar">
-  <div class="menubar" role="navigation" aria-label="related navigation">
-    <h3>Navigation</h3>
-    <div class="logo"><a href="https://docs.spongepowered.org"><img src="../../_static/spongelogo.png" height="40px" style="vertical-align:middle"/><i class="icon-down-open-big lights-icon" style="vertical-align:middle"></i></a>
-      <ul class="dropdown">
+  <div role="navigation" aria-label="related navigation">
+    <div class="menu-left">
+      <a href="https://docs.spongepowered.org">
+        <img src="../../_static/spongelogo.png" height="40px" style="vertical-align:middle"/>
+        <i class="icon-down-open-big lights-icon" style="vertical-align:middle"></i>
+      </a>
+      <ul class="dropdown" id="ddleft">
         <a href="https://www.spongepowered.org"><li><i class="icon-home lights-icon"></i> Homepage</li></a>
         <a href="https://forums.spongepowered.org"><li><i class="icon-pencil lights-icon"></i> Forums</li></a>
         <a href="https://github.com/SpongePowered"><li><i class="icon-code lights-icon"></i> Code</li></a>
-        <a href="https://docs.spongepowered.org"><li id="active"><i class="icon-book-open lights-icon"></i> SpongeDocs</li></a>
+        <a href="https://docs.spongepowered.org"><li class="active"><i class="icon-book-open lights-icon"></i> SpongeDocs</li></a>
         <a href="https://jd.spongepowered.org"><li><i class="icon-graduation-cap lights-icon"></i> JavaDocs</li></a>
         <a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><li><i class="icon-tools lights-icon"></i> Plugins</li></a>
         <a href="https://forums.spongepowered.org/t/sponge-downloads/11448"><li><i class="icon-download lights-icon"></i> Get Sponge</li></a>
       </ul>
     </div>
-    <div class="navbar">
-      <ul>
-          <span class="lights" title="Toggle syntax highlighting between light and dark">
-            <i class="icon-lamp lights-icon"></i>
-          </span>
-          <li>|</li>
+    <div class="menu-right">
+      <div>language</div>
+        <ul class="dropdown" id="ddlang">
+          {§#curver§}
+          {|#langs|}
+          <li><a href="/test-repo/{§currentversion§}/{|crowdin_code|}/" class="lang"><img src="http://d1ztvzf22lmr1j.cloudfront.net/images/flags/{|crowdin_code|}.png" alt="Flag for {|name|}"/></a></li>
+          {|/langs|}
+          {§/curver§}
+        </ul>
+    </div>
+    <div class="menu-right">
+      <div>API 4.0.3</div>
+        <ul class="dropdown" id="ddvers">
+          <li><a href="/test-repo/master/en/"> latest </a></li>
+          {[#vers]}
+          <li><a href="/test-repo/{[apiversion]}/en/"> API {[apiversion]}</a></li>
+          {[/vers]}
+        </ul>
+    </div>
+    <div class="menu-right">
+      <div title="Toggle syntax highlighting between light and dark" id="lights">
+        <i class="icon-lamp lights-icon"></i>
+      </div>
+    </div>
+    <div>
+      <ul class="controls">
+        <li>|</li>
         
-          <li><a href="../event/index.html" title="Next Page"><i class="icon-right-open-big lights-icon"></i></a></li>
+        <li><a href="../event/index.html" title="Next Page"><i class="icon-right-open-big lights-icon"></i></a></li>
         
-          <li><a href="#top" title="To the top"><i class="icon-up-open-big lights-icon"></i></a></li>
-          <li><a href="../../index.html" title="Home"><i class="icon-home lights-icon"></i></a></li>
+        <li><a href="#top" title="To the top"><i class="icon-up-open-big lights-icon"></i></a></li>
+        <li><a href="../../index.html" title="Home"><i class="icon-home lights-icon"></i></a></li>
         
-          <li><a href="service.html" title="Previous Page"><i class="icon-left-open-big lights-icon"></i></a></li>
+        <li><a href="service.html" title="Previous Page"><i class="icon-left-open-big lights-icon"></i></a></li>
         
+        <li>|</li>
         
-          <li>|</li>
           <li><a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/plugin/commands/commandcallable.rst" title="Edit on GitHub"><i class="icon-github lights-icon"></i></a></li>
         
       </ul>
     </div>
+    <h3>Navigation</h3>
   </div>
     </div>
     <div class="container">
 
       <div class="breadcrumbs">
         <ul>
-        <li><a href="../../index.html">Sponge 3.0.0 documentation</a><i class="icon-right-open lights-icon"></i></li>
+        <li><a href="../../index.html">Sponge 4.0.3 documentation</a><i class="icon-right-open lights-icon"></i></li>
         <li><a href="../index.html" >Creating a Plugin</a><i class="icon-right-open lights-icon"></i></li>
         <li><a href="index.html" accesskey="U">Creating Commands</a><i class="icon-right-open lights-icon"></i></li>
         </ul>
@@ -210,6 +235,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../templates.html">Plugin Templates</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../bukkit-sponge-compare.html">Comparing Bukkit to SpongeAPI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../main-class.html">Creating Your Main Plugin Class</a><ul class="simple">
 </ul>
 </li>
@@ -236,11 +262,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../text/representations/xml.html">TextXML Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../text/representations/json.html">JSON Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/configurate.html">Configuration Format</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../text/templates.html">Working with TextTemplates</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Creating Commands</a><ul class="current">
@@ -469,11 +497,11 @@
 <h1>Low-Level Command API<a class="headerlink" href="#low-level-command-api" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="docutils literal"><span class="pre">CommandCallable</span></code> and <code class="docutils literal"><span class="pre">Dispatcher</span></code> interfaces can be used to define commands. The interfaces can be used as a
 base for custom command APIs.</p>
-<p>It is recommended to use the <a class="reference external" href="../../basics/commands">Command Builder API</a> for simple command definitions.</p>
+<p>It is recommended to use the <a class="reference external" href="../creating">Command Builder API</a> for simple command definitions.</p>
 <div class="section" id="writing-a-command">
 <h2>Writing a command<a class="headerlink" href="#writing-a-command" title="Permalink to this headline">¶</a></h2>
 <p>The first step is to create a class for the command. The class has to implement the interface <code class="docutils literal"><span class="pre">CommandCallable</span></code>:</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Server</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandCallable</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandException</span><span class="o">;</span>
@@ -490,14 +518,8 @@ base for custom command APIs.</p>
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="n">help</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Displays a message to all players. It has no color support!&quot;</span><span class="o">));</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">Text</span> <span class="n">usage</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;&lt;message&gt;&quot;</span><span class="o">);</span>
 
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Server</span> <span class="n">server</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="nf">MyBroadcastCommand</span><span class="o">(</span><span class="n">Server</span> <span class="n">server</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">server</span> <span class="o">=</span> <span class="n">server</span><span class="o">;</span>
-    <span class="o">}</span>
-
     <span class="kd">public</span> <span class="n">CommandResult</span> <span class="nf">process</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">,</span> <span class="n">String</span> <span class="n">arguments</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">CommandException</span> <span class="o">{</span>
-        <span class="n">server</span><span class="o">.</span><span class="na">getBroadcastSink</span><span class="o">().</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">arguments</span><span class="o">));</span>
+        <span class="n">Sponge</span><span class="o">.</span><span class="na">getServer</span><span class="o">().</span><span class="na">getBroadcastChannel</span><span class="o">().</span><span class="na">send</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">arguments</span><span class="o">));</span>
         <span class="k">return</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">success</span><span class="o">();</span>
     <span class="o">}</span>
 
@@ -525,7 +547,7 @@ base for custom command APIs.</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">See the <a class="reference external" href="http://spongepowered.github.io/SpongeAPI/org/spongepowered/api/util/command/CommandCallable.html">documentation for CommandCallable</a> for the
+<p class="last">See the <a class="reference external" href="https://jd.spongepowered.org/3.0.0/org/spongepowered/api/command/CommandCallable.html">Javadocs for CommandCallable</a> for the
 purposes of each method in this example.</p>
 </div>
 </div>
@@ -534,11 +556,10 @@ purposes of each method in this example.</p>
 <p>Now we can register the class in the <code class="docutils literal"><span class="pre">CommandManager</span></code>. The <code class="docutils literal"><span class="pre">CommandManager</span></code> stands as the manager for watching what
 commands get typed into chat, and redirecting them to the right command handler. To register your command, use the
 method <code class="docutils literal"><span class="pre">CommandManager.register()</span></code>, passing your plugin, an instance of the command, and any needed aliases as parameters.</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandManager</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandManager</span><span class="o">;</span>
 
 <span class="n">CommandManager</span> <span class="n">cmdService</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getCommandManager</span><span class="o">();</span>
-<span class="n">cmdService</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="k">new</span> <span class="n">MyBroadcastCommand</span><span class="o">(</span><span class="n">server</span><span class="o">),</span> <span class="s">&quot;message&quot;</span><span class="o">,</span> <span class="s">&quot;broadcast&quot;</span><span class="o">);</span>
+<span class="n">cmdService</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="k">new</span> <span class="n">MyBroadcastCommand</span><span class="o">(),</span> <span class="s">&quot;message&quot;</span><span class="o">,</span> <span class="s">&quot;broadcast&quot;</span><span class="o">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
