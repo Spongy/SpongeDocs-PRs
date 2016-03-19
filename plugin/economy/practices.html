@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Economy API Best Practices &mdash; Sponge 3.0.0 documentation</title>
+     <title>Economy API Best Practices &mdash; Sponge 4.0.3 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -19,7 +19,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '3.0.0',
+      VERSION:     '4.0.3',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
       <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 3.0.0 documentation" href="../../index.html" />
+        <link rel="top" title="Sponge 4.0.3 documentation" href="../../index.html" />
         <link rel="up" title="The Economy API" href="index.html" />
         <link rel="next" title="Implementing the Economy API" href="implementing.html" />
         <link rel="prev" title="Using the Economy API" href="using.html" />
@@ -64,7 +64,7 @@
         <li class="right" >
           <a href="using.html" title="Using the Economy API"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">Sponge 4.0.3 documentation</a> &raquo;</li>
         <li><a href="../index.html" >Creating a Plugin</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">The Economy API</a> &raquo;</li> 
         <li class="right">
@@ -220,11 +220,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../text/representations/xml.html">TextXML Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../text/representations/json.html">JSON Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/configurate.html">Configuration Format</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../text/templates.html">Working with TextTemplates</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Creating Commands</a><ul>
@@ -474,7 +476,8 @@ or players with a certain permission. By performing the check yourself, you take
     <span class="c1">// You don&#39;t have enough money!</span>
 <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
     <span class="c1">// The account has enough, let&#39;s withdraw some cash!</span>
-    <span class="n">account</span><span class="o">.</span><span class="na">withdraw</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getDefaultCurrency</span><span class="o">(),</span> <span class="n">requiredAmount</span><span class="o">,</span> <span class="n">Cause</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">this</span><span class="o">));</span>
+    <span class="n">account</span><span class="o">.</span><span class="na">withdraw</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getDefaultCurrency</span><span class="o">(),</span> <span class="n">requiredAmount</span><span class="o">,</span>
+        <span class="n">Cause</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">NamedCause</span><span class="o">.</span><span class="na">source</span><span class="o">(</span><span class="k">this</span><span class="o">)));</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -486,7 +489,8 @@ simply return <code class="docutils literal"><span class="pre">ResultType.ACCOUN
 <span class="n">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">BigDecimal</span> <span class="n">requiredAmount</span> <span class="o">=</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
 
-<span class="n">TransactionResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">account</span><span class="o">.</span><span class="na">withdraw</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getDefaultCurrency</span><span class="o">(),</span> <span class="n">requiredAmount</span><span class="o">,</span> <span class="n">Cause</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">this</span><span class="o">));</span>
+<span class="n">TransactionResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">account</span><span class="o">.</span><span class="na">withdraw</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getDefaultCurrency</span><span class="o">(),</span>
+    <span class="n">requiredAmount</span><span class="o">,</span> <span class="n">Cause</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">NamedCause</span><span class="o">.</span><span class="na">source</span><span class="o">(</span><span class="k">this</span><span class="o">)));</span>
 <span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">getResult</span><span class="o">()</span> <span class="o">==</span> <span class="n">ResultType</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">))</span> <span class="o">{</span>
     <span class="c1">// Success!</span>
 <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">getResult</span><span class="o">()</span> <span class="o">==</span> <span class="n">ResultType</span><span class="o">.</span><span class="na">FAILED</span> <span class="o">||</span> <span class="n">result</span><span class="o">.</span><span class="na">getResult</span><span class="o">()</span> <span class="o">==</span> <span class="n">ResultType</span><span class="o">.</span><span class="na">ACCOUNT_NO_FUNDS</span><span class="o">)</span> <span class="o">{</span>

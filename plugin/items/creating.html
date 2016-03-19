@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Creating an ItemStack &mdash; Sponge 3.0.0 documentation</title>
+     <title>Creating an ItemStack &mdash; Sponge 4.0.3 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -19,7 +19,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '3.0.0',
+      VERSION:     '4.0.3',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
       <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 3.0.0 documentation" href="../../index.html" />
+        <link rel="top" title="Sponge 4.0.3 documentation" href="../../index.html" />
         <link rel="up" title="Working with Items" href="index.html" />
         <link rel="next" title="Dependency Injection" href="../injection.html" />
         <link rel="prev" title="Basic Item Usage" href="usage.html" />
@@ -64,7 +64,7 @@
         <li class="right" >
           <a href="usage.html" title="Basic Item Usage"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">Sponge 4.0.3 documentation</a> &raquo;</li>
         <li><a href="../index.html" >Creating a Plugin</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Working with Items</a> &raquo;</li> 
         <li class="right">
@@ -220,11 +220,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../text/representations/xml.html">TextXML Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../text/representations/json.html">JSON Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../text/representations/configurate.html">Configuration Format</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../text/templates.html">Working with TextTemplates</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Creating Commands</a><ul>
@@ -522,6 +524,7 @@ graphical representation of an <code class="docutils literal"><span class="pre">
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.Entity</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.EntityTypes</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.Cause</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.NamedCause</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.entity.spawn.EntitySpawnCause</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.entity.spawn.SpawnTypes</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
@@ -537,19 +540,11 @@ graphical representation of an <code class="docutils literal"><span class="pre">
     <span class="k">if</span> <span class="o">(</span><span class="n">optional</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
         <span class="n">Entity</span> <span class="n">item</span> <span class="o">=</span> <span class="n">optional</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
         <span class="n">item</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">REPRESENTED_ITEM</span><span class="o">,</span> <span class="n">superMegaAwesomeSword</span><span class="o">.</span><span class="na">createSnapshot</span><span class="o">());</span>
-        <span class="n">extent</span><span class="o">.</span><span class="na">spawnEntity</span><span class="o">(</span><span class="n">item</span><span class="o">,</span> <span class="n">Cause</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">EntitySpawnCause</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">entity</span><span class="o">(</span><span class="n">item</span><span class="o">).</span><span class="na">type</span><span class="o">(</span><span class="n">SpawnTypes</span><span class="o">.</span><span class="na">PLUGIN</span><span class="o">).</span><span class="na">build</span><span class="o">()));</span>
+        <span class="n">extent</span><span class="o">.</span><span class="na">spawnEntity</span><span class="o">(</span><span class="n">item</span><span class="o">,</span> <span class="n">Cause</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">NamedCause</span><span class="o">.</span><span class="na">source</span><span class="o">(</span><span class="n">EntitySpawnCause</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">entity</span><span class="o">(</span><span class="n">item</span><span class="o">).</span><span class="na">type</span><span class="o">(</span><span class="n">SpawnTypes</span><span class="o">.</span><span class="na">PLUGIN</span><span class="o">).</span><span class="na">build</span><span class="o">())));</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
-</div>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p>Note that as of API 3.0, <code class="docutils literal"><span class="pre">SpawnCause</span></code> is NOT implemented. Until then, you will need to specify some other cause,
-such as a <code class="docutils literal"><span class="pre">CommandSource</span></code> or a <code class="docutils literal"><span class="pre">Player</span></code>. If you cannot find one that would suit your needs, simply specify your
-main plugin instance as the <code class="docutils literal"><span class="pre">Cause</span></code>. Here is an example of specifying a <code class="docutils literal"><span class="pre">CommandSource</span></code> as the <code class="docutils literal"><span class="pre">Cause</span></code>:</p>
-<p><code class="docutils literal"><span class="pre">extent.spawnEntity(item,</span> <span class="pre">Cause.of(src));</span></code></p>
-<p class="last">Take a look at the <a class="reference internal" href="../event/causes.html"><em>cause documentation</em></a> for more information.</p>
 </div>
 </div>
 <div class="section" id="creating-an-itemstack-from-a-block">

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Working with the Ban API &mdash; Sponge 3.0.0 documentation</title>
+     <title>Working with the Ban API &mdash; Sponge 4.0.3 documentation</title>
     
   <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
@@ -19,7 +19,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../',
-      VERSION:     '3.0.0',
+      VERSION:     '4.0.3',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/store.min.js"></script>
     <script type="text/javascript" src="../_static/lights.js"></script>
       <link rel="shortcut icon" href="../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 3.0.0 documentation" href="../index.html" />
+        <link rel="top" title="Sponge 4.0.3 documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
         <link rel="next" title="The Economy API" href="economy/index.html" />
         <link rel="prev" title="Working with the Permissions API" href="permissions.html" />
@@ -64,7 +64,7 @@
         <li class="right" >
           <a href="permissions.html" title="Working with the Permissions API"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Sponge 3.0.0 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Sponge 4.0.3 documentation</a> &raquo;</li>
         <li><a href="index.html" accesskey="U">Creating a Plugin</a> &raquo;</li> 
         <li class="right">
           
@@ -219,11 +219,13 @@
 <li class="toctree-l4"><a class="reference internal" href="text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="text/representations/xml.html">TextXML Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="text/representations/json.html">JSON Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="text/representations/configurate.html">Configuration Format</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="text/pagination.html">The Pagination Service</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="text/templates.html">Working with TextTemplates</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="commands/index.html">Creating Commands</a><ul>
@@ -505,7 +507,7 @@ on <code class="docutils literal"><span class="pre">Ban</span></code>. Using our
     <span class="o">.</span><span class="na">reason</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;The Sponge Council has Spoken!&quot;</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
-<p>Alternatively, you can specify an ip ban on a online player:</p>
+<p>Alternatively, you can specify an ip ban on an online player:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">Ban</span> <span class="n">ban</span> <span class="o">=</span> <span class="n">Ban</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">type</span><span class="o">(</span><span class="n">BanTypes</span><span class="o">.</span><span class="na">IP</span><span class="o">)</span>
     <span class="o">.</span><span class="na">address</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">getConnection</span><span class="o">().</span><span class="na">getAddress</span><span class="o">().</span><span class="na">getAddress</span><span class="o">())</span>
     <span class="o">.</span><span class="na">reason</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;We have your IP address!&quot;</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
@@ -518,6 +520,11 @@ method or the <code class="docutils literal"><span class="pre">Ban.of(GameProfil
 <p>Now that we have created our ban, we can now register it to be used in Sponge. Using our <code class="docutils literal"><span class="pre">BanService</span></code> from before, we
 can use the <code class="docutils literal"><span class="pre">addBan(Ban</span> <span class="pre">ban)</span></code> method to accomplish this. Note that adding a ban will remove any previously existing
 ban.</p>
+</div>
+<div class="section" id="pardoning">
+<h3>Pardoning<a class="headerlink" href="#pardoning" title="Permalink to this headline">¶</a></h3>
+<p>Now let&#8217;s say we wanted to remove a ban from a user. We can use the <code class="docutils literal"><span class="pre">pardon(GameProfile)</span></code> method from our
+<code class="docutils literal"><span class="pre">BanService</span></code>. This method returns a boolean, which specifies if the user had a ban in place previously.</p>
 </div>
 <div class="section" id="putting-it-all-together">
 <h3>Putting it All Together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h3>
