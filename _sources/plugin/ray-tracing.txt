@@ -26,12 +26,14 @@ Filtering
 Filters determine what blocks are accepted by the ``BlockRay``. To add a filter, use the ``BlockRayBuilder#filter``
 method, passing in one or many ``Predicate<BlockRayHit<E>>``\ s (where ``E`` extends ``Extent``). For convenience,
 ``BlockRay`` contains the following methods for common filter use cases:
+
  * ``allFilter``: returns a filter accepting all blocks
  * ``onlyAirFilter``: returns a filter accepting only air
  * ``blockTypeFilter(BlockType)``: returns a filter accepting only the specified ``BlockType``
  * ``maxDistanceFilter(Vector3d, double)``: returns a filter that stops at certain distance from the given ``Vector3d``
  * ``continueAfterFilter(Predicate<BlockRayHit<E>>, int)``: returns a filter that continues past the given filter by
- the specified number of blocks.
+   the specified number of blocks.
+
 Of course, you can also write your own ``Predicate<BlockRayHit<E>>`` filter.
 
 Finally, use ``BlockRayBuilder#build`` to finish building the ``BlockRay``. An example usage of ``BlockRayBuilder`` to
