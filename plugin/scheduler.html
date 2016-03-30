@@ -672,6 +672,135 @@ with <cite>asynchronously</cite>, including:</p>
 </ul>
 </div>
 </div>
+<div class="section" id="compatibility-with-other-libraries">
+<h2>Compatibility with other libraries<a class="headerlink" href="#compatibility-with-other-libraries" title="Permalink to this headline">¶</a></h2>
+<p>As your plugin grows in size and scope you might want to start using one of the many concurrency libraries available
+for Java and the JVM.
+These libraries do tend to support Java&#8217;s
+<cite>ExecutorService &lt;https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html&gt;</cite> as a means
+of directing on which thread the task is executed.</p>
+<p>To allow these libraries to work with Sponge&#8217;s <code class="docutils literal"><span class="pre">Scheduler</span></code> the following methods can be used:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">Scheduler#createSyncExecutor(Object</span> <span class="pre">plugin)</span></code> creates a <code class="docutils literal"><span class="pre">ScheduledExecutorService</span></code> which executes tasks
+through Sponge&#8217;s synchronous scheduler.</li>
+<li><code class="docutils literal"><span class="pre">Scheduler#createAsyncExecutor(Object</span> <span class="pre">plugin)</span></code> creates a <code class="docutils literal"><span class="pre">ScheduledExecutorService</span></code> which executes tasks
+through Sponge&#8217;s asynchronous scheduler. Tasks are subject to the restrictions mentioned in <a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a>.</li>
+</ul>
+<p>One thing to keep in mind is that any tasks that interacts with Sponge outside of the interactions listed in
+<a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a> need to be executed on the ExecutorService created with
+<code class="docutils literal"><span class="pre">Scheduler#createSyncExecutor(Object</span> <span class="pre">plugin)</span></code> to be thread-safe.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.scheduler.SpongeExecutorService</span><span class="o">;</span>
+
+<span class="n">SpongeExecutorService</span> <span class="n">minecraftExecutor</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">().</span><span class="na">createSyncExecutor</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
+
+<span class="n">minecraftExecutor</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> <span class="o">...</span> <span class="o">});</span>
+
+<span class="n">minecraftExecutor</span><span class="o">.</span><span class="na">schedule</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> <span class="o">...</span> <span class="o">},</span> <span class="mi">10</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+</pre></div>
+</div>
+<p>Almost all libraries have some way of adapting the <code class="docutils literal"><span class="pre">ExecutorService</span></code> to natively schedule tasks.
+As an example the following paragraphs will explain how the <code class="docutils literal"><span class="pre">ExecutorService</span></code> is used in a number of libraries.</p>
+<div class="section" id="completablefuture-java-8">
+<h3>CompletableFuture (Java 8)<a class="headerlink" href="#completablefuture-java-8" title="Permalink to this headline">¶</a></h3>
+<p>With Java 8 the <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a> object was added to the standard library.
+Compared to the <code class="docutils literal"><span class="pre">Future</span></code> object, this allows for the developer to provide a callback that is called when the future
+completes rather than blocking the thread until the future eventually completes.</p>
+<p><a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a> is a fluent interface which usually has the following three variations for each of its functions:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">CompletableFuture#&lt;function&gt;Async(...,</span> <span class="pre">Executor</span> <span class="pre">ex)</span></code> Executes this function through <code class="docutils literal"><span class="pre">ex</span></code></li>
+<li><code class="docutils literal"><span class="pre">CompletableFuture#&lt;function&gt;Async(...)</span></code> Executes this function through <code class="docutils literal"><span class="pre">ForkJoinPool.commonPool()</span></code></li>
+<li><code class="docutils literal"><span class="pre">CompletableFuture#&lt;function&gt;(...)</span></code> Executes this function on whatever thread the previous <code class="docutils literal"><span class="pre">CompletableFuture</span></code> was completed on.</li>
+</ul>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.concurrent.CompletableFuture</span><span class="o">;</span>
+
+<span class="n">SpongeExecutorService</span> <span class="n">minecraftExecutor</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">().</span><span class="na">createSyncExecutor</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
+
+<span class="n">CompletableFuture</span><span class="o">.</span><span class="na">supplyAsync</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="c1">// ASYNC: ForkJoinPool.commonPool()</span>
+    <span class="k">return</span> <span class="mi">42</span><span class="o">;</span>
+<span class="o">}).</span><span class="na">thenAcceptAsync</span><span class="o">((</span><span class="n">awesomeValue</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="c1">// SYNC: minecraftExecutor</span>
+<span class="o">},</span> <span class="n">minecraftExecutor</span><span class="o">).</span><span class="na">thenRun</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="c1">// SYNC: minecraftExecutor</span>
+<span class="o">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rxjava">
+<h3>RxJava<a class="headerlink" href="#rxjava" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/ReactiveX/RxJava">RxJava</a> is an implementation of the
+<a class="reference external" href="http://reactivex.io/">Reactive Extensions</a> concept for the JVM.</p>
+<p>Multithreading in Rx is managed through various
+<a class="reference external" href="http://reactivex.io/documentation/scheduler.html">Schedulers</a>.
+Using the <code class="docutils literal"><span class="pre">Schedulers#from(Executor</span> <span class="pre">executor)</span></code> function the <code class="docutils literal"><span class="pre">Executor</span></code> provided by Sponge can be turned into a
+<code class="docutils literal"><span class="pre">Scheduler</span></code>.</p>
+<p>Much like <code class="docutils literal"><span class="pre">CompletableFuture</span></code> by default actions are executed on the same thread that completed the previous part
+of the chain.
+Use <code class="docutils literal"><span class="pre">Observable#observeOn(Scheduler</span> <span class="pre">scheduler)</span></code> to move between threads.</p>
+<p>One important thing to bear in mind is that the root <code class="docutils literal"><span class="pre">Observable</span></code> gets invoked on whatever thread
+<code class="docutils literal"><span class="pre">Observable#subscribe()</span></code> was called on. If the root observable interacts with Sponge it should be forced to run
+synchronously using <code class="docutils literal"><span class="pre">Observable#subscribeOn(Scheduler</span> <span class="pre">scheduler)</span></code>.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rx.Observable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">rx.Scheduler</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">rx.schedulers.Schedulers</span><span class="o">;</span>
+
+<span class="n">SpongeExecutorService</span> <span class="n">executor</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">().</span><span class="na">createSyncExecutor</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
+<span class="n">Scheduler</span> <span class="n">minecraftScheduler</span> <span class="o">=</span> <span class="n">Schedulers</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">executor</span><span class="o">);</span>
+
+<span class="n">Observable</span><span class="o">.</span><span class="na">defer</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">Sponge</span><span class="o">.</span><span class="na">getServer</span><span class="o">().</span><span class="na">getOnlinePlayers</span><span class="o">()))</span>
+          <span class="o">.</span><span class="na">subscribeOn</span><span class="o">(</span><span class="n">minecraftScheduler</span><span class="o">)</span> <span class="c1">// defer -&gt; SYNC: minecraftScheduler</span>
+          <span class="o">.</span><span class="na">observeOn</span><span class="o">(</span><span class="n">Schedulers</span><span class="o">.</span><span class="na">io</span><span class="o">())</span> <span class="c1">// -&gt; ASYNC: Schedulers.io()</span>
+          <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">player</span> <span class="o">-&gt;</span> <span class="o">{</span>
+              <span class="c1">// ASYNC: Schedulers.io()</span>
+              <span class="k">return</span> <span class="s">&quot;Flards&quot;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+          <span class="o">})</span>
+          <span class="o">.</span><span class="na">observeOn</span><span class="o">(</span><span class="n">minecraftScheduler</span><span class="o">)</span> <span class="c1">// -&gt; SYNC: minecraftScheduler</span>
+          <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">player</span> <span class="o">-&gt;</span> <span class="o">{</span>
+              <span class="c1">// SYNC: minecraftScheduler</span>
+              <span class="n">player</span><span class="o">.</span><span class="na">kick</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Computer says no&quot;</span><span class="o">));</span>
+          <span class="o">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scala">
+<h3>Scala<a class="headerlink" href="#scala" title="Permalink to this headline">¶</a></h3>
+<p>Scala comes with a built-in <a class="reference external" href="http://www.scala-lang.org/api/current/#scala.concurrent.Future">Future</a> object which
+a lot of scala framework mirror in design.
+Most methods of the Future accept an
+<a class="reference external" href="http://www.scala-lang.org/api/current/index.html#scala.concurrent.ExecutionContext$">ExecutionContext</a> which
+determined where that part of the operation is executed.
+This is different from the CompletableFuture or RxJava since they default to executing on the same thread on which
+the previous operation ended.</p>
+<p>The fact that all these operation try to implicitly find an <code class="docutils literal"><span class="pre">ExecutionContext</span></code> means that you can easily use
+the default <code class="docutils literal"><span class="pre">ExecutionContext.global</span></code> and specifically run the parts that need to be thread-safe on the Sponge
+server thread.</p>
+<p>To avoid accidentally scheduling work on through the Sponge <code class="docutils literal"><span class="pre">ExecutorContext</span></code> another context should be implicitly
+defined so it acts as the default choice. To maintain thread safety only the functions that actually interact with Sponge
+will need to have the Sponge executor specified.</p>
+<div class="highlight-scala"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext</span>
+
+<span class="k">val</span> <span class="n">executor</span> <span class="k">=</span> <span class="nc">Sponge</span><span class="o">.</span><span class="n">getScheduler</span><span class="o">().</span><span class="n">createSyncExecutor</span><span class="o">(</span><span class="n">plugin</span><span class="o">)</span>
+
+<span class="k">import</span> <span class="nn">ExecutionContext.Implicits.global</span>
+<span class="k">val</span> <span class="n">ec</span> <span class="k">=</span> <span class="nc">ExecutionContext</span><span class="o">.</span><span class="n">fromExecutorService</span><span class="o">(</span><span class="n">executor</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">future</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span>
+    <span class="c1">// ASYNC: ExecutionContext.Implicits.global</span>
+<span class="o">}</span>
+
+<span class="n">future</span> <span class="n">foreach</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="n">value</span> <span class="k">=&gt;</span> <span class="c1">// SYNC: ec</span>
+<span class="o">}(</span><span class="n">ec</span><span class="o">)</span>
+
+<span class="n">future</span> <span class="n">map</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="n">value</span> <span class="k">=&gt;</span> <span class="mi">42</span> <span class="c1">// SYNC: ec</span>
+<span class="o">}(</span><span class="n">ec</span><span class="o">).</span><span class="n">foreach</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="n">value</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="c1">// ASYNC: ExecutionContext.Implicits.global</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 

@@ -577,7 +577,7 @@ before other server modifications.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">For event listeners created with the <code class="docutils literal"><span class="pre">&#64;Listener</span></code> annotation, the order of the execution can be configured
-(see also <a class="reference internal" href="#about-listener">About &#64;Listener</a>). For dynamically registered listeners this is possible by passing an <code class="docutils literal"><span class="pre">Order</span></code>
+(see also <a class="reference internal" href="#id1">About &#64;Listener</a>). For dynamically registered listeners this is possible by passing an <code class="docutils literal"><span class="pre">Order</span></code>
 to the third argument the <code class="docutils literal"><span class="pre">EventManager#registerListener</span></code> method.</p>
 </div>
 </div>
@@ -598,11 +598,13 @@ listeners, including those registered with <code class="docutils literal"><span 
 </div>
 </div>
 <div class="section" id="about-listener">
-<h3>About &#64;Listener<a class="headerlink" href="#about-listener" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3>About &#64;Listener<a class="headerlink" href="#about-listener" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">&#64;Listener</span></code> annotation has a few configurable fields:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">order</span></code> is the order in which the event listener is to be run. See the <code class="docutils literal"><span class="pre">org.spongepowered.api.event.Order</span></code> enum
-in Sponge to see the available options.</li>
+<li><code class="docutils literal"><span class="pre">order</span></code> is the priority in which the event listener is to be run. See the <code class="docutils literal"><span class="pre">org.spongepowered.api.event.Order</span></code>
+enum in the SpongeAPI to see the available options.</li>
+<li><code class="docutils literal"><span class="pre">beforeModifications</span></code> specifies if the event listener should be called before other server mods, such as Forge
+mods. By default, this is set to false.</li>
 </ul>
 <p>By default, <code class="docutils literal"><span class="pre">&#64;Listener</span></code> is configured so that your event listener will <em>not</em> be called if the event in question is
 cancellable and has been cancelled (such as by another plugin).</p>
