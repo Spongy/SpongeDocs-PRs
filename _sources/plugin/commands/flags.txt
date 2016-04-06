@@ -12,12 +12,16 @@ create. Note that flags are specified as an argument.
 .. code-block:: java
     
     import org.spongepowered.api.command.args.GenericArguments;
+    import org.spongepowered.api.command.spec.CommandSpec;
     
-    .arguments(GenericArguments.flags().flag("s").buildWith(GenericArguments.none()))
+    CommandSpec myCommand = CommandSpec.builder()
+        .executor(new MyCommand())
+        .arguments(GenericArguments.flags().flag("s").buildWith(GenericArguments.none()))
+        .build();
 
 This will create a command flag, so that when the player performs ``/our-command -s``, the flag for ``s`` will be true.
-Note the ``GenericArguments.none()``. This will prevent the command from having any arguments. If you wish for the
-command to have arguments and flags, you will need to specify your arguments within the ``buildWith()`` method.
+Note that building with ``GenericArguments.none()`` will prevent the command from having any arguments. If you wish for
+the command to have arguments and flags, you will need to specify your arguments within the ``buildWith()`` method.
 
 Now that we have specified that our command may be run with the flag, we can now get the value of the flag. For a
 simple boolean flag like the one we have specified above, we can simply just check if it exists. In the example below,
@@ -40,9 +44,11 @@ permission to run the command with the flag. An example of this is below:
 
 .. code-block:: java
     
-    .arguments(GenericArguments.flags()
-        .permissionFlag("myplugin.command.flag", "s")
-        .buildWith(GenericArguments.none()))
+    CommandSpec myCommand = CommandSpec.builder()
+            .executor(new MyCommand())
+            .arguments(GenericArguments.flags().permissionFlag("myplugin.command.flag",
+                "s").buildWith(GenericArguments.none()))
+            .build();
 
 If a player does not have the permission ``myplugin.command.flag``, then they will not be allowed to execute our
 command with the command flag ``s``.
@@ -57,8 +63,11 @@ done like so:
 
 .. code-block:: java
     
-    .arguments(GenericArguments.flags().valueFlag(GenericArguments
-        .integer(Text.of("value")), "s").buildWith(GenericArguments.none()))
+    CommandSpec myCommand = CommandSpec.builder()
+            .executor(new MyCommand())
+            .arguments(GenericArguments.flags().valueFlag(GenericArguments
+                    .integer(Text.of("value")), "s").buildWith(GenericArguments.none()))
+            .build();
 
 You may replace ``GenericArguments.integer()`` with any other flag type you would like to specify, such as
 ``GenericArguments.string()``.
@@ -80,13 +89,17 @@ to check if it exists before retrieving it:
 Long Flags
 ==========
 
-Alternatively to short flags like the ones we have been using above, we can also use long flags. Using a long flag,
-you can specify a value along with the flag using the equals ``=`` button. To create a long flag, simply prefix your
+As an alternative to short flags like the ones we have been using above, we can also use long flags. Using a long flag,
+you can specify a value along with the flag using equals in the command. To create a long flag, simply prefix your
 normal flag with a dash ``-``, like so:
     
 .. code-block:: java
 
-    .arguments(GenericArguments.flags().flag("-myflag").buildWith(GenericArguments.none()))
+    CommandSpec myCommand = CommandSpec.builder()
+            .executor(new MyCommand())
+            .arguments(GenericArguments.flags().flag("-myflag")
+                .buildWith(GenericArguments.none()))
+            .build();
     
 We can retrieve the value that was specified with our flag similarly to value flags:
 
@@ -109,11 +122,14 @@ We can set the unknown flag behavior of our command to achieve this:
     
     import org.spongepowered.api.command.args.CommandFlags;
     
-    .arguments(GenericArguments.flags()
-        .setUnknownShortFlagBehavior(CommandFlags.UnknownFlagBehavior.ACCEPT_VALUE)
-        .setUnknownLongFlagBehavior(CommandFlags.UnknownFlagBehavior.ACCEPT_VALUE)
-        .buildWith(GenericArguments.none()))
+    CommandSpec myCommand = CommandSpec.builder()
+                .executor(new MyCommand())
+                .arguments(GenericArguments.flags()
+                        .setUnknownShortFlagBehavior(
+                            CommandFlags.UnknownFlagBehavior.ACCEPT_VALUE)
+                        .buildWith(GenericArguments.none()))
+                .build();
 
-Using this, we can specify that any short or long flag with a specified value will be accepted. Without this,
-attempting to use an unknown flag will throw an exception. Some of the possible unknown flag behaviors are ``ERROR``,
+Using this, we can specify that any short flag with a specified value will be accepted. Without this, attempting to use
+an unknown flag will throw an exception. Some of the possible unknown flag behaviors are ``ERROR``,
 ``ACCEPT_NONVALUE``, ``ACCEPT_VALUE``, and ``IGNORE``. Note that the default behavior for unknown flags is ``ERROR``.
