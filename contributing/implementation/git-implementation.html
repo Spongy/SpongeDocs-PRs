@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Git Workflow for API and Implementations &mdash; Sponge 3.1.0 documentation</title>
+     <title>Git Workflow for API and Implementations &mdash; Sponge 4.0.3 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -19,7 +19,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '3.1.0',
+      VERSION:     '4.0.3',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
       <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 3.1.0 documentation" href="../../index.html" />
+        <link rel="top" title="Sponge 4.0.3 documentation" href="../../index.html" />
         <link rel="up" title="Developing Sponge" href="index.html" />
         <link rel="next" title="Submitting a Pull-Request" href="pr.html" />
         <link rel="prev" title="Code Style" href="codestyle.html" />
@@ -45,37 +45,89 @@
     ga('create', 'UA-59476017-2', 'auto');
     ga('send', 'pageview');
 
-  </script> 
+  </script>
+    
+  {§#curver§}
+  {|#langs|}
+  <link rel="alternate" hreflang="{|crowdin_code|}" href="/{§currentversion§}/{|crowdin_code|}/">
+  {|/langs|}
+  {§/curver§}
+  <link rel="alternate" hreflang="x-default" href="/"> 
   </head>
-  <body role="document">
-    <div class="container">
-  <div class="related" role="navigation" aria-label="related navigation">
+  <body role="document" id="top">
+    <div class="topbar">
+  <div role="navigation" aria-label="related navigation">
+    <div class="sp-logo-container sp-not-mobileview sp-mobileview">
+      <a class="sp-logo-link" data-auto-route="true" href="/">
+        <img height="40px" id="site-logo" class="logo-big" alt="Sponge Forums" src="../../_static/spongelogo.png">
+      </a>
+      <div class="sp-logo-bg"></div>
+      <div class="sp-logo-chevron"><i style="vertical-align:middle" class="icon-down-open-big lights-icon"></i></div>
+      <div class="sp-logo-menu sp-skip-handler">
+        <ul class="sp-logo-dropdown" id="ddleft">
+          <a href="https://www.spongepowered.org"><li><i class="icon-home lights-icon"></i> Homepage</li></a>
+          <a href="https://forums.spongepowered.org"><li><i class="icon-pencil lights-icon"></i> Forums</li></a>
+          <a href="https://github.com/SpongePowered"><li><i class="icon-code lights-icon"></i> Code</li></a>
+          <a class="sp-forums-home" href="https://docs.spongepowered.org"><li class="active"><i class="icon-book-open lights-icon"></i> SpongeDocs</li></a>
+          <a href="https://jd.spongepowered.org"><li><i class="icon-graduation-cap lights-icon"></i> JavaDocs</li></a>
+          <a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><li><i class="icon-tools lights-icon"></i> Plugins</li></a>
+          <a href="https://forums.spongepowered.org/t/sponge-downloads/11448"><li><i class="icon-download lights-icon"></i> Get Sponge</li></a>
+        </ul>
+      </div>
+    </div>
+    <div class="menu-right">
+      <div><i class="icon-language lights-icon"></i></div>
+        <ul class="dropdown" id="ddlang">
+          {§#curver§}
+          {|#langs|}
+          <li><a href="/{§currentversion§}/{|crowdin_code|}/" class="lang"><img src="//d1ztvzf22lmr1j.cloudfront.net/images/flags/{|crowdin_code|}.png" alt="Flag for {|name|}"/></a></li>
+          {|/langs|}
+          {§/curver§}
+        </ul>
+    </div>
+    <div class="menu-right">
+      <div><i class="icon-tag lights-icon"></i><a>4.0.3</a></div>
+        <ul class="dropdown" id="ddvers">
+          <li><a href="/master/en/"><i class="icon-tag lights-icon"></i> latest</a></li>
+          {[#vers]}
+          <li><a href="/{[apiversion]}/en/"><i class="icon-tag lights-icon"></i> {[apiversion]}</a></li>
+          {[/vers]}
+        </ul>
+    </div>
+    <div class="menu-right">
+      <div title="Toggle syntax highlighting between light and dark" class="lights">
+        <i class="icon-lamp lights-icon"></i>
+      </div>
+    </div>
+    <div>
+      <ul class="controls">
+        <li>|</li>
+        
+        <li><a href="pr.html" title="Next Page"><i class="icon-right-open-big lights-icon"></i></a></li>
+        
+        <li><a href="#top" title="To the top"><i class="icon-up-open-big lights-icon"></i></a></li>
+        <li><a href="../../index.html" title="Home"><i class="icon-home lights-icon"></i></a></li>
+        
+        <li><a href="codestyle.html" title="Previous Page"><i class="icon-left-open-big lights-icon"></i></a></li>
+        
+        <li>|</li>
+        
+          <li><a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/contributing/implementation/git-implementation.rst" title="Edit on GitHub"><i class="icon-github lights-icon"></i></a></li>
+        
+      </ul>
+    </div>
     <h3>Navigation</h3>
-    <ul>
-      <span style="float: right" class="lights" title="Toggles syntax highlighting between light and dark">
-        <i class="icon-lamp lights-icon"></i> Highlight Code Light/Dark
-      </span>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="pr.html" title="Submitting a Pull-Request"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="codestyle.html" title="Code Style"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">Sponge 3.1.0 documentation</a> &raquo;</li>
-        <li><a href="../index.html" >Contributing to Sponge</a> &raquo;</li>
-        <li><a href="index.html" accesskey="U">Developing Sponge</a> &raquo;</li> 
-        <li class="right">
-          
-            <a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/contributing/implementation/git-implementation.rst" class="right">
-            <img src="../../_static/GitHub-Mark-32px.png" height="12px"/> Edit on GitHub</a>
-             |
-          
-        </li>
-    </ul>
-  </div> 
+  </div>
+    </div>
+    <div class="container">
+
+      <div class="breadcrumbs">
+        <ul>
+        <li><a href="../../index.html">Sponge 4.0.3 documentation</a><i class="icon-right-open lights-icon"></i></li>
+        <li><a href="../index.html" >Contributing to Sponge</a><i class="icon-right-open lights-icon"></i></li>
+        <li><a href="index.html" accesskey="U">Developing Sponge</a><i class="icon-right-open lights-icon"></i></li>
+        </ul>
+      </div> 
     <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
       <div class="sphinxsidebarwrapper">
 <div id="searchbox" style="display: none" role="search">
@@ -175,7 +227,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/buildsystem.html">Choosing a Build System</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../plugin/plugin-identifier.html">Choosing a Plugin Identifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/workspace/index.html">Setting Up Your Workspace</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/workspace/idea.html">Setting Up IntelliJ IDEA</a><ul class="simple">
 </ul>
@@ -183,20 +234,18 @@
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/workspace/eclipse.html">Setting Up Eclipse</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/workspace/netbeans.html">Setting Up NetBeans</a><ul class="simple">
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/project/index.html">Setting Up Your Project</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/project/gradle.html">Gradle</a><ul class="simple">
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/project/gradle.html">Setting Up Gradle</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../plugin/project/maven.html">Maven</a><ul class="simple">
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/project/maven.html">Setting Up Maven</a><ul class="simple">
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/plugin-identifier.html">Choosing a Plugin Identifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/plugin-class.html">Creating Your Plugin Class</a><ul class="simple">
 </ul>
 </li>
@@ -226,6 +275,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/arguments.html">Argument Parsing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/flags.html">Command Flags</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/childcommands.html">Child Commands</a></li>
@@ -270,6 +322,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../plugin/text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../plugin/text/representations/xml.html">TextXML Format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../plugin/text/representations/json.html">JSON Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/text/representations/configurate.html">Configuration Format</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/text/pagination.html">The Pagination Service</a><ul class="simple">
@@ -278,6 +331,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../plugin/text/messagechannels.html">Message Channels</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/text/templates.html">Working with TextTemplates</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/data/index.html">The Data API</a><ul>
@@ -366,7 +420,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../plugin/plugin-meta.html">Plugin Metadata</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/ray-tracing.html">Ray Tracing</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin/bukkit-sponge-compare.html">Comparing Bukkit to SpongeAPI</a></li>
