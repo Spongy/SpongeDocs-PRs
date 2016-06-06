@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>global.conf &mdash; Sponge 4.0.3 documentation</title>
+     <title>global.conf &mdash; Sponge 4.1.0 documentation</title>
     
   <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/sponge.css" type="text/css" />
@@ -20,7 +20,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../../',
-      VERSION:     '4.0.3',
+      VERSION:     '4.1.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../../_static/lights.js"></script>
       <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 4.0.3 documentation" href="../../../index.html" />
+        <link rel="top" title="Sponge 4.1.0 documentation" href="../../../index.html" />
         <link rel="up" title="Configuring Sponge" href="index.html" />
         <link rel="next" title="server.properties" href="server-properties.html" />
         <link rel="prev" title="JSON Syntax" href="json.html" />
@@ -87,7 +87,7 @@
         </ul>
     </div>
     <div class="menu-right">
-      <div><i class="fa fa-fw fa-tag"></i><a>4.0.3</a></div>
+      <div><i class="fa fa-fw fa-tag"></i><a>4.1.0</a></div>
         <ul class="dropdown" id="ddvers">
           <li><a href="/master/en/"><i class="fa fa-fw fa-tag"></i> latest</a></li>
           {[#vers]}
@@ -124,7 +124,7 @@
 
       <div class="breadcrumbs">
         <ul>
-        <li><a href="../../../index.html">Sponge 4.0.3 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="../../../index.html">Sponge 4.1.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="../../index.html" >Creating a Server</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="../index.html" >Getting Started</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="index.html" accesskey="U">Configuring Sponge</a><i class="fa fa-fw fa-chevron-right"></i></li>
@@ -136,7 +136,7 @@
     <form class="search" action="../../../search.html" method="get">
       <div class="searchbox-inner">
         <input class="field" type="text" name="q" autocomplete="off" />
-        <button class="submit" type="submit"><i class="icon-search"></i></button>
+        <button class="submit" type="submit"><i class="fa fa-fw fa-search" aria-hidden="true"></i></button>
         <input type="hidden" name="check_keywords" value="yes" />
         <input type="hidden" name="area" value="default" />
       </div>
@@ -367,6 +367,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../plugin/blocks/tileentities.html">Tile Entities</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/blocks/virtualblock.html">Virtual Block Changes</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../plugin/entities/index.html">Entities</a><ul>
@@ -401,6 +404,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../plugin/bans.html">Bans</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/bookview.html">Book Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../plugin/economy/index.html">Economy</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../plugin/economy/basics.html">Basic Concepts</a><ul class="simple">
 </ul>
@@ -542,7 +546,7 @@ directory in your server folder. Many of these properties can be also overridden
 using the config files in the subfolders of config/worlds.</p>
 <p>Below is a complete global.conf file with all possible nodes that may be present on a server. Note that certain
 sections will not be present immediately, and will be added to the file when the server encounters them. This config
-was generated using SpongeForge build 1371, SpongeAPI version 4.1:</p>
+was generated using SpongeForge build 1399, SpongeAPI version 4.1:</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span># 1.0
 #
 # # If you need help with the configuration or have any questions related to Sponge,
@@ -594,7 +598,7 @@ sponge {
         living-soft-despawn-minimum-life=30
         # The lower bounded range where living entities near a player may potentially despawn
         living-soft-despawn-range=32
-        # Max size of an entities bounding box before removing it. Set to 0 to disable
+        # Max size of an entity&#39;s bounding box before removing it. Set to 0 to disable
         max-bounding-box-size=1000
         # Square of the max speed of an entity before removing it. Set to 0 to disable
         max-speed=100
@@ -617,10 +621,7 @@ sponge {
         # If enabled, newly discovered entities/blocks will be added to this config with a default value.
         auto-populate=false
         # Default max collisions used for all entities/blocks unless overidden.
-        defaults {
-            blocks=8
-            entities=8
-        }
+        defaults {}
         # Max amount of entities any given entity or block can collide with. This improves performance when there are more than 8 entities on top of eachother such as a 1x1 spawn pen. Set to 0 to disable.
         max-entities-within-aabb=8
         # Per-mod overrides. Refer to the minecraft default mod for example.
@@ -692,6 +693,8 @@ sponge {
         exploit-sign-command-updates=false
         # Add stack traces to dev logging
         log-stacktraces=false
+        # Log when a world auto-saves its chunk data. Note: This may be spammy depending on the auto-save-interval configured for world.
+        world-auto-save=false
     }
     modules {
         bungeecord=false
@@ -725,6 +728,10 @@ sponge {
         verbose=true
     }
     world {
+        # The auto-save tick interval used when saving global player data. Set to 0 to disable. (Default: 900) Note: 20 ticks is equivalent to 1 second.
+        auto-player-save-interval=900
+        # The auto-save tick interval used to save all loaded chunks in a world. Set to 0 to disable. (Default: 900) Note: 20 ticks is equivalent to 1 second.
+        auto-save-interval=900
         # Lava behaves like vanilla water when source block is removed
         flowing-lava-decay=false
         # Enable if you want the world to generate spawn the moment its loaded.
@@ -899,7 +906,7 @@ player may potentially despawn</td>
 <tr class="row-odd"><td>max-bounding-box-size</td>
 <td>integer</td>
 <td>1000</td>
-<td>Maximum size of an entities bounding box before
+<td>Maximum size of an entity&#8217;s bounding box before
 it is removed. Set to 0 to disable.</td>
 </tr>
 <tr class="row-even"><td>max-speed</td>
@@ -973,16 +980,6 @@ be added to this config with a default value.</td>
 <td>&nbsp;</td>
 <td>Default max collisions used for all entities/blocks
 unless overridden.</td>
-</tr>
-<tr class="row-odd"><td>blocks</td>
-<td>integer</td>
-<td>8</td>
-<td>Default max collisions for blocks.</td>
-</tr>
-<tr class="row-even"><td>entities</td>
-<td>integer</td>
-<td>8</td>
-<td>Default max collisions for entities.</td>
 </tr>
 <tr class="row-odd"><td>max-entities-within-aabb</td>
 <td>integer</td>
@@ -1209,133 +1206,150 @@ permission.</td>
 <td>false</td>
 <td>Add stack traces to dev logging.</td>
 </tr>
-<tr class="row-odd"><td><strong>Modules</strong></td>
+<tr class="row-odd"><td>world-auto-save</td>
+<td>boolean</td>
+<td>false</td>
+<td>If true, logs when a world auto-saves its chunk data.</td>
+</tr>
+<tr class="row-even"><td><strong>Modules</strong></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>bungeecord</td>
+<tr class="row-odd"><td>bungeecord</td>
 <td>boolean</td>
 <td>false</td>
 <td>Enables bungeecord support.</td>
 </tr>
-<tr class="row-odd"><td>entity-activation-range</td>
+<tr class="row-even"><td>entity-activation-range</td>
 <td>boolean</td>
 <td>true</td>
 <td>Enables the entity activation range settings.</td>
 </tr>
-<tr class="row-even"><td>entity-collisions</td>
+<tr class="row-odd"><td>entity-collisions</td>
 <td>boolean</td>
 <td>true</td>
 <td>Enables entity collision settings.</td>
 </tr>
-<tr class="row-odd"><td>exploits</td>
+<tr class="row-even"><td>exploits</td>
 <td>boolean</td>
 <td>true</td>
 <td>Enables the exploit prevention module.</td>
 </tr>
-<tr class="row-even"><td>optimizations</td>
+<tr class="row-odd"><td>optimizations</td>
 <td>boolean</td>
 <td>true</td>
 <td>Enables the optimizations module.</td>
 </tr>
-<tr class="row-odd"><td>timings</td>
+<tr class="row-even"><td>timings</td>
 <td>boolean</td>
 <td>true</td>
 <td>Enables timing settings.</td>
 </tr>
-<tr class="row-even"><td><strong>SQL</strong></td>
+<tr class="row-odd"><td><strong>SQL</strong></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>aliases</td>
+<tr class="row-even"><td>aliases</td>
 <td>string</td>
 <td>null</td>
 <td>Aliases for SQL connections. This is done in
 the format
 <code class="docutils literal"><span class="pre">jdbc:protocol://[username[:password]&#64;]host/database</span></code></td>
 </tr>
-<tr class="row-even"><td><strong>Timings</strong></td>
+<tr class="row-odd"><td><strong>Timings</strong></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>enabled</td>
+<tr class="row-even"><td>enabled</td>
 <td>boolean</td>
 <td>true</td>
 <td>If timings are enabled.</td>
 </tr>
-<tr class="row-even"><td>hidden-config-entries</td>
+<tr class="row-odd"><td>hidden-config-entries</td>
 <td>string</td>
 <td>sponge.sql</td>
 <td>The hidden config entries.</td>
 </tr>
-<tr class="row-odd"><td>history-interval</td>
+<tr class="row-even"><td>history-interval</td>
 <td>integer</td>
 <td>300</td>
 <td>The interval between timing history report
 generation.</td>
 </tr>
-<tr class="row-even"><td>history-length</td>
+<tr class="row-odd"><td>history-length</td>
 <td>integer</td>
 <td>3600</td>
 <td>How long, in ticks, that the timing history
 will be kept for the server.</td>
 </tr>
-<tr class="row-odd"><td>server-name-privacy</td>
+<tr class="row-even"><td>server-name-privacy</td>
 <td>boolean</td>
 <td>false</td>
 <td>Whether to include information such as the
 server name, motd, online-mode, and server
 icon in the report.</td>
 </tr>
-<tr class="row-even"><td>verbose</td>
+<tr class="row-odd"><td>verbose</td>
 <td>boolean</td>
 <td>true</td>
 <td>Whether or not for timings to monitor at
 the verbose level.</td>
 </tr>
-<tr class="row-odd"><td><strong>World Settings</strong></td>
+<tr class="row-even"><td><strong>World Settings</strong></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>flowing-lava-decay</td>
+<tr class="row-odd"><td>auto-player-save-interval</td>
+<td>integer</td>
+<td>900</td>
+<td>The auto-save tick interval used when saving global
+player data.</td>
+</tr>
+<tr class="row-even"><td>auto-save-interval</td>
+<td>integer</td>
+<td>900</td>
+<td>The auto-save tick interval used to save all loaded
+chunks in a world.</td>
+</tr>
+<tr class="row-odd"><td>flowing-lava-decay</td>
 <td>boolean</td>
 <td>false</td>
 <td>Lava behaves like vanilla water when the source
 block is removed, when set to true.</td>
 </tr>
-<tr class="row-odd"><td>generate-spawn-on-load</td>
+<tr class="row-even"><td>generate-spawn-on-load</td>
 <td>boolean</td>
 <td>true</td>
 <td>If the world should generate spawn when the
 world is loaded.</td>
 </tr>
-<tr class="row-even"><td>infinite-water-source</td>
+<tr class="row-odd"><td>infinite-water-source</td>
 <td>boolean</td>
 <td>false</td>
 <td>False = Default vanilla water source behaviour.</td>
 </tr>
-<tr class="row-odd"><td>keep-spawn-loaded</td>
+<tr class="row-even"><td>keep-spawn-loaded</td>
 <td>boolean</td>
 <td>true</td>
 <td>If the spawn should stay loaded with no players.</td>
 </tr>
-<tr class="row-even"><td>load-on-startup</td>
+<tr class="row-odd"><td>load-on-startup</td>
 <td>boolean</td>
 <td>true</td>
 <td>If the world should be loaded on startup.</td>
 </tr>
-<tr class="row-odd"><td>mob-spawn-range</td>
+<tr class="row-even"><td>mob-spawn-range</td>
 <td>integer</td>
 <td>8</td>
 <td>Specifies the radius (in chunks) of where creatures
 will spawn. This value is capped to the current
 view distance setting in server.properties.</td>
 </tr>
-<tr class="row-even"><td><strong>Portal Agents</strong></td>
+<tr class="row-odd"><td><strong>Portal Agents</strong></td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>A list of all detected portal agents used in this
@@ -1343,22 +1357,22 @@ world. In order to override, change the target world
 name to any other valid world. If world is not found,
 it will fallback to default.</td>
 </tr>
-<tr class="row-odd"><td>&#8220;minecraft:default_nether&#8221;</td>
+<tr class="row-even"><td>&#8220;minecraft:default_nether&#8221;</td>
 <td>world</td>
 <td>DIM-1</td>
 <td>The default nether world.</td>
 </tr>
-<tr class="row-even"><td>&#8220;minecraft:default_the_end&#8221;</td>
+<tr class="row-odd"><td>&#8220;minecraft:default_the_end&#8221;</td>
 <td>world</td>
 <td>DIM1</td>
 <td>The default end world.</td>
 </tr>
-<tr class="row-odd"><td>pvp-enabled</td>
+<tr class="row-even"><td>pvp-enabled</td>
 <td>boolean</td>
 <td>true</td>
 <td>If the would allows PVP combat.</td>
 </tr>
-<tr class="row-even"><td>world-enabled</td>
+<tr class="row-odd"><td>world-enabled</td>
 <td>boolean</td>
 <td>true</td>
 <td>Enable if this world should be registered.</td>

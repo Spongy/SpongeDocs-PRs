@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Event Listeners &mdash; Sponge 4.0.3 documentation</title>
+     <title>Event Listeners &mdash; Sponge 4.1.0 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -20,7 +20,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '4.0.3',
+      VERSION:     '4.1.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
       <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 4.0.3 documentation" href="../../index.html" />
+        <link rel="top" title="Sponge 4.1.0 documentation" href="../../index.html" />
         <link rel="up" title="Events" href="index.html" />
         <link rel="next" title="Event Causes" href="causes.html" />
         <link rel="prev" title="Events" href="index.html" />
@@ -87,7 +87,7 @@
         </ul>
     </div>
     <div class="menu-right">
-      <div><i class="fa fa-fw fa-tag"></i><a>4.0.3</a></div>
+      <div><i class="fa fa-fw fa-tag"></i><a>4.1.0</a></div>
         <ul class="dropdown" id="ddvers">
           <li><a href="/master/en/"><i class="fa fa-fw fa-tag"></i> latest</a></li>
           {[#vers]}
@@ -124,7 +124,7 @@
 
       <div class="breadcrumbs">
         <ul>
-        <li><a href="../../index.html">Sponge 4.0.3 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="../../index.html">Sponge 4.1.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="../index.html" >Creating a Plugin</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="index.html" accesskey="U">Events</a><i class="fa fa-fw fa-chevron-right"></i></li>
         </ul>
@@ -135,7 +135,7 @@
     <form class="search" action="../../search.html" method="get">
       <div class="searchbox-inner">
         <input class="field" type="text" name="q" autocomplete="off" />
-        <button class="submit" type="submit"><i class="icon-search"></i></button>
+        <button class="submit" type="submit"><i class="fa fa-fw fa-search" aria-hidden="true"></i></button>
         <input type="hidden" name="check_keywords" value="yes" />
         <input type="hidden" name="area" value="default" />
       </div>
@@ -366,6 +366,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../blocks/tileentities.html">Tile Entities</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../blocks/virtualblock.html">Virtual Block Changes</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Entities</a><ul>
@@ -400,6 +403,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../economy/basics.html">Basic Concepts</a><ul class="simple">
 </ul>
@@ -637,6 +641,22 @@ mods. By default, this is set to false.</li>
 </ul>
 <p>By default, <code class="docutils literal"><span class="pre">&#64;Listener</span></code> is configured so that your event listener will <em>not</em> be called if the event in question is
 cancellable and has been cancelled (such as by another plugin).</p>
+</div>
+<div class="section" id="gamereloadevent">
+<span id="game-reload"></span><h3>GameReloadEvent<a class="headerlink" href="#gamereloadevent" title="Permalink to this headline">¶</a></h3>
+<p>To prevent all plugins providing their own reload commands, Sponge provides a built in callback for plugins to listen
+to, and when executed, perform any reloading actions. What constitutes as a &#8216;reloading action&#8217; is purely up to the
+plugin to decide. The event is not necessarily limited to reloading configuration.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.GameReloadEvent</span><span class="o">;</span>
+
+<span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">reload</span><span class="o">(</span><span class="n">GameReloadEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Do reload stuff</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Note that this is different for what generally is considered a &#8216;reload&#8217;, as the event is purely all callback for
+plugins and does not do any reloading on its own.</p>
 </div>
 </div>
 <div class="section" id="firing-events">
