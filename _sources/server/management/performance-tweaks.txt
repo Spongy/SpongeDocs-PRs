@@ -1,0 +1,91 @@
+==================
+Performance Tweaks
+==================
+
+Sponge provides several performance enhancing and tweaking options to help you with running a lag-free server, even
+under heavy load.
+
+.. note::
+  While we try to improve the performance of every server, the performance gained depends on your setup. Please run some
+  tests on your server to ensure you configured your Sponge server to get the most out of it!
+
+SpongeForge only enhancements
+=============================
+
+Entity activation range
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+
+  entity-activation-range {
+        # If enabled, newly discovered entities will be added to this config with
+        # a default value.
+        auto-populate=false
+
+        # Default activation ranges used for all entities unless overidden.
+        defaults {
+            ambient=32
+            aquatic=32
+            creature=32
+            misc=16
+            monster=32
+        }
+
+SpongeForge and SpongeVanilla enhancements
+==========================================
+
+Lighting patch to ignore unloaded chunks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+
+  optimizations {
+        # This prevents chunks being loaded for getting light values at specific
+        # block positions. May have side effects.
+        ignore-unloaded-chunks-on-get-light=true
+        }
+
+Cache chunk lookups
+~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+
+  optimizations {
+        # Caches chunks internally for faster returns when querying at various
+        # positions
+        chunk-map-caching=true
+        }
+
+Reduce hash lookups on BlockState queries
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: none
+
+  optimizations {
+        # A simple patch to reduce a few sanity checks for the sake of speed when
+        # performing block state operations
+        fast-blockstate-lookup=true
+        }
+
+
+Auto-saving interval adjustment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Vanilla Minecraft defaults to saving all chunks every 900 ticks (45 seconds). If you wish to raise or
+lower this interval, then changing it in the servers ``global.conf`` file:
+
+.. code-block:: none
+
+  world {
+        # The auto-save tick interval used when saving global player data.
+        # Set to 0 to disable. (Default: 900) Note: 20 ticks is equivalent to 1 second.
+        auto-player-save-interval=900
+
+        # The auto-save tick interval used to save all loaded chunks in a world.
+        # Set to 0 to disable. (Default: 900) Note: 20 ticks is equivalent to 1 second.
+        auto-save-interval=900
+        }
+
+Reducing the interval increases load on your servers cpu and harddrive a bit, but lowers the lost changes in case of a
+server lockup, powerfailure etc. Increasing the interval may reduce your serverload, but will raise the lost ingame
+progress incase of a server failure.
