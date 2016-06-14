@@ -537,12 +537,14 @@
                   
   <div class="section" id="book-views">
 <h1>Book Views<a class="headerlink" href="#book-views" title="Permalink to this headline">¶</a></h1>
-<p>A <code class="docutils literal"><span class="pre">BookView</span></code> is the representation of the Book GUI on the client. The <code class="docutils literal"><span class="pre">BookView</span></code> is not associated with an actual
-<code class="docutils literal"><span class="pre">ItemStack</span></code> and is only for displaying <code class="docutils literal"><span class="pre">Text</span></code> through a book to the player. Note that a <code class="docutils literal"><span class="pre">BookView</span></code> is read-only,
-due to it being impossible to tell the client to open an unsigned book.</p>
-<p>To create a <code class="docutils literal"><span class="pre">BookView</span></code>, we simply need to obtain a <code class="docutils literal"><span class="pre">BookView.Builder</span></code>, which is provided through the
-<code class="docutils literal"><span class="pre">BookView#builder()</span></code> method. Using the builder, we can specify the title, the author, and the pages of the
-<code class="docutils literal"><span class="pre">BookView</span></code>. Then to use the view, we have to send it to a <code class="docutils literal"><span class="pre">Viewer</span></code>. An example of this is shown below:</p>
+<p>A <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/BookView.html">BookView</a> is the representation of the Book GUI on the client. The <code class="docutils literal"><span class="pre">BookView</span></code>
+is not associated with an actual <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/item/inventory/ItemStack.html">ItemStack</a> and is only for displaying
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/Text.html">Text</a> through a book to the player. Note that a <code class="docutils literal"><span class="pre">BookView</span></code> is read-only, due
+to it being impossible to tell the client to open an unsigned book.</p>
+<p>To create a <code class="docutils literal"><span class="pre">BookView</span></code>, we simply need to obtain a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/BookView.Builder.html">BookView.Builder</a>, which is
+provided through the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/BookView.html#builder--">BookView#builder()</a> method. Using the builder, we can specify
+the title, the author, and the pages of the <code class="docutils literal"><span class="pre">BookView</span></code>. Then to use the view, we have to send it to a
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/effect/Viewer.html">Viewer</a>. An example of this is shown below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.effect.Viewer</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.BookView</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
@@ -555,14 +557,17 @@ due to it being impossible to tell the client to open an unsigned book.</p>
 <span class="n">viewer</span><span class="o">.</span><span class="na">sendBookView</span><span class="o">(</span><span class="n">bookView</span><span class="o">);</span>
 </pre></div>
 </div>
-<p>This will display a book to the client with a single page that contains the text specified in the <code class="docutils literal"><span class="pre">addPage(Text)</span></code>
-method. Of course, you don&#8217;t have to call <code class="docutils literal"><span class="pre">addPage(Text)</span></code> for every page you wish to add. The <code class="docutils literal"><span class="pre">BookView.Builder</span></code>
-class provides an <code class="docutils literal"><span class="pre">addPages()</span></code> method that accepts multiple <code class="docutils literal"><span class="pre">Text</span></code>s.</p>
-<p>The <code class="docutils literal"><span class="pre">BookView.Builder</span></code> class also provides the <code class="docutils literal"><span class="pre">insertPage(int,</span> <span class="pre">Text)</span></code> and the corresponding <code class="docutils literal"><span class="pre">insertPages()</span></code>
-methods for inserting a page or several pages at any given index.</p>
+<p>This will display a book to the client with a single page that contains the text specified in the
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/BookView.Builder.html#addPage--">BookView.Builder#addPage()</a> method. Of course, you don&#8217;t have to call
+<code class="docutils literal"><span class="pre">addPage(Text)</span></code> for every page you wish to add. The <code class="docutils literal"><span class="pre">BookView.Builder</span></code> class provides a
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/BookView.Builder.html#addPages--">BookView.Builder#addPages()</a> method that accepts multiple <code class="docutils literal"><span class="pre">Text</span></code>s.</p>
+<p>The <code class="docutils literal"><span class="pre">BookView.Builder</span></code> class also provides the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/BookView.Builder.html#insertPage--">BookView.Builder#insertPage()</a>
+and the corresponding <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/BookView.Builder.html#insertPages--">BookView.Builder#insertPages()</a> methods for inserting a page
+or several pages at any given index.</p>
 <p>You may also remove pages of a <code class="docutils literal"><span class="pre">BookView</span></code> by providing either the <code class="docutils literal"><span class="pre">Text</span></code> from the page or by specifying the index
-of the page that you wish to remove. You simply need to use the corresponding <code class="docutils literal"><span class="pre">removePage()</span></code> or <code class="docutils literal"><span class="pre">removePages()</span></code>
-methods.</p>
+of the page that you wish to remove. You simply need to use the corresponding
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/BookView.Builder.html#removePage--">BookView.Builder#removePage()</a> or
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/BookView.Builder.html#removePages--">BookView.Builder#removePages()</a> methods.</p>
 </div>
 
 
