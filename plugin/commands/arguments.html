@@ -541,15 +541,18 @@
 <p>The Command Builder API comes with a powerful argument parser. It converts the string input to java base types
 (integers, booleans, strings) or game objects (players, worlds, block types , ...). The parser supports optional
 arguments and flags. It also handles TAB completion of arguments.</p>
-<p>The parsed arguments are stored in the <code class="docutils literal"><span class="pre">CommandContext</span></code> object. If the parser returns a single object, obtain it with
-<code class="docutils literal"><span class="pre">args.&lt;T&gt;getOne(String</span> <span class="pre">key)</span></code> (<code class="docutils literal"><span class="pre">T</span></code> is the value type). Optional and weak arguments may return <code class="docutils literal"><span class="pre">Optional.empty()</span></code>.</p>
+<p>The parsed arguments are stored in the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/args/CommandContext.html">CommandContext</a> object. If the
+parser returns a single object, obtain it with
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/args/CommandContext.html#getOne-java.lang.String-">CommandContext#getOne(String)</a>. Optional and
+weak arguments may return <code class="docutils literal"><span class="pre">Optional.empty()</span></code>.</p>
 <p>Many of the parsers may return more than one object (e.g. multiple players with a matching username). In that case, you
-must use the <code class="docutils literal"><span class="pre">args.&lt;T&gt;getAll(String</span> <span class="pre">key)</span></code> method to get the <code class="docutils literal"><span class="pre">Collection</span></code> of possible matches. <strong>Otherwise, the
-context object will throw an exception!</strong></p>
+must use the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/args/CommandContext.html#getAll-java.lang.String-">CommandContext#getAll(String)</a> method to get the
+<code class="docutils literal"><span class="pre">Collection</span></code> of possible matches. <strong>Otherwise, the context object will throw an exception!</strong></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">You can use the <code class="docutils literal"><span class="pre">onlyOne</span></code> element to limit the amount of returned values to a single one, so you can safely use
-<code class="docutils literal"><span class="pre">args.&lt;T&gt;getOne(String</span> <span class="pre">key)</span></code>.</p>
+<p class="last">You can use the
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/args/GenericArguments.html#onlyOne-org.spongepowered.api.command.args.CommandElement-">GenericArguments#onlyOne( CommandElement)</a> element to limit the amount of returned values to a single one, so you can safely use
+<code class="docutils literal"><span class="pre">args.&lt;T&gt;getOne(String)</span></code>.</p>
 </div>
 <p>To create a new <code class="docutils literal"><span class="pre">CommandElement</span></code> (argument), use the <code class="docutils literal"><span class="pre">GenericArguments</span></code> factory class. Many command elements require
 a short text key, which is displayed in error and help messages.</p>
