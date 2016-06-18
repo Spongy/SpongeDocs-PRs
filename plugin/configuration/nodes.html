@@ -303,7 +303,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../assets/index.html">The Asset API</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Configuring Plugins</a><ul class="current">
@@ -538,15 +538,15 @@
                   
   <div class="section" id="configuration-nodes">
 <h1>Configuration Nodes<a class="headerlink" href="#configuration-nodes" title="Permalink to this headline">¶</a></h1>
-<p>In memory, the configuration is represented using <code class="docutils literal"><span class="pre">ConfigurationNode</span></code>s. A <code class="docutils literal"><span class="pre">ConfigurationNode</span></code> either holds a
-value (like a number, a string or a list) or has child nodes, a tree-like configuration structure.
-When using a <code class="docutils literal"><span class="pre">ConfigurationLoader</span></code> to load or create new configurations, it will return the <strong>root node</strong>. It is
-recommended that you always keep a reference to that root node stored somewhere.</p>
+<p>In memory, the configuration is represented using <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/ConfigurationNode.html">ConfigurationNode</a>s. A
+<code class="docutils literal"><span class="pre">ConfigurationNode</span></code> either holds a value (like a number, a string or a list) or has child nodes, a tree-like
+configuration structure. When using a <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/loader/ConfigurationLoader.html">ConfigurationLoader</a> to load or create
+new configurations, it will return the <strong>root node</strong>. It is recommended that you always keep a reference to that root
+node stored somewhere.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Depending on the <code class="docutils literal"><span class="pre">ConfigurationLoader</span></code> used, you might even get a <code class="docutils literal"><span class="pre">CommentedConfigurationNode</span></code>, which in
-addition to normal <code class="docutils literal"><span class="pre">ConfigurationNode</span></code> behavior is able to retain a comment that will persist on the saved
-config file.</p>
+<p class="last">Depending on the <code class="docutils literal"><span class="pre">ConfigurationLoader</span></code> used, you might even get a <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/commented/CommentedConfigurationNode.html">CommentedConfigurationNode</a>, which in addition to normal <code class="docutils literal"><span class="pre">ConfigurationNode</span></code> behavior is able to retain a comment
+that will persist on the saved config file.</p>
 </div>
 <div class="section" id="navigating-nodes">
 <h2>Navigating Nodes<a class="headerlink" href="#navigating-nodes" title="Permalink to this headline">¶</a></h2>
@@ -592,10 +592,12 @@ administrator wants our plugin to enable its blockCheats module by checking the 
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">getBoolean</span><span class="o">();</span>
 </pre></div>
 </div>
-<p>Yes, it&#8217;s really as simple as that. Similar to the above example, methods like <code class="docutils literal"><span class="pre">getInt()</span></code>, <code class="docutils literal"><span class="pre">getDouble()</span></code> or
-<code class="docutils literal"><span class="pre">getString()</span></code> exist that allow you to conveniently grab a value of that type.</p>
-<p>To set a basic value to a node, just use the <code class="docutils literal"><span class="pre">setValue()</span></code> method. Don&#8217;t be confused that it accepts an <code class="docutils literal"><span class="pre">Object</span></code> -
-this means that it can take anything and will determine how to proceed from there by itself.</p>
+<p>Yes, it&#8217;s really as simple as that. Similar to the above example, methods like <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/ConfigurationNode.html#getInt--">ConfigurationNode#getInt()</a>, <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/ConfigurationNode.html#getDouble--">ConfigurationNode#getDouble()</a> or
+<a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/ConfigurationNode.html#getString--">ConfigurationNode#getString()</a> exist that allow you to conveniently grab a value of
+that type.</p>
+<p>To set a basic value to a node, just use the
+<a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/ConfigurationNode.html#setValue-java.lang.Object-">ConfigurationNode#setValue(Object)</a> method. Don&#8217;t be confused that it
+accepts an <code class="docutils literal"><span class="pre">Object</span></code> - this means that it can take anything and will determine how to proceed from there by itself.</p>
 <p>Imagine the blockCheats module is deactivated by a user command. This change will need to be reflected in the config
 and can be done as follows:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">setValue</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
@@ -613,8 +615,8 @@ primitive data types, <code class="docutils literal"><span class="pre">String</s
 <h3>(De)Serialization<a class="headerlink" href="#de-serialization" title="Permalink to this headline">¶</a></h3>
 <p>If you attempt to read or write an object that is not one of the basic types mentioned above, you will need to pass it
 through deserialization first. In the <code class="docutils literal"><span class="pre">ConfigurationOptions</span></code> used to create your root <code class="docutils literal"><span class="pre">ConfigurationNode</span></code>, there
-is a collection of <code class="docutils literal"><span class="pre">TypeSerializer</span></code>s that Configurate uses to convert your objects to a <code class="docutils literal"><span class="pre">ConfigurationNode</span></code> and
-vice versa.</p>
+is a collection of <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/objectmapping/serialize/TypeSerializer.html">TypeSerializer</a>s that Configurate uses
+to convert your objects to a <code class="docutils literal"><span class="pre">ConfigurationNode</span></code> and vice versa.</p>
 <p>In order to tell Configurate what type it is dealing with, we have to provide a guava <code class="docutils literal"><span class="pre">TypeToken</span></code>. Imagine we want
 to read a player <code class="docutils literal"><span class="pre">UUID</span></code> from the config node <code class="docutils literal"><span class="pre">towns.aFLARDia.mayor</span></code>. To do so, we need to call the <code class="docutils literal"><span class="pre">getValue()</span></code>
 method while providing a <code class="docutils literal"><span class="pre">TypeToken</span></code> representing the <code class="docutils literal"><span class="pre">UUID</span></code> class.</p>

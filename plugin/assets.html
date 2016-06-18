@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Build Systems &mdash; Sponge 4.1.0 documentation</title>
+     <title>The Asset API &mdash; Sponge 4.1.0 documentation</title>
     
   <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
@@ -34,8 +34,8 @@
       <link rel="shortcut icon" href="../_static/favicon.ico"/>
         <link rel="top" title="Sponge 4.1.0 documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
-        <link rel="next" title="Setting Up Your Workspace" href="workspace/index.html" />
-        <link rel="prev" title="Creating a Plugin" href="index.html" />
+        <link rel="next" title="Configuring Plugins" href="configuration/index.html" />
+        <link rel="prev" title="Custom Events" href="event/custom.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -104,16 +104,16 @@
       <ul class="controls">
         <li>|</li>
         
-        <li><a href="workspace/index.html" title="Next Page"><i class="fa fa-fw fa-chevron-right"></i></a></li>
+        <li><a href="configuration/index.html" title="Next Page"><i class="fa fa-fw fa-chevron-right"></i></a></li>
         
         <li><a href="#top" title="To the top"><i class="fa fa-fw fa-chevron-up"></i></a></li>
         <li><a href="../index.html" title="Home"><i class="fa fa-fw fa-home"></i></a></li>
         
-        <li><a href="index.html" title="Previous Page"><i class="fa fa-fw fa-chevron-left"></i></a></li>
+        <li><a href="event/custom.html" title="Previous Page"><i class="fa fa-fw fa-chevron-left"></i></a></li>
         
         <li>|</li>
         
-          <li><a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/plugin/buildsystem.rst" title="Edit on GitHub"><i class="fa fa-fw fa-github"></i></a></li>
+          <li><a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/plugin/assets.rst" title="Edit on GitHub"><i class="fa fa-fw fa-github"></i></a></li>
         
       </ul>
     </div>
@@ -224,7 +224,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Creating a Plugin</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">Build Systems</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="buildsystem.html">Build Systems</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="workspace/index.html">Setting Up Your Workspace</a><ul>
@@ -302,7 +302,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="assets.html">The Asset API</a><ul class="simple">
+<li class="toctree-l2 current"><a class="current reference internal" href="">The Asset API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a><ul>
@@ -535,61 +535,49 @@
               <div class="bodywrapper">
                 <div class="body" role="main">
                   
-  <div class="section" id="build-systems">
-<h1>Build Systems<a class="headerlink" href="#build-systems" title="Permalink to this headline">¶</a></h1>
-<p>Build systems such as <a class="reference external" href="https://gradle.org/">Gradle</a> or <a class="reference external" href="https://maven.apache.org/">Maven</a> can manage the build process of your projects. As an independent tool from your
-IDE, you can use them to manage your dependency on SpongeAPI or other plugins and give other people an easy way to
-build your plugin from the source.</p>
+  <div class="section" id="the-asset-api">
+<h1>The Asset API<a class="headerlink" href="#the-asset-api" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/asset/AssetManager.html">AssetManager</a> allows developers to retrieve resources from a plugin JAR.</p>
+<p>By default, a plugin&#8217;s assets resides in a directory named <code class="docutils literal"><span class="pre">assets/com/example/myplugin</span></code> where
+<code class="docutils literal"><span class="pre">com.example.myplugin</span></code> is the plugin ID. In most cases this default directory should be used but if you <em>need</em> to
+change it, you may do so by setting the <code class="docutils literal"><span class="pre">assets</span></code> attribute in your <code class="docutils literal"><span class="pre">&#64;Plugin</span></code> annotation or <code class="docutils literal"><span class="pre">mcmod.info</span></code> file.</p>
+<p>Once properly configured you can retrieve a resource for your (or any) plugin using the following code:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.asset.Asset</span><span class="o">;</span>
+
+<span class="n">Asset</span> <span class="n">asset</span> <span class="o">=</span> <span class="n">plugin</span><span class="o">.</span><span class="na">getAsset</span><span class="o">(</span><span class="s">&quot;myfile.txt&quot;</span><span class="o">);</span>
+</pre></div>
+</div>
+<p>Alternatively, you can retrieve assets through the <code class="docutils literal"><span class="pre">AssetManager</span></code> class:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
+
+<span class="n">Asset</span> <span class="n">asset</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getAssetManager</span><span class="o">().</span><span class="na">getAsset</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="s">&quot;myfile.txt&quot;</span><span class="o">);</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The <code class="docutils literal"><span class="pre">AssetManager</span></code> can be used to retrieve assets defined in the Sponge implementation itself simply by omitting
+the plugin parameter.</p>
+</div>
+<div class="section" id="working-with-assets">
+<h2>Working with Assets<a class="headerlink" href="#working-with-assets" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/asset/Asset.html">Asset</a> class is essentially just a wrapper around a <code class="docutils literal"><span class="pre">URL</span></code> with some common
+I/O operations built in. The use cases of <code class="docutils literal"><span class="pre">Assets</span></code>s is essentially unbounded but one common use case is to generate
+a default configuration file if your plugin&#8217;s configuration file is not found. You can achieve this using a
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/plugin/PluginContainer.html">PluginContainer</a> with the following code:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.nio.file.Files</span><span class="o">;</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">Files</span><span class="o">.</span><span class="na">notExists</span><span class="o">(</span><span class="n">configPath</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">plugin</span><span class="o">.</span><span class="na">getAsset</span><span class="o">(</span><span class="s">&quot;default.conf&quot;</span><span class="o">).</span><span class="na">copyToFile</span><span class="o">(</span><span class="n">configPath</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">SpongeAPI does <strong>not</strong> require using a build system for creating plugins, however we strongly recommend using one.
-Except the short explanation at <a class="reference internal" href="#creating-a-plugin-without-a-build-system">Creating a plugin without a build system</a>, the following parts will assume you&#8217;re
-using a build system, which can manage the dependencies for you.</p>
+<p class="last">Developers coming from Bukkit or some other Java background might be familiar with the <code class="docutils literal"><span class="pre">getResource</span></code> and
+<code class="docutils literal"><span class="pre">getResourceAsStream</span></code> methods in <code class="docutils literal"><span class="pre">Class</span></code>es and <code class="docutils literal"><span class="pre">ClassLoader</span></code>s. <strong>These methods should generally be avoided</strong>
+within the SpongeAPI environment in favor of the <code class="docutils literal"><span class="pre">AssetManager</span></code> in order to provide a more confluent way of
+retrieving resources not only within your own plugin, but for other plugins as well.</p>
 </div>
-<p>Generally, you can use any build system which supports <em>Maven dependencies</em>, which is a standard supported by the
-majority of build systems for Java projects. The following sections will focus on <a class="reference external" href="https://gradle.org/">Gradle</a> and <a class="reference external" href="https://maven.apache.org/">Maven</a>, which are the two
-most common choices as build systems. If you&#8217;re unsure which one to use we recommend using <a class="reference external" href="https://gradle.org/">Gradle</a> as it is also used
-for the Sponge projects and provides the best integration for Sponge plugins.</p>
-<div class="section" id="gradle">
-<h2>Gradle<a class="headerlink" href="#gradle" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://gradle.org/">Gradle</a> uses <a class="reference external" href="http://www.groovy-lang.org/">Groovy</a>-based scripts for configuring projects. A <a class="reference external" href="https://gradle.org/">Gradle</a> project typically consists of a <code class="docutils literal"><span class="pre">build.gradle</span></code>
-file in your project&#8217;s root directory, which tells <a class="reference external" href="https://gradle.org/">Gradle</a> how to build the project.</p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">Refer to the <a class="reference external" href="https://docs.gradle.org/current/userguide/userguide.html">Gradle User Guide</a> for the installation and a general introduction of concepts used in <a class="reference external" href="https://gradle.org/">Gradle</a>. If
-you&#8217;re only interested in how to use <a class="reference external" href="https://gradle.org/">Gradle</a> for a simple Java project, a good place to start would be the <a class="reference external" href="https://docs.gradle.org/current/userguide/tutorial_java_projects.html">Gradle
-Java Quickstart</a>.</p>
-</div>
-<p>Setup your workspace as explained in <a class="reference internal" href="workspace/index.html"><em>Setting Up Your Workspace</em></a> then follow <a class="reference internal" href="project/gradle.html"><em>Setting Up Gradle</em></a>.</p>
-</div>
-<div class="section" id="maven">
-<h2>Maven<a class="headerlink" href="#maven" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://maven.apache.org/">Maven</a> uses a XML-based configuration called <a class="reference external" href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html">Project Object Model</a> (or <em>POM</em>) for configuring projects.
-A <a class="reference external" href="https://maven.apache.org/">Maven</a> project typically contains a <code class="docutils literal"><span class="pre">pom.xml</span></code> file in the project root directory which tells <a class="reference external" href="https://maven.apache.org/">Maven</a> how to
-build the project.</p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">Refer to the <a class="reference external" href="https://maven.apache.org/users/index.html">Maven Users Centre</a> for the installation and a general introduction of concepts used in <a class="reference external" href="https://maven.apache.org/">Maven</a>. If
-you&#8217;re only interested in how to use <a class="reference external" href="https://maven.apache.org/">Maven</a> for a simple Java project, a good place to start would be <a class="reference external" href="https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html">Maven in 5
-Minutes</a>.</p>
-</div>
-<p>Setup your workspace as explained in <a class="reference internal" href="workspace/index.html"><em>Setting Up Your Workspace</em></a> then follow <a class="reference internal" href="project/maven.html"><em>Setting Up Maven</em></a>.</p>
-</div>
-<div class="section" id="creating-a-plugin-without-a-build-system">
-<h2>Creating a plugin without a build system<a class="headerlink" href="#creating-a-plugin-without-a-build-system" title="Permalink to this headline">¶</a></h2>
-<p>It is also possible to create Sponge plugins without the use of a build system, only with the included tools in your
-IDE.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last"><strong>We strongly suggest against using SpongeAPI without a build system.</strong> In the long term using a build system will
-simplify the development process for you and other people wanting to contribute to your project. This method of
-developing plugins does not receive active testing by the Sponge team.</p>
-</div>
-<p>For developing plugins without a build system you need to download the SpongeAPI dependency manually from the
-<a class="reference external" href="https://repo.spongepowered.org/maven/org/spongepowered/spongeapi/">SpongeAPI Download Page</a>. For developing without a build system, we provide the <code class="docutils literal"><span class="pre">shaded</span></code> artifact which bundles all
-dependencies that would normally be automatically downloaded by the build system.</p>
-<p>After you have downloaded the <code class="docutils literal"><span class="pre">shaded</span></code> artifact and have added it to a project in your IDE, you can start developing
-your plugin. Continue at <a class="reference internal" href="plugin-identifier.html"><em>Plugin Identifiers</em></a> for choosing an identifier for your project, then continue at <a class="reference internal" href="plugin-class.html"><em>Main Plugin Class</em></a>.</p>
 </div>
 </div>
 

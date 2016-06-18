@@ -303,7 +303,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../assets/index.html">The Asset API</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a><ul>
@@ -538,9 +538,9 @@
                   
   <div class="section" id="texttemplates">
 <h1>TextTemplates<a class="headerlink" href="#texttemplates" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal"><span class="pre">TextTemplate</span></code>s are an easy and convenient way to store messages with variable elements. For instance, you may find
-yourself wanting to create a configurable message for players who have joined the server for the first time. This is
-easily attainable with <code class="docutils literal"><span class="pre">TextTemplate</span></code>s using the following strategy:</p>
+<p><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/TextTemplate.html">TextTemplate</a>s are an easy and convenient way to store messages with variable
+elements. For instance, you may find yourself wanting to create a configurable message for players who have joined the
+server for the first time. This is easily attainable with <code class="docutils literal"><span class="pre">TextTemplate</span></code>s using the following strategy:</p>
 <p>Let&#8217;s say we want to create a join message where the text is all yellow and italicized except the player&#8217;s name, which
 will be bold and aqua and the server&#8217;s name which will be bold and red. We can create a template of that description
 using the following code:</p>
@@ -556,23 +556,24 @@ using the following code:</p>
 <span class="o">);</span>
 </pre></div>
 </div>
-<p>You can obtain the result of this text template with the <code class="docutils literal"><span class="pre">apply()</span></code> method. The <code class="docutils literal"><span class="pre">apply()</span></code> method accepts a
-<code class="docutils literal"><span class="pre">Map&lt;String,</span> <span class="pre">TextElement&gt;</span></code> of parameters where the keys are the names of the arguments and the values are the
-<code class="docutils literal"><span class="pre">TextElement</span></code> values you wish to replace the arguments with.</p>
+<p>You can obtain the result of this text template with the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/TextTemplate.html#apply--">TextTemplate#apply()</a>
+method. The <code class="docutils literal"><span class="pre">apply()</span></code> method accepts a <code class="docutils literal"><span class="pre">Map&lt;String,</span> <span class="pre">TextElement&gt;</span></code> of parameters where the keys are the names of the
+arguments and the values are the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/TextElement.html">TextElement</a> values you wish to replace the
+arguments with.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Unless an argument is specified as &#8220;optional&#8221; via <code class="docutils literal"><span class="pre">Arg.optional()</span></code> when it is created, missing parameters
-supplied to the <code class="docutils literal"><span class="pre">apply()</span></code> method will throw a <code class="docutils literal"><span class="pre">TextTemplateArgumentException</span></code>. Arguments may also specify a default
-value during their creation with <code class="docutils literal"><span class="pre">Arg.defaultValue()</span></code></p>
+supplied to the <code class="docutils literal"><span class="pre">apply()</span></code> method will throw a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/TextTemplateArgumentException.html">TextTemplateArgumentException</a>.
+Arguments may also specify a default value during their creation with <code class="docutils literal"><span class="pre">Arg.defaultValue()</span></code></p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Although arguments can have text formatting associated with them, this can be overridden by providing a Text object
 with custom formatting to the parameter map via the <code class="docutils literal"><span class="pre">apply()</span></code> method.</p>
 </div>
-<p><code class="docutils literal"><span class="pre">TextTemplate</span></code>s, like <code class="docutils literal"><span class="pre">Text</span></code> objects themselves are serializable to Configurate. To save a <code class="docutils literal"><span class="pre">TextTemplate</span></code> to
-a configuration file use the following code. We are also going to add a setting here so the user can define the name of
-their server.</p>
+<p><code class="docutils literal"><span class="pre">TextTemplate</span></code>s, like <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/Text.html">Text</a> objects themselves are serializable to Configurate.
+To save a <code class="docutils literal"><span class="pre">TextTemplate</span></code> to a configuration file use the following code. We are also going to add a setting here so
+the user can define the name of their server.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">To learn more about how to use Configurate to create configuration files for your plugin please refer to

@@ -303,7 +303,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../assets/index.html">The Asset API</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Configuring Plugins</a><ul class="current">
@@ -554,9 +554,10 @@ custom data structures to a config file, this will not be enough.</p>
 <p>Also assume some methods to access those fields, a nice constructor setting both of those etc.</p>
 <div class="section" id="creating-a-custom-typeserializer">
 <h2>Creating a custom TypeSerializer<a class="headerlink" href="#creating-a-custom-typeserializer" title="Permalink to this headline">¶</a></h2>
-<p>A very straightforward way of writing and loading such a data structure is providing a custom <code class="docutils literal"><span class="pre">TypeSerializer</span></code>.
-The <code class="docutils literal"><span class="pre">TypeSerializer</span></code> interface provides two methods, one to write the data from an object to a configuration node
-and one to create an object from a given configuration node.</p>
+<p>A very straightforward way of writing and loading such a data structure is providing a custom
+<a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/objectmapping/serialize/TypeSerializer.html">TypeSerializer</a>. The <code class="docutils literal"><span class="pre">TypeSerializer</span></code> interface provides
+two methods, one to write the data from an object to a configuration node and one to create an object from a given
+configuration node.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.google.common.reflect.TypeToken</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.ObjectMappingException</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.TypeSerializer</span><span class="o">;</span>
@@ -581,8 +582,8 @@ and one to create an object from a given configuration node.</p>
 </pre></div>
 </div>
 <p>This <code class="docutils literal"><span class="pre">TypeSerializer</span></code> must then be registered with Configurate. This can be done either globally, by registering to
-the default <code class="docutils literal"><span class="pre">TypeSerializerCollection</span></code> or locally, by specifying it in the <code class="docutils literal"><span class="pre">ConfigurationOptions</span></code> when loading your
-config.</p>
+the default <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/objectmapping/serialize/TypeSerializerCollection.html">TypeSerializerCollection</a> or locally, by
+specifying it in the <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/ConfigurationOptions.html">ConfigurationOptions</a> when loading your config.</p>
 <p><strong>Code Example: Registering a TypeSerializer globally</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.TypeSerializers</span><span class="o">;</span>
 
@@ -612,7 +613,8 @@ being overwritten.</p>
 <h2>Using ObjectMappers<a class="headerlink" href="#using-objectmappers" title="Permalink to this headline">¶</a></h2>
 <p>Since in many cases the (de)serialization boils down to mapping fields to configuration nodes, writing such a
 <code class="docutils literal"><span class="pre">TypeSerializer</span></code> is a rather dull affair and something we&#8217;d like Configurate to do on its own. So let&#8217;s
-annotate our class with the <code class="docutils literal"><span class="pre">&#64;ConfigSerializable</span></code> and <code class="docutils literal"><span class="pre">&#64;Setting</span></code> annotations.</p>
+annotate our class with the <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/objectmapping/serialize/ConfigSerializable.html">ConfigSerializable</a> and
+<a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/objectmapping/Setting.html">Setting</a> annotations.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.Setting</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable</span><span class="o">;</span>
 
@@ -641,14 +643,14 @@ configuration nodes, otherwise it will be discarded.</p>
 <p class="last">You may also use the shorthand <code class="docutils literal"><span class="pre">&#64;Setting(&quot;someNode&quot;)</span></code> instead of <code class="docutils literal"><span class="pre">&#64;Setting(value=&quot;someNode&quot;)</span></code></p>
 </div>
 <p>The <code class="docutils literal"><span class="pre">&#64;ConfigSerializable</span></code> annotation eliminates the need for any registration since it allows Configurate to
-just generate an <code class="docutils literal"><span class="pre">ObjectMapper</span></code> for the class. The only limitation is that Configurate needs an empty
-constructor to instantiate a new object before filling in the annotated fields.</p>
+just generate an <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/objectmapping/ObjectMapper.html">ObjectMapper</a> for the class. The only limitation is
+that Configurate needs an empty constructor to instantiate a new object before filling in the annotated fields.</p>
 </div>
 <div class="section" id="providing-a-custom-objectmapperfactory">
 <h2>Providing a custom ObjectMapperFactory<a class="headerlink" href="#providing-a-custom-objectmapperfactory" title="Permalink to this headline">¶</a></h2>
-<p>That restriction, however, can be lifted if we use a different <code class="docutils literal"><span class="pre">ObjectMapperFactory</span></code>, for example a
-<code class="docutils literal"><span class="pre">GuiceObjectMapperFactory</span></code>. Instead of requiring an empty constructor, it will work on any class that guice
-can create via dependency injection. This also allows for a mixture of <code class="docutils literal"><span class="pre">&#64;Inject</span></code> and <code class="docutils literal"><span class="pre">&#64;Setting</span></code> annotated fields.</p>
+<p>That restriction, however, can be lifted if we use a different <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/objectmapping/ObjectMapperFactory.html">ObjectMapperFactory</a>, for example a <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/objectmapping/GuiceObjectMapperFactory.html">GuiceObjectMapperFactory</a>.
+Instead of requiring an empty constructor, it will work on any class that guice can create via dependency injection.
+This also allows for a mixture of <code class="docutils literal"><span class="pre">&#64;Inject</span></code> and <code class="docutils literal"><span class="pre">&#64;Setting</span></code> annotated fields.</p>
 <p>Your plugin can just acquire a <code class="docutils literal"><span class="pre">GuiceObjectMapperFactory</span></code> simply by dependency injection
 (see <a class="reference internal" href="../injection.html"><em>Dependency Injection</em></a>) and then pass it to the <code class="docutils literal"><span class="pre">ConfigurationOptions</span></code>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.state.GamePreInitializationEvent</span><span class="o">;</span>
