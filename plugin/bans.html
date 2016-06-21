@@ -537,9 +537,10 @@
                   
   <div class="section" id="bans">
 <h1>Bans<a class="headerlink" href="#bans" title="Permalink to this headline">¶</a></h1>
-<p>The <code class="docutils literal"><span class="pre">BanService</span></code> is a service built into the SpongeAPI that adds the functionality for you to ban or pardon users in
-your plugin. The <code class="docutils literal"><span class="pre">BanService</span></code> provides several methods to do things such as banning users, pardoning users, or even
-getting a <code class="docutils literal"><span class="pre">Ban</span></code> and the information on the <code class="docutils literal"><span class="pre">Ban</span></code>.</p>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/service/ban/BanService.html">BanService</a> is a service built into the SpongeAPI that adds the
+functionality for you to ban or pardon users in your plugin. The <code class="docutils literal"><span class="pre">BanService</span></code> provides several methods to do things
+such as banning users, pardoning users, or even getting a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/util/ban/Ban.html">Ban</a> and the
+information on the <code class="docutils literal"><span class="pre">Ban</span></code>.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">For a basic understanding of services, make sure you read <a class="reference internal" href="services.html"><em>Services</em></a> first.</p>
@@ -555,8 +556,10 @@ other services in the Sponge API:</p>
 </pre></div>
 </div>
 <p>Now with the <code class="docutils literal"><span class="pre">BanService</span></code>, we can perform additional operations. For example, if we want to check if a provided
-<code class="docutils literal"><span class="pre">User</span></code> is already banned, we can use the <code class="docutils literal"><span class="pre">isBanned(GameProfile</span> <span class="pre">profile)</span></code> method on the <code class="docutils literal"><span class="pre">BanService</span></code>. Or perhaps
-if we wanted to get information on a ban from a <code class="docutils literal"><span class="pre">User</span></code>, we can use the <code class="docutils literal"><span class="pre">getBanFor(GameProfile</span> <span class="pre">profile)</span></code> method. An
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/entity/living/player/User.html">User</a> is already banned, we can use the
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/service/ban/BanService.html#isBanned-org.spongepowered.api.profile.GameProfile-">BanService#isBanned(GameProfile)</a> method. Or
+perhaps if we wanted to get information on a ban from a <code class="docutils literal"><span class="pre">User</span></code>, we can use the
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/service/ban/BanService.html#getBanFor-org.spongepowered.api.profile.GameProfile-">BanService#getBanFor(GameProfile)</a> method. An
 example of this is shown below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
 
@@ -580,9 +583,10 @@ example of this is shown below:</p>
 <div class="section" id="creating-a-ban">
 <h2>Creating a Ban<a class="headerlink" href="#creating-a-ban" title="Permalink to this headline">¶</a></h2>
 <p>So now we can obtain the <code class="docutils literal"><span class="pre">BanService</span></code> and the information on a <code class="docutils literal"><span class="pre">Ban</span></code>, but what if we wanted to create our own bans?
-We can use a <code class="docutils literal"><span class="pre">Ban.Builder</span></code> to create our own <code class="docutils literal"><span class="pre">Ban</span></code>. To get a <code class="docutils literal"><span class="pre">Ban.Builder</span></code>, simply call the <code class="docutils literal"><span class="pre">builder()</span></code> method
-on <code class="docutils literal"><span class="pre">Ban</span></code>. Using our builder, we can specify things such as the type of the ban, the reason for the ban, or the
-<code class="docutils literal"><span class="pre">User</span></code> we wish to ban. An example of all of these things is shown below:</p>
+We can use a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/util/ban/Ban.Builder.html">Ban.Builder</a> to create our own <code class="docutils literal"><span class="pre">Ban</span></code>. To get a <code class="docutils literal"><span class="pre">Ban.Builder</span></code>,
+simply call the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/util/ban/Ban.html#builder--">Ban#builder()</a> method. Using our builder, we can specify
+things such as the type of the ban, the reason for the ban, or the <code class="docutils literal"><span class="pre">User</span></code> we wish to ban. An example of all of these
+things is shown below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.util.ban.BanTypes</span><span class="o">;</span>
 
 <span class="n">Ban</span> <span class="n">ban</span> <span class="o">=</span> <span class="n">Ban</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">type</span><span class="o">(</span><span class="n">BanTypes</span><span class="o">.</span><span class="na">PROFILE</span><span class="o">).</span><span class="na">profile</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getProfile</span><span class="o">())</span>
@@ -595,22 +599,24 @@ on <code class="docutils literal"><span class="pre">Ban</span></code>. Using our
     <span class="o">.</span><span class="na">reason</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;The Sponge Council has Spoken!&quot;</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
-<p>Note that if you wish to create a simple, indefinite ban on a <code class="docutils literal"><span class="pre">User</span></code>, you can use the <code class="docutils literal"><span class="pre">Ban.of(GameProfile</span> <span class="pre">profile)</span></code>
-method or the <code class="docutils literal"><span class="pre">Ban.of(GameProfile</span> <span class="pre">profile,</span> <span class="pre">Text</span> <span class="pre">reason)</span></code> methods to quickly construct a ban.</p>
+<p>Note that if you wish to create a simple, indefinite ban on a <code class="docutils literal"><span class="pre">User</span></code>, you can use the
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/util/ban/Ban.html#of-org.spongepowered.api.profile.GameProfile-">Ban#of(GameProfile)</a> method or the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/util/ban/Ban.html#of-org.spongepowered.api.profile.GameProfile-org.spongepowered.api.text.Text-">Ban#of(GameProfile, Text)</a>
+method to quickly construct a ban.</p>
 <div class="section" id="adding-a-ban">
 <h3>Adding a Ban<a class="headerlink" href="#adding-a-ban" title="Permalink to this headline">¶</a></h3>
 <p>Now that we have created our ban, we can now register it to be used in Sponge. Using our <code class="docutils literal"><span class="pre">BanService</span></code> from before, we
-can use the <code class="docutils literal"><span class="pre">addBan(Ban</span> <span class="pre">ban)</span></code> method to accomplish this. Note that adding a ban will remove any previously existing
-ban.</p>
+can use the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/service/ban/BanService.html#addBan-org.spongepowered.api.util.ban.Ban-">BanService#addBan(Ban)</a> method
+to accomplish this. Note that adding a ban will remove any previously existing ban.</p>
 </div>
 <div class="section" id="pardoning">
 <h3>Pardoning<a class="headerlink" href="#pardoning" title="Permalink to this headline">¶</a></h3>
-<p>Now let&#8217;s say we wanted to remove a ban from a user. We can use the <code class="docutils literal"><span class="pre">pardon(GameProfile)</span></code> method from our
-<code class="docutils literal"><span class="pre">BanService</span></code>. This method returns a boolean, which specifies if the user had a ban in place previously.</p>
+<p>Now let&#8217;s say we wanted to remove a ban from a user. We can use the
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/service/ban/BanService.html#pardon-org.spongepowered.api.profile.GameProfile-">BanService#pardon(GameProfile)</a> method.
+This method returns a boolean, which specifies if the user had a ban in place previously.</p>
 </div>
 <div class="section" id="putting-it-all-together">
 <h3>Putting it All Together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h3>
-<p>We can create a <code class="docutils literal"><span class="pre">Ban</span></code> using a <code class="docutils literal"><span class="pre">Ban.Builder</span></code> that is obtained using the <code class="docutils literal"><span class="pre">Ban.builder()</span></code> method. We can specify
+<p>We can create a <code class="docutils literal"><span class="pre">Ban</span></code> using a <code class="docutils literal"><span class="pre">Ban.Builder</span></code> that is obtained using the <code class="docutils literal"><span class="pre">Ban#builder()</span></code> method. We can specify
 things such as the type, the <code class="docutils literal"><span class="pre">User</span></code> to be banned, or the reason for the ban. We then simply grab our <code class="docutils literal"><span class="pre">BanService</span></code>
 and use it to add our <code class="docutils literal"><span class="pre">Ban</span></code>. Here is the full code for doing this:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">BanService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provide</span><span class="o">(</span><span class="n">BanService</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
