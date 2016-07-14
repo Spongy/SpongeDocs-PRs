@@ -571,6 +571,8 @@ especially with high entity and player counts.</p>
 </div>
 <div class="section" id="lighting-patch-to-ignore-unloaded-chunks">
 <h2>Lighting Patch to Ignore Unloaded Chunks<a class="headerlink" href="#lighting-patch-to-ignore-unloaded-chunks" title="Permalink to this headline">¶</a></h2>
+<p>Enabling this setting avoids loading lighting data from not yet generated chunks. This reduces disk access and chunk
+generation and thus improves performances while applying light levels to blocks.</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>optimizations {
       # This prevents chunks being loaded for getting light values at specific
       # block positions. May have side effects.
@@ -581,7 +583,7 @@ especially with high entity and player counts.</p>
 </div>
 <div class="section" id="cache-chunk-lookups">
 <h2>Cache Chunk Lookups<a class="headerlink" href="#cache-chunk-lookups" title="Permalink to this headline">¶</a></h2>
-<p>This setting enables Sponges internal chunk caching to improve the servers performance. It uses a small, additional
+<p>This setting enables Sponge&#8217;s internal chunk caching to improve the server&#8217;s performance. It uses a small, additional
 amount of memory for caching purposes. If you run out of memory, try to disable it.</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>optimizations {
       # Caches chunks internally for faster returns when querying at various
@@ -593,6 +595,9 @@ amount of memory for caching purposes. If you run out of memory, try to disable 
 </div>
 <div class="section" id="reduce-hash-lookups-on-blockstate-queries">
 <h2>Reduce Hash Lookups on BlockState Queries<a class="headerlink" href="#reduce-hash-lookups-on-blockstate-queries" title="Permalink to this headline">¶</a></h2>
+<p>Enabling this patch reduces hash lookups. This is achieved by removing a 2nd unnecessary lookup, which the server would
+only need when a blockstate becomes null. If you run into issues, disable this patch to revert the server to vanilla
+behaviour.</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>optimizations {
       # A simple patch to reduce a few sanity checks for the sake of speed when
       # performing block state operations

@@ -35,6 +35,9 @@ especially with high entity and player counts.
 Lighting Patch to Ignore Unloaded Chunks
 ========================================
 
+Enabling this setting avoids loading lighting data from not yet generated chunks. This reduces disk access and chunk
+generation and thus improves performances while applying light levels to blocks.
+
 .. code-block:: none
 
   optimizations {
@@ -46,7 +49,7 @@ Lighting Patch to Ignore Unloaded Chunks
 Cache Chunk Lookups
 ===================
 
-This setting enables Sponges internal chunk caching to improve the servers performance. It uses a small, additional
+This setting enables Sponge's internal chunk caching to improve the server's performance. It uses a small, additional
 amount of memory for caching purposes. If you run out of memory, try to disable it.
 
 .. code-block:: none
@@ -59,6 +62,10 @@ amount of memory for caching purposes. If you run out of memory, try to disable 
 
 Reduce Hash Lookups on BlockState Queries
 =========================================
+
+Enabling this patch reduces hash lookups. This is achieved by removing a 2nd unnecessary lookup, which the server would
+only need when a blockstate becomes null. If you run into issues, disable this patch to revert the server to vanilla
+behaviour.
 
 .. code-block:: none
 
