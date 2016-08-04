@@ -436,6 +436,9 @@
 <li class="toctree-l2"><a class="reference internal" href="game-profile-manager.html">Game Profile Manager</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -540,10 +543,9 @@
                   
   <div class="section" id="scheduler">
 <h1>Scheduler<a class="headerlink" href="#scheduler" title="Permalink to this headline">¶</a></h1>
-<p>Sponge exposes the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Scheduler.html">Scheduler</a> to allow you to designate tasks to be executed
-in the future. The <code class="docutils literal"><span class="pre">Scheduler</span></code> provides a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Task.Builder.html">Task.Builder</a> with which you can
-specify task properties such as the delay, interval, name, (a)synchronicity, and <code class="docutils literal"><span class="pre">Runnable</span></code>
-(see <a class="reference internal" href="#task-properties"><span>Task Properties</span></a>).</p>
+<p>Sponge exposes the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Scheduler.html">Scheduler</a> to allow you to designate tasks to be executed in the future. The <code class="docutils literal"><span class="pre">Scheduler</span></code>
+provides a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Task.Builder.html">Task.Builder</a> with which you can specify task properties such as the delay, interval, name,
+(a)synchronicity, and <code class="docutils literal"><span class="pre">Runnable</span></code> (see <a class="reference internal" href="#task-properties"><span>Task Properties</span></a>).</p>
 <div class="section" id="task-builder">
 <h2>Task Builder<a class="headerlink" href="#task-builder" title="Permalink to this headline">¶</a></h2>
 <p>First, obtain an instance of the <code class="docutils literal"><span class="pre">Scheduler</span></code>, and retrieve the <code class="docutils literal"><span class="pre">Task.Builder</span></code>:</p>
@@ -644,8 +646,7 @@ it should be descriptive and aid users in debugging your plugin.</td>
 </tr>
 </tbody>
 </table>
-<p>Lastly, submit the task to the scheduler using
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Task.Builder.html#submit-java.lang.Object-">Task.Builder#submit(Object)</a>.</p>
+<p>Lastly, submit the task to the scheduler using <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Task.Builder.html#submit-java.lang.Object-">Task.Builder#submit(Object)</a>.</p>
 <p>And that&#8217;s it! To summarize, a fully functional scheduled task that would run asynchronously every 5 minutes after an
 initial delay of 100 milliseconds could be built and submitted using the following code:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
@@ -720,12 +721,10 @@ These libraries do tend to support Java&#8217;s
 of directing on which thread the task is executed.</p>
 <p>To allow these libraries to work with Sponge&#8217;s <code class="docutils literal"><span class="pre">Scheduler</span></code> the following methods can be used:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Scheduler.html#createSyncExecutor-java.lang.Object-">Scheduler#createSyncExecutor(Object)</a> creates a
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/SpongeExecutorService.html">SpongeExecutorService</a> which executes tasks through Sponge&#8217;s synchronous
-scheduler.</li>
-<li><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Scheduler.html#createAsyncExecutor-java.lang.Object-">Scheduler#createAsyncExecutor(Object)</a> creates a
-<code class="docutils literal"><span class="pre">SpongeExecutorService</span></code> which executes tasks through Sponge&#8217;s asynchronous scheduler. Tasks are subject to the
-restrictions mentioned in <a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a>.</li>
+<li><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Scheduler.html#createSyncExecutor-java.lang.Object-">Scheduler#createSyncExecutor(Object)</a> creates a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/SpongeExecutorService.html">SpongeExecutorService</a> which executes tasks
+through Sponge&#8217;s synchronous scheduler.</li>
+<li><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Scheduler.html#createAsyncExecutor-java.lang.Object-">Scheduler#createAsyncExecutor(Object)</a> creates a <code class="docutils literal"><span class="pre">SpongeExecutorService</span></code> which executes tasks through
+Sponge&#8217;s asynchronous scheduler. Tasks are subject to the restrictions mentioned in <a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a>.</li>
 </ul>
 <p>One thing to keep in mind is that any tasks that interacts with Sponge outside of the interactions listed in
 <a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a> need to be executed on the ExecutorService created with  <code class="docutils literal"><span class="pre">Scheduler#createSyncExecutor(Object)</span></code>

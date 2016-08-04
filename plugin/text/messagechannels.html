@@ -437,6 +437,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -541,68 +544,64 @@
                   
   <div class="section" id="message-channels">
 <h1>Message Channels<a class="headerlink" href="#message-channels" title="Permalink to this headline">¶</a></h1>
-<p>In Sponge, every object that messages may be sent to implements the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageReceiver.html">MessageReceiver</a> interface. A <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html">MessageChannel</a>
-is a device that may send messages to an arbitrary number of <code class="docutils literal"><span class="pre">MessageReceiver</span></code>s and even perform actions like
-recipient-specific formatting of the message.</p>
+<p>In Sponge, every object that messages may be sent to implements the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageReceiver.html">MessageReceiver</a> interface. A
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html">MessageChannel</a> is a device that may send messages to an arbitrary number of <code class="docutils literal"><span class="pre">MessageReceiver</span></code>s and even
+perform actions like recipient-specific formatting of the message.</p>
 <div class="section" id="selecting-message-recipients">
 <h2>Selecting Message Recipients<a class="headerlink" href="#selecting-message-recipients" title="Permalink to this headline">¶</a></h2>
 <p>Within the <code class="docutils literal"><span class="pre">MessageChannel</span></code> interface there are constants and static methods that can be used to obtain or create
 commonly used channels. There are also other classes and interfaces that can be used to create a <code class="docutils literal"><span class="pre">MessageChannel</span></code>,
-such as <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/AbstractMutableMessageChannel.html">AbstractMutableMessageChannel</a> and
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MutableMessageChannel.html">MutableMessageChannel</a>. A complete list of these can be found at
-<code class="docutils literal"><span class="pre">org.spongepowered.api.text.channel</span></code> and its sub-packages.</p>
+such as <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/AbstractMutableMessageChannel.html">AbstractMutableMessageChannel</a> and <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MutableMessageChannel.html">MutableMessageChannel</a>. A complete list of these can be
+found at <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/package-summary.html">org.spongepowered.api.text.channel</a> and its sub-packages.</p>
 <div class="section" id="broadcasting">
 <h3>Broadcasting<a class="headerlink" href="#broadcasting" title="Permalink to this headline">¶</a></h3>
 <p>The most common channel will be the broadcasting channel. It can be obtained either from the
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/Server.html">Server</a> via the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/Server.html#getBroadcastChannel--">Server#getBroadcastChannel()</a> method or
-from either the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#TO_PLAYERS">MessageChannel#TO_PLAYERS</a> or
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#TO_ALL">MessageChannel#TO_ALL</a> constant. The only difference is that <code class="docutils literal"><span class="pre">TO_ALL</span></code>
-includes not only every player connected to the server but also the server <code class="docutils literal"><span class="pre">Console</span></code>.</p>
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/Server.html">Server</a> via the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/Server.html#getBroadcastChannel--">Server#getBroadcastChannel()</a> method or from either the
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#TO_PLAYERS">MessageChannel#TO_PLAYERS</a> or <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#TO_ALL">MessageChannel#TO_ALL</a> constant. The only difference is that
+<code class="docutils literal"><span class="pre">TO_ALL</span></code> includes not only every player connected to the server but also the server <code class="docutils literal"><span class="pre">Console</span></code>.</p>
 <p>The channel returned by <code class="docutils literal"><span class="pre">getBroadcastChannel()</span></code> will generally be the <code class="docutils literal"><span class="pre">MessageChannel.TO_ALL</span></code> channel, however a
 different channel may be set using the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/Server.html#setBroadcastChannel-org.spongepowered.api.text.channel.MessageChannel-">Server#setBroadcastChannel(MessageChannel)</a> method.</p>
 </div>
 <div class="section" id="sending-to-a-fixed-list-of-messagereceivers">
 <h3>Sending to a Fixed List of MessageReceivers<a class="headerlink" href="#sending-to-a-fixed-list-of-messagereceivers" title="Permalink to this headline">¶</a></h3>
 <p>It is also possible to send a message not to all players connected, but to a number of hand-selected receivers. This
-can be done by passing the list of the intended recipients to the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#fixed-org.spongepowered.api.text.channel.MessageReceiver...-">MessageChannel#fixed(MessageReceiver...)</a> method. Unlike most other
-channels, the list of recipients will not be generated dynamically every time something is sent through the channel but
-remains static for the rest of its existence. However, the references kept are <em>weak</em>. This means that if for example a
-player disconnects and the corresponding <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/entity/living/player/Player.html">Player</a> object is removed
-by Java&#8217;s <em>garbage collector</em>, that player will also vanish from the channels recipient list.</p>
+can be done by passing the list of the intended recipients to the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#fixed-MessageReceiver...-">MessageChannel#fixed(MessageReceiver...)</a>
+method. Unlike most other channels, the list of recipients will not be generated dynamically every time something is
+sent through the channel but remains static for the rest of its existence. However, the references kept are <em>weak</em>.
+This means that if for example a player disconnects and the corresponding <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/entity/living/player/Player.html">Player</a> object is removed by Java&#8217;s
+<em>garbage collector</em>, that player will also vanish from the channels recipient list.</p>
 </div>
 <div class="section" id="permission-based-selection">
 <h3>Permission-based Selection<a class="headerlink" href="#permission-based-selection" title="Permalink to this headline">¶</a></h3>
 <p>It is also possible to create a channel sending to all recipients that hold a specific permission. The channel is
-obtained from the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#permission-java.lang.String-">MessageChannel#permission(String)</a> method with
-the permission to check for as an argument. When a message is then sent through this channel, it will obtain all
-subjects from the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/service/permission/PermissionService.html">PermissionService</a> that have the given permission.</p>
+obtained from the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#permission-java.lang.String-">MessageChannel#permission(String)</a> method with the permission to check for as an argument.
+When a message is then sent through this channel, it will obtain all subjects from the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/service/permission/PermissionService.html">PermissionService</a>
+that have the given permission.</p>
 </div>
 <div class="section" id="combining-channels">
 <h3>Combining Channels<a class="headerlink" href="#combining-channels" title="Permalink to this headline">¶</a></h3>
 <p>It is also possible to combine multiple channels into one. This can be done by passing all channels into the
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#combined-org.spongepowered.api.text.channel.MessageChannel...-">MessageChannel#combined(MessageChannel...)</a> method. The resulting channel will relay messages to every recipient that is targeted by at least
-one of the combined channels.</p>
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#combined-MessageChannel...-">MessageChannel#combined(MessageChannel...)</a> method. The resulting channel will relay messages to every
+recipient that is targeted by at least one of the combined channels.</p>
 </div>
 </div>
 <div class="section" id="sending-messages">
 <h2>Sending Messages<a class="headerlink" href="#sending-messages" title="Permalink to this headline">¶</a></h2>
 <p>Once you have obtained a <code class="docutils literal"><span class="pre">MessageChannel</span></code> you can send a message through it via the
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#send-java.lang.Object-org.spongepowered.api.text.Text-">MessageChannel#send(Object, Text)</a>
-method. This method is preferred over the
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#send-org.spongepowered.api.text.Text-">MessageChannel#send(Text)</a> method, as the
-<code class="docutils literal"><span class="pre">Object</span></code> can be used for identification or for performing other various actions. Alternatively, you can use a
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/chat/ChatType.html">ChatType</a> to specify where the message will be sent to. Using the
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#send-java.lang.Object-org.spongepowered.api.text.Text-org.spongepowered.api.text.chat.ChatType-">MessageChannel#send(Object, Text, ChatType)</a> method will allow you to accomplish this. The channel will then transform
-the message for every recipient and send the transformed message.</p>
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#send-java.lang.Object-org.spongepowered.api.text.Text-">MessageChannel#send(Object, Text)</a> method. This method is preferred over the
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#send-org.spongepowered.api.text.Text-">MessageChannel#send(Text)</a> method, as the <code class="docutils literal"><span class="pre">Object</span></code> can be used for identification or for performing other
+various actions. Alternatively, you can use a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/chat/ChatType.html">ChatType</a> to specify where the message will be sent to. Using
+the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#send-java.lang.Object-org.spongepowered.api.text.Text-org.spongepowered.api.text.chat.ChatType-">MessageChannel#send(Object, Text, ChatType)</a> method will allow you to accomplish this. The channel will
+then transform the message for every recipient and send the transformed message.</p>
 <div class="section" id="extended-application-chat-channels">
 <h3>Extended Application: Chat Channels<a class="headerlink" href="#extended-application-chat-channels" title="Permalink to this headline">¶</a></h3>
 <p>Message channels have a very useful application as they can be used to establish chat channels. For example, you could
 establish a message channel for every chat channel you wish to have. Then, when a <code class="docutils literal"><span class="pre">MessageReceiver</span></code> joins a channel,
 such as with <code class="docutils literal"><span class="pre">/join</span> <span class="pre">&lt;channel</span> <span class="pre">name&gt;</span></code>, simply set the <code class="docutils literal"><span class="pre">MessageReceiver</span></code>&#8216;s <code class="docutils literal"><span class="pre">MessageChannel</span></code> to the appropriate
-channel using <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageReceiver.html#setMessageChannel-org.spongepowered.api.text.channel.MessageChannel-">MessageReceiver#setMessageChannel(MessageChannel)</a>. This will cause every message sent
-<em>from</em> the <code class="docutils literal"><span class="pre">MessageReceiver</span></code> to be passed to the given <code class="docutils literal"><span class="pre">MessageChannel</span></code> instead of the default one. Alternatively,
-you could listen to <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/message/MessageChannelEvent.html">MessageChannelEvent</a>, and set the appropriate
-<code class="docutils literal"><span class="pre">MessageChannel</span></code> using <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/message/MessageChannelEvent.html#setChannel-org.spongepowered.api.text.channel.MessageChannelchannel-">MessageChannelEvent#setChannel(MessageChannelchannel)</a>. Passing <code class="docutils literal"><span class="pre">null</span></code> to that method will unset any custom
+channel using <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageReceiver.html#setMessageChannel-org.spongepowered.api.text.channel.MessageChannel-">MessageReceiver#setMessageChannel(MessageChannel)</a>. This will cause every message sent <em>from</em>
+the <code class="docutils literal"><span class="pre">MessageReceiver</span></code> to be passed to the given <code class="docutils literal"><span class="pre">MessageChannel</span></code> instead of the default one. Alternatively,
+you could listen to <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/message/MessageChannelEvent.html">MessageChannelEvent</a>, and set the appropriate <code class="docutils literal"><span class="pre">MessageChannel</span></code> using
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/message/MessageChannelEvent.html#setChannel-org.spongepowered.api.text.channel.MessageChannel-">MessageChannelEvent#setChannel(MessageChannel)</a>. Passing <code class="docutils literal"><span class="pre">null</span></code> to that method will unset any custom
 channel, causing the message to be sent to the original MessageChannel instead.</p>
 </div>
 </div>
@@ -610,8 +609,7 @@ channel, causing the message to be sent to the original MessageChannel instead.<
 <h2>Transforming Messages<a class="headerlink" href="#transforming-messages" title="Permalink to this headline">¶</a></h2>
 <p>You can apply a filter to all <code class="docutils literal"><span class="pre">Text</span></code>s that pass through a <code class="docutils literal"><span class="pre">MessageChannel</span></code> to change the message however you
 like. This is possible by extending <code class="docutils literal"><span class="pre">MessageChannel</span></code> and overriding the
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#transformMessage-java.lang.Object-org.spongepowered.api.text.channel.MessageReceiver-org.spongepowered.api.text.Text-org.spongepowered.api.text.chat.ChatType-">MessageChannel#transformMessage(Object, MessageReceiver, Text, ChatType)</a> method as
-demonstrated below.</p>
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MessageChannel.html#transformMessage-java.lang.Object-org.spongepowered.api.text.channel.MessageReceiver-org.spongepowered.api.text.Text-org.spongepowered.api.text.chat.ChatType-">MessageChannel#transformMessage(Object, MessageReceiver, Text, ChatType)</a> method as demonstrated below.</p>
 <p><strong>Example: Transforming Messages</strong></p>
 <p>The following code excerpt defines an <code class="docutils literal"><span class="pre">AdminMessageChannel</span></code> class which overrides the default <code class="docutils literal"><span class="pre">transformMessage</span></code>
 method. The new <code class="docutils literal"><span class="pre">transformMessage</span></code> method will take the original message and append a red <code class="docutils literal"><span class="pre">[Admin]</span></code> tag to the
@@ -668,9 +666,8 @@ addition of the <code class="docutils literal"><span class="pre">AdminMessageCha
 </pre></div>
 </div>
 <p>Note that this will prefix <cite>all</cite> messages pertaining to a player. This includes death messages, leave messages, etc. If
-you only want to prefix all <cite>chat</cite> messages, you would need to listen to
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/message/MessageChannelEvent.Chat.html">MessageChannelEvent.Chat</a> and set the channel onto the event rather than
-the player. This would be done using <code class="docutils literal"><span class="pre">event.setChannel(newChannel)</span></code> onto the
+you only want to prefix all <cite>chat</cite> messages, you would need to listen to <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/message/MessageChannelEvent.Chat.html">MessageChannelEvent.Chat</a> and set
+the channel onto the event rather than the player. This would be done using <code class="docutils literal"><span class="pre">event.setChannel(newChannel)</span></code> onto the
 <code class="docutils literal"><span class="pre">MessageChannelEvent.Chat</span></code> event. To get the player from the event to check for permissions, you would need to get a
 <code class="docutils literal"><span class="pre">Player</span></code> from the <code class="docutils literal"><span class="pre">Cause</span></code> of the event. This is demonstrated below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">Player</span><span class="o">&gt;</span> <span class="n">playerOptional</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getCause</span><span class="o">().&lt;</span><span class="n">Player</span><span class="o">&gt;</span><span class="n">first</span><span class="o">(</span><span class="n">Player</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
@@ -687,10 +684,9 @@ empty <code class="docutils literal"><span class="pre">Optional</span></code> wi
 </div>
 <div class="section" id="mutable-message-channels">
 <h2>Mutable Message Channels<a class="headerlink" href="#mutable-message-channels" title="Permalink to this headline">¶</a></h2>
-<p>A <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MutableMessageChannel.html">MutableMessageChannel</a> contains methods for changing who may receive the
-messages sent through our channel. As such, we must implement methods for performing actions that modify our members.
-To do this, we simply will create a class named <code class="docutils literal"><span class="pre">MutableAdminMessageChannel</span></code> that will implement a
-<code class="docutils literal"><span class="pre">MutableMessageChannel</span></code>.</p>
+<p>A <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MutableMessageChannel.html">MutableMessageChannel</a> contains methods for changing who may receive the messages sent through our channel.
+As such, we must implement methods for performing actions that modify our members. To do this, we simply will create a
+class named <code class="docutils literal"><span class="pre">MutableAdminMessageChannel</span></code> that will implement a <code class="docutils literal"><span class="pre">MutableMessageChannel</span></code>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.WeakHashMap</span><span class="o">;</span>
 
@@ -752,8 +748,8 @@ they would be removed from the set.</p>
 <h3>Modifying the Members<a class="headerlink" href="#modifying-the-members" title="Permalink to this headline">¶</a></h3>
 <p>To make full use of our <code class="docutils literal"><span class="pre">MutableAdminMessageChannel</span></code>, we need to be able to add and remove members from the channel.
 To do this, we can simply call our <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MutableMessageChannel.html#addMember-org.spongepowered.api.text.channel.MessageReceiver-">MutableMessageChannel#addMember(MessageReceiver)</a>
-and <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MutableMessageChannel.html#removeMember-org.spongepowered.api.text.channel.MessageReceiver-">MutableMessageChannel#removeMember(MessageReceiver)</a>
-methods we implemented previously whenever we need to add or remove a member from the member set.</p>
+and <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/channel/MutableMessageChannel.html#removeMember-org.spongepowered.api.text.channel.MessageReceiver-">MutableMessageChannel#removeMember(MessageReceiver)</a> methods we implemented previously whenever we need
+to add or remove a member from the member set.</p>
 </div>
 </div>
 </div>

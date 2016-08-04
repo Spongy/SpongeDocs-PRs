@@ -437,6 +437,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -541,9 +544,8 @@
                   
   <div class="section" id="low-level-command-api">
 <h1>Low-Level Command API<a class="headerlink" href="#low-level-command-api" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/CommandCallable.html">CommandCallable</a> and
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/dispatcher/Dispatcher.html">Dispatcher</a> interfaces can be used to define commands. The interfaces
-can be used as a base for custom command APIs.</p>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/CommandCallable.html">CommandCallable</a> and <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/dispatcher/Dispatcher.html">Dispatcher</a> interfaces can be used to define commands. The interfaces can
+be used as a base for custom command APIs.</p>
 <p>It is recommended to use the <a class="reference internal" href="creating.html"><em>Command Builder API</em></a> for simple command definitions.</p>
 <div class="section" id="writing-a-command">
 <h2>Writing a command<a class="headerlink" href="#writing-a-command" title="Permalink to this headline">¶</a></h2>
@@ -594,16 +596,15 @@ can be used as a base for custom command APIs.</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">See the Javadocs for <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/CommandCallable.html">CommandCallable</a> for the purposes of each method in
-this example.</p>
+<p class="last">See the JavaDoc for <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/CommandCallable.html">CommandCallable</a> for the purposes of each method in this example.</p>
 </div>
 </div>
 <div class="section" id="registering-the-command">
 <h2>Registering the command<a class="headerlink" href="#registering-the-command" title="Permalink to this headline">¶</a></h2>
-<p>Now we can register the class in the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/CommandManager.html">CommandManager</a>. The <code class="docutils literal"><span class="pre">CommandManager</span></code>
-stands as the manager for watching what commands get typed into chat, and redirecting them to the right command handler.
-To register your command, use the method <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/CommandManager.html#register-java.lang.Object-org.spongepowered.api.command.CommandCallable-java.lang.String...-">CommandManager#register(Object, CommandCallable, String...)</a>, passing your plugin, an instance of the
-command, and any needed aliases as parameters.</p>
+<p>Now we can register the class in the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/CommandManager.html">CommandManager</a>. The <code class="docutils literal"><span class="pre">CommandManager</span></code> stands as the manager for
+watching what commands get typed into chat, and redirecting them to the right command handler.
+To register your command, use the method <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/CommandManager.html#register-java.lang.Object-org.spongepowered.api.command.CommandCallable-String...-">CommandManager#register(Object, CommandCallable, String...)</a>,
+passing your plugin, an instance of the command, and any needed aliases as parameters.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandManager</span><span class="o">;</span>
 
 <span class="n">CommandManager</span> <span class="n">cmdService</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getCommandManager</span><span class="o">();</span>
@@ -620,8 +621,7 @@ used by another command are ignored.</p>
 <div class="section" id="command-dispatchers">
 <h2>Command Dispatchers<a class="headerlink" href="#command-dispatchers" title="Permalink to this headline">¶</a></h2>
 <p>Command dispatchers can be used to create hierarchical command structures (subcommands).</p>
-<p>The default implementation of the <code class="docutils literal"><span class="pre">Dispatcher</span></code> interface is the
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/dispatcher/SimpleDispatcher.html">SimpleDispatcher</a> class.</p>
+<p>The default implementation of the <code class="docutils literal"><span class="pre">Dispatcher</span></code> interface is the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/dispatcher/SimpleDispatcher.html">SimpleDispatcher</a> class.</p>
 <p>A <code class="docutils literal"><span class="pre">Dispatcher</span></code> is also a <code class="docutils literal"><span class="pre">CommandCallable</span></code>, so it can be registered like any other command.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.dispatcher.SimpleDispatcher</span><span class="o">;</span>
 

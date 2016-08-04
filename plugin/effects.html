@@ -436,6 +436,9 @@
 <li class="toctree-l2"><a class="reference internal" href="game-profile-manager.html">Game Profile Manager</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -553,14 +556,14 @@
 <span class="n">viewer</span><span class="o">.</span><span class="na">playSound</span><span class="o">(</span><span class="n">SoundTypes</span><span class="o">.</span><span class="na">CREEPER_HISS</span><span class="o">,</span> <span class="k">new</span> <span class="n">Vector3d</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">65</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="mi">1</span><span class="o">);</span>
 </pre></div>
 </div>
-<p>Now let&#8217;s break this down. First, we have the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/effect/sound/SoundType.html">SoundType</a> being played.
-This is simply the sound that will be played. Next we have a <code class="docutils literal"><span class="pre">Vector3d</span></code> position. This position can be constructed,
-or it can be retrieved from a <code class="docutils literal"><span class="pre">Location</span></code> using the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/Location.html#getPosition--">Location#getPosition()</a>
-method. In the example above, the sound will be played at the coordinates <code class="docutils literal"><span class="pre">1,</span> <span class="pre">65,</span> <span class="pre">1</span></code>. Lastly, we have the volume that
-the sound will be played at. The volume is a double, that ranges from zero to two.</p>
+<p>Now let&#8217;s break this down. First, we have the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/effect/sound/SoundType.html">SoundType</a> being played. This is simply the sound that will be
+played. Next we have a <code class="docutils literal"><span class="pre">Vector3d</span></code> position. This position can be constructed, or it can be retrieved from a
+<code class="docutils literal"><span class="pre">Location</span></code> using the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/Location.html#getPosition--">Location#getPosition()</a> method. In the example above, the sound will be played at the
+coordinates <code class="docutils literal"><span class="pre">1,</span> <span class="pre">65,</span> <span class="pre">1</span></code>. Lastly, we have the volume that the sound will be played at. The volume is a double, that
+ranges from zero to two.</p>
 <p>Now that we can play basic sounds, we can go further in-depth with our sounds. Let&#8217;s say we wanted to play our sound at
-a specified pitch. We can use the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/effect/sound/PitchModulation.html">PitchModulation</a> class to modulate the
-pitch to a specified note. An example of this is shown below:</p>
+a specified pitch. We can use the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/effect/sound/PitchModulation.html">PitchModulation</a> class to modulate the pitch to a specified note. An
+example of this is shown below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.effect.sound.PitchModulation</span><span class="o">;</span>
 
 <span class="n">viewer</span><span class="o">.</span><span class="na">playSound</span><span class="o">(</span><span class="n">SoundTypes</span><span class="o">.</span><span class="na">CREEPER_HISS</span><span class="o">,</span> <span class="k">new</span> <span class="n">Vector3d</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">65</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="mi">1</span><span class="o">,</span>
@@ -582,10 +585,9 @@ pitch to a specified note. An example of this is shown below:</p>
 <p>Using a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/effect/particle/ParticleEffect.Builder.html">ParticleEffect.Builder</a>, we can specify the type of particle we
 would like to spawn. With this, we also specify that fifty particles will be in the particle effect.</p>
 <p>Now if we wanted to make a more specific particle, say the particle of a block, then we can use one of the serveral
-classes found in the <code class="docutils literal"><span class="pre">org.spongepowered.api.effect.particle</span></code> package. For example, let&#8217;s say we wanted to spawn the
-particle of a sand <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/effect/particle/ParticleTypes.html#BLOCK_CRACK">ParticleTypes#BLOCK_CRACK</a>. We would need to use the
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/effect/particle/BlockParticle.html">BlockParticle</a> class and specify that we would like to use a sand
-block. This can be done like so:</p>
+classes found in the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/effect/particle/package-summary.html">org.spongepowered.api.effect.particle</a> package. For example, let&#8217;s say we wanted to
+spawn the particle of a sand, <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/effect/particle/ParticleTypes.html#BLOCK_CRACK">ParticleTypes#BLOCK_CRACK</a>. We would need to use the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/effect/particle/BlockParticle.html">BlockParticle</a>
+class and specify that we would like to use a sand block. This can be done like so:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.effect.particle.BlockParticle</span><span class="o">;</span>
 
 <span class="n">BlockParticle</span> <span class="n">blockParticle</span> <span class="o">=</span> <span class="n">BlockParticle</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
@@ -604,10 +606,9 @@ block. This can be done like so:</p>
     <span class="o">.</span><span class="na">duration</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="na">amplifier</span><span class="o">(</span><span class="mi">5</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
-<p>Using this, we can create a haste <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/effect/potion/PotionEffect.html">PotionEffect</a> that will last for ten
-ticks and have an amplifier of five. Unlike particles and sounds, potions cannot be applied to a <code class="docutils literal"><span class="pre">Viewer</span></code>. Instead,
-we need an entity that supports <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/mutable/PotionEffectData.html">PotionEffectData</a>, such as a
-player.</p>
+<p>Using this, we can create a haste <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/effect/potion/PotionEffect.html">PotionEffect</a> that will last for ten ticks and have an amplifier of five.
+Unlike particles and sounds, potions cannot be applied to a <code class="docutils literal"><span class="pre">Viewer</span></code>. Instead, we need an entity that supports
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/mutable/PotionEffectData.html">PotionEffectData</a>, such as a player.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.PotionEffectData</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
 

@@ -437,6 +437,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -541,8 +544,7 @@
                   
   <div class="section" id="child-commands">
 <h1>Child Commands<a class="headerlink" href="#child-commands" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/spec/CommandSpec.html">CommandSpec</a> builder supports hierarchical command structures like
-this:</p>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/spec/CommandSpec.html">CommandSpec</a> builder supports hierarchical command structures like this:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">/mail</span></code> (parent command)<ul>
 <li><code class="docutils literal"><span class="pre">/mail</span> <span class="pre">send</span></code> (child command)</li>
@@ -571,8 +573,8 @@ this:</p>
 </pre></div>
 </div>
 <p>Instead of registering them to the command service, child commands are registered on their parent command using the
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/spec/CommandSpec.Builder.html#child-org.spongepowered.api.command.CommandCallable-java.lang.String...-">CommandSpec.Builder#child(CommandCallable, String...)</a> method. They are registered with a list of aliases. The first alias supplied is the primary one
-and will appear in the usage message.</p>
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/spec/CommandSpec.Builder.html#child-org.spongepowered.api.command.CommandCallable-String...-">CommandSpec.Builder#child(CommandCallable, String...)</a> method. They are registered with a list of aliases.
+The first alias supplied is the primary one and will appear in the usage message.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">CommandSpec</span> <span class="n">mailCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">permission</span><span class="o">(</span><span class="s">&quot;myplugin.mail&quot;</span><span class="o">)</span>
     <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Send and receive mails&quot;</span><span class="o">))</span>
@@ -585,8 +587,8 @@ and will appear in the usage message.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/spec/CommandExecutor.html">CommandExecutor</a> was set for the parent command, it is used as a
-fallback if the arguments do not match one of the child command aliases. Setting an executor is not required.</p>
+<p class="last">If a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/spec/CommandExecutor.html">CommandExecutor</a> was set for the parent command, it is used as a fallback if the arguments do not
+match one of the child command aliases. Setting an executor is not required.</p>
 </div>
 </div>
 

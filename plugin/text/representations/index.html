@@ -437,6 +437,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../game-profile-manager.html">Game Profile Manager</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -541,8 +544,8 @@
                   
   <div class="section" id="text-serializers">
 <h1>Text Serializers<a class="headerlink" href="#text-serializers" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/serializer/TextSerializer.html">TextSerializer</a>s provide a convenient way to serialize and
-de-serialize <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/Text.html">Text</a> instances. There are three applicable formats:</p>
+<p><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/serializer/TextSerializer.html">TextSerializer</a>s provide a convenient way to serialize and de-serialize <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/Text.html">Text</a> instances. There
+are three applicable formats:</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a><ul class="simple">
@@ -553,8 +556,8 @@ de-serialize <a class="reference external" href="https://jd.spongepowered.org/4.
 <li class="toctree-l1"><a class="reference internal" href="configurate.html">Configuration Format</a></li>
 </ul>
 </div>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/serializer/TextSerializers.html">TextSerializers</a> class provides three <code class="docutils literal"><span class="pre">TextSerializer</span></code>s for
-serializing to a representative <code class="docutils literal"><span class="pre">String</span></code> or deserializing to a <code class="docutils literal"><span class="pre">Text</span></code> instance:</p>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/serializer/TextSerializers.html">TextSerializers</a> class provides three <code class="docutils literal"><span class="pre">TextSerializer</span></code>s for serializing to a representative
+<code class="docutils literal"><span class="pre">String</span></code> or deserializing to a <code class="docutils literal"><span class="pre">Text</span></code> instance:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">LEGACY_FORMATTING_CODE</span></code></li>
 <li><code class="docutils literal"><span class="pre">FORMATTING_CODE</span></code></li>
@@ -563,20 +566,16 @@ serializing to a representative <code class="docutils literal"><span class="pre"
 </ul>
 <div class="section" id="serializing-text">
 <h2>Serializing Text<a class="headerlink" href="#serializing-text" title="Permalink to this headline">¶</a></h2>
-<p>To serialize a <code class="docutils literal"><span class="pre">Text</span></code> object, simply use the
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/serializer/TextSerializer.html#serialize-org.spongepowered.api.text.Text-">TextSerializer#serialize(Text)</a> method,
-specifying the appropriate <code class="docutils literal"><span class="pre">Text</span></code> object as the only argument. The method will return a <code class="docutils literal"><span class="pre">String</span></code> representing the
-<code class="docutils literal"><span class="pre">Text</span></code> object.</p>
+<p>To serialize a <code class="docutils literal"><span class="pre">Text</span></code> object, simply use the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/serializer/TextSerializer.html#serialize-org.spongepowered.api.text.Text-">TextSerializer#serialize(Text)</a> method, specifying the
+appropriate <code class="docutils literal"><span class="pre">Text</span></code> object as the only argument. The method will return a <code class="docutils literal"><span class="pre">String</span></code> representing the <code class="docutils literal"><span class="pre">Text</span></code> object.</p>
 </div>
 <div class="section" id="deserializing-to-text">
 <h2>Deserializing to Text<a class="headerlink" href="#deserializing-to-text" title="Permalink to this headline">¶</a></h2>
 <p>To deserialize a <code class="docutils literal"><span class="pre">String</span></code> into its corresponding <code class="docutils literal"><span class="pre">Text</span></code> object, simply use the
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/serializer/TextSerializer.html#deserialize-java.lang.String-">TextSerializer#deserialize(String)</a> method, specififying the
-input <code class="docutils literal"><span class="pre">String</span></code> as the only argument. If the input is incorrectly formatted, a
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/serializer/TextParseException.html">TextParseException</a> will be thrown. Alternatively, use the
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/serializer/TextSerializer.html#deserializeUnchecked-java.lang.String-">TextSerializer#deserializeUnchecked(String)</a> method to
-deserialize without any exceptions. If there is an error, the raw input will be returned in the form of a <code class="docutils literal"><span class="pre">Text</span></code>
-object.</p>
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/serializer/TextSerializer.html#deserialize-java.lang.String-">TextSerializer#deserialize(String)</a> method, specififying the input <code class="docutils literal"><span class="pre">String</span></code> as the only argument. If the
+input is incorrectly formatted, a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/serializer/TextParseException.html">TextParseException</a> will be thrown. Alternatively, use the
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/text/serializer/TextSerializer.html#deserializeUnchecked-java.lang.String-">TextSerializer#deserializeUnchecked(String)</a> method to deserialize without any exceptions. If there is an
+error, the raw input will be returned in the form of a <code class="docutils literal"><span class="pre">Text</span></code> object.</p>
 </div>
 </div>
 
