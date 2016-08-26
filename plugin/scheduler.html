@@ -305,7 +305,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="assets/index.html">The Asset API</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="assets.html">The Asset API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a><ul>
@@ -436,6 +436,9 @@
 <li class="toctree-l2"><a class="reference internal" href="game-profile-manager.html">Game Profile Manager</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -558,9 +561,9 @@
                   
   <div class="section" id="scheduler">
 <h1>Scheduler<a class="headerlink" href="#scheduler" title="Permalink to this headline">¶</a></h1>
-<p>Sponge exposes the <code class="docutils literal"><span class="pre">Scheduler</span></code> to allow you to designate tasks to be executed in the future. The
-<code class="docutils literal"><span class="pre">Scheduler</span></code> provides a <code class="docutils literal"><span class="pre">Task.Builder</span></code> with which you can specify task properties such as the delay, interval,
-name, (a)synchronicity, and <code class="docutils literal"><span class="pre">Runnable</span></code> (see <a class="reference internal" href="#task-properties"><span>Task Properties</span></a>).</p>
+<p>Sponge exposes the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Scheduler.html">Scheduler</a> to allow you to designate tasks to be executed in the future. The <code class="docutils literal"><span class="pre">Scheduler</span></code>
+provides a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Task.Builder.html">Task.Builder</a> with which you can specify task properties such as the delay, interval, name,
+(a)synchronicity, and <code class="docutils literal"><span class="pre">Runnable</span></code> (see <a class="reference internal" href="#task-properties"><span>Task Properties</span></a>).</p>
 <div class="section" id="task-builder">
 <h2>Task Builder<a class="headerlink" href="#task-builder" title="Permalink to this headline">¶</a></h2>
 <p>First, obtain an instance of the <code class="docutils literal"><span class="pre">Scheduler</span></code>, and retrieve the <code class="docutils literal"><span class="pre">Task.Builder</span></code>:</p>
@@ -572,8 +575,8 @@ name, (a)synchronicity, and <code class="docutils literal"><span class="pre">Run
 <span class="n">Task</span><span class="o">.</span><span class="na">Builder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">createTaskBuilder</span><span class="o">();</span>
 </pre></div>
 </div>
-<p>The only required property is the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html">Runnable</a>,
-which you can specify using <code class="docutils literal"><span class="pre">Task.Builder#execute(Runnable</span> <span class="pre">runnable)</span></code>:</p>
+<p>The only required property is the <a class="reference external" href="http://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">Runnable</a>,
+which you can specify using <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Task.Builder.html#execute-java.lang.Runnable-">Task.Builder#execute(Runnable)</a>:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="o">);</span>
@@ -661,7 +664,7 @@ it should be descriptive and aid users in debugging your plugin.</td>
 </tr>
 </tbody>
 </table>
-<p>Lastly, submit the task to the scheduler using <code class="docutils literal"><span class="pre">Task.Builder#submit(Object</span> <span class="pre">plugin)</span></code>.</p>
+<p>Lastly, submit the task to the scheduler using <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Task.Builder.html#submit-java.lang.Object-">Task.Builder#submit(Object)</a>.</p>
 <p>And that&#8217;s it! To summarize, a fully functional scheduled task that would run asynchronously every 5 minutes after an
 initial delay of 100 milliseconds could be built and submitted using the following code:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
@@ -674,14 +677,15 @@ initial delay of 100 milliseconds could be built and submitted using the followi
     <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;ExamplePlugin - Fetch Stats from Database&quot;</span><span class="o">).</span><span class="na">submit</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
 </pre></div>
 </div>
-<p>To cancel a task, simply call the <code class="docutils literal"><span class="pre">Task#cancel</span></code> method:</p>
+<p>To cancel a task, simply call the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Task.html#cancel--">Task#cancel()</a> method:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">task</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
 </pre></div>
 </div>
-<p>If you need to cancel the task from within the runnable itself, you can instead opt to use a <cite>Consumer&lt;Task&gt;</cite> in order to
-access the task. The below example will schedule a task that will count down from 60 and cancel itself upon reaching 0.</p>
+<p>If you need to cancel the task from within the runnable itself, you can instead opt to use a <code class="docutils literal"><span class="pre">Consumer&lt;Task&gt;`</span></code> in
+order to access the task. The below example will schedule a task that will count down from 60 and cancel itself upon
+reaching 0.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGameInit</span><span class="o">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="o">){</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGameInit</span><span class="o">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
     <span class="n">Task</span><span class="o">.</span><span class="na">Builder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">createTaskBuilder</span><span class="o">();</span>
     <span class="n">Task</span> <span class="n">task</span> <span class="o">=</span> <span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">CancellingTimerTask</span><span class="o">())</span>
@@ -697,7 +701,7 @@ access the task. The below example will schedule a task that will count down fro
         <span class="n">Sponge</span><span class="o">.</span><span class="na">getServer</span><span class="o">()</span>
             <span class="o">.</span><span class="na">getBroadcastChannel</span><span class="o">()</span>
             <span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Remaining Time: &quot;</span><span class="o">+</span><span class="n">seconds</span><span class="o">+</span><span class="s">&quot;s&quot;</span><span class="o">));</span>
-        <span class="k">if</span><span class="o">(</span><span class="n">seconds</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">seconds</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">task</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
         <span class="o">}</span>
     <span class="o">}</span>
@@ -735,14 +739,14 @@ These libraries do tend to support Java&#8217;s
 of directing on which thread the task is executed.</p>
 <p>To allow these libraries to work with Sponge&#8217;s <code class="docutils literal"><span class="pre">Scheduler</span></code> the following methods can be used:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">Scheduler#createSyncExecutor(Object</span> <span class="pre">plugin)</span></code> creates a <code class="docutils literal"><span class="pre">ScheduledExecutorService</span></code> which executes tasks
+<li><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Scheduler.html#createSyncExecutor-java.lang.Object-">Scheduler#createSyncExecutor(Object)</a> creates a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/SpongeExecutorService.html">SpongeExecutorService</a> which executes tasks
 through Sponge&#8217;s synchronous scheduler.</li>
-<li><code class="docutils literal"><span class="pre">Scheduler#createAsyncExecutor(Object</span> <span class="pre">plugin)</span></code> creates a <code class="docutils literal"><span class="pre">ScheduledExecutorService</span></code> which executes tasks
-through Sponge&#8217;s asynchronous scheduler. Tasks are subject to the restrictions mentioned in <a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a>.</li>
+<li><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/scheduler/Scheduler.html#createAsyncExecutor-java.lang.Object-">Scheduler#createAsyncExecutor(Object)</a> creates a <code class="docutils literal"><span class="pre">SpongeExecutorService</span></code> which executes tasks through
+Sponge&#8217;s asynchronous scheduler. Tasks are subject to the restrictions mentioned in <a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a>.</li>
 </ul>
 <p>One thing to keep in mind is that any tasks that interacts with Sponge outside of the interactions listed in
-<a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a> need to be executed on the ExecutorService created with
-<code class="docutils literal"><span class="pre">Scheduler#createSyncExecutor(Object</span> <span class="pre">plugin)</span></code> to be thread-safe.</p>
+<a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a> need to be executed on the ExecutorService created with  <code class="docutils literal"><span class="pre">Scheduler#createSyncExecutor(Object)</span></code>
+to be thread-safe.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.scheduler.SpongeExecutorService</span><span class="o">;</span>
 
 <span class="n">SpongeExecutorService</span> <span class="n">minecraftExecutor</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">().</span><span class="na">createSyncExecutor</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>

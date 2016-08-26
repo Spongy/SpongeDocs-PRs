@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Services &mdash; Sponge 4.1.0 documentation</title>
+     <title>The Asset API &mdash; Sponge 4.1.0 documentation</title>
     
   <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
@@ -34,8 +34,8 @@
       <link rel="shortcut icon" href="../_static/favicon.ico"/>
         <link rel="top" title="Sponge 4.1.0 documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
-        <link rel="next" title="Databases" href="database.html" />
-        <link rel="prev" title="Scheduler" href="scheduler.html" />
+        <link rel="next" title="Configuring Plugins" href="configuration/index.html" />
+        <link rel="prev" title="Custom Events" href="event/custom.html" />
     
   <script type="text/javascript">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -104,16 +104,16 @@
       <ul class="controls">
         <li>|</li>
         
-        <li><a href="database.html" title="Next Page"><i class="fa fa-fw fa-chevron-right"></i></a></li>
+        <li><a href="configuration/index.html" title="Next Page"><i class="fa fa-fw fa-chevron-right"></i></a></li>
         
         <li><a href="#top" title="To the top"><i class="fa fa-fw fa-chevron-up"></i></a></li>
         <li><a href="../index.html" title="Home"><i class="fa fa-fw fa-home"></i></a></li>
         
-        <li><a href="scheduler.html" title="Previous Page"><i class="fa fa-fw fa-chevron-left"></i></a></li>
+        <li><a href="event/custom.html" title="Previous Page"><i class="fa fa-fw fa-chevron-left"></i></a></li>
         
         <li>|</li>
         
-          <li><a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/plugin/services.rst" title="Edit on GitHub"><i class="fa fa-fw fa-github"></i></a></li>
+          <li><a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/plugin/assets.rst" title="Edit on GitHub"><i class="fa fa-fw fa-github"></i></a></li>
         
       </ul>
     </div>
@@ -305,7 +305,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="assets.html">The Asset API</a><ul class="simple">
+<li class="toctree-l2 current"><a class="current reference internal" href="">The Asset API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a><ul>
@@ -395,7 +395,7 @@
 <li class="toctree-l2"><a class="reference internal" href="scheduler.html">Scheduler</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Services</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="services.html">Services</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="database.html">Databases</a><ul class="simple">
@@ -559,93 +559,53 @@
               <div class="bodywrapper">
                 <div class="body" role="main">
                   
-  <div class="section" id="services">
-<h1>Services<a class="headerlink" href="#services" title="Permalink to this headline">¶</a></h1>
-<p>Pretty much everything (events, permissions, etc.) is handled through services. All services are accessed through the
-service manager:</p>
+  <div class="section" id="the-asset-api">
+<h1>The Asset API<a class="headerlink" href="#the-asset-api" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/asset/AssetManager.html">AssetManager</a> allows developers to retrieve resources from a plugin JAR.</p>
+<p>By default, a plugin&#8217;s assets resides in a directory named <code class="docutils literal"><span class="pre">assets/myplugin/</span></code> where <code class="docutils literal"><span class="pre">myplugin</span></code> is the plugin ID. In
+most cases this default directory should be used but if you <em>need</em> to change it, you may do so by setting the
+<code class="docutils literal"><span class="pre">assets</span></code> attribute in your <code class="docutils literal"><span class="pre">&#64;Plugin</span></code> annotation or <code class="docutils literal"><span class="pre">mcmod.info</span></code> file.</p>
+<p>Once properly configured you can retrieve a resource for your (or any) plugin using the following code:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.asset.Asset</span><span class="o">;</span>
+
+<span class="n">Asset</span> <span class="n">asset</span> <span class="o">=</span> <span class="n">plugin</span><span class="o">.</span><span class="na">getAsset</span><span class="o">(</span><span class="s">&quot;myfile.txt&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+</pre></div>
+</div>
+<p>Alternatively, you can retrieve assets through the <code class="docutils literal"><span class="pre">AssetManager</span></code> class:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
 
-<span class="n">Sponge</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provide</span><span class="o">(</span><span class="n">EventManager</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</pre></div>
-</div>
-<p>If you need to get an object reference to something, just get it off the service manager.</p>
-<div class="section" id="service-guidelines">
-<h2>Service Guidelines<a class="headerlink" href="#service-guidelines" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Services should be registered during the <code class="docutils literal"><span class="pre">POST_INITIALIZATION</span></code> game state at the latest.</li>
-<li>Services should be fully operational by the <code class="docutils literal"><span class="pre">SERVER_ABOUT_TO_START</span></code> game state.</li>
-</ul>
-<p>You can read more about game states on the <a class="reference internal" href="lifecycle.html"><em>Plugin Lifecycle</em></a> page.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">It is a good practice to register services as soon as possible so that other plugins can note that the service will
-be provided.</p>
-</div>
-</div>
-<div class="section" id="providing-your-own-service">
-<h2>Providing your own service<a class="headerlink" href="#providing-your-own-service" title="Permalink to this headline">¶</a></h2>
-<p>Your plugin can provide the implementation for a core interface like <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/service/permission/PermissionService.html">PermissionService</a>, or for a custom
-interface that is not part of the Sponge API (e.g. economy, web server):</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">Sponge</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">setProvider</span><span class="o">(</span><span class="n">Object</span> <span class="n">plugin</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">service</span><span class="o">,</span> <span class="n">T</span> <span class="n">provider</span><span class="o">);</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal"><span class="pre">provider</span></code> object has to implement the <code class="docutils literal"><span class="pre">service</span></code> interface or class.</p>
-<p>Designing the API this way makes Sponge extremely modular.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Plugins should provide options to not install their providers if the plugin is not dedicated to a single function.</p>
-</div>
-<div class="section" id="example-providing-a-simple-warp-service">
-<h3>Example: Providing a simple warp service<a class="headerlink" href="#example-providing-a-simple-warp-service" title="Permalink to this headline">¶</a></h3>
-<p>The first step is optional, but recommended. You specify the public methods of your service class in an interface:</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">WarpService</span> <span class="o">{</span>
-    <span class="kt">void</span> <span class="nf">setWarp</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">location</span><span class="o">);</span>
-    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;&gt;</span> <span class="nf">getWarp</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">);</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-<p>Now you can write the class that implements your interface:</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleWarpService</span> <span class="kd">implements</span> <span class="n">WarpService</span> <span class="o">{</span>
-    <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;&gt;</span> <span class="n">warpMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;&gt;();</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;&gt;</span> <span class="nf">getWarp</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span><span class="o">(!</span><span class="n">warpMap</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">name</span><span class="o">))</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">warpMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">name</span><span class="o">));</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setWarp</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">location</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">warpMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">location</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-<p>Now we can register a new instance of the class in the service manager. We are using the interface
-<code class="docutils literal"><span class="pre">WarpService.class</span></code> as the <code class="docutils literal"><span class="pre">service</span></code> key.</p>
-<p>This makes it possible for other plugin developers to write their own implementation of your service (that implements
-the interface) and replace your version.</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">Sponge</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">setProvider</span><span class="o">(</span><span class="n">yourPluginInstance</span><span class="o">,</span> <span class="n">WarpService</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="k">new</span> <span class="n">SimpleWarpService</span><span class="o">());</span>
-</pre></div>
-</div>
-<p>Other plugins can now access your service through the service manager:</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">Sponge</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provide</span><span class="o">(</span><span class="n">WarpService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">Asset</span> <span class="n">asset</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getAssetManager</span><span class="o">().</span><span class="na">getAsset</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="s">&quot;myfile.txt&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
 </pre></div>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">If you don&#8217;t want to use interfaces,
-just replace the <code class="docutils literal"><span class="pre">service</span></code> key with your class (<code class="docutils literal"><span class="pre">SimpleWarpService.class</span></code> in the example).</p>
+<p class="last">The <code class="docutils literal"><span class="pre">AssetManager</span></code> can be used to retrieve assets defined in the Sponge implementation itself simply by omitting
+the plugin parameter.</p>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The examples above assume that <code class="docutils literal"><span class="pre">myfile.txt</span></code> exists as an <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/asset/Asset.html">Asset</a>. If it does not, then <code class="docutils literal"><span class="pre">getAsset()</span></code>
+will return <code class="docutils literal"><span class="pre">Optional#empty()</span></code>.</p>
+</div>
+<div class="section" id="working-with-assets">
+<h2>Working with Assets<a class="headerlink" href="#working-with-assets" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">Asset</span></code> class is essentially just a wrapper around a <code class="docutils literal"><span class="pre">URL</span></code> with some common I/O operations built in. The use
+cases of <code class="docutils literal"><span class="pre">Assets</span></code>s is essentially unbounded but one common use case is to generate a default configuration file if
+your plugin&#8217;s configuration file is not found. You can achieve this using a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/plugin/PluginContainer.html">PluginContainer</a> with the
+following code:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.nio.file.Files</span><span class="o">;</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">Files</span><span class="o">.</span><span class="na">notExists</span><span class="o">(</span><span class="n">configPath</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">plugin</span><span class="o">.</span><span class="na">getAsset</span><span class="o">(</span><span class="s">&quot;default.conf&quot;</span><span class="o">).</span><span class="na">copyToFile</span><span class="o">(</span><span class="n">configPath</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Developers coming from Bukkit or some other Java background might be familiar with the <code class="docutils literal"><span class="pre">getResource</span></code> and
+<code class="docutils literal"><span class="pre">getResourceAsStream</span></code> methods in <code class="docutils literal"><span class="pre">Class</span></code>es and <code class="docutils literal"><span class="pre">ClassLoader</span></code>s. <strong>These methods should generally be avoided</strong>
+within the SpongeAPI environment in favor of the <code class="docutils literal"><span class="pre">AssetManager</span></code> in order to provide a more confluent way of
+retrieving resources not only within your own plugin, but for other plugins as well.</p>
 </div>
 </div>
 </div>

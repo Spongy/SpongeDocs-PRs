@@ -306,7 +306,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../assets/index.html">The Asset API</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a><ul>
@@ -437,6 +437,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -564,16 +567,16 @@ very commonly check while writing an event listener. Event filters are a group o
 to automatically validate aspects of the event, and if the validation fails then your listener will not be called. This allows
 your listener to be dedicated to the logic of your handler, rather than the preconditions, resulting in cleaner code.</p>
 <p>Event filters come in two varieties, event type filters and parameter filters.</p>
-<p>Event type filters are method annotations that are applied to your listener method along with the <code class="docutils literal"><span class="pre">&#64;Listener</span></code> annotation and
-provide several filters based on the type or state of the event.</p>
+<p>Event type filters are method annotations that are applied to your listener method along with the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/Listener.html">Listener</a>
+annotation and provide several filters based on the type or state of the event.</p>
 <p>Parameter filters validate objects contained within the event such as the cause. They come in a further two varieties
 parameter sources and parameter filters. Each additional parameter must have one source annotation, and optionally may include
 any number of filter annotations.</p>
 <div class="section" id="event-type-filters">
 <h2>Event Type Filters<a class="headerlink" href="#event-type-filters" title="Permalink to this headline">¶</a></h2>
 <p><strong>&#64;Include/&#64;Exclude</strong>
-These two parameters are used in conjunction with listening for supertype events such as <code class="docutils literal"><span class="pre">EntityEvent</span></code> while narrowing the
-events that you receive to just a subset of the events extending the event you&#8217;re listening for.</p>
+These two parameters are used in conjunction with listening for supertype events such as <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/entity/AffectEntityEvent.html">AffectEntityEvent</a>
+while narrowing the events that you receive to just a subset of the events extending the event you&#8217;re listening for.</p>
 <p>For example:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
 <span class="nd">@Exclude</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Primary</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
@@ -582,10 +585,10 @@ events that you receive to just a subset of the events extending the event you&#
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>This listener would normally be called for all events extending InteractBlockEvent. However, the <code class="docutils literal"><span class="pre">Exclude</span></code> annotation
-will prevent your listener from being called for the <code class="docutils literal"><span class="pre">InteractBlockEvent.Primary</span></code> event (leaving just the
-<code class="docutils literal"><span class="pre">InteractBlockEvent.Secondary</span></code> event).</p>
-<p>An example with <code class="docutils literal"><span class="pre">&#64;Include</span></code> could be:</p>
+<p>This listener would normally be called for all events extending InteractBlockEvent. However, the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/filter/type/Exclude.html">Exclude</a>
+annotationte will prevent your listener from being called for the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/block/InteractBlockEvent.Primary.html">InteractBlockEvent.Primary</a> event (leaving
+just the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/block/InteractBlockEvent.Secondary.html">InteractBlockEvent.Secondary</a> event).</p>
+<p>An example with <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/filter/type/Include.html">Include</a> could be:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
 <span class="nd">@Include</span><span class="o">({</span><span class="n">DamageEntityEvent</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">DestructEntityEvent</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onEvent</span><span class="o">(</span><span class="n">EntityEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
@@ -593,13 +596,13 @@ will prevent your listener from being called for the <code class="docutils liter
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>This listener would normally be called for all EntityEvents, however the <code class="docutils literal"><span class="pre">Include</span></code> annotation narrows it to
-only recieve <code class="docutils literal"><span class="pre">DamageEntityEvent</span></code> and <code class="docutils literal"><span class="pre">DestructEntityEvent</span></code>s.</p>
+<p>This listener would normally be called for all EntityEvents, however the <code class="docutils literal"><span class="pre">Include</span></code> annotation narrows it to only
+recieve <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/entity/DamageEntityEvent.html">DamageEntityEvent</a> and <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/entity/DestructEntityEvent.html">DestructEntityEvent</a>s.</p>
 <p><strong>&#64;IsCancelled</strong>
 This annotation allows filtering events by their cancellation state at the time that your event listener would normally be
 called. By default your event listener will not be called if the event has been cancelled by a previous event listener.
-However you can change this behavior to one of three states depending on the <code class="docutils literal"><span class="pre">Tristate</span></code> value in the <code class="docutils literal"><span class="pre">&#64;IsCancelled</span></code>
-annotation.</p>
+However you can change this behavior to one of three states depending on the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/util/Tristate.html">Tristate</a> value in the
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/filter/IsCancelled.html">IsCancelled</a> annotation.</p>
 <blockquote>
 <div><ul class="simple">
 <li><code class="docutils literal"><span class="pre">Tristate.FALSE</span></code> is the default behavior if the <code class="docutils literal"><span class="pre">IsCancelled</span></code> annotation is not present, and will not call your
@@ -619,8 +622,8 @@ annotation and may optionally have any number of filter annotations.</p>
 <p>Parameter source annotations tell the event system where it should look for this parameter&#8217;s value. This may be in the events
 cause or in a member of the event object itself.</p>
 <p><strong>&#64;First</strong> This parameter source annotation tells the event system to find the first object in the event&#8217;s cause which matches
-the type of your parameter (This is equivalent to <code class="docutils literal"><span class="pre">Cause#first(Class&lt;?&gt;)</span></code>). If no object is found matching this parameter
-then your listener is not called.</p>
+the type of your parameter (This is equivalent to <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#first-java.lang.Class-">Cause#first(Class)</a>). If no object is found matching this
+parameter then your listener is not called.</p>
 <p><strong>In this example your listener will only be called if there is a player in the event&#8217;s cause, and the</strong> <code class="docutils literal"><span class="pre">player</span></code>
 <strong>parameter will be set to the first player present the cause.</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
@@ -629,17 +632,17 @@ then your listener is not called.</p>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p><strong>&#64;Last</strong> This is similar to <code class="docutils literal"><span class="pre">&#64;First</span></code> however it instead makes a call to <code class="docutils literal"><span class="pre">Cause#last(Class&lt;?&gt;)</span></code>.</p>
+<p><strong>&#64;Last</strong> This is similar to <code class="docutils literal"><span class="pre">&#64;First</span></code> however it instead makes a call to <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#last-java.lang.Class-">Cause#last(Class)</a>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="o">,</span> <span class="nd">@Last</span> <span class="n">Player</span> <span class="n">player</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">// do something</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p><strong>&#64;Before</strong> This parameter source annotation tells the event system to find the object before
-the one of the type specified by the annotation parameter (This is equivalent to <code class="docutils literal"><span class="pre">Cause#before(Class&lt;?&gt;)</span></code>).
-Additionally, the found object must match the type of the parameter. If no object is found meeting these criteria,
-then your listener is not called.</p>
+<p><strong>&#64;Before</strong> This parameter source annotation tells the event system to find the object before the one of the type
+specified by the annotation parameter (This is equivalent to <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#before-java.lang.Class-">Cause#before(Class)</a>). Additionally, the found
+object must match the type of the parameter. If no object is found meeting these criteria, then your listener is not
+called.</p>
 <p><strong>In this example your listener will only be called if there is a player located before a plugin container in the event&#8217;s cause.
 The</strong> <code class="docutils literal"><span class="pre">player</span></code> <strong>parameter will be set to that player.</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
@@ -648,10 +651,10 @@ The</strong> <code class="docutils literal"><span class="pre">player</span></cod
 <span class="o">}</span>
 </pre></div>
 </div>
-<p><strong>&#64;After</strong> This is similar to <code class="docutils literal"><span class="pre">&#64;Before</span></code>, but it instead uses <code class="docutils literal"><span class="pre">Cause#after(Class&lt;?&gt;)</span></code>.</p>
-<p><strong>&#64;All</strong> This parameter source annotation requires that the annotated parameter be an array
-type. The returned array will be equivalent to the contents of calling <code class="docutils literal"><span class="pre">Cause#all(Class&lt;?&gt;)</span></code>. By default if the
-returned array would be empty then the validation fails however this can be disabled by setting <code class="docutils literal"><span class="pre">ignoreEmpty=false</span></code>.</p>
+<p><strong>&#64;After</strong> This is similar to <code class="docutils literal"><span class="pre">&#64;Before</span></code>, but it instead uses <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#after-java.lang.Class-">Cause#after(Class)</a>.</p>
+<p><strong>&#64;All</strong> This parameter source annotation requires that the annotated parameter be an array type. The returned array
+will be equivalent to the contents of calling <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#allOf-java.lang.Class-">Cause#allOf(Class)</a>. By default if the returned array would be
+empty then the validation fails however this can be disabled by setting <code class="docutils literal"><span class="pre">ignoreEmpty=false</span></code>.</p>
 <p><strong>In this example your listener will always be called, although the players array may be empty if the event&#8217;s cause contained
 no players.</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
@@ -660,11 +663,12 @@ no players.</strong></p>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p><strong>&#64;Root</strong> This parameter source annotation will fetch the root object of the cause, equivalent to <code class="docutils literal"><span class="pre">Cause#root()</span></code>.
-It also performs an additional check that the type of the root object matches the type of your parameter.</p>
+<p><strong>&#64;Root</strong> This parameter source annotation will fetch the root object of the cause, equivalent to
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#root--">Cause#root()</a>. It also performs an additional check that the type of the root object matches the type of your
+parameter.</p>
 <p><strong>&#64;Named</strong> This parameter source annotation tells the event system to find the object with the name specified by the annotation
-parameter (This is equivalent to <code class="docutils literal"><span class="pre">Cause#get(String)</span></code>). Additionally, the found object must match the type of the parameter. If
-no object is found meeting these criteria, then your listener is not called.</p>
+parameter (This is equivalent to <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#get-java.lang.String-java.lang.Class-">Cause#get(String, Class)</a>). Additionally, the found object must match the
+type of the parameter. If no object is found meeting these criteria, then your listener is not called.</p>
 <p><strong>In this example your listener will only be called if there is a player associated with the name</strong> <code class="docutils literal"><span class="pre">NamedCause.OWNER</span></code> <strong>.
 The</strong> <code class="docutils literal"><span class="pre">player</span></code> <strong>parameter will be set to that player.</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
@@ -679,11 +683,11 @@ The</strong> <code class="docutils literal"><span class="pre">player</span></cod
 <p>Parameter filter annotations add additional validation to objects returned from parameter source annotations. As with all
 event filters if any of these validations fail then your listener will not be called.</p>
 <p><strong>&#64;Supports</strong>
-This parameter filter may be applied to any parameter type which is a <code class="docutils literal"><span class="pre">DataHolder</span></code>. It takes a class extending
-<code class="docutils literal"><span class="pre">DataManipulator</span></code> as its parameter and validates that the annotated DataHolder supports the given DataManipulator
-ype. This validation is equivalent to <code class="docutils literal"><span class="pre">DataHolder#supports(Class&lt;?</span> <span class="pre">extends</span> <span class="pre">DataManipulator&gt;)</span></code>.</p>
+This parameter filter may be applied to any parameter type which is a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/DataHolder.html">DataHolder</a>. It takes a class extending
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a> as its parameter and validates that the annotated <code class="docutils literal"><span class="pre">DataHolder</span></code> supports the given
+<code class="docutils literal"><span class="pre">DataManipulator</span></code>. This validation is equivalent to <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/value/mutable/CompositeValueStore.html#supports-java.lang.Class-">CompositeValueStore#supports(Class&lt;? extends H&gt;)</a>.</p>
 <p><strong>In this example the listener will be called only if there is an entity in the event&#8217;s cause, and if that entity supports
-the data manipulator</strong> <code class="docutils literal"><span class="pre">FlyingData</span></code>.</p>
+the data manipulator</strong> <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/mutable/entity/FlyingData.html">FlyingData</a>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="o">,</span> <span class="nd">@First</span> <span class="nd">@Supports</span><span class="o">(</span><span class="n">FlyingData</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="n">Entity</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">// do something</span>
@@ -692,8 +696,7 @@ the data manipulator</strong> <code class="docutils literal"><span class="pre">F
 </div>
 <p><strong>&#64;Has</strong>
 This parameter filter is similar to the <code class="docutils literal"><span class="pre">&#64;Supports</span></code> parameter filter except that it additionally validates that the
-<code class="docutils literal"><span class="pre">DataHolder</span></code> contains an instance of the given <code class="docutils literal"><span class="pre">DataManipulator</span></code>. This validation is equivalent to
-<code class="docutils literal"><span class="pre">DataHolder#hasData(Class&lt;?</span> <span class="pre">extends</span> <span class="pre">DataManipulator&gt;)</span></code>.</p>
+<code class="docutils literal"><span class="pre">DataHolder</span></code> contains an instance of the given <code class="docutils literal"><span class="pre">DataManipulator</span></code>.</p>
 <p><strong>In this example the listener will be called only if there is an entity in the event&#8217;s cause, and if that entity has an
 instance of</strong> <code class="docutils literal"><span class="pre">FlyingData</span></code> <strong>available.</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>

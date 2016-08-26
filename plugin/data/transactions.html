@@ -306,7 +306,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../assets/index.html">The Asset API</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a><ul>
@@ -437,6 +437,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -561,11 +564,12 @@
 <h1>Transactions<a class="headerlink" href="#transactions" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="reading-the-result">
 <h2>Reading the Result<a class="headerlink" href="#reading-the-result" title="Permalink to this headline">¶</a></h2>
-<p>For everything you <code class="docutils literal"><span class="pre">offer</span></code> to a data holder, the <code class="docutils literal"><span class="pre">offer</span></code> method will yield a <code class="docutils literal"><span class="pre">DataTransactionResult</span></code>. This
+<p>For everything you <code class="docutils literal"><span class="pre">offer</span></code> to a data holder, the <code class="docutils literal"><span class="pre">offer</span></code> method will yield a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/DataTransactionResult.html">DataTransactionResult</a>. This
 object will contain the following:</p>
 <div class="section" id="type">
 <h3>Type<a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">Type</span></code> indicates whether the transaction was completed successfully and, if not, how it failed.</p>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/DataTransactionResult.Type.html">DataTransactionResult.Type</a> indicates whether the transaction was completed
+successfully and, if not, how it failed.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="16%" />
@@ -625,16 +629,16 @@ the data that was involved in the transaction.</p>
 <li><code class="docutils literal"><span class="pre">getReplacedData()</span></code> would contain one value container for the <code class="docutils literal"><span class="pre">Keys.HEALTH</span></code> key with a value of 1.0</li>
 <li><code class="docutils literal"><span class="pre">getSuccessfulData()</span></code> would contain one value container for the <code class="docutils literal"><span class="pre">Keys.HEALTH</span></code> key with a value of 20.0</li>
 </ul>
-<p>Now what would be different if we used the healing example from the <a class="reference internal" href="datamanipulators.html"><em>Data Manipulators</em></a> page instead? Since
-the <code class="docutils literal"><span class="pre">HealthData</span></code> data manipulator contains values for both the current and the maximum health, in addition to
-the above result, both the <code class="docutils literal"><span class="pre">getReplacedData()</span></code> list and the <code class="docutils literal"><span class="pre">getSuccessfulData()</span></code> list would contain one more
-element: A value container for the <code class="docutils literal"><span class="pre">Keys.MAX_HEALTH</span></code> key with a value of 20.0.</p>
+<p>Now what would be different if we used the healing example from the <a class="reference internal" href="datamanipulators.html"><em>Data Manipulators</em></a> page instead? Since the
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a> data manipulator contains values for both the current and the maximum health, in addition to the
+above result, both the <code class="docutils literal"><span class="pre">getReplacedData()</span></code> list and the <code class="docutils literal"><span class="pre">getSuccessfulData()</span></code> list would contain one more element:
+A value container for the <code class="docutils literal"><span class="pre">Keys.MAX_HEALTH</span></code> key with a value of 20.0.</p>
 </div>
 <div class="section" id="offering-healthdata-to-a-block-of-stone">
 <h3>Offering HealthData to a block of stone<a class="headerlink" href="#offering-healthdata-to-a-block-of-stone" title="Permalink to this headline">¶</a></h3>
 <p>Now our above-mentioned examples are coded in a such a way that they will fail silently rather than try to offer the
 incompatible data. But imagine we took a (fully healed) player&#8217;s <code class="docutils literal"><span class="pre">HealthData</span></code> and tried to offer it to the
-<code class="docutils literal"><span class="pre">Location</span></code> of the stone block he&#8217;s currently standing on. We can do this, since <code class="docutils literal"><span class="pre">Location</span></code> is also a data
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/Location.html">Location</a> of the stone block he&#8217;s currently standing on. We can do this, since <code class="docutils literal"><span class="pre">Location</span></code> is also a data
 holder. And if we do, it would reward us with a <code class="docutils literal"><span class="pre">DataTransactionResult</span></code> like this:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">getType()</span></code> would return <code class="docutils literal"><span class="pre">FAILURE</span></code></li>

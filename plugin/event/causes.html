@@ -306,7 +306,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../assets/index.html">The Asset API</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a><ul>
@@ -437,6 +437,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -559,17 +562,16 @@
                   
   <div class="section" id="event-causes">
 <h1>Event Causes<a class="headerlink" href="#event-causes" title="Permalink to this headline">¶</a></h1>
-<p>Events are great for attaching additional logic to game actions, but
-they have the drawback of providing next to no context as to what has <strong>caused</strong> that event to
-occur. The <code class="docutils literal"><span class="pre">Cause</span></code> object allows providing and receiving additional contextual information about
-the event. This contextual information can then used to modify the behavior of your event listener.</p>
-<p>For example, a world protection plugin needs information on what player has caused a
-ChangeBlockEvent to occur before they can decide if the event should be cancelled or not.
-Rather than go with the traditional route of creating a multitude of subevents for the different source
-conditions this information is instead provided in the <code class="docutils literal"><span class="pre">Cause</span></code> of the event.</p>
-<p>Every event provides a <code class="docutils literal"><span class="pre">Cause</span></code> object which can be interrogated
-for the information pertaining to why the event was fired. The Cause object can be retrieved from
-an event by simply calling <code class="docutils literal"><span class="pre">event.getCause()</span></code>.</p>
+<p>Events are great for attaching additional logic to game actions, but they have the drawback of providing next to no
+context as to what has <strong>caused</strong> that event to occur. The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html">Cause</a> object allows providing and receiving
+additional contextual information about the event. This contextual information can then used to modify the behavior of
+your event listener.</p>
+<p>For example, a world protection plugin needs information on what player has caused a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/block/ChangeBlockEvent.html">ChangeBlockEvent</a> to
+occur before they can decide if the event should be cancelled or not. Rather than go with the traditional route of
+creating a multitude of subevents for the different source conditions this information is instead provided in the
+<code class="docutils literal"><span class="pre">Cause</span></code> of the event.</p>
+<p>Every event provides a <code class="docutils literal"><span class="pre">Cause</span></code> object which can be interrogated for the information pertaining to why the event was
+fired. The Cause object can be retrieved from an event by simply calling <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/Event.html#getCause--">Event#getCause()</a>.</p>
 <div class="section" id="retrieving-objects-from-a-cause">
 <h2>Retrieving objects from a Cause<a class="headerlink" href="#retrieving-objects-from-a-cause" title="Permalink to this headline">¶</a></h2>
 <p>Structurally, a <code class="docutils literal"><span class="pre">Cause</span></code> object contains a sequential list of objects. There are several methods of
@@ -581,11 +583,11 @@ listing please see the javadocs <strong>link</strong>.</p>
 cause of the event, and subsequent objects are of decreasing importance and/or may only
 provide contextual information.</p>
 </div>
-<p><code class="docutils literal"><span class="pre">Cause#root()</span></code> returns the first object within the cause. This object is the most immediate or direct cause of the
-event. Since a <code class="docutils literal"><span class="pre">Cause</span></code> may not be empty, it is guaranteed to have a <code class="docutils literal"><span class="pre">root</span></code>.</p>
-<p><code class="docutils literal"><span class="pre">Cause#first(Class)</span></code> returns the first object in the cause chain whose type is either the
-same as or is a subtype of the given class. For example given a cause which contained a player
-followed by an entity <code class="docutils literal"><span class="pre">[Player,</span> <span class="pre">Entity,</span> <span class="pre">...]</span></code></p>
+<p><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#root--">Cause#root()</a> returns the first object within the cause. This object is the most immediate or direct cause of
+the event. Since a <code class="docutils literal"><span class="pre">Cause</span></code> may not be empty, it is guaranteed to have a <code class="docutils literal"><span class="pre">root</span></code>.</p>
+<p><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#first-java.lang.Class-">Cause#first(Class)</a> returns the first object in the cause chain whose type is either the same as or is a
+subtype of the given class. For example given a cause which contained a player followed by an entity
+<code class="docutils literal"><span class="pre">[Player,</span> <span class="pre">Entity,</span> <span class="pre">...]</span></code></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onEvent</span><span class="o">(</span><span class="n">ExampleCauseEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Cause</span> <span class="n">cause</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getCause</span><span class="o">();</span> <span class="c1">// [Player, Entity]</span>
@@ -596,22 +598,22 @@ followed by an entity <code class="docutils literal"><span class="pre">[Player,<
 </div>
 <p>Both optionals would contain the player object as it&#8217;s type directly matched request for a
 Player type and it matched the request for an Entity type as Player is a subtype of Entity.</p>
-<p><code class="docutils literal"><span class="pre">Cause#last(Class)</span></code> is similar to <em>Cause#first(Class)</em> except it returns the last value in
-the cause chain matching the type.</p>
-<p>Continuing from the example above, if we instead changed it to call <code class="docutils literal"><span class="pre">Cause.last(Class)</span></code> the first
+<p><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#last-java.lang.Class-">Cause#last(Class)</a> is similar to <code class="docutils literal"><span class="pre">Cause#first(Class)</span></code> except it returns the last value in the cause chain
+matching the type.</p>
+<p>Continuing from the example above, if we instead changed it to call <code class="docutils literal"><span class="pre">Cause#last(Class)</span></code> the first
 optional would contain the player object still, but the second optional would now contain
 the entity that we passed in the second position of the cause.</p>
-<p><code class="docutils literal"><span class="pre">Cause.has(Class)</span></code> returns a boolean value and can be used to check if a cause chain
-contains any object matching the provided type.</p>
-<p><code class="docutils literal"><span class="pre">Cause.all()</span></code> simply returns all objects within the cause allowing more advanced handling.</p>
+<p><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#containsType-java.lang.Class-">Cause#containsType(Class)</a> returns a boolean value and can be used to check if a cause chain contains any
+object matching the provided type.</p>
+<p><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#all--">Cause#all()</a> simply returns all objects within the cause allowing more advanced handling.</p>
 </div>
 <div class="section" id="named-causes">
 <h2>Named Causes<a class="headerlink" href="#named-causes" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes the ordering of objects within the cause isn&#8217;t enough to get the proper idea of what
-an object represents in relation to the event. This is where <code class="docutils literal"><span class="pre">NamedCause</span></code> comes in. Named
-causes provide a method for tagging objects within a cause with a <strong>unique</strong> name allowing them
-to be easily identified and requested. Some examples of use cases for named causes is the
-<cite>Notifier</cite> of a ChangeBlockEvent.Grow or the <cite>Source</cite> of a DamageEntityEvent.</p>
+<p>Sometimes the ordering of objects within the cause isn&#8217;t enough to get the proper idea of what an object represents in
+relation to the event. This is where <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/NamedCause.html">NamedCause</a> comes in. Named causes provide a method for tagging objects
+within a cause with a <strong>unique</strong> name allowing them to be easily identified and requested. Some examples of use cases
+for named causes is the <cite>Notifier</cite> of a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/block/ChangeBlockEvent.Grow.html">ChangeBlockEvent.Grow</a> or the <cite>Source</cite> of a
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/entity/DamageEntityEvent.html">DamageEntityEvent</a>.</p>
 <p><strong>Retrieving a named entry from a cause</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGrow</span><span class="o">(</span><span class="n">ChangeBlockEvent</span><span class="o">.</span><span class="na">Grow</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
@@ -619,15 +621,14 @@ to be easily identified and requested. Some examples of use cases for named caus
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>This example makes use of <code class="docutils literal"><span class="pre">Cause.get(String</span> <span class="pre">named,</span> <span class="pre">Class&lt;T&gt;</span> <span class="pre">expected)</span></code> which can be used to retrieve the expected
-object associated with a name if it is present within the cause chain. Additionally
-<code class="docutils literal"><span class="pre">Cause.getNamedCauses()</span></code> provides a <code class="docutils literal"><span class="pre">Map&lt;String,</span> <span class="pre">Object&gt;</span></code> which can be used to find all
-present names and their associated objects.</p>
+<p>This example makes use of <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#get-java.lang.String-java.lang.Class-">Cause#get(String, Class&lt;T&gt;)</a> which can be used to retrieve the expected object
+associated with a name if it is present within the cause chain. Additionally <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#getNamedCauses--">Cause#getNamedCauses()</a> provides
+a <code class="docutils literal"><span class="pre">Map&lt;String,</span> <span class="pre">Object&gt;</span></code> which can be used to find all present names and their associated objects.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Some common identifying names for <code class="docutils literal"><span class="pre">NamedCause</span></code>s are present as static fields in the
 <code class="docutils literal"><span class="pre">NamedCause</span></code> class. Identifiers which are specific to certain events can often be found
-as static fields on the event class, for example <code class="docutils literal"><span class="pre">DamageEntityEvent.SOURCE</span></code>.</p>
+as static fields on the event class, for example <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/entity/DamageEntityEvent.html#SOURCE">DamageEntityEvent#SOURCE</a>.</p>
 </div>
 </div>
 <div class="section" id="creating-custom-causes">
@@ -642,17 +643,14 @@ the cause.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Cause objects are immutable therefore cannot be modified once created.</p>
 </div>
-<p>Using <code class="docutils literal"><span class="pre">Cause.of()</span></code>, you can construct a cause
-from a series of objects. The objects will be added to the cause chain in the order that they
-are passed to the method, so the first object parameter will become the root cause.
-Remember that a <code class="docutils literal"><span class="pre">Cause</span></code> may not be empty, so at least one non-null parameter is always required.</p>
-<p>If you already have a cause object and would like to append some more objects to the
-chain you can use <code class="docutils literal"><span class="pre">Cause.with(NamedCause)</span></code>. This constructs a new Cause object containing
-first the objects already present in the original cause, then followed by the additional
-objects that you provided.</p>
-<p>Finally if you wish to add an object to a cause with a defined named first call
-<code class="docutils literal"><span class="pre">NamedCause.of(String</span> <span class="pre">name,</span> <span class="pre">Object</span> <span class="pre">object)</span></code> and then pass the returned <code class="docutils literal"><span class="pre">NamedCause</span></code> instance
-to the cause chain as you would a normal object.</p>
+<p>Using <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#of-org.spongepowered.api.event.cause.NamedCause-">Cause#of(NamedCause)</a>, you can construct a cause from a series of objects. The objects will be added to
+the cause chain in the order that they are passed to the method, so the first object parameter will become the root
+cause. Remember that a <code class="docutils literal"><span class="pre">Cause</span></code> may not be empty, so at least one non-null parameter is always required.</p>
+<p>If you already have a cause object and would like to append some more objects to the chain you can use
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#with-org.spongepowered.api.event.cause.NamedCause-NamedCause...-">Cause#with(NamedCause, NamedCause...)</a>. This constructs a new Cause object containing first the objects
+already present in the original cause, then followed by the additional objects that you provided.</p>
+<p>Finally if you wish to add an object to a cause with a defined named first call <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/NamedCause.html#of-java.lang.String-Object-">NamedCause#of(String, Object)</a>
+and then pass the returned <code class="docutils literal"><span class="pre">NamedCause</span></code> instance to the cause chain as you would a normal object.</p>
 </div>
 </div>
 

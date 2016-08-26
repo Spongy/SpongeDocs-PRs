@@ -306,7 +306,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../assets/index.html">The Asset API</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a><ul>
@@ -437,6 +437,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -561,9 +564,9 @@
 <h1>Command Flags<a class="headerlink" href="#command-flags" title="Permalink to this headline">¶</a></h1>
 <p>Command flags are useful for specifying extra parameters to be used for the processing of a command that doesn&#8217;t belong
 as a command argument.</p>
-<p>To create a flag, we first need a builder for flags. We can simply use the <code class="docutils literal"><span class="pre">flags()</span></code> method provided by
-<code class="docutils literal"><span class="pre">GenericArguments</span></code> to obtain the builder we need. From there, we can specify what type of flag we would like to
-create. Note that flags are specified as an argument.</p>
+<p>To create a flag, we first need a builder for flags. We can simply use the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/args/GenericArguments.html#flags--">GenericArguments#flags()</a> method
+provided by <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/args/GenericArguments.html">GenericArguments</a> to obtain the builder we need. From there, we can specify what type of flag we
+would like to create. Note that flags are specified as an argument.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.GenericArguments</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandSpec</span><span class="o">;</span>
 
@@ -574,11 +577,12 @@ create. Note that flags are specified as an argument.</p>
 </pre></div>
 </div>
 <p>This will create a command flag, so that when the player performs <code class="docutils literal"><span class="pre">/our-command</span> <span class="pre">-s</span></code>, the flag for <code class="docutils literal"><span class="pre">s</span></code> will be true.
-Note that building with <code class="docutils literal"><span class="pre">GenericArguments.none()</span></code> will prevent the command from having any arguments. If you wish for
-the command to have arguments and flags, you will need to specify your arguments within the <code class="docutils literal"><span class="pre">buildWith()</span></code> method.</p>
+Note that building with <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/args/GenericArguments.html#none--">GenericArguments#none()</a> will prevent the command from having any arguments. If you
+wish for the command to have arguments and flags, you will need to specify your arguments within the
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/args/CommandFlags.Builder.html#buildWith-org.spongepowered.api.command.args.CommandElement-">CommandFlags.Builder#buildWith(CommandElement)</a> method.</p>
 <p>Now that we have specified that our command may be run with the flag, we can now get the value of the flag. For a
 simple boolean flag like the one we have specified above, we can simply just check if it exists. In the example below,
-we are checking if the <code class="docutils literal"><span class="pre">args</span></code> for the command has a value for <code class="docutils literal"><span class="pre">s</span></code>.</p>
+we are checking if the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/args/CommandContext.html">CommandContext</a> for the command has a value for <code class="docutils literal"><span class="pre">s</span></code>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 
 <span class="k">if</span> <span class="o">(</span><span class="n">args</span><span class="o">.</span><span class="na">hasAny</span><span class="o">(</span><span class="s">&quot;s&quot;</span><span class="o">))</span> <span class="o">{</span>
@@ -589,8 +593,8 @@ we are checking if the <code class="docutils literal"><span class="pre">args</sp
 <div class="section" id="permission-flags">
 <h2>Permission Flags<a class="headerlink" href="#permission-flags" title="Permalink to this headline">¶</a></h2>
 <p>Our flags so far are great, but what if we wanted to have it so that a player needs a permission to use a flag? We can
-instead use the <code class="docutils literal"><span class="pre">permissionFlag()</span></code> method on our flag builder. This will require the player to have a specific
-permission to run the command with the flag. An example of this is below:</p>
+instead use the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/args/CommandFlags.Builder.html#permissionFlag-java.lang.String-String...-">CommandFlags.Builder#permissionFlag(String, String...)</a> method on our flag builder. This will
+require the player to have a specific permission to run the command with the flag. An example of this is below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">CommandSpec</span> <span class="n">myCommand</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
         <span class="o">.</span><span class="na">executor</span><span class="o">(</span><span class="k">new</span> <span class="n">MyCommand</span><span class="o">())</span>
         <span class="o">.</span><span class="na">arguments</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">flags</span><span class="o">().</span><span class="na">permissionFlag</span><span class="o">(</span><span class="s">&quot;myplugin.command.flag&quot;</span><span class="o">,</span>
@@ -604,9 +608,9 @@ command with the command flag <code class="docutils literal"><span class="pre">s
 <div class="section" id="value-flags">
 <h2>Value Flags<a class="headerlink" href="#value-flags" title="Permalink to this headline">¶</a></h2>
 <p>Booleans can be great, but what if we wanted flags for things such as strings or integers? This is where value flags
-come into play. We simply need to use the <code class="docutils literal"><span class="pre">valueFlag()</span></code> method on our flag builder. Using the <code class="docutils literal"><span class="pre">valueFlag()</span></code> method,
-we can specify the type of flag we want to create, such as an integer or string. Creating an integer value flag can be
-done like so:</p>
+come into play. We simply need to use the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/args/CommandFlags.Builder.html#valueFlag-org.spongepowered.api.command.args.CommandElement-String...-">CommandFlags.Builder#valueFlag(CommandElement, String...)</a> method
+on our flag builder. Using the <code class="docutils literal"><span class="pre">valueFlag()</span></code> method, we can specify the type of flag we want to create, such as an
+integer or string. Creating an integer value flag can be done like so:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">CommandSpec</span> <span class="n">myCommand</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
         <span class="o">.</span><span class="na">executor</span><span class="o">(</span><span class="k">new</span> <span class="n">MyCommand</span><span class="o">())</span>
         <span class="o">.</span><span class="na">arguments</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">flags</span><span class="o">().</span><span class="na">valueFlag</span><span class="o">(</span><span class="n">GenericArguments</span>
@@ -614,8 +618,8 @@ done like so:</p>
         <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
-<p>You may replace <code class="docutils literal"><span class="pre">GenericArguments.integer()</span></code> with any other flag type you would like to specify, such as
-<code class="docutils literal"><span class="pre">GenericArguments.string()</span></code>.</p>
+<p>You may replace <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/args/GenericArguments.html#integer-org.spongepowered.api.text.Text-">GenericArguments#integer(Text)</a> with any other flag type you would like to specify, such as
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/command/args/GenericArguments.html#string-org.spongepowered.api.text.Text-">GenericArguments#string(Text)</a>.</p>
 <p>Now to retrieve the flag value from our command, we can simply treat it like any other command argument. We simply need
 to check if it exists before retrieving it:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>

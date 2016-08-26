@@ -306,7 +306,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../assets/index.html">The Asset API</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a><ul>
@@ -437,6 +437,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -560,12 +563,12 @@
   <div class="section" id="modifying-an-entity">
 <h1>Modifying an Entity<a class="headerlink" href="#modifying-an-entity" title="Permalink to this headline">¶</a></h1>
 <p>Sure, spawning a regular-old entity is nice and all, but there has to be something more interesting than that? This is
-where <code class="docutils literal"><span class="pre">DataManipulator</span></code>s come into play. An <code class="docutils literal"><span class="pre">Entity</span></code> is a <code class="docutils literal"><span class="pre">DataHolder</span></code>, which means that our <code class="docutils literal"><span class="pre">Entity</span></code> can
-hold data. More on <code class="docutils literal"><span class="pre">DataHolder</span></code>s can be found in the <a class="reference internal" href="../data/index.html"><em>data documentation</em></a>.</p>
-<p><code class="docutils literal"><span class="pre">DataManipulator</span></code>s that apply to <code class="docutils literal"><span class="pre">Entity</span></code>s are things such as <code class="docutils literal"><span class="pre">FoodData</span></code> or <code class="docutils literal"><span class="pre">HealthData</span></code>.
-A list of applicable <code class="docutils literal"><span class="pre">DataManipulator</span></code>s can be found at <code class="docutils literal"><span class="pre">org.spongepowered.api.data.manipulator.mutable</span></code> and
-<code class="docutils literal"><span class="pre">org.spongepowered.api.data.manipulator.mutable.entity</span></code>. Note that not all <code class="docutils literal"><span class="pre">DataManipulator</span></code>s found may apply to
-all entities.</p>
+where <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a>s come into play. An <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/entity/Entity.html">Entity</a> is a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/DataHolder.html">DataHolder</a>, which means that
+our <code class="docutils literal"><span class="pre">Entity</span></code> can hold data. More on <code class="docutils literal"><span class="pre">DataHolder</span></code>s can be found in the <a class="reference internal" href="../data/index.html"><em>data documentation</em></a>.</p>
+<p><code class="docutils literal"><span class="pre">DataManipulator</span></code>s that apply to <code class="docutils literal"><span class="pre">Entity</span></code>s are things such as <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/mutable/entity/FoodData.html">FoodData</a> or <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a>. A
+list of applicable <code class="docutils literal"><span class="pre">DataManipulator</span></code>s can be found at <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/mutable/package-summary.html">org.spongepowered.api.data.manipulator.mutable</a> and
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/mutable/entity/package-summary.html">org.spongepowered.api.data.manipulator.mutable.entity</a>. Note that not all <code class="docutils literal"><span class="pre">DataManipulator</span></code>s found there
+may apply to all entities.</p>
 <div class="section" id="entity-type">
 <h2>Entity Type<a class="headerlink" href="#entity-type" title="Permalink to this headline">¶</a></h2>
 <p>Before we can jump behind the wheel with our <code class="docutils literal"><span class="pre">Entity</span></code>, we should check what type of <code class="docutils literal"><span class="pre">Entity</span></code> it is, as we may
@@ -586,8 +589,8 @@ an example of checking if our <code class="docutils literal"><span class="pre">E
 <div class="section" id="entity-data-manipulators">
 <h2>Entity Data Manipulators<a class="headerlink" href="#entity-data-manipulators" title="Permalink to this headline">¶</a></h2>
 <p>Now that we are certain that our <code class="docutils literal"><span class="pre">Entity</span></code> is a creeper, we can apply creeper specific <code class="docutils literal"><span class="pre">DataManipulator</span></code>s to it.
-For example, <code class="docutils literal"><span class="pre">ExplosiveRadiusData</span></code> is a <code class="docutils literal"><span class="pre">DataManipulator</span></code> that creepers can have, but not all <code class="docutils literal"><span class="pre">Entity</span></code>s. An
-example of changing an <code class="docutils literal"><span class="pre">Entity</span></code>s explosive radius to 50 can be seen below:</p>
+For example, <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/mutable/entity/ExplosiveRadiusData.html">ExplosiveRadiusData</a> is a <code class="docutils literal"><span class="pre">DataManipulator</span></code> that creepers can have, but not all <code class="docutils literal"><span class="pre">Entity</span></code>s.
+An example of changing an <code class="docutils literal"><span class="pre">Entity</span></code>s explosive radius to 50 can be seen below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.ExplosiveRadiusData</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">explosionRadius50</span><span class="o">(</span><span class="n">Entity</span> <span class="n">creeper</span><span class="o">)</span> <span class="o">{</span>
@@ -599,8 +602,8 @@ example of changing an <code class="docutils literal"><span class="pre">Entity</
 <p>This will get the <code class="docutils literal"><span class="pre">ExplosiveRadiusData</span></code> of our <code class="docutils literal"><span class="pre">Entity</span></code> for our use. We then use that data to set the explosive
 radius of our creeper to 50. We then have to offer the data back to the creeper, as the data we received from our
 <code class="docutils literal"><span class="pre">Entity</span></code> is only a copy of the live data.</p>
-<p>Perhaps we want to give our <code class="docutils literal"><span class="pre">Entity</span></code> a name to customize it a bit! This would be done by using <code class="docutils literal"><span class="pre">DisplayNameData</span></code>.
-An example of this in action can be seen below:</p>
+<p>Perhaps we want to give our <code class="docutils literal"><span class="pre">Entity</span></code> a name to customize it a bit! This would be done by using
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/mutable/DisplayNameData.html">DisplayNameData</a>. An example of this in action can be seen below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.DisplayNameData</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="o">;</span>
@@ -612,8 +615,8 @@ An example of this in action can be seen below:</p>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Another, shorter way to do this is by just using <code class="docutils literal"><span class="pre">Keys</span></code> on our <code class="docutils literal"><span class="pre">Entity</span></code> instead of using <code class="docutils literal"><span class="pre">DataManipulator</span></code>s.
-This would be done like so:</p>
+<p>Another, shorter way to do this is by just using <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/key/Keys.html">Keys</a> on our <code class="docutils literal"><span class="pre">Entity</span></code> instead of using
+<code class="docutils literal"><span class="pre">DataManipulator</span></code>s. This would be done like so:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">explosionRadius50</span><span class="o">(</span><span class="n">Entity</span> <span class="n">creeper</span><span class="o">)</span> <span class="o">{</span>

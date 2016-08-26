@@ -306,7 +306,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../assets/index.html">The Asset API</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a><ul>
@@ -435,6 +435,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
@@ -570,8 +573,8 @@
 <h2>Modifying Vanilla Generation<a class="headerlink" href="#modifying-vanilla-generation" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This page assumes that you are familiar with setting up your <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code>.
-If not, then please read the article on setting up your modifier at <a class="reference internal" href="modifiers.html"><em>WorldGeneratorModifiers</em></a>.</p>
+<p class="last">This page assumes that you are familiar with setting up your <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/gen/WorldGeneratorModifier.html">WorldGeneratorModifier</a>. If not, then please
+read the article on setting up your modifier at <a class="reference internal" href="modifiers.html"><em>WorldGeneratorModifiers</em></a>.</p>
 </div>
 <p>Sponge exposes a great deal of vanilla world generation, which can be manipulated through the various interfaces.
 Currently, the only elements of the generation process that are <em>easily</em> exposed to manipulation are the populators.</p>
@@ -590,13 +593,13 @@ Currently, the only elements of the generation process that are <em>easily</em> 
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Start by getting the <code class="docutils literal"><span class="pre">BiomeGenerationSettings</span></code> for the desert biome. This object is a container for all generation
-settings relating to that biome. Next, iterate through the list of all <code class="docutils literal"><span class="pre">Cactus</span></code> populators and set the height to 5,
-which means it can only generate cactii which are 5 blocks tall.</p>
+<p>Start by getting the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/biome/BiomeGenerationSettings.html">BiomeGenerationSettings</a> for the desert biome. This object is a container for all
+generation settings relating to that biome. Next, iterate through the list of all <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/gen/populator/Cactus.html">Cactus</a> populators and set
+the height to 5, which means it can only generate cactii which are 5 blocks tall.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The <code class="docutils literal"><span class="pre">setHeight</span></code>, and many other similar methods on other populators, also takes a <code class="docutils literal"><span class="pre">VariableAmount</span></code> which
-can be used to specify the height as a range or other custom value.</p>
+<p class="last">The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/gen/populator/Cactus.html#setHeight-int-">Cactus#setHeight(int)</a>, and many other similar methods on other populators, also takes a
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/util/weighted/VariableAmount.html">VariableAmount</a> which can be used to specify the height as a range or other custom value.</p>
 </div>
 <p>This has been a simple example of how to modify an existing populator. Let&#8217;s look at how we can add a new
 instance of a vanilla populator. This time the populator will be added globally, which means it will be
@@ -612,9 +615,9 @@ scattered everywhere throughout the world.</p>
 </pre></div>
 </div>
 <p>Contrary to the previous example, this time you are creating an entirely new populator. To do this, first you need to
-get a builder for that populator from the <code class="docutils literal"><span class="pre">PopulatorFactory</span></code> (which can be fetched from the game registry).
-Then set your desired settings for the populator into it - in this case, we want a dozen pumpkins to spawn per patch.
-Finally, add your new populator to the list of populators that are applied globally to the world.</p>
+get a builder for that populator. Then set your desired settings for the populator into it - in this case, we want a
+dozen pumpkins to spawn per patch. Finally, add your new populator to the list of populators that are applied globally
+to the world.</p>
 <p>Voila, now we have pumpkins everywhere.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -628,11 +631,11 @@ and their properties.</p>
 </div>
 <div class="section" id="creating-custom-base-terrain">
 <h2>Creating Custom Base Terrain<a class="headerlink" href="#creating-custom-base-terrain" title="Permalink to this headline">¶</a></h2>
-<p>Changing the base <code class="docutils literal"><span class="pre">GenerationPopulator</span></code> of a world generator allows you to change the base terrain shape
-generation of the world. A generator populator will roughly follow the procedure of using the seed and biome
-information to seed and modify a series of noise maps, from which the terrain is formed. The terrain created
-in a modified base generator populator should only consist of stone blocks, to allow the biomes to properly replace
-blocks for biome-specific ground cover.</p>
+<p>Changing the base <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/gen/GenerationPopulator.html">GenerationPopulator</a> of a world generator allows you to change the base terrain shape
+generation of the world. A generator populator will roughly follow the procedure of using the seed and biome information
+to seed and modify a series of noise maps, from which the terrain is formed. The terrain created in a modified base
+generator populator should only consist of stone blocks, to allow the biomes to properly replace blocks for
+biome-specific ground cover.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SinusoidalGenerator</span> <span class="kd">implements</span> <span class="n">GenerationPopulator</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
@@ -685,7 +688,7 @@ offset by 8 in both the x and z directions.</p>
 <div class="section" id="creating-custom-biomes">
 <h2>Creating Custom Biomes<a class="headerlink" href="#creating-custom-biomes" title="Permalink to this headline">¶</a></h2>
 <p>While it is currently not possible to create entirely new biomes from within sponge, you can replace the system
-by which they are arranged in the world be implementing the <code class="docutils literal"><span class="pre">BiomeGenerator</span></code> interface and setting your custom
+by which they are arranged in the world be implementing the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/gen/BiomeGenerator.html">BiomeGenerator</a> interface and setting your custom
 biome generator onto a WorldGenerator.</p>
 <p>Below is an example of a biome generator which creates one large island centered around (0, 0).</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IslandBiomeGen</span> <span class="kd">implements</span> <span class="n">BiomeGenerator</span> <span class="o">{</span>

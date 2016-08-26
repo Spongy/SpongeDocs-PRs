@@ -306,7 +306,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../assets/index.html">The Asset API</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a><ul class="simple">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a><ul>
@@ -437,6 +437,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a><ul class="simple">
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a><ul class="simple">
 </ul>
 </li>
@@ -559,9 +562,9 @@
                   
   <div class="section" id="spawning-an-entity">
 <h1>Spawning an Entity<a class="headerlink" href="#spawning-an-entity" title="Permalink to this headline">¶</a></h1>
-<p>You will need three things for spawning in an <code class="docutils literal"><span class="pre">Entity</span></code>, a <code class="docutils literal"><span class="pre">Location</span></code>, an <code class="docutils literal"><span class="pre">Extent</span></code>, and an <code class="docutils literal"><span class="pre">EntityType</span></code>.
-The process for getting these is quite simple, you just need to grab a <code class="docutils literal"><span class="pre">Location</span></code> from somewhere in your plugin
-code and choose the type of <code class="docutils literal"><span class="pre">Entity</span></code> you wish to spawn.</p>
+<p>You will need four things for spawning in an <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/entity/Entity.html">Entity</a>, a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/Location.html">Location</a>, an <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/extent/Extent.html">Extent</a>, and an
+<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/entity/EntityType.html">EntityType</a>. The process for getting these is quite simple, you just need to grab a <code class="docutils literal"><span class="pre">Location</span></code> from
+somewhere in your plugin code and choose the type of <code class="docutils literal"><span class="pre">Entity</span></code> you wish to spawn.</p>
 <p>For example, let&#8217;s try to spawn a Creeper:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.Entity</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.EntityTypes</span><span class="o">;</span>
@@ -590,11 +593,12 @@ code and choose the type of <code class="docutils literal"><span class="pre">Ent
 <p>This will grab the extent from our <code class="docutils literal"><span class="pre">Location</span></code>, which we will need for the actual spawning. Next, it uses this extent
 to create the entity, but do note that this does not spawn the entity in, it just will create it. We will need to
 specify the type of <code class="docutils literal"><span class="pre">Entity</span></code> to spawn, and the co-ordinates from our <code class="docutils literal"><span class="pre">Location</span></code>.</p>
-<p>The <code class="docutils literal"><span class="pre">createEntity()</span></code> method returns an <code class="docutils literal"><span class="pre">Optional</span></code> as the <code class="docutils literal"><span class="pre">Location</span></code> may not be suitable for spawning an
-<code class="docutils literal"><span class="pre">Entity</span></code>. We then just grab our <code class="docutils literal"><span class="pre">Entity</span></code> from the <code class="docutils literal"><span class="pre">Optional</span></code> and can then use <code class="docutils literal"><span class="pre">Extent</span></code> for spawning the
-<code class="docutils literal"><span class="pre">Entity</span></code> into the world. We will need to specify a <code class="docutils literal"><span class="pre">Cause</span></code> for the spawning. For spawning <code class="docutils literal"><span class="pre">Entity</span></code>s, it is best to
-use <code class="docutils literal"><span class="pre">EntitySpawnCause</span></code>. In this example, we stated that our entity was spawned from a plugin, however we can make it
-any cause that best describes why we are spawning this in, such as a mob spawner, or spawn egg.</p>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/extent/EntityUniverse.html#createEntity-org.spongepowered.api.entity.EntityType-com.flowpowered.math.vector.Vector3d-">EntityUniverse#createEntity(EntityType, Vector3d)</a> method returns an <code class="docutils literal"><span class="pre">Optional</span></code> as the <code class="docutils literal"><span class="pre">Location</span></code> may
+not be suitable for spawning an <code class="docutils literal"><span class="pre">Entity</span></code>. We then just grab our <code class="docutils literal"><span class="pre">Entity</span></code> from the <code class="docutils literal"><span class="pre">Optional</span></code> and can then use
+<code class="docutils literal"><span class="pre">Extent</span></code> for spawning the <code class="docutils literal"><span class="pre">Entity</span></code> into the world. We will need to specify a <code class="docutils literal"><span class="pre">Cause</span></code> for the spawning. For
+spawning <code class="docutils literal"><span class="pre">Entity</span></code>s, it is best to use <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/entity/spawn/EntitySpawnCause.html">EntitySpawnCause</a>. In this example, we stated that our entity was
+spawned from a plugin, however we can make it any cause that best describes why we are spawning this in, such as a mob
+spawner, or spawn egg.</p>
 </div>
 
 
