@@ -565,8 +565,15 @@
 <p><a class="reference external" href="https://github.com/SpongePowered/Mixin">Mixins</a> can be used to modify classes at runtime before they are loaded. You
 can use them in plugins if you want to optimize a part of the game specifically for your server - without having to fork
 Sponge. The modifications will be bundled directly with your plugin and are only active as long as the plugin is loaded.</p>
-<p>Refer to the <a class="reference external" href="https://github.com/SpongePowered/Mixin/wiki">Mixin documentation</a> for more information on how to use
-mixins. This article explains how to bundle Mixins with plugins.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference external" href="https://github.com/SpongePowered/Mixin/wiki">Mixin documentation</a></dt>
+<dd>Mixin documentation including an introduction to Mixins.</dd>
+<dt><a class="reference external" href="https://github.com/SpongePowered/Cookbook">Example plugin</a></dt>
+<dd>Example plugin which uses Plugin Mixins to print a message when the server is starting.</dd>
+</dl>
+</div>
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
@@ -586,32 +593,51 @@ mixins. This article explains how to bundle Mixins with plugins.</p>
     <span class="nt">&quot;refmap&quot;</span><span class="p">:</span> <span class="s2">&quot;mixins.myplugin.refmap.json&quot;</span><span class="p">,</span>
     <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;@env(DEFAULT)&quot;</span><span class="p">,</span>
     <span class="nt">&quot;compatibilityLevel&quot;</span><span class="p">:</span> <span class="s2">&quot;JAVA_8&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;server&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nt">&quot;mixins&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="s2">&quot;MixinMinecraftServer&quot;</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;injectors&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;defaultRequire&quot;</span><span class="p">:</span> <span class="mi">1</span>
-    <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Add the Mixin class to the specified package</p>
+<li><p class="first">Add a Mixin class to the specified package:</p>
+<blockquote>
+<div><div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">com.example.myplugin.mixin</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">net.minecraft.server.MinecraftServer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.asm.mixin.Mixin</span><span class="o">;</span>
+
+<span class="nd">@Mixin</span><span class="o">(</span><span class="n">MinecraftServer</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">MixinMinecraftServer</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
 </li>
 </ol>
 <div class="section" id="debugging">
 <h3>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h3>
-<p>Normally, the Mixin configuration is registered inside the plugin&#8217;s JAR manifest. Since the plugin is not packaged in a
-JAR while debugging inside the IDE you need to add the Mixins to apply manually as command line options.</p>
-<p>Add a <code class="docutils literal"><span class="pre">--mixin</span> <span class="pre">&lt;mixin</span> <span class="pre">config</span> <span class="pre">file</span> <span class="pre">name&gt;</span></code> option for each Mixin configuration file to the program arguments of your run
-configuration, e.g. <code class="docutils literal"><span class="pre">--mixin</span> <span class="pre">mixins.myplugin.json</span></code>.</p>
+<p>Normally, the Mixin configuration is registered inside JAR manifest of the plugin. Since the plugin is not packaged in a
+JAR while debugging inside the IDE you need specify the Mixins to apply as command line options:</p>
+<ol class="arabic">
+<li><p class="first">Add a <code class="docutils literal"><span class="pre">--mixin</span> <span class="pre">&lt;mixin</span> <span class="pre">config</span> <span class="pre">file</span> <span class="pre">name&gt;</span></code> option for each Mixin configuration file to the program arguments of your
+run configuration:</p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span></span>--mixin mixins.myplugin.json
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
 </div>
 <div class="section" id="production">
 <h3>Production<a class="headerlink" href="#production" title="Permalink to this headline">¶</a></h3>
-<p>You need to make some changes to your build script to be able to apply your Mixin in production:</p>
+<p>If your Mixin is working in your development environment you still need to make some changes to make it work in
+production:</p>
 <ol class="arabic">
-<li><p class="first">Apply the MixinGradle plugin to your build script:</p>
+<li><p class="first">Apply the <a class="reference external" href="https://github.com/SpongePowered/MixinGradle">MixinGradle</a> plugin to your build script:</p>
 <blockquote>
 <div><div class="highlight-groovy"><div class="highlight"><pre><span></span><span class="n">buildscript</span> <span class="o">{</span>
     <span class="n">repositories</span> <span class="o">{</span>
@@ -630,43 +656,37 @@ configuration, e.g. <code class="docutils literal"><span class="pre">--mixin</sp
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Set the Minecraft tweak class to the Mixin tweaker:</p>
-<blockquote>
-<div><div class="highlight-groovy"><div class="highlight"><pre><span></span><span class="n">minecraft</span> <span class="o">{</span>
-    <span class="n">tweakClass</span> <span class="o">=</span> <span class="s1">&#39;org.spongepowered.asm.launch.MixinTweaker&#39;</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-</div></blockquote>
-</li>
-<li><p class="first">Set the refmap you added before in your Mixin configuration:</p>
+<li><p class="first">Set the refmap from your Mixin configuration:</p>
 <blockquote>
 <div><div class="highlight-groovy"><div class="highlight"><pre><span></span><span class="n">sourceSets</span> <span class="o">{</span>
     <span class="n">main</span> <span class="o">{</span>
-        <span class="n">refMap</span> <span class="o">=</span> <span class="s2">&quot;mixins.pluginmixintest.refmap.json&quot;</span>
+        <span class="n">refMap</span> <span class="o">=</span> <span class="s2">&quot;mixins.myplugin.refmap.json&quot;</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Add your Mixin configuration to your JAR manifest. The <code class="docutils literal"><span class="pre">FMLCorePluginContainsFMLMod</span></code> manifest entry is necessary if
+<li><p class="first">Add your Mixin configuration to the JAR manifest. The <code class="docutils literal"><span class="pre">FMLCorePluginContainsFMLMod</span></code> manifest entry is necessary if
 you want to load your Mixin on SpongeForge:</p>
 <blockquote>
 <div><div class="highlight-groovy"><div class="highlight"><pre><span></span><span class="n">jar</span> <span class="o">{</span>
-    <span class="n">manifest</span> <span class="o">{</span>
-        <span class="n">attributes</span><span class="o">(</span>
-                <span class="s1">&#39;MixinConfigs&#39;</span><span class="o">:</span> <span class="s1">&#39;mixins.myplugin.json&#39;</span><span class="o">,</span>
-                <span class="s1">&#39;FMLCorePluginContainsFMLMod&#39;</span><span class="o">:</span> <span class="s1">&#39;true&#39;</span><span class="o">,</span>
-        <span class="o">)</span>
-    <span class="o">}</span>
+    <span class="n">manifest</span><span class="o">.</span><span class="na">attributes</span><span class="o">(</span>
+        <span class="s1">&#39;TweakClass&#39;</span><span class="o">:</span> <span class="s1">&#39;org.spongepowered.asm.launch.MixinTweaker&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;MixinConfigs&#39;</span><span class="o">:</span> <span class="s1">&#39;mixins.myplugin.json&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;FMLCorePluginContainsFMLMod&#39;</span><span class="o">:</span> <span class="s1">&#39;true&#39;</span><span class="o">,</span>
+    <span class="o">)</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Make sure to re-build the plugin using the <code class="docutils literal"><span class="pre">build</span></code> Gradle task. Your Mixin should now be applied by SpongeVanilla
-and SpongeForge.</p>
+<li><p class="first">Make sure to re-build the plugin using Gradle. The Mixin should then get applied by SpongeVanilla and SpongeForge.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>gradle clean build
+</pre></div>
+</div>
+</div></blockquote>
 </li>
 </ol>
 </div>

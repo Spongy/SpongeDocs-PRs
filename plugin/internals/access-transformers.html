@@ -563,20 +563,20 @@
   <div class="section" id="access-transformers">
 <h1>Access Transformers<a class="headerlink" href="#access-transformers" title="Permalink to this headline">¶</a></h1>
 <p>Since some parts of the Minecraft code were not designed to be used from the outside, you may find yourself in a
-situation in which you need to access a field or method that is not public. While you could normally easily use
-reflection to access the field or method, MCP will make this more difficult since you have two different names - the MCP
-names in the development environment and the Searge names in production.</p>
-<p>For example to access the method <code class="docutils literal"><span class="pre">blah()</span></code> using reflection you would need to use <code class="docutils literal"><span class="pre">blah</span></code> in the development
-environment, but <code class="docutils literal"><span class="pre">func_84646546_a</span></code> in production. The re-obfuscation step only handles direct references to methods
+situation in which you need to access a field or method that is not public. While you would normally use reflection to
+access the field or method, MCP will make this more difficult since you have two different names - the MCP names in the
+development environment and the Searge names in production.</p>
+<p>For example to access the method <code class="docutils literal"><span class="pre">tick()</span></code> using reflection you would need to use <code class="docutils literal"><span class="pre">tick</span></code> in the development
+environment, but <code class="docutils literal"><span class="pre">func_71217_p</span></code> in production. The re-obfuscation step only handles direct references to methods
 and fields, not the string parameter passed to the reflection call.</p>
-<p>As a solution, ForgeGradle supports using access transformers (or AT) which automatically makes the specified
+<p>As a solution, ForgeGradle supports using access transformers (or AT) that automatically make the specified
 methods/fields public so you can reference them directly (without reflection). If configured in the JAR manifest of the
 plugin, SpongeVanilla and Forge will also apply them in production.</p>
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
-<p>ForgeGradle will automatically scan for access transformer files with the file name suffix <code class="docutils literal"><span class="pre">-at.cfg</span></code> in your resource
+<p>ForgeGradle will automatically scan for access transformer files with the file name suffix <code class="docutils literal"><span class="pre">_at.cfg</span></code> in your resource
 folders. To be able to use the access transformer at runtime, you need to add them to a <code class="docutils literal"><span class="pre">META-INF</span></code> folder in your
-resource directory, for example <code class="docutils literal"><span class="pre">META-INF/myplugin-at.cfg</span></code>.</p>
+resource directory, for example <code class="docutils literal"><span class="pre">META-INF/myplugin_at.cfg</span></code>.</p>
 <p>An access transformer line is defined by 3 parts, each separated by a space:</p>
 <ul class="simple">
 <li>The access type you want to change the method/field to, e.g. <code class="docutils literal"><span class="pre">public</span></code> or <code class="docutils literal"><span class="pre">protected</span></code>. To remove <code class="docutils literal"><span class="pre">final</span></code> from
@@ -589,11 +589,14 @@ field, append <code class="docutils literal"><span class="pre">-f</span></code> 
 <p class="last">You can add comments by prefixing them with <code class="docutils literal"><span class="pre">#</span></code>. A good convention is to add the MCP name after each access
 transformer line so you know which field/method the line is referring to.</p>
 </div>
-<p>To apply the access transformers to your development environment, run the Gradle <code class="docutils literal"><span class="pre">setupDecompWorkspace</span></code> task again and
-refresh your Gradle project.</p>
 <p>Here are two examples for an access transformer line:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>public-f net.minecraft.server.MinecraftServer field_71308_o # anvilFile
 public net.minecraft.server.MinecraftServer func_71260_j()V # stopServer
+</pre></div>
+</div>
+<p>To apply the access transformers to your development environment, run the Gradle <code class="docutils literal"><span class="pre">setupDecompWorkspace</span></code> task again and
+refresh your Gradle project:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>gradle setupDecompWorkspace
 </pre></div>
 </div>
 <div class="admonition tip">

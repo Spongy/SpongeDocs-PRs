@@ -591,28 +591,67 @@ which developers can create mods using decompiled, deobfuscated (human-readable)
 <p>MCP is using two different sets of mappings which are applied separately during the workspace setup. The difference
 between &#8220;Notch&#8221;, &#8220;Searge&#8221; and &#8220;MCP&#8221; mappings can be seen in the example below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span>// Notch
-void a(a ☃);
+boolean a(rw ☃);
 
 // Searge
-void func_4454848_a(Entity p_445848_1);
+boolean func_72838_d(Entity p_72838_1_);
 
 // MCP
-void spawn(Entity entity);
+boolean spawnEntityInWorld(Entity entityIn);
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>Notch mappings</strong> are the original names in the obfuscated Minecraft binary. They change regularily with Minecraft
-mappings.</li>
+<li><strong>Notch mappings</strong> are the original names in the obfuscated Minecraft binary. They change regularily with new
+Minecraft versions.</li>
 <li><strong>Searge mappings</strong> contain unique names for all obfuscated methods, fields and parameters, as well as human-readable
 names for the classes. Unlike Notch mappings they stay usually the same across Minecraft updates unless the method
 signatures change. For SpongeVanilla and SpongeForge, they are also used in production.</li>
 <li><strong>MCP mappings</strong> contain human-readable names largely contributed by the community. They are typically only used in
-the development environment, and then reobfuscated to Searge or Notch mappings. If you encounter an unnamed method,
-you can name it using the <a class="reference external" href="http://mcpbot.bspk.rs/">MCP bot</a>, which is available in the MCP and Sponge IRC channel. Name changes can be
-requested on <a class="reference external" href="https://github.com/ModCoderPack/MCPBot-Issues/issues">GitHub</a>.</li>
+the development environment, and then re-obfuscated to Searge or Notch mappings.</li>
 </ul>
-<p>When you create a plugin you work with <em>MCP mappings</em> in your development environment. To run the plugin in production
-(outside of your IDE) you need to reobfuscate it to <em>Searge mappings</em>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When you create a plugin you work with <em>MCP mappings</em> in your development environment. To run the plugin in
+production (outside of your IDE) you need to re-obfuscate it to <em>Searge mappings</em>.</p>
+</div>
+<div class="section" id="using-the-mcpbot">
+<h3>Using the MCPBot<a class="headerlink" href="#using-the-mcpbot" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference external" href="http://mcpbot.bspk.rs/">MCPBot</a> is available in the Sponge and MCP IRC channels and allows you to lookup MCP mappings or contribute new
+names. You can send commands to the bot by sending messages in one of the supported channels:</p>
+<p>To lookup a mapping: <code class="docutils literal"><span class="pre">&lt;Command&gt;</span> <span class="pre">&lt;Notch,</span> <span class="pre">Searge</span> <span class="pre">or</span> <span class="pre">MCP</span> <span class="pre">name&gt;</span> <span class="pre">[Optional</span> <span class="pre">Minecraft</span> <span class="pre">Version]</span></code>, where <code class="docutils literal"><span class="pre">&lt;Command&gt;</span></code> is
+one of the following:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">!gf</span></code> for <strong>fields</strong></li>
+<li><code class="docutils literal"><span class="pre">!gm</span></code> for <strong>methods</strong></li>
+<li><code class="docutils literal"><span class="pre">!gp</span></code> for <strong>parameters</strong></li>
+</ul>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>!gf onlineMode
+!gm spawnEntityInWorld
+!gm func_72838_d
+!gf ml.c 1.10.2
+</pre></div>
+</div>
+<div class="section" id="contributing-new-names">
+<h4>Contributing new names<a class="headerlink" href="#contributing-new-names" title="Permalink to this headline">¶</a></h4>
+<p>You can also contribute names for class members which are still unnamed. Check out the
+<a class="reference external" href="http://mcpbot.bspk.rs/help">MCPBot help page</a> for more instructions.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You cannot change existing names. If you would like to suggest changing an existing mapping, create
+a new issue on the <a class="reference external" href="https://github.com/ModCoderPack/MCPBot-Issues/issues">MCPBot issue tracker on GitHub</a>.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference external" href="http://www.modcoderpack.com">Mod Coder Pack</a></dt>
+<dd>Official website of the Mod Coder Pack.</dd>
+<dt><a class="reference external" href="http://mcpbot.bspk.rs/help">MCPBot help page</a></dt>
+<dd>More information about using the <a class="reference external" href="http://mcpbot.bspk.rs/">MCPBot</a>.</dd>
+</dl>
+</div>
+</div>
+</div>
 </div>
 </div>
 
