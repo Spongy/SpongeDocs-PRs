@@ -1,0 +1,1403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <title>global.conf &mdash; Sponge 4.1.0 documentation</title>
+    
+  <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sponge.css" type="text/css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:400italic,700italic,700,400' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="../../../_static/tomorrow.css" type="text/css" />
+  <link id="syntax-highlighting-ref" rel="stylesheet" href="../../../_static/tomorrow_night.css" type="text/css" />
+      
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT:    '../../../',
+      VERSION:     '4.1.0',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE:  true
+    };
+  </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/store.min.js"></script>
+    <script type="text/javascript" src="../../../_static/lights.js"></script>
+      <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+        <link rel="top" title="Sponge 4.1.0 documentation" href="../../../index.html" />
+        <link rel="up" title="Configuring Sponge" href="index.html" />
+        <link rel="next" title="server.properties" href="server-properties.html" />
+        <link rel="prev" title="JSON Syntax" href="json.html" />
+    
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-59476017-2', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+    
+  {§#curver§}
+  {|#langs|}
+  <link rel="alternate" hreflang="{|crowdin_code|}" href="/{§currentversion§}/{|crowdin_code|}/">
+  {|/langs|}
+  {§/curver§}
+  <link rel="alternate" hreflang="x-default" href="/"> 
+  </head>
+  <body role="document" id="top">
+    <div class="topbar">
+  <div role="navigation" aria-label="related navigation">
+    <div class="sp-logo-container sp-not-mobileview sp-mobileview">
+      <a class="sp-logo-link" data-auto-route="true" href="/">
+        <img height="40px" id="site-logo" class="logo-big" alt="Sponge Forums" src="../../../_static/spongelogo.png">
+      </a>
+      <div class="sp-logo-bg"></div>
+      <div class="sp-logo-chevron"><i class="fa fa-fw fa-chevron-down"></i></div>
+      <div class="sp-logo-menu sp-skip-handler">
+        <ul class="sp-logo-dropdown" id="ddleft">
+          <a href="https://www.spongepowered.org"><li><i class="fa-fw fa fa-home"></i>Homepage</li></a>
+          <a href="https://forums.spongepowered.org"><li><i class="fa-fw fa fa-comment"></i>Forums</li></a>
+          <a href="https://github.com/SpongePowered"><li><i class="fa-fw fa fa-code"></i>Code</li></a>
+          <a class="sp-forums-home" href="https://docs.spongepowered.org"><li class="active"><i class="fa-fw fa fa-book"></i>SpongeDocs</li></a>
+          <a href="https://jd.spongepowered.org"><li><i class="fa-fw fa fa-graduation-cap"></i>JavaDocs</li></a>
+          <a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><li><i class="fa-fw fa fa-plug"></i>Plugins</li></a>
+          <a href="https://forums.spongepowered.org/t/sponge-downloads/11448"><li><i class="fa-fw fa fa-download"></i>Get Sponge</li></a>
+        </ul>
+      </div>
+    </div>
+    <div class="menu-right">
+      <div><i class="fa fa-fw fa-globe"></i></div>
+        <ul class="dropdown" id="ddlang">
+          {§#curver§}
+          {|#langs|}
+          <li><a href="/{§currentversion§}/{|crowdin_code|}/" class="lang"><img src="//d1ztvzf22lmr1j.cloudfront.net/images/flags/{|crowdin_code|}.png" alt="Flag for {|name|}"/></a></li>
+          {|/langs|}
+          {§/curver§}
+        </ul>
+    </div>
+    <div class="menu-right">
+      <div><i class="fa fa-fw fa-tag"></i><a>4.1.0</a></div>
+        <ul class="dropdown" id="ddvers">
+          <li><a href="/master/en/"><i class="fa fa-fw fa-tag"></i> latest</a></li>
+          {[#vers]}
+          <li><a href="/{[apiversion]}/en/"><i class="fa fa-fw fa-tag"></i> {[apiversion]}</a></li>
+          {[/vers]}
+        </ul>
+    </div>
+    <div class="menu-right">
+      <div title="Toggle syntax highlighting between light and dark" class="lights">
+        <i class="fa fa-fw fa-lightbulb-o"></i>
+      </div>
+    </div>
+    <div>
+      <ul class="controls">
+        <li>|</li>
+        
+        <li><a href="server-properties.html" title="Next Page"><i class="fa fa-fw fa-chevron-right"></i></a></li>
+        
+        <li><a href="#top" title="To the top"><i class="fa fa-fw fa-chevron-up"></i></a></li>
+        <li><a href="../../../index.html" title="Home"><i class="fa fa-fw fa-home"></i></a></li>
+        
+        <li><a href="json.html" title="Previous Page"><i class="fa fa-fw fa-chevron-left"></i></a></li>
+        
+        <li>|</li>
+        
+          <li><a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/server/getting-started/configuration/sponge-conf.rst" title="Edit on GitHub"><i class="fa fa-fw fa-github"></i></a></li>
+        
+      </ul>
+    </div>
+    <h3>Navigation</h3>
+  </div>
+    </div>
+    <div class="container">
+
+      <div class="breadcrumbs">
+        <ul>
+        <li><a href="../../../index.html">Sponge 4.1.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="../../index.html" >Creating a Server</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="../index.html" >Getting Started</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="index.html" accesskey="U">Configuring Sponge</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        </ul>
+      </div> 
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+    <form class="search" action="../../../search.html" method="get">
+      <div class="searchbox-inner">
+        <input class="field" type="text" name="q" autocomplete="off" />
+        <button class="submit" type="submit"><i class="fa fa-fw fa-search" aria-hidden="true"></i></button>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </div>
+    </form>
+    <p class="searchtip" style="font-size: 90%"></p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../../index.html">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Creating a Server</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Getting Started</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../jre.html">Installing Java</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../migrating.html">Migrating to Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../implementations/index.html">Choosing an Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../implementations/spongeforge.html">Installing SpongeForge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../implementations/spongevanilla.html">Installing SpongeVanilla</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../launch-script.html">Creating a Launch Script</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../port-forward.html">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bungeecord.html">Using Sponge with BungeeCord</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Configuring Sponge</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="hocon.html">Introduction to HOCON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="json.html">JSON Syntax</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">global.conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="server-properties.html">server.properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../management/index.html">Server Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../management/whitelist.html">Managing the Whitelist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../management/bans.html">Managing Bans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../management/permissions.html">Managing Permissions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../management/plugins.html">Installing Plugins</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../management/exploit-patches.html">Exploit Patches</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../management/performance-tweaks.html">Performance Tweaks</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../spongineer/index.html">Becoming an Expert Spongineer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../spongineer/commands.html">Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../spongineer/logs.html">Log Files</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../spongineer/debugging.html">Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../spongineer/bugreport.html">Reporting Bugs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../preparing/index.html">Preparing for Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../preparing/jdk.html">Installing the JDK</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../preparing/ide.html">Installing an IDE</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../preparing/text.html">Installing a Text Editor</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../preparing/git.html">Installing Git</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugin/index.html">Creating a Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/buildsystem.html">Build Systems</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/workspace/index.html">Setting Up Your Workspace</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/workspace/idea.html">Setting Up IntelliJ IDEA</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/workspace/eclipse.html">Setting Up Eclipse</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/project/index.html">Setting Up Your Project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/project/gradle.html">Setting Up Gradle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/project/maven.html">Setting Up Maven</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/plugin-class.html">Main Plugin Class</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/lifecycle.html">Plugin Lifecycle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/injection.html">Dependency Injection</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/practices.html">Best Practices</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/optional/index.html">Optionals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/optional/basic.html">Optionals Explained</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/optional/usage.html">Usage Examples</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/logging.html">Logging and Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/commands/index.html">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/commands/creating.html">Building a Command</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/commands/arguments.html">Argument Parsing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/commands/flags.html">Command Flags</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/commands/childcommands.html">Child Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/commands/service.html">The Command Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/event/index.html">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/event/listeners.html">Event Listeners</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/event/causes.html">Event Causes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/event/filters.html">Event Filters</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/event/custom.html">Custom Events</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/assets.html">The Asset API</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/configuration/index.html">Configuring Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/text/index.html">Text</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/text/text.html">Creating Text</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/text/representations/index.html">Text Serializers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/text/representations/xml.html">TextXML Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/text/representations/json.html">JSON Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../plugin/text/representations/configurate.html">Configuration Format</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/text/pagination.html">The Pagination Service</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/text/messagechannels.html">Message Channels</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/text/templates.html">TextTemplates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/data/index.html">The Data API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/data/keys.html">Using Keys</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/data/datamanipulators.html">Data Manipulators</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/data/serialization.html">Serializing Data</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/blocks/index.html">Blocks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/blocks/concepts.html">Concepts</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/blocks/accessing.html">Accessing Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/blocks/modifying.html">Modifying Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/blocks/tileentities.html">Tile Entities</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/blocks/virtualblock.html">Virtual Block Changes</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/entities/index.html">Entities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/entities/spawning.html">Spawning an Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/entities/modifying.html">Modifying an Entity</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/items/index.html">Items</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/items/usage.html">Basic Item Usage</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/items/creating.html">Creating an ItemStack</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/effects.html">Effects</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/scheduler.html">Scheduler</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/services.html">Services</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/database.html">Databases</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/permissions.html">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/bans.html">Bans</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/bookview.html">Book Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/economy/index.html">Economy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/economy/basics.html">Basic Concepts</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/economy/using.html">Using the Economy API</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/economy/practices.html">Economy API Best Practices</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/economy/implementing.html">Implementing the Economy API</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/wgen/index.html">World Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/wgen/modifiers.html">WorldGeneratorModifiers</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../plugin/wgen/customwgen.html">Modifying World Generation</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/manager.html">Plugin Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/game-profile-manager.html">Game Profile Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/debugging.html">Plugin Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/tab-lists.html">Tab Lists</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/plugin-meta.html">Plugin Metadata</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/ray-tracing.html">Ray Tracing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/bukkit-sponge-compare.html">Comparing Bukkit to SpongeAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../plugin/tutorials.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing to Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/howtogit.html">How to Git(Hub)</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/implementation/index.html">Developing Sponge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/implementation/codestyle.html">Code Style</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/implementation/git-implementation.html">Git Workflow for API and Implementations</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/implementation/pr.html">Submitting a Pull-Request</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/implementation/mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/spongedocs.html">SpongeDocs Writing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing/versioning.html">Versioning System and Repository Branch Layout</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">About the Sponge Project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/introduction.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/structure.html">The Structure of the Sponge Project</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/future.html">Plans for the Future</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/license.html">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/posting.html">Forum Posting Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/rules.html">Forum &amp; IRC Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/staff.html">Staff</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/glossary.html">Sponge Glossary</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/assets.html">Art Assets</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/history.html">The History of Sponge</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../downloads.html">Download</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<ul class="simple">
+</ul>
+
+      </div>
+    </div> 
+
+        <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body" role="main">
+                  
+  <div class="section" id="global-conf">
+<h1>global.conf<a class="headerlink" href="#global-conf" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="global-configuration">
+<h2>Global Configuration<a class="headerlink" href="#global-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The global.conf file contains the global configuration settings for Sponge. This file is created in the config/sponge
+directory in your server folder. Many of these properties can be also overridden per-world or per-dimension type by
+using the config files in the subfolders of config/worlds.</p>
+<p>Below is a complete global.conf file with all possible nodes that may be present on a server. Note that certain
+sections will not be present immediately, and will be added to the file when the server encounters them. This config
+was generated using SpongeForge build 1399, SpongeAPI version 4.1:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span># 1.0
+#
+# # If you need help with the configuration or have any questions related to Sponge,
+# # join us at the IRC or drop by our forums and leave a post.
+#
+# # IRC: #sponge @ irc.esper.net ( http://webchat.esper.net/?channel=sponge )
+# # Forums: https://forums.spongepowered.org/
+#
+
+sponge {
+    block-tracking {
+        # Add block ids you wish to blacklist for player block placement tracking.
+        block-blacklist=[]
+        # If enabled, adds player tracking support for block positions. Note: This should only be disabled if you do not care who caused a block to change.
+        enabled=true
+    }
+    bungeecord {
+        # If enabled, allows BungeeCord to forward IP address, UUID, and Game Profile to this server
+        ip-forwarding=false
+    }
+    commands {
+        # A mapping from unqualified command alias to plugin id of the plugin that should handle a certain command
+        aliases {}
+    }
+    debug {
+        # Dump chunks in the event of a deadlock
+        dump-chunks-on-deadlock=false
+        # Dump the heap in the event of a deadlock
+        dump-heap-on-deadlock=false
+        # Dump the server thread on deadlock warning
+        dump-threads-on-warn=false
+        # Enable Java&#39;s thread contention monitoring for thread dumps
+        thread-contention-monitoring=false
+    }
+    entity {
+        # Number of colliding entities in one spot before logging a warning. Set to 0 to disable
+        collision-warn-size=200
+        # Number of entities in one dimension before logging a warning. Set to 0 to disable
+        count-warn-size=0
+        # Number of ticks before a painting is respawned on clients when their art is changed
+        entity-painting-respawn-delay=2
+        # Number of ticks before the fake player entry of a human is removed from the tab list (range of 0 to 100 ticks).
+        human-player-list-remove-delay=10
+        # Controls the time in ticks for when an item despawns.
+        item-despawn-rate=6000
+        # The upper bounded range where living entities farther from a player will likely despawn
+        living-hard-despawn-range=128
+        # The amount of seconds before a living entity between the soft and hard despawn ranges from a player to be considered for despawning
+        living-soft-despawn-minimum-life=30
+        # The lower bounded range where living entities near a player may potentially despawn
+        living-soft-despawn-range=32
+        # Max size of an entity&#39;s bounding box before removing it. Set to 0 to disable
+        max-bounding-box-size=1000
+        # Square of the max speed of an entity before removing it. Set to 0 to disable
+        max-speed=100
+    }
+    entity-activation-range {
+        # If enabled, newly discovered entities will be added to this config with a default value.
+        auto-populate=false
+        # Default activation ranges used for all entities unless overidden.
+        defaults {
+            ambient=32
+            aquatic=32
+            creature=32
+            misc=16
+            monster=32
+        }
+        # Per-mod overrides. Refer to the Minecraft default mod for example.
+        mods {}
+    }
+    entity-collisions {
+        # If enabled, newly discovered entities/blocks will be added to this config with a default value.
+        auto-populate=false
+        # Default max collisions used for all entities/blocks unless overidden.
+        defaults {}
+        # Max amount of entities any given entity or block can collide with. This improves performance when there are more than 8 entities on top of eachother such as a 1x1 spawn pen. Set to 0 to disable.
+        max-entities-within-aabb=8
+        # Per-mod overrides. Refer to the Minecraft default mod for example.
+        mods {
+            minecraft {
+                blocks {
+                    &quot;detector_rail&quot;=1
+                    &quot;heavy_weighted_pressure_plate&quot;=150
+                    &quot;light_weighted_pressure_plate&quot;=15
+                    &quot;mob_spawner&quot;=-1
+                    &quot;stone_pressure_plate&quot;=1
+                    &quot;wooden_button&quot;=1
+                    &quot;wooden_pressure_plate&quot;=1
+                }
+                # Default max collisions used for all entities/blocks unless overidden.
+                defaults {
+                    blocks=8
+                    entities=8
+                }
+                # Set to false if you want mod to ignore entity collision rules.
+                enabled=true
+                entities {
+                    thrownpotion=-1
+                }
+            }
+        }
+    }
+    exploits {
+        prevent-creative-itemstack-name-exploit=true
+        prevent-sign-command-exploit=true
+    }
+    general {
+        # Forces Chunk Loading on provide requests (speedup for mods that don&#39;t check if a chunk is loaded)
+        chunk-load-override=false
+        # Disable warning messages to server admins
+        disable-warnings=false
+    }
+    ip-sets {}
+    logging {
+        # Log when blocks are broken
+        block-break=false
+        # Log when blocks are modified
+        block-modify=false
+        # Log when blocks are placed
+        block-place=false
+        # Log when blocks are populated in a chunk
+        block-populate=false
+        # Log when blocks are placed by players and tracked
+        block-tracking=false
+        # Log when chunks are loaded
+        chunk-load=false
+        # Log when chunks are unloaded
+        chunk-unload=false
+        # Whether to log entity collision/count checks
+        entity-collision-checks=false
+        # Log when living entities are destroyed
+        entity-death=false
+        # Log when living entities are despawned
+        entity-despawn=false
+        # Log when living entities are spawned
+        entity-spawn=false
+        # Whether to log entity removals due to speed
+        entity-speed-removal=false
+        # Log when server receives exploited packet with itemstack name exceeding string limit.
+        exploit-itemstack-name-overflow=false
+        # Log when player attempts to respawn invisible to surrounding players.
+        exploit-respawn-invisibility=false
+        # Log when server receives exploited packet to update a sign containing commands from player with no permission.
+        exploit-sign-command-updates=false
+        # Add stack traces to dev logging
+        log-stacktraces=false
+        # Log when a world auto-saves its chunk data. Note: This may be spammy depending on the auto-save-interval configured for world.
+        world-auto-save=false
+    }
+    modules {
+        bungeecord=false
+        entity-activation-range=true
+        entity-collisions=true
+        exploits=true
+        optimizations=true
+        timings=true
+    }
+    optimizations {
+        # Caches chunks internally for faster returns when querying at various positions
+        chunk-map-caching=true
+        # A simple patch to reduce a few sanity checks for the sake of speed when performing block state operations
+        fast-blockstate-lookup=true
+        # This prevents chunks being loaded for getting light values at specific block positions. May have side effects.
+        ignore-unloaded-chunks-on-get-light=true
+    }
+    # Configuration options related to the Sql service, including connection aliases etc
+    sql {
+        # Aliases for SQL connections, in the format jdbc:protocol://[username[:password]@]host/database
+        aliases {}
+    }
+    timings {
+        enabled=true
+        hidden-config-entries=[
+            &quot;sponge.sql&quot;
+        ]
+        history-interval=300
+        history-length=3600
+        server-name-privacy=false
+        verbose=true
+    }
+    world {
+        # The auto-save tick interval used when saving global player data. Set to 0 to disable. (Default: 900) Note: 20 ticks is equivalent to 1 second.
+        auto-player-save-interval=900
+        # The auto-save tick interval used to save all loaded chunks in a world. Set to 0 to disable. (Default: 900) Note: 20 ticks is equivalent to 1 second.
+        auto-save-interval=900
+        # Lava behaves like vanilla water when source block is removed
+        flowing-lava-decay=false
+        # Enable if you want the world to generate spawn the moment its loaded.
+        generate-spawn-on-load=true
+        # Vanilla water source behavior - is infinite
+        infinite-water-source=false
+        # Enable if this world&#39;s spawn should remain loaded with no players.
+        keep-spawn-loaded=true
+        # Enable if this world should be loaded on startup.
+        load-on-startup=true
+        # Specifies the radius (in chunks) of where creatures will spawn. This value is capped to the current view distance setting in server.properties
+        mob-spawn-range=8
+        # A list of all detected portal agents used in this world. In order to override, change the target world name to any other valid world. Note: If world is not found, it will fallback to default.
+        portal-agents {
+            &quot;minecraft:default_nether&quot;=DIM-1
+            &quot;minecraft:default_the_end&quot;=DIM1
+        }
+        # Enable if this world allows PVP combat.
+        pvp-enabled=true
+        # Enable if this world should be registered.
+        world-enabled=true
+    }
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="global-properties-of-sponge">
+<h2>Global Properties of Sponge<a class="headerlink" href="#global-properties-of-sponge" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="7%" />
+<col width="9%" />
+<col width="49%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Type</th>
+<th class="head">Default</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>Block Tracking</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>block-blacklist</td>
+<td>string</td>
+<td>null</td>
+<td>Adds block ids you wish to blacklist for player
+block placement tracking.</td>
+</tr>
+<tr class="row-even"><td>enabled</td>
+<td>boolean</td>
+<td>true</td>
+<td>Adds player tracking support for block
+positions.</td>
+</tr>
+<tr class="row-odd"><td><strong>Bungeecord</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>ip-forwarding</td>
+<td>boolean</td>
+<td>false</td>
+<td>Allows bungeecord to forward ip address, UUID,
+and Game Profile to the server.</td>
+</tr>
+<tr class="row-odd"><td><strong>Commands</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>aliases</td>
+<td>string</td>
+<td>null</td>
+<td><p class="first">Alias will resolve conflicts when multiple
+plugins request a specific command. Correct
+syntax is
+<code class="docutils literal"><span class="pre">&lt;unqualified</span> <span class="pre">command&gt;=&lt;plugin</span> <span class="pre">name&gt;</span></code>
+Example:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span></span>aliases = {
+    title=myPlugin
+}
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><strong>Debug Options</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>dump-chunks-on-deadlock</td>
+<td>boolean</td>
+<td>false</td>
+<td>Dumps chunks in the event of a deadlock.</td>
+</tr>
+<tr class="row-odd"><td>dump-heap-on-deadlock</td>
+<td>boolean</td>
+<td>false</td>
+<td>Dump the heap in the event of a deadlock.</td>
+</tr>
+<tr class="row-even"><td>dump-threads-on-warn</td>
+<td>boolean</td>
+<td>false</td>
+<td>Dump the server thread on deadlock warning.</td>
+</tr>
+<tr class="row-odd"><td>thread-contention-monitoring</td>
+<td>boolean</td>
+<td>false</td>
+<td>Enable Java&#8217;s thread contention monitoring for
+thread dumps.</td>
+</tr>
+<tr class="row-even"><td><strong>Entity Options</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>collision-warn-size</td>
+<td>integer</td>
+<td>200</td>
+<td>Number of colliding entities in one spot before
+logging a warning. Set to 0 to disable.</td>
+</tr>
+<tr class="row-even"><td>count-warn-size</td>
+<td>integer</td>
+<td>0</td>
+<td>Number of entities allowed in one dimension
+before logging a warning. Set to 0 to disable.</td>
+</tr>
+<tr class="row-odd"><td>entity-painting-respawn-delay</td>
+<td>integer</td>
+<td>2</td>
+<td>Number of ticks before a painting is respawned
+on the client when their art is changed.</td>
+</tr>
+<tr class="row-even"><td>human-player-list-remove-delay</td>
+<td>integer</td>
+<td>10</td>
+<td>Number of ticks before the fake player entry of
+a human is removed from the tab list. The
+allowed range is 0 - 100.</td>
+</tr>
+<tr class="row-odd"><td>item-despawn-rate</td>
+<td>integer</td>
+<td>6000</td>
+<td>The time in ticks before an item despawns.</td>
+</tr>
+<tr class="row-even"><td>living-hard-despawn-range</td>
+<td>integer</td>
+<td>128</td>
+<td>The upper bounded range where living entities farther
+from a player will likely despawn</td>
+</tr>
+<tr class="row-odd"><td>living-soft-despawn-minimum-life</td>
+<td>integer</td>
+<td>30</td>
+<td>The amount of seconds before a living entity between
+the soft and hard despawn ranges from a player to be
+considered for despawning</td>
+</tr>
+<tr class="row-even"><td>living-soft-despawn-range</td>
+<td>integer</td>
+<td>32</td>
+<td>The lower bounded range where living entities near a
+player may potentially despawn</td>
+</tr>
+<tr class="row-odd"><td>max-bounding-box-size</td>
+<td>integer</td>
+<td>1000</td>
+<td>Maximum size of an entity&#8217;s bounding box before
+it is removed. Set to 0 to disable.</td>
+</tr>
+<tr class="row-even"><td>max-speed</td>
+<td>integer</td>
+<td>100</td>
+<td>Square of the maximum speed of an entity before
+it is removed. Set to 0 to disable</td>
+</tr>
+<tr class="row-odd"><td><strong>Entity Activation Range</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>auto-populate</td>
+<td>boolean</td>
+<td>false</td>
+<td>If enabled, newly discovered entities will be
+added to this config with a default value.</td>
+</tr>
+<tr class="row-odd"><td><strong>Defaults</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Default activation ranges for all entities unless
+overridden.</td>
+</tr>
+<tr class="row-even"><td>ambient</td>
+<td>integer</td>
+<td>32</td>
+<td>Default activation range for ambient entities.</td>
+</tr>
+<tr class="row-odd"><td>aquatic</td>
+<td>integer</td>
+<td>32</td>
+<td>Default activation range for aquatic entities.</td>
+</tr>
+<tr class="row-even"><td>creature</td>
+<td>integer</td>
+<td>16</td>
+<td>Default activation range for creatures.</td>
+</tr>
+<tr class="row-odd"><td>misc</td>
+<td>integer</td>
+<td>16</td>
+<td>Default activation range for miscellaneous
+entities.</td>
+</tr>
+<tr class="row-even"><td>monster</td>
+<td>integer</td>
+<td>32</td>
+<td>Default activation range for monsters.</td>
+</tr>
+<tr class="row-odd"><td><strong>Mods</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Per-mod overrides. Refer to the Minecraft default
+mod for example.</td>
+</tr>
+<tr class="row-even"><td><strong>Entity Collisions</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>auto-populate</td>
+<td>boolean</td>
+<td>false</td>
+<td>If enabled, newly discovered entities/blocks will
+be added to this config with a default value.</td>
+</tr>
+<tr class="row-even"><td><strong>Defaults</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Default max collisions used for all entities/blocks
+unless overridden.</td>
+</tr>
+<tr class="row-odd"><td>max-entities-within-aabb</td>
+<td>integer</td>
+<td>8</td>
+<td>Max amount of entities any given entity or block
+can collide with. Set to 0 to disable.</td>
+</tr>
+<tr class="row-even"><td><strong>Mods</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Per-mod overrides. Refer to the Minecraft default
+mod for example.</td>
+</tr>
+<tr class="row-odd"><td><strong>Minecraft</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><strong>Blocks</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&#8220;detector_rail&#8221;</td>
+<td>integer</td>
+<td>1</td>
+<td>Max collisions for a &#8220;detector_rail&#8221;.</td>
+</tr>
+<tr class="row-even"><td>&#8220;heavy_weighted_pressure_plate&#8221;</td>
+<td>integer</td>
+<td>150</td>
+<td>Max collisions for a &#8220;heavy_weighted_pressure_plate&#8221;.</td>
+</tr>
+<tr class="row-odd"><td>&#8220;light_weighted_pressure_plate&#8221;</td>
+<td>integer</td>
+<td>15</td>
+<td>Max collisions for a &#8220;light_weighted_pressure_plate&#8221;.</td>
+</tr>
+<tr class="row-even"><td>&#8220;mob_spawner&#8221;</td>
+<td>integer</td>
+<td>-1</td>
+<td>Max collisions for a &#8220;mob_spawner&#8221;.</td>
+</tr>
+<tr class="row-odd"><td>&#8220;stone_pressure_plate&#8221;</td>
+<td>integer</td>
+<td>1</td>
+<td>Max collisions for a &#8220;stone_pressure_plate&#8221;.</td>
+</tr>
+<tr class="row-even"><td>&#8220;wooden_button&#8221;</td>
+<td>integer</td>
+<td>1</td>
+<td>Max collisions for a &#8220;wooden_button&#8221;.</td>
+</tr>
+<tr class="row-odd"><td>&#8220;wooden_pressure_plate&#8221;</td>
+<td>integer</td>
+<td>1</td>
+<td>Max collisions for a &#8220;wooden_pressure_plate&#8221;.</td>
+</tr>
+<tr class="row-even"><td><strong>Defaults</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>Default max collisions used for all entities/blocks
+unless overridden.</td>
+</tr>
+<tr class="row-odd"><td>blocks</td>
+<td>integer</td>
+<td>8</td>
+<td>Default max collisions for blocks.</td>
+</tr>
+<tr class="row-even"><td>entities</td>
+<td>integer</td>
+<td>8</td>
+<td>Default max collisions for entities.</td>
+</tr>
+<tr class="row-odd"><td>enabled</td>
+<td>boolean</td>
+<td>true</td>
+<td>Set to false if you want mod to ignore entity
+collision rules.</td>
+</tr>
+<tr class="row-even"><td><strong>Entities</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>thrownpotion</td>
+<td>integer</td>
+<td>-1</td>
+<td>Max collisions for a thrown potion.</td>
+</tr>
+<tr class="row-even"><td><strong>Exploits</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>prevent-creative-itemstack-name-exploit</td>
+<td>boolean</td>
+<td>true</td>
+<td>Prevents an exploit in which the client sends a
+packet with the itemstack name exceeding the
+string limit.</td>
+</tr>
+<tr class="row-even"><td>prevent-sign-command-exploit</td>
+<td>boolean</td>
+<td>true</td>
+<td>Prevents an exploit in which the client sends a
+packet to update a sign containing commands from
+a player without permission.</td>
+</tr>
+<tr class="row-odd"><td><strong>General Settings</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>chunk-load-override</td>
+<td>boolean</td>
+<td>false</td>
+<td>Forces chunk loading on provide requests.
+This is a speed-up for mods that don&#8217;t check if
+a chunk is loaded.</td>
+</tr>
+<tr class="row-odd"><td>disable-warnings</td>
+<td>boolean</td>
+<td>false</td>
+<td>Disable warning messages to server Admins.</td>
+</tr>
+<tr class="row-even"><td><strong>Ip Sets</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><strong>Logging Options</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>block-break</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when a block is broken.</td>
+</tr>
+<tr class="row-even"><td>block-modify</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when blocks are modified.</td>
+</tr>
+<tr class="row-odd"><td>block-place</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when blocks are placed.</td>
+</tr>
+<tr class="row-even"><td>block-populate</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when blocks are populated in a chunk.</td>
+</tr>
+<tr class="row-odd"><td>block-tracking</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when blocks are placed by players and
+tracked.</td>
+</tr>
+<tr class="row-even"><td>chunk-load</td>
+<td>boolean</td>
+<td>false</td>
+<td>Log when chunks are loaded.</td>
+</tr>
+<tr class="row-odd"><td>chunk-unload</td>
+<td>boolean</td>
+<td>false</td>
+<td>Log when chunks are unloaded.</td>
+</tr>
+<tr class="row-even"><td>entity-collision-checks</td>
+<td>boolean</td>
+<td>false</td>
+<td>Whether to log entity collision/count checks.</td>
+</tr>
+<tr class="row-odd"><td>entity-death</td>
+<td>boolean</td>
+<td>false</td>
+<td>Log when living entities are destroyed.</td>
+</tr>
+<tr class="row-even"><td>entity-despawn</td>
+<td>boolean</td>
+<td>false</td>
+<td>Log when living entities are despawned.</td>
+</tr>
+<tr class="row-odd"><td>entity-spawn</td>
+<td>boolean</td>
+<td>false</td>
+<td>Log when living entities are spawned.</td>
+</tr>
+<tr class="row-even"><td>entity-speed-removal</td>
+<td>boolean</td>
+<td>false</td>
+<td>Whether to log entity removals due to speed.</td>
+</tr>
+<tr class="row-odd"><td>exploit-itemstack-name-overflow</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when a server receives exploited packets
+with itemstack name exceeding string limit.</td>
+</tr>
+<tr class="row-even"><td>exploit-respawn-invisibility</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when a player attempts to respawn
+invisible to surrounding players.</td>
+</tr>
+<tr class="row-odd"><td>exploit-sign-command-updates</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when a server receives an exploited packet
+containing commands from a player with no
+permission.</td>
+</tr>
+<tr class="row-even"><td>log-stacktraces</td>
+<td>boolean</td>
+<td>false</td>
+<td>Add stack traces to dev logging.</td>
+</tr>
+<tr class="row-odd"><td>world-auto-save</td>
+<td>boolean</td>
+<td>false</td>
+<td>If true, logs when a world auto-saves its chunk data.</td>
+</tr>
+<tr class="row-even"><td><strong>Modules</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>bungeecord</td>
+<td>boolean</td>
+<td>false</td>
+<td>Enables bungeecord support.</td>
+</tr>
+<tr class="row-even"><td>entity-activation-range</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enables the entity activation range settings.</td>
+</tr>
+<tr class="row-odd"><td>entity-collisions</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enables entity collision settings.</td>
+</tr>
+<tr class="row-even"><td>exploits</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enables the exploit prevention module.</td>
+</tr>
+<tr class="row-odd"><td>optimizations</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enables the optimizations module.</td>
+</tr>
+<tr class="row-even"><td>timings</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enables timing settings.</td>
+</tr>
+<tr class="row-odd"><td><strong>SQL</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>aliases</td>
+<td>string</td>
+<td>null</td>
+<td>Aliases for SQL connections. This is done in
+the format
+<code class="docutils literal"><span class="pre">jdbc:protocol://[username[:password]&#64;]host/database</span></code></td>
+</tr>
+<tr class="row-odd"><td><strong>Timings</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>enabled</td>
+<td>boolean</td>
+<td>true</td>
+<td>If timings are enabled.</td>
+</tr>
+<tr class="row-odd"><td>hidden-config-entries</td>
+<td>string</td>
+<td>sponge.sql</td>
+<td>The hidden config entries.</td>
+</tr>
+<tr class="row-even"><td>history-interval</td>
+<td>integer</td>
+<td>300</td>
+<td>The interval between timing history report
+generation.</td>
+</tr>
+<tr class="row-odd"><td>history-length</td>
+<td>integer</td>
+<td>3600</td>
+<td>How long, in ticks, that the timing history
+will be kept for the server.</td>
+</tr>
+<tr class="row-even"><td>server-name-privacy</td>
+<td>boolean</td>
+<td>false</td>
+<td>Whether to include information such as the
+server name, motd, online-mode, and server
+icon in the report.</td>
+</tr>
+<tr class="row-odd"><td>verbose</td>
+<td>boolean</td>
+<td>true</td>
+<td>Whether or not for timings to monitor at
+the verbose level.</td>
+</tr>
+<tr class="row-even"><td><strong>World Settings</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>auto-player-save-interval</td>
+<td>integer</td>
+<td>900</td>
+<td>The auto-save tick interval used when saving global
+player data.</td>
+</tr>
+<tr class="row-even"><td>auto-save-interval</td>
+<td>integer</td>
+<td>900</td>
+<td>The auto-save tick interval used to save all loaded
+chunks in a world.</td>
+</tr>
+<tr class="row-odd"><td>flowing-lava-decay</td>
+<td>boolean</td>
+<td>false</td>
+<td>Lava behaves like vanilla water when the source
+block is removed, when set to true.</td>
+</tr>
+<tr class="row-even"><td>generate-spawn-on-load</td>
+<td>boolean</td>
+<td>true</td>
+<td>If the world should generate spawn when the
+world is loaded.</td>
+</tr>
+<tr class="row-odd"><td>infinite-water-source</td>
+<td>boolean</td>
+<td>false</td>
+<td>False = Default vanilla water source behaviour.</td>
+</tr>
+<tr class="row-even"><td>keep-spawn-loaded</td>
+<td>boolean</td>
+<td>true</td>
+<td>If the spawn should stay loaded with no players.</td>
+</tr>
+<tr class="row-odd"><td>load-on-startup</td>
+<td>boolean</td>
+<td>true</td>
+<td>If the world should be loaded on startup.</td>
+</tr>
+<tr class="row-even"><td>mob-spawn-range</td>
+<td>integer</td>
+<td>8</td>
+<td>Specifies the radius (in chunks) of where creatures
+will spawn. This value is capped to the current
+view distance setting in server.properties.</td>
+</tr>
+<tr class="row-odd"><td><strong>Portal Agents</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>A list of all detected portal agents used in this
+world. In order to override, change the target world
+name to any other valid world. If world is not found,
+it will fallback to default.</td>
+</tr>
+<tr class="row-even"><td>&#8220;minecraft:default_nether&#8221;</td>
+<td>world</td>
+<td>DIM-1</td>
+<td>The default nether world.</td>
+</tr>
+<tr class="row-odd"><td>&#8220;minecraft:default_the_end&#8221;</td>
+<td>world</td>
+<td>DIM1</td>
+<td>The default end world.</td>
+</tr>
+<tr class="row-even"><td>pvp-enabled</td>
+<td>boolean</td>
+<td>true</td>
+<td>If the would allows PVP combat.</td>
+</tr>
+<tr class="row-odd"><td>world-enabled</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enable if this world should be registered.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          <div class="clearer"></div>
+        </div>
+        <div class="footer" role="contentinfo">
+              &copy; Copyright 2014-2016, Sponge Contributors.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+        </div>
+    </div>
+  </body>
+</html>

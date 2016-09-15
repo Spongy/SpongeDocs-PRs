@@ -1,0 +1,808 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <title>Migrating to Sponge &mdash; Sponge 4.1.0 documentation</title>
+    
+  <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href='//fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:400italic,700italic,700,400' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="../../_static/tomorrow.css" type="text/css" />
+  <link id="syntax-highlighting-ref" rel="stylesheet" href="../../_static/tomorrow_night.css" type="text/css" />
+      
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT:    '../../',
+      VERSION:     '4.1.0',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE:  true
+    };
+  </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/store.min.js"></script>
+    <script type="text/javascript" src="../../_static/lights.js"></script>
+      <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+        <link rel="top" title="Sponge 4.1.0 documentation" href="../../index.html" />
+        <link rel="up" title="Getting Started" href="index.html" />
+        <link rel="next" title="Choosing an Implementation" href="implementations/index.html" />
+        <link rel="prev" title="Installing Java" href="jre.html" />
+    
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-59476017-2', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+    
+  {§#curver§}
+  {|#langs|}
+  <link rel="alternate" hreflang="{|crowdin_code|}" href="/{§currentversion§}/{|crowdin_code|}/">
+  {|/langs|}
+  {§/curver§}
+  <link rel="alternate" hreflang="x-default" href="/"> 
+  </head>
+  <body role="document" id="top">
+    <div class="topbar">
+  <div role="navigation" aria-label="related navigation">
+    <div class="sp-logo-container sp-not-mobileview sp-mobileview">
+      <a class="sp-logo-link" data-auto-route="true" href="/">
+        <img height="40px" id="site-logo" class="logo-big" alt="Sponge Forums" src="../../_static/spongelogo.png">
+      </a>
+      <div class="sp-logo-bg"></div>
+      <div class="sp-logo-chevron"><i class="fa fa-fw fa-chevron-down"></i></div>
+      <div class="sp-logo-menu sp-skip-handler">
+        <ul class="sp-logo-dropdown" id="ddleft">
+          <a href="https://www.spongepowered.org"><li><i class="fa-fw fa fa-home"></i>Homepage</li></a>
+          <a href="https://forums.spongepowered.org"><li><i class="fa-fw fa fa-comment"></i>Forums</li></a>
+          <a href="https://github.com/SpongePowered"><li><i class="fa-fw fa fa-code"></i>Code</li></a>
+          <a class="sp-forums-home" href="https://docs.spongepowered.org"><li class="active"><i class="fa-fw fa fa-book"></i>SpongeDocs</li></a>
+          <a href="https://jd.spongepowered.org"><li><i class="fa-fw fa fa-graduation-cap"></i>JavaDocs</li></a>
+          <a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><li><i class="fa-fw fa fa-plug"></i>Plugins</li></a>
+          <a href="https://forums.spongepowered.org/t/sponge-downloads/11448"><li><i class="fa-fw fa fa-download"></i>Get Sponge</li></a>
+        </ul>
+      </div>
+    </div>
+    <div class="menu-right">
+      <div><i class="fa fa-fw fa-globe"></i></div>
+        <ul class="dropdown" id="ddlang">
+          {§#curver§}
+          {|#langs|}
+          <li><a href="/{§currentversion§}/{|crowdin_code|}/" class="lang"><img src="//d1ztvzf22lmr1j.cloudfront.net/images/flags/{|crowdin_code|}.png" alt="Flag for {|name|}"/></a></li>
+          {|/langs|}
+          {§/curver§}
+        </ul>
+    </div>
+    <div class="menu-right">
+      <div><i class="fa fa-fw fa-tag"></i><a>4.1.0</a></div>
+        <ul class="dropdown" id="ddvers">
+          <li><a href="/master/en/"><i class="fa fa-fw fa-tag"></i> latest</a></li>
+          {[#vers]}
+          <li><a href="/{[apiversion]}/en/"><i class="fa fa-fw fa-tag"></i> {[apiversion]}</a></li>
+          {[/vers]}
+        </ul>
+    </div>
+    <div class="menu-right">
+      <div title="Toggle syntax highlighting between light and dark" class="lights">
+        <i class="fa fa-fw fa-lightbulb-o"></i>
+      </div>
+    </div>
+    <div>
+      <ul class="controls">
+        <li>|</li>
+        
+        <li><a href="implementations/index.html" title="Next Page"><i class="fa fa-fw fa-chevron-right"></i></a></li>
+        
+        <li><a href="#top" title="To the top"><i class="fa fa-fw fa-chevron-up"></i></a></li>
+        <li><a href="../../index.html" title="Home"><i class="fa fa-fw fa-home"></i></a></li>
+        
+        <li><a href="jre.html" title="Previous Page"><i class="fa fa-fw fa-chevron-left"></i></a></li>
+        
+        <li>|</li>
+        
+          <li><a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/server/getting-started/migrating.rst" title="Edit on GitHub"><i class="fa fa-fw fa-github"></i></a></li>
+        
+      </ul>
+    </div>
+    <h3>Navigation</h3>
+  </div>
+    </div>
+    <div class="container">
+
+      <div class="breadcrumbs">
+        <ul>
+        <li><a href="../../index.html">Sponge 4.1.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="../index.html" >Creating a Server</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="index.html" accesskey="U">Getting Started</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        </ul>
+      </div> 
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+    <form class="search" action="../../search.html" method="get">
+      <div class="searchbox-inner">
+        <input class="field" type="text" name="q" autocomplete="off" />
+        <button class="submit" type="submit"><i class="fa fa-fw fa-search" aria-hidden="true"></i></button>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </div>
+    </form>
+    <p class="searchtip" style="font-size: 90%"></p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Creating a Server</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Getting Started</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="jre.html">Installing Java</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Migrating to Sponge</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="implementations/index.html">Choosing an Implementation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="implementations/spongeforge.html">Installing SpongeForge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="implementations/spongevanilla.html">Installing SpongeVanilla</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="launch-script.html">Creating a Launch Script</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="port-forward.html">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bungeecord.html">Using Sponge with BungeeCord</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration/index.html">Configuring Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="configuration/hocon.html">Introduction to HOCON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="configuration/json.html">JSON Syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="configuration/sponge-conf.html">global.conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="configuration/server-properties.html">server.properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../management/index.html">Server Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../management/whitelist.html">Managing the Whitelist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../management/bans.html">Managing Bans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../management/permissions.html">Managing Permissions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../management/plugins.html">Installing Plugins</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../management/exploit-patches.html">Exploit Patches</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../management/performance-tweaks.html">Performance Tweaks</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../spongineer/index.html">Becoming an Expert Spongineer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../spongineer/commands.html">Commands</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../spongineer/troubleshooting.html">Troubleshooting</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../spongineer/logs.html">Log Files</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../spongineer/debugging.html">Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../spongineer/bugreport.html">Reporting Bugs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../preparing/jdk.html">Installing the JDK</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../preparing/ide.html">Installing an IDE</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../preparing/text.html">Installing a Text Editor</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../preparing/git.html">Installing Git</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin/index.html">Creating a Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/buildsystem.html">Build Systems</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/workspace/index.html">Setting Up Your Workspace</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/workspace/idea.html">Setting Up IntelliJ IDEA</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/workspace/eclipse.html">Setting Up Eclipse</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/project/index.html">Setting Up Your Project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/project/gradle.html">Setting Up Gradle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/project/maven.html">Setting Up Maven</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/plugin-class.html">Main Plugin Class</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/lifecycle.html">Plugin Lifecycle</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/injection.html">Dependency Injection</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/practices.html">Best Practices</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/optional/index.html">Optionals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/optional/basic.html">Optionals Explained</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/optional/usage.html">Usage Examples</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/logging.html">Logging and Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/commands/index.html">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/creating.html">Building a Command</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/arguments.html">Argument Parsing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/flags.html">Command Flags</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/childcommands.html">Child Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/service.html">The Command Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/commands/commandcallable.html">Low-Level Command API</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/event/index.html">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/event/listeners.html">Event Listeners</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/event/causes.html">Event Causes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/event/filters.html">Event Filters</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/event/custom.html">Custom Events</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/assets.html">The Asset API</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/configuration/index.html">Configuring Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/loaders.html">Configuration Loaders</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/nodes.html">Configuration Nodes</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/configuration/serialization.html">Serializing Objects</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/text/index.html">Text</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/text/text.html">Creating Text</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/text/representations/index.html">Text Serializers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/text/representations/formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/text/representations/xml.html">TextXML Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/text/representations/json.html">JSON Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../plugin/text/representations/configurate.html">Configuration Format</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/text/pagination.html">The Pagination Service</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/text/messagechannels.html">Message Channels</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/text/templates.html">TextTemplates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/data/index.html">The Data API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/data/keys.html">Using Keys</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/data/datamanipulators.html">Data Manipulators</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/data/transactions.html">Transactions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/data/serialization.html">Serializing Data</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/blocks/index.html">Blocks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/blocks/concepts.html">Concepts</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/blocks/accessing.html">Accessing Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/blocks/modifying.html">Modifying Blocks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/blocks/tileentities.html">Tile Entities</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/blocks/virtualblock.html">Virtual Block Changes</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/entities/index.html">Entities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/entities/spawning.html">Spawning an Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/entities/modifying.html">Modifying an Entity</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/items/index.html">Items</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/items/usage.html">Basic Item Usage</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/items/creating.html">Creating an ItemStack</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/effects.html">Effects</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/scheduler.html">Scheduler</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/services.html">Services</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/database.html">Databases</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/permissions.html">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/bans.html">Bans</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/bookview.html">Book Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/economy/index.html">Economy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/economy/basics.html">Basic Concepts</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/economy/using.html">Using the Economy API</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/economy/practices.html">Economy API Best Practices</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/economy/implementing.html">Implementing the Economy API</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/wgen/index.html">World Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/wgen/modifiers.html">WorldGeneratorModifiers</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../plugin/wgen/customwgen.html">Modifying World Generation</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/manager.html">Plugin Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/game-profile-manager.html">Game Profile Manager</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/offline-userplayer-data.html">Offline Player Data</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/debugging.html">Plugin Debugging</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/tab-lists.html">Tab Lists</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/plugin-meta.html">Plugin Metadata</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/ray-tracing.html">Ray Tracing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/bukkit-sponge-compare.html">Comparing Bukkit to SpongeAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin/tutorials.html">Tutorials</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/howtogit.html">How to Git(Hub)</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/implementation/index.html">Developing Sponge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/codestyle.html">Code Style</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/git-implementation.html">Git Workflow for API and Implementations</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/pr.html">Submitting a Pull-Request</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/debugging.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/implementation/datamanipulator.html">Implementing DataManipulators</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/spongedocs.html">SpongeDocs Writing</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/porting.html">Porting Sponge to Other Platforms</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/versioning.html">Versioning System and Repository Branch Layout</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about/introduction.html">Introduction</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/faq.html">Frequently Asked Questions</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/structure.html">The Structure of the Sponge Project</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/future.html">Plans for the Future</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/license.html">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/posting.html">Forum Posting Guidelines</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/rules.html">Forum &amp; IRC Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/staff.html">Staff</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/glossary.html">Sponge Glossary</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/assets.html">Art Assets</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about/history.html">The History of Sponge</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../downloads.html">Download</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<ul class="simple">
+</ul>
+
+      </div>
+    </div> 
+
+        <div class="document">
+            <div class="documentwrapper">
+              <div class="bodywrapper">
+                <div class="body" role="main">
+                  
+  <div class="section" id="migrating-to-sponge">
+<h1>Migrating to Sponge<a class="headerlink" href="#migrating-to-sponge" title="Permalink to this headline">¶</a></h1>
+<p>The purpose of the articles within this section is to help current server owners to migrate from other server platforms
+to Sponge.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#id1" id="id5">Migrating to Sponge</a><ul>
+<li><a class="reference internal" href="#migrating-from-craftbukkit-or-spigot" id="id6">Migrating from CraftBukkit or Spigot</a></li>
+<li><a class="reference internal" href="#migrating-from-canary" id="id7">Migrating from Canary</a></li>
+<li><a class="reference internal" href="#migrating-from-forge" id="id8">Migrating from Forge</a></li>
+<li><a class="reference internal" href="#migrating-from-vanilla" id="id9">Migrating from Vanilla</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installing-sponge" id="id10">Installing Sponge</a></li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Please backup your server files <strong>before</strong> migrating. In case something goes wrong, you still have your backups!</p>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id5">Migrating to Sponge</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>To migrate to SpongeForge or SpongeVanilla, look at the sections below. Most instructions are identical for both,
+differences are stated below.</p>
+<div class="section" id="migrating-from-craftbukkit-or-spigot">
+<h3><a class="toc-backref" href="#id6">Migrating from CraftBukkit or Spigot</a><a class="headerlink" href="#migrating-from-craftbukkit-or-spigot" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Spigot is a modified fork of CraftBukkit.</p>
+</div>
+<div class="section" id="worlds">
+<h4>Worlds<a class="headerlink" href="#worlds" title="Permalink to this headline">¶</a></h4>
+<p>Forge, and thus SpongeForge (and also SpongeVanilla), use the same world structure as vanilla Minecraft. Vanilla Minecraft
+places the nether (typically <code class="docutils literal"><span class="pre">world_nether</span></code>) and the end (typically <code class="docutils literal"><span class="pre">world_the_end</span></code>) dimensions within the
+<code class="docutils literal"><span class="pre">world</span></code> folder. However Bukkit and Spigot <em>don&#8217;t</em> use this system to save the worlds, thus migration is needed.</p>
+<p>SpongeForge and SpongeVanilla provide a fully automated conversion script which converts your worlds for you.
+This is how it works:</p>
+<ol class="arabic simple">
+<li>Shutdown your Bukkit or Spigot server and Backup the entire folder.</li>
+<li>Install SpongeForge or SpongeVanilla in the folder where you ran your old server, remove the Bukkit or Spigot jars.
+If you&#8217;re unsure how you&#8217;re supposed to install SpongeForge or SpongeVanilla properly, read <a class="reference internal" href="implementations/index.html"><em>this</em></a>.</li>
+<li>Start the Sponge server, the migrator will be loaded automatically.</li>
+<li>The Migrator will look into the <code class="docutils literal"><span class="pre">bukkit.yml</span></code> for a config key called <code class="docutils literal"><span class="pre">world-container</span></code> and will search that folder for
+worlds to transfer. If that file isn&#8217;t around (or something caused it to fail to read), then the migrator will use
+the <code class="docutils literal"><span class="pre">root</span></code> folder of the server (which is CraftBukkit standard).</li>
+<li>Now the migration is performed. At this point, worlds are copied over from what we call the <code class="docutils literal"><span class="pre">world</span> <span class="pre">container</span></code> into
+the folder defined in the <a class="reference internal" href="configuration/server-properties.html"><em>server.properties</em></a> file via the <code class="docutils literal"><span class="pre">level-name</span></code> key.
+Note that the original files in the <code class="docutils literal"><span class="pre">world</span> <span class="pre">container</span></code> remain unchanged, a <em>copy</em> is made during migration.</li>
+<li>Bukkit puts things in weird places (with weird names), thus two important fixes have to be applied. Keep in mind that
+these fixes are based on <em>assumptions</em> (due to Bukkit&#8217;s structure).<ul>
+<li>The first fix is to rename any folder whose name starts with <code class="docutils literal"><span class="pre">level-name</span></code> property and ends with a Vanilla
+dimension name (<code class="docutils literal"><span class="pre">_nether</span></code>/<code class="docutils literal"><span class="pre">_the_end</span></code>) to <code class="docutils literal"><span class="pre">DIM-1</span></code> and <code class="docutils literal"><span class="pre">DIM1</span></code> respectively.</li>
+<li>The second fix is to migrate up the <code class="docutils literal"><span class="pre">region</span></code> data within a Bukkit Vanilla nether/the_end. Bukkit puts this data
+into <code class="docutils literal"><span class="pre">DIM-1\region</span></code> and <code class="docutils literal"><span class="pre">DIM1\region</span></code> respectively whereas Vanilla/Forge expect <code class="docutils literal"><span class="pre">region</span></code> to be in the
+<strong>root</strong> of the world&#8217;s folder structure.</li>
+</ul>
+</li>
+</ol>
+<p>The migrator can&#8217;t provide all needed configuration values. This is the reason why you need to change several parameters
+by hand to make the world work properly upon loading it on SpongeForge or SpongeVanilla. It is strongly advised to use a
+<em>World Management Plugin</em> to set the right parameters and actually load the world.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">As already pointed out, we have to deal with several assumptions while migrating your world.
+<strong>Thus Sponge does not load the world directly</strong>, you need to install a plugin to handle this.</p>
+</div>
+<p>The output generated by the migration tool should look like this, if everything went fine:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>[17:32:29] [Server thread/INFO] [Sponge]: Checking for worlds that need to be migrated...
+[17:32:29] [Server thread/INFO] [Sponge]: Migrating [world_lol] from [.].
+[17:32:29] [Server thread/INFO] [Sponge]: Migrated world [world_lol] from [.] to [.\world\world_lol]
+[17:32:29] [Server thread/INFO] [Sponge]: Migrating [world_nether] from [.].
+[17:32:29] [Server thread/INFO] [Sponge]: Migrated world [world_nether] from [.] to [.\world\DIM-1]
+[17:32:29] [Server thread/INFO] [Sponge]: Migrating [world_the_end] from [.].
+[17:32:29] [Server thread/INFO] [Sponge]: Migrated world [world_the_end] from [.] to [.\world\DIM1]
+[17:32:29] [Server thread/INFO] [Sponge]: [3] worlds have been migrated back to Vanilla&#39;s format.
+</pre></div>
+</div>
+<p>When this is complete, you should have a copy of the world(s) in a structure that Sponge can load.
+The original world files remain untouched in their original location, in case something went wrong.</p>
+</div>
+<div class="section" id="server-and-world-configuration-files">
+<h4>Server and World Configuration Files<a class="headerlink" href="#server-and-world-configuration-files" title="Permalink to this headline">¶</a></h4>
+<p>CraftBukkit and Sponge both share files that are made available by vanilla Minecraft. These files can thus be reused on
+Sponge, if they are already present in your CraftBukkit installation:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">server.properties</span></code></li>
+<li><code class="docutils literal"><span class="pre">banned-ips.json</span></code></li>
+<li><code class="docutils literal"><span class="pre">banned-players.json</span></code></li>
+<li><code class="docutils literal"><span class="pre">ops.json</span></code></li>
+<li><code class="docutils literal"><span class="pre">usercache.json</span></code></li>
+<li><code class="docutils literal"><span class="pre">whitelist.json</span></code></li>
+</ul>
+<p>The following files are used by CraftBukkit only, and can be removed because Sponge does not use them:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">bukkit.yml</span></code></li>
+<li><code class="docutils literal"><span class="pre">commands.yml</span></code></li>
+<li><code class="docutils literal"><span class="pre">help.yml</span></code></li>
+<li><code class="docutils literal"><span class="pre">permissions.yml</span></code></li>
+</ul>
+<p>Users who are migrating from Spigot may wish to compare <code class="docutils literal"><span class="pre">spigot.yml</span></code> to <code class="docutils literal"><span class="pre">global.conf</span></code> in Sponge. Some keys in
+<code class="docutils literal"><span class="pre">spigot.yml</span></code> have counterparts in <code class="docutils literal"><span class="pre">global.conf</span></code>, and it may be desirable to copy over the values of any keys that
+are present in both files.</p>
+</div>
+<div class="section" id="plugins">
+<h4>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h4>
+<p>Sponge has no native support for Bukkit plugins. However, some members of the community are re-implementing the Bukkit
+API within a special Sponge plugin, which may allow Bukkit plugins to function on a Sponge server. This plugin has not
+yet been slated for release.</p>
+<p>Ore is Sponge&#8217;s official repository for finding plugins, and it is recommended to download all Sponge plugins from Ore.
+When finding replacements for your Bukkit plugins, there are a few points to keep in mind:</p>
+<ul class="simple">
+<li>Not all Bukkit developers have chosen to port their plugins to Sponge. Over time, however, someone else may create a
+suitable replacement.</li>
+<li>Not all Sponge plugins that are ported from Bukkit will automatically convert configuration files. Individual plugin
+developers make the decision on whether or not to automatically convert configuration files.</li>
+<li>Some Sponge plugins that are ported from Bukkit may change in functionality, or may not even use the same
+configuration structure.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="migrating-from-canary">
+<h3><a class="toc-backref" href="#id7">Migrating from Canary</a><a class="headerlink" href="#migrating-from-canary" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h4>Worlds<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>Forge, and thus SpongeForge (and also SpongeVanilla), use the same world structure as vanilla Minecraft. Vanilla Minecraft
+places the nether (typically <code class="docutils literal"><span class="pre">world_nether</span></code>) and the end (typically <code class="docutils literal"><span class="pre">world_the_end</span></code>) dimensions within the
+<code class="docutils literal"><span class="pre">world</span></code> folder.</p>
+<p>Canary relocates the nether and end dimensions outside of the <code class="docutils literal"><span class="pre">world</span></code> folder, which must be remedied if it is desired
+to retain the nether and end dimensions when running Sponge. However, Canary provides an easy method to convert Canary
+worlds to a structure usable by Sponge with the <code class="docutils literal"><span class="pre">/makevanilla</span></code> command. If the world conversion is successful, the
+output will be placed in the <code class="docutils literal"><span class="pre">vanilla</span></code> folder.</p>
+</div>
+<div class="section" id="id3">
+<h4>Server and World Configuration Files<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<p>Sponge uses many files that are made available by vanilla Minecraft, such as <code class="docutils literal"><span class="pre">server.properties</span></code>. Canary, however,
+does not; the only file it has in common with vanilla Minecraft is <code class="docutils literal"><span class="pre">usercache.json</span></code>. Thus, <code class="docutils literal"><span class="pre">usercache.json</span></code> is the
+only file from Canary that can be reused on Sponge.</p>
+<p>Nevertheless, it is possible to manually migrate some Canary configuration files to their Sponge counterparts, which
+have been provided below.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Canary file(s)</th>
+<th class="head">Sponge counterpart(s)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>server.cfg
+&lt;world&gt;_&lt;dimension&gt;.cfg</td>
+<td>server.properties</td>
+</tr>
+<tr class="row-odd"><td>&lt;world&gt;_&lt;dimension&gt;.cfg</td>
+<td>global.conf
+&lt;dimension&gt;/dimension.conf</td>
+</tr>
+<tr class="row-even"><td>ops.cfg</td>
+<td>ops.json</td>
+</tr>
+<tr class="row-odd"><td>db.cfg</td>
+<td>No counterpart</td>
+</tr>
+<tr class="row-even"><td>motd.txt</td>
+<td>No counterpart</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id4">
+<h4>Plugins<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p>SpongeVanilla and SpongeForge have no native support for Canary plugins. It may be possible to re-implement the
+Canary API in a special Sponge plugin.</p>
+<p>Ore is Sponge&#8217;s official repository for finding plugins, and it is recommended to download all Sponge plugins from Ore.
+When finding replacements for your Canary plugins, there are a few points to keep in mind:</p>
+<ul class="simple">
+<li>Not all Canary developers have chosen to port their plugins to Sponge. Over time, however, someone else may create a
+suitable replacement.</li>
+<li>Not all Sponge plugins that are ported from Canary will automatically convert configuration files. Individual plugin
+developers make the decision on whether or not to automatically convert configuration files.</li>
+<li>Some Sponge plugins that are ported from Canary may change in functionality, or may not even use the same configuration
+structure.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="migrating-from-forge">
+<h3><a class="toc-backref" href="#id8">Migrating from Forge</a><a class="headerlink" href="#migrating-from-forge" title="Permalink to this headline">¶</a></h3>
+<p>Migrating from a plain Forge server to a SpongeForge or SpongeVanilla server is a fairly simple process that needs little-to-no
+preparatory work.</p>
+<div class="section" id="migrating-to-spongeforge">
+<h4>Migrating to SpongeForge<a class="headerlink" href="#migrating-to-spongeforge" title="Permalink to this headline">¶</a></h4>
+<p>You must first ensure you are running a version of Forge that is compatible with the version of SpongeForge your plan to
+use. You may find recommended builds of Forge at <a class="reference external" href="http://files.minecraftforge.net">Forge Downloads</a>. If you are using
+any other mods, they must also be updated.</p>
+<p>When you are ready to install SpongeForge, you may proceed with the following steps:</p>
+<ol class="arabic simple">
+<li>Stop your Forge server if it is running.</li>
+<li>Download SpongeForge from the Sponge website and Forge from MinecraftForge.</li>
+<li>Place <code class="docutils literal"><span class="pre">SpongeForge.jar</span></code> into your <code class="docutils literal"><span class="pre">mods</span></code> folder.</li>
+<li>Start the server and party!</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If SpongeForge is the only mod on your server, players will be able to log in with a vanilla client. Other mods may
+require players to install Forge on their own computers.</p>
+</div>
+</div>
+<div class="section" id="migration-to-spongevanilla">
+<h4>Migration to SpongeVanilla<a class="headerlink" href="#migration-to-spongevanilla" title="Permalink to this headline">¶</a></h4>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If migrating to <strong>SpongeVanilla</strong>:
+You will lose all Forge mod data, blocks and entities as SpongeVanilla can&#8217;t run Forge mods.
+Keep that in mind when deciding whether you go with SpongeForge or SpongeVanilla.</p>
+</div>
+<p>The process of migration is almost the same as above:</p>
+<ol class="arabic simple">
+<li>Stop your Forge server if it is still running.</li>
+<li>Download SpongeVanilla and the vanilla server from Mojang.</li>
+<li>Place your worlds and config files in the server folder.</li>
+<li>Run the server by launching the <code class="docutils literal"><span class="pre">spongevanilla.jar</span></code>.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="migrating-from-vanilla">
+<h3><a class="toc-backref" href="#id9">Migrating from Vanilla</a><a class="headerlink" href="#migrating-from-vanilla" title="Permalink to this headline">¶</a></h3>
+<p>Administrators of vanilla Minecraft servers can migrate to Sponge easily because Forge, and thus SpongeForge
+(and SpongeVanilla), use the same world structure as vanilla Minecraft. Sponge also uses the same files used by
+vanilla Minecraft, such as <code class="docutils literal"><span class="pre">server.properties</span></code>.</p>
+<p>At first you should decide if you want to run SpongeForge or SpongeVanilla.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Both flavours of Sponge are able to serve vanilla clients. Keep in mind that this only applies to SpongeForge as
+long as you don&#8217;t install Forge mods which require client modifications.</p>
+</div>
+<ol class="arabic simple">
+<li>Stop your Vanilla server if it is still running</li>
+<li>Download SpongeVanilla or SpongeForge.</li>
+<li>Place your worlds and config files in the server folder.</li>
+<li>Run your new server.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="installing-sponge">
+<h2><a class="toc-backref" href="#id10">Installing Sponge</a><a class="headerlink" href="#installing-sponge" title="Permalink to this headline">¶</a></h2>
+<p>The guides at <a class="reference internal" href="implementations/spongeforge.html"><em>Installing SpongeForge</em></a> and <a class="reference internal" href="implementations/spongevanilla.html"><em>Installing SpongeVanilla</em></a> provide instructions for
+installing Sponge while you&#8217;re migrating.</p>
+</div>
+</div>
+
+
+                </div>
+              </div>
+            </div>
+          <div class="clearer"></div>
+        </div>
+        <div class="footer" role="contentinfo">
+              &copy; Copyright 2014-2016, Sponge Contributors.
+            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+        </div>
+    </div>
+  </body>
+</html>
