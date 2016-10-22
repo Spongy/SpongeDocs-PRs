@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Event Causes &mdash; Sponge 4.1.0 documentation</title>
+     <title>Event Causes &mdash; Sponge 5.0.0 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -20,7 +20,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '4.1.0',
+      VERSION:     '5.0.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
       <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 4.1.0 documentation" href="../../index.html" />
+        <link rel="top" title="Sponge 5.0.0 documentation" href="../../index.html" />
         <link rel="up" title="Events" href="index.html" />
         <link rel="next" title="Event Filters" href="filters.html" />
         <link rel="prev" title="Event Listeners" href="listeners.html" />
@@ -87,7 +87,7 @@
         </ul>
     </div>
     <div class="menu-right">
-      <div><i class="fa fa-fw fa-tag"></i><a>4.1.0</a></div>
+      <div><i class="fa fa-fw fa-tag"></i><a>5.0.0</a></div>
         <ul class="dropdown" id="ddvers">
           <li><a href="/master/en/"><i class="fa fa-fw fa-tag"></i> latest</a></li>
           {[#vers]}
@@ -124,7 +124,7 @@
 
       <div class="breadcrumbs">
         <ul>
-        <li><a href="../../index.html">Sponge 4.1.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="../../index.html">Sponge 5.0.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="../index.html" >Creating a Plugin</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="index.html" accesskey="U">Events</a><i class="fa fa-fw fa-chevron-right"></i></li>
         </ul>
@@ -563,15 +563,15 @@
   <div class="section" id="event-causes">
 <h1>Event Causes<a class="headerlink" href="#event-causes" title="Permalink to this headline">¶</a></h1>
 <p>Events are great for attaching additional logic to game actions, but they have the drawback of providing next to no
-context as to what has <strong>caused</strong> that event to occur. The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html">Cause</a> object allows providing and receiving
+context as to what has <strong>caused</strong> that event to occur. The <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/Cause.html">Cause</a> object allows providing and receiving
 additional contextual information about the event. This contextual information can then used to modify the behavior of
 your event listener.</p>
-<p>For example, a world protection plugin needs information on what player has caused a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/block/ChangeBlockEvent.html">ChangeBlockEvent</a> to
+<p>For example, a world protection plugin needs information on what player has caused a <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/block/ChangeBlockEvent.html">ChangeBlockEvent</a> to
 occur before they can decide if the event should be cancelled or not. Rather than go with the traditional route of
 creating a multitude of subevents for the different source conditions this information is instead provided in the
 <code class="docutils literal"><span class="pre">Cause</span></code> of the event.</p>
 <p>Every event provides a <code class="docutils literal"><span class="pre">Cause</span></code> object which can be interrogated for the information pertaining to why the event was
-fired. The Cause object can be retrieved from an event by simply calling <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/Event.html#getCause--">Event#getCause()</a>.</p>
+fired. The Cause object can be retrieved from an event by simply calling <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/Event.html#getCause--">Event#getCause()</a>.</p>
 <div class="section" id="retrieving-objects-from-a-cause">
 <h2>Retrieving objects from a Cause<a class="headerlink" href="#retrieving-objects-from-a-cause" title="Permalink to this headline">¶</a></h2>
 <p>Structurally, a <code class="docutils literal"><span class="pre">Cause</span></code> object contains a sequential list of objects. There are several methods of
@@ -583,9 +583,9 @@ listing please see the javadocs <strong>link</strong>.</p>
 cause of the event, and subsequent objects are of decreasing importance and/or may only
 provide contextual information.</p>
 </div>
-<p><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#root--">Cause#root()</a> returns the first object within the cause. This object is the most immediate or direct cause of
+<p><a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/Cause.html#root--">Cause#root()</a> returns the first object within the cause. This object is the most immediate or direct cause of
 the event. Since a <code class="docutils literal"><span class="pre">Cause</span></code> may not be empty, it is guaranteed to have a <code class="docutils literal"><span class="pre">root</span></code>.</p>
-<p><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#first-java.lang.Class-">Cause#first(Class)</a> returns the first object in the cause chain whose type is either the same as or is a
+<p><a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/Cause.html#first-java.lang.Class-">Cause#first(Class)</a> returns the first object in the cause chain whose type is either the same as or is a
 subtype of the given class. For example given a cause which contained a player followed by an entity
 <code class="docutils literal"><span class="pre">[Player,</span> <span class="pre">Entity,</span> <span class="pre">...]</span></code></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
@@ -598,22 +598,22 @@ subtype of the given class. For example given a cause which contained a player f
 </div>
 <p>Both optionals would contain the player object as it&#8217;s type directly matched request for a
 Player type and it matched the request for an Entity type as Player is a subtype of Entity.</p>
-<p><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#last-java.lang.Class-">Cause#last(Class)</a> is similar to <code class="docutils literal"><span class="pre">Cause#first(Class)</span></code> except it returns the last value in the cause chain
+<p><a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/Cause.html#last-java.lang.Class-">Cause#last(Class)</a> is similar to <code class="docutils literal"><span class="pre">Cause#first(Class)</span></code> except it returns the last value in the cause chain
 matching the type.</p>
 <p>Continuing from the example above, if we instead changed it to call <code class="docutils literal"><span class="pre">Cause#last(Class)</span></code> the first
 optional would contain the player object still, but the second optional would now contain
 the entity that we passed in the second position of the cause.</p>
-<p><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#containsType-java.lang.Class-">Cause#containsType(Class)</a> returns a boolean value and can be used to check if a cause chain contains any
+<p><a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/Cause.html#containsType-java.lang.Class-">Cause#containsType(Class)</a> returns a boolean value and can be used to check if a cause chain contains any
 object matching the provided type.</p>
-<p><a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#all--">Cause#all()</a> simply returns all objects within the cause allowing more advanced handling.</p>
+<p><a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/Cause.html#all--">Cause#all()</a> simply returns all objects within the cause allowing more advanced handling.</p>
 </div>
 <div class="section" id="named-causes">
 <h2>Named Causes<a class="headerlink" href="#named-causes" title="Permalink to this headline">¶</a></h2>
 <p>Sometimes the ordering of objects within the cause isn&#8217;t enough to get the proper idea of what an object represents in
-relation to the event. This is where <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/NamedCause.html">NamedCause</a> comes in. Named causes provide a method for tagging objects
+relation to the event. This is where <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/NamedCause.html">NamedCause</a> comes in. Named causes provide a method for tagging objects
 within a cause with a <strong>unique</strong> name allowing them to be easily identified and requested. Some examples of use cases
-for named causes is the <cite>Notifier</cite> of a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/block/ChangeBlockEvent.Grow.html">ChangeBlockEvent.Grow</a> or the <cite>Source</cite> of a
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/entity/DamageEntityEvent.html">DamageEntityEvent</a>.</p>
+for named causes is the <cite>Notifier</cite> of a <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/block/ChangeBlockEvent.Grow.html">ChangeBlockEvent.Grow</a> or the <cite>Source</cite> of a
+<a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/entity/DamageEntityEvent.html">DamageEntityEvent</a>.</p>
 <p><strong>Retrieving a named entry from a cause</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGrow</span><span class="o">(</span><span class="n">ChangeBlockEvent</span><span class="o">.</span><span class="na">Grow</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
@@ -621,14 +621,14 @@ for named causes is the <cite>Notifier</cite> of a <a class="reference external"
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>This example makes use of <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#get-java.lang.String-java.lang.Class-">Cause#get(String, Class&lt;T&gt;)</a> which can be used to retrieve the expected object
-associated with a name if it is present within the cause chain. Additionally <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#getNamedCauses--">Cause#getNamedCauses()</a> provides
+<p>This example makes use of <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/Cause.html#get-java.lang.String-java.lang.Class-">Cause#get(String, Class&lt;T&gt;)</a> which can be used to retrieve the expected object
+associated with a name if it is present within the cause chain. Additionally <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/Cause.html#getNamedCauses--">Cause#getNamedCauses()</a> provides
 a <code class="docutils literal"><span class="pre">Map&lt;String,</span> <span class="pre">Object&gt;</span></code> which can be used to find all present names and their associated objects.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Some common identifying names for <code class="docutils literal"><span class="pre">NamedCause</span></code>s are present as static fields in the
 <code class="docutils literal"><span class="pre">NamedCause</span></code> class. Identifiers which are specific to certain events can often be found
-as static fields on the event class, for example <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/entity/DamageEntityEvent.html#SOURCE">DamageEntityEvent#SOURCE</a>.</p>
+as static fields on the event class, for example <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/entity/DamageEntityEvent.html#SOURCE">DamageEntityEvent#SOURCE</a>.</p>
 </div>
 </div>
 <div class="section" id="creating-custom-causes">
@@ -643,13 +643,13 @@ the cause.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Cause objects are immutable therefore cannot be modified once created.</p>
 </div>
-<p>Using <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#of-org.spongepowered.api.event.cause.NamedCause-">Cause#of(NamedCause)</a>, you can construct a cause from a series of objects. The objects will be added to
+<p>Using <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/Cause.html#of-org.spongepowered.api.event.cause.NamedCause-">Cause#of(NamedCause)</a>, you can construct a cause from a series of objects. The objects will be added to
 the cause chain in the order that they are passed to the method, so the first object parameter will become the root
 cause. Remember that a <code class="docutils literal"><span class="pre">Cause</span></code> may not be empty, so at least one non-null parameter is always required.</p>
 <p>If you already have a cause object and would like to append some more objects to the chain you can use
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html#with-org.spongepowered.api.event.cause.NamedCause-NamedCause...-">Cause#with(NamedCause, NamedCause...)</a>. This constructs a new Cause object containing first the objects
+<a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/Cause.html#with-org.spongepowered.api.event.cause.NamedCause-NamedCause...-">Cause#with(NamedCause, NamedCause...)</a>. This constructs a new Cause object containing first the objects
 already present in the original cause, then followed by the additional objects that you provided.</p>
-<p>Finally if you wish to add an object to a cause with a defined named first call <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/NamedCause.html#of-java.lang.String-Object-">NamedCause#of(String, Object)</a>
+<p>Finally if you wish to add an object to a cause with a defined named first call <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/NamedCause.html#of-java.lang.String-Object-">NamedCause#of(String, Object)</a>
 and then pass the returned <code class="docutils literal"><span class="pre">NamedCause</span></code> instance to the cause chain as you would a normal object.</p>
 </div>
 </div>

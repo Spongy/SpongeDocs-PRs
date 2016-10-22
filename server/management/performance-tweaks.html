@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Performance Tweaks &mdash; Sponge 4.1.0 documentation</title>
+     <title>Performance Tweaks &mdash; Sponge 5.0.0 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -20,7 +20,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '4.1.0',
+      VERSION:     '5.0.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
       <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 4.1.0 documentation" href="../../index.html" />
+        <link rel="top" title="Sponge 5.0.0 documentation" href="../../index.html" />
         <link rel="up" title="Server Management" href="index.html" />
         <link rel="next" title="Becoming an Expert Spongineer" href="../spongineer/index.html" />
         <link rel="prev" title="Exploit Patches" href="exploit-patches.html" />
@@ -87,7 +87,7 @@
         </ul>
     </div>
     <div class="menu-right">
-      <div><i class="fa fa-fw fa-tag"></i><a>4.1.0</a></div>
+      <div><i class="fa fa-fw fa-tag"></i><a>5.0.0</a></div>
         <ul class="dropdown" id="ddvers">
           <li><a href="/master/en/"><i class="fa fa-fw fa-tag"></i> latest</a></li>
           {[#vers]}
@@ -124,7 +124,7 @@
 
       <div class="breadcrumbs">
         <ul>
-        <li><a href="../../index.html">Sponge 4.1.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="../../index.html">Sponge 5.0.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="../index.html" >Creating a Server</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="index.html" accesskey="U">Server Management</a><i class="fa fa-fw fa-chevron-right"></i></li>
         </ul>
@@ -596,6 +596,32 @@ If you add new mobs to the game, just repeat the procedure and those new mobs wi
 </pre></div>
 </div>
 </div>
+<div class="section" id="cache-tameable-owners">
+<h2>Cache Tameable Owners<a class="headerlink" href="#cache-tameable-owners" title="Permalink to this headline">¶</a></h2>
+<p>This setting will cache tameable entities owners&#8217; UUID to save constant lookups from the data watcher.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>optimizations {
+    # Caches tameable entities owners to avoid constant lookups against data watchers. If mods cause issue, disable.
+    cache-tameable-owners=true
+    }
+</pre></div>
+</div>
+</div>
+<div class="section" id="drops-pre-merge">
+<h2>Drops Pre Merge<a class="headerlink" href="#drops-pre-merge" title="Permalink to this headline">¶</a></h2>
+<p>This setting will pre-process and potentially merge item drops to avoid spawning extra entities that are then merged
+post-spawning.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>optimizations {
+    # If enabled, block item drops are pre-processed to avoid
+    # having to spawn extra entities that will be merged post spawning.
+    # Usually, Sponge is smart enough to determine when to attempt an item pre-merge
+    # and when not to, however, in certain cases, some mods rely on items not being
+    # pre-merged and actually spawned, in which case, the items will flow right through
+    # without being merged.
+    drops-pre-merge=true
+    }
+</pre></div>
+</div>
+</div>
 <div class="section" id="lighting-patch-to-ignore-unloaded-chunks">
 <h2>Lighting Patch to Ignore Unloaded Chunks<a class="headerlink" href="#lighting-patch-to-ignore-unloaded-chunks" title="Permalink to this headline">¶</a></h2>
 <p>Enabling this setting avoids loading lighting data from not yet generated chunks. This reduces disk access and chunk
@@ -620,15 +646,16 @@ amount of memory for caching purposes. If you run out of memory, try to disable 
 </pre></div>
 </div>
 </div>
-<div class="section" id="reduce-hash-lookups-on-blockstate-queries">
-<h2>Reduce Hash Lookups on BlockState Queries<a class="headerlink" href="#reduce-hash-lookups-on-blockstate-queries" title="Permalink to this headline">¶</a></h2>
-<p>Enabling this patch reduces hash lookups. This is achieved by removing a 2nd unnecessary lookup, which the server would
-only need when a blockstate becomes null. If you run into issues, disable this patch to revert the server to vanilla
-behaviour.</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>optimizations {
-      # A simple patch to reduce a few sanity checks for the sake of speed when
-      # performing block state operations
-      fast-blockstate-lookup=true
+<div class="section" id="inline-block-position-checks">
+<h2>Inline Block Position Checks<a class="headerlink" href="#inline-block-position-checks" title="Permalink to this headline">¶</a></h2>
+<p>This setting inlines the check for if a block position is valid in a world.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>optimizations{
+      # Inlines a simple check for whether a BlockPosition is valid
+      # in a world. By patching the check, the JVM can optimize the
+      # method further while reducing the number of operations performed
+      # for such a simple check. This may however break mods that alter
+      # world heights and can thus be disabled in those cases.
+      inline-block-position-checks=true
       }
 </pre></div>
 </div>

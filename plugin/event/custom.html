@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Custom Events &mdash; Sponge 4.1.0 documentation</title>
+     <title>Custom Events &mdash; Sponge 5.0.0 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -20,7 +20,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '4.1.0',
+      VERSION:     '5.0.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
       <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 4.1.0 documentation" href="../../index.html" />
+        <link rel="top" title="Sponge 5.0.0 documentation" href="../../index.html" />
         <link rel="up" title="Events" href="index.html" />
         <link rel="next" title="The Asset API" href="../assets.html" />
         <link rel="prev" title="Event Filters" href="filters.html" />
@@ -87,7 +87,7 @@
         </ul>
     </div>
     <div class="menu-right">
-      <div><i class="fa fa-fw fa-tag"></i><a>4.1.0</a></div>
+      <div><i class="fa fa-fw fa-tag"></i><a>5.0.0</a></div>
         <ul class="dropdown" id="ddvers">
           <li><a href="/master/en/"><i class="fa fa-fw fa-tag"></i> latest</a></li>
           {[#vers]}
@@ -124,7 +124,7 @@
 
       <div class="breadcrumbs">
         <ul>
-        <li><a href="../../index.html">Sponge 4.1.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="../../index.html">Sponge 5.0.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="../index.html" >Creating a Plugin</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="index.html" accesskey="U">Events</a><i class="fa fa-fw fa-chevron-right"></i></li>
         </ul>
@@ -563,13 +563,13 @@
   <div class="section" id="custom-events">
 <h1>Custom Events<a class="headerlink" href="#custom-events" title="Permalink to this headline">¶</a></h1>
 <p>You can write your own event classes and dispatch those events using the method described above. An event class must
-either implement the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/Event.html">Event</a> interface and, if it should be possible to cancel the event,
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/Cancellable.html">Cancellable</a>.</p>
+either implement the <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/Event.html">Event</a> interface and, if it should be possible to cancel the event,
+<a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/Cancellable.html">Cancellable</a>.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">Depending on what type of event you want to create, there might be another interface to implement instead of
-<code class="docutils literal"><span class="pre">Event</span></code>. For example if your event describes something that happens to a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/entity/living/player/Player.html">Player</a>, you should have your
-custom event class implement <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/entity/living/humanoid/player/TargetPlayerEvent.html">TargetPlayerEvent</a>.</p>
+<code class="docutils literal"><span class="pre">Event</span></code>. For example if your event describes something that happens to a <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/entity/living/player/Player.html">Player</a>, you should have your
+custom event class implement <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/entity/living/humanoid/player/TargetPlayerEvent.html">TargetPlayerEvent</a>.</p>
 </div>
 <div class="section" id="example-custom-event-class">
 <h2>Example: Custom Event Class<a class="headerlink" href="#example-custom-event-class" title="Permalink to this headline">¶</a></h2>
@@ -577,7 +577,7 @@ custom event class implement <a class="reference external" href="https://jd.spon
 mutate in a way specified by the event. Since the event targets a player and can be cancelled by listeners, it
 implements both the <code class="docutils literal"><span class="pre">TargetPlayerEvent</span></code> and <code class="docutils literal"><span class="pre">Cancellable</span></code> interfaces.</p>
 <p>Since generally custom events are intended to be listened to by other plugins, it is in your best interest to document
-them appropriately. This includes a list of objects typically found in the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/Cause.html">Cause</a>. In the below example, it
+them appropriately. This includes a list of objects typically found in the <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/Cause.html">Cause</a>. In the below example, it
 would probably be mentioned that the root cause is generally an object of the fictitious <code class="docutils literal"><span class="pre">FLARDSource</span></code> class.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Cancellable</span><span class="o">;</span>
