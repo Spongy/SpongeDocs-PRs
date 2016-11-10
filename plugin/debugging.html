@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Plugin Debugging &mdash; Sponge 4.1.0 documentation</title>
+     <title>Plugin Debugging &mdash; Sponge 5.0.0 documentation</title>
     
   <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
@@ -20,7 +20,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../',
-      VERSION:     '4.1.0',
+      VERSION:     '5.0.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/store.min.js"></script>
     <script type="text/javascript" src="../_static/lights.js"></script>
       <link rel="shortcut icon" href="../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 4.1.0 documentation" href="../index.html" />
+        <link rel="top" title="Sponge 5.0.0 documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
         <link rel="next" title="Tab Lists" href="tab-lists.html" />
         <link rel="prev" title="Offline Player Data" href="offline-userplayer-data.html" />
@@ -87,7 +87,7 @@
         </ul>
     </div>
     <div class="menu-right">
-      <div><i class="fa fa-fw fa-tag"></i><a>4.1.0</a></div>
+      <div><i class="fa fa-fw fa-tag"></i><a>5.0.0</a></div>
         <ul class="dropdown" id="ddvers">
           <li><a href="/master/en/"><i class="fa fa-fw fa-tag"></i> latest</a></li>
           {[#vers]}
@@ -124,7 +124,7 @@
 
       <div class="breadcrumbs">
         <ul>
-        <li><a href="../index.html">Sponge 4.1.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="../index.html">Sponge 5.0.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="index.html" accesskey="U">Creating a Plugin</a><i class="fa fa-fw fa-chevron-right"></i></li>
         </ul>
       </div> 
@@ -462,6 +462,19 @@
 </li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../ore/index.html">Ore Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ore/api.html">Ore Web API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ore/routes/list-projects.html">List projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ore/routes/project.html">Get Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ore/routes/list-versions.html">List project versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ore/routes/list-users.html">List Users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ore/routes/user.html">Get User</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to Sponge</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
@@ -563,9 +576,13 @@ The steps necessary depend on your IDE.</p>
 it needs to be a <em>Module</em>. Assuming you already created your project as described in
 <a class="reference internal" href="workspace/idea.html"><em>Setting Up IntelliJ IDEA</em></a>, import it using the following steps.</p>
 <ul class="simple">
-<li>Open the <strong>Sponge(Vanilla)</strong> project.</li>
+<li>Open the <code class="docutils literal"><span class="pre">SpongeVanilla</span></code>/<code class="docutils literal"><span class="pre">SpongeForge</span></code> project.</li>
 <li>Click <code class="docutils literal"><span class="pre">File</span></code>, followed by <code class="docutils literal"><span class="pre">New</span></code>, then <code class="docutils literal"><span class="pre">Module</span> <span class="pre">from</span> <span class="pre">Existing</span> <span class="pre">Sources...</span></code>.</li>
-<li>Navigate to the directory of your plugin project and select its <code class="docutils literal"><span class="pre">.iml</span></code> file (e.g. <code class="docutils literal"><span class="pre">MyPlugin.iml</span></code>)</li>
+<li>Navigate to the directory of your plugin project.<ul>
+<li>If you&#8217;re using Gradle, select the <code class="docutils literal"><span class="pre">build.gradle</span></code> file, in the next dialog check <code class="docutils literal"><span class="pre">Use</span> <span class="pre">auto-import</span></code> and confirm.</li>
+<li>Otherwise, just select the whole directory and click <code class="docutils literal"><span class="pre">Finish</span></code>.</li>
+</ul>
+</li>
 <li>Click <code class="docutils literal"><span class="pre">Finish</span></code>.</li>
 </ul>
 <div class="admonition tip">
@@ -577,7 +594,7 @@ then create your project in the following dialogue.</p>
 <div class="section" id="eclipse">
 <h3>Eclipse<a class="headerlink" href="#eclipse" title="Permalink to this headline">¶</a></h3>
 <p>Just create your project as described here: <a class="reference internal" href="workspace/eclipse.html"><em>Setting Up Eclipse</em></a>. As long as it is in the same workspace
-as your <strong>Sponge(Vanilla)</strong> project, it will be visible.</p>
+as your <code class="docutils literal"><span class="pre">SpongeVanilla</span></code>/<code class="docutils literal"><span class="pre">SpongeForge</span></code> project, it will be visible.</p>
 </div>
 </div>
 <div class="section" id="adding-plugin-to-sponge-classpath">
@@ -598,19 +615,12 @@ How to do this, depends on your IDE again:</p>
 <li>OR, click the <code class="docutils literal"><span class="pre">Project</span> <span class="pre">Structure</span></code> icon, in the upper right-hand corner of the IDE, next to the <code class="docutils literal"><span class="pre">Search</span></code> icon.</li>
 </ul>
 </li>
-<li>Click <code class="docutils literal"><span class="pre">Modules</span></code>. Make sure Sponge / SpongeVanilla (depending on what you chose) is selected in the middle column</li>
-<li>On the right column, select the <code class="docutils literal"><span class="pre">Dependencies</span></code> tab</li>
-<li>Click the Green <code class="docutils literal"><span class="pre">+</span></code> symbol (<code class="docutils literal"><span class="pre">Add</span></code>) on the far right, and select <code class="docutils literal"><span class="pre">Module</span> <span class="pre">Dependency</span></code></li>
-<li>Select your Module (Plugin).</li>
-<li>Do NOT check the module, after it is added to the list.</li>
-</ul>
-<p>If you are using Gradle to build your plugin:</p>
-<ul class="simple">
-<li>Open the Gradle Pane on the right side of the IDE window.</li>
-<li>Click the Green <code class="docutils literal"><span class="pre">+</span></code> Symbol under <code class="docutils literal"><span class="pre">Gradle</span> <span class="pre">Projects</span></code>.</li>
-<li>Navigate to the your plugin&#8217;s folder on the file system.</li>
-<li>Double click the build.gradle file.</li>
-<li>Click the Blue refresh icon (two arrows in a circle) to load your plugin&#8217;s dependencies into the workspace.</li>
+<li>Click <code class="docutils literal"><span class="pre">Modules</span></code>. Expand the <code class="docutils literal"><span class="pre">SpongeForge</span></code> or <code class="docutils literal"><span class="pre">SpongeVanilla</span></code> group (depending on what you chose).</li>
+<li>Make sure <code class="docutils literal"><span class="pre">SpongeForge_main</span></code> or <code class="docutils literal"><span class="pre">SpongeVanilla_main</span></code> is selected.</li>
+<li>On the right column, select the <code class="docutils literal"><span class="pre">Dependencies</span></code> tab.</li>
+<li>Click the <code class="docutils literal"><span class="pre">+</span></code> symbol (<code class="docutils literal"><span class="pre">Add</span></code>) on the bottom of the column, and select <code class="docutils literal"><span class="pre">Module</span> <span class="pre">Dependency</span></code>.</li>
+<li>Select <code class="docutils literal"><span class="pre">yourplugin_main</span></code>.</li>
+<li>Do NOT check the <code class="docutils literal"><span class="pre">Export</span></code> option on the module, after it is added to the list.</li>
 </ul>
 </div>
 <div class="section" id="id2">

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Tile Entities &mdash; Sponge 4.1.0 documentation</title>
+     <title>Tile Entities &mdash; Sponge 5.0.0 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -20,7 +20,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '4.1.0',
+      VERSION:     '5.0.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
       <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 4.1.0 documentation" href="../../index.html" />
+        <link rel="top" title="Sponge 5.0.0 documentation" href="../../index.html" />
         <link rel="up" title="Blocks" href="index.html" />
         <link rel="next" title="Virtual Block Changes" href="virtualblock.html" />
         <link rel="prev" title="Modifying Blocks" href="modifying.html" />
@@ -87,7 +87,7 @@
         </ul>
     </div>
     <div class="menu-right">
-      <div><i class="fa fa-fw fa-tag"></i><a>4.1.0</a></div>
+      <div><i class="fa fa-fw fa-tag"></i><a>5.0.0</a></div>
         <ul class="dropdown" id="ddvers">
           <li><a href="/master/en/"><i class="fa fa-fw fa-tag"></i> latest</a></li>
           {[#vers]}
@@ -124,7 +124,7 @@
 
       <div class="breadcrumbs">
         <ul>
-        <li><a href="../../index.html">Sponge 4.1.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="../../index.html">Sponge 5.0.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="../index.html" >Creating a Plugin</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="index.html" accesskey="U">Blocks</a><i class="fa fa-fw fa-chevron-right"></i></li>
         </ul>
@@ -463,6 +463,19 @@
 </li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ore/api.html">Ore Web API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/list-projects.html">List projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/project.html">Get Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/list-versions.html">List project versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/list-users.html">List Users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/user.html">Get User</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
@@ -552,7 +565,7 @@ stands) or provide effects (like a beacon or a note block). They also contain ad
 text (like chests, signs or command blocks).</p>
 <div class="section" id="identifying-tile-entities-and-their-type">
 <h2>Identifying Tile Entities and their Type<a class="headerlink" href="#identifying-tile-entities-and-their-type" title="Permalink to this headline">¶</a></h2>
-<p>Again, it all starts with a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/Location.html">Location</a>. The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/Location.html#getTileEntity--">Location#getTileEntity()</a> function will return the tile
+<p>Again, it all starts with a <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/world/Location.html">Location</a>. The <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/world/Location.html#getTileEntity--">Location#getTileEntity()</a> function will return the tile
 entity corresponding to the block or <code class="docutils literal"><span class="pre">Optional.empty()</span></code> if the block is not a tile entity.</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
@@ -564,9 +577,9 @@ entity corresponding to the block or <code class="docutils literal"><span class=
 </pre></div>
 </div>
 </div></blockquote>
-<p>The type of a tile entity can then be obtained by the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/block/tileentity/TileEntity.html#getType--">TileEntity#getType()</a> function which returns a
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/block/tileentity/TileEntityType.html">TileEntityType</a>. Which can then be compared similar to a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/block/BlockType.html">BlockType</a>. After performing this check
-the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/block/tileentity/TileEntity.html">TileEntity</a> variable can safely be cast to the according subtype.</p>
+<p>The type of a tile entity can then be obtained by the <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/block/tileentity/TileEntity.html#getType--">TileEntity#getType()</a> function which returns a
+<a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/block/tileentity/TileEntityType.html">TileEntityType</a>. Which can then be compared similar to a <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/block/BlockType.html">BlockType</a>. After performing this check
+the <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/block/tileentity/TileEntity.html">TileEntity</a> variable can safely be cast to the according subtype.</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.Jukebox</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.TileEntity</span><span class="o">;</span>
@@ -586,12 +599,12 @@ the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/s
 </div>
 </div></blockquote>
 <p>After performing this cast, the methods provided by the particular interface can be accessed (in this example the
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/block/tileentity/Jukebox.html#ejectRecord--">Jukebox#ejectRecord()</a> method). For detailed information about <code class="docutils literal"><span class="pre">TileEntity</span></code> subtypes and their respective
-methods refer to the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/block/tileentity/package-summary.html">org.spongepowered.api.block.tileentity</a> package and its subpackages in the API.</p>
+<a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/block/tileentity/Jukebox.html#ejectRecord--">Jukebox#ejectRecord()</a> method). For detailed information about <code class="docutils literal"><span class="pre">TileEntity</span></code> subtypes and their respective
+methods refer to the <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/block/tileentity/package-summary.html">org.spongepowered.api.block.tileentity</a> package and its subpackages in the API.</p>
 </div>
 <div class="section" id="accessing-and-modifying-a-tile-entity-s-data">
 <h2>Accessing and Modifying a Tile Entity&#8217;s Data<a class="headerlink" href="#accessing-and-modifying-a-tile-entity-s-data" title="Permalink to this headline">¶</a></h2>
-<p>Similar to block states, the data stored in a tile entity is accessed using a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a>. Since the
+<p>Similar to block states, the data stored in a tile entity is accessed using a <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a>. Since the
 kind of a data is fully described by the <code class="docutils literal"><span class="pre">DataManipulator</span></code> used, all data manipulation can be done with the
 <code class="docutils literal"><span class="pre">TileEntity</span></code> interface itself and does not require a cast.</p>
 <p>The following example contains two methods to alter the data of a sign. The first method reads (if possible) the first
@@ -622,14 +635,14 @@ line, the second attempts to set it and returns the boolean value indicating its
 </pre></div>
 </div>
 </div></blockquote>
-<p>The main difference to working with a <code class="docutils literal"><span class="pre">BlockState</span></code> is that a tile entity is a mutable <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/DataHolder.html">DataHolder</a> as
+<p>The main difference to working with a <code class="docutils literal"><span class="pre">BlockState</span></code> is that a tile entity is a mutable <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/DataHolder.html">DataHolder</a> as
 opposed to the immutable <code class="docutils literal"><span class="pre">BlockState</span></code>.</p>
 </div>
 <div class="section" id="accessing-inventories">
 <h2>Accessing Inventories<a class="headerlink" href="#accessing-inventories" title="Permalink to this headline">¶</a></h2>
 <p>Quite a share of tile entities come with their own inventory, most notably chests and furnaces. That inventory can not
 be accessed directly from the <code class="docutils literal"><span class="pre">TileEntity</span></code> interface. So a cast will be necessary. Since all tile entities containing
-an inventory extend the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/block/tileentity/carrier/TileEntityCarrier.html">TileEntityCarrier</a> interface it suffices to cast to that interface as shown below.</p>
+an inventory extend the <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/block/tileentity/carrier/TileEntityCarrier.html">TileEntityCarrier</a> interface it suffices to cast to that interface as shown below.</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.carrier.TileEntityCarrier</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.item.inventory.Inventory</span><span class="o">;</span>

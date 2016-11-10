@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Spawning an Entity &mdash; Sponge 4.1.0 documentation</title>
+     <title>Spawning an Entity &mdash; Sponge 5.0.0 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -20,7 +20,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '4.1.0',
+      VERSION:     '5.0.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
       <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 4.1.0 documentation" href="../../index.html" />
+        <link rel="top" title="Sponge 5.0.0 documentation" href="../../index.html" />
         <link rel="up" title="Entities" href="index.html" />
         <link rel="next" title="Modifying an Entity" href="modifying.html" />
         <link rel="prev" title="Entities" href="index.html" />
@@ -87,7 +87,7 @@
         </ul>
     </div>
     <div class="menu-right">
-      <div><i class="fa fa-fw fa-tag"></i><a>4.1.0</a></div>
+      <div><i class="fa fa-fw fa-tag"></i><a>5.0.0</a></div>
         <ul class="dropdown" id="ddvers">
           <li><a href="/master/en/"><i class="fa fa-fw fa-tag"></i> latest</a></li>
           {[#vers]}
@@ -124,7 +124,7 @@
 
       <div class="breadcrumbs">
         <ul>
-        <li><a href="../../index.html">Sponge 4.1.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="../../index.html">Sponge 5.0.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="../index.html" >Creating a Plugin</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="index.html" accesskey="U">Entities</a><i class="fa fa-fw fa-chevron-right"></i></li>
         </ul>
@@ -463,6 +463,19 @@
 </li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ore/api.html">Ore Web API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/list-projects.html">List projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/project.html">Get Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/list-versions.html">List project versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/list-users.html">List Users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/user.html">Get User</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
@@ -547,8 +560,8 @@
                   
   <div class="section" id="spawning-an-entity">
 <h1>Spawning an Entity<a class="headerlink" href="#spawning-an-entity" title="Permalink to this headline">¶</a></h1>
-<p>You will need four things for spawning in an <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/entity/Entity.html">Entity</a>, a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/Location.html">Location</a>, an <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/extent/Extent.html">Extent</a>, and an
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/entity/EntityType.html">EntityType</a>. The process for getting these is quite simple, you just need to grab a <code class="docutils literal"><span class="pre">Location</span></code> from
+<p>You will need four things for spawning in an <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/entity/Entity.html">Entity</a>, a <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/world/Location.html">Location</a>, an <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/world/extent/Extent.html">Extent</a>, and an
+<a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/entity/EntityType.html">EntityType</a>. The process for getting these is quite simple, you just need to grab a <code class="docutils literal"><span class="pre">Location</span></code> from
 somewhere in your plugin code and choose the type of <code class="docutils literal"><span class="pre">Entity</span></code> you wish to spawn.</p>
 <p>For example, let&#8217;s try to spawn a Creeper:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.Entity</span><span class="o">;</span>
@@ -578,10 +591,10 @@ somewhere in your plugin code and choose the type of <code class="docutils liter
 <p>This will grab the extent from our <code class="docutils literal"><span class="pre">Location</span></code>, which we will need for the actual spawning. Next, it uses this extent
 to create the entity, but do note that this does not spawn the entity in, it just will create it. We will need to
 specify the type of <code class="docutils literal"><span class="pre">Entity</span></code> to spawn, and the co-ordinates from our <code class="docutils literal"><span class="pre">Location</span></code>.</p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/world/extent/EntityUniverse.html#createEntity-org.spongepowered.api.entity.EntityType-com.flowpowered.math.vector.Vector3d-">EntityUniverse#createEntity(EntityType, Vector3d)</a> method returns an <code class="docutils literal"><span class="pre">Optional</span></code> as the <code class="docutils literal"><span class="pre">Location</span></code> may
+<p>The <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/world/extent/EntityUniverse.html#createEntity-org.spongepowered.api.entity.EntityType-com.flowpowered.math.vector.Vector3d-">EntityUniverse#createEntity(EntityType, Vector3d)</a> method returns an <code class="docutils literal"><span class="pre">Optional</span></code> as the <code class="docutils literal"><span class="pre">Location</span></code> may
 not be suitable for spawning an <code class="docutils literal"><span class="pre">Entity</span></code>. We then just grab our <code class="docutils literal"><span class="pre">Entity</span></code> from the <code class="docutils literal"><span class="pre">Optional</span></code> and can then use
 <code class="docutils literal"><span class="pre">Extent</span></code> for spawning the <code class="docutils literal"><span class="pre">Entity</span></code> into the world. We will need to specify a <code class="docutils literal"><span class="pre">Cause</span></code> for the spawning. For
-spawning <code class="docutils literal"><span class="pre">Entity</span></code>s, it is best to use <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/event/cause/entity/spawn/EntitySpawnCause.html">EntitySpawnCause</a>. In this example, we stated that our entity was
+spawning <code class="docutils literal"><span class="pre">Entity</span></code>s, it is best to use <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/cause/entity/spawn/EntitySpawnCause.html">EntitySpawnCause</a>. In this example, we stated that our entity was
 spawned from a plugin, however we can make it any cause that best describes why we are spawning this in, such as a mob
 spawner, or spawn egg.</p>
 </div>

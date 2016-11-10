@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>The Asset API &mdash; Sponge 4.1.0 documentation</title>
+     <title>The Asset API &mdash; Sponge 5.0.0 documentation</title>
     
   <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../_static/sponge.css" type="text/css" />
@@ -20,7 +20,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../',
-      VERSION:     '4.1.0',
+      VERSION:     '5.0.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/store.min.js"></script>
     <script type="text/javascript" src="../_static/lights.js"></script>
       <link rel="shortcut icon" href="../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 4.1.0 documentation" href="../index.html" />
+        <link rel="top" title="Sponge 5.0.0 documentation" href="../index.html" />
         <link rel="up" title="Creating a Plugin" href="index.html" />
         <link rel="next" title="Configuring Plugins" href="configuration/index.html" />
         <link rel="prev" title="Custom Events" href="event/custom.html" />
@@ -87,7 +87,7 @@
         </ul>
     </div>
     <div class="menu-right">
-      <div><i class="fa fa-fw fa-tag"></i><a>4.1.0</a></div>
+      <div><i class="fa fa-fw fa-tag"></i><a>5.0.0</a></div>
         <ul class="dropdown" id="ddvers">
           <li><a href="/master/en/"><i class="fa fa-fw fa-tag"></i> latest</a></li>
           {[#vers]}
@@ -124,7 +124,7 @@
 
       <div class="breadcrumbs">
         <ul>
-        <li><a href="../index.html">Sponge 4.1.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="../index.html">Sponge 5.0.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="index.html" accesskey="U">Creating a Plugin</a><i class="fa fa-fw fa-chevron-right"></i></li>
         </ul>
       </div> 
@@ -462,6 +462,19 @@
 </li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../ore/index.html">Ore Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ore/api.html">Ore Web API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ore/routes/list-projects.html">List projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ore/routes/project.html">Get Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ore/routes/list-versions.html">List project versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ore/routes/list-users.html">List Users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ore/routes/user.html">Get User</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to Sponge</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
@@ -546,10 +559,8 @@
                   
   <div class="section" id="the-asset-api">
 <h1>The Asset API<a class="headerlink" href="#the-asset-api" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/asset/AssetManager.html">AssetManager</a> allows developers to retrieve resources from a plugin JAR.</p>
-<p>By default, a plugin&#8217;s assets resides in a directory named <code class="docutils literal"><span class="pre">assets/myplugin/</span></code> where <code class="docutils literal"><span class="pre">myplugin</span></code> is the plugin ID. In
-most cases this default directory should be used but if you <em>need</em> to change it, you may do so by setting the
-<code class="docutils literal"><span class="pre">assets</span></code> attribute in your <code class="docutils literal"><span class="pre">&#64;Plugin</span></code> annotation or <code class="docutils literal"><span class="pre">mcmod.info</span></code> file.</p>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/asset/AssetManager.html">AssetManager</a> allows developers to retrieve resources from a plugin JAR.</p>
+<p>A plugin&#8217;s assets resides in a directory named <code class="docutils literal"><span class="pre">assets/myplugin/</span></code> where <code class="docutils literal"><span class="pre">myplugin</span></code> is the plugin ID.</p>
 <p>Once properly configured you can retrieve a resource for your (or any) plugin using the following code:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.asset.Asset</span><span class="o">;</span>
 
@@ -569,14 +580,14 @@ the plugin parameter.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The examples above assume that <code class="docutils literal"><span class="pre">myfile.txt</span></code> exists as an <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/asset/Asset.html">Asset</a>. If it does not, then <code class="docutils literal"><span class="pre">getAsset()</span></code>
+<p class="last">The examples above assume that <code class="docutils literal"><span class="pre">myfile.txt</span></code> exists as an <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/asset/Asset.html">Asset</a>. If it does not, then <code class="docutils literal"><span class="pre">getAsset()</span></code>
 will return <code class="docutils literal"><span class="pre">Optional#empty()</span></code>.</p>
 </div>
 <div class="section" id="working-with-assets">
 <h2>Working with Assets<a class="headerlink" href="#working-with-assets" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal"><span class="pre">Asset</span></code> class is essentially just a wrapper around a <code class="docutils literal"><span class="pre">URL</span></code> with some common I/O operations built in. The use
 cases of <code class="docutils literal"><span class="pre">Assets</span></code>s is essentially unbounded but one common use case is to generate a default configuration file if
-your plugin&#8217;s configuration file is not found. You can achieve this using a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/plugin/PluginContainer.html">PluginContainer</a> with the
+your plugin&#8217;s configuration file is not found. You can achieve this using a <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/plugin/PluginContainer.html">PluginContainer</a> with the
 following code:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.nio.file.Files</span><span class="o">;</span>
 

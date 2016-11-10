@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-     <title>Serializing Data &mdash; Sponge 4.1.0 documentation</title>
+     <title>Serializing Data &mdash; Sponge 5.0.0 documentation</title>
     
   <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/sponge.css" type="text/css" />
@@ -20,7 +20,7 @@
   <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
       URL_ROOT:    '../../',
-      VERSION:     '4.1.0',
+      VERSION:     '5.0.0',
       COLLAPSE_INDEX: false,
       FILE_SUFFIX: '.html',
       HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../../_static/store.min.js"></script>
     <script type="text/javascript" src="../../_static/lights.js"></script>
       <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-        <link rel="top" title="Sponge 4.1.0 documentation" href="../../index.html" />
+        <link rel="top" title="Sponge 5.0.0 documentation" href="../../index.html" />
         <link rel="up" title="The Data API" href="index.html" />
         <link rel="next" title="Blocks" href="../blocks/index.html" />
         <link rel="prev" title="Transactions" href="transactions.html" />
@@ -87,7 +87,7 @@
         </ul>
     </div>
     <div class="menu-right">
-      <div><i class="fa fa-fw fa-tag"></i><a>4.1.0</a></div>
+      <div><i class="fa fa-fw fa-tag"></i><a>5.0.0</a></div>
         <ul class="dropdown" id="ddvers">
           <li><a href="/master/en/"><i class="fa fa-fw fa-tag"></i> latest</a></li>
           {[#vers]}
@@ -124,7 +124,7 @@
 
       <div class="breadcrumbs">
         <ul>
-        <li><a href="../../index.html">Sponge 4.1.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
+        <li><a href="../../index.html">Sponge 5.0.0 documentation</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="../index.html" >Creating a Plugin</a><i class="fa fa-fw fa-chevron-right"></i></li>
         <li><a href="index.html" accesskey="U">The Data API</a><i class="fa fa-fw fa-chevron-right"></i></li>
         </ul>
@@ -463,6 +463,19 @@
 </li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ore/api.html">Ore Web API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/list-projects.html">List projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/project.html">Get Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/list-versions.html">List project versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/list-users.html">List Users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ore/routes/user.html">Get User</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/guidelines.html">Contribution Guidelines</a><ul class="simple">
 </ul>
@@ -547,18 +560,18 @@
                   
   <div class="section" id="serializing-data">
 <h1>Serializing Data<a class="headerlink" href="#serializing-data" title="Permalink to this headline">¶</a></h1>
-<p>While an <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/ImmutableDataManipulator.html">ImmutableDataManipulator</a> is a good way to store data while the server is running, it will not
-persist over a restart. However, every <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a> implements the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/DataSerializable.html">DataSerializable</a> interface
-and thus can be serialized to a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/DataContainer.html">DataContainer</a> and deserialized by a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/persistence/DataBuilder.html">DataBuilder</a>.</p>
+<p>While an <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/manipulator/ImmutableDataManipulator.html">ImmutableDataManipulator</a> is a good way to store data while the server is running, it will not
+persist over a restart. However, every <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a> implements the <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/DataSerializable.html">DataSerializable</a> interface
+and thus can be serialized to a <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/DataContainer.html">DataContainer</a> and deserialized by a <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/persistence/DataBuilder.html">DataBuilder</a>.</p>
 <p>After this initial conversion from the specialized <code class="docutils literal"><span class="pre">DataManipulator</span></code> to a more general structure, the <code class="docutils literal"><span class="pre">DataContainer</span></code>
 can be further processed.</p>
 <div class="section" id="datacontainer-and-dataview">
 <h2>DataContainer and DataView<a class="headerlink" href="#datacontainer-and-dataview" title="Permalink to this headline">¶</a></h2>
-<p>A <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/DataView.html">DataView</a> is a general-purpose structure for holding any kind of data. It supports multiple values and even
+<p>A <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/DataView.html">DataView</a> is a general-purpose structure for holding any kind of data. It supports multiple values and even
 nested <code class="docutils literal"><span class="pre">DataView</span></code>s as a value, thus allowing for a tree-like structure. Every value is identified by a
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/DataQuery.html">DataQuery</a>. A <code class="docutils literal"><span class="pre">DataContainer</span></code> is a root <code class="docutils literal"><span class="pre">DataView</span></code>.</p>
+<a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/DataQuery.html">DataQuery</a>. A <code class="docutils literal"><span class="pre">DataContainer</span></code> is a root <code class="docutils literal"><span class="pre">DataView</span></code>.</p>
 <p>Every <code class="docutils literal"><span class="pre">DataSerializable</span></code> provides a <code class="docutils literal"><span class="pre">toContainer()</span></code> method which will create and return a <code class="docutils literal"><span class="pre">DataContainer</span></code>.
-As an example, calling <code class="docutils literal"><span class="pre">toContainer()</span></code> on a <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a> instance will yield a <code class="docutils literal"><span class="pre">DataContainer</span></code> containing
+As an example, calling <code class="docutils literal"><span class="pre">toContainer()</span></code> on a <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a> instance will yield a <code class="docutils literal"><span class="pre">DataContainer</span></code> containing
 two values, one for the current and one for the maximum health, each identified by the <code class="docutils literal"><span class="pre">DataQuery</span></code> of the respective
 <code class="docutils literal"><span class="pre">Key</span></code>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="o">;</span>
@@ -570,8 +583,8 @@ two values, one for the current and one for the maximum health, each identified 
 </pre></div>
 </div>
 <p>Converting this container back into a <code class="docutils literal"><span class="pre">HealthData</span></code> instance is done by the corresponding <code class="docutils literal"><span class="pre">DataBuilder</span></code>. Those are
-registered and managed by the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/DataManager.html">DataManager</a>. It can either be obtained from a valid <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/Game.html">Game</a> instance
-or using the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/Sponge.html">Sponge</a> utility class. The <code class="docutils literal"><span class="pre">DataManager</span></code> provides a method to get the appropriate
+registered and managed by the <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/DataManager.html">DataManager</a>. It can either be obtained from a valid <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/Game.html">Game</a> instance
+or using the <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/Sponge.html">Sponge</a> utility class. The <code class="docutils literal"><span class="pre">DataManager</span></code> provides a method to get the appropriate
 <code class="docutils literal"><span class="pre">DataBuilder</span></code> to deserialize a given class and additionally a shorthand method to get the <code class="docutils literal"><span class="pre">DataBuilder</span></code> and have it
 do the deserialization in one step. Both of the following code examples are functionally equivalent.</p>
 <p><strong>Code Example: Deserialization, the long way</strong></p>
@@ -600,31 +613,34 @@ do the deserialization in one step. Both of the following code examples are func
 </div>
 <p>The <code class="docutils literal"><span class="pre">deserializeHealth</span></code> function will return <code class="docutils literal"><span class="pre">Optional.empty()</span></code> if there is no <code class="docutils literal"><span class="pre">DataBuilder</span></code> registered for
 <code class="docutils literal"><span class="pre">HealthData</span></code> or the supplied <code class="docutils literal"><span class="pre">DataContainer</span></code> is empty. If invalid data is present in the <code class="docutils literal"><span class="pre">DataContainer</span></code>, an
-<a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/persistence/InvalidDataException.html">InvalidDataException</a> will be thrown.</p>
+<a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/persistence/InvalidDataException.html">InvalidDataException</a> will be thrown.</p>
 </div>
 <div class="section" id="datatranslator">
 <h2>DataTranslator<a class="headerlink" href="#datatranslator" title="Permalink to this headline">¶</a></h2>
-<p>In Sponge, generally the implementations <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/MemoryDataView.html">MemoryDataView</a> and <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/MemoryDataContainer.html">MemoryDataContainer</a> are used, which
+<p>In Sponge, generally the implementations <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/MemoryDataView.html">MemoryDataView</a> and <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/MemoryDataContainer.html">MemoryDataContainer</a> are used, which
 reside in memory only and thus will not persist over a server restart. In order to persistently store a
-<code class="docutils literal"><span class="pre">DataContainer</span></code>, it first has to be converted into a storable representation. This can be done by using an
-implementation of the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/translator/DataTranslator.html">DataTranslator</a> interface, for example the <a class="reference external" href="https://jd.spongepowered.org/4.1.0/org/spongepowered/api/data/translator/ConfigurateTranslator.html">ConfigurateTranslator</a>, which can
-convert a <code class="docutils literal"><span class="pre">DataView</span></code> to a <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/ConfigurationNode.html">ConfigurationNode</a> and vice versa. <code class="docutils literal"><span class="pre">ConfigurationNode</span></code>s can then be written
-to and read from persistent files using the <a class="reference internal" href="../configuration/index.html"><em>Configurate Library</em></a>.</p>
+<code class="docutils literal"><span class="pre">DataContainer</span></code>, it first has to be converted into a storable representation.</p>
+<p>Using the <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/persistence/DataTranslators.html#CONFIGURATION_NODE">DataTranslators#CONFIGURATION_NODE</a> implementation of <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/persistence/DataTranslator.html">DataTranslator</a>, we can convert a
+<code class="docutils literal"><span class="pre">DataView</span></code> to a <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/ConfigurationNode.html">ConfigurationNode</a> and vice versa. <code class="docutils literal"><span class="pre">ConfigurationNode</span></code>s can then be written to and read
+from persistent files using the <a class="reference internal" href="../configuration/index.html"><em>Configurate Library</em></a>.</p>
 <p><strong>Code Example: Serializing a HealthData instance to Configurate</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.translator.ConfigurateTranslator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.persistence.DataTranslator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.persistence.DataTranslators</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeToConfig</span><span class="o">(</span><span class="n">HealthData</span> <span class="n">data</span><span class="o">,</span> <span class="n">ConfigurationNode</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">ConfigurateTranslator</span> <span class="n">translator</span> <span class="o">=</span> <span class="n">ConfigurateTranslator</span><span class="o">.</span><span class="na">instance</span><span class="o">();</span>
+<span class="kd">public</span> <span class="n">ConfigurationNode</span> <span class="nf">translateToConfig</span><span class="o">(</span><span class="n">HealthData</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="n">DataTranslator</span><span class="o">&lt;</span><span class="n">ConfigurationNode</span><span class="o">&gt;</span> <span class="n">translator</span> <span class="o">=</span> <span class="n">DataTranslators</span><span class="o">.</span><span class="na">CONFIGURATION_NODE</span><span class="o">;</span>
     <span class="kd">final</span> <span class="n">DataView</span> <span class="n">container</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">toContainer</span><span class="o">();</span>
-    <span class="n">translator</span><span class="o">.</span><span class="na">translateContainerToData</span><span class="o">(</span><span class="n">config</span><span class="o">,</span> <span class="n">container</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">translator</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="n">container</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 <p><strong>Code Example: Deserializing a HealthData instance from Configurate</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">readHealthFromConfig</span><span class="o">(</span><span class="n">ConfigurationNode</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">ConfigurateTranslator</span> <span class="n">translator</span> <span class="o">=</span> <span class="n">ConfigurateTranslator</span><span class="o">.</span><span class="na">instance</span><span class="o">();</span>
-    <span class="kd">final</span> <span class="n">DataView</span> <span class="n">container</span> <span class="o">=</span> <span class="n">translator</span><span class="o">.</span><span class="na">translateFrom</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">translateFromConfig</span><span class="o">(</span><span class="n">ConfigurationNode</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="n">DataTranslator</span><span class="o">&lt;</span><span class="n">ConfigurationNode</span><span class="o">&gt;</span> <span class="n">translator</span> <span class="o">=</span> <span class="n">DataTranslators</span><span class="o">.</span><span class="na">CONFIGURATION_NODE</span><span class="o">;</span>
+    <span class="kd">final</span> <span class="n">DataView</span> <span class="n">container</span> <span class="o">=</span> <span class="n">translator</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="n">node</span><span class="o">);</span>
     <span class="k">return</span> <span class="n">deserializeHealth</span><span class="o">(</span><span class="n">container</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
