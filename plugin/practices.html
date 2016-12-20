@@ -451,6 +451,7 @@ inbuilt scheduler&#8217;s async feature.</p>
 </pre></div>
 </div>
 <p>For more details refer to the <a class="reference internal" href="scheduler.html"><span class="doc">Scheduler</span></a> docs.</p>
+<p>If this is done wrong, you will see clients timing out or the server&#8217;s watchdog might kill the server.</p>
 </div>
 <div class="section" id="accessing-game-objects-outside-the-main-thread">
 <h3>Accessing game objects outside the main thread<a class="headerlink" href="#accessing-game-objects-outside-the-main-thread" title="Permalink to this headline">¶</a></h3>
@@ -458,6 +459,11 @@ inbuilt scheduler&#8217;s async feature.</p>
 should be avoided. If you have a lengthy operation on a different thread use the <a class="reference internal" href="scheduler.html"><span class="doc">Scheduler</span></a> to execute the apply
 part on the main thread. If you want to use an game object in a different thread use a snapshot of the instance or a
 detached data container.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If this is done wrong, you can get a <code class="docutils literal"><span class="pre">ConcurrentModificationException</span></code> with or without a server crash at best and
+a corrupted player/world/server at worst.</p>
+</div>
 </div>
 </div>
 </div>
