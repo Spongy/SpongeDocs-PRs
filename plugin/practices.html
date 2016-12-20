@@ -410,7 +410,8 @@ as such wherever they are hosted. These may more appropriately labelled as &#822
 </div>
 <div class="section" id="bad-practices">
 <h2>Bad Practices<a class="headerlink" href="#bad-practices" title="Permalink to this headline">¶</a></h2>
-<p>These should practices should be avoided. As they lead to memory leaks (<code class="docutils literal"><span class="pre">OutOfMemoryError</span></code>), lags or inconsistencies.</p>
+<p>These should practices should be avoided, as they can lead to memory leaks (<code class="docutils literal"><span class="pre">OutOfMemoryError</span></code>), lag or
+inconsistencies.</p>
 <div class="section" id="storing-references">
 <h3>Storing References<a class="headerlink" href="#storing-references" title="Permalink to this headline">¶</a></h3>
 <p>Some instances such as</p>
@@ -432,20 +433,20 @@ as such wherever they are hosted. These may more appropriately labelled as &#822
 </dl>
 </li>
 </ul>
-<p>should <strong>NEVER</strong> be stored or be cached in plugins.</p>
+<p>should <strong>NEVER</strong> be stored or cached in plugins.</p>
 <p>These are the main reasons for this:</p>
 <ul class="simple">
 <li>The references prevent proper garbage collection</li>
 <li>The instances might no longer be valid</li>
 </ul>
-<p>This can easily be avoided by using the corresponding snapshots or saving the UUID of given the instances and request a
-live instance when you need it.</p>
+<p>This can easily be avoided by using the corresponding snapshots or saving the UUID of the given instances and requesting
+a live instance when you need it.</p>
 </div>
 <div class="section" id="io-on-the-main-thread">
 <h3>IO on the main thread<a class="headerlink" href="#io-on-the-main-thread" title="Permalink to this headline">¶</a></h3>
 <p>Executing some IO operations such as loading a config/data file or checking for updates/connecting to a website takes
-much time and greatly affects the TPS on the server. Such tasks should be either done in their own threads or using the
-inbuilt scheduller&#8217;s async feature.</p>
+much time and greatly affects the TPS on the server. Such tasks should be done either in their own threads, or using the
+inbuilt scheduler&#8217;s async feature.</p>
 <div class="highlight-text"><div class="highlight"><pre><span></span>this.game.getScheduler().createAsyncExecutor(this).execute(this::checkForUpdates);
 </pre></div>
 </div>
