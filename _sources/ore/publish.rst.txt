@@ -52,10 +52,10 @@ At the very least, each Ore project *must* have the ``modid``, ``name`` and, ``v
 Signing your Plugin
 ~~~~~~~~~~~~~~~~~~~
 
-Due to security concerns, Ore requires each plugin file (ZIP or JAR) to be signed with a
-`Pretty Good Privacy (PGP) <https://en.wikipedia.org/wiki/Pretty_Good_Privacy>`__ public key that is associated with
-the email that you signed up to Sponge with. This digital signature ensures that any file uploaded by a user was
-intended to be uploaded by the actual account holder.
+Due to security concerns, Ore requires each plugin file (ZIP or JAR) to be uploaded with a detached
+`Pretty Good Privacy (PGP) <https://en.wikipedia.org/wiki/Pretty_Good_Privacy>`__ signature for a public key that is
+associated with the email that you signed up to Sponge with. This digital signature ensures that any file uploaded by a
+user was intended to be uploaded by the actual account holder.
 
 .. note::
 
@@ -89,7 +89,7 @@ command.
 
 .. code-block:: bash
 
-    gpg --output MyPlugin-signed.jar --sign MyPlugin.jar
+    gpg --output myplugin-1.0.0.jar.sig --detach-sig myplugin-1.0.0.jar
 
 .. note::
 
@@ -108,6 +108,8 @@ you already have an account, just hit the "Log in" button in the top-right corne
 
 Once logged in, navigate to your avatar and select the "New" option in the drop-down menu that appears, or just press
 the "C" key.
+
+While uploading, the creation wizard will first ask for your main upload file and then for your detached signature.
 
 Setting Up Your Project on Ore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
