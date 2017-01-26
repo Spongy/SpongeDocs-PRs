@@ -9,7 +9,6 @@
  *
  */
 
-
 /* Non-minified version JS is _stemmer.js if file is provided */ 
 /**
  * Porter Stemmer
@@ -194,7 +193,6 @@ var Stemmer = function() {
 }
 
 
-
 /**
  * Simple result scoring code.
  */
@@ -224,8 +222,6 @@ var Scorer = {
   // query found in terms
   term: 5
 };
-
-
 
 
 
@@ -322,7 +318,6 @@ function splitQuery(query) {
     }
     return result;
 }
-
 
 
 
