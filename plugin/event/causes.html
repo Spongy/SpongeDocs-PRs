@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Causes &mdash; Sponge 5.1.0 documentation</title>
+
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 5.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Events" href="index.html"/>        <link rel="next" title="Event Filters" href="filters.html"/>        <link rel="prev" title="Event Listeners" href="listeners.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../index.html">
+            <img src="../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../buildsystem.html">Build Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../workspace/index.html">Setting Up Your Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/index.html">Setting Up Your Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-class.html">Main Plugin Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../practices.html">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Events</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="listeners.html">Event Listeners</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Event Causes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">Event Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="custom.html">Custom Events</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blocks/index.html">Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../items/index.html">Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trade-offers.html">Trade-Offers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects.html">Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database.html">Databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../permissions.html">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tab-lists.html">Tab Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-meta.html">Plugin Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internals/index.html">Implementation-dependent Plugins</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+          <li><a href="../index.html">Creating a Plugin</a> &raquo;</li>
+          <li><a href="index.html">Events</a> &raquo;</li>
+    <li>Event Causes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/sponge-gets-discord/source/plugin/event/causes.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="event-causes">
+<h1>Event Causes<a class="headerlink" href="#event-causes" title="Permalink to this headline">¶</a></h1>
+<p>Events are great for attaching additional logic to game actions, but they have the drawback of providing next to no
+context as to what has <strong>caused</strong> that event to occur. The <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/cause/Cause.html">Cause</a> object allows providing and receiving
+additional contextual information about the event. This contextual information can then used to modify the behavior of
+your event listener.</p>
+<p>For example, a world protection plugin needs information on what player has caused a <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/block/ChangeBlockEvent.html">ChangeBlockEvent</a> to
+occur before they can decide if the event should be cancelled or not. Rather than go with the traditional route of
+creating a multitude of subevents for the different source conditions this information is instead provided in the
+<code class="docutils literal"><span class="pre">Cause</span></code> of the event.</p>
+<p>Every event provides a <code class="docutils literal"><span class="pre">Cause</span></code> object which can be interrogated for the information pertaining to why the event was
+fired. The Cause object can be retrieved from an event by simply calling <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/Event.html#getCause--">Event#getCause()</a>.</p>
+<div class="section" id="retrieving-objects-from-a-cause">
+<h2>Retrieving objects from a Cause<a class="headerlink" href="#retrieving-objects-from-a-cause" title="Permalink to this headline">¶</a></h2>
+<p>Structurally, a <code class="docutils literal"><span class="pre">Cause</span></code> object contains a sequential list of objects. There are several methods of
+retrieving information from a Cause object which we will discuss here, for a more complete
+listing please see the javadocs <strong>link</strong>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The objects within a cause are ordered such that the first object is the most immediate
+cause of the event, and subsequent objects are of decreasing importance and/or may only
+provide contextual information.</p>
+</div>
+<p><a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/cause/Cause.html#root--">Cause#root()</a> returns the first object within the cause. This object is the most immediate or direct cause of
+the event. Since a <code class="docutils literal"><span class="pre">Cause</span></code> may not be empty, it is guaranteed to have a <code class="docutils literal"><span class="pre">root</span></code>.</p>
+<p><a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/cause/Cause.html#first-java.lang.Class-">Cause#first(Class)</a> returns the first object in the cause chain whose type is either the same as or is a
+subtype of the given class. For example given a cause which contained a player followed by an entity
+<code class="docutils literal"><span class="pre">[Player,</span> <span class="pre">Entity,</span> <span class="pre">...]</span></code></p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onEvent</span><span class="o">(</span><span class="n">ExampleCauseEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Cause</span> <span class="n">cause</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getCause</span><span class="o">();</span> <span class="c1">// [Player, Entity]</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Player</span><span class="o">&gt;</span> <span class="n">firstPlayer</span> <span class="o">=</span> <span class="n">cause</span><span class="o">.</span><span class="na">first</span><span class="o">(</span><span class="n">Player</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> <span class="c1">// 1</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;</span> <span class="n">firstEntity</span> <span class="o">=</span> <span class="n">cause</span><span class="o">.</span><span class="na">first</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> <span class="c1">// 2</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Both optionals would contain the player object as it&#8217;s type directly matched request for a
+Player type and it matched the request for an Entity type as Player is a subtype of Entity.</p>
+<p><a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/cause/Cause.html#last-java.lang.Class-">Cause#last(Class)</a> is similar to <code class="docutils literal"><span class="pre">Cause#first(Class)</span></code> except it returns the last value in the cause chain
+matching the type.</p>
+<p>Continuing from the example above, if we instead changed it to call <code class="docutils literal"><span class="pre">Cause#last(Class)</span></code> the first
+optional would contain the player object still, but the second optional would now contain
+the entity that we passed in the second position of the cause.</p>
+<p><a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/cause/Cause.html#containsType-java.lang.Class-">Cause#containsType(Class)</a> returns a boolean value and can be used to check if a cause chain contains any
+object matching the provided type.</p>
+<p><a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/cause/Cause.html#all--">Cause#all()</a> simply returns all objects within the cause allowing more advanced handling.</p>
+</div>
+<div class="section" id="named-causes">
+<h2>Named Causes<a class="headerlink" href="#named-causes" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes the ordering of objects within the cause isn&#8217;t enough to get the proper idea of what an object represents in
+relation to the event. This is where <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/cause/NamedCause.html">NamedCause</a> comes in. Named causes provide a method for tagging objects
+within a cause with a <strong>unique</strong> name allowing them to be easily identified and requested. Some examples of use cases
+for named causes is the <cite>Notifier</cite> of a <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/block/ChangeBlockEvent.Grow.html">ChangeBlockEvent.Grow</a> or the <cite>Source</cite> of a
+<a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/entity/DamageEntityEvent.html">DamageEntityEvent</a>.</p>
+<p><strong>Retrieving a named entry from a cause</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGrow</span><span class="o">(</span><span class="n">ChangeBlockEvent</span><span class="o">.</span><span class="na">Grow</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Player</span><span class="o">&gt;</span> <span class="n">notifier</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getCause</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">NamedCause</span><span class="o">.</span><span class="na">NOTIFIER</span><span class="o">,</span> <span class="n">Player</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>This example makes use of <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/cause/Cause.html#get-java.lang.String-java.lang.Class-">Cause#get(String, Class&lt;T&gt;)</a> which can be used to retrieve the expected object
+associated with a name if it is present within the cause chain. Additionally <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/cause/Cause.html#getNamedCauses--">Cause#getNamedCauses()</a> provides
+a <code class="docutils literal"><span class="pre">Map&lt;String,</span> <span class="pre">Object&gt;</span></code> which can be used to find all present names and their associated objects.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Some common identifying names for <code class="docutils literal"><span class="pre">NamedCause</span></code>s are present as static fields in the
+<code class="docutils literal"><span class="pre">NamedCause</span></code> class. Identifiers which are specific to certain events can often be found
+as static fields on the event class, for example <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/entity/DamageEntityEvent.html#SOURCE">DamageEntityEvent#SOURCE</a>.</p>
+</div>
+</div>
+<div class="section" id="creating-custom-causes">
+<h2>Creating custom Causes<a class="headerlink" href="#creating-custom-causes" title="Permalink to this headline">¶</a></h2>
+<p>Creating a cause to use when firing an event is extremely easy. The hardest part is deciding
+what information to include in the cause. If you&#8217;re firing an event from your plugin which is
+usually triggered through other means perhaps you want to include your plugin container so
+other plugins know that the event comes from your plugin. Or if you are firing the event on
+behalf of a player due to some action it&#8217;s usually a good idea to include that player in
+the cause.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Cause objects are immutable therefore cannot be modified once created.</p>
+</div>
+<p>Using <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/cause/Cause.html#of-org.spongepowered.api.event.cause.NamedCause-">Cause#of(NamedCause)</a>, you can construct a cause from a series of objects. The objects will be added to
+the cause chain in the order that they are passed to the method, so the first object parameter will become the root
+cause. Remember that a <code class="docutils literal"><span class="pre">Cause</span></code> may not be empty, so at least one non-null parameter is always required.</p>
+<p>If you already have a cause object and would like to append some more objects to the chain you can use
+<a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/cause/Cause.html#with-org.spongepowered.api.event.cause.NamedCause-NamedCause...-">Cause#with(NamedCause, NamedCause...)</a>. This constructs a new Cause object containing first the objects
+already present in the original cause, then followed by the additional objects that you provided.</p>
+<p>Finally if you wish to add an object to a cause with a defined named first call <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/event/cause/NamedCause.html#of-java.lang.String-Object-">NamedCause#of(String, Object)</a>
+and then pass the returned <code class="docutils literal"><span class="pre">NamedCause</span></code> instance to the cause chain as you would a normal object.</p>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="filters.html" class="btn btn-neutral float-right" title="Event Filters" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="listeners.html" class="btn btn-neutral" title="Event Listeners" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&copy; Copyright 2014-2017, Sponge Contributors.
+    </p>
+  </div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 5.1.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/sponge-gets-discord/source/plugin/event/causes.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/sponge-gets-discord/source/plugin/event/causes.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'5.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../../_static/jquery.js"></script>      <script type="text/javascript" src="../../_static/underscore.js"></script>      <script type="text/javascript" src="../../_static/doctools.js"></script>      <script type="text/javascript" src="../../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>
