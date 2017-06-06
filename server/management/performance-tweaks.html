@@ -168,6 +168,16 @@ If you add new mobs to the game, just repeat the procedure and those new mobs wi
 </pre></div>
 </div>
 </div>
+<div class="section" id="async-lighting">
+<h2>Async Lighting<a class="headerlink" href="#async-lighting" title="Permalink to this headline">¶</a></h2>
+<p>This setting will run lighting checks on a separate thread to improve performance.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>optimizations {
+    # Runs lighting updates async.
+    async-lighting=true
+    }
+</pre></div>
+</div>
+</div>
 <div class="section" id="cache-tameable-owners">
 <h2>Cache Tameable Owners<a class="headerlink" href="#cache-tameable-owners" title="Permalink to this headline">¶</a></h2>
 <p>This setting will cache tameable entities owners&#8217; UUID to save constant lookups from the data watcher.</p>
@@ -191,44 +201,6 @@ post-spawning.</p>
     # without being merged.
     drops-pre-merge=true
     }
-</pre></div>
-</div>
-</div>
-<div class="section" id="lighting-patch-to-ignore-unloaded-chunks">
-<h2>Lighting Patch to Ignore Unloaded Chunks<a class="headerlink" href="#lighting-patch-to-ignore-unloaded-chunks" title="Permalink to this headline">¶</a></h2>
-<p>Enabling this setting avoids loading lighting data from not yet generated chunks. This reduces disk access and chunk
-generation and thus improves performances while applying light levels to blocks.</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>optimizations {
-      # This prevents chunks being loaded for getting light values at specific
-      # block positions. May have side effects.
-      ignore-unloaded-chunks-on-get-light=true
-      }
-</pre></div>
-</div>
-</div>
-<div class="section" id="cache-chunk-lookups">
-<h2>Cache Chunk Lookups<a class="headerlink" href="#cache-chunk-lookups" title="Permalink to this headline">¶</a></h2>
-<p>This setting enables Sponge&#8217;s internal chunk caching to improve the server&#8217;s performance. It uses a small, additional
-amount of memory for caching purposes. If you run out of memory, try to disable it.</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>optimizations {
-      # Caches chunks internally for faster returns when querying at various
-      # positions
-      chunk-map-caching=true
-      }
-</pre></div>
-</div>
-</div>
-<div class="section" id="inline-block-position-checks">
-<h2>Inline Block Position Checks<a class="headerlink" href="#inline-block-position-checks" title="Permalink to this headline">¶</a></h2>
-<p>This setting inlines the check for if a block position is valid in a world.</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>optimizations{
-      # Inlines a simple check for whether a BlockPosition is valid
-      # in a world. By patching the check, the JVM can optimize the
-      # method further while reducing the number of operations performed
-      # for such a simple check. This may however break mods that alter
-      # world heights and can thus be disabled in those cases.
-      inline-block-position-checks=true
-      }
 </pre></div>
 </div>
 </div>
