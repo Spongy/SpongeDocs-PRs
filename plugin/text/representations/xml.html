@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TextXML Format &mdash; Sponge 6.0.0 documentation</title>
+
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../../../_static/css/spongedocs.min.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>        <link rel="search" title="Search" href="../../../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../../../index.html"/>        <link rel="up" title="Text Serializers" href="index.html"/>        <link rel="next" title="JSON Format" href="json.html"/>        <link rel="prev" title="Formatting Code &amp; Legacy Format" href="formatting-code-legacy.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../../index.html">
+            <img src="../../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../buildsystem.html">Build Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../workspace/index.html">Setting Up Your Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/index.html">Setting Up Your Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin-class.html">Main Plugin Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lifecycle.html">Plugin Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../injection.html">Dependency Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../practices.html">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../optional/index.html">Optionals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../commands/index.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../event/index.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../assets.html">The Asset API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/index.html">Configuring Plugins</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Text</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../text.html">Creating Text</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Text Serializers</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="formatting-code-legacy.html">Formatting Code &amp; Legacy Format</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">TextXML Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="json.html">JSON Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="configurate.html">Configuration Format</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../pagination.html">The Pagination Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../messagechannels.html">Message Channels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../templates.html">TextTemplates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../data/index.html">The Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../blocks/index.html">Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../entities/index.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../items/index.html">Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../trade-offers.html">Trade-Offers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../effects.html">Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../database.html">Databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../permissions.html">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bookview.html">Book Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../economy/index.html">Economy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../wgen/index.html">World Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../manager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modularization.html">Code Modularization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../game-profile-manager.html">Game Profile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../offline-userplayer-data.html">Offline Player Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html">Plugin Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tab-lists.html">Tab Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin-meta.html">Plugin Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials.html">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../internals/index.html">Implementation-dependent Plugins</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+          <li><a href="../../index.html">Creating a Plugin</a> &raquo;</li>
+          <li><a href="../index.html">Text</a> &raquo;</li>
+          <li><a href="index.html">Text Serializers</a> &raquo;</li>
+    <li>TextXML Format</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/data-registration/source/plugin/text/representations/xml.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="textxml-format">
+<h1>TextXML Format<a class="headerlink" href="#textxml-format" title="Permalink to this headline">¶</a></h1>
+<p>Sponge uses a predefined form of <a class="reference external" href="https://en.wikipedia.org/wiki/XML">XML</a> called &#8220;TextXML&#8221; to denote the coloring
+and styling of text. A description of the elements and attributes are as follows:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="9%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Attribute</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>a (anchor)</td>
+<td>href</td>
+<td>anchor element; Indicates that this text will open the link in the <code class="docutils literal"><span class="pre">href</span></code> attribute
+when clicked.</td>
+</tr>
+<tr class="row-odd"><td>b (bold)</td>
+<td>&nbsp;</td>
+<td><strong>Bolds</strong> the text.</td>
+</tr>
+<tr class="row-even"><td>c (color)</td>
+<td>n</td>
+<td>Applies a color indicated by the <code class="docutils literal"><span class="pre">n</span></code> (name) attribute to the text.</td>
+</tr>
+<tr class="row-odd"><td>i (italics)</td>
+<td>&nbsp;</td>
+<td><em>Italicizes</em> the text.</td>
+</tr>
+<tr class="row-even"><td>o (obfuscated)</td>
+<td>&nbsp;</td>
+<td>Obfuscates the text (replaces the characters with random characters that change
+continuously).</td>
+</tr>
+<tr class="row-odd"><td>s (strikethrough)</td>
+<td>&nbsp;</td>
+<td>Strikes through the text.</td>
+</tr>
+<tr class="row-even"><td>span</td>
+<td>onClick,
+onHover</td>
+<td>Generic holder element that can have click and/or hover actions indicated by the
+<code class="docutils literal"><span class="pre">onClick</span></code> and <code class="docutils literal"><span class="pre">onHover</span></code> attributes, respectively</td>
+</tr>
+<tr class="row-odd"><td>tr (translation)</td>
+<td>key</td>
+<td>Indicates a text translation</td>
+</tr>
+<tr class="row-even"><td>u (underline)</td>
+<td>&nbsp;</td>
+<td>Underlines the text.</td>
+</tr>
+</tbody>
+</table>
+<p>For example, the text &#8220;Hello World!&#8221;, formatted with the color red and an underline would have the following representation
+in the TextXML format:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;c</span> <span class="na">n=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;u&gt;</span>Hello World!<span class="nt">&lt;/u&gt;</span>
+<span class="nt">&lt;/c&gt;</span>
+</pre></div>
+</div>
+<p>This output can be produced using the following code:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextStyles</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.serializer.TextSerializers</span><span class="o">;</span>
+
+<span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">RED</span><span class="o">,</span> <span class="n">TextStyles</span><span class="o">.</span><span class="na">UNDERLINE</span><span class="o">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">xmlText</span> <span class="o">=</span> <span class="n">TextSerializers</span><span class="o">.</span><span class="na">TEXT_XML</span><span class="o">.</span><span class="na">serialize</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+</pre></div>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="json.html" class="btn btn-neutral float-right" title="JSON Format" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="formatting-code-legacy.html" class="btn btn-neutral" title="Formatting Code &amp; Legacy Format" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&copy; Copyright 2014-2017, Sponge Contributors.
+    </p>
+  </div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 6.0.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/data-registration/source/plugin/text/representations/xml.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/feature/data-registration/source/plugin/text/representations/xml.rst">Edit</a></dd>
+            </dl>
+
+        <dl>
+            <dt>Code theme</dt>
+            <dd><a class="code-theme-link">Light</a></dd>
+            <dd><a class="code-theme-link" data-theme="tomorrow-night">Dark</a></dd>
+        </dl>
+
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'6.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../../../_static/jquery.js"></script>      <script type="text/javascript" src="../../../_static/underscore.js"></script>      <script type="text/javascript" src="../../../_static/doctools.js"></script>      <script type="text/javascript" src="../../../_static/js/spongedocs.min.js"></script>
+
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>
