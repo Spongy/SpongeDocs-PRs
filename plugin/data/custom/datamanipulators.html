@@ -15,7 +15,7 @@
 
     <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
 
-    <link rel="stylesheet" href="../../../_static/css/spongedocs.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
               href="../../../genindex.html"/>        <link rel="search" title="Search" href="../../../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../../../index.html"/>        <link rel="up" title="Custom Data" href="index.html"/>        <link rel="next" title="Custom DataHolders" href="dataholders.html"/>        <link rel="prev" title="Custom Data" href="index.html"/>
@@ -287,6 +287,12 @@ server/plugin can create copies of your data and serialize/deserialize your data
 directly.</p>
 <p>To register a <code class="docutils literal"><span class="pre">DataManipulator</span></code> Sponge has the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/data/DataRegistration.html#builder--">DataRegistration#builder()</a> helper. This will build a
 <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/data/DataRegistration.html">DataRegistration</a> and automatically register it with the server.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Due to the nature of Data, you <em>must</em> register your <code class="docutils literal"><span class="pre">DataManipulator</span></code> during initialization - generally by
+listening to <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/game/state/GameInitializationEvent.html">GameInitializationEvent</a> such as the below. If you try to register a <code class="docutils literal"><span class="pre">DataManipulator</span></code> once
+initialization is complete an exception will be thrown.</p>
+</div>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.state.GameInitializationEvent</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataRegistration</span><span class="o">;</span>
 
@@ -296,23 +302,21 @@ directly.</p>
 
 <span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInit</span><span class="o">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-  <span class="n">DataRegistration</span><span class="o">.&lt;</span><span class="n">MyCustomData</span><span class="o">,</span> <span class="n">ImmutableCustomData</span><span class="o">&gt;</span><span class="n">builder</span><span class="o">()</span>
-      <span class="o">.</span><span class="na">setDataClass</span><span class="o">(</span><span class="n">MyCustomData</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-      <span class="o">.</span><span class="na">setImmutableDataClass</span><span class="o">(</span><span class="n">ImmutableCustomData</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-      <span class="o">.</span><span class="na">setBuilder</span><span class="o">(</span><span class="k">new</span> <span class="n">CustomDataBuilder</span><span class="o">())</span>
-      <span class="o">.</span><span class="na">setManipulatorId</span><span class="o">(</span><span class="s">&quot;my_custom&quot;</span><span class="o">)</span>
-      <span class="o">.</span><span class="na">buildAndRegister</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+  <span class="n">DataRegistration</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">dataClass</span><span class="o">(</span><span class="n">MyCustomData</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">immutableClass</span><span class="o">(</span><span class="n">ImmutableCustomData</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="k">new</span> <span class="n">CustomDataBuilder</span><span class="o">())</span>
+      <span class="o">.</span><span class="na">manipulatorId</span><span class="o">(</span><span class="s">&quot;my-custom&quot;</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">dataName</span><span class="o">(</span><span class="s">&quot;My Custom&quot;</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">buildAndRegister</span><span class="o">(</span><span class="n">myPluginContainer</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Note that in the above we perform this action during initialization. If you register your data too late in the lifecycle
-of the server, your <code class="docutils literal"><span class="pre">DataManipulator</span></code> will not be available for the server to deserialize if required.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Any data that was serialized prior to <code class="docutils literal"><span class="pre">6.0.0</span></code> will <em>not</em> be recognised when registering this way. To ensure that
-legacy data serializations are deserialized, you should call
-<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/data/DataManager.html#registerLegacyManipulatorIds-String-org.spongepowered.api.data.DataRegistration-*?&gt;-">DataManager#registerLegacyManipulatorIds(String, DataRegistration&lt;&gt;,  ?&gt;)</a>.
-The ID is the class&#8217; canonical name, such as <code class="docutils literal"><span class="pre">com.example.MyCustomData</span></code>.</p>
+<p class="last">Data that was serialized prior to <code class="docutils literal"><span class="pre">6.0.0</span></code>, or data where you have changed the ID, will <em>not</em> be recognised unless
+registered with <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/data/DataManager.html#registerLegacyManipulatorIds-String-org.spongepowered.api.data.DataRegistration-">DataManager#registerLegacyManipulatorIds(String, DataRegistration)</a>. If registering a
+pre-6.0.0 <code class="docutils literal"><span class="pre">DataManipulator</span></code> the ID is taken from <cite>Class.getName()</cite>, such as <code class="docutils literal"><span class="pre">com.example.MyCustomData</span></code>.</p>
 </div>
 </div>
 <div class="section" id="single-types">
@@ -484,7 +488,7 @@ but loading all your values.</p>
         v: 6.0.0
         <span class="fa fa-caret-down"></span>
     </span>
-    <div class="rst-other-versions">
+    <div id="versions" class="rst-other-versions">
 
 
 
@@ -494,13 +498,6 @@ but loading all your values.</p>
                     <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/data-registration/source/plugin/data/custom/datamanipulators.rst">Source</a></dd>
                     <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/feature/data-registration/source/plugin/data/custom/datamanipulators.rst">Edit</a></dd>
             </dl>
-
-        <dl>
-            <dt>Code theme</dt>
-            <dd><a class="code-theme-link">Light</a></dd>
-            <dd><a class="code-theme-link" data-theme="tomorrow-night">Dark</a></dd>
-        </dl>
-
     </div>
 </div>
 
@@ -512,7 +509,7 @@ but loading all your values.</p>
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
         };
-    </script>      <script type="text/javascript" src="../../../_static/jquery.js"></script>      <script type="text/javascript" src="../../../_static/underscore.js"></script>      <script type="text/javascript" src="../../../_static/doctools.js"></script>      <script type="text/javascript" src="../../../_static/js/spongedocs.min.js"></script>
+    </script>      <script type="text/javascript" src="../../../_static/jquery.js"></script>      <script type="text/javascript" src="../../../_static/underscore.js"></script>      <script type="text/javascript" src="../../../_static/doctools.js"></script>      <script type="text/javascript" src="../../../_static/spongedocs.js"></script>
 
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
