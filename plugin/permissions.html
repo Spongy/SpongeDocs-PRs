@@ -180,12 +180,12 @@ Permissions should be structured like this.</p>
 </ul>
 <div class="section" id="inheritance">
 <h3>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h3>
-<p>If a user has the permission <code class="docutils literal"><span class="pre">myPlugin.commands</span></code> then they automatically have all sub permissions such as
-<code class="docutils literal"><span class="pre">myPlugin.commands.teleport</span></code> unless the permissions are explicitly removed.</p>
+<p>If a user has the permission <code class="docutils literal"><span class="pre">myplugin.commands</span></code> then they automatically have all sub permissions such as
+<code class="docutils literal"><span class="pre">myplugin.commands.teleport</span></code> unless the permissions are explicitly removed.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">There is no such thing as a <code class="docutils literal"><span class="pre">myPlugin.commands.*</span></code> wildcard permission.
-Use <code class="docutils literal"><span class="pre">myPlugin.commands</span></code> for that.</p>
+<p class="last">There is no such thing as a <code class="docutils literal"><span class="pre">myplugin.commands.*</span></code> wildcard permission.
+Use <code class="docutils literal"><span class="pre">myplugin.commands</span></code> for that.</p>
 </div>
 </div>
 <div class="section" id="structure-example">
@@ -194,7 +194,7 @@ Use <code class="docutils literal"><span class="pre">myPlugin.commands</span></c
 all.</p>
 <ul class="simple">
 <li><dl class="first docutils">
-<dt><code class="docutils literal"><span class="pre">myPlugin</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">myplugin</span></code></dt>
 <dd><ul class="first last">
 <li>Grants <strong>full</strong> access to all plugin&#8217;s permissions.</li>
 </ul>
@@ -202,7 +202,7 @@ all.</p>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><code class="docutils literal"><span class="pre">myPlugin.commands</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">myplugin.commands</span></code></dt>
 <dd><ul class="first last">
 <li>Grants <strong>full</strong> access to all plugin&#8217;s commands.</li>
 </ul>
@@ -210,7 +210,7 @@ all.</p>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><code class="docutils literal"><span class="pre">myPlugin.commands.teleport.execute</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">myplugin.commands.teleport.execute</span></code></dt>
 <dd><ul class="first last">
 <li>Only grants the user the permission to execute the command. Without this permission he is not able to execute the
 command even if he has other <cite>teleport</cite> permissions.
@@ -220,7 +220,7 @@ command even if he has other <cite>teleport</cite> permissions.
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><code class="docutils literal"><span class="pre">myPlugin.commands.teleport.all</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">myplugin.commands.teleport.all</span></code></dt>
 <dd><ul class="first last">
 <li>Only grants the user the permission to teleport all players at once.</li>
 </ul>
@@ -228,7 +228,7 @@ command even if he has other <cite>teleport</cite> permissions.
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><code class="docutils literal"><span class="pre">myPlugin.commands.teleport.worlds</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">myplugin.commands.teleport.worlds</span></code></dt>
 <dd><ul class="first last">
 <li>Only grants the user the permission to teleport to all worlds.</li>
 </ul>
@@ -236,7 +236,7 @@ command even if he has other <cite>teleport</cite> permissions.
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt><code class="docutils literal"><span class="pre">myPlugin.commands.teleport.worlds.mynetherworld</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">myplugin.commands.teleport.worlds.mynetherworld</span></code></dt>
 <dd><ul class="first last">
 <li>Only grants the user the permission to teleport to <em>mynetherworld</em>.</li>
 </ul>
@@ -268,10 +268,10 @@ import org.spongepowered.api.service.permission.PermissionService;
 import org.spongepowered.api.text.Text;
 import java.util.Optional;
 
-Optional&lt;Builder&gt; optBuilder = permissionService.newDescriptionBuilder(myPlugin);
+Optional&lt;Builder&gt; optBuilder = permissionService.newDescriptionBuilder(myplugin);
 if (optBuilder.isPresent()) {
     Builder builder = optBuilder.get();
-    builder.id(&quot;myPlugin.commands.teleport.execute&quot;)
+    builder.id(&quot;myplugin.commands.teleport.execute&quot;)
            .description(Text.of(&quot;Allows the user to execute the teleport command.&quot;))
            .assign(PermissionDescription.ROLE_STAFF, true)
            .register();
@@ -281,7 +281,7 @@ if (optBuilder.isPresent()) {
 </div>
 <div class="section" id="simple-result">
 <h3>Simple-Result<a class="headerlink" href="#simple-result" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>myPlugin.commands.teleport.execute
+<div class="highlight-text"><div class="highlight"><pre><span></span>myplugin.commands.teleport.execute
 
 Description: Allows the user to execute the teleport command.
 Role: user
@@ -291,7 +291,7 @@ Owner: MyPlugin v1.2.3
 </div>
 <div class="section" id="template-result">
 <h3>Template-Result<a class="headerlink" href="#template-result" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>myPlugin.commands.teleport.worlds.&lt;World&gt;
+<div class="highlight-text"><div class="highlight"><pre><span></span>myplugin.commands.teleport.worlds.&lt;World&gt;
 
 Description: Allows the user to teleport to the world &lt;World&gt;.
 Role: staff
@@ -300,8 +300,8 @@ Owner: MyPlugin v1.2.3
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">You might skip writing descriptions for some parent permission groups such as <code class="docutils literal"><span class="pre">myPlugin.commands.teleport.worlds</span></code>
-or <code class="docutils literal"><span class="pre">myPlugin.commands</span></code> as their meaning can be derived from the permission structure and the defined children
+<p class="last">You might skip writing descriptions for some parent permission groups such as <code class="docutils literal"><span class="pre">myplugin.commands.teleport.worlds</span></code>
+or <code class="docutils literal"><span class="pre">myplugin.commands</span></code> as their meaning can be derived from the permission structure and the defined children
 alone.</p>
 </div>
 </div>
@@ -324,9 +324,9 @@ PermissionService&#8217;s task to respect the permission and subject inheritance
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">canTeleport</span><span class="o">(</span><span class="n">Player</span> <span class="n">subject</span><span class="o">,</span> <span class="n">World</span> <span class="n">targetWorld</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">subject</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myPlugin.command.teleport.execute&quot;</span><span class="o">)</span>
+    <span class="k">return</span> <span class="n">subject</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myplugin.command.teleport.execute&quot;</span><span class="o">)</span>
             <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">subject</span><span class="o">.</span><span class="na">getWorld</span><span class="o">()</span> <span class="o">==</span> <span class="n">targetWorld</span>
-                    <span class="o">||</span> <span class="n">subject</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myPlugin.command.teleport.&quot;</span> <span class="o">+</span> <span class="n">targetWorld</span><span class="o">.</span><span class="na">getName</span><span class="o">()));</span>
+                    <span class="o">||</span> <span class="n">subject</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myplugin.command.teleport.&quot;</span> <span class="o">+</span> <span class="n">targetWorld</span><span class="o">.</span><span class="na">getName</span><span class="o">()));</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -514,9 +514,9 @@ context key with your plugin id) unless these contexts are meant to be shared.</
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleCalculator</span> <span class="kd">implements</span> <span class="n">ContextCalculator</span><span class="o">&lt;</span><span class="n">Subject</span><span class="o">&gt;</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Context</span> <span class="n">IN_ANY_ARENA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="s">&quot;myArenaPlugin-inAnyArena&quot;</span><span class="o">,</span> <span class="s">&quot;true&quot;</span><span class="o">);</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Context</span> <span class="n">NOT_ANY_ARENA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="s">&quot;myArenaPlugin-inAnyArena&quot;</span><span class="o">,</span> <span class="s">&quot;false&quot;</span><span class="o">);</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">ARENA_KEY</span> <span class="o">=</span> <span class="s">&quot;myArenaPlugin-arena&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Context</span> <span class="n">IN_ANY_ARENA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="s">&quot;myarenaplugin-inAnyArena&quot;</span><span class="o">,</span> <span class="s">&quot;true&quot;</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Context</span> <span class="n">NOT_ANY_ARENA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="s">&quot;myarenaplugin-inAnyArena&quot;</span><span class="o">,</span> <span class="s">&quot;false&quot;</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">ARENA_KEY</span> <span class="o">=</span> <span class="s">&quot;myarenaplugin-arena&quot;</span><span class="o">;</span>
 
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">UUID</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">playerArenas</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
 
