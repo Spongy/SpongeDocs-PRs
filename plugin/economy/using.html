@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Using the Economy API &mdash; Sponge 5.0.0 documentation</title>
+  <title>Using the Economy API &mdash; Sponge 6.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -15,10 +15,10 @@
 
     <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
 
-    <link rel="stylesheet" href="../../_static/css/spongedocs.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 5.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Economy" href="index.html"/>        <link rel="next" title="Economy API Best Practices" href="practices.html"/>        <link rel="prev" title="Basic Concepts" href="basics.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Economy" href="index.html"/>        <link rel="next" title="Economy API Best Practices" href="practices.html"/>        <link rel="prev" title="Basic Concepts" href="basics.html"/>
     <!-- Google Analytics -->
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -173,13 +173,7 @@ will be compatible with all economy plugins that implement said API. This page g
 the Economy API in your own plugin.</p>
 <div class="section" id="loading-the-economyservice">
 <h2>Loading the EconomyService<a class="headerlink" href="#loading-the-economyservice" title="Permalink to this headline">¶</a></h2>
-<p>In order to utilize the Economy API, you must first load the <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/service/economy/EconomyService.html">EconomyService</a> class:</p>
-<ol class="arabic simple">
-<li>Listen to the <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/event/service/ChangeServiceProviderEvent.html">ChangeServiceProviderEvent</a> in order to grab an instance of the EconomyService when it is
-registered.</li>
-<li>When the event is fired, check if the service added was the <code class="docutils literal"><span class="pre">EconomyService</span></code>. If this is <code class="docutils literal"><span class="pre">true</span></code>, you&#8217;ll assign
-it to a variable for later access to the Economy API.</li>
-</ol>
+<p>In order to utilize the Economy API, you must first load the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/economy/EconomyService.html">EconomyService</a> class using the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/ServiceManager.html">ServiceManager</a>.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">Please note that you need to pay attention to different <code class="docutils literal"><span class="pre">game</span> <span class="pre">states</span></code> while the server is starting, stopping or
@@ -188,19 +182,27 @@ information.</p>
 </div>
 <div class="section" id="example-loading-the-economyservice">
 <h3>Example: Loading the EconomyService<a class="headerlink" href="#example-loading-the-economyservice" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.service.ChangeServiceProviderEvent</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.economy.EconomyService</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.economy.EconomyService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
 
-<span class="kd">private</span> <span class="n">EconomyService</span> <span class="n">economyService</span><span class="o">;</span>
-
-<span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onChangeServiceProvider</span><span class="o">(</span><span class="n">ChangeServiceProviderEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getService</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">EconomyService</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
-                <span class="n">economyService</span> <span class="o">=</span> <span class="o">(</span><span class="n">EconomyService</span><span class="o">)</span> <span class="n">event</span><span class="o">.</span><span class="na">getNewProviderRegistration</span><span class="o">().</span><span class="na">getProvider</span><span class="o">();</span>
-        <span class="o">}</span>
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">EconomyService</span><span class="o">&gt;</span> <span class="n">serviceOpt</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provide</span><span class="o">(</span><span class="n">EconomyService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="k">if</span> <span class="o">(!</span><span class="n">serviceOpt</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+    <span class="c1">// handle there not being an economy implementation</span>
 <span class="o">}</span>
+<span class="n">EconomyService</span> <span class="n">economyService</span> <span class="o">=</span> <span class="n">serviceOpt</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Keep this service in a local variable instead of a member variable, since the provider (implementation)
+could change at any point. If you need to place it in a member variable, for whatever reason, use
+<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/service/ChangeServiceProviderEvent.html">ChangeServiceProviderEvent</a> to keep the implementation updated.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Unlike other services, you should try to use <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/ServiceManager.html#provide-java.lang.Class-">ServiceManager#provide(Class)</a> instead of
+<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/ServiceManager.html#provideUnchecked-java.lang.Class-">ServiceManager#provideUnchecked(Class)</a> because Sponge does not provide a default implementation
+of the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/economy/EconomyService.html">EconomyService</a>, and therefore it is not guaranteed that it exists.</p>
 </div>
 </div>
 </div>
@@ -223,7 +225,7 @@ Economy API has to offer.</p>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Some <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/service/economy/account/Account.html">Account</a> methods require variables such as:</p>
+<p>Some <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/economy/account/Account.html">Account</a> methods require variables such as:</p>
 <ul class="simple">
 <li>Currency: The currency involved in the exchange</li>
 <li>Cause: What caused the change to the account</li>
@@ -231,7 +233,7 @@ Economy API has to offer.</p>
 </ul>
 <p>These are for more advanced uses, but still must be filled in. Below is a list of acceptable default values:</p>
 <ul class="simple">
-<li>Currency: <a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/service/economy/EconomyService.html#getDefaultCurrency--">EconomyService#getDefaultCurrency()</a></li>
+<li>Currency: <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/economy/EconomyService.html#getDefaultCurrency--">EconomyService#getDefaultCurrency()</a></li>
 <li>Cause: <code class="docutils literal"><span class="pre">Cause.source(myPlugin).build()</span></code></li>
 <li>Context: <code class="docutils literal"><span class="pre">new</span> <span class="pre">HashSet&lt;Context&gt;()</span></code></li>
 </ul>
@@ -265,10 +267,10 @@ Economy API has to offer.</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 5.0.0
+        v: 6.0.0
         <span class="fa fa-caret-down"></span>
     </span>
-    <div class="rst-other-versions">
+    <div id="versions" class="rst-other-versions">
 
 
 
@@ -278,25 +280,18 @@ Economy API has to offer.</p>
                     <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/plugin/economy/using.rst">Source</a></dd>
                     <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/master/source/plugin/economy/using.rst">Edit</a></dd>
             </dl>
-
-        <dl>
-            <dt>Code theme</dt>
-            <dd><a class="code-theme-link">Light</a></dd>
-            <dd><a class="code-theme-link" data-theme="tomorrow-night">Dark</a></dd>
-        </dl>
-
     </div>
 </div>
 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'5.0.0',
+            VERSION:'6.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
         };
-    </script>      <script type="text/javascript" src="../../_static/jquery.js"></script>      <script type="text/javascript" src="../../_static/underscore.js"></script>      <script type="text/javascript" src="../../_static/doctools.js"></script>      <script type="text/javascript" src="../../_static/js/spongedocs.min.js"></script>
+    </script>      <script type="text/javascript" src="../../_static/jquery.js"></script>      <script type="text/javascript" src="../../_static/underscore.js"></script>      <script type="text/javascript" src="../../_static/doctools.js"></script>      <script type="text/javascript" src="../../_static/spongedocs.js"></script>
 
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 

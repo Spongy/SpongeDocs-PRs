@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Implementing DataManipulators &mdash; Sponge 5.0.0 documentation</title>
+  <title>Implementing DataManipulators &mdash; Sponge 6.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -15,10 +15,10 @@
 
     <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
 
-    <link rel="stylesheet" href="../../_static/css/spongedocs.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 5.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Developing Sponge" href="index.html"/>        <link rel="next" title="SpongeDocs Writing" href="../spongedocs.html"/>        <link rel="prev" title="Mixins" href="mixins.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Developing Sponge" href="index.html"/>        <link rel="next" title="SpongeDocs Writing" href="../spongedocs.html"/>        <link rel="prev" title="Mixins" href="mixins.html"/>
     <!-- Google Analytics -->
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -152,6 +152,7 @@ An updated list of DataManipulators to be implemented can be found at
 <li>Implement the <code class="docutils literal"><span class="pre">ValueProcessor</span></code> for each value being represented by the <code class="docutils literal"><span class="pre">DataManipulator</span></code></li>
 <li>Register everything in the <code class="docutils literal"><span class="pre">SpongeSerializationRegistry</span></code></li>
 </ol>
+<p>If the data applies to a block, several methods must also be mixed in to the block.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Make sure you follow our <a class="reference internal" href="../guidelines.html"><span class="doc">Contribution Guidelines</span></a>.</p>
@@ -173,7 +174,7 @@ but there are also abstractions that reduce boilerplate code even more for some 
 second is the interface implemented by the corresponding <code class="docutils literal"><span class="pre">ImmutableDataManipulator</span></code>.</p>
 <div class="section" id="the-constructor">
 <h3>The Constructor<a class="headerlink" href="#the-constructor" title="Permalink to this headline">¶</a></h3>
-<p>In most cases while implementing an abstract Manipulator you want to have two constructors:</p>
+<p>In most cases while implementing an abstract <code class="docutils literal"><span class="pre">DataManipulator</span></code> you need to have two constructors:</p>
 <ul class="simple">
 <li>One without arguments (no-args) which calls the second constructor with &#8220;default&#8221; values</li>
 <li>The second constructor that takes all the values it supports.</li>
@@ -404,7 +405,7 @@ whether the operation was successful or not.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">To understand <code class="docutils literal"><span class="pre">DataTransactionResult</span></code> s, check the <a class="reference internal" href="../../plugin/data/transactions.html"><span class="doc">corresponding docs page</span></a> and refer to the
-<a class="reference external" href="https://jd.spongepowered.org/5.0.0/org/spongepowered/api/data/DataTransactionResult.Builder.html">DataTransactionResult.Builder</a> docs to create one.</p>
+<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/data/DataTransactionResult.Builder.html">DataTransactionResult.Builder</a> docs to create one.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -583,6 +584,64 @@ can be registered by subsequent calls of the <code class="docutils literal"><spa
 </div>
 </div>
 </div>
+<div class="section" id="implementing-block-data">
+<h2>Implementing Block Data<a class="headerlink" href="#implementing-block-data" title="Permalink to this headline">¶</a></h2>
+<p>Block data is somewhat different from other types of data in that it is implemented by mixing in to the block itself.
+There are several methods in <code class="docutils literal"><span class="pre">org.spongepowered.mixin.core.block.MixinBlock</span></code> that must be overridden to implement
+data for blocks.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Mixin</span><span class="o">(</span><span class="n">BlockHorizontal</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">MixinBlockHorizontal</span> <span class="kd">extends</span> <span class="n">MixinBlock</span> <span class="o">{</span>
+
+    <span class="o">[...]</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">supports()</span></code> should return <code class="docutils literal"><span class="pre">true</span></code> if either the <code class="docutils literal"><span class="pre">ImmutableDataManipulator</span></code> interface is assignable from the
+<code class="docutils literal"><span class="pre">Class</span></code> passed in as the argument, or the superclass supports it.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supports</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">ImmutableDataManipulator</span><span class="o">&lt;?,</span> <span class="o">?&gt;&gt;</span> <span class="n">immutable</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">immutable</span><span class="o">)</span> <span class="o">||</span> <span class="n">ImmutableDirectionalData</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">immutable</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">getStateWithData()</span></code> should return a new <code class="docutils literal"><span class="pre">BlockState</span></code> with the data from the <code class="docutils literal"><span class="pre">ImmutableDataManipulator</span></code> applied
+to it. If the manipulator is not directly supported, the method should delegate to the superclass.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">BlockState</span><span class="o">&gt;</span> <span class="nf">getStateWithData</span><span class="o">(</span><span class="n">IBlockState</span> <span class="n">blockState</span><span class="o">,</span> <span class="n">ImmutableDataManipulator</span><span class="o">&lt;?,</span> <span class="o">?&gt;</span> <span class="n">manipulator</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">manipulator</span> <span class="k">instanceof</span> <span class="n">ImmutableDirectionalData</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">Direction</span> <span class="n">direction</span> <span class="o">=</span> <span class="o">((</span><span class="n">ImmutableDirectionalData</span><span class="o">)</span> <span class="n">manipulator</span><span class="o">).</span><span class="na">direction</span><span class="o">().</span><span class="na">get</span><span class="o">();</span>
+        <span class="kd">final</span> <span class="n">EnumFacing</span> <span class="n">facing</span> <span class="o">=</span> <span class="n">DirectionResolver</span><span class="o">.</span><span class="na">getFor</span><span class="o">(</span><span class="n">direction</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">((</span><span class="n">BlockState</span><span class="o">)</span> <span class="n">blockState</span><span class="o">.</span><span class="na">withProperty</span><span class="o">(</span><span class="n">BlockHorizontal</span><span class="o">.</span><span class="na">FACING</span><span class="o">,</span> <span class="n">facing</span><span class="o">));</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">getStateWithData</span><span class="o">(</span><span class="n">blockState</span><span class="o">,</span> <span class="n">manipulator</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">getStateWithValue()</span></code> is the equivalent of <code class="docutils literal"><span class="pre">getStateWithData()</span></code>, but works with single <code class="docutils literal"><span class="pre">Key</span></code>s.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">BlockState</span><span class="o">&gt;</span> <span class="nf">getStateWithValue</span><span class="o">(</span><span class="n">IBlockState</span> <span class="n">blockState</span><span class="o">,</span> <span class="n">Key</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">BaseValue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;&gt;</span> <span class="n">key</span><span class="o">,</span> <span class="n">E</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">DIRECTION</span><span class="o">))</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">Direction</span> <span class="n">direction</span> <span class="o">=</span> <span class="o">(</span><span class="n">Direction</span><span class="o">)</span> <span class="n">value</span><span class="o">;</span>
+        <span class="kd">final</span> <span class="n">EnumFacing</span> <span class="n">facing</span> <span class="o">=</span> <span class="n">DirectionResolver</span><span class="o">.</span><span class="na">getFor</span><span class="o">(</span><span class="n">direction</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">((</span><span class="n">BlockState</span><span class="o">)</span> <span class="n">blockState</span><span class="o">.</span><span class="na">withProperty</span><span class="o">(</span><span class="n">BlockHorizontal</span><span class="o">.</span><span class="na">FACING</span><span class="o">,</span> <span class="n">facing</span><span class="o">));</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">getStateWithValue</span><span class="o">(</span><span class="n">blockState</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Finally, <code class="docutils literal"><span class="pre">getManipulators()</span></code> should return a list of all <code class="docutils literal"><span class="pre">ImmutableDataManipulator</span></code>s the block supports, along with
+the current values for the provided <code class="docutils literal"><span class="pre">IBlockState</span></code>. It should include all <code class="docutils literal"><span class="pre">ImmutableDataManipulator</span></code>s from the
+superclass.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ImmutableDataManipulator</span><span class="o">&lt;?,</span> <span class="o">?&gt;&gt;</span> <span class="n">getManipulators</span><span class="o">(</span><span class="n">IBlockState</span> <span class="n">blockState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">ImmutableList</span><span class="o">.&lt;</span><span class="n">ImmutableDataManipulator</span><span class="o">&lt;?,</span> <span class="o">?&gt;&gt;</span><span class="n">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="kd">super</span><span class="o">.</span><span class="na">getManipulators</span><span class="o">(</span><span class="n">blockState</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">ImmutableSpongeDirectionalData</span><span class="o">(</span><span class="n">DirectionResolver</span><span class="o">.</span><span class="na">getFor</span><span class="o">(</span><span class="n">blockState</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="n">BlockHorizontal</span><span class="o">.</span><span class="na">FACING</span><span class="o">))))</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="further-information">
 <h2>Further Information<a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h2>
 <p>With <code class="docutils literal"><span class="pre">Data</span></code> being a rather abstract concept in Sponge, it is hard to give general directions on how to
@@ -620,10 +679,10 @@ contribution requirements.</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 5.0.0
+        v: 6.0.0
         <span class="fa fa-caret-down"></span>
     </span>
-    <div class="rst-other-versions">
+    <div id="versions" class="rst-other-versions">
 
 
 
@@ -633,25 +692,18 @@ contribution requirements.</p>
                     <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/master/source/contributing/implementation/datamanipulator.rst">Source</a></dd>
                     <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/master/source/contributing/implementation/datamanipulator.rst">Edit</a></dd>
             </dl>
-
-        <dl>
-            <dt>Code theme</dt>
-            <dd><a class="code-theme-link">Light</a></dd>
-            <dd><a class="code-theme-link" data-theme="tomorrow-night">Dark</a></dd>
-        </dl>
-
     </div>
 </div>
 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'5.0.0',
+            VERSION:'6.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
         };
-    </script>      <script type="text/javascript" src="../../_static/jquery.js"></script>      <script type="text/javascript" src="../../_static/underscore.js"></script>      <script type="text/javascript" src="../../_static/doctools.js"></script>      <script type="text/javascript" src="../../_static/js/spongedocs.min.js"></script>
+    </script>      <script type="text/javascript" src="../../_static/jquery.js"></script>      <script type="text/javascript" src="../../_static/underscore.js"></script>      <script type="text/javascript" src="../../_static/doctools.js"></script>      <script type="text/javascript" src="../../_static/spongedocs.js"></script>
 
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
