@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debugging &mdash; Sponge 6.0.0 documentation</title>
+
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Becoming an Expert Spongineer" href="index.html"/>        <link rel="next" title="Reporting Bugs" href="bugreport.html"/>        <link rel="prev" title="Log Files" href="logs.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../index.html">
+            <img src="../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Creating a Server</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../management/index.html">Server Management</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Becoming an Expert Spongineer</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="commands.html">Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logs.html">Log Files</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Debugging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bugreport.html">Reporting Bugs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin/index.html">Creating a Plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+          <li><a href="../index.html">Creating a Server</a> &raquo;</li>
+          <li><a href="index.html">Becoming an Expert Spongineer</a> &raquo;</li>
+    <li>Debugging</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/staff-update-hooray/source/server/spongineer/debugging.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="debugging">
+<h1>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h1>
+<p>Logs are an essential part when it comes to debugging your server and figuring what went wrong. This page will show
+some basic logging examples and will try to explain what you can do to fix your issues, when encountering them.</p>
+<div class="section" id="checklist">
+<h2>Checklist<a class="headerlink" href="#checklist" title="Permalink to this headline">¶</a></h2>
+<p>Whenever you encounter a crash or warning make sure you set SpongeForge or SpongeVanilla up correctly. Here’s a short
+checklist to help you out. If you’re unsure on how to aquire the information needed, have a look at the <a class="reference internal" href="logs.html"><span class="doc">Log Files</span></a> page.
+It explains how you get the desired answers out of your logfiles.</p>
+<ol class="arabic simple">
+<li>Is Java 8 installed and is Sponge using it?</li>
+</ol>
+<p>Sponge requires Java 8 and will crash when using Java 7 or older.</p>
+<ol class="arabic simple" start="2">
+<li>Is the recommended Forge version installed?</li>
+</ol>
+<p>Usually SpongeForge will run on older or newer Forge builds than the recommended build.
+However it is strongly advised to run the recommended build only.
+If you encounter a crash and your versions are mismatching, match them first and try again.
+If you’re unsure which Forge build you need, take a look at <a class="reference internal" href="../getting-started/implementations/spongeforge.html"><span class="doc">Installing SpongeForge</span></a></p>
+<ol class="arabic simple" start="3">
+<li>Are there any other coremods (besides SpongeForge) installed?</li>
+</ol>
+<p>Some coremods modify Forge in a way that makes it impossible to run SpongeForge properly. If you have coremods installed
+and Sponge crashes, try to remove them and test again. Please report any incompatible Coremods on
+<a class="reference external" href="https://github.com/SpongePowered">GitHub</a> or the <a class="reference external" href="https://forums.spongepowered.org">Sponge Forums</a>. This allows
+staff to solve these issues as soon as possible.</p>
+<ol class="arabic simple" start="4">
+<li>Is every plugin you’re using built against your desired Sponge build?</li>
+</ol>
+<p>The Sponge API is subject to change sometimes. When you try to use an older plugin on the most recent Sponge build and
+a crash occurs, try downgrading Sponge or contact the plugin author to get an updated plugin. If you’re on an older
+Sponge build and a recent plugin crashes, try to update Sponge first. If that doesn’t fix the issue, contact the
+plugin author and ask for a fix.</p>
+<ol class="arabic simple" start="5">
+<li>Separating a faulty plugin</li>
+</ol>
+<p>If the problem still persists, try to remove all plugins and re-add them one by one while trying to start the server
+every time you added a plugin.</p>
+<p>If you’re still unsure why and what exactly crashed, have a look at your crashlog. Some common crashes and common
+solutions are listed below.</p>
+</div>
+<div class="section" id="general-warnings">
+<h2>General Warnings<a class="headerlink" href="#general-warnings" title="Permalink to this headline">¶</a></h2>
+<p>A common source of errors and bugs is a version mismatch between either SpongeForge and Forge or
+SpongeForge and Plugins. First we’ll have a look at the general warning Forge gives us upon crashing:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>WARNING: coremods are present:
+   SpongeForge (sponge-1.8-1521-2.1DEV-750.jar)
+Contact their authors BEFORE contacting forge
+</pre></div>
+</div>
+<p>This isn’t a bug or error, it’s just Forge telling you that a Coremod (here: SpongeForge) is installed. Forge advises
+you to contact the Sponge developers first, before asking the Forge support for help. Nothing to worry about.</p>
+</div>
+<div class="section" id="common-exceptions">
+<h2>Common Exceptions<a class="headerlink" href="#common-exceptions" title="Permalink to this headline">¶</a></h2>
+<p>Here are some common exceptions and some reasons why you might encounter them.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you encountered a crash, error or any other malfunction <strong>not</strong> listed here, please report it on the
+<a class="reference external" href="https://forums.spongepowered.org/">Sponge Forums</a> or on <a class="reference external" href="https://github.com/spongepowered/">GitHub</a>.
+This will help others, who are running into the same issue.</p>
+</div>
+<div class="section" id="mismatched-spongeforge-and-forge">
+<h3>Mismatched SpongeForge and Forge<a class="headerlink" href="#mismatched-spongeforge-and-forge" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none"><div class="highlight"><pre><span></span>[12:59:21] [main/ERROR] [mixin/]: @Mixin target net.minecraftforge.event.world.BlockEvent$NeighborNotifyEvent was not found mixins.forge.core.json:event.block.MixinEventNotifyNeighborBlock
+</pre></div>
+</div>
+<p>This is a common crash when you try to run SpongeForge on the wrong Forge build. Note that the target/Mixin can vary.
+Always match Forge against SpongeForge! If you’re unsure which version of Forge is required and you already got your
+SpongeForge build, take a look at: <a class="reference internal" href="../getting-started/implementations/spongeforge.html"><span class="doc">Installing SpongeForge</span></a></p>
+</div>
+<div class="section" id="other-common-errors">
+<h3>Other common errors<a class="headerlink" href="#other-common-errors" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none"><div class="highlight"><pre><span></span>Caused by: java.lang.ClassNotFoundException: org.spongepowered.api.event.state.ServerStartedEvent
+Caused by: java.lang.NullPointerException
+</pre></div>
+</div>
+<p>The first error indicates that a <code class="docutils literal"><span class="pre">Class</span></code> is missing, the second is a NullPointer Exception which indicated that the
+plugin you’re trying to use relies on missing parameters. This happens when you try to run and older plugin on a newer
+SpongeForge or SpongeVanilla build and vice versa.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>java.lang.AbstractMethodError: net.minecraft.entity.player.EntityPlayerMP.getTabList()Lorg/spongepowered/api/entity/living/player/tab/TabList;
+at (...)
+</pre></div>
+</div>
+<p>An <code class="docutils literal"><span class="pre">AbstractMethodError</span></code> occurs when a plugin tries to call a method which isn’t implemented yet. Please check if you’re
+running the most current build of Sponge and update if a newer version is available. If the problem still exists, either
+report it on the official Issuetracker, on the forums or on IRC. You can request the implementation of the missing
+feature too.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>[Server thread/INFO]: Starting minecraft server version 1.8
+[Server thread/ERROR]: Encountered an unexpected exception
+java.lang.NoClassDefFoundError: org/spongepowered/api/event/game/state/GameStartingServerEvent
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Read the full example crashlog here:
+<a class="reference download internal" href="../../_downloads/crashlog-sponge575-plugin750.txt" download=""><code class="xref download docutils literal"><span class="pre">SpongeForge</span> <span class="pre">575</span> <span class="pre">crashlog</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">plugin</span> <span class="pre">built</span> <span class="pre">against</span> <span class="pre">build</span> <span class="pre">750</span></code></a></p>
+</div>
+<p>A <code class="docutils literal"><span class="pre">NoClassDefFoundError</span></code> occurs when the plugin tries to access a class that isn’t on the classpath. This happens
+when the API got adjusted or refactored lately and you’re trying to run an older plugin on a newer build of Sponge
+and vice versa. Always try to use the correct version! Either ask the Plugin author which Sponge version he build
+against or try updating/downgrading your SpongeForge or SpongeVanilla to solve this.</p>
+</div>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="bugreport.html" class="btn btn-neutral float-right" title="Reporting Bugs" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="logs.html" class="btn btn-neutral" title="Log Files" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 6.0.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/staff-update-hooray/source/server/spongineer/debugging.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/staff-update-hooray/source/server/spongineer/debugging.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'6.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../../_static/jquery.js"></script>      <script type="text/javascript" src="../../_static/underscore.js"></script>      <script type="text/javascript" src="../../_static/doctools.js"></script>      <script type="text/javascript" src="../../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>
