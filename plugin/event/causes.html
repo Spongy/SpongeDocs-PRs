@@ -265,8 +265,8 @@ thread or async.</p>
 </div>
 <div class="section" id="using-the-causestackmanager">
 <h3>Using the CauseStackManager<a class="headerlink" href="#using-the-causestackmanager" title="Permalink to this headline">¶</a></h3>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
 <p class="last">The <code class="docutils literal"><span class="pre">CauseStackManager</span></code> only works on the main server thread. If you call it from a
 different thread, an <code class="docutils literal"><span class="pre">IllegalStateException</span></code> will be thrown. Ensure you are on the main
 server thread <strong>before</strong> calling methods on the <code class="docutils literal"><span class="pre">CauseStackManager</span></code>.</p>
@@ -286,6 +286,10 @@ its original state.</p>
 you may want to add your acting player in the cause and the game profile of the player that you are
 simulating in the context (as the simulated player is not directly responsible for the event being fired.)</p>
 <p><strong>Creating a custom Cause with the CauseStackManager</strong></p>
+<p>In this example, the variables would be populated, the cause would contain the <code class="docutils literal"><span class="pre">playerToSimulate</span></code> as
+the root cause, the <code class="docutils literal"><span class="pre">sourceRunningSudo</span></code> as the second object in the cause and the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/profile/GameProfile.html">GameProfile</a>
+as the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/cause/EventContextKeys.html#SIMULATED_PLAYER">EventContextKeys#SIMULATED_PLAYER</a> context, in addition to anything already in the
+<code class="docutils literal"><span class="pre">CauseStackManager</span></code>. Your event code would be at the bottom of the method.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// In your code these would be populated</span>
 <span class="n">CommandSource</span> <span class="n">sourceRunningSudo</span><span class="o">;</span>
 <span class="n">Player</span> <span class="n">playerToSimulate</span><span class="o">;</span>
@@ -309,7 +313,13 @@ simulating in the context (as the simulated player is not directly responsible f
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Note that the last item you push to the cause stack will be the root of the <code class="docutils literal"><span class="pre">Cause</span></code>.</p>
+<p>Note that the last item you push to the cause stack will be the root of the <code class="docutils literal"><span class="pre">Cause</span></code> as
+stacks are “last in, first out” (LIFO) structures.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">For more information about the stack data type and why the order matters, see the
+<a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/Stack.html">Stack</a> javadocs or <a class="reference external" href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)">this Wikipedia article</a>.</p>
+</div>
 </div>
 <div class="section" id="using-the-cause-builder">
 <h3>Using the Cause Builder<a class="headerlink" href="#using-the-cause-builder" title="Permalink to this headline">¶</a></h3>
@@ -325,16 +335,21 @@ The <code class="docutils literal"><span class="pre">EventContext</span></code> 
 you have finished building the <code class="docutils literal"><span class="pre">Cause</span></code> up.</p>
 <p>Taking the previous example, this is how we would build it using the cause builder.</p>
 <p><strong>Creating a custom Cause with the Cause and EventContext builders</strong></p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// In your code these would be populated</span>
-<span class="n">CommandSource</span> <span class="n">sourceRunningSudo</span><span class="o">;</span>
+<p>Note that in this example, the variables would be populated, and that the first entry appended
+to the cause would be the root cause.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">CommandSource</span> <span class="n">sourceRunningSudo</span><span class="o">;</span>
 <span class="n">Player</span> <span class="n">playerToSimulate</span><span class="o">;</span>
 <span class="n">PluginContainer</span> <span class="n">plugin</span><span class="o">;</span>
 
+<span class="n">EventContext</span> <span class="n">context</span> <span class="o">=</span> <span class="n">EventContext</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+  <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">EventContextKeys</span><span class="o">.</span><span class="na">PLAYER_SIMULATED</span><span class="o">,</span> <span class="n">playerToSimulate</span><span class="o">.</span><span class="na">getProfile</span><span class="o">())</span>
+  <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
 <span class="n">Cause</span> <span class="n">cause</span> <span class="o">=</span> <span class="n">Cause</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-  <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">playerToSimulate</span><span class="o">)</span> <span class="c1">// This would be root</span>
+  <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">playerToSimulate</span><span class="o">)</span>
   <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">sourceRunningSudo</span><span class="o">)</span>
   <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">plugin</span><span class="o">)</span>
-  <span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="n">EventContext</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">EventContextKeys</span><span class="o">.</span><span class="na">PLAYER_SIMULATED</span><span class="o">,</span> <span class="n">playerToSimulate</span><span class="o">.</span><span class="na">getProfile</span><span class="o">()).</span><span class="na">build</span><span class="o">());</span>
+  <span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
