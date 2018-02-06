@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Installing SpongeForge &mdash; Sponge 6.0.0 documentation</title>
+  <title>Installing SpongeForge &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../../genindex.html"/>        <link rel="search" title="Search" href="../../../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../../../index.html"/>        <link rel="up" title="Choosing an Implementation" href="index.html"/>        <link rel="next" title="Installing SpongeVanilla" href="spongevanilla.html"/>        <link rel="prev" title="Choosing an Implementation" href="index.html"/>
+              href="../../../genindex.html"/>        <link rel="search" title="Search" href="../../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../../index.html"/>        <link rel="up" title="Choosing an Implementation" href="index.html"/>        <link rel="next" title="Installing SpongeVanilla" href="spongevanilla.html"/>        <link rel="prev" title="Choosing an Implementation" href="index.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -154,7 +154,7 @@ Forge build number which this version of SpongeForge is compatible with. Other b
 few build numbers are not officially supported.</p>
 <p>However, SpongeForge usually updates to a new Forge build fairly soon after it’s released, so you needn’t
 worry about always having to run an outdated Forge version in order to use SpongeForge.</p>
-<p>The format of the filename is <code class="docutils literal"><span class="pre">spongeforge-{MCVersion}-{ForgeVersion}-{SpongeAPIVersion}-{SpongeBuildId}</span></code></p>
+<p>The format of the filename is <code class="docutils literal"><span class="pre">spongeforge-&lt;MCVersion&gt;-&lt;ForgeBuildId&gt;-&lt;SpongeAPIVersion&gt;-BETA-&lt;SpongeBuildId&gt;.jar</span></code></p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="19%" />
@@ -164,9 +164,9 @@ worry about always having to run an outdated Forge version in order to use Spong
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">MCVersion</span></code></td>
 <td>The Minecraft version. Only clients compatible with this version can connect.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">ForgeVersion</span></code></td>
-<td>The version of Forge this file is built for. Preferably your server should run this exact
-version of Forge.</td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">ForgeBuildId</span></code></td>
+<td>Preferably your server should run this exact version of Forge (which can be identified in the
+last part of Forge’s version string).</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">SpongeAPIVersion</span></code></td>
 <td>The version of the SpongeAPI implemented by this file. This is what Sponge plugins depend on.</td>
@@ -179,14 +179,25 @@ support.</td>
 </table>
 <div class="section" id="example">
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
-<p>The file name <code class="docutils literal"><span class="pre">spongeforge-1.10.2-2254-5.2.0-BETA-2234.jar</span></code> is compatible with Minecraft version <code class="docutils literal"><span class="pre">1.10.2</span></code>,
-requires build <code class="docutils literal"><span class="pre">1.10.2-12.18.3.2254</span></code> of Forge, provides SpongeAPI <code class="docutils literal"><span class="pre">5.2.0</span></code> and was build <code class="docutils literal"><span class="pre">2234</span></code> of SpongeForge.</p>
+<p>SpongeForge Jar files will always follow this naming scheme, to allow you to easily identify compatibility.</p>
+<p>For example the file name <code class="docutils literal"><span class="pre">spongeforge-1.10.2-2254-5.2.0-BETA-2234.jar</span></code> is compatible with Minecraft version
+<code class="docutils literal"><span class="pre">1.10.2</span></code>, was built with Forge <code class="docutils literal"><span class="pre">12.18.3.2254</span></code> (Build <code class="docutils literal"><span class="pre">2254</span></code>), provides SpongeAPI <code class="docutils literal"><span class="pre">5.2.0</span></code> and was build number
+<code class="docutils literal"><span class="pre">2234</span></code> of SpongeForge.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Normal Forge mods can usually run on any build of Forge for a given Minecraft version (e.g. 1.8.0) without
-any problems. However, SpongeForge needs to access, among other things, internal parts of Forge, which
-most mods shouldn’t be touching, let alone modifying as Sponge does. Since Forge is free to change internal
-code whenever they want to, its normal guarantee of backwards-compatibility doesn’t apply to SpongeForge.</p>
+<p class="last">Normal Forge mods can usually run on any build of Forge for a given Minecraft version (e.g. 1.8.0) without any
+problem. However, SpongeForge needs to access, among other things, internal parts of Forge, which most mods
+shouldn’t be touching, let alone modifying as Sponge does. Since Forge is free to change their internal code
+whenever they want to, its normal guarantee of backwards-compatibility doesn’t apply to SpongeForge. Feel free to
+use more recent versions of Forge, than the one used for SpongeForge, but we can’t always guarantee compatibility.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">When investigating crash issues, you can freely try newer versions of Forge than listed on the SpongeForge Jar.
+However it is recommended to also check with the matching version, to make sure your issue is not related to a
+version mismatch.
+Even though there will be no guarantee of compatibility, please report any breakage to the issue tracker, so that
+SpongeForge can be updated.</p>
 </div>
 </div>
 </div>
@@ -194,14 +205,18 @@ code whenever they want to, its normal guarantee of backwards-compatibility does
 <h2>Installing SpongeForge<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you use (or are planning to use) a game server host, they may have a control panel that can install Sponge for you.</p>
+<p class="last">If you use (or are planning to use) a game server host, they may have a control panel that can install Sponge for
+you.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">When using the Mojang installer, Mojang makes use of their own Java version and not the one you installed on your
 system. The installer currently ships with Java <code class="docutils literal"><span class="pre">1.8.0_25</span></code> for Windows and <code class="docutils literal"><span class="pre">1.8.0_60</span></code> for macOS. Note that Sponge
-requires <strong>at least</strong> <code class="docutils literal"><span class="pre">1.8.0_40</span></code> or above to run properly. You can grab the Launcher without included Java here:
-<a class="reference external" href="https://minecraft.net/download">official Minecraft Launcher</a></p>
+requires <strong>at least</strong> <code class="docutils literal"><span class="pre">1.8.0_40</span></code> or above to run properly. You can grab that Launcher on the
+<a class="reference external" href="https://minecraft.net/download">official Minecraft download page</a>. Please make sure to configure it to use an up to
+date version of Java. As an alternative you can download a Launcher without an (outdated) Java from
+<a class="reference external" href="https://minecraft.net/download/alternative">here</a>. Read <a class="reference internal" href="../jre.html"><span class="doc">our documentation</span></a> on how to install and
+configure Java.</p>
 </div>
 <div class="section" id="single-player-in-game-lan-servers">
 <h3>Single Player / In-Game LAN Servers<a class="headerlink" href="#single-player-in-game-lan-servers" title="Permalink to this headline">¶</a></h3>
@@ -299,7 +314,7 @@ Create the folder if it does not yet exist.</li>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 6.0.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -318,7 +333,7 @@ Create the folder if it does not yet exist.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'6.0.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WorldGeneratorModifiers &mdash; Sponge 6.0.0 documentation</title>
+  <title>WorldGeneratorModifiers &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../../index.html"/>        <link rel="up" title="World Generation" href="index.html"/>        <link rel="next" title="Modifying World Generation" href="customwgen.html"/>        <link rel="prev" title="World Generation" href="index.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="World Generation" href="index.html"/>        <link rel="next" title="Modifying World Generation" href="customwgen.html"/>        <link rel="prev" title="World Generation" href="index.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -167,7 +167,7 @@
 <h1>WorldGeneratorModifiers<a class="headerlink" href="#worldgeneratormodifiers" title="Permalink to this headline">¶</a></h1>
 <p>For a brief overview of the World Generation process in Sponge, please read <a class="reference internal" href="index.html"><span class="doc">World Generation</span></a>.
 Now, let’s show how you can begin making your mark on world generation.</p>
-<p>All plugins wishing to make changes to a worlds generator must register a <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/world/gen/WorldGeneratorModifier.html">WorldGeneratorModifier</a>. These
+<p>All plugins wishing to make changes to a worlds generator must register a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/gen/WorldGeneratorModifier.html">WorldGeneratorModifier</a>. These
 modifiers are registered globally with a unique id, which must be added to the config of a world by a server admin.
 With the id specified in the world config, a <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code> will be automatically called when the generator
 for that world is set up, allowing it to make changes to the generator.</p>
@@ -197,21 +197,21 @@ the <code class="docutils literal"><span class="pre">WorldGeneratorModifier</spa
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>As you can see, <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code> has three methods which we override. <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/CatalogType.html#getId--">CatalogType#getId()</a> must be
+<p>As you can see, <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code> has three methods which we override. <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/CatalogType.html#getId--">CatalogType#getId()</a> must be
 overridden to return a constant and unique identifier for your <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code>, this is the identifier which
 will be used in the world configuration to specify which worlds your modifier should be applied to.
-<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/CatalogType.html#getName--">CatalogType#getName()</a> must be overriden with a constant and simple human-readable name for your modifier.</p>
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/CatalogType.html#getName--">CatalogType#getName()</a> must be overriden with a constant and simple human-readable name for your modifier.</p>
 <p>The third overridden method is where you make your changes to the world generator. This method is called by
 the implementation when it is creating the world generator for a world which has specified that your
 <code class="docutils literal"><span class="pre">WorldGeneratorModifier</span></code> should be applied.</p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/world/storage/WorldProperties.html">WorldProperties</a> and a <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/data/DataContainer.html">DataContainer</a> of additional properties for the world are passed
+<p>The <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/storage/WorldProperties.html">WorldProperties</a> and a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/DataContainer.html">DataContainer</a> of additional properties for the world are passed
 to this method in order to give context for your changes. For instance, you can use the <code class="docutils literal"><span class="pre">WorldProperties</span></code> to only
 apply your generator changes to nether worlds.</p>
 </div>
 <div class="section" id="registering-a-worldgeneratormodifier">
 <h2>Registering a WorldGeneratorModifier<a class="headerlink" href="#registering-a-worldgeneratormodifier" title="Permalink to this headline">¶</a></h2>
 <p>Now that you have created our modifier, you need to register it. A good time to do this is during the <code class="docutils literal"><span class="pre">INITIALIZATION</span></code>
-State. To register it, simply call <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/GameRegistry.html#register-java.lang.Class-T-">GameRegistry#register(Class, T)</a> with <code class="docutils literal"><span class="pre">WorldGeneratorModifier.class</span></code> as
+State. To register it, simply call <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/GameRegistry.html#register-java.lang.Class-T-">GameRegistry#register(Class, T)</a> with <code class="docutils literal"><span class="pre">WorldGeneratorModifier.class</span></code> as
 the first argument and your modifier as the second.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGameInitialization</span><span class="o">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
@@ -262,7 +262,7 @@ a world and therefore the value is not created when the configuration file is cr
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 6.0.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -281,7 +281,7 @@ a world and therefore the value is not created when the configuration file is cr
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'6.0.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Permissions &mdash; Sponge 6.0.0 documentation</title>
+  <title>Permissions &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Bans" href="bans.html"/>        <link rel="prev" title="Databases" href="database.html"/>
+              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Bans" href="bans.html"/>        <link rel="prev" title="Databases" href="database.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -160,6 +160,9 @@
            <div itemprop="articleBody">
   <div class="section" id="permissions">
 <h1>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h1>
+<p>If you are interested in the permissions that are used in vanilla commands have a look at
+<a class="reference internal" href="../server/spongineer/commands.html"><span class="doc">this page</span></a>. For customizing the permission levels refer to the
+<a class="reference internal" href="../server/management/permissions.html"><span class="doc">server permissions</span></a> page or your permission plugin’s documentation.</p>
 <div class="section" id="permission">
 <h2>Permission<a class="headerlink" href="#permission" title="Permalink to this headline">¶</a></h2>
 <p>A permission is a case-insensitive hierarchical string key that is used to determine whether a Subject can do a specific
@@ -248,8 +251,8 @@ command even if he has other <cite>teleport</cite> permissions.
 </div>
 <div class="section" id="permissiondescription">
 <h2>PermissionDescription<a class="headerlink" href="#permissiondescription" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/permission/PermissionDescription.html">PermissionDescription</a> is an utility that is meant to provide the server owner with details on a certain
-permission. <code class="docutils literal"><span class="pre">PermissionDescription</span></code>s are an optional feature a <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/permission/PermissionService.html">PermissionService</a> can provide. The creation
+<p>The <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/PermissionDescription.html">PermissionDescription</a> is an utility that is meant to provide the server owner with details on a certain
+permission. <code class="docutils literal"><span class="pre">PermissionDescription</span></code>s are an optional feature a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/PermissionService.html">PermissionService</a> can provide. The creation
 of a PermissionDescription does <strong>not</strong> have any impact on whether a permission exists, who has access or what its
 default value is.</p>
 <p>The description consists of:</p>
@@ -308,9 +311,9 @@ alone.</p>
 </div>
 <div class="section" id="subject">
 <h2>Subject<a class="headerlink" href="#subject" title="Permalink to this headline">¶</a></h2>
-<p>A <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/permission/Subject.html">Subject</a> is a holder of assigned permissions. It can be obtained from the <code class="docutils literal"><span class="pre">PermissionService</span></code> via
-<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/permission/SubjectCollection.html">SubjectCollection</a>s.
-<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/command/CommandSource.html">CommandSource</a>s such as <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/entity/living/player/Player.html">Player</a>s are <code class="docutils literal"><span class="pre">Subject</span></code>s by default, but there are many other types of
+<p>A <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/Subject.html">Subject</a> is a holder of assigned permissions. It can be obtained from the <code class="docutils literal"><span class="pre">PermissionService</span></code> via
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/SubjectCollection.html">SubjectCollection</a>s.
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/CommandSource.html">CommandSource</a>s such as <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/living/player/Player.html">Player</a>s are <code class="docutils literal"><span class="pre">Subject</span></code>s by default, but there are many other types of
 <code class="docutils literal"><span class="pre">Subject</span></code>s. Anything that has permissions is a Subject even if it just delegates the checks to a contained Subject.
 Permissions can be granted or denied to a Subject. If a permission is neither granted nor denied its setting will be
 inherited. See Inheritance.
@@ -339,7 +342,7 @@ player) <code class="docutils literal"><span class="pre">Subject</span></code> t
 <p>If neither the subject itself nor any parent subjects grant or deny a permission then it will be inherited from the
 default <code class="docutils literal"><span class="pre">Subject</span></code>s. Each <code class="docutils literal"><span class="pre">SubjectCollection</span></code> defines its own defaults. The global and weakest default subject can be
 obtained from the <code class="docutils literal"><span class="pre">PermissionService</span></code>. Plugins may define their own permissions to the default’s transient
-<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/permission/SubjectData.html">SubjectData</a> during every server start-up. This allows server owners to overwrite the defaults defined by
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/SubjectData.html">SubjectData</a> during every server start-up. This allows server owners to overwrite the defaults defined by
 plugins according to their needs using the default’s persistent <code class="docutils literal"><span class="pre">SubjectData</span></code>. If you would like to provide a
 configuration guideline for server owners use <code class="docutils literal"><span class="pre">PermissionDescription</span></code>’s role-templates instead.</p>
 <div class="admonition warning">
@@ -486,14 +489,14 @@ are.</p>
 </div>
 <div class="section" id="contexts">
 <h2>Contexts<a class="headerlink" href="#contexts" title="Permalink to this headline">¶</a></h2>
-<p>If you consider each permission to a privilege or ability to be able to do something, a <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/context/Context.html">Context</a> is the
+<p>If you consider each permission to a privilege or ability to be able to do something, a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/context/Context.html">Context</a> is the
 circumstances where that privilege is usable.</p>
 <p>You might want to give a <code class="docutils literal"><span class="pre">Subject</span></code> permission to do something, but only when the <code class="docutils literal"><span class="pre">Subject</span></code> is in a certain world,
 or in a certain region.</p>
 <p>Contexts are accumulated by a <code class="docutils literal"><span class="pre">Subject</span></code>, and are then used by the <code class="docutils literal"><span class="pre">PermissionService</span></code> to decide if the <code class="docutils literal"><span class="pre">Subject</span></code>
 has a privilege or not.</p>
 <p>Sponge provides some contexts by default, but it is generally down to other plugins to provide additional contexts to
-the PermissionService, through a <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/context/ContextCalculator.html">ContextCalculator</a>.</p>
+the PermissionService, through a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/context/ContextCalculator.html">ContextCalculator</a>.</p>
 <p>When creating contexts for your own plugin please try to avoid conflicts with other plugins (e.g. by prefixing the
 context key with your plugin id) unless these contexts are meant to be shared.</p>
 <div class="admonition note">
@@ -641,7 +644,7 @@ It is recommended to follow the permission structure as described above. The per
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 6.0.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -660,7 +663,7 @@ It is recommended to follow the permission structure as described above. The per
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'6.0.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

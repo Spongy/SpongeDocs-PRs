@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mixins &mdash; Sponge 6.0.0 documentation</title>
+  <title>Mixins &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Developing Sponge" href="index.html"/>        <link rel="next" title="Implementing DataManipulators" href="datamanipulator.html"/>        <link rel="prev" title="Debugging Sponge Within the IDE" href="debugging.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Developing Sponge" href="index.html"/>        <link rel="next" title="Implementing DataManipulators" href="datamanipulator.html"/>        <link rel="prev" title="Debugging Sponge Within the IDE" href="debugging.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -150,49 +150,112 @@ is available at the <a class="reference external" href="https://github.com/Spong
 <p><em>It starts with absolute basics. If you’re an experienced java developer, feel free to skip to section 4, where the
 mixins themselves are actually discussed.</em></p>
 <p>If you’re looking to get started writing mixins, we also strongly recommend carefully examining all of the examples in
-the <a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/tree/stable-6/src/example/java/org/spongepowered">SpongeCommon repository</a> which
+the <a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/tree/stable-7/src/example/java/org/spongepowered">SpongeCommon repository</a> which
 are extensively documented and cover many of the more complex scenarios. You should also consult the Javadoc of the Mixin
 repository itself, since almost everything is already documented.</p>
-<p><strong>Caveat: When contributing mixins, note that you cannot use anonymous classes.</strong></p>
-<p>This means expressions like the following will cause mixins to fail horribly and bring death and destruction upon all
-that attempt to use Sponge.</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="k">new</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;()</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">input</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">Items</span><span class="o">.</span><span class="na">golden_apple</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-<p>This applies to all classes that are annotated with <code class="docutils literal"><span class="pre">&#64;Mixin</span></code>. Classes that are not touched by the mixin processor may
-make use of those features. However, you can use a static utility class to create your anonymous classes, as unlike
-your mixin class that utility class will still exist at runtime, while your mixin class will be merged into the
-specified target class. The following code therefore will work.</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemUtil</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;</span> <span class="nf">typeChecker</span><span class="o">(</span><span class="kd">final</span> <span class="n">Item</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;()</span> <span class="o">{</span>
-            <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="n">ItemStack</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">return</span> <span class="n">input</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-<span class="nd">@Mixin</span><span class="o">(</span><span class="n">TargetClass</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">SomeMixin</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;</span> <span class="nf">someFunction</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">ItemUtil</span><span class="o">.</span><span class="na">typeChecker</span><span class="o">(</span><span class="n">Items</span><span class="o">.</span><span class="na">golden_apple</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-<p>(In a real situation, you would typically use a lambda to accomplish this; Mixin supports both lambdas and method
-references. This is purely for the sake of example.)</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The Mixin project will be servicing a number of other projects in addition to Sponge itself. Therefore Mixin has its’
 own documentation together with the repository.</p>
+</div>
+<div class="section" id="mixins-and-inner-classes">
+<h2>Mixins and Inner Classes<a class="headerlink" href="#mixins-and-inner-classes" title="Permalink to this headline">¶</a></h2>
+<p>While you can use lambdas, along with anonymous and inner classes, inside mixins, you cannot use an anonymous/inner class within another
+anonymous/inner class that is also inside a mixin, unless one of the inner classes is <code class="docutils literal"><span class="pre">static</span></code>.</p>
+<p>This means expressions like the following will cause mixins to fail horribly and bring death and destruction upon all
+that attempt to use Sponge.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="k">new</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;</span> <span class="nf">iterator</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="c1">// THIS WILL NOT WORK!</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">()</span> <span class="o">{</span>
+                <span class="c1">// Code skipped</span>
+            <span class="o">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">ItemStack</span> <span class="nf">next</span><span class="o">()</span> <span class="o">{</span>
+                <span class="c1">// Code skipped</span>
+            <span class="o">}</span>
+        <span class="o">};</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Other methods skipped</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>This applies to all classes that are annotated with <code class="docutils literal"><span class="pre">&#64;Mixin</span></code>. Classes that are not touched by the mixin processor may make use of those
+features. There are two ways to work around this.</p>
+<p>One option is to use a separate utility class, as unlike your mixin class that utility class will still exist at runtime, while your mixin
+class will be merged into the specified target class. The following code therefore will work.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SampleCollection</span> <span class="kd">implements</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">TargetClass</span> <span class="n">target</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">SampleCollection</span><span class="o">(</span><span class="n">TargetClass</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">target</span> <span class="o">=</span> <span class="n">target</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;</span> <span class="nf">iterator</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;()</span> <span class="o">{</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">()</span> <span class="o">{</span>
+                <span class="c1">// Code skipped</span>
+            <span class="o">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">ItemStack</span> <span class="nf">next</span><span class="o">()</span> <span class="o">{</span>
+                <span class="c1">// Code skipped</span>
+            <span class="o">}</span>
+        <span class="o">};</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Other methods skipped</span>
+<span class="o">}</span>
+
+<span class="nd">@Mixin</span><span class="o">(</span><span class="n">TargetClass</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">SomeMixin</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;</span> <span class="nf">someFunction</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">SampleCollection</span><span class="o">((</span><span class="n">TargetClass</span><span class="o">)</span> <span class="o">(</span><span class="n">Object</span><span class="o">)</span> <span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>The other option is simply to place all of the nested inner classes directly into the mixin or one of its methods, as opposed to one inside
+the other. For example:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Mixin</span><span class="o">(</span><span class="n">TargetClass</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">SomeMixin</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">SampleIterator</span> <span class="kd">implements</span> <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;</span> <span class="o">{</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">()</span> <span class="o">{</span>
+            <span class="c1">// Code skipped</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">ItemStack</span> <span class="nf">next</span><span class="o">()</span> <span class="o">{</span>
+            <span class="c1">// Code skipped</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;</span> <span class="nf">someFunction</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">ItemStack</span><span class="o">&gt;</span> <span class="nf">iterator</span><span class="o">()</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="n">SampleIterator</span><span class="o">&lt;&gt;();</span>
+            <span class="o">}</span>
+
+            <span class="c1">// Other methods skipped</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -224,7 +287,7 @@ own documentation together with the repository.</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 6.0.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -243,7 +306,7 @@ own documentation together with the repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'6.0.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

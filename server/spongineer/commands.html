@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Commands &mdash; Sponge 6.0.0 documentation</title>
+  <title>Commands &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Becoming an Expert Spongineer" href="index.html"/>        <link rel="next" title="Troubleshooting" href="troubleshooting.html"/>        <link rel="prev" title="Becoming an Expert Spongineer" href="index.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Becoming an Expert Spongineer" href="index.html"/>        <link rel="next" title="Troubleshooting" href="troubleshooting.html"/>        <link rel="prev" title="Becoming an Expert Spongineer" href="index.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -135,10 +135,10 @@
 <h1>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h1>
 <p>Commands are one method in which server operators can administer their server, and in which players can interact with
 the server.</p>
-<p>In Sponge, commands follow a system of permissions. Permissions allow server operators to control who can access what
-commands. By default, all commands are granted to players with OP status. Players without operator status do not have
-access to administrative commands or commands that require an assigned permission node. A server operator can fine-tune
-who can access what commands by adding/negating permission nodes through a permissions plugin.</p>
+<p>In Sponge, commands follow a system of <a class="reference internal" href="../../plugin/permissions.html"><span class="doc">Permissions</span></a>. Permissions allow server operators to control
+who can access what commands. By default, all commands are granted to players with OP status. Players without operator
+status do not have access to administrative commands or commands that require an assigned permission node. A server
+operator can fine-tune who can access what commands by adding/negating permission nodes through a permissions plugin.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Sponge is not a permissions-management plugin. To add and negate permissions for individual players or groups, you
@@ -183,34 +183,39 @@ config.</td>
 <td>Dumps the JVM heap.</td>
 <td>sponge.command.heap</td>
 </tr>
-<tr class="row-even"><td>/sponge plugins</td>
+<tr class="row-even"><td>/sponge help</td>
+<td>View information on commands used on the
+server.</td>
+<td>sponge.command.help</td>
+</tr>
+<tr class="row-odd"><td>/sponge plugins</td>
 <td>Lists currently installed plugins.</td>
 <td>sponge.command.plugins</td>
 </tr>
-<tr class="row-odd"><td>/sponge plugins reload</td>
+<tr class="row-even"><td>/sponge plugins reload</td>
 <td>Asks plugins to perform their own reload
 procedures.</td>
 <td>sponge.command.plugins.reload</td>
 </tr>
-<tr class="row-even"><td>/sponge reload</td>
+<tr class="row-odd"><td>/sponge reload</td>
 <td>Reloads the global, world, or dimension
 config.</td>
 <td>sponge.command.reload</td>
 </tr>
-<tr class="row-odd"><td>/sponge save</td>
+<tr class="row-even"><td>/sponge save</td>
 <td>Saves the global, world, or dimension
 config.</td>
 <td>sponge.command.save</td>
 </tr>
-<tr class="row-even"><td>/sponge timings</td>
+<tr class="row-odd"><td>/sponge timings</td>
 <td>The main command for the timings module.</td>
 <td>sponge.command.timings</td>
 </tr>
-<tr class="row-odd"><td>/sponge tps</td>
+<tr class="row-even"><td>/sponge tps</td>
 <td>Display ticks per second for each world.</td>
 <td>sponge.command.tps</td>
 </tr>
-<tr class="row-even"><td>/sponge version</td>
+<tr class="row-odd"><td>/sponge version</td>
 <td>Prints the Sponge/SpongeAPI versions to
 the console.</td>
 <td>sponge.command.version</td>
@@ -455,13 +460,19 @@ before getting kicked.</td>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Sponge also creates a spawn-protection bypass permission, and two permissions for controlling the
-ability to edit commandblocks. Note that these permissions use the actual <em>name</em> of the commandblock,
+<p>Sponge also creates a spawn-protection bypass permission, a force-gamemode bypass permission, and two permissions for
+controlling the ability to edit commandblocks. Note that these permissions use the actual <em>name</em> of the commandblock,
 which is normally <code class="docutils literal"><span class="pre">&#64;</span></code> by default.</p>
 <ul class="simple">
-<li>Allow player to bypass spawn-protection on all worlds: <code class="docutils literal"><span class="pre">minecraft.spawn-protection.override</span></code></li>
+<li>Allow player to bypass spawn-protection in all worlds: <code class="docutils literal"><span class="pre">minecraft.spawn-protection.override</span></code></li>
+<li>Allow player to bypass force-gamemode in all worlds: <code class="docutils literal"><span class="pre">minecraft.force-gamemode.override</span></code></li>
 <li>Allow editing an ordinary commandblock of the given name: <code class="docutils literal"><span class="pre">minecraft.commandblock.edit.block.&lt;name&gt;</span></code></li>
 <li>Allow editing a minecart commandblock of the given name: <code class="docutils literal"><span class="pre">minecraft.commandblock.edit.minecart.&lt;name&gt;</span></code></li>
+</ul>
+<p>There are also extra permissions managing the access to the server:</p>
+<ul class="simple">
+<li>Treat the user as whitelisted: <code class="docutils literal"><span class="pre">minecraft.login.bypass-whitelist</span></code></li>
+<li>Allow this user to bypass the server’s player limit: <code class="docutils literal"><span class="pre">minecraft.login.bypass-player-limit</span></code></li>
 </ul>
 </div>
 </div>
@@ -483,7 +494,8 @@ which is normally <code class="docutils literal"><span class="pre">&#64;</span><
 <tbody valign="top">
 <tr class="row-even"><td>/help</td>
 <td>View information on commands used on the
-server</td>
+server, by default the Sponge command
+will be used instead!</td>
 <td>minecraft.command.help</td>
 </tr>
 <tr class="row-odd"><td>/me</td>
@@ -537,7 +549,7 @@ for vanilla Minecraft commands on a Sponge server are of the structure <code cla
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 6.0.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -556,7 +568,7 @@ for vanilla Minecraft commands on a Sponge server are of the structure <code cla
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'6.0.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

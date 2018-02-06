@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modifying Blocks &mdash; Sponge 6.0.0 documentation</title>
+  <title>Modifying Blocks &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Blocks" href="index.html"/>        <link rel="next" title="Tile Entities" href="tileentities.html"/>        <link rel="prev" title="Accessing Blocks" href="accessing.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Blocks" href="index.html"/>        <link rel="next" title="Tile Entities" href="tileentities.html"/>        <link rel="prev" title="Accessing Blocks" href="accessing.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -170,9 +170,9 @@
 <h1>Modifying Blocks<a class="headerlink" href="#modifying-blocks" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="changing-a-blocks-type">
 <h2>Changing a Blocks Type<a class="headerlink" href="#changing-a-blocks-type" title="Permalink to this headline">¶</a></h2>
-<p>Changing the Type of a Block is as simple as calling the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/world/Location.html#setBlockType-org.spongepowered.api.block.BlockType-org.spongepowered.api.event.cause.Cause-">Location#setBlockType(BlockType, Cause)</a> method with
-the new <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/block/BlockType.html">BlockType</a>. As with most block modifications, we need to supply a cause for the block change. In most
-cases, this can be your main plugin class. The following code turns the block at the given <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/world/Location.html">Location</a> into a
+<p>Changing the Type of a Block is as simple as calling the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/Location.html#setBlockType-org.spongepowered.api.block.BlockType-org.spongepowered.api.event.cause.Cause-">Location#setBlockType(BlockType, Cause)</a> method with
+the new <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/BlockType.html">BlockType</a>. As with most block modifications, we need to supply a cause for the block change. In most
+cases, this can be your main plugin class. The following code turns the block at the given <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/Location.html">Location</a> into a
 sponge:</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockTypes</span><span class="o">;</span>
@@ -187,13 +187,13 @@ sponge:</p>
 </div>
 </div></blockquote>
 <p>It’s as simple as that. If you just want to ‘delete’ a block (which is done by replacing it with air), you may just
-use the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/world/Location.html#removeBlock-org.spongepowered.api.event.cause.Cause-">Location#removeBlock(Cause)</a> method provided by <code class="docutils literal"><span class="pre">Location</span></code>.</p>
+use the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/Location.html#removeBlock-org.spongepowered.api.event.cause.Cause-">Location#removeBlock(Cause)</a> method provided by <code class="docutils literal"><span class="pre">Location</span></code>.</p>
 </div>
 <div class="section" id="altering-block-states">
 <h2>Altering Block States<a class="headerlink" href="#altering-block-states" title="Permalink to this headline">¶</a></h2>
-<p>Similar to the above example, the <code class="docutils literal"><span class="pre">Location</span></code> class provides a <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/world/Location.html#setBlock-org.spongepowered.api.block.BlockState-org.spongepowered.api.event.cause.Cause-">Location#setBlock(BlockState, Cause)</a> method
-accepting a new <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/block/BlockState.html">BlockState</a>. To make use of it, you first must acquire a <code class="docutils literal"><span class="pre">BlockState</span></code> you can modify. You
-can do so either by getting the block’s current state via the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/world/Location.html#getBlock--">Location#getBlock()</a> method or by using a
+<p>Similar to the above example, the <code class="docutils literal"><span class="pre">Location</span></code> class provides a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/Location.html#setBlock-org.spongepowered.api.block.BlockState-org.spongepowered.api.event.cause.Cause-">Location#setBlock(BlockState, Cause)</a> method
+accepting a new <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/BlockState.html">BlockState</a>. To make use of it, you first must acquire a <code class="docutils literal"><span class="pre">BlockState</span></code> you can modify. You
+can do so either by getting the block’s current state via the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/Location.html#getBlock--">Location#getBlock()</a> method or by using a
 <code class="docutils literal"><span class="pre">BlockType</span></code>’s default state. The latter is demonstrated below. The default state for a Sponge block is retrieved
 and then modified to directly create a wet sponge block:</p>
 <blockquote>
@@ -212,9 +212,9 @@ and then modified to directly create a wet sponge block:</p>
 </pre></div>
 </div>
 </div></blockquote>
-<p>Since a <code class="docutils literal"><span class="pre">BlockState</span></code> is an <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/data/ImmutableDataHolder.html">ImmutableDataHolder</a>, you may use the provided methods <code class="docutils literal"><span class="pre">with()</span></code> and
+<p>Since a <code class="docutils literal"><span class="pre">BlockState</span></code> is an <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/ImmutableDataHolder.html">ImmutableDataHolder</a>, you may use the provided methods <code class="docutils literal"><span class="pre">with()</span></code> and
 <code class="docutils literal"><span class="pre">without()</span></code>, both of which will return a new altered <code class="docutils literal"><span class="pre">BlockState</span></code> or <code class="docutils literal"><span class="pre">Optional.empty()</span></code> if the given
-<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/data/manipulator/ImmutableDataManipulator.html">ImmutableDataManipulator</a> is not applicable to the kind of block represented by the <code class="docutils literal"><span class="pre">BlockState</span></code>.</p>
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/ImmutableDataManipulator.html">ImmutableDataManipulator</a> is not applicable to the kind of block represented by the <code class="docutils literal"><span class="pre">BlockState</span></code>.</p>
 <p>The <code class="docutils literal"><span class="pre">with()</span></code> method accepts an <code class="docutils literal"><span class="pre">ImmutableDataManipulator</span></code> and will try to create a new <code class="docutils literal"><span class="pre">BlockState</span></code> with the
 given data set, overwriting existing values. The following example will change any dirt block to podzol.</p>
 <blockquote>
@@ -239,11 +239,11 @@ given data set, overwriting existing values. The following example will change a
 </pre></div>
 </div>
 </div></blockquote>
-<p>Note that the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/data/manipulator/mutable/block/DirtData.html">DirtData</a> is a mutable copy of the data held in the <code class="docutils literal"><span class="pre">BlockState</span></code>. It is changed and then
+<p>Note that the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/block/DirtData.html">DirtData</a> is a mutable copy of the data held in the <code class="docutils literal"><span class="pre">BlockState</span></code>. It is changed and then
 converted back to an immutable and used to create a new <code class="docutils literal"><span class="pre">BlockState</span></code> which then replaces the original block.</p>
 <p>The <code class="docutils literal"><span class="pre">without()</span></code> method accepts a class reference and will create a new <code class="docutils literal"><span class="pre">BlockState</span></code> without the data
 represented by the given class. If the block state would not be valid without that data, a default value will be used.
-So if the <code class="docutils literal"><span class="pre">DirtData</span></code> from a dirt blocks state is removed, it will fall back to <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/data/type/DirtTypes.html#DIRT">DirtTypes#DIRT</a>, the default
+So if the <code class="docutils literal"><span class="pre">DirtData</span></code> from a dirt blocks state is removed, it will fall back to <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/type/DirtTypes.html#DIRT">DirtTypes#DIRT</a>, the default
 value. The following example will dry the block at a given <code class="docutils literal"><span class="pre">Location</span></code>, if possible.</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span>
@@ -259,15 +259,15 @@ value. The following example will dry the block at a given <code class="docutils
 </pre></div>
 </div>
 </div></blockquote>
-<p>Since the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/data/manipulator/mutable/WetData.html">WetData</a> data manipulator represents boolean data, by removing it we set the wetness of the block
+<p>Since the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/WetData.html">WetData</a> data manipulator represents boolean data, by removing it we set the wetness of the block
 (if it has any) to false. The <code class="docutils literal"><span class="pre">dryState.isPresent()</span></code> check will fail on block states that can not be wet since
 <code class="docutils literal"><span class="pre">dryState</span></code> will be <code class="docutils literal"><span class="pre">Optional.empty()</span></code> in that case.</p>
 </div>
 <div class="section" id="copying-blocks">
 <h2>Copying Blocks<a class="headerlink" href="#copying-blocks" title="Permalink to this headline">¶</a></h2>
-<p>If you want to copy all of a block’s data, the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/block/BlockSnapshot.html">BlockSnapshot</a> class is your best friend. While it doesn’t
+<p>If you want to copy all of a block’s data, the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/BlockSnapshot.html">BlockSnapshot</a> class is your best friend. While it doesn’t
 expose all the data, it stores a <code class="docutils literal"><span class="pre">BlockType</span></code>, its <code class="docutils literal"><span class="pre">BlockState</span></code> and, if necessary, all additional Tile Entity Data
-(for example chest inventories). Conveniently, the <code class="docutils literal"><span class="pre">Location</span></code> class provides a <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/world/Location.html#createSnapshot--">Location#createSnapshot()</a>
+(for example chest inventories). Conveniently, the <code class="docutils literal"><span class="pre">Location</span></code> class provides a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/Location.html#createSnapshot--">Location#createSnapshot()</a>
 method to create a snapshot of the block at that point in time. That makes copying blocks from one location to another
 very simple:</p>
 <blockquote>
@@ -311,7 +311,7 @@ very simple:</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 6.0.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -330,7 +330,7 @@ very simple:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'6.0.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
