@@ -191,11 +191,11 @@ player would be in the <code class="docutils literal"><span class="pre">EventCon
 that additional information about how the event has come about, but would not necessarily be within the
 direct cause itself.</p>
 <p>Another example that you may need to watch out for is if you simulate a player. The simulated player may not be
-in the direct cause, as the player being simulated may not have been involved in the action, however, the player’s
-be in the <code class="docutils literal"><span class="pre">EventContext</span></code> under the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/cause/EventContextKeys.html#PLAYER_SIMULATED">EventContextKeys#PLAYER_SIMULATED</a></p>
+in the direct cause, as the player being simulated may not have been involved in the action, however, the player
+would be in the <code class="docutils literal"><span class="pre">EventContext</span></code> under the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/cause/EventContextKeys.html#PLAYER_SIMULATED">EventContextKeys#PLAYER_SIMULATED</a></p>
 </div>
 <div class="section" id="retrieving-objects-from-the-direct-cause">
-<h2>Retrieving objects from the direct cause<a class="headerlink" href="#retrieving-objects-from-the-direct-cause" title="Permalink to this headline">¶</a></h2>
+<h2>Retrieving Objects from the Direct Cause<a class="headerlink" href="#retrieving-objects-from-the-direct-cause" title="Permalink to this headline">¶</a></h2>
 <p>Structurally, a <code class="docutils literal"><span class="pre">Cause</span></code> object contains a sequential list of objects. There are several methods of
 retrieving information from a Cause object which we will discuss here, for a more complete
 listing please see the <a class="reference external" href="https://jd.spongepowered.org">Javadocs</a>.</p>
@@ -256,7 +256,7 @@ objects.</p>
 </div>
 </div>
 <div class="section" id="creating-custom-causes">
-<h2>Creating custom Causes<a class="headerlink" href="#creating-custom-causes" title="Permalink to this headline">¶</a></h2>
+<h2>Creating Custom Causes<a class="headerlink" href="#creating-custom-causes" title="Permalink to this headline">¶</a></h2>
 <p>Creating a cause is easy, but depends on whether you are creating your cause on the main server
 thread or async.</p>
 <div class="admonition note">
@@ -277,8 +277,8 @@ causes of events as the game runs, allowing for easy retrieval of the current <c
 To see the current cause, call <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/CauseStackManager.html#getCurrentCause--">CauseStackManager#getCurrentCause()</a>. You may notice that your
 plugin’s <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/plugin/PluginContainer.html">PluginContainer</a> is already in the returned <code class="docutils literal"><span class="pre">Cause</span></code>, as plugins are one of the
 objects tracked by the manager. Using the <code class="docutils literal"><span class="pre">CauseStackManager</span></code> for creating causes removes the
-need for boilerplate-like code where you supply objects like your plugin container, you can concentrate
-on adding your own causes.</p>
+need for boilerplate-like code where you supply objects like your plugin container, so that you can
+concentrate on adding your own causes.</p>
 <p>Before adding your own causes, you should push a cause stack frame to the manager. Adding a frame acts
 as a saved state, when you are done with your causes, the removal of the frame returns the manager to
 its original state.</p>
@@ -293,32 +293,22 @@ is pushed, they will remain on the stack and will form part of the <code class="
 the frame.</p>
 </div>
 <p>For example, if you were to fire an event that was simulating another player in a sudo like command,
-you may want to add your acting player in the cause and the game profile of the player that you are
+you may want to add the player you are acting as in the cause and the <code class="docutils literal"><span class="pre">GameProfile</span></code> of the player that you are
 simulating in the context (as the simulated player is not directly responsible for the event being fired.)</p>
 <p><strong>Creating a custom Cause with the CauseStackManager</strong></p>
 <p>In this example, the variables would be populated, the cause would contain the <code class="docutils literal"><span class="pre">playerToSimulate</span></code> as
 the root cause, the <code class="docutils literal"><span class="pre">sourceRunningSudo</span></code> as the second object in the cause and the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/profile/GameProfile.html">GameProfile</a>
 as the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/cause/EventContextKeys.html#SIMULATED_PLAYER">EventContextKeys#SIMULATED_PLAYER</a> context, in addition to anything already in the
 <code class="docutils literal"><span class="pre">CauseStackManager</span></code>. Your event code would be at the bottom of the method.</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// In your code these would be populated</span>
-<span class="n">CommandSource</span> <span class="n">sourceRunningSudo</span><span class="o">;</span>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">CommandSource</span> <span class="n">sourceRunningSudo</span><span class="o">;</span>
 <span class="n">Player</span> <span class="n">playerToSimulate</span><span class="o">;</span>
 <span class="k">try</span> <span class="o">(</span><span class="n">CauseStackManager</span><span class="o">.</span><span class="na">StackFrame</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getCauseStackManager</span><span class="o">().</span><span class="na">pushCauseFrame</span><span class="o">())</span> <span class="o">{</span>
-  <span class="c1">// This would be the player that is causing the action (would have run the /sudo command)</span>
-  <span class="n">frame</span><span class="o">.</span><span class="na">pushCause</span><span class="o">(</span><span class="n">sourceRunningSudo</span><span class="o">);</span>
 
-  <span class="c1">// You may want to push the simulated player so that it&#39;s at the root for compatibility</span>
-  <span class="c1">// with other plugins that listen for the direct cause</span>
+  <span class="n">frame</span><span class="o">.</span><span class="na">pushCause</span><span class="o">(</span><span class="n">sourceRunningSudo</span><span class="o">);</span>
   <span class="n">frame</span><span class="o">.</span><span class="na">pushCause</span><span class="o">(</span><span class="n">playerToSimulate</span><span class="o">);</span>
 
-  <span class="c1">// This would contain the GameProfile of the player to simulate, they are not a direct</span>
-  <span class="c1">// cause, but provide additional information to the event listeners so that they know</span>
-  <span class="c1">// the root player is a simulated one and may not have invoked the event.</span>
   <span class="n">frame</span><span class="o">.</span><span class="na">addContext</span><span class="o">(</span><span class="n">EventContextKeys</span><span class="o">.</span><span class="na">SIMULATED_PLAYER</span><span class="o">,</span> <span class="n">playerToSimulate</span><span class="o">.</span><span class="na">getProfile</span><span class="o">());</span>
 
-  <span class="c1">// Add your event code here.</span>
-  <span class="c1">// You can get the current cause at any time using the getCurrentCause method</span>
-  <span class="c1">// (which is available on the fram as well as the CauseStackManager)</span>
   <span class="n">Cause</span> <span class="n">cause</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="na">getCurrentCause</span><span class="o">();</span>
 <span class="o">}</span>
 </pre></div>
