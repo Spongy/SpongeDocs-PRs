@@ -173,24 +173,25 @@ common use case could be to find the block that a <a class="reference external" 
 </div>
 <p>To specify the end point, you can use the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/util/blockray/BlockRay.BlockRayBuilder.html#to-com.flowpowered.math.vector.Vector3d-">BlockRay.BlockRayBuilder#to(Vector3d)</a> method, which will set both
 the direction and ending location. Alternatively, you can specify a direction using
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/util/blockray/BlockRay.BlockRayBuilder.html#direction-com.flowpowered.math.vector.Vector3d-">BlockRay.BlockRayBuilder#direction(Vector3d)</a> and also a block limit using
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/util/blockray/BlockRay.BlockRayBuilder.html#blockLimit-int-">BlockRay.BlockRayBuilder#blockLimit(int)</a>.</p>
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/util/blockray/BlockRay.BlockRayBuilder.html#direction-com.flowpowered.math.vector.Vector3d-">BlockRay.BlockRayBuilder#direction(Vector3d)</a> and also a distance limit using
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/util/blockray/BlockRay.BlockRayBuilder.html#distanceLimit-double-">BlockRay.BlockRayBuilder#distanceLimit(double)</a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The default block limit is 1000 blocks as a safeguard to prevent infinite iteration. To disable the block limit,
-use a negative value with <code class="docutils literal"><span class="pre">BlockRayBuilder#blockLimit(int)</span></code>.</p>
+<p class="last">The default distance limit is 1000 blocks as a safeguard to prevent infinite iteration. To disable the distance
+limit, use a negative value with <code class="docutils literal"><span class="pre">BlockRayBuilder#distanceLimit(double)</span></code>.</p>
 </div>
 <div class="section" id="filtering">
 <h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
-<p>Filters determine what blocks are accepted by the <code class="docutils literal"><span class="pre">BlockRay</span></code>. To add a filter, use the <code class="docutils literal"><span class="pre">BlockRayBuilder#filter</span></code>
-method, passing in one or many <code class="docutils literal"><span class="pre">Predicate&lt;BlockRayHit&lt;E&gt;&gt;</span></code>s (where <code class="docutils literal"><span class="pre">E</span></code> extends <code class="docutils literal"><span class="pre">Extent</span></code>). For convenience,
-<code class="docutils literal"><span class="pre">BlockRay</span></code> contains the following methods for common filter use cases:</p>
+<p>Filters determine what blocks are accepted by the <code class="docutils literal"><span class="pre">BlockRay</span></code>. To add a filter, use the <code class="docutils literal"><span class="pre">BlockRayBuilder#stopFilter</span></code>
+or <code class="docutils literal"><span class="pre">BlockRayBuilder#skipFilter</span></code> method, passing in one or many <code class="docutils literal"><span class="pre">Predicate&lt;BlockRayHit&lt;E&gt;&gt;</span></code>s (where <code class="docutils literal"><span class="pre">E</span></code> extends <code class="docutils literal"><span class="pre">Extent</span></code>). The <code class="docutils literal"><span class="pre">BlockRayBuilder#stopFilter</span></code> stops the ray cast when it hits a block that passes the given filter
+and the <code class="docutils literal"><span class="pre">BlockRayBuilder#skipFilter</span></code> skips all blocks that pass the filter. These filters can be chained together
+to create a complex <code class="docutils literal"><span class="pre">BlockRay</span></code>.
+For convenience,``BlockRay`` contains the following methods for common filter use cases:</p>
 <blockquote>
 <div><ul class="simple">
 <li><code class="docutils literal"><span class="pre">allFilter</span></code>: returns a filter accepting all blocks</li>
 <li><code class="docutils literal"><span class="pre">onlyAirFilter</span></code>: returns a filter accepting only air</li>
 <li><code class="docutils literal"><span class="pre">blockTypeFilter(BlockType)</span></code>: returns a filter accepting only the specified <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/BlockType.html">BlockType</a></li>
-<li><code class="docutils literal"><span class="pre">maxDistanceFilter(Vector3d,</span> <span class="pre">double)</span></code>: returns a filter that stops at certain distance from the given <code class="docutils literal"><span class="pre">Vector3d</span></code></li>
 <li><code class="docutils literal"><span class="pre">continueAfterFilter(Predicate&lt;BlockRayHit&lt;E&gt;&gt;,</span> <span class="pre">int)</span></code>: returns a filter that continues past the given filter by
 the specified number of blocks.</li>
 </ul>
@@ -204,7 +205,14 @@ the specified number of blocks.</li>
 
 <span class="n">Player</span> <span class="n">player</span><span class="o">;</span>
 <span class="n">BlockRay</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockRay</span> <span class="o">=</span> <span class="n">BlockRay</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">player</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">BlockRay</span><span class="o">.</span><span class="na">continueAfterFilter</span><span class="o">(</span><span class="n">BlockRay</span><span class="o">.</span><span class="na">onlyAirFilter</span><span class="o">(),</span> <span class="mi">1</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">.</span><span class="na">stopFilter</span><span class="o">(</span><span class="n">BlockRay</span><span class="o">.</span><span class="na">continueAfterFilter</span><span class="o">(</span><span class="n">BlockRay</span><span class="o">.</span><span class="na">onlyAirFilter</span><span class="o">(),</span> <span class="mi">1</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
+</pre></div>
+</div>
+<p>We can rewrite the above to use <code class="docutils literal"><span class="pre">BlockRay#skipFilter(Predicate&lt;BlockRayHit&gt;)</span></code> in addition to
+<code class="docutils literal"><span class="pre">BlockRay#stopFilter(Predicate&lt;BlockRayHit&gt;)</span></code>. This will skip all air blocks and stop at the first non-air block it
+hits.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">BlockRay</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockRay</span> <span class="o">=</span> <span class="n">BlockRay</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">player</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">skipFilter</span><span class="o">(</span><span class="n">BlockRay</span><span class="o">.</span><span class="na">onlyAirFilter</span><span class="o">()).</span><span class="na">stopFilter</span><span class="o">(</span><span class="n">blockRay</span><span class="o">.</span><span class="na">allFilter</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
 </div>
