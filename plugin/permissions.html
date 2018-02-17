@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Permissions &mdash; Sponge 6.0.0 documentation</title>
+  <title>Permissions &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
 
@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Bans" href="bans.html"/>        <link rel="prev" title="Databases" href="database.html"/>
+              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Bans" href="bans.html"/>        <link rel="prev" title="Databases" href="database.html"/>
     <!-- Google Analytics -->
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-59476017-2', 'auto');
@@ -85,7 +85,7 @@
 <li class="toctree-l2"><a class="reference internal" href="plugin-class.html">Main Plugin Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lifecycle.html">Plugin Lifecycle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="injection.html">Dependency Injection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="practices.html">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practices/index.html">Practices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="optional/index.html">Optionals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging and Debugging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="commands/index.html">Commands</a></li>
@@ -108,7 +108,6 @@
 <li class="toctree-l2"><a class="reference internal" href="economy/index.html">Economy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wgen/index.html">World Generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="manager.html">Plugin Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modularization.html">Code Modularization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="game-profile-manager.html">Game Profile Manager</a></li>
 <li class="toctree-l2"><a class="reference internal" href="offline-userplayer-data.html">Offline Player Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging</a></li>
@@ -161,6 +160,9 @@
            <div itemprop="articleBody">
   <div class="section" id="permissions">
 <h1>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h1>
+<p>If you are interested in the permissions that are used in vanilla commands have a look at
+<a class="reference internal" href="../server/spongineer/commands.html"><span class="doc">this page</span></a>. For customizing the permission levels refer to the
+<a class="reference internal" href="../server/management/permissions.html"><span class="doc">server permissions</span></a> page or your permission plugin’s documentation.</p>
 <div class="section" id="permission">
 <h2>Permission<a class="headerlink" href="#permission" title="Permalink to this headline">¶</a></h2>
 <p>A permission is a case-insensitive hierarchical string key that is used to determine whether a Subject can do a specific
@@ -172,12 +174,12 @@ Permissions should be structured like this.</p>
 </div>
 <p>Allowed characters are:</p>
 <ul class="simple">
-<li>&#8220;A&#8221; - &#8220;Z&#8221;</li>
-<li>&#8220;a&#8221; - &#8220;z&#8221;</li>
-<li>&#8220;0&#8221; - &#8220;9&#8221;</li>
-<li>&#8220;_&#8221;</li>
-<li>&#8220;-&#8220;</li>
-<li>&#8221;.&#8221;</li>
+<li>“A” - “Z”</li>
+<li>“a” - “z”</li>
+<li>“0” - “9”</li>
+<li>“_”</li>
+<li>“-“</li>
+<li>“.”</li>
 </ul>
 <div class="section" id="inheritance">
 <h3>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h3>
@@ -197,7 +199,7 @@ all.</p>
 <li><dl class="first docutils">
 <dt><code class="docutils literal"><span class="pre">myplugin</span></code></dt>
 <dd><ul class="first last">
-<li>Grants <strong>full</strong> access to all plugin&#8217;s permissions.</li>
+<li>Grants <strong>full</strong> access to all plugin’s permissions.</li>
 </ul>
 </dd>
 </dl>
@@ -205,7 +207,7 @@ all.</p>
 <li><dl class="first docutils">
 <dt><code class="docutils literal"><span class="pre">myplugin.commands</span></code></dt>
 <dd><ul class="first last">
-<li>Grants <strong>full</strong> access to all plugin&#8217;s commands.</li>
+<li>Grants <strong>full</strong> access to all plugin’s commands.</li>
 </ul>
 </dd>
 </dl>
@@ -249,8 +251,8 @@ command even if he has other <cite>teleport</cite> permissions.
 </div>
 <div class="section" id="permissiondescription">
 <h2>PermissionDescription<a class="headerlink" href="#permissiondescription" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/permission/PermissionDescription.html">PermissionDescription</a> is an utility that is meant to provide the server owner with details on a certain
-permission. <code class="docutils literal"><span class="pre">PermissionDescription</span></code>s are an optional feature a <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/permission/PermissionService.html">PermissionService</a> can provide. The creation
+<p>The <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/PermissionDescription.html">PermissionDescription</a> is an utility that is meant to provide the server owner with details on a certain
+permission. <code class="docutils literal"><span class="pre">PermissionDescription</span></code>s are an optional feature a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/PermissionService.html">PermissionService</a> can provide. The creation
 of a PermissionDescription does <strong>not</strong> have any impact on whether a permission exists, who has access or what its
 default value is.</p>
 <p>The description consists of:</p>
@@ -309,15 +311,15 @@ alone.</p>
 </div>
 <div class="section" id="subject">
 <h2>Subject<a class="headerlink" href="#subject" title="Permalink to this headline">¶</a></h2>
-<p>A <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/permission/Subject.html">Subject</a> is a holder of assigned permissions. It can be obtained from the <code class="docutils literal"><span class="pre">PermissionService</span></code> via
-<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/permission/SubjectCollection.html">SubjectCollection</a>s.
-<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/command/CommandSource.html">CommandSource</a>s such as <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/entity/living/player/Player.html">Player</a>s are <code class="docutils literal"><span class="pre">Subject</span></code>s by default, but there are many other types of
+<p>A <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/Subject.html">Subject</a> is a holder of assigned permissions. It can be obtained from the <code class="docutils literal"><span class="pre">PermissionService</span></code> via
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/SubjectCollection.html">SubjectCollection</a>s.
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/CommandSource.html">CommandSource</a>s such as <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/living/player/Player.html">Player</a>s are <code class="docutils literal"><span class="pre">Subject</span></code>s by default, but there are many other types of
 <code class="docutils literal"><span class="pre">Subject</span></code>s. Anything that has permissions is a Subject even if it just delegates the checks to a contained Subject.
 Permissions can be granted or denied to a Subject. If a permission is neither granted nor denied its setting will be
 inherited. See Inheritance.
 Subjects provide methods to check whether they have a certain permission or not.
 Plugins that use this method should only query for the specific permission they want to check. It is the
-PermissionService&#8217;s task to respect the permission and subject inheritance.</p>
+PermissionService’s task to respect the permission and subject inheritance.</p>
 <div class="section" id="example">
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <p>The following example could be used to check whether the Player is allowed to execute the teleport command.</p>
@@ -339,22 +341,22 @@ Otherwise it will be inherited from any parent <code class="docutils literal"><s
 player) <code class="docutils literal"><span class="pre">Subject</span></code> that might be.</p>
 <p>If neither the subject itself nor any parent subjects grant or deny a permission then it will be inherited from the
 default <code class="docutils literal"><span class="pre">Subject</span></code>s. Each <code class="docutils literal"><span class="pre">SubjectCollection</span></code> defines its own defaults. The global and weakest default subject can be
-obtained from the <code class="docutils literal"><span class="pre">PermissionService</span></code>. Plugins may define their own permissions to the default&#8217;s transient
-<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/permission/SubjectData.html">SubjectData</a> during every server start-up. This allows server owners to overwrite the defaults defined by
-plugins according to their needs using the default&#8217;s persistent <code class="docutils literal"><span class="pre">SubjectData</span></code>. If you would like to provide a
-configuration guideline for server owners use <code class="docutils literal"><span class="pre">PermissionDescription</span></code>&#8216;s role-templates instead.</p>
+obtained from the <code class="docutils literal"><span class="pre">PermissionService</span></code>. Plugins may define their own permissions to the default’s transient
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/SubjectData.html">SubjectData</a> during every server start-up. This allows server owners to overwrite the defaults defined by
+plugins according to their needs using the default’s persistent <code class="docutils literal"><span class="pre">SubjectData</span></code>. If you would like to provide a
+configuration guideline for server owners use <code class="docutils literal"><span class="pre">PermissionDescription</span></code>’s role-templates instead.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">You should think carefully before granting default permissions to users. By granting the permissions you are
 assuming that all server owners will want these defaults (at least the first time the plugin runs) and that
-exceptions will require server owners to explicitly deny the permissions (which can&#8217;t even be done without a custom
+exceptions will require server owners to explicitly deny the permissions (which can’t even be done without a custom
 permissions service implementation). This should roughly correspond to a guest on a single player lan world without
 cheats. For example a chat plugin would allow sending chat messages by default to imitate vanilla game behaviour
 for features that were changed by the plugin.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The default <code class="docutils literal"><span class="pre">Subject</span></code>s&#8217; persistent <code class="docutils literal"><span class="pre">SubjectData</span></code>s take precedence over the transient ones.
+<p class="last">The default <code class="docutils literal"><span class="pre">Subject</span></code>s’ persistent <code class="docutils literal"><span class="pre">SubjectData</span></code>s take precedence over the transient ones.
 For all other <code class="docutils literal"><span class="pre">Subject</span></code>s the transient <code class="docutils literal"><span class="pre">SubjectData</span></code>s take precedence over the persistent ones.</p>
 </div>
 <p>If neither the Subject, nor any of its parents, nor the defaults assign a value to a permission,
@@ -420,7 +422,7 @@ These are the default Subject Collections:</p>
 <li><dl class="first docutils">
 <dt>Group</dt>
 <dd><ul class="first last">
-<li>Contains all group <code class="docutils literal"><span class="pre">Subject</span></code>. Groups are a simple way of structuring a <code class="docutils literal"><span class="pre">Subject</span></code>&#8216;s inheritance tree using
+<li>Contains all group <code class="docutils literal"><span class="pre">Subject</span></code>. Groups are a simple way of structuring a <code class="docutils literal"><span class="pre">Subject</span></code>’s inheritance tree using
 named <code class="docutils literal"><span class="pre">Subject</span></code>s. Groups should be used if a specific subset of <code class="docutils literal"><span class="pre">Subject</span></code>s have additional permission
 settings such as a team, faction or role.</li>
 </ul>
@@ -481,20 +483,20 @@ and persistent <code class="docutils literal"><span class="pre">SubjectData</spa
 <div class="section" id="subject-options">
 <h2>Subject Options<a class="headerlink" href="#subject-options" title="Permalink to this headline">¶</a></h2>
 <p>Subjects also provide the possibility to store string options. These are basically key value pairs that can be
-assigned and inherited. Unlike the permission strings the keys are not hierarchical and don&#8217;t provide any inheritance
+assigned and inherited. Unlike the permission strings the keys are not hierarchical and don’t provide any inheritance
 mechanisms themselves, but the key value pairs itself are inherited from parent <code class="docutils literal"><span class="pre">Subject</span></code>s in the same way permissions
 are.</p>
 </div>
 <div class="section" id="contexts">
 <h2>Contexts<a class="headerlink" href="#contexts" title="Permalink to this headline">¶</a></h2>
-<p>If you consider each permission to a privilege or ability to be able to do something, a <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/context/Context.html">Context</a> is the
+<p>If you consider each permission to a privilege or ability to be able to do something, a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/context/Context.html">Context</a> is the
 circumstances where that privilege is usable.</p>
 <p>You might want to give a <code class="docutils literal"><span class="pre">Subject</span></code> permission to do something, but only when the <code class="docutils literal"><span class="pre">Subject</span></code> is in a certain world,
 or in a certain region.</p>
 <p>Contexts are accumulated by a <code class="docutils literal"><span class="pre">Subject</span></code>, and are then used by the <code class="docutils literal"><span class="pre">PermissionService</span></code> to decide if the <code class="docutils literal"><span class="pre">Subject</span></code>
 has a privilege or not.</p>
 <p>Sponge provides some contexts by default, but it is generally down to other plugins to provide additional contexts to
-the PermissionService, through a <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/service/context/ContextCalculator.html">ContextCalculator</a>.</p>
+the PermissionService, through a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/context/ContextCalculator.html">ContextCalculator</a>.</p>
 <p>When creating contexts for your own plugin please try to avoid conflicts with other plugins (e.g. by prefixing the
 context key with your plugin id) unless these contexts are meant to be shared.</p>
 <div class="admonition note">
@@ -618,18 +620,20 @@ It is recommended to follow the permission structure as described above. The per
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="bans.html" class="btn btn-neutral float-right" title="Bans" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-        <a href="database.html" class="btn btn-neutral" title="Databases" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="bans.html" class="btn btn-neutral float-right" title="Bans" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="database.html" class="btn btn-neutral" title="Databases" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
-  <hr/>
+    <hr/>
 
-  <div role="contentinfo">
-    <p>&copy; Copyright 2014-2017, Sponge Contributors.
-    </p>
-  </div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-</footer>
-        </div>
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
       </div>
 
     </section>
@@ -640,7 +644,7 @@ It is recommended to follow the permission structure as described above. The per
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 6.0.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -659,7 +663,7 @@ It is recommended to follow the permission structure as described above. The per
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'6.0.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

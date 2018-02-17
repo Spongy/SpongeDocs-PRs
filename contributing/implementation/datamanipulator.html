@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Implementing DataManipulators &mdash; Sponge 6.0.0 documentation</title>
+  <title>Implementing DataManipulators &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Developing Sponge" href="index.html"/>        <link rel="next" title="SpongeDocs Writing" href="../spongedocs.html"/>        <link rel="prev" title="Mixins" href="mixins.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Developing Sponge" href="index.html"/>        <link rel="next" title="SpongeDocs Writing" href="../spongedocs.html"/>        <link rel="prev" title="Mixins" href="mixins.html"/>
     <!-- Google Analytics -->
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-59476017-2', 'auto');
@@ -159,7 +159,7 @@ An updated list of DataManipulators to be implemented can be found at
 </div>
 <div class="section" id="implement-the-datamanipulator">
 <h2>1. Implement the DataManipulator<a class="headerlink" href="#implement-the-datamanipulator" title="Permalink to this headline">¶</a></h2>
-<p>The naming convention for <code class="docutils literal"><span class="pre">DataManipulator</span></code> implementations is the name of the interface prefixed with &#8220;Sponge&#8221;.
+<p>The naming convention for <code class="docutils literal"><span class="pre">DataManipulator</span></code> implementations is the name of the interface prefixed with “Sponge”.
 So to implement the <code class="docutils literal"><span class="pre">HealthData</span></code> interface, we create a class named <code class="docutils literal"><span class="pre">SpongeHealthData</span></code> in the appropriate package.
 For implementing the <code class="docutils literal"><span class="pre">DataManipulator</span></code> first have it extend an appropriate abstract class from the
 <code class="docutils literal"><span class="pre">org.spongepowered.common.data.manipulator.mutable.common</span></code> package. The most generic there is <code class="docutils literal"><span class="pre">AbstractData</span></code>
@@ -176,7 +176,7 @@ second is the interface implemented by the corresponding <code class="docutils l
 <h3>The Constructor<a class="headerlink" href="#the-constructor" title="Permalink to this headline">¶</a></h3>
 <p>In most cases while implementing an abstract <code class="docutils literal"><span class="pre">DataManipulator</span></code> you need to have two constructors:</p>
 <ul class="simple">
-<li>One without arguments (no-args) which calls the second constructor with &#8220;default&#8221; values</li>
+<li>One without arguments (no-args) which calls the second constructor with “default” values</li>
 <li>The second constructor that takes all the values it supports.</li>
 </ul>
 <p>The second constructor must</p>
@@ -208,7 +208,7 @@ second is the interface implemented by the corresponding <code class="docutils l
 </pre></div>
 </div>
 <p>Since we know that both current health and maximum health are bounded values, we need to make sure no values
-outside of these bounds can be passed. To achieve this we use guava&#8217;s <code class="docutils literal"><span class="pre">Preconditions</span></code> of which we import the
+outside of these bounds can be passed. To achieve this we use guava’s <code class="docutils literal"><span class="pre">Preconditions</span></code> of which we import the
 required methods statically.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -300,7 +300,7 @@ This applies especially for <code class="docutils literal"><span class="pre">Dat
 the validity check to a call of <code class="docutils literal"><span class="pre">this.health().set()</span></code> and just set <code class="docutils literal"><span class="pre">this.currentHealth</span> <span class="pre">=</span> <span class="pre">value</span></code> if the first
 line has no thrown an exception yet.</p>
 </div>
-<p>That&#8217;s it. The <code class="docutils literal"><span class="pre">DataManipulator</span></code> should be done now.</p>
+<p>That’s it. The <code class="docutils literal"><span class="pre">DataManipulator</span></code> should be done now.</p>
 </div>
 </div>
 <div class="section" id="implement-the-immutabledatamanipulator">
@@ -334,7 +334,7 @@ There add a line to register (and create) your used keys.</p>
 <p>The <code class="docutils literal"><span class="pre">keyMap</span></code> maps strings to <code class="docutils literal"><span class="pre">Key</span></code>s. The string used should be the corresponding constant name from
 the <code class="docutils literal"><span class="pre">Keys</span></code> utility class in lowercase. The <code class="docutils literal"><span class="pre">Key</span></code> itself is created by one of the static methods
 provided by <code class="docutils literal"><span class="pre">KeyFactory</span></code>, in most cases <code class="docutils literal"><span class="pre">makeSingleKey</span></code>. <code class="docutils literal"><span class="pre">makeSingleKey</span></code> requires first a class reference
-for the underlying data, which in our case is a &#8220;Double&#8221;, then a class reference for the <code class="docutils literal"><span class="pre">Value</span></code> type used.
+for the underlying data, which in our case is a “Double”, then a class reference for the <code class="docutils literal"><span class="pre">Value</span></code> type used.
 The third argument is the <code class="docutils literal"><span class="pre">DataQuery</span></code> used for serialization. It is created from the statically imported
 <code class="docutils literal"><span class="pre">DataQuery.of()</span></code> method accepting a string. This string should also be the constant name, stripped of
 underscores and capitalization changed to upper camel case.</p>
@@ -342,7 +342,7 @@ underscores and capitalization changed to upper camel case.</p>
 <div class="section" id="implement-the-dataprocessors">
 <h2>4. Implement the DataProcessors<a class="headerlink" href="#implement-the-dataprocessors" title="Permalink to this headline">¶</a></h2>
 <p>Next up is the <code class="docutils literal"><span class="pre">DataProcessor</span></code>. A <code class="docutils literal"><span class="pre">DataProcessor</span></code> serves as a bridge between our <code class="docutils literal"><span class="pre">DataManipulator</span></code> and
-Minecraft&#8217;s objects. Whenever any data is requested from or offered to <code class="docutils literal"><span class="pre">DataHolders</span></code> that exist in Vanilla
+Minecraft’s objects. Whenever any data is requested from or offered to <code class="docutils literal"><span class="pre">DataHolders</span></code> that exist in Vanilla
 Minecraft, those calls end up being delegated to a <code class="docutils literal"><span class="pre">DataProcessor</span></code> or a <code class="docutils literal"><span class="pre">ValueProcessor</span></code>.</p>
 <p>For your name, you should use the name of the <code class="docutils literal"><span class="pre">DataManipulator</span></code> interface and append <code class="docutils literal"><span class="pre">Processor</span></code>. Thus for <code class="docutils literal"><span class="pre">HealthData</span></code> we create a <code class="docutils literal"><span class="pre">HealthDataProcessor</span></code>.</p>
 <p>In order to reduce boilerplate code, the <code class="docutils literal"><span class="pre">DataProcessor</span></code> should inherit from the appropriate abstract class in
@@ -405,13 +405,13 @@ whether the operation was successful or not.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">To understand <code class="docutils literal"><span class="pre">DataTransactionResult</span></code> s, check the <a class="reference internal" href="../../plugin/data/transactions.html"><span class="doc">corresponding docs page</span></a> and refer to the
-<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/data/DataTransactionResult.Builder.html">DataTransactionResult.Builder</a> docs to create one.</p>
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/DataTransactionResult.Builder.html">DataTransactionResult.Builder</a> docs to create one.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">Especially when working with <code class="docutils literal"><span class="pre">ItemStack</span></code>s it is likely that you will need to deal with <code class="docutils literal"><span class="pre">NBTTagCompound</span></code>s
 directly. Many NBT keys are already defined as constants in the <code class="docutils literal"><span class="pre">org.spongepowered.common.data.util.NbtDataUtil</span></code>
-class. If your required key is not there, you need to add it in order to avoid &#8216;magic values&#8217; in the code.</p>
+class. If your required key is not there, you need to add it in order to avoid ‘magic values’ in the code.</p>
 </div>
 </div>
 <div class="section" id="removal-method">
@@ -478,7 +478,7 @@ be obtained from the <code class="docutils literal"><span class="pre">DataContai
 <div class="section" id="other-methods">
 <h3>Other Methods<a class="headerlink" href="#other-methods" title="Permalink to this headline">¶</a></h3>
 <p>Depending on the abstract superclass used, some other methods may be required. For instance,
-<code class="docutils literal"><span class="pre">AbstractEntityDataProcessor</span></code> needs to create <code class="docutils literal"><span class="pre">DataManipulator</span></code> instances in various points. It can&#8217;t do this
+<code class="docutils literal"><span class="pre">AbstractEntityDataProcessor</span></code> needs to create <code class="docutils literal"><span class="pre">DataManipulator</span></code> instances in various points. It can’t do this
 since it knows neither the implementation class nor the constructor to use. Therefore it utilizes an abstract
 function that has to be provided by the final implementation. This does nothing more than create a
 <code class="docutils literal"><span class="pre">DataManipulator</span></code> with default data.</p>
@@ -498,7 +498,7 @@ Therefore, you need to provide at least one <code class="docutils literal"><span
 in a fashion similar to its <code class="docutils literal"><span class="pre">DataQuery</span></code>. The constant name is stripped of underscores, used in upper camel case
 and then suffixed with <code class="docutils literal"><span class="pre">ValueProcessor</span></code>.</p>
 <p>A <code class="docutils literal"><span class="pre">ValueProcessor</span></code> should always inherit from <code class="docutils literal"><span class="pre">AbstractSpongeValueProcessor</span></code>, which already will handle a
-portion of the <code class="docutils literal"><span class="pre">supports()</span></code> checks based on the type of the <code class="docutils literal"><span class="pre">DataHolder</span></code>. For <code class="docutils literal"><span class="pre">Keys.HEALTH</span></code>, we&#8217;ll create
+portion of the <code class="docutils literal"><span class="pre">supports()</span></code> checks based on the type of the <code class="docutils literal"><span class="pre">DataHolder</span></code>. For <code class="docutils literal"><span class="pre">Keys.HEALTH</span></code>, we’ll create
 and construct <code class="docutils literal"><span class="pre">HealthValueProcessor</span></code> as follows.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HealthValueProcessor</span> <span class="kd">extends</span> <span class="n">AbstractSpongeValueProcessor</span><span class="o">&lt;</span><span class="n">EntityLivingBase</span><span class="o">,</span> <span class="n">Double</span><span class="o">,</span>
     <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="o">{</span>
@@ -657,18 +657,20 @@ contribution requirements.</p>
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../spongedocs.html" class="btn btn-neutral float-right" title="SpongeDocs Writing" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-        <a href="mixins.html" class="btn btn-neutral" title="Mixins" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../spongedocs.html" class="btn btn-neutral float-right" title="SpongeDocs Writing" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="mixins.html" class="btn btn-neutral" title="Mixins" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
-  <hr/>
+    <hr/>
 
-  <div role="contentinfo">
-    <p>&copy; Copyright 2014-2017, Sponge Contributors.
-    </p>
-  </div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-</footer>
-        </div>
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
       </div>
 
     </section>
@@ -679,7 +681,7 @@ contribution requirements.</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 6.0.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -698,7 +700,7 @@ contribution requirements.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'6.0.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

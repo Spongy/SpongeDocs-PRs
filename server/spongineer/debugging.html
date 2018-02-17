@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Debugging &mdash; Sponge 6.0.0 documentation</title>
+  <title>Debugging &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Becoming an Expert Spongineer" href="index.html"/>        <link rel="next" title="Reporting Bugs" href="bugreport.html"/>        <link rel="prev" title="Log Files" href="logs.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Becoming an Expert Spongineer" href="index.html"/>        <link rel="next" title="Reporting Bugs" href="bugreport.html"/>        <link rel="prev" title="Log Files" href="logs.html"/>
     <!-- Google Analytics -->
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-59476017-2', 'auto');
@@ -137,8 +137,8 @@
 some basic logging examples and will try to explain what you can do to fix your issues, when encountering them.</p>
 <div class="section" id="checklist">
 <h2>Checklist<a class="headerlink" href="#checklist" title="Permalink to this headline">¶</a></h2>
-<p>Whenever you encounter a crash or warning make sure you set SpongeForge or SpongeVanilla up correctly. Here&#8217;s a short
-checklist to help you out. If you&#8217;re unsure on how to aquire the information needed, have a look at the <a class="reference internal" href="logs.html"><span class="doc">Log Files</span></a> page.
+<p>Whenever you encounter a crash or warning make sure you set SpongeForge or SpongeVanilla up correctly. Here’s a short
+checklist to help you out. If you’re unsure on how to aquire the information needed, have a look at the <a class="reference internal" href="logs.html"><span class="doc">Log Files</span></a> page.
 It explains how you get the desired answers out of your logfiles.</p>
 <ol class="arabic simple">
 <li>Is Java 8 installed and is Sponge using it?</li>
@@ -150,7 +150,7 @@ It explains how you get the desired answers out of your logfiles.</p>
 <p>Usually SpongeForge will run on older or newer Forge builds than the recommended build.
 However it is strongly advised to run the recommended build only.
 If you encounter a crash and your versions are mismatching, match them first and try again.
-If you&#8217;re unsure which Forge build you need, take a look at <a class="reference internal" href="../getting-started/implementations/spongeforge.html"><span class="doc">Installing SpongeForge</span></a></p>
+If you’re unsure which Forge build you need, take a look at <a class="reference internal" href="../getting-started/implementations/spongeforge.html"><span class="doc">Installing SpongeForge</span></a></p>
 <ol class="arabic simple" start="3">
 <li>Are there any other coremods (besides SpongeForge) installed?</li>
 </ol>
@@ -159,30 +159,30 @@ and Sponge crashes, try to remove them and test again. Please report any incompa
 <a class="reference external" href="https://github.com/SpongePowered">GitHub</a> or the <a class="reference external" href="https://forums.spongepowered.org">Sponge Forums</a>. This allows
 staff to solve these issues as soon as possible.</p>
 <ol class="arabic simple" start="4">
-<li>Is every plugin you&#8217;re using built against your desired Sponge build?</li>
+<li>Is every plugin you’re using built against your desired Sponge build?</li>
 </ol>
 <p>The Sponge API is subject to change sometimes. When you try to use an older plugin on the most recent Sponge build and
-a crash occurs, try downgrading Sponge or contact the plugin author to get an updated plugin. If you&#8217;re on an older
-Sponge build and a recent plugin crashes, try to update Sponge first. If that doesn&#8217;t fix the issue, contact the
+a crash occurs, try downgrading Sponge or contact the plugin author to get an updated plugin. If you’re on an older
+Sponge build and a recent plugin crashes, try to update Sponge first. If that doesn’t fix the issue, contact the
 plugin author and ask for a fix.</p>
 <ol class="arabic simple" start="5">
 <li>Separating a faulty plugin</li>
 </ol>
 <p>If the problem still persists, try to remove all plugins and re-add them one by one while trying to start the server
 every time you added a plugin.</p>
-<p>If you&#8217;re still unsure why and what exactly crashed, have a look at your crashlog. Some common crashes and common
+<p>If you’re still unsure why and what exactly crashed, have a look at your crashlog. Some common crashes and common
 solutions are listed below.</p>
 </div>
 <div class="section" id="general-warnings">
 <h2>General Warnings<a class="headerlink" href="#general-warnings" title="Permalink to this headline">¶</a></h2>
 <p>A common source of errors and bugs is a version mismatch between either SpongeForge and Forge or
-SpongeForge and Plugins. First we&#8217;ll have a look at the general warning Forge gives us upon crashing:</p>
+SpongeForge and Plugins. First we’ll have a look at the general warning Forge gives us upon crashing:</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>WARNING: coremods are present:
    SpongeForge (sponge-1.8-1521-2.1DEV-750.jar)
 Contact their authors BEFORE contacting forge
 </pre></div>
 </div>
-<p>This isn&#8217;t a bug or error, it&#8217;s just Forge telling you that a Coremod (here: SpongeForge) is installed. Forge advises
+<p>This isn’t a bug or error, it’s just Forge telling you that a Coremod (here: SpongeForge) is installed. Forge advises
 you to contact the Sponge developers first, before asking the Forge support for help. Nothing to worry about.</p>
 </div>
 <div class="section" id="common-exceptions">
@@ -200,7 +200,7 @@ This will help others, who are running into the same issue.</p>
 </pre></div>
 </div>
 <p>This is a common crash when you try to run SpongeForge on the wrong Forge build. Note that the target/Mixin can vary.
-Always match Forge against SpongeForge! If you&#8217;re unsure which version of Forge is required and you already got your
+Always match Forge against SpongeForge! If you’re unsure which version of Forge is required and you already got your
 SpongeForge build, take a look at: <a class="reference internal" href="../getting-started/implementations/spongeforge.html"><span class="doc">Installing SpongeForge</span></a></p>
 </div>
 <div class="section" id="other-common-errors">
@@ -210,13 +210,13 @@ Caused by: java.lang.NullPointerException
 </pre></div>
 </div>
 <p>The first error indicates that a <code class="docutils literal"><span class="pre">Class</span></code> is missing, the second is a NullPointer Exception which indicated that the
-plugin you&#8217;re trying to use relies on missing parameters. This happens when you try to run and older plugin on a newer
+plugin you’re trying to use relies on missing parameters. This happens when you try to run and older plugin on a newer
 SpongeForge or SpongeVanilla build and vice versa.</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>java.lang.AbstractMethodError: net.minecraft.entity.player.EntityPlayerMP.getTabList()Lorg/spongepowered/api/entity/living/player/tab/TabList;
 at (...)
 </pre></div>
 </div>
-<p>An <code class="docutils literal"><span class="pre">AbstractMethodError</span></code> occurs when a plugin tries to call a method which isn&#8217;t implemented yet. Please check if you&#8217;re
+<p>An <code class="docutils literal"><span class="pre">AbstractMethodError</span></code> occurs when a plugin tries to call a method which isn’t implemented yet. Please check if you’re
 running the most current build of Sponge and update if a newer version is available. If the problem still exists, either
 report it on the official Issuetracker, on the forums or on IRC. You can request the implementation of the missing
 feature too.</p>
@@ -230,8 +230,8 @@ java.lang.NoClassDefFoundError: org/spongepowered/api/event/game/state/GameStart
 <p class="last">Read the full example crashlog here:
 <a class="reference download internal" href="../../_downloads/crashlog-sponge575-plugin750.txt" download=""><code class="xref download docutils literal"><span class="pre">SpongeForge</span> <span class="pre">575</span> <span class="pre">crashlog</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">plugin</span> <span class="pre">built</span> <span class="pre">against</span> <span class="pre">build</span> <span class="pre">750</span></code></a></p>
 </div>
-<p>A <code class="docutils literal"><span class="pre">NoClassDefFoundError</span></code> occurs when the plugin tries to access a class that isn&#8217;t on the classpath. This happens
-when the API got adjusted or refactored lately and you&#8217;re trying to run an older plugin on a newer build of Sponge
+<p>A <code class="docutils literal"><span class="pre">NoClassDefFoundError</span></code> occurs when the plugin tries to access a class that isn’t on the classpath. This happens
+when the API got adjusted or refactored lately and you’re trying to run an older plugin on a newer build of Sponge
 and vice versa. Always try to use the correct version! Either ask the Plugin author which Sponge version he build
 against or try updating/downgrading your SpongeForge or SpongeVanilla to solve this.</p>
 </div>
@@ -242,18 +242,20 @@ against or try updating/downgrading your SpongeForge or SpongeVanilla to solve t
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="bugreport.html" class="btn btn-neutral float-right" title="Reporting Bugs" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-        <a href="logs.html" class="btn btn-neutral" title="Log Files" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="bugreport.html" class="btn btn-neutral float-right" title="Reporting Bugs" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="logs.html" class="btn btn-neutral" title="Log Files" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
-  <hr/>
+    <hr/>
 
-  <div role="contentinfo">
-    <p>&copy; Copyright 2014-2017, Sponge Contributors.
-    </p>
-  </div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-</footer>
-        </div>
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
       </div>
 
     </section>
@@ -264,7 +266,7 @@ against or try updating/downgrading your SpongeForge or SpongeVanilla to solve t
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 6.0.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -283,7 +285,7 @@ against or try updating/downgrading your SpongeForge or SpongeVanilla to solve t
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'6.0.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Event Listeners &mdash; Sponge 6.0.0 documentation</title>
+  <title>Event Listeners &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 6.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Events" href="index.html"/>        <link rel="next" title="Event Causes" href="causes.html"/>        <link rel="prev" title="Events" href="index.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Events" href="index.html"/>        <link rel="next" title="Event Causes" href="causes.html"/>        <link rel="prev" title="Events" href="index.html"/>
     <!-- Google Analytics -->
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-59476017-2', 'auto');
@@ -85,7 +85,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../plugin-class.html">Main Plugin Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../practices.html">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../practices/index.html">Practices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Commands</a></li>
@@ -114,7 +114,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../manager.html">Plugin Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../modularization.html">Code Modularization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a></li>
@@ -169,7 +168,7 @@
   <div class="section" id="event-listeners">
 <h1>Event Listeners<a class="headerlink" href="#event-listeners" title="Permalink to this headline">¶</a></h1>
 <p>In order to listen for an event, an event listener must be registered. This is done by making a method with any name,
-defining the first parameter to be the desired event type, and then affixing the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/Listener.html">Listener</a> annotation to the
+defining the first parameter to be the desired event type, and then affixing the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/Listener.html">Listener</a> annotation to the
 method, as illustrated below.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
 
@@ -182,20 +181,20 @@ method, as illustrated below.</p>
 <p>In addition, the class containing these methods must be registered with the event manager:</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">For event listeners on your main plugin class (annotated by <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/plugin/Plugin.html">Plugin</a>), you do not need to register the
+<p class="last">For event listeners on your main plugin class (annotated by <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/plugin/Plugin.html">Plugin</a>), you do not need to register the
 object for events as Sponge will do it automatically.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The event bus <strong>supports supertypes</strong>. For example, <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/block/ChangeBlockEvent.Break.html">ChangeBlockEvent.Break</a> extends
-<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/block/ChangeBlockEvent.html">ChangeBlockEvent</a>. Therefore, a plugin could listen to <code class="docutils literal"><span class="pre">ChangeBlockEvent</span></code> and still receive
+<p class="last">The event bus <strong>supports supertypes</strong>. For example, <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/block/ChangeBlockEvent.Break.html">ChangeBlockEvent.Break</a> extends
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/block/ChangeBlockEvent.html">ChangeBlockEvent</a>. Therefore, a plugin could listen to <code class="docutils literal"><span class="pre">ChangeBlockEvent</span></code> and still receive
 <code class="docutils literal"><span class="pre">ChangeBlockEvent.Break</span></code>s. However, a plugin listening to just <code class="docutils literal"><span class="pre">ChangeBlockEvent.Break</span></code> would not be notified
 of other types of <code class="docutils literal"><span class="pre">ChangeBlockEvent</span></code>.</p>
 </div>
 <div class="section" id="registering-and-unregistering-event-listeners">
 <h2>Registering and Unregistering Event Listeners<a class="headerlink" href="#registering-and-unregistering-event-listeners" title="Permalink to this headline">¶</a></h2>
 <p>To register event listeners annotated by <code class="docutils literal"><span class="pre">&#64;Listener</span></code> that are not in the main plugin class, you can use
-<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/EventManager.html#registerListeners-java.lang.Object-java.lang.Object-">EventManager#registerListeners(Object, Object)</a>, which accepts a reference to the plugin and an instance of
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/EventManager.html#registerListeners-java.lang.Object-java.lang.Object-">EventManager#registerListeners(Object, Object)</a>, which accepts a reference to the plugin and an instance of
 the class containing the event listeners.</p>
 <p><strong>Example: Registering Event Listeners in Other Classes</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
@@ -217,7 +216,7 @@ the class containing the event listeners.</p>
 listener is not a method annotated with <code class="docutils literal"><span class="pre">&#64;Listener</span></code>, but rather a class implementing the <code class="docutils literal"><span class="pre">EventListener</span></code> interface.
 This event listener can then be registered by calling <code class="docutils literal"><span class="pre">EventManager#registerListener</span></code>, which accepts a reference to the
 plugin as the first argument, the <code class="docutils literal"><span class="pre">Class</span></code> of events handled as the second argument, and the listener itself as the
-final argument. Optionally, you can specify an <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/Order.html">Order</a> to run the event listener in as the third argument or a
+final argument. Optionally, you can specify an <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/Order.html">Order</a> to run the event listener in as the third argument or a
 boolean value as the fourth argument (before the instance of the listener) which determines whether to call the listener
 before other server modifications.</p>
 <p><strong>Example: Implementing EventListener</strong></p>
@@ -247,14 +246,14 @@ to the third argument the <code class="docutils literal"><span class="pre">Event
 </div>
 <div class="section" id="unregistering-event-listeners">
 <h3>Unregistering Event Listeners<a class="headerlink" href="#unregistering-event-listeners" title="Permalink to this headline">¶</a></h3>
-<p>To unregister a single event listener, you can use the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/EventManager.html#unregisterListeners-java.lang.Object-">EventManager#unregisterListeners(Object)</a> method,
+<p>To unregister a single event listener, you can use the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/EventManager.html#unregisterListeners-java.lang.Object-">EventManager#unregisterListeners(Object)</a> method,
 which accepts an instance of the class containing the event listeners.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">EventListener</span> <span class="n">listener</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">Sponge</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">unregisterListeners</span><span class="o">(</span><span class="n">listener</span><span class="o">);</span>
 </pre></div>
 </div>
-<p>Alternatively, you can use <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/EventManager.html#unregisterPluginListeners-java.lang.Object-">EventManager#unregisterPluginListeners(Object)</a>, passing in a reference to the
-plugin, to unregister all event listeners associated with that plugin. Note that this will remove <em>all</em> of the plugin&#8217;s
+<p>Alternatively, you can use <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/EventManager.html#unregisterPluginListeners-java.lang.Object-">EventManager#unregisterPluginListeners(Object)</a>, passing in a reference to the
+plugin, to unregister all event listeners associated with that plugin. Note that this will remove <em>all</em> of the plugin’s
 event listeners, including those registered with <code class="docutils literal"><span class="pre">&#64;Listener</span></code> annotations.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">MyPlugin</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">Sponge</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">unregisterPluginListeners</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
@@ -265,7 +264,7 @@ event listeners, including those registered with <code class="docutils literal">
 <span id="id1"></span><h3>About &#64;Listener<a class="headerlink" href="#about-listener" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">&#64;Listener</span></code> annotation has a few configurable fields:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">order</span></code> is the priority in which the event listener is to be run. See the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/Order.html">Order</a> enum in the SpongeAPI to
+<li><code class="docutils literal"><span class="pre">order</span></code> is the priority in which the event listener is to be run. See the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/Order.html">Order</a> enum in the SpongeAPI to
 see the available options.</li>
 <li><code class="docutils literal"><span class="pre">beforeModifications</span></code> specifies if the event listener should be called before other server mods, such as Forge
 mods. By default, this is set to false.</li>
@@ -276,8 +275,8 @@ cancellable and has been cancelled (such as by another plugin).</p>
 <div class="section" id="gamereloadevent">
 <span id="game-reload"></span><h3>GameReloadEvent<a class="headerlink" href="#gamereloadevent" title="Permalink to this headline">¶</a></h3>
 <p>To prevent all plugins providing their own reload commands, Sponge provides a built in callback for plugins to listen
-to, and when executed, perform any reloading actions. What constitutes as a &#8216;reloading action&#8217; is purely up to the
-plugin to decide. The <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/game/GameReloadEvent.html">GameReloadEvent</a> will fire when a player executes the
+to, and when executed, perform any reloading actions. What constitutes as a ‘reloading action’ is purely up to the
+plugin to decide. The <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/game/GameReloadEvent.html">GameReloadEvent</a> will fire when a player executes the
 <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">plugins</span> <span class="pre">reload</span></code> command. The event is not necessarily limited to reloading configuration.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.GameReloadEvent</span><span class="o">;</span>
 
@@ -287,22 +286,23 @@ plugin to decide. The <a class="reference external" href="https://jd.spongepower
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Note that this is different for what generally is considered a &#8216;reload&#8217;, as the event is purely all callback for
+<p>Note that this is different for what generally is considered a ‘reload’, as the event is purely all callback for
 plugins and does not do any reloading on its own.</p>
 </div>
 </div>
 <div class="section" id="firing-events">
 <h2>Firing Events<a class="headerlink" href="#firing-events" title="Permalink to this headline">¶</a></h2>
-<p>To dispatch an event, you need an object that implements the <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/Event.html">Event</a> interface.</p>
-<p>You can fire events using the event bus (<a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/EventManager.html">EventManager</a>):</p>
+<p>To dispatch an event, you need an object that implements the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/Event.html">Event</a> interface.</p>
+<p>You can fire events using the event bus (<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/EventManager.html">EventManager</a>):</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kt">boolean</span> <span class="n">cancelled</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">post</span><span class="o">(</span><span class="n">theEventObject</span><span class="o">);</span>
 </pre></div>
 </div>
 <p>The method returns <code class="docutils literal"><span class="pre">true</span></code> if the event was cancelled, <code class="docutils literal"><span class="pre">false</span></code> if not.</p>
 <div class="section" id="firing-sponge-events">
 <h3>Firing Sponge Events<a class="headerlink" href="#firing-sponge-events" title="Permalink to this headline">¶</a></h3>
-<p>It is possible to generate instances of built-in events with the static <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/SpongeEventFactory.html">SpongeEventFactory</a>. The events
-created by the <code class="docutils literal"><span class="pre">SpongeEventFactory</span></code> are then passed to <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/EventManager.html#post-org.spongepowered.api.event.Event-">EventManager#post(Event)</a>.</p>
+<p>It is possible to generate instances of built-in events with the static <code class="docutils literal"><span class="pre">SpongeEventFactory</span></code>. This class is
+automatically generated so there are no Javadocs. Use your IDE’s autocompletion to list the existing methods. The events
+created by the <code class="docutils literal"><span class="pre">SpongeEventFactory</span></code> are then passed to <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/EventManager.html#post-org.spongepowered.api.event.Event-">EventManager#post(Event)</a>.</p>
 </div>
 <div class="section" id="example-firing-lightningevent">
 <h3>Example: Firing LightningEvent<a class="headerlink" href="#example-firing-lightningevent" title="Permalink to this headline">¶</a></h3>
@@ -316,7 +316,7 @@ created by the <code class="docutils literal"><span class="pre">SpongeEventFacto
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">A <a class="reference external" href="https://jd.spongepowered.org/6.0.0/org/spongepowered/api/event/cause/Cause.html">Cause</a> can never be empty. At the very least it should contain your plugin container.</p>
+<p class="last">A <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/cause/Cause.html">Cause</a> can never be empty. At the very least it should contain your plugin container.</p>
 </div>
 </div>
 </div>
@@ -326,18 +326,20 @@ created by the <code class="docutils literal"><span class="pre">SpongeEventFacto
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="causes.html" class="btn btn-neutral float-right" title="Event Causes" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-        <a href="index.html" class="btn btn-neutral" title="Events" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="causes.html" class="btn btn-neutral float-right" title="Event Causes" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="index.html" class="btn btn-neutral" title="Events" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
-  <hr/>
+    <hr/>
 
-  <div role="contentinfo">
-    <p>&copy; Copyright 2014-2017, Sponge Contributors.
-    </p>
-  </div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-</footer>
-        </div>
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
       </div>
 
     </section>
@@ -348,7 +350,7 @@ created by the <code class="docutils literal"><span class="pre">SpongeEventFacto
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 6.0.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -367,7 +369,7 @@ created by the <code class="docutils literal"><span class="pre">SpongeEventFacto
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'6.0.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
