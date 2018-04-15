@@ -175,12 +175,11 @@ the new <a class="reference external" href="https://jd.spongepowered.org/7.0.0/o
 sponge:</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockTypes</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.Cause</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setToSponge</span><span class="o">(</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockLoc</span><span class="o">,</span> <span class="n">Object</span> <span class="n">myPluginInstance</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">blockLoc</span><span class="o">.</span><span class="na">setBlockType</span><span class="o">(</span><span class="n">BlockTypes</span><span class="o">.</span><span class="na">SPONGE</span><span class="o">,</span> <span class="n">Cause</span><span class="o">.</span><span class="na">source</span><span class="o">(</span><span class="n">myPluginInstance</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setToSponge</span><span class="o">(</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockLoc</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">blockLoc</span><span class="o">.</span><span class="na">setBlockType</span><span class="o">(</span><span class="n">BlockTypes</span><span class="o">.</span><span class="na">SPONGE</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -200,13 +199,13 @@ and then modified to directly create a wet sponge block:</p>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockState</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.WetData</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setToWetSponge</span><span class="o">(</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockLoc</span><span class="o">,</span> <span class="n">Object</span> <span class="n">myPluginInstance</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setToWetSponge</span><span class="o">(</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockLoc</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">BlockState</span> <span class="n">state</span> <span class="o">=</span> <span class="n">BlockTypes</span><span class="o">.</span><span class="na">SPONGE</span><span class="o">.</span><span class="na">getDefaultState</span><span class="o">();</span>
     <span class="n">WetData</span> <span class="n">wetness</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getDataManager</span><span class="o">().</span>
         <span class="n">getManipulatorBuilder</span><span class="o">(</span><span class="n">WetData</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">get</span><span class="o">().</span><span class="na">create</span><span class="o">();</span>
     <span class="n">wetness</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">wetness</span><span class="o">.</span><span class="na">wet</span><span class="o">().</span><span class="na">set</span><span class="o">(</span><span class="kc">true</span><span class="o">));</span>
     <span class="n">BlockState</span> <span class="n">newState</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">wetness</span><span class="o">.</span><span class="na">asImmutable</span><span class="o">()).</span><span class="na">get</span><span class="o">();</span>
-    <span class="n">blockLoc</span><span class="o">.</span><span class="na">setBlock</span><span class="o">(</span><span class="n">newState</span><span class="o">,</span> <span class="n">Cause</span><span class="o">.</span><span class="na">source</span><span class="o">(</span><span class="n">myPluginInstance</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
+    <span class="n">blockLoc</span><span class="o">.</span><span class="na">setBlock</span><span class="o">(</span><span class="n">newState</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -223,7 +222,7 @@ given data set, overwriting existing values. The following example will change a
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.block.DirtData</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.type.DirtTypes</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">dirtToPodzol</span><span class="o">(</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockLoc</span><span class="o">,</span> <span class="n">Object</span> <span class="n">myPluginInstance</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">dirtToPodzol</span><span class="o">(</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockLoc</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">BlockState</span> <span class="n">state</span> <span class="o">=</span> <span class="n">blockLoc</span><span class="o">.</span><span class="na">getBlock</span><span class="o">();</span>
     <span class="n">Optional</span><span class="o">&lt;</span><span class="n">ImmutableDirtData</span><span class="o">&gt;</span> <span class="n">dirtDataOpt</span> <span class="o">=</span>
         <span class="n">state</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">ImmutableDirtData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
@@ -232,7 +231,7 @@ given data set, overwriting existing values. The following example will change a
         <span class="n">DirtData</span> <span class="n">dirtData</span> <span class="o">=</span> <span class="n">dirtDataOpt</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">asMutable</span><span class="o">();</span>
         <span class="n">dirtData</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">DIRT_TYPE</span><span class="o">,</span> <span class="n">DirtTypes</span><span class="o">.</span><span class="na">PODZOL</span><span class="o">);</span>
         <span class="n">BlockState</span> <span class="n">dirtState</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">dirtData</span><span class="o">.</span><span class="na">asImmutable</span><span class="o">()).</span><span class="na">get</span><span class="o">();</span>
-        <span class="n">blockLoc</span><span class="o">.</span><span class="na">setBlock</span><span class="o">(</span><span class="n">dirtState</span><span class="o">,</span> <span class="n">Cause</span><span class="o">.</span><span class="na">source</span><span class="o">(</span><span class="n">myPluginInstance</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
+        <span class="n">blockLoc</span><span class="o">.</span><span class="na">setBlock</span><span class="o">(</span><span class="n">dirtState</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
@@ -248,11 +247,11 @@ value. The following example will dry the block at a given <code class="docutils
 <div><div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span>
     <span class="nn">org.spongepowered.api.data.manipulator.immutable.block.ImmutableWetData</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">dry</span><span class="o">(</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockLoc</span><span class="o">,</span> <span class="n">Object</span> <span class="n">myPluginInstance</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">dry</span><span class="o">(</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockLoc</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">BlockState</span> <span class="n">wetState</span> <span class="o">=</span> <span class="n">blockLoc</span><span class="o">.</span><span class="na">getBlock</span><span class="o">();</span>
     <span class="n">Optional</span><span class="o">&lt;</span><span class="n">BlockState</span><span class="o">&gt;</span> <span class="n">dryState</span> <span class="o">=</span> <span class="n">wetState</span><span class="o">.</span><span class="na">without</span><span class="o">(</span><span class="n">ImmutableWetData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">dryState</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-        <span class="n">blockLoc</span><span class="o">.</span><span class="na">setBlock</span><span class="o">(</span><span class="n">dryState</span><span class="o">.</span><span class="na">get</span><span class="o">(),</span> <span class="n">Cause</span><span class="o">.</span><span class="na">source</span><span class="o">(</span><span class="n">myPluginInstance</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
+        <span class="n">blockLoc</span><span class="o">.</span><span class="na">setBlock</span><span class="o">(</span><span class="n">dryState</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
@@ -272,9 +271,9 @@ very simple:</p>
 <blockquote>
 <div><div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockSnapshot</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">copyBlock</span><span class="o">(</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">from</span><span class="o">,</span> <span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">to</span><span class="o">,</span> <span class="n">Object</span> <span class="n">myPluginInstance</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">copyBlock</span><span class="o">(</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">from</span><span class="o">,</span> <span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">to</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">BlockSnapshot</span> <span class="n">snapshot</span> <span class="o">=</span> <span class="n">from</span><span class="o">.</span><span class="na">createSnapshot</span><span class="o">();</span>
-    <span class="n">to</span><span class="o">.</span><span class="na">setBlock</span><span class="o">(</span><span class="n">snapshot</span><span class="o">.</span><span class="na">getState</span><span class="o">(),</span> <span class="n">Cause</span><span class="o">.</span><span class="na">source</span><span class="o">(</span><span class="n">myPluginInstance</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
+    <span class="n">to</span><span class="o">.</span><span class="na">setBlock</span><span class="o">(</span><span class="n">snapshot</span><span class="o">.</span><span class="na">getState</span><span class="o">());</span>
 <span class="o">}</span>
 </pre></div>
 </div>
