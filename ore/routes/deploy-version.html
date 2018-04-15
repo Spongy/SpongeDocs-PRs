@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Get Project Version &mdash; Sponge 7.0.0 documentation</title>
+  <title>Deploy Project Version &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Ore Web API" href="../api.html"/>        <link rel="next" title="Deploy Project Version" href="deploy-version.html"/>        <link rel="prev" title="List Project Versions" href="list-versions.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Ore Web API" href="../api.html"/>        <link rel="next" title="List Users" href="list-users.html"/>        <link rel="prev" title="Get Project Version" href="project-version.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -90,8 +90,8 @@
 <li class="toctree-l3"><a class="reference internal" href="list-projects.html">List projects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="project.html">Get Project</a></li>
 <li class="toctree-l3"><a class="reference internal" href="list-versions.html">List Project Versions</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Get Project Version</a></li>
-<li class="toctree-l3"><a class="reference internal" href="deploy-version.html">Deploy Project Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project-version.html">Get Project Version</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Deploy Project Version</a></li>
 <li class="toctree-l3"><a class="reference internal" href="list-users.html">List Users</a></li>
 <li class="toctree-l3"><a class="reference internal" href="user.html">Get User</a></li>
 <li class="toctree-l3"><a class="reference internal" href="download.html">Download Project Version</a></li>
@@ -129,19 +129,70 @@
     <li><a href="../../index.html">Docs</a> &raquo;</li>
           <li><a href="../index.html">Ore Documentation</a> &raquo;</li>
           <li><a href="../api.html">Ore Web API</a> &raquo;</li>
-    <li>Get Project Version</li>
+    <li>Deploy Project Version</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="https://github.com/SpongePowered/SpongeDocs/blob/fixes/imports/source/ore/routes/project-version.rst" class="fa fa-github"> Edit on GitHub</a>
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/fixes/imports/source/ore/routes/deploy-version.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
 </div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-  <div class="section" id="get-project-version">
-<h1>Get Project Version<a class="headerlink" href="#get-project-version" title="Permalink to this headline">¶</a></h1>
-<p><strong>GET /api/v1/projects/:pluginId/versions/:version</strong></p>
-<p>Returns a single project version for the project with the given plugin ID and the given version string. Note that there
-are no two versions in a project with the same version string.</p>
+  <div class="section" id="deploy-project-version">
+<h1>Deploy Project Version<a class="headerlink" href="#deploy-project-version" title="Permalink to this headline">¶</a></h1>
+<p><strong>POST /api/v1/projects/:pluginId/versions/:version</strong></p>
+<p>Deploys a new version for the specified project. The body should be sent as <code class="docutils literal"><span class="pre">multipart/form-data</span></code> with the fields
+shown below. Returns a JSON representation of the deployed version.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="28%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>apiKey</td>
+<td>String</td>
+<td>An Ore deployment key obtained through the Ore settings.</td>
+</tr>
+<tr class="row-odd"><td>channel</td>
+<td>String</td>
+<td>The channel the version should be in.</td>
+</tr>
+<tr class="row-even"><td>recommended</td>
+<td>Boolean</td>
+<td>If this version should be set as the recommended version.
+Defaults to true.</td>
+</tr>
+<tr class="row-odd"><td>forumPost</td>
+<td>Boolean</td>
+<td>Whether a forum post should be created or not. If no value is
+specified, it will default to the project’s setting. Optional.</td>
+</tr>
+<tr class="row-even"><td>changelog</td>
+<td>String</td>
+<td>A changelog to include for this version. Optional.</td>
+</tr>
+<tr class="row-odd"><td>pluginFile</td>
+<td>File</td>
+<td>The plugin file to upload.</td>
+</tr>
+<tr class="row-even"><td>pluginSig</td>
+<td>File</td>
+<td>A signature of the plugin file.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example curl usage:</strong></p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -F <span class="s2">&quot;apiKey=string&quot;</span> -F <span class="s2">&quot;apiKey=string&quot;</span> -F <span class="s2">&quot;channel=string&quot;</span> -F <span class="s2">&quot;recommended=boolean&quot;</span> <span class="se">\</span>
+-F <span class="s2">&quot;forumPost=boolean&quot;</span> -F <span class="s2">&quot;changelog=string&quot;</span> -F <span class="nv">pluginFile</span><span class="o">=</span>@localPluginFile <span class="se">\</span>
+-F <span class="nv">pluginSig</span><span class="o">=</span>@localpluginSig https://ore.spongepowered.org/api/v1/projects/:pluginId/versions/:version
+</pre></div>
+</div>
 <p><strong>Example output:</strong></p>
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1226</span><span class="p">,</span>
@@ -178,8 +229,8 @@ are no two versions in a project with the same version string.</p>
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="deploy-version.html" class="btn btn-neutral float-right" title="Deploy Project Version" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
-        <a href="list-versions.html" class="btn btn-neutral" title="List Project Versions" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+        <a href="list-users.html" class="btn btn-neutral float-right" title="List Users" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="project-version.html" class="btn btn-neutral" title="Get Project Version" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
     <hr/>
@@ -212,8 +263,8 @@ are no two versions in a project with the same version string.</p>
 
             <dl>
                 <dt>Contribute</dt>
-                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/fixes/imports/source/ore/routes/project-version.rst">Source</a></dd>
-                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/fixes/imports/source/ore/routes/project-version.rst">Edit</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/fixes/imports/source/ore/routes/deploy-version.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/fixes/imports/source/ore/routes/deploy-version.rst">Edit</a></dd>
             </dl>
     </div>
 </div>

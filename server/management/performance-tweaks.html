@@ -255,6 +255,23 @@ lagging, each animal will receive fewer ticks thus increasing the time they take
 of their logic to use the actual elapsed wall-clock time, rather than number of ticks. It will also apply to block
 breaking, so no more “breaking blocks multiple times”.</p>
 </div>
+<div class="section" id="deny-chunk-requests">
+<h2>Deny chunk requests<a class="headerlink" href="#deny-chunk-requests" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an experimental setting for performance gain, we recommend to not enable it when you have mods on the server
+and to disable it if you experience any issues regarding the loading of tileentities.</p>
+</div>
+<div class="highlight-none"><div class="highlight"><pre><span></span>world {
+    # If enabled, any request for a chunk not currently loaded will be denied (exceptions apply for things like world gen and player movement).
+    # Note: As this is an experimental setting for performance gain, if you encounter any issues then we recommend disabling it.
+    deny-chunk-requests=false
+}
+</pre></div>
+</div>
+<p>When this option is enabled, mods requesting areas to be loaded to perform various tasks will be denied. Only players
+and specific world generation calls will be allowed to load new chunks.</p>
+</div>
 </div>
 
            </div>

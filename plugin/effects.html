@@ -197,21 +197,26 @@ also use a <a class="reference external" href="https://jd.spongepowered.org/7.0.
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.effect.particle.ParticleTypes</span><span class="o">;</span>
 
 <span class="n">ParticleEffect</span> <span class="n">effect</span> <span class="o">=</span> <span class="n">ParticleEffect</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="n">ParticleTypes</span><span class="o">.</span><span class="na">LAVA</span><span class="o">).</span><span class="na">count</span><span class="o">(</span><span class="mi">50</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+        <span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="n">ParticleTypes</span><span class="o">.</span><span class="na">LAVA</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">quantity</span><span class="o">(</span><span class="mi">50</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">viewer</span><span class="o">.</span><span class="na">spawnParticles</span><span class="o">(</span><span class="n">effect</span><span class="o">,</span> <span class="n">position</span><span class="o">);</span>
 </pre></div>
 </div>
 <p>Using a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/effect/particle/ParticleEffect.Builder.html">ParticleEffect.Builder</a>, we can specify the type of particle we
 would like to spawn. With this, we also specify that fifty particles will be in the particle effect.</p>
-<p>Now if we wanted to make a more specific particle, say the particle of a block, then we can use one of the serveral
-classes found in the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/effect/particle/package-summary.html">org.spongepowered.api.effect.particle</a> package. For example, let’s say we wanted to
-spawn the particle of a sand, <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/effect/particle/ParticleTypes.html#BLOCK_CRACK">ParticleTypes#BLOCK_CRACK</a>. We would need to use the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/effect/particle/BlockParticle.html">BlockParticle</a>
-class and specify that we would like to use a sand block. This can be done like so:</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.effect.particle.BlockParticle</span><span class="o">;</span>
+<p>Now if we wanted to make a more specific particle, say the particle of a block, then we can use one of the several
+types found in the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/effect/particle/ParticleTypes.html">ParticleTypes</a> class. For example, let’s say we wanted to spawn particles of a cracking
+block of sand, <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/effect/particle/ParticleTypes.html#BLOCK_CRACK">ParticleTypes#BLOCK_CRACK</a>. We would need to use the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/effect/particle/ParticleOptions.html#BLOCK_STATE">ParticleOptions#BLOCK_STATE</a>
+option and specify that we would like to use a sand block. This can be done like so:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockTypes</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.effect.particle.ParticleOptions</span><span class="o">;</span>
 
-<span class="n">BlockParticle</span> <span class="n">blockParticle</span> <span class="o">=</span> <span class="n">BlockParticle</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="n">ParticleTypes</span><span class="o">.</span><span class="na">BLOCK_CRACK</span><span class="o">).</span><span class="na">block</span><span class="o">(</span><span class="n">BlockTypes</span><span class="o">.</span><span class="na">SAND</span><span class="o">.</span><span class="na">getDefaultState</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
-<span class="n">viewer</span><span class="o">.</span><span class="na">spawnParticles</span><span class="o">(</span><span class="n">blockParticle</span><span class="o">,</span> <span class="n">position</span><span class="o">);</span>
+<span class="n">ParticleEffect</span> <span class="n">particle</span> <span class="o">=</span> <span class="n">ParticleEffect</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="n">ParticleTypes</span><span class="o">.</span><span class="na">BLOCK_CRACK</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">option</span><span class="o">(</span><span class="n">ParticleOptions</span><span class="o">.</span><span class="na">BLOCK_STATE</span><span class="o">,</span> <span class="n">BlockTypes</span><span class="o">.</span><span class="na">SAND</span><span class="o">.</span><span class="na">getDefaultState</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="n">viewer</span><span class="o">.</span><span class="na">spawnParticles</span><span class="o">(</span><span class="n">particle</span><span class="o">,</span> <span class="n">position</span><span class="o">);</span>
 </pre></div>
 </div>
 </div>
@@ -221,8 +226,11 @@ class and specify that we would like to use a sand block. This can be done like 
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.effect.potion.PotionEffect</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.effect.potion.PotionEffectTypes</span><span class="o">;</span>
 
-<span class="n">PotionEffect</span> <span class="n">potion</span> <span class="o">=</span> <span class="n">PotionEffect</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">potionType</span><span class="o">(</span><span class="n">PotionEffectTypes</span><span class="o">.</span><span class="na">HASTE</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">duration</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="na">amplifier</span><span class="o">(</span><span class="mi">5</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="n">PotionEffect</span> <span class="n">potion</span> <span class="o">=</span> <span class="n">PotionEffect</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">potionType</span><span class="o">(</span><span class="n">PotionEffectTypes</span><span class="o">.</span><span class="na">HASTE</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">duration</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">amplifier</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 </div>
 <p>Using this, we can create a haste <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/effect/potion/PotionEffect.html">PotionEffect</a> that will last for ten ticks and have an amplifier of five.

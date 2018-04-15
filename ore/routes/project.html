@@ -91,6 +91,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Get Project</a></li>
 <li class="toctree-l3"><a class="reference internal" href="list-versions.html">List Project Versions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="project-version.html">Get Project Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deploy-version.html">Deploy Project Version</a></li>
 <li class="toctree-l3"><a class="reference internal" href="list-users.html">List Users</a></li>
 <li class="toctree-l3"><a class="reference internal" href="user.html">Get User</a></li>
 <li class="toctree-l3"><a class="reference internal" href="download.html">Download Project Version</a></li>
@@ -138,45 +139,60 @@
            <div itemprop="articleBody">
   <div class="section" id="get-project">
 <h1>Get Project<a class="headerlink" href="#get-project" title="Permalink to this headline">¶</a></h1>
-<p><strong>GET /projects/:pluginId</strong></p>
+<p><strong>GET /api/v1/projects/:pluginId</strong></p>
 <p>Returns a single project with a given plugin ID. Note that there are no two plugins on Ore with the same plugin ID.</p>
 <p><strong>Sample output:</strong></p>
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;pluginId&quot;</span><span class="p">:</span> <span class="s2">&quot;ore&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-11-07 12:26:35.672&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Ore&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="s2">&quot;windy&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Official package manager for Sponge.&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="s2">&quot;/windy/Ore&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;pluginId&quot;</span><span class="p">:</span> <span class="s2">&quot;auction&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-01-23 11:08:55.456&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Auction&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;owner&quot;</span><span class="p">:</span> <span class="s2">&quot;ewoutvs_&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Auction for players&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="s2">&quot;/ewoutvs_/Auction&quot;</span><span class="p">,</span>
     <span class="nt">&quot;members&quot;</span><span class="p">:</span> <span class="p">[{</span>
-        <span class="nt">&quot;userId&quot;</span><span class="p">:</span> <span class="mi">6602</span><span class="p">,</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;windy&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;userId&quot;</span><span class="p">:</span> <span class="mi">21366</span><span class="p">,</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;ewoutvs_&quot;</span><span class="p">,</span>
         <span class="nt">&quot;roles&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Owner&quot;</span><span class="p">],</span>
         <span class="nt">&quot;headRole&quot;</span><span class="p">:</span> <span class="s2">&quot;Owner&quot;</span>
     <span class="p">}],</span>
     <span class="nt">&quot;channels&quot;</span><span class="p">:</span> <span class="p">[{</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Beta&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#B400FF&quot;</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Release&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#009600&quot;</span>
     <span class="p">}],</span>
     <span class="nt">&quot;recommended&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">221</span><span class="p">,</span>
-        <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-11-07 12:26:35.672&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="nt">&quot;pluginId&quot;</span><span class="p">:</span> <span class="s2">&quot;ore&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1226</span><span class="p">,</span>
+        <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-02-08 18:41:36.917&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">[{</span>
+            <span class="nt">&quot;pluginId&quot;</span><span class="p">:</span> <span class="s2">&quot;spongeapi&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;7.0.0&quot;</span>
+        <span class="p">}],</span>
+        <span class="nt">&quot;pluginId&quot;</span><span class="p">:</span> <span class="s2">&quot;auction&quot;</span><span class="p">,</span>
         <span class="nt">&quot;channel&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Beta&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#B400FF&quot;</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Release&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#009600&quot;</span>
         <span class="p">},</span>
-        <span class="nt">&quot;fileSize&quot;</span><span class="p">:</span> <span class="mi">52807</span>
+        <span class="nt">&quot;fileSize&quot;</span><span class="p">:</span> <span class="mi">11441</span><span class="p">,</span>
+        <span class="nt">&quot;md5&quot;</span><span class="p">:</span> <span class="s2">&quot;d169809b0eda0e5d49bc60d5f69f097b&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;staffApproved&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nt">&quot;href&quot;</span><span class="p">:</span> <span class="s2">&quot;/ewoutvs_/Auction/versions/1.1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[{</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Sponge&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;7.0.0&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s2">&quot;#F7Cf0D&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;foregroundColor&quot;</span><span class="p">:</span> <span class="s2">&quot;#000000&quot;</span>
+        <span class="p">}],</span>
+        <span class="nt">&quot;downloads&quot;</span><span class="p">:</span> <span class="mi">26</span><span class="p">,</span>
+        <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;ewoutvs_&quot;</span>
     <span class="p">},</span>
     <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Admin Tools&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;fa-server&quot;</span>
+        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Gameplay&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;fa-puzzle-piece&quot;</span>
     <span class="p">},</span>
-    <span class="nt">&quot;views&quot;</span><span class="p">:</span> <span class="mi">275</span><span class="p">,</span>
-    <span class="nt">&quot;downloads&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
-    <span class="nt">&quot;stars&quot;</span><span class="p">:</span> <span class="mi">9</span>
+    <span class="nt">&quot;views&quot;</span><span class="p">:</span> <span class="mi">287</span><span class="p">,</span>
+    <span class="nt">&quot;downloads&quot;</span><span class="p">:</span> <span class="mi">53</span><span class="p">,</span>
+    <span class="nt">&quot;stars&quot;</span><span class="p">:</span> <span class="mi">4</span>
 <span class="p">}</span>
 </pre></div>
 </div>
