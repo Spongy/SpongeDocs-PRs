@@ -193,10 +193,7 @@ following code:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.nio.file.Files</span><span class="o">;</span>
 
 <span class="k">if</span> <span class="o">(</span><span class="n">Files</span><span class="o">.</span><span class="na">notExists</span><span class="o">(</span><span class="n">configPath</span><span class="o">))</span> <span class="o">{</span>
-    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Asset</span><span class="o">&gt;</span> <span class="n">asset</span> <span class="o">=</span> <span class="n">plugin</span><span class="o">.</span><span class="na">getAsset</span><span class="o">(</span><span class="s">&quot;default.conf&quot;</span><span class="o">);</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">asset</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-        <span class="n">asset</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">copyToDirectory</span><span class="o">(</span><span class="n">configPath</span><span class="o">);</span>
-    <span class="o">}</span>
+    <span class="n">plugin</span><span class="o">.</span><span class="na">getAsset</span><span class="o">(</span><span class="s">&quot;default.conf&quot;</span><span class="o">).</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">asset</span> <span class="o">-&gt;</span> <span class="n">asset</span><span class="o">.</span><span class="na">copyToDirectory</span><span class="o">(</span><span class="n">configPath</span><span class="o">));</span>
 <span class="o">}</span>
 </pre></div>
 </div>
