@@ -265,20 +265,17 @@ default value is.</p>
 <p>If you have a dynamic element such as a <code class="docutils literal"><span class="pre">World</span></code> or <code class="docutils literal"><span class="pre">ItemType</span></code> then you can use <code class="docutils literal"><span class="pre">&lt;TemplateParts&gt;</span></code>.</p>
 <div class="section" id="usage-example">
 <h3>Usage-Example<a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-text"><div class="highlight"><pre><span></span>import org.spongepowered.api.service.permission.PermissionDescription;
-import org.spongepowered.api.service.permission.PermissionDescription.Builder;
-import org.spongepowered.api.service.permission.PermissionService;
-import org.spongepowered.api.text.Text;
-import java.util.Optional;
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.PermissionDescription</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.PermissionDescription.Builder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.PermissionService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
 
-Optional&lt;Builder&gt; optBuilder = permissionService.newDescriptionBuilder(myplugin);
-if (optBuilder.isPresent()) {
-    Builder builder = optBuilder.get();
-    builder.id(&quot;myplugin.commands.teleport.execute&quot;)
-           .description(Text.of(&quot;Allows the user to execute the teleport command.&quot;))
-           .assign(PermissionDescription.ROLE_STAFF, true)
-           .register();
-}
+<span class="n">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">permissionService</span><span class="o">.</span><span class="na">newDescriptionBuilder</span><span class="o">(</span><span class="n">myplugin</span><span class="o">);</span>
+
+<span class="n">builder</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">&quot;myplugin.commands.teleport.execute&quot;</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Allows the user to execute the teleport command.&quot;</span><span class="o">))</span>
+       <span class="o">.</span><span class="na">assign</span><span class="o">(</span><span class="n">PermissionDescription</span><span class="o">.</span><span class="na">ROLE_STAFF</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">register</span><span class="o">();</span>
 </pre></div>
 </div>
 </div>
