@@ -223,6 +223,25 @@ How to do this, depends on your IDE again:</p>
 <li>Select <code class="docutils literal"><span class="pre">yourplugin_main</span></code>.</li>
 <li>Do NOT check the <code class="docutils literal"><span class="pre">Export</span></code> option on the module, after it is added to the list.</li>
 </ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Due to a bug in IntelliJ (<a class="reference external" href="https://youtrack.jetbrains.com/issue/IDEA-194641">IDEA-194641</a>), any dependencies that your plugin has (e.g.
+the Kotlin standard library, or Gson) will <strong>not</strong> be added to the classpath using the above
+method. This results in a <code class="docutils literal"><span class="pre">ClassNotFoundException</span></code> when your plugin tries to access one
+of these classes, even though it successfully compiled against that class.</p>
+<p>This issue only affects running your plugin from IntelliJ as a module. Your final
+built plugin jar will run normally in both IntelliJ and a production server.</p>
+<p>If your plugin has external dependencies, you’ll need to follow these steps
+in order to run it directly from IntelliJ:</p>
+<ul class="simple">
+<li>Create a new Java module with <code class="docutils literal"><span class="pre">File</span></code> -&gt; <code class="docutils literal"><span class="pre">New</span></code> -&gt; <code class="docutils literal"><span class="pre">Module...</span></code>. Name it <code class="docutils literal"><span class="pre">SpongeForgeContainer</span></code>.</li>
+<li>Open the module settings for <code class="docutils literal"><span class="pre">SpongeForgeContainer</span></code> as described above</li>
+<li>In the dependency settings for <code class="docutils literal"><span class="pre">SpongeForgeContainer</span></code>, add a module dependency on <code class="docutils literal"><span class="pre">SpongeForge_main</span></code></li>
+<li>Edit your server run configuration. Change <code class="docutils literal"><span class="pre">Use</span> <span class="pre">classpath</span> <span class="pre">of</span> <span class="pre">module:</span></code> from <code class="docutils literal"><span class="pre">SpongeForge_main</span></code> to <code class="docutils literal"><span class="pre">SpongeForgeContainer</span></code></li>
+</ul>
+<p class="last">You can leave all of your settings unchanged, including <code class="docutils literal"><span class="pre">SpongeForge_main</span></code>’s dependency on your plugin module.
+Now, all of your plugin’s dependencies should be added to the classpath when you run the server.</p>
+</div>
 </div>
 <div class="section" id="id2">
 <h3>Eclipse<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
