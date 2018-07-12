@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deploy from Gradle &mdash; Sponge 5.1.0 documentation</title>
+  <title>Deploy From Gradle &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
 
@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 5.1.0 documentation" href="../index.html"/>        <link rel="up" title="Ore Documentation" href="index.html"/>        <link rel="next" title="Security" href="security.html"/>        <link rel="prev" title="Publishing Your Plugin" href="publish.html"/>
+              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../index.html"/>        <link rel="up" title="Ore Documentation" href="index.html"/>        <link rel="next" title="Security" href="security.html"/>        <link rel="prev" title="Publishing Your Plugin" href="publish.html"/>
     <!-- Google Analytics -->
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-59476017-2', 'auto');
@@ -81,8 +81,11 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Ore Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html">Ore Plugin Submission Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html#projects">Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html#files">Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="publish.html">Publishing Your Plugin</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Deploy from Gradle</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Deploy From Gradle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html">Ore Web API</a></li>
 </ul>
@@ -116,7 +119,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
           <li><a href="index.html">Ore Documentation</a> &raquo;</li>
-    <li>Deploy from Gradle</li>
+    <li>Deploy From Gradle</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/ore/gradle-deploy.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -125,7 +128,7 @@
 </div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
   <div class="section" id="deploy-from-gradle">
-<h1>Deploy from Gradle<a class="headerlink" href="#deploy-from-gradle" title="Permalink to this headline">¶</a></h1>
+<h1>Deploy From Gradle<a class="headerlink" href="#deploy-from-gradle" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://github.com/SpongePowered/SpongeGradle">SpongeGradle</a> makes it easy for plugin developers to deploy new versions of their plugin directly to Ore without even
 needing to open a browser. Once you have created a project on Ore and have published at least one version of your
 plugin, you can begin to deploy new versions of your plugin from your build script.</p>
@@ -134,35 +137,56 @@ plugin, you can begin to deploy new versions of your plugin from your build scri
 <p class="last">For more info on how to get started with Gradle and Sponge, check out <a class="reference internal" href="../plugin/project/gradle.html"><span class="doc">Setting Up Gradle</span></a>.</p>
 </div>
 <div class="section" id="configuring-the-signing-plugin">
-<h2>Configuring the signing plugin<a class="headerlink" href="#configuring-the-signing-plugin" title="Permalink to this headline">¶</a></h2>
+<h2>Configuring The Signing Plugin<a class="headerlink" href="#configuring-the-signing-plugin" title="Permalink to this headline">¶</a></h2>
 <p>Like all Ore uploads, the artifacts you publish from Gradle must be signed with the PGP private key that corresponds to
-the public key you&#8217;ve added to your account in <a class="reference internal" href="publish.html"><span class="doc">Publishing Your Plugin</span></a>. Luckily, this is easily accomplished with Gradle as
+the public key you’ve added to your account in <a class="reference internal" href="publish.html"><span class="doc">Publishing Your Plugin</span></a>. Luckily, this is easily accomplished with Gradle as
 it comes with a core-plugin that does just this. In order to use the <code class="docutils literal"><span class="pre">oreDeploy</span></code> task in Gradle, <em>you must</em>
 configure the signing plugin as it depends on this specific plugin.</p>
 <p>For more information on how to configure the signing plugin, please refer to the Gradle User Guide entry:
 <a class="reference external" href="https://docs.gradle.org/current/userguide/signing_plugin.html">The Signing Plugin</a>.</p>
+<p>The signing plugin requires the following configuration options:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">signing.keyId</span></code></li>
+<li><code class="docutils literal"><span class="pre">signing.password</span></code></li>
+<li><code class="docutils literal"><span class="pre">signing.secretKeyRingFile</span></code></li>
+</ul>
+<p>Following best practice, you should put this in your <code class="docutils literal"><span class="pre">gradle.properties</span></code> file inside your <code class="docutils literal"><span class="pre">GRADLE_USER_HOME</span></code> folder
+(which is your <code class="docutils literal"><span class="pre">HOME</span></code> folder unless configured otherwise). Do <strong>NOT</strong> define them in your project’s
+<code class="docutils literal"><span class="pre">gradle.properties</span></code> file or any other resource you upload (to git).</p>
+<div class="highlight-properties"><div class="highlight"><pre><span></span><span class="na">signing.keyId</span><span class="o">=</span><span class="s">1235ADEF</span>
+<span class="na">signing.password</span><span class="o">=</span><span class="s">secret</span>
+<span class="na">signing.secretKeyRingFile</span><span class="o">=</span><span class="s">/home/me/.gnupg/secring.gpg</span>
+</pre></div>
+</div>
+<p>As an alternative you can supply them via command line parameters like this
+<code class="docutils literal"><span class="pre">-Psigning.keyId=&lt;KEY</span> <span class="pre">ID&gt;</span> <span class="pre">-Psigning.password=&lt;Password&gt;</span> <span class="pre">-Psigning.secretKeyRingFile=&lt;Secring.gpg&gt;</span></code>.</p>
 </div>
 <div class="section" id="deployment-credentials">
-<h2>Deployment credentials<a class="headerlink" href="#deployment-credentials" title="Permalink to this headline">¶</a></h2>
+<h2>Deployment Credentials<a class="headerlink" href="#deployment-credentials" title="Permalink to this headline">¶</a></h2>
 <p>The first step in enabling direct deployment is generating a deployment key to let Gradle publish to your project
-remotely. You can do this by navigating to your project settings, scrolling down to &#8220;Deployment key&#8221; and clicking
-&#8220;Generate key&#8221;.</p>
+remotely. You can do this by navigating to your project settings, scrolling down to “Deployment key” and clicking
+“Generate key”.</p>
 <img alt="Deployment key" class="align-center" src="../_images/help_3.png" />
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">Anyone with access to your special deployment key will have the ability to attempt to publish new versions to
-your project. Of course, they will also need your private PGP key to do so but still...keep it secret, keep it safe!</p>
+your project. Of course, they will also need your private PGP key to do so but still… Keep it secret, keep it
+safe!</p>
 </div>
-<p>This deployment key must be supplied as the value of the property <code class="docutils literal"><span class="pre">oreDeploy.apiKey</span></code>. Following best practice, you
-should put this in your <code class="docutils literal"><span class="pre">gradle.properties</span></code> file.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>oreDeloy.apiKey<span class="o">=</span>8c115d0c9b9e425281d870e329dd6741
+<p>This deployment key must be supplied as the value of the property <code class="docutils literal"><span class="pre">oreDeploy.apiKey</span></code>.</p>
+<p>Following best practice, you should put this in your <code class="docutils literal"><span class="pre">gradle.properties</span></code> file inside your <code class="docutils literal"><span class="pre">GRADLE_USER_HOME</span></code> folder
+(which is your <code class="docutils literal"><span class="pre">HOME</span></code> folder unless configured otherwise). Do <strong>NOT</strong> define them in your project’s
+<code class="docutils literal"><span class="pre">gradle.properties</span></code> file or any other resource you upload (to git).</p>
+<div class="highlight-properties"><div class="highlight"><pre><span></span><span class="na">oreDeloy.apiKey</span><span class="o">=</span><span class="s">8c115d0c9b9e425281d870e329dd6741</span>
 </pre></div>
 </div>
+<p>As an alternative you can supply them via command line parameters like this
+<code class="docutils literal"><span class="pre">-PoreDeloy.apiKey=8c115d0c9b9e425281d870e329dd6741</span></code>.</p>
 </div>
 <div class="section" id="deployment-configuration">
-<h2>Deployment configuration<a class="headerlink" href="#deployment-configuration" title="Permalink to this headline">¶</a></h2>
+<h2>Deployment Configuration<a class="headerlink" href="#deployment-configuration" title="Permalink to this headline">¶</a></h2>
 <p>In order to start using the <code class="docutils literal"><span class="pre">oreDeploy</span></code> task, you must configure which release channel you would like publish the
-artifact to and you might want to specify whether it should be marked as &#8220;recommended&#8221; or not.</p>
+artifact to and you might want to specify whether it should be marked as “recommended” or not.</p>
 <div class="highlight-groovy"><div class="highlight"><pre><span></span><span class="n">oreDeploy</span> <span class="o">{</span>
   <span class="n">channel</span> <span class="o">=</span> <span class="s1">&#39;release&#39;</span>
   <span class="n">recommended</span> <span class="o">=</span> <span class="kc">false</span> <span class="c1">// default true</span>
@@ -171,8 +195,8 @@ artifact to and you might want to specify whether it should be marked as &#8220;
 </div>
 </div>
 <div class="section" id="deploying-artifacts">
-<h2>Deploying artifacts<a class="headerlink" href="#deploying-artifacts" title="Permalink to this headline">¶</a></h2>
-<p>If you&#8217;ve made it this far you&#8217;re now ready to start publishing directly to Ore! Simply run <code class="docutils literal"><span class="pre">gradle</span> <span class="pre">oreDeploy</span></code>.</p>
+<h2>Deploying Artifacts<a class="headerlink" href="#deploying-artifacts" title="Permalink to this headline">¶</a></h2>
+<p>If you’ve made it this far you’re now ready to start publishing directly to Ore! Simply run <code class="docutils literal"><span class="pre">gradle</span> <span class="pre">oreDeploy</span></code>.</p>
 <p><strong>Example output:</strong></p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>&gt; gradle oreDeploy
 :generateMetadata
@@ -201,18 +225,20 @@ Total time: <span class="m">1</span>.833 secs
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="security.html" class="btn btn-neutral float-right" title="Security" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-        <a href="publish.html" class="btn btn-neutral" title="Publishing Your Plugin" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="security.html" class="btn btn-neutral float-right" title="Security" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="publish.html" class="btn btn-neutral" title="Publishing Your Plugin" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
-  <hr/>
+    <hr/>
 
-  <div role="contentinfo">
-    <p>&copy; Copyright 2014-2017, Sponge Contributors.
-    </p>
-  </div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-</footer>
-        </div>
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
       </div>
 
     </section>
@@ -223,7 +249,7 @@ Total time: <span class="m">1</span>.833 secs
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 5.1.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -237,7 +263,7 @@ Total time: <span class="m">1</span>.833 secs
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'5.1.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

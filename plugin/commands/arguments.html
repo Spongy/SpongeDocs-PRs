@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Argument Parsing &mdash; Sponge 5.1.0 documentation</title>
+  <title>Argument Parsing &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 5.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Commands" href="index.html"/>        <link rel="next" title="Command Flags" href="flags.html"/>        <link rel="prev" title="Building a Command" href="creating.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Commands" href="index.html"/>        <link rel="next" title="Command Flags" href="flags.html"/>        <link rel="prev" title="Building a Command" href="creating.html"/>
     <!-- Google Analytics -->
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-59476017-2', 'auto');
@@ -85,9 +85,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../plugin-class.html">Main Plugin Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../practices.html">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../practices/index.html">Practices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Commands</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="creating.html">Building a Command</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Argument Parsing</a></li>
@@ -98,9 +99,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../event/index.html">Events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../blocks/index.html">Blocks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Entities</a></li>
@@ -118,10 +118,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../manager.html">Plugin Manager</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tab-lists.html">Tab Lists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plugin-meta.html">Plugin Metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../internals/index.html">Implementation-dependent Plugins</a></li>
 </ul>
@@ -170,25 +170,25 @@
   <div class="section" id="argument-parsing">
 <h1>Argument Parsing<a class="headerlink" href="#argument-parsing" title="Permalink to this headline">¶</a></h1>
 <p>The Command Builder API comes with a powerful argument parser. It converts the string input to java base types
-(integers, booleans, strings) or game objects (players, worlds, block types , ...). The parser supports optional
+(integers, booleans, strings) or game objects (players, worlds, block types , …). The parser supports optional
 arguments and flags. It also handles TAB completion of arguments.</p>
-<p>The parsed arguments are stored in the <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/args/CommandContext.html">CommandContext</a> object. If the parser returns a single object, obtain
-it with <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/args/CommandContext.html#getOne-java.lang.String-">CommandContext#getOne(String)</a>. Optional and weak arguments may return <code class="docutils literal"><span class="pre">Optional.empty()</span></code>.</p>
+<p>The parsed arguments are stored in the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/CommandContext.html">CommandContext</a> object. If the parser returns a single object, obtain
+it with <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/CommandContext.html#getOne-java.lang.String-">CommandContext#getOne(String)</a>. Optional and weak arguments may return <code class="docutils literal"><span class="pre">Optional.empty()</span></code>.</p>
 <p>Many of the parsers may return more than one object (e.g. multiple players with a matching username). In that case, you
-must use the <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/args/CommandContext.html#getAll-java.lang.String-">CommandContext#getAll(String)</a> method to get the <code class="docutils literal"><span class="pre">Collection</span></code> of possible matches.
+must use the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/CommandContext.html#getAll-java.lang.String-">CommandContext#getAll(String)</a> method to get the <code class="docutils literal"><span class="pre">Collection</span></code> of possible matches.
 <strong>Otherwise, the context object will throw an exception!</strong></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">You can use the
-<a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/args/GenericArguments.html#onlyOne-org.spongepowered.api.command.args.CommandElement-">GenericArguments#onlyOne(CommandElement)</a> element to limit the amount of returned values to a single one,
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/GenericArguments.html#onlyOne-org.spongepowered.api.command.args.CommandElement-">GenericArguments#onlyOne(CommandElement)</a> element to limit the amount of returned values to a single one,
 so you can safely use <code class="docutils literal"><span class="pre">args.&lt;T&gt;getOne(String)</span></code>.</p>
 </div>
-<p>To create a new <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/args/CommandElement.html">CommandElement</a> (argument), use the <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/args/GenericArguments.html">GenericArguments</a> factory class. Many command
+<p>To create a new <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/CommandElement.html">CommandElement</a> (argument), use the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/GenericArguments.html">GenericArguments</a> factory class. Many command
 elements require a short text key, which is displayed in error and help messages.</p>
-<p>Apply the <code class="docutils literal"><span class="pre">CommandElement</span></code> to the command builder with the <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/spec/CommandSpec.Builder.html#arguments-CommandElement...-">CommandSpec.Builder#arguments(CommandElement...)</a>
+<p>Apply the <code class="docutils literal"><span class="pre">CommandElement</span></code> to the command builder with the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/spec/CommandSpec.Builder.html#arguments-org.spongepowered.api.command.args.CommandElement...-">CommandSpec.Builder#arguments(CommandElement…)</a>
 method. It is possible to pass more than one <code class="docutils literal"><span class="pre">CommandElement</span></code> to the method, thus chaining multiple arguments (e.g
 <code class="docutils literal"><span class="pre">/msg</span> <span class="pre">&lt;player&gt;</span> <span class="pre">&lt;msg&gt;</span></code>). This has the same effect as wrapping the <code class="docutils literal"><span class="pre">CommandElement</span></code> objects in a
-<a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/args/GenericArguments.html#seq-CommandElement...-">GenericArguments#seq(CommandElement...)</a> element.</p>
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/GenericArguments.html#seq-org.spongepowered.api.command.args.CommandElement...-">GenericArguments#seq(CommandElement…)</a> element.</p>
 <div class="section" id="example-building-a-command-with-multiple-arguments">
 <h2>Example: Building a Command with Multiple Arguments<a class="headerlink" href="#example-building-a-command-with-multiple-arguments" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
@@ -245,7 +245,7 @@ method. It is possible to pass more than one <code class="docutils literal"><spa
 <tbody valign="top">
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">none</span></code></td>
 <td>Expects no arguments. This is the default behavior of a <code class="docutils literal"><span class="pre">CommandSpec</span></code>.</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td colspan="3"><strong>Java Base Types</strong></td>
 </tr>
@@ -302,7 +302,7 @@ instances</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">catalogedElement</span></code></td>
 <td>Expect an argument that is a member of the specified
-<a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/CatalogType.html">CatalogType</a>.</td>
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/CatalogType.html">CatalogType</a>.</td>
 <td>multiple matching elements
 of the specified catalog type</td>
 </tr>
@@ -350,7 +350,7 @@ is of invalid format and there are no more args.</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">firstParsing</span></code></td>
 <td>Returns a command element that matches the first of the provided elements that parses
-(useful for command overloading, e.g. <code class="docutils literal"><span class="pre">/settime</span> <span class="pre">&lt;day|night|&lt;number&gt;&gt;</span></code>).</td>
+(useful for command overloading, e.g. <code class="docutils literal"><span class="pre">/settime</span> <span class="pre">&lt;day|night|&lt;number&gt;</span></code>).</td>
 <td>inherited</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">onlyOne</span></code></td>
@@ -376,18 +376,18 @@ command argument</td>
 </table>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">See the Javadocs for <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/args/GenericArguments.html">GenericArguments</a> for more information.</p>
+<p class="last">See the Javadocs for <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/GenericArguments.html">GenericArguments</a> for more information.</p>
 </div>
 </div>
 <div class="section" id="custom-command-elements">
 <h2>Custom Command Elements<a class="headerlink" href="#custom-command-elements" title="Permalink to this headline">¶</a></h2>
 <p>It is possible to create custom command elements (e.g. a URL parser or a <code class="docutils literal"><span class="pre">Vector2i</span></code> element) by extending the abstract
 <code class="docutils literal"><span class="pre">CommandElement</span></code> class.</p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/args/CommandElement.html#parseValue-org.spongepowered.api.command.CommandSource-org.spongepowered.api.command.args.CommandArgs-">CommandElement#parseValue(CommandSource, CommandArgs)</a> method should fetch a raw argument string with
-<a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/args/CommandArgs.html#next--">CommandArgs#next()</a> and convert it to an object. The method should throw an <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/args/ArgumentParseException.html">ArgumentParseException</a>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/CommandElement.html#parseValue-org.spongepowered.api.command.CommandSource-org.spongepowered.api.command.args.CommandArgs-">CommandElement#parseValue(CommandSource, CommandArgs)</a> method should fetch a raw argument string with
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/CommandArgs.html#next--">CommandArgs#next()</a> and convert it to an object. The method should throw an <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/ArgumentParseException.html">ArgumentParseException</a>
 if the parsing fails.</p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/args/CommandElement.html#complete-org.spongepowered.api.command.CommandSource-org.spongepowered.api.command.args.CommandArgs-org.spongepowered.api.command.args.CommandContext-">CommandElement#complete(CommandSource, CommandArgs, CommandContext)</a> method should use
-<a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/command/args/CommandArgs.html#peek--">CommandArgs#peek()</a> to read the next raw argument. It returns a list of suggestions for TAB completion.</p>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/CommandElement.html#complete-org.spongepowered.api.command.CommandSource-org.spongepowered.api.command.args.CommandArgs-org.spongepowered.api.command.args.CommandContext-">CommandElement#complete(CommandSource, CommandArgs, CommandContext)</a> method should use
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/CommandArgs.html#peek--">CommandArgs#peek()</a> to read the next raw argument. It returns a list of suggestions for TAB completion.</p>
 <div class="section" id="example-vector2i-command-element-definition">
 <h3>Example: <code class="docutils literal"><span class="pre">Vector2i</span></code> command element definition<a class="headerlink" href="#example-vector2i-command-element-definition" title="Permalink to this headline">¶</a></h3>
 <p>The parser in this example reads two input arguments and converts them to a vector.</p>
@@ -458,7 +458,7 @@ if the parsing fails.</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Look at the <a class="reference external" href="https://github.com/SpongePowered/SpongeAPI/blob/stable-5.1.0/src/main/java/org/spongepowered/api/command/args/GenericArguments.java">source code</a>
+<p class="last">Look at the <a class="reference external" href="https://github.com/SpongePowered/SpongeAPI/blob/stable-7/src/main/java/org/spongepowered/api/command/args/GenericArguments.java">source code</a>
 of the <code class="docutils literal"><span class="pre">GenericArguments</span></code> class for more examples.</p>
 </div>
 </div>
@@ -469,18 +469,20 @@ of the <code class="docutils literal"><span class="pre">GenericArguments</span><
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="flags.html" class="btn btn-neutral float-right" title="Command Flags" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-        <a href="creating.html" class="btn btn-neutral" title="Building a Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="flags.html" class="btn btn-neutral float-right" title="Command Flags" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="creating.html" class="btn btn-neutral" title="Building a Command" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
-  <hr/>
+    <hr/>
 
-  <div role="contentinfo">
-    <p>&copy; Copyright 2014-2017, Sponge Contributors.
-    </p>
-  </div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-</footer>
-        </div>
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
       </div>
 
     </section>
@@ -491,7 +493,7 @@ of the <code class="docutils literal"><span class="pre">GenericArguments</span><
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 5.1.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -505,7 +507,7 @@ of the <code class="docutils literal"><span class="pre">GenericArguments</span><
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'5.1.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -2,12 +2,12 @@
 Optionals Explained
 ===================
 
-Much of the Sponge API makes use of Java's `Optional` system on object accessors, but if you've never used ``Optional``
+Much of SpongeAPI makes use of Java's `Optional` system on object accessors, but if you've never used ``Optional``
 before this might seem like a bit of a peculiar way of doing things. You might be tempted to ask:
 *"why do I need to perform an extra step when fetching something from an API object?"*
 
 This section gives a brief summary of ``Optional`` and explains how - and perhaps more importantly why -
-it's used throughout the Sponge API.
+it's used throughout SpongeAPI.
 
 Let's start with a little history, and look at how accessors - particularly "getters" - typically work when not making
 use of ``Optional``.
@@ -81,7 +81,7 @@ Thus we can see that allowing implicit nullable contracts leaves us with a selec
 choose from:
 
 * Plugin authors can assume that **all** methods may return null and code defensively accordingly, however we've already seen that this leads to spaghetti code pretty quickly.
-* The API authors can define an implicit nullable contract on every API method, in an attempt to make null handling the plugin author's problem, which only exacerbates the previous problem.
+* The API authors can define an implicit nullable contract on every API method, in an attempt to make null handling the plugin author's problem, which only exacerbates the previous approach.
 * The API authors can assert that any implicit nullable contract they define will never be altered going forward. This means that in the eventuality that they need to handle the removal of a feature from the base game then they must either:
 
  * Throw an exception - hardly elegant but certainly easier to diagnose than a loose NPE which may be triggered elsewhere in the codebase and be hard to track down

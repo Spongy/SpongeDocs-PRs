@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Configuring Plugins &mdash; Sponge 5.1.0 documentation</title>
+  <title>Configuring Plugins &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 5.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Creating a Plugin" href="../index.html"/>        <link rel="next" title="Configuration Loaders" href="loaders.html"/>        <link rel="prev" title="The Asset API" href="../assets.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Creating a Plugin" href="../index.html"/>        <link rel="next" title="Configuration Loaders" href="loaders.html"/>        <link rel="prev" title="Custom Events" href="../event/custom.html"/>
     <!-- Google Analytics -->
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-59476017-2', 'auto');
@@ -85,19 +85,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../plugin-class.html">Main Plugin Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../practices.html">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../practices/index.html">Practices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../event/index.html">Events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Configuring Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="loaders.html">Configuration Loaders</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nodes.html">Configuration Nodes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="serialization.html">Serializing Objects</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../blocks/index.html">Blocks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Entities</a></li>
@@ -115,10 +115,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../manager.html">Plugin Manager</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tab-lists.html">Tab Lists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plugin-meta.html">Plugin Metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../internals/index.html">Implementation-dependent Plugins</a></li>
 </ul>
@@ -193,16 +193,16 @@ pose too much of an issue if you use an alternate format instead.</p>
 <h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="creating-a-default-plugin-configuration">
 <h3>Creating a Default Plugin Configuration<a class="headerlink" href="#creating-a-default-plugin-configuration" title="Permalink to this headline">¶</a></h3>
-<p>Plugins using the Sponge API have the option to use one or more configuration files. Configuration files allow plugins
+<p>Plugins using SpongeAPI have the option to use one or more configuration files. Configuration files allow plugins
 to store data, and they allow server administrators to customize plugin options (if applicable).</p>
 </div>
 <div class="section" id="getting-your-default-plugin-configuration">
 <span id="getting-default-config"></span><h3>Getting your Default Plugin Configuration<a class="headerlink" href="#getting-your-default-plugin-configuration" title="Permalink to this headline">¶</a></h3>
-<p>The Sponge API offers the use of the <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/config/DefaultConfig.html">DefaultConfig</a> annotation on a field or setter method with the type
+<p>SpongeAPI offers the use of the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/config/DefaultConfig.html">DefaultConfig</a> annotation on a field or setter method with the type
 <code class="docutils literal"><span class="pre">Path</span></code> to get the default configuration file for your plugin.</p>
 <p>The <code class="docutils literal"><span class="pre">&#64;DefaultConfig</span></code> annotation requires a <code class="docutils literal"><span class="pre">sharedRoot</span></code> boolean. If you set <code class="docutils literal"><span class="pre">sharedRoot</span></code> to <code class="docutils literal"><span class="pre">true</span></code>, then the
 returned pathname will be in a shared configuration directory. In that case, the configuration file for your plugin
-will be <code class="docutils literal"><span class="pre">your_plugin_id.conf</span></code> (with &#8220;your_plugin_id&#8221; replaced with your plugin&#8217;s specified ID).</p>
+will be <code class="docutils literal"><span class="pre">your_plugin_id.conf</span></code> (with “your_plugin_id” replaced with your plugin’s specified ID).</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">See <a class="reference internal" href="../plugin-class.html"><span class="doc">Main Plugin Class</span></a> for information on configuring your plugin ID.</p>
@@ -215,7 +215,7 @@ directory specific to your plugin.</p>
 <li>If you plan on having a single configuration file (less-complex plugins), set the value to <code class="docutils literal"><span class="pre">true</span></code>.</li>
 </ul>
 <p>You can also obtain a <code class="docutils literal"><span class="pre">Path</span></code> instance pointing to the config directory instead of a particular file. Just
-have it injected using the <a class="reference external" href="https://jd.spongepowered.org/5.1.0/org/spongepowered/api/config/ConfigDir.html">ConfigDir</a> annotation, either with <code class="docutils literal"><span class="pre">sharedRoot</span></code> set to <code class="docutils literal"><span class="pre">false</span></code> for a plugin
+have it injected using the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/config/ConfigDir.html">ConfigDir</a> annotation, either with <code class="docutils literal"><span class="pre">sharedRoot</span></code> set to <code class="docutils literal"><span class="pre">false</span></code> for a plugin
 specific directory or to <code class="docutils literal"><span class="pre">true</span></code> to get the shared configuration directory.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -251,8 +251,8 @@ non-existant paths as the library will handle them appropriately.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The use of YAML format (<a class="reference external" href="http://yaml.org/spec/1.1/">http://yaml.org/spec/1.1/</a>) is also supported, but the preferred config format for Sponge
-plugins is HOCON. Conversion from YAML to HOCON can be automated by using a <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/yaml/YAMLConfigurationLoader.html">YAMLConfigurationLoader</a> to
-load the old config and then saving it using a <a class="reference external" href="http://zml2008.github.io/configurate/apidocs/ninja/leaping/configurate/hocon/HoconConfigurationLoader.html">HoconConfigurationLoader</a>.</p>
+plugins is HOCON. Conversion from YAML to HOCON can be automated by using a <a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/yaml/YAMLConfigurationLoader.html">YAMLConfigurationLoader</a> to
+load the old config and then saving it using a <a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/hocon/HoconConfigurationLoader.html">HoconConfigurationLoader</a>.</p>
 </div>
 </div>
 </div>
@@ -262,18 +262,20 @@ load the old config and then saving it using a <a class="reference external" hre
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="loaders.html" class="btn btn-neutral float-right" title="Configuration Loaders" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-        <a href="../assets.html" class="btn btn-neutral" title="The Asset API" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="loaders.html" class="btn btn-neutral float-right" title="Configuration Loaders" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="../event/custom.html" class="btn btn-neutral" title="Custom Events" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
-  <hr/>
+    <hr/>
 
-  <div role="contentinfo">
-    <p>&copy; Copyright 2014-2017, Sponge Contributors.
-    </p>
-  </div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-</footer>
-        </div>
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
       </div>
 
     </section>
@@ -284,7 +286,7 @@ load the old config and then saving it using a <a class="reference external" hre
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 5.1.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -298,7 +300,7 @@ load the old config and then saving it using a <a class="reference external" hre
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'5.1.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

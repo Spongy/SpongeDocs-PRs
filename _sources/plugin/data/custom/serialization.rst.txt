@@ -5,17 +5,15 @@ Serializing Custom Data
 .. javadoc-import::
     org.spongepowered.api.data.DataHolder
     org.spongepowered.api.data.DataQuery
-    org.spongepowered.api.data.manipulator.DataManipulator
+    org.spongepowered.api.data.DataSerializable
+    org.spongepowered.api.data.manipulator.DataManipulatorBuilder
     org.spongepowered.api.data.persistence.AbstractDataBuilder
     org.spongepowered.api.data.persistence.DataBuilder
     org.spongepowered.api.data.persistence.DataContentUpdater
-    org.spongepowered.api.data.persistence.DataManipulator
-    org.spongepowered.api.data.persistence.DataManipulatorBuilder
     org.spongepowered.api.data.persistence.DataTranslator
     org.spongepowered.api.data.persistence.DataTranslators
-    org.spongepowered.api.data.serialization.DataSerializable
 
-Without a method serializing and deserializng, your data will not persist across restarts. Sponge has a few different 
+Without a method for serializing and deserializing, your data will not persist across restarts. Sponge has a few different 
 ways to serialize/deserialize data based on the type of data:
 
 - :javadoc:`DataSerializable`\ s implement an interface to perform serialization, and use :javadoc:`DataBuilder` for 
@@ -82,7 +80,7 @@ two methods:
 
     @Override
     public DataContainer toContainer() {
-        return new MemoryDataContainer()
+        return DataContainer.createNew()
                 .set(DataQuery.of("Name"), this.name)
                 .set(Queries.CONTENT_VERSION, getContentVersion());
     }
@@ -121,8 +119,8 @@ the builder.
 
 .. code-block:: java
 
-    org.spongepowered.api.data.persistence.DataContentUpdater
-    org.spongepowered.api.text.Text
+    import org.spongepowered.api.data.persistence.DataContentUpdater
+    import org.spongepowered.api.text.Text
 
     public class NameUpdater implements DataContentUpdater {
 

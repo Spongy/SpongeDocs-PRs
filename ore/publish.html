@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Publishing Your Plugin &mdash; Sponge 5.1.0 documentation</title>
+  <title>Publishing Your Plugin &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
 
@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 5.1.0 documentation" href="../index.html"/>        <link rel="up" title="Ore Documentation" href="index.html"/>        <link rel="next" title="Deploy from Gradle" href="gradle-deploy.html"/>        <link rel="prev" title="Ore Documentation" href="index.html"/>
+              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../index.html"/>        <link rel="up" title="Ore Documentation" href="index.html"/>        <link rel="next" title="Deploy From Gradle" href="gradle-deploy.html"/>        <link rel="prev" title="Ore Plugin Submission Guidelines" href="guidelines.html"/>
     <!-- Google Analytics -->
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-59476017-2', 'auto');
@@ -81,8 +81,11 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Ore Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html">Ore Plugin Submission Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html#projects">Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html#files">Files</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Publishing Your Plugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gradle-deploy.html">Deploy from Gradle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gradle-deploy.html">Deploy From Gradle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html">Ore Web API</a></li>
 </ul>
@@ -126,15 +129,15 @@
            <div itemprop="articleBody">
   <div class="section" id="publishing-your-plugin">
 <h1>Publishing Your Plugin<a class="headerlink" href="#publishing-your-plugin" title="Permalink to this headline">¶</a></h1>
-<p>Sponge&#8217;s official plugin / mod repository, <a class="reference external" href="https://ore.spongepowered.org">Ore</a>, is a free and open-source
+<p>Sponge’s official plugin / mod repository, <a class="reference external" href="https://ore.spongepowered.org">Ore</a>, is a free and open-source
 project that anyone may publish their Sponge plugins or Forge mods on.</p>
 <div class="section" id="packaging-your-plugin">
 <h2>Packaging Your Plugin<a class="headerlink" href="#packaging-your-plugin" title="Permalink to this headline">¶</a></h2>
 <p>Ore requires any projects to be packaged with a <code class="docutils literal"><span class="pre">mcmod.info</span></code> descriptor file in the top-level of your JAR file. This
 file is used to automatically infer some important details about your project to make the upload process easier. Ore
-will reject your plugin if this file is missing from the JAR. Luckily, Sponge API has a built in annotation processor
+will reject your plugin if this file is missing from the JAR. Luckily, SpongeAPI has a built in annotation processor
 that creates this file for you automatically, on compile, using the <code class="docutils literal"><span class="pre">&#64;Plugin</span></code> annotation that you have likely
-already created in your plugin&#8217;s main class.</p>
+already created in your plugin’s main class.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">For more information on creating and compiling your first plugin, see <a class="reference internal" href="../plugin/plugin-class.html"><span class="doc">Main Plugin Class</span></a></p>
@@ -187,7 +190,7 @@ that users can verify that the source code has not been modified since it was pa
 <p>Once you have installed GPG and have generated your first public key, you will need to add the key to your account.
 To do this, you can navigate to your profile and click the key symbol next to your avatar.</p>
 <img alt="PGP public key 1" class="align-center" src="../_images/help_1.png" />
-<p>You will then be prompted to enter your key into a text box. You must be sure to enter the key in it&#8217;s entirety or
+<p>You will then be prompted to enter your key into a text box. You must be sure to enter the key in it’s entirety or
 signature validation will fail.</p>
 <img alt="PGP public key 2" class="align-center" src="../_images/help_2.png" />
 <p>Finally, you must sign your built plugin with your <em>private</em> key of the public key you uploaded. You only need to sign
@@ -199,25 +202,25 @@ command.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you&#8217;re using build manager such as Gradle or Maven, there is are plugins you can apply to your build script that
+<p class="last">If you’re using a build manager such as Gradle or Maven, there are plugins you can apply to your build script that
 can sign built artifacts and automate this laborious process for you. For more information, please refer to
-<a class="reference external" href="https://docs.gradle.org/current/userguide/signing_plugin.html">Gradle&#8217;s documentation</a> or
-<a class="reference external" href="https://maven.apache.org/plugins/maven-gpg-plugin/">Maven&#8217;s documentation</a>.</p>
+<a class="reference external" href="https://docs.gradle.org/current/userguide/signing_plugin.html">Gradle’s documentation</a> or
+<a class="reference external" href="https://maven.apache.org/plugins/maven-gpg-plugin/">Maven’s documentation</a>.</p>
 </div>
 </div>
 <div class="section" id="uploading-your-plugin">
 <h2>Uploading Your Plugin<a class="headerlink" href="#uploading-your-plugin" title="Permalink to this headline">¶</a></h2>
-<p>Once your plugin&#8217;s JAR file is packaged with an <code class="docutils literal"><span class="pre">mcmod.info</span></code> descriptor file in the top-level and signed with your
+<p>Once your plugin’s JAR file is packaged with an <code class="docutils literal"><span class="pre">mcmod.info</span></code> descriptor file in the top-level and signed with your
 PGP private key, your plugin is ready for uploading! To create a project on Ore, you must have an active Sponge
-account. Hitting the &#8220;Sign up&#8221; button in the top-right corner will take you to the appropriate page to create one. If
-you already have an account, just hit the &#8220;Log in&#8221; button in the top-right corner to log into Ore.</p>
-<p>Once logged in, navigate to your avatar and select the &#8220;New&#8221; option in the drop-down menu that appears, or just press
-the &#8220;C&#8221; key.</p>
+account. Hitting the “Sign up” button in the top-right corner will take you to the appropriate page to create one. If
+you already have an account, just hit the “Log in” button in the top-right corner to log into Ore.</p>
+<p>Once logged in, navigate to your avatar and select the “New” option in the drop-down menu that appears, or just press
+the “C” key.</p>
 <p>While uploading, the creation wizard will first ask for your main upload file and then for your detached signature.</p>
 </div>
 <div class="section" id="setting-up-your-project-on-ore">
 <h2>Setting Up Your Project on Ore<a class="headerlink" href="#setting-up-your-project-on-ore" title="Permalink to this headline">¶</a></h2>
-<p>After uploading your plugin, you will be presented with some settings to configure your project however you like. Don&#8217;t
+<p>After uploading your plugin, you will be presented with some settings to configure your project however you like. Don’t
 worry, all of these can be changed later in the settings panel. After setting up your project you will be able to invite
 Sponge users to be a part of your project. Any user that is registered on the forums can be invited to a project even if
 they have never logged onto Ore. Upon creation of your project, the users you have invited will receive a notification
@@ -244,24 +247,90 @@ to other members.</p>
 <p>Support cannot do anything, merely a way of showing that the member is a part of the project.</p>
 </div>
 </div>
+<div class="section" id="documenting-your-project-with-pages">
+<h2>Documenting Your Project With Pages<a class="headerlink" href="#documenting-your-project-with-pages" title="Permalink to this headline">¶</a></h2>
+<p>To document your plugin Ore offers the creation of pages. By default you get a ‘Home’ page when you create your new Project.
+To add new pages you can click on the ‘+’ icon in the Pages bar on the right of the screen; doing so will open a pop-up where you
+can choose a name and the parent page (adding a page on the Home page is not possible). If you choose the ‘&lt;None&gt;’ option the page
+will become a root page where you can later add child pages on. If you choose to add it to another page the page will only show
+when the parent page is expanded.
+To document your pages you can use CommonMark.</p>
+<div class="section" id="linking-pages">
+<h3>Linking Pages<a class="headerlink" href="#linking-pages" title="Permalink to this headline">¶</a></h3>
+<p>If you have the following tree structure in your pages:</p>
+<ul class="simple">
+<li>Home</li>
+<li><dl class="first docutils">
+<dt>Commands</dt>
+<dd><ul class="first last">
+<li>User</li>
+<li>Admin</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Setup</dt>
+<dd><ul class="first last">
+<li>Config</li>
+<li>Permissions</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>And you want to add a link from the home page to the Config page in Setup you can use <cite>WikiLinks</cite>.
+To add a WikiLink use the format <cite>[[Link]]</cite> so on the home page you can add <cite>[[Setup/Config]]</cite> and this will get be converted to a
+link that is guaranteed to work.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can also specify a title for the link and separate it with a Pipe symbol so <cite>[[Title|Link]]</cite> will become a link with the title</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">WikiLinks are only supported in Ore so if you use them on the Home-page they will not be displayed correctly on the forums.
+However, we still recommend using WikiLinks instead of normal links to guarantee the future working of your wiki.</p>
+</div>
+</div>
+</div>
+<div class="section" id="project-states">
+<h2>Project States<a class="headerlink" href="#project-states" title="Permalink to this headline">¶</a></h2>
+<p>When creating a new project a banner will appear telling you your project is in a ‘new’ state.
+The new state is intended to indicated to users and admins you are still working on the setup of your project. If you have finished documenting
+your plugin to make it comply with the guidelines, click the ‘publish’ button to complete the process.
+However, if you don’t publish it yourself then the project will be published automatically 24 hours after it’s creation.</p>
+<div class="section" id="needs-changes">
+<h3>Needs Changes<a class="headerlink" href="#needs-changes" title="Permalink to this headline">¶</a></h3>
+<p>Ore staff can hide your project and request changes; the changes in question will be listed in the banner. This state will hide your project from the public; if you are done
+you can send your project for approval.</p>
+</div>
+<div class="section" id="needs-approval">
+<h3>Needs Approval<a class="headerlink" href="#needs-approval" title="Permalink to this headline">¶</a></h3>
+<p>In this state your project is still hidden from the public while waiting for a staff member to review and validate the changes that were requested.
+Please be patient, the staff members might be busy with other tasks. If the project gets approved it will automatically become visible again.
+Please make sure to actually fix the points that require changes.</p>
+</div>
+</div>
 </div>
 
            </div>
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="gradle-deploy.html" class="btn btn-neutral float-right" title="Deploy from Gradle" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-        <a href="index.html" class="btn btn-neutral" title="Ore Documentation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="gradle-deploy.html" class="btn btn-neutral float-right" title="Deploy From Gradle" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="guidelines.html" class="btn btn-neutral" title="Ore Plugin Submission Guidelines" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
-  <hr/>
+    <hr/>
 
-  <div role="contentinfo">
-    <p>&copy; Copyright 2014-2017, Sponge Contributors.
-    </p>
-  </div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-</footer>
-        </div>
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
       </div>
 
     </section>
@@ -272,7 +341,7 @@ to other members.</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 5.1.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -286,7 +355,7 @@ to other members.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'5.1.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -7,7 +7,6 @@ Event Listeners
     org.spongepowered.api.event.EventManager
     org.spongepowered.api.event.Listener
     org.spongepowered.api.event.Order
-    org.spongepowered.api.event.SpongeEventFactory
     org.spongepowered.api.event.block.ChangeBlockEvent
     org.spongepowered.api.event.block.ChangeBlockEvent.Break
     org.spongepowered.api.event.cause.Cause
@@ -69,7 +68,7 @@ the class containing the event listeners.
 
 
 Dynamically Registering Event Listeners
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Some plugins (such as scripting plugins) may wish to dynamically register an event listener. In that case the event
 listener is not a method annotated with ``@Listener``, but rather a class implementing the ``EventListener`` interface.
@@ -90,7 +89,7 @@ before other server modifications.
 
         @Override
         public void handle(ChangeBlockEvent.Break event) throws Exception {
-            ...
+            [...]
         }
     }
 
@@ -116,7 +115,7 @@ which accepts an instance of the class containing the event listeners.
 
 .. code-block:: java
 
-    EventListener listener = ...
+    EventListener listener = ...;
     Sponge.getEventManager().unregisterListeners(listener);
 
 Alternatively, you can use :javadoc:`EventManager#unregisterPluginListeners(Object)`, passing in a reference to the
@@ -125,17 +124,17 @@ event listeners, including those registered with ``@Listener`` annotations.
 
 .. code-block:: java
 
-    MyPlugin plugin = ...
+    MyPlugin plugin = ...;
     Sponge.getEventManager().unregisterPluginListeners(plugin);
 
 .. _about_listener:
 
 About @Listener
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 The ``@Listener`` annotation has a few configurable fields:
 
-* ``order`` is the priority in which the event listener is to be run. See the :javadoc:`Order` enum in the SpongeAPI to
+* ``order`` is the priority in which the event listener is to be run. See the :javadoc:`Order` enum in SpongeAPI to
   see the available options.
 * ``beforeModifications`` specifies if the event listener should be called before other server mods, such as Forge
   mods. By default, this is set to false.
@@ -181,7 +180,8 @@ The method returns ``true`` if the event was cancelled, ``false`` if not.
 Firing Sponge Events
 ~~~~~~~~~~~~~~~~~~~~
 
-It is possible to generate instances of built-in events with the static :javadoc:`SpongeEventFactory`. The events
+It is possible to generate instances of built-in events with the static ``SpongeEventFactory``. This class is
+automatically generated so there are no Javadocs. Use your IDE's autocompletion to list the existing methods. The events
 created by the ``SpongeEventFactory`` are then passed to :javadoc:`EventManager#post(Event)`.
 
 Example: Firing LightningEvent
@@ -193,7 +193,7 @@ Example: Firing LightningEvent
     import org.spongepowered.api.event.action.LightningEvent;
     import org.spongepowered.api.event.cause.Cause;
 
-    LightningEvent lightningEvent = SpongeEventFactory.createLightningEvent(Cause.source(plugin).build());
+    LightningEvent lightningEvent = SpongeEventFactory.createLightningEventPre(Cause.source(plugin).build());
     Sponge.getEventManager().post(lightningEvent);
 
 .. warning::

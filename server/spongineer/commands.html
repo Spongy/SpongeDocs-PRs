@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Commands &mdash; Sponge 5.1.0 documentation</title>
+  <title>Commands &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,12 +18,12 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 5.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Becoming an Expert Spongineer" href="index.html"/>        <link rel="next" title="Troubleshooting" href="troubleshooting.html"/>        <link rel="prev" title="Becoming an Expert Spongineer" href="index.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Becoming an Expert Spongineer" href="index.html"/>        <link rel="next" title="Troubleshooting" href="troubleshooting.html"/>        <link rel="prev" title="Becoming an Expert Spongineer" href="index.html"/>
     <!-- Google Analytics -->
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-59476017-2', 'auto');
@@ -135,10 +135,10 @@
 <h1>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h1>
 <p>Commands are one method in which server operators can administer their server, and in which players can interact with
 the server.</p>
-<p>In Sponge, commands follow a system of permissions. Permissions allow server operators to control who can access what
-commands. By default, all commands are granted to players with OP status. Players without operator status do not have
-access to administrative commands or commands that require an assigned permission node. A server operator can fine-tune
-who can access what commands by adding/negating permission nodes through a permissions plugin.</p>
+<p>In Sponge, commands follow a system of <a class="reference internal" href="../../plugin/permissions.html"><span class="doc">Permissions</span></a>. Permissions allow server operators to control
+who can access what commands. By default, all commands are granted to players with OP status. Players without operator
+status do not have access to administrative commands or commands that require an assigned permission node. A server
+operator can fine-tune who can access what commands by adding/negating permission nodes through a permissions plugin.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Sponge is not a permissions-management plugin. To add and negate permissions for individual players or groups, you
@@ -183,34 +183,39 @@ config.</td>
 <td>Dumps the JVM heap.</td>
 <td>sponge.command.heap</td>
 </tr>
-<tr class="row-even"><td>/sponge plugins</td>
+<tr class="row-even"><td>/sponge help</td>
+<td>View information on commands used on the
+server.</td>
+<td>sponge.command.help</td>
+</tr>
+<tr class="row-odd"><td>/sponge plugins</td>
 <td>Lists currently installed plugins.</td>
 <td>sponge.command.plugins</td>
 </tr>
-<tr class="row-odd"><td>/sponge plugins reload</td>
+<tr class="row-even"><td>/sponge plugins reload</td>
 <td>Asks plugins to perform their own reload
 procedures.</td>
 <td>sponge.command.plugins.reload</td>
 </tr>
-<tr class="row-even"><td>/sponge reload</td>
+<tr class="row-odd"><td>/sponge reload</td>
 <td>Reloads the global, world, or dimension
 config.</td>
 <td>sponge.command.reload</td>
 </tr>
-<tr class="row-odd"><td>/sponge save</td>
+<tr class="row-even"><td>/sponge save</td>
 <td>Saves the global, world, or dimension
 config.</td>
 <td>sponge.command.save</td>
 </tr>
-<tr class="row-even"><td>/sponge timings</td>
+<tr class="row-odd"><td>/sponge timings</td>
 <td>The main command for the timings module.</td>
 <td>sponge.command.timings</td>
 </tr>
-<tr class="row-odd"><td>/sponge tps</td>
+<tr class="row-even"><td>/sponge tps</td>
 <td>Display ticks per second for each world.</td>
 <td>sponge.command.tps</td>
 </tr>
-<tr class="row-even"><td>/sponge version</td>
+<tr class="row-odd"><td>/sponge version</td>
 <td>Prints the Sponge/SpongeAPI versions to
 the console.</td>
 <td>sponge.command.version</td>
@@ -227,6 +232,16 @@ the console.</td>
 <li>/sponge save [-g] [-d dim|*] [-w world|*]</li>
 <li>/sponge reload [-g] [-d dim|*] [-w world|*]</li>
 </ul>
+<p><strong>Command Conflicts</strong></p>
+<p>In cases of command conflict, Sponge provides a primary alias mechanism to specify which command is to be used.  For
+example, Minecraft provides the <a class="reference external" href="https://minecraft.gamepedia.com/Commands#Summary_of_commands">reload</a> command and
+Sponge provides the <a class="reference external" href="https://docs.spongepowered.org/stable/en/server/spongineer/commands.html">reload</a> command. To
+specify which command to use, prefix it with minecraft or sponge and a <code class="docutils literal"><span class="pre">:</span></code>. So, to use Sponge’s reload command
+above, type in <code class="docutils literal"><span class="pre">/sponge:reload</span></code>. This approach can also be used to handle conflicts between mods and/or plugins. Do the
+same thing, just use the mod-id or the plugin-id and a <code class="docutils literal"><span class="pre">:</span></code>.  An example is <code class="docutils literal"><span class="pre">/examplemodid:tp</span></code>.</p>
+<p>Furthermore, the primary alias mechanism can be used to overcome incompatibilties. Let’s say a plugin registers a
+command, but the command is incompatible with your mod. If you can configure your mod to use a Minecraft native
+command or another plugin’s command, you can restore the expected behavior or prevent unexpected behaviors.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">audit</span></code> command forces loading of any classes which have not yet been loaded, allowing the full output
@@ -244,7 +259,7 @@ the <a class="reference external" href="https://github.com/SpongePowered/Mixin/w
 <div>Since no dimension was specified, the dimension would default to the sender(player) dimension. So if you were in a
 mystcraft dimension, this would alter the mystcraft dimension config.</div></blockquote>
 <ol class="loweralpha simple" start="2">
-<li><code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">config</span> <span class="pre">-d</span> <span class="pre">nether</span> <span class="pre">logging.chunk-load</span> <span class="pre">true</span></code></li>
+<li><code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">config</span> <span class="pre">-d</span> <span class="pre">minecraft:nether</span> <span class="pre">logging.chunk-load</span> <span class="pre">true</span></code></li>
 </ol>
 <p>Since a dimension type was specified, this would alter the nether dimension config (and hence all nether worlds).</p>
 <ol class="loweralpha simple" start="3">
@@ -309,7 +324,7 @@ timings will not be available.</td>
 <div class="section" id="forge">
 <h3>Forge<a class="headerlink" href="#forge" title="Permalink to this headline">¶</a></h3>
 <p>The following commands are available only when using the SpongeForge coremod on Forge. Other implementations of the
-Sponge API, such as SpongeVanilla, do not include these commands.</p>
+SpongeAPI, such as SpongeVanilla, do not include these commands.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="25%" />
@@ -362,7 +377,7 @@ server are of the structure <code class="docutils literal"><span class="pre">min
 <td>minecraft.command.ban</td>
 </tr>
 <tr class="row-odd"><td>/ban-ip</td>
-<td>Ban a player&#8217;s IP address.</td>
+<td>Ban a player’s IP address.</td>
 <td>minecraft.command.ban-ip</td>
 </tr>
 <tr class="row-even"><td>/banlist</td>
@@ -455,13 +470,19 @@ before getting kicked.</td>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Sponge also creates a spawn-protection bypass permission, and two permissions for controlling the
-ability to edit commandblocks. Note that these permissions use the actual <em>name</em> of the commandblock,
+<p>Sponge also creates a spawn-protection bypass permission, a force-gamemode bypass permission, and two permissions for
+controlling the ability to edit commandblocks. Note that these permissions use the actual <em>name</em> of the commandblock,
 which is normally <code class="docutils literal"><span class="pre">&#64;</span></code> by default.</p>
 <ul class="simple">
-<li>Allow player to bypass spawn-protection on all worlds: <code class="docutils literal"><span class="pre">minecraft.spawn-protection.override</span></code></li>
+<li>Allow player to bypass spawn-protection in all worlds: <code class="docutils literal"><span class="pre">minecraft.spawn-protection.override</span></code></li>
+<li>Allow player to bypass force-gamemode in all worlds: <code class="docutils literal"><span class="pre">minecraft.force-gamemode.override</span></code></li>
 <li>Allow editing an ordinary commandblock of the given name: <code class="docutils literal"><span class="pre">minecraft.commandblock.edit.block.&lt;name&gt;</span></code></li>
 <li>Allow editing a minecart commandblock of the given name: <code class="docutils literal"><span class="pre">minecraft.commandblock.edit.minecart.&lt;name&gt;</span></code></li>
+</ul>
+<p>There are also extra permissions managing the access to the server:</p>
+<ul class="simple">
+<li>Treat the user as whitelisted: <code class="docutils literal"><span class="pre">minecraft.login.bypass-whitelist</span></code></li>
+<li>Allow this user to bypass the server’s player limit: <code class="docutils literal"><span class="pre">minecraft.login.bypass-player-limit</span></code></li>
 </ul>
 </div>
 </div>
@@ -483,7 +504,8 @@ which is normally <code class="docutils literal"><span class="pre">&#64;</span><
 <tbody valign="top">
 <tr class="row-even"><td>/help</td>
 <td>View information on commands used on the
-server</td>
+server, by default the Sponge command
+will be used instead!</td>
 <td>minecraft.command.help</td>
 </tr>
 <tr class="row-odd"><td>/me</td>
@@ -504,7 +526,7 @@ using selectors, specific players).</td>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>A full list of vanilla commands can be found at: <a class="reference external" href="http://minecraft.gamepedia.com/Commands#List_of_commands">http://minecraft.gamepedia.com/Commands#List_of_commands</a>. Permissions
+<p>A full list of vanilla commands can be found at: <a class="reference external" href="https://minecraft.gamepedia.com/Commands#List_of_commands">https://minecraft.gamepedia.com/Commands#List_of_commands</a>. Permissions
 for vanilla Minecraft commands on a Sponge server are of the structure <code class="docutils literal"><span class="pre">minecraft.command.&lt;command&gt;</span></code>.</p>
 </div>
 </div>
@@ -513,18 +535,20 @@ for vanilla Minecraft commands on a Sponge server are of the structure <code cla
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="troubleshooting.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-        <a href="index.html" class="btn btn-neutral" title="Becoming an Expert Spongineer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="troubleshooting.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="index.html" class="btn btn-neutral" title="Becoming an Expert Spongineer" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
-  <hr/>
+    <hr/>
 
-  <div role="contentinfo">
-    <p>&copy; Copyright 2014-2017, Sponge Contributors.
-    </p>
-  </div>Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-</footer>
-        </div>
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
       </div>
 
     </section>
@@ -535,7 +559,7 @@ for vanilla Minecraft commands on a Sponge server are of the structure <code cla
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 5.1.0
+        v: 7.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -549,7 +573,7 @@ for vanilla Minecraft commands on a Sponge server are of the structure <code cla
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'5.1.0',
+            VERSION:'7.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

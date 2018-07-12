@@ -93,7 +93,7 @@ Using the ``Task.Builder``, you can specify other, optional properties, as descr
 +-----------------+-------------------------+--------------------------------------------------------------------------+
 | name            | name(String name)       | The name of the task. By default, the name of the task will be           |
 |                 |                         | PLUGIN_ID "-" ( "A-" | "S-" ) SERIAL_ID. For example, a default task name|
-|                 |                         | could look like "FooPlugin-A-12". No two active tasks will have the same |
+|                 |                         | could look like "fooplugin-A-12". No two active tasks will have the same |
 |                 |                         | serial ID for the same synchronization type. If a task name is specified,|
 |                 |                         | it should be descriptive and aid users in debugging your plugin.         |
 +-----------------+-------------------------+--------------------------------------------------------------------------+
@@ -115,7 +115,7 @@ To cancel a task, simply call the :javadoc:`Task#cancel()` method:
 
 .. code-block:: java
 
-	task.cancel();
+    task.cancel();
 
 If you need to cancel the task from within the runnable itself, you can instead opt to use a ``Consumer<Task>``` in
 order to access the task. The below example will schedule a task that will count down from 60 and cancel itself upon
@@ -152,7 +152,7 @@ requests to another server or database. If done on the main thread, a request to
 the performance of the game, since the next tick cannot be fired until the request is completed.
 
 Since Minecraft is largely single-threaded, there is little you can do in an asynchronous thread. If you must run a
-thread asynchronously, you should execute all of the code that does not use the SpongeAPI/affect Minecraft, then register
+thread asynchronously, you should execute all of the code that does not use SpongeAPI/affect Minecraft, then register
 another `synchronous` task to handle the code that needs the API. There are a few parts of Minecraft that you can work
 with `asynchronously`, including:
 
@@ -164,6 +164,12 @@ In addition, there are a few other operations that are safe to do asynchronously
 
 * Independent network requests
 * Filesystem I/O (excluding files used by Sponge)
+
+.. warning::
+
+    Accessing game objects outside of the main thread can lead to crashes, inconsistencies and various other problems
+    and should be avoided. If this is done wrong, you can get a ``ConcurrentModificationException`` with or without a
+    server crash at best and a corrupted player/world/server at worst.
 
 Compatibility with other libraries
 ==================================
