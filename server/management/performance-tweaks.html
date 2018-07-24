@@ -55,6 +55,7 @@
                 <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
                 <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
                 <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
                 <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
                 <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
             </ul>
@@ -153,7 +154,7 @@ set its value to <code class="docutils literal"><span class="pre">0</span></code
 will then add all available mobs to the activation range list, it is advised to disable it after the list is filled.
 If you add new mobs to the game, just repeat the procedure and those new mobs will also be added to the list below.</p>
 </div>
-<div class="highlight-none"><div class="highlight"><pre><span></span>entity-activation-range {
+<div class="highlight-guess"><div class="highlight"><pre><span></span>entity-activation-range {
     # If enabled, newly discovered entities will be added to this config with a default value.
     auto-populate=false
     # Default activation ranges used for all entities unless overridden.
@@ -171,7 +172,7 @@ If you add new mobs to the game, just repeat the procedure and those new mobs wi
 <div class="section" id="async-lighting">
 <h2>Async Lighting<a class="headerlink" href="#async-lighting" title="Permalink to this headline">¶</a></h2>
 <p>This setting will run lighting checks on a separate thread to improve performance.</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>optimizations {
+<div class="highlight-guess"><div class="highlight"><pre><span></span>optimizations {
     # Runs lighting updates async.
     async-lighting {
         # If enabled, runs lighting updates async.
@@ -186,7 +187,7 @@ If you add new mobs to the game, just repeat the procedure and those new mobs wi
 <div class="section" id="cache-tameable-owners">
 <h2>Cache Tameable Owners<a class="headerlink" href="#cache-tameable-owners" title="Permalink to this headline">¶</a></h2>
 <p>This setting will cache tameable entities owners’ UUID to save constant lookups from the data watcher.</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>optimizations {
+<div class="highlight-guess"><div class="highlight"><pre><span></span>optimizations {
     # Caches tameable entities owners to avoid constant lookups against data watchers. If mods cause issue, disable.
     cache-tameable-owners=true
 }
@@ -197,7 +198,7 @@ If you add new mobs to the game, just repeat the procedure and those new mobs wi
 <h2>Drops Pre Merge<a class="headerlink" href="#drops-pre-merge" title="Permalink to this headline">¶</a></h2>
 <p>This setting will pre-process and potentially merge item drops to avoid spawning extra entities that are then merged
 post-spawning.</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>optimizations {
+<div class="highlight-guess"><div class="highlight"><pre><span></span>optimizations {
     # If enabled, block item drops are pre-processed to avoid
     # having to spawn extra entities that will be merged post spawning.
     # Usually, Sponge is smart enough to determine when to attempt an item pre-merge
@@ -212,7 +213,7 @@ post-spawning.</p>
 <div class="section" id="panda-redstone">
 <h2>Panda Redstone<a class="headerlink" href="#panda-redstone" title="Permalink to this headline">¶</a></h2>
 <p>An alternative Redstone update algorithm, leads to less block updates when Redstone changes.</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>optimizations {
+<div class="highlight-guess"><div class="highlight"><pre><span></span>optimizations {
     # If enabled, uses Panda4494&#39;s Redstone implementation which improves performance.
     # See https://bugs.mojang.com/browse/MC-11193 for more information.
     # Note: This optimization has a few issues which is explained in the bug report. We are not responsible for any issues this may cause.
@@ -225,7 +226,7 @@ post-spawning.</p>
 <h2>Auto-Saving Interval Adjustment<a class="headerlink" href="#auto-saving-interval-adjustment" title="Permalink to this headline">¶</a></h2>
 <p>Vanilla Minecraft defaults to saving all chunks every 900 ticks (45 seconds). If you wish to raise or
 lower this interval, then change it in the servers <code class="docutils literal"><span class="pre">global.conf</span></code> file:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>world {
+<div class="highlight-guess"><div class="highlight"><pre><span></span>world {
     # The auto-save tick interval used when saving global player data.
     # Set to 0 to disable. (Default: 900) Note: 20 ticks is equivalent to 1 second.
     auto-player-save-interval=900
@@ -244,9 +245,9 @@ hardware, but at the expense of increasing the amount of in-game progress that c
 <h2>Realtime<a class="headerlink" href="#realtime" title="Permalink to this headline">¶</a></h2>
 <p>Enabling this will just improve your players experience when tick rate is low, it will not improve performance.
 A limited set of entities, tile entities, and world time will use real time instead of ticks to update.</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>modules {
-    # Use real (wall) time instead of ticks as much as possible
-    realtime=false
+<div class="highlight-guess"><div class="highlight"><pre><span></span><span class="n">modules</span> {
+    <span class="c c-Singleline"># Use real (wall) time instead of ticks as much as possible</span>
+    <span class="n">realtime</span>=<span class="n">false</span>
 }
 </pre></div>
 </div>
@@ -262,7 +263,7 @@ breaking, so no more “breaking blocks multiple times”.</p>
 <p class="last">This is an experimental setting for performance gain, we recommend to not enable it when you have mods on the server
 and to disable it if you experience any issues regarding the loading of tileentities.</p>
 </div>
-<div class="highlight-none"><div class="highlight"><pre><span></span>world {
+<div class="highlight-guess"><div class="highlight"><pre><span></span>world {
     # If enabled, any request for a chunk not currently loaded will be denied (exceptions apply for things like world gen and player movement).
     # Note: As this is an experimental setting for performance gain, if you encounter any issues then we recommend disabling it.
     deny-chunk-requests=false
