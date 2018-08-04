@@ -1,0 +1,681 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Permissions &mdash; Sponge 7.0.0 documentation</title>
+
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Bans" href="bans.html"/>        <link rel="prev" title="Databases" href="database.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../index.html">
+            <img src="../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="buildsystem.html">Build Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workspace/index.html">Setting Up Your Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project/index.html">Setting Up Your Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin-class.html">Main Plugin Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lifecycle.html">Plugin Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="injection.html">Dependency Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practices/index.html">Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optional/index.html">Optionals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text/index.html">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands/index.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event/index.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assets.html">The Asset API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data/index.html">The Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blocks/index.html">Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities/index.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="items/index.html">Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trade-offers.html">Trade-Offers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="effects.html">Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html">Databases</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bookview.html">Book Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="economy/index.html">Economy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wgen/index.html">World Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="game-profile-manager.html">Game Profile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="offline-userplayer-data.html">Offline Player Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tab-lists.html">Tab Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin-meta.html">Plugin Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals/index.html">Implementation-dependent Plugins</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+          <li><a href="index.html">Creating a Plugin</a> &raquo;</li>
+    <li>Permissions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/fix/data-api-implementation-warning/source/plugin/permissions.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="permissions">
+<h1>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h1>
+<p>If you are interested in the permissions that are used in vanilla commands have a look at
+<a class="reference internal" href="../server/spongineer/commands.html"><span class="doc">this page</span></a>. For customizing the permission levels refer to the
+<a class="reference internal" href="../server/management/permissions.html"><span class="doc">server permissions</span></a> page or your permission plugin’s documentation.</p>
+<div class="section" id="permission">
+<h2>Permission<a class="headerlink" href="#permission" title="Permalink to this headline">¶</a></h2>
+<p>A permission is a case-insensitive hierarchical string key that is used to determine whether a Subject can do a specific
+action or not.
+The string is split into separate parts using the dot character.
+Permissions should be structured like this.</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>&lt;PluginID&gt;.&lt;MainGroup&gt;.&lt;Subgroup1&gt;...
+</pre></div>
+</div>
+<p>Allowed characters are:</p>
+<ul class="simple">
+<li>“A” - “Z”</li>
+<li>“a” - “z”</li>
+<li>“0” - “9”</li>
+<li>“_”</li>
+<li>“-“</li>
+<li>“.”</li>
+</ul>
+<div class="section" id="inheritance">
+<h3>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h3>
+<p>If a user has the permission <code class="docutils literal"><span class="pre">myplugin.commands</span></code> then they automatically have all sub permissions such as
+<code class="docutils literal"><span class="pre">myplugin.commands.teleport</span></code> unless the permissions are explicitly removed.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is no such thing as a <code class="docutils literal"><span class="pre">myplugin.commands.*</span></code> wildcard permission.
+Use <code class="docutils literal"><span class="pre">myplugin.commands</span></code> for that.</p>
+</div>
+</div>
+<div class="section" id="structure-example">
+<h3>Structure-Example<a class="headerlink" href="#structure-example" title="Permalink to this headline">¶</a></h3>
+<p>The following example show one possible way of structuring permissions, but following this structure is not required at
+all.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">myplugin</span></code></dt>
+<dd><ul class="first last">
+<li>Grants <strong>full</strong> access to all plugin’s permissions.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">myplugin.commands</span></code></dt>
+<dd><ul class="first last">
+<li>Grants <strong>full</strong> access to all plugin’s commands.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">myplugin.commands.teleport.execute</span></code></dt>
+<dd><ul class="first last">
+<li>Only grants the user the permission to execute the command. Without this permission he is not able to execute the
+command even if he has other <cite>teleport</cite> permissions.
+(With this permission alone the user would only be able to teleport himself to others in his current world.)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">myplugin.commands.teleport.all</span></code></dt>
+<dd><ul class="first last">
+<li>Only grants the user the permission to teleport all players at once.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">myplugin.commands.teleport.worlds</span></code></dt>
+<dd><ul class="first last">
+<li>Only grants the user the permission to teleport to all worlds.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">myplugin.commands.teleport.worlds.mynetherworld</span></code></dt>
+<dd><ul class="first last">
+<li>Only grants the user the permission to teleport to <em>mynetherworld</em>.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="permissiondescription">
+<h2>PermissionDescription<a class="headerlink" href="#permissiondescription" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/PermissionDescription.html">PermissionDescription</a> is an utility that is meant to provide the server owner with details on a certain
+permission. <code class="docutils literal"><span class="pre">PermissionDescription</span></code>s are an optional feature a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/PermissionService.html">PermissionService</a> can provide. The creation
+of a PermissionDescription does <strong>not</strong> have any impact on whether a permission exists, who has access or what its
+default value is.</p>
+<p>The description consists of:</p>
+<ul class="simple">
+<li>the target permission id</li>
+<li>a Text description</li>
+<li>one or more assigned roles</li>
+<li>the owning plugin</li>
+</ul>
+<p>If you have a dynamic element such as a <code class="docutils literal"><span class="pre">World</span></code> or <code class="docutils literal"><span class="pre">ItemType</span></code> then you can use <code class="docutils literal"><span class="pre">&lt;TemplateParts&gt;</span></code>.</p>
+<div class="section" id="usage-example">
+<h3>Usage-Example<a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.PermissionDescription</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.PermissionDescription.Builder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.PermissionService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
+
+<span class="n">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">permissionService</span><span class="o">.</span><span class="na">newDescriptionBuilder</span><span class="o">(</span><span class="n">myplugin</span><span class="o">);</span>
+
+<span class="n">builder</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">&quot;myplugin.commands.teleport.execute&quot;</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Allows the user to execute the teleport command.&quot;</span><span class="o">))</span>
+       <span class="o">.</span><span class="na">assign</span><span class="o">(</span><span class="n">PermissionDescription</span><span class="o">.</span><span class="na">ROLE_STAFF</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+       <span class="o">.</span><span class="na">register</span><span class="o">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="simple-result">
+<h3>Simple-Result<a class="headerlink" href="#simple-result" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-text"><div class="highlight"><pre><span></span>myplugin.commands.teleport.execute
+
+Description: Allows the user to execute the teleport command.
+Role: user
+Owner: MyPlugin v1.2.3
+</pre></div>
+</div>
+</div>
+<div class="section" id="template-result">
+<h3>Template-Result<a class="headerlink" href="#template-result" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-text"><div class="highlight"><pre><span></span>myplugin.commands.teleport.worlds.&lt;World&gt;
+
+Description: Allows the user to teleport to the world &lt;World&gt;.
+Role: staff
+Owner: MyPlugin v1.2.3
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">You might skip writing descriptions for some parent permission groups such as <code class="docutils literal"><span class="pre">myplugin.commands.teleport.worlds</span></code>
+or <code class="docutils literal"><span class="pre">myplugin.commands</span></code> as their meaning can be derived from the permission structure and the defined children
+alone.</p>
+</div>
+</div>
+</div>
+<div class="section" id="subject">
+<h2>Subject<a class="headerlink" href="#subject" title="Permalink to this headline">¶</a></h2>
+<p>A <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/Subject.html">Subject</a> is a holder of assigned permissions. It can be obtained from the <code class="docutils literal"><span class="pre">PermissionService</span></code> via
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/SubjectCollection.html">SubjectCollection</a>s.
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/CommandSource.html">CommandSource</a>s such as <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/living/player/Player.html">Player</a>s are <code class="docutils literal"><span class="pre">Subject</span></code>s by default, but there are many other types of
+<code class="docutils literal"><span class="pre">Subject</span></code>s. Anything that has permissions is a Subject even if it just delegates the checks to a contained Subject.
+Permissions can be granted or denied to a Subject. If a permission is neither granted nor denied its setting will be
+inherited. See Inheritance.
+Subjects provide methods to check whether they have a certain permission or not.
+Plugins that use this method should only query for the specific permission they want to check. It is the
+PermissionService’s task to respect the permission and subject inheritance.</p>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>The following example could be used to check whether the Player is allowed to execute the teleport command.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">canTeleport</span><span class="o">(</span><span class="n">Player</span> <span class="n">subject</span><span class="o">,</span> <span class="n">World</span> <span class="n">targetWorld</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">subject</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myplugin.command.teleport.execute&quot;</span><span class="o">)</span>
+            <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">subject</span><span class="o">.</span><span class="na">getWorld</span><span class="o">()</span> <span class="o">==</span> <span class="n">targetWorld</span>
+                    <span class="o">||</span> <span class="n">subject</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myplugin.command.teleport.&quot;</span> <span class="o">+</span> <span class="n">targetWorld</span><span class="o">.</span><span class="na">getName</span><span class="o">()));</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Inheritance<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>If a <code class="docutils literal"><span class="pre">Subject</span></code> has a permission assigned, it will use that value.
+Otherwise it will be inherited from any parent <code class="docutils literal"><span class="pre">Subject</span></code>. It does not matter what kind of parent (e.g. group or
+player) <code class="docutils literal"><span class="pre">Subject</span></code> that might be.</p>
+<p>If neither the subject itself nor any parent subjects grant or deny a permission then it will be inherited from the
+default <code class="docutils literal"><span class="pre">Subject</span></code>s. Each <code class="docutils literal"><span class="pre">SubjectCollection</span></code> defines its own defaults. The global and weakest default subject can be
+obtained from the <code class="docutils literal"><span class="pre">PermissionService</span></code>. Plugins may define their own permissions to the default’s transient
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/permission/SubjectData.html">SubjectData</a> during every server start-up. This allows server owners to overwrite the defaults defined by
+plugins according to their needs using the default’s persistent <code class="docutils literal"><span class="pre">SubjectData</span></code>. If you would like to provide a
+configuration guideline for server owners use <code class="docutils literal"><span class="pre">PermissionDescription</span></code>’s role-templates instead.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You should think carefully before granting default permissions to users. By granting the permissions you are
+assuming that all server owners will want these defaults (at least the first time the plugin runs) and that
+exceptions will require server owners to explicitly deny the permissions (which can’t even be done without a custom
+permissions service implementation). This should roughly correspond to a guest on a single player lan world without
+cheats. For example a chat plugin would allow sending chat messages by default to imitate vanilla game behaviour
+for features that were changed by the plugin.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The default <code class="docutils literal"><span class="pre">Subject</span></code>s’ persistent <code class="docutils literal"><span class="pre">SubjectData</span></code>s take precedence over the transient ones.
+For all other <code class="docutils literal"><span class="pre">Subject</span></code>s the transient <code class="docutils literal"><span class="pre">SubjectData</span></code>s take precedence over the persistent ones.</p>
+</div>
+<p>If neither the Subject, nor any of its parents, nor the defaults assign a value to a permission,
+then it is automatically denied.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Order of precedence in descending order:</p>
+<ul class="last simple">
+<li><dl class="first docutils">
+<dt>Subject itself</dt>
+<dd><ul class="first last">
+<li>Transient</li>
+<li>Persistent</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Parent Subjects</dt>
+<dd><ul class="first last">
+<li>Transient</li>
+<li>Persistent</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>SubjectCollection Defaults</dt>
+<dd><ul class="first last">
+<li>Persistent</li>
+<li>Transient</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>PermissionService Defaults</dt>
+<dd><ul class="first last">
+<li>Persistent</li>
+<li>Transient</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Deny permission</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="subjectcollections">
+<h2>SubjectCollections<a class="headerlink" href="#subjectcollections" title="Permalink to this headline">¶</a></h2>
+<p>A container for subjects that can be used to obtain a Subject by name.
+These are the default Subject Collections:</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>User</dt>
+<dd><ul class="first last">
+<li>Contains all on-line <code class="docutils literal"><span class="pre">Player</span></code>s and all off-line <code class="docutils literal"><span class="pre">User</span></code>s (at least those with none-default settings).</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Group</dt>
+<dd><ul class="first last">
+<li>Contains all group <code class="docutils literal"><span class="pre">Subject</span></code>. Groups are a simple way of structuring a <code class="docutils literal"><span class="pre">Subject</span></code>’s inheritance tree using
+named <code class="docutils literal"><span class="pre">Subject</span></code>s. Groups should be used if a specific subset of <code class="docutils literal"><span class="pre">Subject</span></code>s have additional permission
+settings such as a team, faction or role.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>System</dt>
+<dd><ul class="first last">
+<li>Contains other <code class="docutils literal"><span class="pre">Subject</span></code>s used by the server such as the the console and possible remote consoles.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Command Block</dt>
+<dd><ul class="first last">
+<li>Contains all <code class="docutils literal"><span class="pre">Subject</span></code>s for command blocks. These are useful if you would like to run a <code class="docutils literal"><span class="pre">CommandBlock</span></code> only
+with the permissions of the creator.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Role Template</dt>
+<dd><ul class="first last">
+<li>Contains all role template subjects that are used in <code class="docutils literal"><span class="pre">PermissionDescription</span></code>s. Useful to lookup all recommended
+permissions for a user. These should not be used for inheritance.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When <code class="docutils literal"><span class="pre">SubjectCollection</span></code>s are queried for a <code class="docutils literal"><span class="pre">Subject</span></code> they will automatically be created, if they do not already
+exist. However they might not necessarily show up in <code class="docutils literal"><span class="pre">getAllSubjects()</span></code> unless none-default values are set.</p>
+</div>
+</div>
+<div class="section" id="subjectdata">
+<h2>SubjectData<a class="headerlink" href="#subjectdata" title="Permalink to this headline">¶</a></h2>
+<p>SubjectData are the actual permission stores connected to the Subject.
+There are two types of Subject stores:</p>
+<ul class="simple">
+<li>Transient = Only lasts for the duration of the session, it is never saved</li>
+<li>Regular (persistent) = Might be saved somewhere, and therefore be persisted and exist forever. Its recommended for
+<code class="docutils literal"><span class="pre">PermissionService</span></code>s to implement a persistent store, however it is not a requirement. It might also depend on the
+subject type. If there is no persistence then the transient store will be returned in both methods.</li>
+</ul>
+<p>Plugin authors should consider whether it is necessary to persist a value when choosing between them.</p>
+<ul class="simple">
+<li>If it is only for a short time (e.g. during a minigame) then use the transient one.</li>
+<li>If it is for a long time or forever (e.g. a promotion to VIP) use the regular (persistent) one.</li>
+</ul>
+<p>Please refer to the Inheritance section if want to know more about the inheritance and precedence of the transient
+and persistent <code class="docutils literal"><span class="pre">SubjectData</span></code>s.</p>
+</div>
+<div class="section" id="subject-options">
+<h2>Subject Options<a class="headerlink" href="#subject-options" title="Permalink to this headline">¶</a></h2>
+<p>Subjects also provide the possibility to store string options. These are basically key value pairs that can be
+assigned and inherited. Unlike the permission strings the keys are not hierarchical and don’t provide any inheritance
+mechanisms themselves, but the key value pairs itself are inherited from parent <code class="docutils literal"><span class="pre">Subject</span></code>s in the same way permissions
+are.</p>
+</div>
+<div class="section" id="contexts">
+<h2>Contexts<a class="headerlink" href="#contexts" title="Permalink to this headline">¶</a></h2>
+<p>If you consider each permission to a privilege or ability to be able to do something, a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/context/Context.html">Context</a> is the
+circumstances where that privilege is usable.</p>
+<p>You might want to give a <code class="docutils literal"><span class="pre">Subject</span></code> permission to do something, but only when the <code class="docutils literal"><span class="pre">Subject</span></code> is in a certain world,
+or in a certain region.</p>
+<p>Contexts are accumulated by a <code class="docutils literal"><span class="pre">Subject</span></code>, and are then used by the <code class="docutils literal"><span class="pre">PermissionService</span></code> to decide if the <code class="docutils literal"><span class="pre">Subject</span></code>
+has a privilege or not.</p>
+<p>Sponge provides some contexts by default, but it is generally down to other plugins to provide additional contexts to
+the PermissionService, through a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/service/context/ContextCalculator.html">ContextCalculator</a>.</p>
+<p>When creating contexts for your own plugin please try to avoid conflicts with other plugins (e.g. by prefixing the
+context key with your plugin id) unless these contexts are meant to be shared.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Please make sure that your <code class="docutils literal"><span class="pre">ContextCalculator</span></code> responds as fast as possible as it will get called frequently.</p>
+</div>
+<div class="section" id="id2">
+<h3>Example<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Your <code class="docutils literal"><span class="pre">ContextCalculator</span></code> may look like this:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandSource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.context.Context</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.context.ContextCalculator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.Subject</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleCalculator</span> <span class="kd">implements</span> <span class="n">ContextCalculator</span><span class="o">&lt;</span><span class="n">Subject</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Context</span> <span class="n">IN_ANY_ARENA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="s">&quot;myarenaplugin-inAnyArena&quot;</span><span class="o">,</span> <span class="s">&quot;true&quot;</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Context</span> <span class="n">NOT_ANY_ARENA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="s">&quot;myarenaplugin-inAnyArena&quot;</span><span class="o">,</span> <span class="s">&quot;false&quot;</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">ARENA_KEY</span> <span class="o">=</span> <span class="s">&quot;myarenaplugin-arena&quot;</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">UUID</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">playerArenas</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accumulateContexts</span><span class="o">(</span><span class="n">Subject</span> <span class="n">calculable</span><span class="o">,</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Context</span><span class="o">&gt;</span> <span class="n">accumulator</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">CommandSource</span><span class="o">&gt;</span> <span class="n">commandSource</span> <span class="o">=</span> <span class="n">calculable</span><span class="o">.</span><span class="na">getCommandSource</span><span class="o">();</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">commandSource</span><span class="o">.</span><span class="na">isPresent</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">commandSource</span><span class="o">.</span><span class="na">get</span><span class="o">()</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kd">final</span> <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="o">(</span><span class="n">Player</span><span class="o">)</span> <span class="n">commandSource</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+
+            <span class="kd">final</span> <span class="n">UUID</span> <span class="n">uuid</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="na">getUniqueId</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">playerArenas</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">uuid</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">accumulator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">IN_ANY_ARENA</span><span class="o">);</span>
+                <span class="n">accumulator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="n">ARENA_KEY</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">playerArenas</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">uuid</span><span class="o">)));</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">accumulator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">NOT_ANY_ARENA</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">matches</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Subject</span> <span class="n">subject</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">context</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">IN_ANY_ARENA</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">context</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">NOT_ANY_ARENA</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">context</span><span class="o">.</span><span class="na">getKey</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">ARENA_KEY</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">CommandSource</span><span class="o">&gt;</span> <span class="n">commandSource</span> <span class="o">=</span> <span class="n">subject</span><span class="o">.</span><span class="na">getCommandSource</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">commandSource</span><span class="o">.</span><span class="na">isPresent</span><span class="o">()</span> <span class="o">||</span> <span class="o">!(</span><span class="n">commandSource</span><span class="o">.</span><span class="na">get</span><span class="o">()</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">final</span> <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="o">(</span><span class="n">Player</span><span class="o">)</span> <span class="n">commandSource</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">IN_ANY_ARENA</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="o">.</span><span class="na">playerArenas</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">getUniqueId</span><span class="o">()))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">NOT_ANY_ARENA</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="na">playerArenas</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">getUniqueId</span><span class="o">()))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getKey</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">ARENA_KEY</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="na">playerArenas</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">getUniqueId</span><span class="o">()))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="na">playerArenas</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">getUniqueId</span><span class="o">()).</span><span class="na">equals</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getValue</span><span class="o">()))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">ContextCalculator</span></code> can be registered via:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">permissionService</span><span class="o">.</span><span class="na">registerContextCalculator</span><span class="o">(</span><span class="n">contextCalculator</span><span class="o">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="for-forge-mods">
+<h2>For Forge Mods<a class="headerlink" href="#for-forge-mods" title="Permalink to this headline">¶</a></h2>
+<p>If you are the author of a Forge mod and are not using the new Forge PermissionsAPI but are doing OP checks, then you are already
+on the right path for Sponge to pick up permissions.</p>
+<p>The simplest way to create a Sponge permission in a Forge mod without soft-depending on SpongeAPI is to use the method provided by
+Vanilla Minecraft code in <code class="docutils literal"><span class="pre">ICommandSender</span></code>, namely <code class="docutils literal"><span class="pre">ICommandSender.canCommandSenderUseCommand(int</span> <span class="pre">permLevel,</span> <span class="pre">String</span> <span class="pre">commandName)</span></code>.
+The String passed into that method has no use at all in a Vanilla Forge environment, but when SpongeForge is added it automatically
+takes that String and converts it into a working permission.</p>
+<div class="section" id="id3">
+<h3>Example<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AwesomeBlock</span> <span class="kd">extends</span> <span class="n">Block</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onBlockActivated</span><span class="o">(</span><span class="n">World</span> <span class="n">world</span><span class="o">,</span> <span class="n">BlockPos</span> <span class="n">pos</span><span class="o">,</span> <span class="n">IBlockState</span> <span class="n">state</span><span class="o">,</span>
+            <span class="n">EntityPlayer</span> <span class="n">player</span><span class="o">,</span> <span class="n">EnumHand</span> <span class="n">hand</span><span class="o">,</span> <span class="n">EnumFacing</span> <span class="n">facing</span><span class="o">,</span> <span class="kt">float</span> <span class="n">hitX</span><span class="o">,</span> <span class="kt">float</span> <span class="n">hitY</span><span class="o">,</span> <span class="kt">float</span> <span class="n">hitZ</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">canUseCommand</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="s">&quot;examplemod.awesomeblock.interact&quot;</span><span class="o">))</span> <span class="o">{</span>
+            <span class="c1">// Do cool stuff</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>As you can see, we simply check for the OP level and pass in an arbitrary String we want to use as a permission when Sponge is used.
+When Forge is used by itself the player simply requires the OP level, so passing a value of 0 would allow all users to interact with
+the block, but when SpongeForge is added they require the permission node of <code class="docutils literal"><span class="pre">examplemod.awesomeblock.interact</span></code>.
+It is recommended to follow the permission structure as described above. The permission inheritance does also apply to these checks.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The SRG name for this method is <code class="docutils literal"><span class="pre">func_70003_b</span></code>.</p>
+</div>
+</div>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="bans.html" class="btn btn-neutral float-right" title="Bans" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="database.html" class="btn btn-neutral" title="Databases" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.0.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/fix/data-api-implementation-warning/source/plugin/permissions.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/fix/data-api-implementation-warning/source/plugin/permissions.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'7.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../_static/jquery.js"></script>      <script type="text/javascript" src="../_static/underscore.js"></script>      <script type="text/javascript" src="../_static/doctools.js"></script>      <script type="text/javascript" src="../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>
