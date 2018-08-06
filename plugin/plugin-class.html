@@ -202,25 +202,35 @@ interacting with the game, such as registering commands or events.</p>
 <p>Your plugin can listen for particular events, called <strong>state events</strong>, to be notified about changes in the state of the
 game. In the example below, <code class="docutils literal"><span class="pre">onServerStart()</span></code> is called when the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/game/state/GameStartedServerEvent.html">GameStartedServerEvent</a> occurs; take note
 of the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/Listener.html">Listener</a> annotation before the method.</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
+<p>The example below will log a message upon starting the server. If your plugin is correctly loaded,
+you should see this message as part of the server’s initialization output.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.plugin.Plugin</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.state.GameStartedServerEvent</span><span class="o">;</span>
+
+<span class="c1">// Imports for logger</span>
+<span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.Logger</span><span class="o">;</span>
 
 <span class="nd">@Plugin</span><span class="o">(</span><span class="n">id</span> <span class="o">=</span> <span class="s">&quot;exampleplugin&quot;</span><span class="o">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Example Plugin&quot;</span><span class="o">,</span> <span class="n">version</span> <span class="o">=</span> <span class="s">&quot;1.0&quot;</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&quot;Example&quot;</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExamplePlugin</span> <span class="o">{</span>
+
+    <span class="nd">@Inject</span>
+    <span class="kd">private</span> <span class="n">Logger</span> <span class="n">logger</span><span class="o">;</span>
+
     <span class="nd">@Listener</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onServerStart</span><span class="o">(</span><span class="n">GameStartedServerEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-        <span class="c1">// Hey! The server has started!</span>
-        <span class="c1">// Try instantiating your logger in here.</span>
-        <span class="c1">// (There&#39;s a guide for that)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Successfully running ExamplePlugin!!!&quot;</span><span class="o">);</span>
     <span class="o">}</span>
+
 <span class="o">}</span>
 </pre></div>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">The Sponge documentation provides a guide with more information on events (see <a class="reference internal" href="event/index.html"><span class="doc">Events</span></a>). Normally, in addition
-to prefixing event-handler methods with <code class="docutils literal"><span class="pre">&#64;Listener</span></code>, you must also register your object with Sponge’s event bus.
-However, your main plugin class is registered automatically.</p>
+<p class="last">The Sponge documentation provides a guide with more information on events (see <a class="reference internal" href="event/index.html"><span class="doc">Events</span></a>). Normally, in
+addition to prefixing event-handler methods with <code class="docutils literal"><span class="pre">&#64;Listener</span></code>, you must also register your object with Sponge’s
+event bus. However, your main plugin class is registered automatically.</p>
 </div>
 <div class="section" id="state-events">
 <h3>State Events<a class="headerlink" href="#state-events" title="Permalink to this headline">¶</a></h3>
