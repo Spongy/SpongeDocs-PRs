@@ -302,6 +302,22 @@ should follow, if you don’t need the task’s internals to identify which task
 <p>We can also try to implement our own <code class="docutils literal"><span class="pre">AITask</span></code>s. The <a class="reference internal" href="custom-ai.html"><span class="doc">Implement Your Own AITasks</span></a> page describes the process and some obstacles
 you will encounter.</p>
 </div>
+<div class="section" id="events">
+<h3>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h3>
+<p>The AI API as well as most other parts of the SpongeAPI utilize events. You can read more about events
+<a class="reference internal" href="../event/index.html"><span class="doc">here</span></a>.</p>
+<p>The AI API itself makes use of the following 3 events:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/entity/ai/AITaskEvent.Add.html">AITaskEvent.Add</a></li>
+<li><a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/entity/ai/AITaskEvent.Remove.html">AITaskEvent.Remove</a></li>
+<li><a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/entity/ai/SetAITargetEvent.html">SetAITargetEvent</a></li>
+</ul>
+<p>The <code class="docutils literal"><span class="pre">AITaskEvent.Add</span></code> event is published whenever a new <code class="docutils literal"><span class="pre">AITask</span></code> has been added to a <code class="docutils literal"><span class="pre">Goal</span></code>, likewise is the
+<code class="docutils literal"><span class="pre">AITaskEvent.Remove</span></code> event published if an <code class="docutils literal"><span class="pre">AITask</span></code> has been removed.</p>
+<p>The <code class="docutils literal"><span class="pre">SetAITargetEvent</span></code> is published every time that an <code class="docutils literal"><span class="pre">Agent</span></code> selects a new target (usually for attacking) or drops
+a target.</p>
+<p>All of these events are cancelable, thus allowing us to prevent unwanted third-party changes to our custom entities.</p>
+</div>
 </div>
 </div>
 
