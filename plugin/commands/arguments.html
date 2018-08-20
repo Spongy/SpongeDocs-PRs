@@ -402,7 +402,6 @@ if the parsing fails.</p>
 <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vector2iCommandElement</span> <span class="kd">extends</span> <span class="n">CommandElement</span> <span class="o">{</span>
-    <span class="n">CommandArgs</span> <span class="n">errorargs</span><span class="o">;</span>
 
     <span class="kd">protected</span> <span class="nf">Vector2iCommandElement</span><span class="o">(</span><span class="n">Text</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
@@ -411,23 +410,20 @@ if the parsing fails.</p>
     <span class="nd">@Override</span>
     <span class="kd">protected</span> <span class="n">Object</span> <span class="nf">parseValue</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">,</span> <span class="n">CommandArgs</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ArgumentParseException</span> <span class="o">{</span>
 
-        <span class="c1">// &lt;x&gt; &lt;y&gt;</span>
-        <span class="n">errorargs</span><span class="o">=</span><span class="n">args</span><span class="o">;</span>
-
         <span class="n">String</span> <span class="n">xInput</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
-        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">parseInt</span><span class="o">(</span><span class="n">xInput</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">parseInt</span><span class="o">(</span><span class="n">xInput</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
 
         <span class="n">String</span> <span class="n">yInput</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
-        <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">parseInt</span><span class="o">(</span><span class="n">yInput</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">parseInt</span><span class="o">(</span><span class="n">yInput</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
 
         <span class="k">return</span> <span class="k">new</span> <span class="n">Vector2i</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">parseInt</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ArgumentParseException</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">parseInt</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">,</span> <span class="n">CommandArgs</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ArgumentParseException</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="k">return</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
         <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="n">errorargs</span><span class="o">.</span><span class="na">createError</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="n">input</span> <span class="o">+</span> <span class="s">&quot;&#39; is not a valid number!&quot;</span><span class="o">));</span>
+            <span class="k">throw</span> <span class="n">args</span><span class="o">.</span><span class="na">createError</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="n">input</span> <span class="o">+</span> <span class="s">&quot;&#39; is not a valid number!&quot;</span><span class="o">));</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
@@ -461,6 +457,47 @@ if the parsing fails.</p>
 <p class="first admonition-title">Tip</p>
 <p class="last">Look at the <a class="reference external" href="https://github.com/SpongePowered/SpongeAPI/blob/stable-7/src/main/java/org/spongepowered/api/command/args/GenericArguments.java">source code</a>
 of the <code class="docutils literal"><span class="pre">GenericArguments</span></code> class for more examples.</p>
+</div>
+</div>
+<div class="section" id="using-selectors-in-custom-command-elements">
+<h3>Using Selectors in Custom Command Elements<a class="headerlink" href="#using-selectors-in-custom-command-elements" title="Permalink to this headline">¶</a></h3>
+<p>Sponge provides support for parsing selectors, meaning that you can make use of them in your custom elements. There
+are two steps in using selectors, <strong>parsing</strong> (getting a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/selector/Selector.html">Selector</a> from the string) and <strong>resolving</strong>
+(getting a set of <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/Entity.html">Entity</a> objects selected by the selector).</p>
+<p>To <strong>parse</strong> a selector string, use the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/selector/Selector.html#parse-java.lang.String-">Selector#parse(String)</a> method, passing the entire selector,
+including the <code class="docutils literal"><span class="pre">&#64;</span></code> symbol. This will turn the string into a <code class="docutils literal"><span class="pre">Selector</span></code> object that can be queried or resolved.
+Note that if the string is not a valid selector, an <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html">IllegalArgumentException</a> will be thrown.</p>
+<p>To <strong>resolve</strong> this selector, use <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/selector/Selector.html#resolve-org.spongepowered.api.command.CommandSource-">Selector#resolve(CommandSource)</a>. This will return a set of <code class="docutils literal"><span class="pre">Entity</span></code>
+objects selected by the selector.</p>
+<p>The following <code class="docutils literal"><span class="pre">parseValue</span></code> method from the <code class="docutils literal"><span class="pre">CommandElement</span></code> class attempts to parse a selector and return a set of
+entities based on the location of the <code class="docutils literal"><span class="pre">CommandSource</span></code>. If the passed string does not start with <code class="docutils literal"><span class="pre">&#64;</span></code>, an exception
+will be thrown indicating the passed argument is not a selector.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="n">Object</span> <span class="nf">parseValue</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">,</span> <span class="n">CommandArgs</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ArgumentParseException</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">nextArg</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">nextArg</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">&quot;@&quot;</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;</span> <span class="n">selectedEntities</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">selectedEntities</span> <span class="o">=</span> <span class="n">Selector</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">nextArg</span><span class="o">).</span><span class="na">resolve</span><span class="o">(</span><span class="n">source</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IllegalArgumentException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="n">args</span><span class="o">.</span><span class="na">createError</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Could not parse selector.&quot;</span><span class="o">));</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">selectedEntities</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="n">args</span><span class="o">.</span><span class="na">createError</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;No entities selected.&quot;</span><span class="o">));</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">selectedEntities</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">throw</span> <span class="n">args</span><span class="o">.</span><span class="na">createError</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Not a selector.&quot;</span><span class="o">));</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Look at the <a class="reference external" href="https://github.com/SpongePowered/SpongeAPI/blob/stable-7/src/main/java/org/spongepowered/api/command/args/SelectorCommandElement.java#L40">SelectorCommandElement source code</a>
+for an example of how selector parsing is performed in the standard Sponge <code class="docutils literal"><span class="pre">CommandElements</span></code>.</p>
 </div>
 </div>
 </div>
