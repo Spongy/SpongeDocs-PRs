@@ -1,0 +1,1595 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>global.conf &mdash; Sponge 7.0.0 documentation</title>
+
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../../../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>        <link rel="search" title="Search" href="../../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../../index.html"/>        <link rel="up" title="Configuring Sponge" href="index.html"/>        <link rel="next" title="server.properties" href="server-properties.html"/>        <link rel="prev" title="JSON Syntax" href="json.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../../index.html">
+            <img src="../../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Creating a Server</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Getting Started</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../jre.html">Installing Java</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../migrating.html">Migrating to Sponge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../implementations/index.html">Choosing an Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../launch-script.html">Creating a Launch Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../port-forward.html">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bungeecord.html">Using Sponge with BungeeCord</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Configuring Sponge</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="hocon.html">Introduction to HOCON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="json.html">JSON Syntax</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">global.conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="server-properties.html">server.properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../management/index.html">Server Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../spongineer/index.html">Becoming an Expert Spongineer</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugin/index.html">Creating a Plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+          <li><a href="../../index.html">Creating a Server</a> &raquo;</li>
+          <li><a href="../index.html">Getting Started</a> &raquo;</li>
+          <li><a href="index.html">Configuring Sponge</a> &raquo;</li>
+    <li>global.conf</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/update-command-page/source/server/getting-started/configuration/sponge-conf.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="global-conf">
+<h1>global.conf<a class="headerlink" href="#global-conf" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="global-configuration">
+<h2>Global Configuration<a class="headerlink" href="#global-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The global.conf file contains the global configuration settings for Sponge. This file is created in the config/sponge
+directory in your server folder. Many of these properties can be also overridden per-world or per-dimension type by
+using the config files in the subfolders of config/worlds.</p>
+<p>Below is a table with all available settings inside the global.conf file. Note that certain sections will not be filled
+immediately, and may optionally be added to the file when the server encounters them. There’s also full example of a
+unmodified <code class="docutils literal"><span class="pre">global.conf</span></code> file at the bottom of this page, below the following table:</p>
+</div>
+<div class="section" id="global-properties-of-sponge">
+<h2>Global Properties of Sponge<a class="headerlink" href="#global-properties-of-sponge" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="7%" />
+<col width="8%" />
+<col width="51%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Type</th>
+<th class="head">Default</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>config-enabled</td>
+<td>boolean</td>
+<td>false</td>
+<td>In dimension/world configs, it allows the
+config to override inherited configs.</td>
+</tr>
+<tr class="row-odd"><td><strong>Block Tracking</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>block-blacklist</td>
+<td>string</td>
+<td>null</td>
+<td>Block IDs that will be blacklisted for player
+block placement tracking.</td>
+</tr>
+<tr class="row-odd"><td>enabled</td>
+<td>boolean</td>
+<td>true</td>
+<td>Adds player tracking support for block
+positions.</td>
+</tr>
+<tr class="row-even"><td><strong>Bungeecord</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ip-forwarding</td>
+<td>boolean</td>
+<td>false</td>
+<td>Allows BungeeCord to forward IP address, UUID,
+and Game Profile to the server.</td>
+</tr>
+<tr class="row-even"><td><strong>Cause Tracker</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>capture-async-spawning-entities</td>
+<td>boolean</td>
+<td>true</td>
+<td>If enabled, will report when mods/plugins attempt to spawn
+entities off the main server thread.</td>
+</tr>
+<tr class="row-even"><td>generate-stacktrace-per-phase</td>
+<td>boolean</td>
+<td>false</td>
+<td>If enabled, Sponge will show some more thorough debugging
+for PhaseStates such that a StackTrace is created every
+time a PhaseState switches, allowing for more fine grained
+troubleshooting in the cases of runaway phase states.
+Note that this is not extremely performant and may have
+some associated costs with generating the stack traces
+constantly.</td>
+</tr>
+<tr class="row-odd"><td>maximum-printed-runaway-counts</td>
+<td>integer</td>
+<td>3</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>verbose</td>
+<td>boolean</td>
+<td>true</td>
+<td>If enabled, the cause tracker will print out
+when there are too many phases being entered.</td>
+</tr>
+<tr class="row-odd"><td>verbose-errors</td>
+<td>boolean</td>
+<td>false</td>
+<td>If enabled, the phase tracker will dump extra information
+about the current phases when certain non-PhaseTracker
+related exceptions occur. This is usually not necessary,
+as the information in the exception itself can normally be
+used to determine the cause of the issue.</td>
+</tr>
+<tr class="row-even"><td><strong>Commands</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>aliases</td>
+<td>string</td>
+<td>null</td>
+<td><p class="first">Command aliases will resolve conflicts when multiple
+plugins request a specific command. Correct
+syntax is
+<code class="docutils literal"><span class="pre">&lt;unqualified</span> <span class="pre">command&gt;=&lt;plugin</span> <span class="pre">name&gt;</span></code>
+Example:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">aliases</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">sethome</span><span class="o">=</span><span class="n">homeplugin</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><strong>Debug Options</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>concurrent-entity-checks</td>
+<td>boolean</td>
+<td>false</td>
+<td>Detects and prevents attempts to use entities
+concurrently.</td>
+</tr>
+<tr class="row-even"><td>dump-chunks-on-deadlock</td>
+<td>boolean</td>
+<td>false</td>
+<td>Dumps chunks in the event of a deadlock.</td>
+</tr>
+<tr class="row-odd"><td>dump-heap-on-deadlock</td>
+<td>boolean</td>
+<td>false</td>
+<td>Dump the heap in the event of a deadlock.</td>
+</tr>
+<tr class="row-even"><td>dump-threads-on-warn</td>
+<td>boolean</td>
+<td>false</td>
+<td>Dump the server thread on deadlock warning.</td>
+</tr>
+<tr class="row-odd"><td>thread-contention-monitoring</td>
+<td>boolean</td>
+<td>false</td>
+<td>Enable Java’s thread contention monitoring for
+thread dumps.</td>
+</tr>
+<tr class="row-even"><td><strong>Entity Options</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>collision-warn-size</td>
+<td>integer</td>
+<td>200</td>
+<td>Number of colliding entities in one spot before
+logging a warning. Set to 0 to disable.</td>
+</tr>
+<tr class="row-even"><td>count-warn-size</td>
+<td>integer</td>
+<td>0</td>
+<td>Number of entities allowed in one dimension
+before logging a warning. Set to 0 to disable.</td>
+</tr>
+<tr class="row-odd"><td>entity-painting-respawn-delay</td>
+<td>integer</td>
+<td>2</td>
+<td>Number of ticks before a painting is respawned
+on the client when their art is changed.</td>
+</tr>
+<tr class="row-even"><td>human-player-list-remove-delay</td>
+<td>integer</td>
+<td>10</td>
+<td>Number of ticks before the fake player entry of
+a human is removed from the tab list. The
+allowed range is 0 - 100.</td>
+</tr>
+<tr class="row-odd"><td>item-despawn-rate</td>
+<td>integer</td>
+<td>6000</td>
+<td>The time in ticks before an item despawns.</td>
+</tr>
+<tr class="row-even"><td>living-hard-despawn-range</td>
+<td>integer</td>
+<td>128</td>
+<td>The upper bounded range where living entities farther
+from a player will likely despawn</td>
+</tr>
+<tr class="row-odd"><td>living-soft-despawn-minimum-life</td>
+<td>integer</td>
+<td>30</td>
+<td>The amount of seconds before a living entity between
+the soft and hard despawn ranges from a player to be
+considered for despawning</td>
+</tr>
+<tr class="row-even"><td>living-soft-despawn-range</td>
+<td>integer</td>
+<td>32</td>
+<td>The lower bounded range where living entities near a
+player may potentially despawn</td>
+</tr>
+<tr class="row-odd"><td>max-bounding-box-size</td>
+<td>integer</td>
+<td>1000</td>
+<td>Maximum size of an entity’s bounding box before
+it is removed. Set to 0 to disable.</td>
+</tr>
+<tr class="row-even"><td>max-speed</td>
+<td>integer</td>
+<td>100</td>
+<td>Square of the maximum speed of an entity before
+it is removed. Set to 0 to disable</td>
+</tr>
+<tr class="row-odd"><td><strong>Entity Activation Range</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>auto-populate</td>
+<td>boolean</td>
+<td>false</td>
+<td>If enabled, newly discovered entities will be
+added to this config with a default value.</td>
+</tr>
+<tr class="row-odd"><td><strong>Defaults</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Default activation ranges for all entities unless
+overridden.</td>
+</tr>
+<tr class="row-even"><td>ambient</td>
+<td>integer</td>
+<td>32</td>
+<td>Default activation range for ambient entities.</td>
+</tr>
+<tr class="row-odd"><td>aquatic</td>
+<td>integer</td>
+<td>32</td>
+<td>Default activation range for aquatic entities.</td>
+</tr>
+<tr class="row-even"><td>creature</td>
+<td>integer</td>
+<td>32</td>
+<td>Default activation range for creatures.</td>
+</tr>
+<tr class="row-odd"><td>misc</td>
+<td>integer</td>
+<td>16</td>
+<td>Default activation range for miscellaneous
+entities.</td>
+</tr>
+<tr class="row-even"><td>monster</td>
+<td>integer</td>
+<td>32</td>
+<td>Default activation range for monsters.</td>
+</tr>
+<tr class="row-odd"><td><strong>Mods</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Per-mod overrides. Refer to the Minecraft default
+mod for example.</td>
+</tr>
+<tr class="row-even"><td><strong>Entity Collisions</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>auto-populate</td>
+<td>boolean</td>
+<td>false</td>
+<td>If enabled, newly discovered entities/blocks will
+be added to this config with a default value.</td>
+</tr>
+<tr class="row-even"><td><strong>Defaults</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Default max collisions used for all entities/blocks
+unless overridden.</td>
+</tr>
+<tr class="row-odd"><td>max-entities-within-aabb</td>
+<td>integer</td>
+<td>8</td>
+<td>Max amount of entities any given entity or block
+can collide with. Set to 0 to disable.</td>
+</tr>
+<tr class="row-even"><td><strong>Mods</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Per-mod overrides. Refer to the Minecraft default
+mod for example.</td>
+</tr>
+<tr class="row-odd"><td><strong>Minecraft</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><strong>Blocks</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>“detector_rail”</td>
+<td>integer</td>
+<td>1</td>
+<td>Max collisions for a “detector_rail”.</td>
+</tr>
+<tr class="row-even"><td>“heavy_weighted_pressure_plate”</td>
+<td>integer</td>
+<td>150</td>
+<td>Max collisions for a “heavy_weighted_pressure_plate”.</td>
+</tr>
+<tr class="row-odd"><td>“light_weighted_pressure_plate”</td>
+<td>integer</td>
+<td>15</td>
+<td>Max collisions for a “light_weighted_pressure_plate”.</td>
+</tr>
+<tr class="row-even"><td>“mob_spawner”</td>
+<td>integer</td>
+<td>-1</td>
+<td>Max collisions for a “mob_spawner”.</td>
+</tr>
+<tr class="row-odd"><td>“stone_pressure_plate”</td>
+<td>integer</td>
+<td>1</td>
+<td>Max collisions for a “stone_pressure_plate”.</td>
+</tr>
+<tr class="row-even"><td>“wooden_button”</td>
+<td>integer</td>
+<td>1</td>
+<td>Max collisions for a “wooden_button”.</td>
+</tr>
+<tr class="row-odd"><td>“wooden_pressure_plate”</td>
+<td>integer</td>
+<td>1</td>
+<td>Max collisions for a “wooden_pressure_plate”.</td>
+</tr>
+<tr class="row-even"><td><strong>Defaults</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Default max collisions used for all entities/blocks
+unless overridden.</td>
+</tr>
+<tr class="row-odd"><td>blocks</td>
+<td>integer</td>
+<td>8</td>
+<td>Default max collisions for blocks.</td>
+</tr>
+<tr class="row-even"><td>entities</td>
+<td>integer</td>
+<td>8</td>
+<td>Default max collisions for entities.</td>
+</tr>
+<tr class="row-odd"><td>enabled</td>
+<td>boolean</td>
+<td>true</td>
+<td>Set to false if you want this mod to ignore entity
+collision rules.</td>
+</tr>
+<tr class="row-even"><td><strong>Entities</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>thrownpotion</td>
+<td>integer</td>
+<td>-1</td>
+<td>Max collisions for a thrown potion.</td>
+</tr>
+<tr class="row-even"><td><strong>Exploits</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>prevent-creative-itemstack-name-exploit</td>
+<td>boolean</td>
+<td>true</td>
+<td>Prevents an exploit in which the client sends a
+packet with the itemstack name exceeding the
+string limit.</td>
+</tr>
+<tr class="row-even"><td>prevent-sign-command-exploit</td>
+<td>boolean</td>
+<td>true</td>
+<td>Prevents an exploit in which the client sends a
+packet to update a sign containing commands from
+a player without permission.</td>
+</tr>
+<tr class="row-odd"><td><strong>General Settings</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>config-dir</td>
+<td>string</td>
+<td>see config</td>
+<td>Sets the directory for plugin configurations.</td>
+</tr>
+<tr class="row-odd"><td>disable-warnings</td>
+<td>boolean</td>
+<td>false</td>
+<td>Disable warning messages to server admins.</td>
+</tr>
+<tr class="row-even"><td>file-io-thread-sleep</td>
+<td>boolean</td>
+<td>false</td>
+<td>Enables sleeping between chunk saves.</td>
+</tr>
+<tr class="row-odd"><td>plugins-dir</td>
+<td>string</td>
+<td>See config</td>
+<td>Sets an additional directory to search for plugins.</td>
+</tr>
+<tr class="row-even"><td><strong>Ip Sets</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><strong>Logging Options</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>block-break</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when a block is broken.</td>
+</tr>
+<tr class="row-even"><td>block-modify</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when blocks are modified.</td>
+</tr>
+<tr class="row-odd"><td>block-place</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when blocks are placed.</td>
+</tr>
+<tr class="row-even"><td>block-populate</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when blocks are populated in a chunk.</td>
+</tr>
+<tr class="row-odd"><td>block-tracking</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when blocks are placed by players and
+tracked.</td>
+</tr>
+<tr class="row-even"><td>chunk-gc-queue-unload</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when chunks are queued to be unloaded.</td>
+</tr>
+<tr class="row-odd"><td>chunk-load</td>
+<td>boolean</td>
+<td>false</td>
+<td>Log when chunks are loaded.</td>
+</tr>
+<tr class="row-even"><td>chunk-unload</td>
+<td>boolean</td>
+<td>false</td>
+<td>Log when chunks are unloaded.</td>
+</tr>
+<tr class="row-odd"><td>entity-collision-checks</td>
+<td>boolean</td>
+<td>false</td>
+<td>Whether to log entity collision/count checks.</td>
+</tr>
+<tr class="row-even"><td>entity-death</td>
+<td>boolean</td>
+<td>false</td>
+<td>Log when living entities are destroyed.</td>
+</tr>
+<tr class="row-odd"><td>entity-despawn</td>
+<td>boolean</td>
+<td>false</td>
+<td>Log when living entities are despawned.</td>
+</tr>
+<tr class="row-even"><td>entity-spawn</td>
+<td>boolean</td>
+<td>false</td>
+<td>Log when living entities are spawned.</td>
+</tr>
+<tr class="row-odd"><td>entity-speed-removal</td>
+<td>boolean</td>
+<td>false</td>
+<td>Whether to log entity removals due to speed.</td>
+</tr>
+<tr class="row-even"><td>exploit-itemstack-name-overflow</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when a server receives exploited packets
+with itemstack name exceeding string limit.</td>
+</tr>
+<tr class="row-odd"><td>exploit-respawn-invisibility</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when a player attempts to respawn
+invisible to surrounding players.</td>
+</tr>
+<tr class="row-even"><td>exploit-sign-command-updates</td>
+<td>boolean</td>
+<td>false</td>
+<td>Logs when a server receives an exploited packet
+containing commands from a player with no
+permission.</td>
+</tr>
+<tr class="row-odd"><td>log-stacktraces</td>
+<td>boolean</td>
+<td>false</td>
+<td>Add stack traces to dev logging.</td>
+</tr>
+<tr class="row-even"><td>world-auto-save</td>
+<td>boolean</td>
+<td>false</td>
+<td>If true, logs when a world auto-saves its chunk data.</td>
+</tr>
+<tr class="row-odd"><td><strong>Modules</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>block-capturing-control</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enables block capturing control.</td>
+</tr>
+<tr class="row-odd"><td>bungeecord</td>
+<td>boolean</td>
+<td>false</td>
+<td>Enables BungeeCord support.</td>
+</tr>
+<tr class="row-even"><td>entity-activation-range</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enables the entity activation range settings.</td>
+</tr>
+<tr class="row-odd"><td>entity-collisions</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enables entity collision settings.</td>
+</tr>
+<tr class="row-even"><td>exploits</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enables the exploit prevention module.</td>
+</tr>
+<tr class="row-odd"><td>movement-checks</td>
+<td>boolean</td>
+<td>false</td>
+<td>Enables the configuration of vanilla movement and
+speed checks.</td>
+</tr>
+<tr class="row-even"><td>optimizations</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enables the optimizations module.</td>
+</tr>
+<tr class="row-odd"><td>realtime</td>
+<td>boolean</td>
+<td>false</td>
+<td>Use real time instead of ticks.</td>
+</tr>
+<tr class="row-even"><td>tileentity-activation</td>
+<td>boolean</td>
+<td>false</td>
+<td>Enables the tileentity activation range settings.</td>
+</tr>
+<tr class="row-odd"><td>timings</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enables timing settings.</td>
+</tr>
+<tr class="row-even"><td>tracking</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enables the tracking module.</td>
+</tr>
+<tr class="row-odd"><td><strong>Movement Checks</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>moved-wrongly</td>
+<td>boolean</td>
+<td>true</td>
+<td>Controls whether the ‘player/entity moved wrongly!’ check
+will be enforced</td>
+</tr>
+<tr class="row-odd"><td>player-moved-too-quickly</td>
+<td>boolean</td>
+<td>true</td>
+<td>Controls whether the ‘player moved too quickly!’ check
+will be enforced</td>
+</tr>
+<tr class="row-even"><td>player-vehicle-moved-too-quickly</td>
+<td>boolean</td>
+<td>true</td>
+<td>Controls whether the ‘vehicle of player moved too quickly!’
+check will be enforced</td>
+</tr>
+<tr class="row-odd"><td><strong>Optimizations</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>See <a class="reference internal" href="../../management/performance-tweaks.html"><span class="doc">Performance Tweaks</span></a></td>
+</tr>
+<tr class="row-even"><td><strong>Spawner</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>spawn-limit-ambient</td>
+<td>integer</td>
+<td>15</td>
+<td>The number of ambients that can spawn around the player.</td>
+</tr>
+<tr class="row-even"><td>spawn-limit-animal</td>
+<td>integer</td>
+<td>15</td>
+<td>The number of animals that can spawn around the player.</td>
+</tr>
+<tr class="row-odd"><td>spawn-limit-aquatic</td>
+<td>integer</td>
+<td>5</td>
+<td>The number of aquatics that can spawn around the player.</td>
+</tr>
+<tr class="row-even"><td>spawn-limit-monster</td>
+<td>integer</td>
+<td>70</td>
+<td>The number of monsters that can spawn around the player.</td>
+</tr>
+<tr class="row-odd"><td>tick-rate-ambient</td>
+<td>integer</td>
+<td>400</td>
+<td>The ambient spawn tick rate.</td>
+</tr>
+<tr class="row-even"><td>tick-rate-animal</td>
+<td>integer</td>
+<td>400</td>
+<td>The animal spawn tick rate.</td>
+</tr>
+<tr class="row-odd"><td>tick-rate-aquatic</td>
+<td>integer</td>
+<td>400</td>
+<td>The aquatic spawn tick rate.</td>
+</tr>
+<tr class="row-even"><td>tick-rate-monster</td>
+<td>integer</td>
+<td>1</td>
+<td>The monster spawn tick rate.</td>
+</tr>
+<tr class="row-odd"><td><strong>SQL</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>aliases</td>
+<td>string</td>
+<td>null</td>
+<td>Aliases for SQL connections. This is done in
+the format
+<code class="docutils literal"><span class="pre">jdbc:protocol://[username[:password]&#64;]host/database</span></code></td>
+</tr>
+<tr class="row-odd"><td><strong>Teleport Helper</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>force-blacklist</td>
+<td>boolean</td>
+<td>false</td>
+<td>If enabled, this blacklist will always be respected,
+otherwise, plugins can choose whether or not to respect it.</td>
+</tr>
+<tr class="row-odd"><td>unsafe-body-block-ids</td>
+<td>array</td>
+<td>null</td>
+<td>Block IDs that are listed here will not be selected by
+Sponge’s safe teleport routine as a safe block for players
+to warp into.</td>
+</tr>
+<tr class="row-even"><td>unsafe-floor-block-ids</td>
+<td>array</td>
+<td>null</td>
+<td>Block IDs that are listed here will not be selected by
+Sponge’s safe teleport routine as a safe floor block.</td>
+</tr>
+<tr class="row-odd"><td><strong>Timings</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>enabled</td>
+<td>boolean</td>
+<td>true</td>
+<td>If timings are enabled.</td>
+</tr>
+<tr class="row-odd"><td>hidden-config-entries</td>
+<td>string</td>
+<td>sponge.sql</td>
+<td>The hidden config entries.</td>
+</tr>
+<tr class="row-even"><td>history-interval</td>
+<td>integer</td>
+<td>300</td>
+<td>The interval between timing history report
+generation.</td>
+</tr>
+<tr class="row-odd"><td>history-length</td>
+<td>integer</td>
+<td>3600</td>
+<td>How long, in ticks, that the timing history
+will be kept for the server.</td>
+</tr>
+<tr class="row-even"><td>server-name-privacy</td>
+<td>boolean</td>
+<td>false</td>
+<td>Whether to include information such as the
+server name, motd, online-mode, and server
+icon in the report.</td>
+</tr>
+<tr class="row-odd"><td>verbose</td>
+<td>boolean</td>
+<td>true</td>
+<td>Whether or not for timings to monitor at
+the verbose level.</td>
+</tr>
+<tr class="row-even"><td><strong>World Settings</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>auto-player-save-interval</td>
+<td>integer</td>
+<td>900</td>
+<td>The auto-save tick interval used when saving global
+player data.</td>
+</tr>
+<tr class="row-even"><td>auto-save-interval</td>
+<td>integer</td>
+<td>900</td>
+<td>The auto-save tick interval used to save all loaded
+chunks in a world.</td>
+</tr>
+<tr class="row-odd"><td>chunk-gc-load-threshold</td>
+<td>integer</td>
+<td>0</td>
+<td>The number of newly loaded chunks before triggering
+a forced cleanup.</td>
+</tr>
+<tr class="row-even"><td>chunk-gc-tick-interval</td>
+<td>integer</td>
+<td>600</td>
+<td>The tick interval used to cleanup all inactive
+chunks in a world.</td>
+</tr>
+<tr class="row-odd"><td>chunk-unload-delay</td>
+<td>integer</td>
+<td>15</td>
+<td>The number of seconds to delay a chunk unload once
+marked inactive.</td>
+</tr>
+<tr class="row-even"><td>deny-chunk-requests</td>
+<td>boolean</td>
+<td>false</td>
+<td>If enabled, any request for a chunk not currently
+loaded will be denied. Note: As this is an experimental
+setting for performance gain, if you encounter any issues
+then we recommend disabling it.</td>
+</tr>
+<tr class="row-odd"><td>flowing-lava-decay</td>
+<td>boolean</td>
+<td>false</td>
+<td>Lava behaves like vanilla water when the source
+block is removed, when set to true.</td>
+</tr>
+<tr class="row-even"><td>gameprofile-lookup-batch-size</td>
+<td>integer</td>
+<td>1</td>
+<td>The amount of GameProfile requests to make against
+Mojang’s session server.</td>
+</tr>
+<tr class="row-odd"><td>gameprofile-lookup-task-interval</td>
+<td>integer</td>
+<td>4</td>
+<td>The interval used to process queued GameProfile
+requests.</td>
+</tr>
+<tr class="row-even"><td>generate-spawn-on-load</td>
+<td>boolean</td>
+<td>false</td>
+<td>If the world should generate spawn when the
+world is loaded.</td>
+</tr>
+<tr class="row-odd"><td>infinite-water-source</td>
+<td>boolean</td>
+<td>false</td>
+<td>False = Default vanilla water source behaviour.</td>
+</tr>
+<tr class="row-even"><td>invalid-lookup-uuids</td>
+<td>array</td>
+<td>See config</td>
+<td>The list of uuid’s that shouldn’t be looked up on
+Mojang’s session server.</td>
+</tr>
+<tr class="row-odd"><td>item-merge-radius</td>
+<td>integer</td>
+<td>2.5</td>
+<td>The merge radius for item entities.</td>
+</tr>
+<tr class="row-even"><td>keep-spawn-loaded</td>
+<td>boolean</td>
+<td>false</td>
+<td>If the spawn should stay loaded with no players. Has no
+effect in global config. Config doesn’t need to be enabled
+either, because it will always fall back to the world
+config.</td>
+</tr>
+<tr class="row-odd"><td>leaf-decay</td>
+<td>boolean</td>
+<td>true</td>
+<td>If enabled, allows natural leaf decay.</td>
+</tr>
+<tr class="row-even"><td>load-on-startup</td>
+<td>boolean</td>
+<td>false</td>
+<td>If the world should be loaded on startup. Has no effect
+in global config. Config doesn’t need to be enabled either,
+because it will always fall back to the world config.</td>
+</tr>
+<tr class="row-odd"><td>max-chunk-unloads-per-tick</td>
+<td>integer</td>
+<td>100</td>
+<td>The maximum number of queued unloaded chunks that will be
+unloaded in a single tick.</td>
+</tr>
+<tr class="row-even"><td>mob-spawn-range</td>
+<td>integer</td>
+<td>4</td>
+<td>Specifies the radius (in chunks) of where creatures
+will spawn. This value is capped to the current
+view distance setting in server.properties.</td>
+</tr>
+<tr class="row-odd"><td><strong>Portal Agents</strong></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>A list of all detected portal agents used in this
+world. In order to override, change the target world
+name to any other valid world. If world is not found,
+it will fallback to default.</td>
+</tr>
+<tr class="row-even"><td>“minecraft:default_nether”</td>
+<td>world</td>
+<td>DIM-1</td>
+<td>The default nether world.</td>
+</tr>
+<tr class="row-odd"><td>“minecraft:default_the_end”</td>
+<td>world</td>
+<td>DIM1</td>
+<td>The default end world.</td>
+</tr>
+<tr class="row-even"><td>pvp-enabled</td>
+<td>boolean</td>
+<td>true</td>
+<td>If the would allows PVP combat.</td>
+</tr>
+<tr class="row-odd"><td>view-distance</td>
+<td>integer</td>
+<td>-1</td>
+<td>Allows you to set view distance per world, valid range
+3-32, when set to -1 the server-wide view distance will
+be used instead</td>
+</tr>
+<tr class="row-even"><td>weather-ice-and-snow</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enable to allow the natural formation of ice and
+snow.</td>
+</tr>
+<tr class="row-odd"><td>weather-thunder</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enable to initiate thunderstorms.</td>
+</tr>
+<tr class="row-even"><td>world-enabled</td>
+<td>boolean</td>
+<td>true</td>
+<td>Enable if this world should be registered.</td>
+</tr>
+</tbody>
+</table>
+<p>This config was generated using SpongeForge build 2990 (with Forge 2611), SpongeAPI version 7.0.0:</p>
+<div class="highlight-guess"><div class="highlight"><pre><span></span># 1.0
+#
+# # If you need help with the configuration or have any questions related to Sponge,
+# # join us at the IRC or drop by our forums and leave a post.
+#
+# # IRC: #sponge @ irc.esper.net ( https://webchat.esper.net/?channel=sponge )
+# # Forums: https://forums.spongepowered.org/
+#
+
+sponge {
+    block-capturing {
+        # If &#39;true&#39;, newly discovered blocks will be added to this config with a default value.
+        auto-populate=false
+        # Per-mod block id mappings for controlling capturing behavior
+        mods {
+            extrautils2 {
+                # If &#39;true&#39;, individual capturing (i.e. skip bulk capturing) for scheduled ticks for
+                # a block type will be performed.
+                block-tick-capturing {
+                    redstoneclock=true
+                }
+                # If &#39;false&#39;, all specific rules for this mod will be ignored.
+                enabled=true
+            }
+        }
+    }
+    block-tracking {
+        # Block IDs that will be blacklisted for player block placement tracking.
+        block-blacklist=[]
+        # If &#39;true&#39;, adds player tracking support for block positions.
+        # Note: This should only be disabled if you do not care who caused a block to change.
+        enabled=true
+    }
+    bungeecord {
+        # If &#39;true&#39;, allows BungeeCord to forward IP address, UUID, and Game Profile to this server.
+        ip-forwarding=false
+    }
+    cause-tracker {
+        # If set to &#39;true&#39;, when a mod or plugin attempts to spawn an entity
+        # off the main server thread, Sponge will automatically
+        # capture said entity to spawn it properly on the main
+        # server thread. The catch to this is that some mods are
+        # not considering the consequences of spawning an entity
+        # off the server thread, and are unaware of potential race
+        # conditions they may cause. If this is set to false,
+        # Sponge will politely ignore the entity being spawned,
+        # and emit a warning about said spawn anyways.
+        capture-async-spawning-entities=true
+        # If &#39;true&#39;, more thorough debugging for PhaseStates
+        # such that a StackTrace is created every time a PhaseState
+        # switches, allowing for more fine grained troubleshooting
+        # in the cases of runaway phase states. Note that this is
+        # not extremely performant and may have some associated costs
+        # with generating the stack traces constantly.
+        generate-stacktrace-per-phase=false
+        # If verbose is not enabled, this restricts the amount of
+        # runaway phase state printouts, usually happens on a server
+        # where a PhaseState is not completing. Although rare, it should
+        # never happen, but when it does, sometimes it can continuously print
+        # more and more. This attempts to placate that while a fix can be worked on
+        # to resolve the runaway. If verbose is enabled, they will always print.
+        maximum-printed-runaway-counts=3
+        # If &#39;true&#39;, the phase tracker will print out when there are too many phases
+        # being entered, usually considered as an issue of phase re-entrance and
+        # indicates an unexpected issue of tracking phases not to complete.
+        # If this is not reported yet, please report to Sponge. If it has been
+        # reported, you may disable this.
+        verbose=true
+        # If &#39;true&#39;, the phase tracker will dump extra information about the current phases
+        # when certain non-PhaseTracker related exceptions occur. This is usually not necessary, as the information
+        # in the exception itself can normally be used to determine the cause of the issue
+        verbose-errors=false
+    }
+    commands {
+        # Command aliases will resolve conflicts when multiple plugins request a specific command,
+        # Correct syntax is <span class="nt">&lt;unqualified</span> <span class="err">command</span><span class="nt">&gt;</span>=<span class="nt">&lt;plugin</span> <span class="err">name</span><span class="nt">&gt;</span> e.g. &quot;sethome=homeplugin&quot;
+        aliases {}
+        # Patches the specified commands to respect the world of the sender instead of applying the
+        # changes on the all worlds.
+        multi-world-patches {
+            defaultgamemode=true
+            difficulty=true
+            gamerule=true
+            seed=true
+            setdefaultspawnpoint=true
+            time=true
+            toggledownfall=true
+            weather=true
+            worldborder=true
+        }
+    }
+    # This setting does nothing in the global config. In dimension/world configs, it allows the config
+    # to override config(s) that it inherits from
+    config-enabled=false
+    debug {
+        # Detect and prevent certain attempts to use entities concurrently.
+        # WARNING: May drastically decrease server performance. Only set this to &#39;true&#39; to debug a pre-existing issue.
+        concurrent-entity-checks=false
+        # Dump chunks in the event of a deadlock
+        dump-chunks-on-deadlock=false
+        # Dump the heap in the event of a deadlock
+        dump-heap-on-deadlock=false
+        # Dump the server thread on deadlock warning
+        dump-threads-on-warn=false
+        # If &#39;true&#39;, Java&#39;s thread contention monitoring for thread dumps is enabled.
+        thread-contention-monitoring=false
+    }
+    entity {
+        # Number of colliding entities in one spot before logging a warning. Set to 0 to disable
+        collision-warn-size=200
+        # Number of entities in one dimension before logging a warning. Set to 0 to disable
+        count-warn-size=0
+        # Number of ticks before a painting is respawned on clients when their art is changed
+        entity-painting-respawn-delay=2
+        # Number of ticks before the fake player entry of a human is removed from the tab list (range of 0 to 100 ticks).
+        human-player-list-remove-delay=10
+        # Controls the time in ticks for when an item despawns.
+        item-despawn-rate=6000
+        # The upper bounded range where living entities farther from a player will likely despawn
+        living-hard-despawn-range=128
+        # The amount of seconds before a living entity between the soft and hard despawn ranges from a player to be considered for despawning
+        living-soft-despawn-minimum-life=30
+        # The lower bounded range where living entities near a player may potentially despawn
+        living-soft-despawn-range=32
+        # Maximum size of an entity&#39;s bounding box before removing it. Set to 0 to disable
+        max-bounding-box-size=1000
+        # Square of the maximum speed of an entity before removing it. Set to 0 to disable
+        max-speed=100
+    }
+    entity-activation-range {
+        # If &#39;true&#39;, newly discovered entities will be added to this config with a default value.
+        auto-populate=false
+        # Default activation ranges used for all entities unless overridden.
+        defaults {
+            ambient=32
+            aquatic=32
+            creature=32
+            misc=16
+            monster=32
+        }
+        # Per-mod overrides. Refer to the minecraft default mod for example.
+        mods {}
+    }
+    entity-collisions {
+        # If &#39;true&#39;, newly discovered entities/blocks will be added to this config with a default value.
+        auto-populate=false
+        # Default maximum collisions used for all entities/blocks unless overridden.
+        defaults {
+            blocks=8
+            entities=8
+        }
+        # Maximum amount of entities any given entity or block can collide with. This improves
+        # performance when there are more than 8 entities on top of each other such as a 1x1
+        # spawn pen. Set to 0 to disable.
+        max-entities-within-aabb=8
+        # Per-mod overrides. Refer to the minecraft default mod for example.
+        mods {
+            botania {
+                blocks {}
+                # Default maximum collisions used for all entities/blocks unless overridden.
+                defaults {}
+                # If &#39;false&#39;, entity collision rules for this mod will be ignored.
+                enabled=true
+                entities {
+                    botaniacorporeaspark=-1
+                    botaniaspark=-1
+                }
+            }
+            minecraft {
+                blocks {
+                    &quot;detector_rail&quot;=1
+                    &quot;heavy_weighted_pressure_plate&quot;=150
+                    &quot;light_weighted_pressure_plate&quot;=15
+                    &quot;mob_spawner&quot;=-1
+                    &quot;stone_pressure_plate&quot;=1
+                    &quot;wooden_button&quot;=1
+                    &quot;wooden_pressure_plate&quot;=1
+                }
+                # Default maximum collisions used for all entities/blocks unless overridden.
+                defaults {}
+                # If &#39;false&#39;, entity collision rules for this mod will be ignored.
+                enabled=true
+                entities {
+                    thrownpotion=-1
+                }
+            }
+        }
+    }
+    exploits {
+        # Prevents an exploit in which the client sends a packet with the
+        # itemstack name exceeding the string limit.
+        prevent-creative-itemstack-name-exploit=true
+        # Prevents an exploit in which the client sends a packet to update a sign containing
+        # commands from a player without permission.
+        prevent-sign-command-exploit=true
+    }
+    general {
+        # The directory for Sponge plugin configurations, relative to the
+        # execution root or specified as an absolute path.
+        # Note that the default: &quot;<span class="cp">${</span><span class="n">CANONICAL_GAME_DIR</span><span class="cp">}</span>/config&quot;
+        # is going to use the &quot;plugins&quot; directory in the root game directory.
+        # If you wish for plugin configs to reside within a child of the configuration
+        # directory, change the value to, for example, &quot;<span class="cp">${</span><span class="n">CANONICAL_CONFIG_DIR</span><span class="cp">}</span>/sponge/plugins&quot;.
+        # Note: It is not recommended to set this to &quot;<span class="cp">${</span><span class="n">CANONICAL_CONFIG_DIR</span><span class="cp">}</span>/sponge&quot;, as there is
+        # a possibility that plugin configurations can conflict the Sponge core configurations.
+        #
+        config-dir=&quot;<span class="cp">${</span><span class="n">CANONICAL_GAME_DIR</span><span class="cp">}</span>/config&quot;
+        # Disable warning messages to server admins
+        disable-warnings=false
+        # If &#39;true&#39;, sleeping between chunk saves will be enabled, beware of memory issues.
+        file-io-thread-sleep=false
+        # Additional directory to search for plugins, relative to the
+        # execution root or specified as an absolute path.
+        # Note that the default: &quot;<span class="cp">${</span><span class="n">CANONICAL_MODS_DIR</span><span class="cp">}</span>/plugins&quot;
+        # is going to search for a plugins folder in the mods directory.
+        # If you wish for the plugins folder to reside in the root game
+        # directory, change the value to &quot;<span class="cp">${</span><span class="n">CANONICAL_GAME_DIR</span><span class="cp">}</span>/plugins&quot;.
+        plugins-dir=&quot;<span class="cp">${</span><span class="n">CANONICAL_MODS_DIR</span><span class="cp">}</span>/plugins&quot;
+    }
+    ip-sets {}
+    logging {
+        # Log when blocks are broken
+        block-break=false
+        # Log when blocks are modified
+        block-modify=false
+        # Log when blocks are placed
+        block-place=false
+        # Log when blocks are populated in a chunk
+        block-populate=false
+        # Log when blocks are placed by players and tracked
+        block-tracking=false
+        # Log when chunks are queued to be unloaded by the chunk garbage collector.
+        chunk-gc-queue-unload=false
+        # Log when chunks are loaded
+        chunk-load=false
+        # Log when chunks are unloaded
+        chunk-unload=false
+        # Whether to log entity collision/count checks
+        entity-collision-checks=false
+        # Log when living entities are destroyed
+        entity-death=false
+        # Log when living entities are despawned
+        entity-despawn=false
+        # Log when living entities are spawned
+        entity-spawn=false
+        # Whether to log entity removals due to speed
+        entity-speed-removal=false
+        # Log when server receives exploited packet with itemstack name exceeding string limit.
+        exploit-itemstack-name-overflow=false
+        # Log when player attempts to respawn invisible to surrounding players.
+        exploit-respawn-invisibility=false
+        # Log when server receives exploited packet to update a sign containing commands from player with no permission.
+        exploit-sign-command-updates=false
+        # Add stack traces to dev logging
+        log-stacktraces=false
+        # Log when a world auto-saves its chunk data. Note: This may be spammy depending on the auto-save-interval configured for world.
+        world-auto-save=false
+    }
+    modules {
+        block-capturing-control=true
+        bungeecord=false
+        entity-activation-range=true
+        entity-collisions=true
+        exploits=true
+        # Allows configuring Vanilla movement and speed checks
+        movement-checks=false
+        optimizations=true
+        # Use real (wall) time instead of ticks as much as possible
+        realtime=false
+        # Controls block range and tick rate of tileentities.
+        # Use with caution as this can break intended functionality.
+        tileentity-activation=false
+        timings=true
+        tracking=true
+    }
+    movement-checks {
+        # Controls whether the &#39;player/entity moved wrongly!&#39; check will be enforced
+        moved-wrongly=true
+        # Controls whether the &#39;player moved too quickly!&#39; check will be enforced
+        player-moved-too-quickly=true
+        # Controls whether the &#39;vehicle of player moved too quickly!&#39; check will be enforced
+        player-vehicle-moved-too-quickly=true
+    }
+    optimizations {
+        # Runs lighting updates asynchronously.
+        async-lighting {
+            # If &#39;true&#39;, lighting updates are run asynchronously.
+            enabled=true
+            # The amount of threads to dedicate for asynchronous lighting updates. (Default: 2)
+            num-threads=2
+        }
+        # Caches tameable entities owners to avoid constant lookups against data watchers. If mods
+        # cause issues, disable this.
+        cache-tameable-owners=true
+        # If &#39;true&#39;, block item drops are pre-processed to avoid
+        # having to spawn extra entities that will be merged post spawning.
+        # Usually, Sponge is smart enough to determine when to attempt an item pre-merge
+        # and when not to, however, in certain cases, some mods rely on items not being
+        # pre-merged and actually spawned, in which case, the items will flow right through
+        # without being merged.
+        drops-pre-merge=false
+        # If &#39;true&#39;, uses Panda4494&#39;s redstone implementation which improves performance.
+        # See https://bugs.mojang.com/browse/MC-11193 for more information.
+        # Note: This optimization has a few issues which are explained in the bug report.
+        panda-redstone=false
+        # Handles structures that are saved to disk. Certain structures can take up large amounts
+        # of disk space for very large maps and the data for these structures is only needed while the
+        # world around them is generating. Disabling saving of these structures can save disk space and
+        # time during saves if your world is already fully generated.
+        # Warning: disabling structure saving will break the vanilla locate command.
+        structure-saving {
+            # If &#39;true&#39;, newly discovered structures will be added to this config with a default value.
+            auto-populate=false
+            enabled=false
+            # Per-mod overrides. Refer to the minecraft default mod for example.
+            mods {
+                minecraft {
+                    # If &#39;false&#39;, this mod will never save its structures.
+                    enabled=true
+                    structures {
+                        mineshaft=false
+                    }
+                }
+            }
+        }
+    }
+    # Used to control spawn limits around players.
+    # Note: The radius uses the lower value of mob spawn range and server&#39;s view distance.
+    spawner {
+        # The number of ambients the spawner can potentially spawn around a player.
+        spawn-limit-ambient=15
+        # The number of animals the spawner can potentially spawn around a player.
+        spawn-limit-animal=15
+        # The number of aquatics the spawner can potentially spawn around a player.
+        spawn-limit-aquatic=5
+        # The number of monsters the spawner can potentially spawn around a player.
+        spawn-limit-monster=70
+        # The ambient spawning tick rate. Default: 400
+        tick-rate-ambient=400
+        # The animal spawning tick rate. Default: 400
+        tick-rate-animal=400
+        # The aquatic spawning tick rate. Default: 400
+        tick-rate-aquatic=400
+        # The monster spawning tick rate. Default: 1
+        tick-rate-monster=1
+    }
+    # Configuration options related to the Sql service, including connection aliases etc
+    sql {
+        # Aliases for SQL connections, in the format jdbc:protocol://[username[:password]@]host/database
+        aliases {}
+    }
+    # Blocks to blacklist for safe teleportation.
+    teleport-helper {
+        # If &#39;true&#39;, this blacklist will always be respected, otherwise, plugins can choose whether
+        # or not to respect it.
+        force-blacklist=false
+        # Block IDs that are listed here will not be selected by Sponge&#39;s safe teleport routine as
+        # a safe block for players to warp into.
+        # You should only list blocks here that are incorrectly selected, solid blocks that prevent
+        # movement are automatically excluded.
+        unsafe-body-block-ids=[]
+        # Block IDs that are listed here will not be selected by Sponge&#39;s safe
+        # teleport routine as a safe floor block.
+        unsafe-floor-block-ids=[]
+    }
+    tileentity-activation {
+        # If &#39;true&#39;, newly discovered tileentities will be added to this config with default settings.
+        auto-populate=false
+        # Default activation block range used for all tileentities unless overridden.
+        default-block-range=64
+        # Default tick rate used for all tileentities unless overridden.
+        default-tick-rate=1
+        # Per-mod overrides. Refer to the minecraft default mod for example.
+        mods {}
+    }
+    timings {
+        enabled=true
+        hidden-config-entries=[
+            &quot;sponge.sql&quot;
+        ]
+        history-interval=300
+        history-length=3600
+        server-name-privacy=false
+        verbose=true
+    }
+    world {
+        # The auto-save tick interval used when saving global player data. (Default: 900)
+        # Note: 20 ticks is equivalent to 1 second. Set to 0 to disable.
+        auto-player-save-interval=900
+        # The auto-save tick interval used to save all loaded chunks in a world.
+        # Set to 0 to disable. (Default: 900)
+        # Note: 20 ticks is equivalent to 1 second.
+        auto-save-interval=900
+        # The number of newly loaded chunks before triggering a forced cleanup.
+        # Note: When triggered, the loaded chunk threshold will reset and start incrementing.
+        # Disabled by default.
+        chunk-gc-load-threshold=0
+        # The tick interval used to cleanup all inactive chunks that have leaked in a world.
+        # Set to 0 to disable which restores vanilla handling. (Default: 600)
+        chunk-gc-tick-interval=600
+        # The number of seconds to delay a chunk unload once marked inactive. (Default: 15)
+        # Note: This gets reset if the chunk becomes active again.
+        chunk-unload-delay=15
+        # If &#39;true&#39;, any request for a chunk not currently loaded will be denied (exceptions apply
+        # for things like world gen and player movement).
+        # Warning: As this is an experimental setting for performance gain, if you encounter any issues
+        # then we recommend disabling it.
+        deny-chunk-requests=false
+        # Lava behaves like vanilla water when source block is removed
+        flowing-lava-decay=false
+        # The amount of GameProfile requests to make against Mojang&#39;s session server. (Default: 1)
+        # Note: Mojang accepts a maximum of 600 requests every 10 minutes from a single IP address.
+        # If you are running multiple servers behind the same IP, it is recommended to raise the &#39;gameprofile-task-interval&#39; setting
+        # in order to compensate for the amount requests being sent.
+        # Finally, if set to 0 or less, the default batch size will be used.
+        # For more information visit http://wiki.vg/Mojang_API
+        gameprofile-lookup-batch-size=1
+        # The interval, in seconds, used by the GameProfileQueryTask to process queued GameProfile requests. (Default: 4)
+        # Note: This setting should be raised if you experience the following error:
+        # &quot;The client has sent too many requests within a certain amount of time&quot;.
+        # Finally, if set to 0 or less, the default interval will be used.
+        gameprofile-lookup-task-interval=4
+        # If &#39;true&#39;, this world will generate its spawn the moment its loaded.
+        generate-spawn-on-load=null
+        # Vanilla water source behavior - is infinite
+        infinite-water-source=false
+        # The list of uuid&#39;s that should never perform a lookup against Mojang&#39;s session server.
+        # Note: If you are using SpongeForge, make sure to enter any mod fake player&#39;s UUID to this list.
+        invalid-lookup-uuids=[
+            &quot;00000000-0000-0000-0000-000000000000&quot;,
+            &quot;0d0c4ca0-4ff1-11e4-916c-0800200c9a66&quot;,
+            &quot;41c82c87-7afb-4024-ba57-13d2c99cae77&quot;
+        ]
+        # The defined merge radius for Item entities such that when two items are
+        # within the defined radius of each other, they will attempt to merge. Usually,
+        # the default radius is set to 0.5 in Vanilla, however, for performance reasons
+        # 2.5 is generally acceptable.
+        # Note: Increasing the radius higher will likely cause performance degradation
+        # with larger amount of items as they attempt to merge and search nearby
+        # areas for more items. Setting to a negative value is not supported!
+        item-merge-radius=2.5
+        # If &#39;true&#39;, this worlds spawn will remain loaded with no players.
+        keep-spawn-loaded=null
+        # If &#39;true&#39;, natural leaf decay is allowed.
+        leaf-decay=true
+        # If &#39;true&#39;, this world will load on startup.
+        load-on-startup=null
+        # The maximum number of queued unloaded chunks that will be unloaded in a single tick.
+        # Note: With the chunk gc enabled, this setting only applies to the ticks
+        # where the gc runs (controlled by &#39;chunk-gc-tick-interval&#39;)
+        # Note: If the maximum unloads is too low, too many chunks may remain
+        # loaded on the world and increases the chance for a drop in tps. (Default: 100)
+        max-chunk-unloads-per-tick=100
+        # Specifies the radius (in chunks) of where creatures will spawn.
+        # This value is capped to the current view distance setting in server.properties
+        mob-spawn-range=4
+        # A list of all detected portal agents used in this world.
+        # In order to override, change the target world name to any other valid world.
+        # Note: If world is not found, it will fallback to default.
+        portal-agents {
+            &quot;minecraft:default_nether&quot;=DIM-1
+            &quot;minecraft:default_the_end&quot;=DIM1
+        }
+        # If &#39;true&#39;, this world will allow PVP combat.
+        pvp-enabled=true
+        # Override world distance per world/dimension
+        # The value must be greater than or equal to 3 and less than or equal to 32
+        # The server-wide view distance will be used when the value is -1.
+        view-distance=-1
+        # If &#39;true&#39;, natural formation of ice and snow in supported biomes will be allowed.
+        weather-ice-and-snow=true
+        # If &#39;true&#39;, thunderstorms will be initiated in supported biomes.
+        weather-thunder=true
+        # If &#39;true&#39;, this world will be registered.
+        world-enabled=true
+    }
+}
+</pre></div>
+</div>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="server-properties.html" class="btn btn-neutral float-right" title="server.properties" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="json.html" class="btn btn-neutral" title="JSON Syntax" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.0.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/update-command-page/source/server/getting-started/configuration/sponge-conf.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/feature/update-command-page/source/server/getting-started/configuration/sponge-conf.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'7.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../../../_static/jquery.js"></script>      <script type="text/javascript" src="../../../_static/underscore.js"></script>      <script type="text/javascript" src="../../../_static/doctools.js"></script>      <script type="text/javascript" src="../../../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>
