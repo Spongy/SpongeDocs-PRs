@@ -5,7 +5,7 @@ Commands
 Commands are one method in which server operators can administer their server, and in which players can interact with
 the server.
 
-In Sponge, commands follow a system of :doc:`../../plugin/permissions`. Permissions allow server operators to control
+In Sponge, commands follow a system of :doc:`/plugin/permissions`. Permissions allow server operators to control
 who can access what commands. By default, all commands are granted to players with OP status. Players without operator
 status do not have access to administrative commands or commands that require an assigned permission node. A server
 operator can fine-tune who can access what commands by adding/negating permission nodes through a permissions plugin.
@@ -66,8 +66,8 @@ In cases of command conflict, Sponge provides a primary alias mechanism to speci
 example, Minecraft provides the `reload <https://minecraft.gamepedia.com/Commands#Summary_of_commands>`__ command and 
 Sponge provides the `reload <https://docs.spongepowered.org/stable/en/server/spongineer/commands.html>`__ command. To 
 specify which command to use, prefix it with minecraft or sponge and a ``:``. So, to use Sponge's reload command 
-above, type in ``/sponge:reload``. This approach can also be used to handle conflicts between mods and/or plugins. Do the 
-same thing, just use the mod-id or the plugin-id and a ``:``.  An example is ``/examplemodid:tp``.
+above, type in ``/sponge:reload``. This approach can also be used to handle conflicts between mods and/or plugins. Do
+the same thing, just use the mod-id or the plugin-id and a ``:``.  An example is ``/examplemodid:tp``.
 
 Furthermore, the primary alias mechanism can be used to overcome incompatibilties. Let's say a plugin registers a 
 command, but the command is incompatible with your mod. If you can configure your mod to use a Minecraft native 
@@ -144,16 +144,17 @@ Command               Description                               Permission
 
 |
 
-For any Forge mods that use the vanilla command API, command permissions are provided in the form ``<modid>.command.<commandname>``.
+For any Forge mods that use the vanilla command API, command permissions are provided in the form
+``<modid>.command.<commandname>``.
 
 
 Vanilla
 ~~~~~~~
 
 There are several commands built-in to vanilla Minecraft that are also available on servers powered by Sponge. The list
-below is not comprehensive, but it includes the most commonly used commands. These commands are available to players with
-operator status (or the correct permission node). In general, permissions for vanilla Minecraft commands on a Sponge
-server are of the structure ``minecraft.command.<command>``, as shown below.
+below is not comprehensive, but it includes the most commonly used commands. These commands are available to players
+with operator status (or the correct permission node). In general, permissions for vanilla Minecraft commands on a
+Sponge server are of the structure ``minecraft.command.<command>``, as shown below.
 
 ====================  ========================================  ================================
 Command               Description                               Permission
@@ -200,6 +201,14 @@ There are also extra permissions managing the access to the server:
 * Treat the user as whitelisted: ``minecraft.login.bypass-whitelist``
 * Allow this user to bypass the server's player limit: ``minecraft.login.bypass-player-limit``
 
+.. note::
+
+    Sponge offers improved multi-world support, such as per-world world borders. By default Sponge only changes the
+    world border (or other world options) of the world the player is currently in. The vanilla behavior of setting it
+    for all worlds can be restored using the global configuration and setting
+    ``sponge.commands.multi-world-patches.worldborder`` (or the corresponding entry) to ``false``. See 
+    :doc:`/server/getting-started/configuration/sponge-conf` for details. Sponge assumes that multi-world plugins also
+    provide optimized configuration commands for those options and thus does not provide it's own variants.
 
 Player Commands
 ===============
@@ -222,3 +231,25 @@ Command               Description                               Permission
 
 A full list of vanilla commands can be found at: https://minecraft.gamepedia.com/Commands#List_of_commands. Permissions
 for vanilla Minecraft commands on a Sponge server are of the structure ``minecraft.command.<command>``.
+
+Command Features
+================
+
+Sponge and most Sponge plugins support additional command features such as auto completion and hoverable text. The image
+below shows the output using the ``/sponge plugins`` command (yellow box). The elements in that list can be hovered over
+to get addition information such as the current version number (red box). Some elements in the example below also have
+additional actions bound to them. For example the plugin entries in that list can be clicked to show more detailed
+information (purple box) about that plugin. This is equivalent to sending the ``/sponge plugins <pluginId>`` command.
+The auto completion can be triggered by pressing tab. Entering ``/sponge plugins ﻿`` (with a trailing space) and then
+pressing tab will show a list of possible values (turquoise box) that can be used in that context. Pressing tab again
+will iterate the possibilities, if any. Theoretically it is possible to write most commands by pressing only tab and
+space (and maybe the first letter of each segment).
+
+.. image:: /images/command-features.png
+    :align: center
+    :alt: command features
+
+.. tip::
+
+    If you are a plugin author and you want to use hoverable text and text actions in your plugin, then head over to our
+    :doc:`Text documentation </plugin/text/text>`.

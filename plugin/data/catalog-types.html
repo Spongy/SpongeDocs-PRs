@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Data API &mdash; Sponge 7.0.0 documentation</title>
+  <title>Catalog Types &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Creating a Plugin" href="../index.html"/>        <link rel="next" title="Custom Data" href="custom/index.html"/>        <link rel="prev" title="The Asset API" href="../assets.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="The Data API" href="index.html"/>        <link rel="next" title="Using Keys" href="keys.html"/>        <link rel="prev" title="Serializing Custom Data" href="custom/serialization.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -94,9 +94,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../event/index.html">Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">The Data API</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">The Data API</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="custom/index.html">Custom Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="catalog-types.html">Catalog Types</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Catalog Types</a></li>
 <li class="toctree-l3"><a class="reference internal" href="keys.html">Using Keys</a></li>
 <li class="toctree-l3"><a class="reference internal" href="datamanipulators.html">Data Manipulators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="transactions.html">Transactions</a></li>
@@ -159,96 +159,62 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../../index.html">Docs</a> &raquo;</li>
           <li><a href="../index.html">Creating a Plugin</a> &raquo;</li>
-    <li>The Data API</li>
+          <li><a href="index.html">The Data API</a> &raquo;</li>
+    <li>Catalog Types</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="https://github.com/SpongePowered/SpongeDocs/blob/config-list/source/plugin/data/index.rst" class="fa fa-github"> Edit on GitHub</a>
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/config-list/source/plugin/data/catalog-types.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
 </div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-  <div class="section" id="the-data-api">
-<h1>The Data API<a class="headerlink" href="#the-data-api" title="Permalink to this headline">¶</a></h1>
-<p>The unified Data API aims to provide a consistent way of accessing and modifying data. ‘Data’, in this context
-means any data that is consistently synchronized between client and server. It can be changed server-side and
-then those changes will be synchronized to the connected clients. This includes, among many others, the text on
-a sign, the looks of a horse or the health of any living entity.</p>
-<p>Where other approaches define the available data using interfaces and inheritance (like a <code class="docutils literal"><span class="pre">LivingEntity</span></code>
-interface providing getter and setter functions for current and maximum health), in Sponge every entity, block
-etc. is completely oblivious to what data it holds. While this may appear less straightforward than direct
-accessor methods, it is foremost far more extensible. And thanks to the addition of <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/key/Key.html">Key</a>s, simply accessing
-specific values is no less straightforward.</p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">If the data API behaves differently from what you expect (e.g. returns an empty <code class="docutils literal"><span class="pre">Optional</span></code> even if the data are
-supposed to be present), or there is a feature/value missing that you need, check the <a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/issues/8">Implementation Tracker</a>, ask in the <code class="docutils literal"><span class="pre">#spongedev</span></code> IRC channel or on the
-<a class="reference external" href="https://forums.spongepowered.org">Forums</a>.</p>
+  <div class="section" id="catalog-types">
+<h1>Catalog Types<a class="headerlink" href="#catalog-types" title="Permalink to this headline">¶</a></h1>
+<p>A big part of the data API consists of special values with a specific meaning. In previous versions of Minecraft these
+have been numbers such as <code class="docutils literal"><span class="pre">1</span></code> that meant something specific in a given context, for example a simple stone in
+the <code class="docutils literal"><span class="pre">/give</span></code> command. From version to version Minecraft moved away from these magics numbers and moved to a more
+declarative way using (namespaced) identifiers such as <code class="docutils literal"><span class="pre">minecraft:stone</span></code>. This however brought up two big issues with
+these values:</p>
+<ol class="arabic simple">
+<li>How do I persist them and reload them?</li>
+<li>Which values do exist?</li>
+</ol>
+<p>Because of this, Sponge introduced a new class of data: <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/CatalogType.html">CatalogType</a>s.</p>
+<p><code class="docutils literal"><span class="pre">CatalogType</span></code>s provide two methods that make them very versatile.</p>
+<p>First, the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/CatalogType.html#getId--">CatalogType#getId()</a> method that provides an easy access to a unique identifier (within that type
+of data) that can be used to save it to a config file and retrieve it back using the
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/GameRegistry.html#getType-java.lang.Class-java.lang.String-">GameRegistry#getType(Class, String)</a> method. In fact you don’t have to do this yourself, you can rely on
+Sponge’s <a class="reference internal" href="../configuration/serialization.html"><span class="doc">config serialization</span></a> to do this for you instead.</p>
+<p>Some ids are not really human readable, so there is another method for <code class="docutils literal"><span class="pre">CatalogType</span></code>s that tries to return a human
+readable name. You can also check whether your type is <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/translation/Translatable.html">Translatable</a>, which gives you a good name to show to
+your players using their locale.</p>
+<div class="section" id="gameregistry">
+<h2>GameRegistry<a class="headerlink" href="#gameregistry" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/GameRegistry.html">GameRegistry</a> gives you access to all variants of a <code class="docutils literal"><span class="pre">CatalogType</span></code>s using the
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/GameRegistry.html#getAllOf-java.lang.Class-">GameRegistry#getAllOf(Class)</a> method. It also offers various other ways of retrieving a <code class="docutils literal"><span class="pre">CatalogType</span></code> and
+related classes such as builders for most classes including data classes. You can also get more specific registries from
+there such as the <code class="docutils literal"><span class="pre">VillagerRegistry</span></code> and the recipe registries.</p>
 </div>
-<div class="section" id="concepts">
-<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
-<p>On first glance at the API docs, the data API threatens to overwhelm you with lots of interfaces and packages. But
-to simply use the data API, you will not have to deal with many of them, as most interfaces found there are just
-specific data manipulators.</p>
-<div class="section" id="catalogtypes">
-<h3>CatalogTypes<a class="headerlink" href="#catalogtypes" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="catalog-types.html"><span class="doc">Catalog Types</span></a> are groups of values that can be used in certain context. Famous examples of these types are
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/BlockType.html">BlockType</a>s, <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/EntityType.html">EntityType</a>s and <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/item/ItemType.html">ItemType</a>s.</p>
+<div class="section" id="usage-in-commands">
+<h2>Usage in Commands<a class="headerlink" href="#usage-in-commands" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">CatalogType</span></code>s can be easily used in <a class="reference internal" href="../commands/index.html"><span class="doc">Commands</span></a> using the <code class="docutils literal"><span class="pre">catalogedElement</span></code> which will automatically
+support auto completion for all possible variants of the given type. Read more about it in the
+<a class="reference internal" href="../commands/arguments.html"><span class="doc">Argument Parsing</span></a> section.</p>
 </div>
-<div class="section" id="dataholder">
-<h3>DataHolder<a class="headerlink" href="#dataholder" title="Permalink to this headline">¶</a></h3>
-<p>A data holder is just that - something that holds data. It provides methods to retrieve and offer back data. The
-interface itself is completely oblivious to the type of data held. Since only the implementations will possess
-this knowledge, it is possible to ask a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/DataHolder.html">DataHolder</a> to provide data it does not have or to accept data it
-cannot use. In those cases, the return values of the methods will provide the information that data is not available
-(via <code class="docutils literal"><span class="pre">Optional.empty()</span></code>) or not accepted (via the <a class="reference internal" href="transactions.html"><span class="doc">DataTransactionResult</span></a>).</p>
-</div>
-<div class="section" id="property">
-<h3>Property<a class="headerlink" href="#property" title="Permalink to this headline">¶</a></h3>
-<p>A property too is data, but not synchronized between server and clients. Therefore, it can only be
-changed by modifications present on both client and server. Since Sponge is not intended to require a
-client-side counterpart, properties are not modifiable.
-Examples of properties are the harvesting ablities on tools (represented as <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/property/item/HarvestingProperty.html">HarvestingProperty</a> or the damage
-absorption of an equippable armor item (represented as <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/property/item/DamageAbsorptionProperty.html">DamageAbsorptionProperty</a>).</p>
-</div>
-<div class="section" id="datamanipulator">
-<h3>DataManipulator<a class="headerlink" href="#datamanipulator" title="Permalink to this headline">¶</a></h3>
-<p>A data manipulator represents points of cohesive data that describes a certain component of its holder. For
-example <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a>, which contains both current and maximum health. If a data holder has <code class="docutils literal"><span class="pre">HealthData</span></code>, it
-has health that can somehow be depleted and replenished and can die if that health is depleted. This allows for the
-re-use of such components over the API and prevents duplication of accessor methods. For example, sheep, stained glass
-blocks and leather armor all can share the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/DyeableData.html">DyeableData</a> holding the color they are dyed in.</p>
-</div>
-<div class="section" id="key">
-<h3>Key<a class="headerlink" href="#key" title="Permalink to this headline">¶</a></h3>
-<p>A <code class="docutils literal"><span class="pre">Key</span></code> is a unique identifier for a single point of data and can be used to directly read or set that point of
-data without worrying about data manipulators. It was designed to provide a convenient way of accessing data
-similar to direct getter/setter methods. All keys used within Sponge are listed as constants in the
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/key/Keys.html">Keys</a> utility class.</p>
-</div>
-<div class="section" id="value">
-<h3>Value<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h3>
-<p>Within the Data API, a value referred to by a <code class="docutils literal"><span class="pre">Key</span></code> is encoded in a container object. For this documentation,
-it is referred to as ‘keyed value’ to avoid confusion with the actual value. A keyed value encapsulates the
-actual data value (if it is present), a default value (to be used if no direct value is present) and the Key by
-which the value is identified.</p>
-</div>
-</div>
-<div class="section" id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="custom/index.html">Custom Data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="custom/datamanipulators.html">Custom DataManipulators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="custom/dataholders.html">Custom DataHolders</a></li>
-<li class="toctree-l2"><a class="reference internal" href="custom/serialization.html">Serializing Custom Data</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="catalog-types.html">Catalog Types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="keys.html">Using Keys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="datamanipulators.html">Data Manipulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transactions.html">Transactions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="serialization.html">Serializing Data</a></li>
-</ul>
+<div class="section" id="catalog-classes">
+<h2>Catalog Classes<a class="headerlink" href="#catalog-classes" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes we just want to reference a <code class="docutils literal"><span class="pre">CatalogType</span></code> entry in our code without actually getting it from the registry;
+this is usually the case for default values. To simplify these use-cases there are additional catalog classes which
+contain static references to types that are either provided by Minecraft itself or Sponge. You can locate these classes
+by following the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/util/annotation/CatalogedBy.html">CatalogedBy</a> annotation on your <code class="docutils literal"><span class="pre">CatalogType</span></code> class. If the annotation is missing on that
+class please also check the parent and child classes. If the class has too many variants or variants can be added and
+removed at runtime then there won’t be a catalog class. A list of all native catalog types can be found in
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/CatalogTypes.html">CatalogTypes</a>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Do not use those static references inside your own static fields, because the references are initialized only during
+game startup and thus might still contain their dummy values. Using these dummy values will cause exceptions that
+might be hard to trace back to their origin.</p>
 </div>
 </div>
 </div>
@@ -257,8 +223,8 @@ which the value is identified.</p>
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="custom/index.html" class="btn btn-neutral float-right" title="Custom Data" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
-        <a href="../assets.html" class="btn btn-neutral" title="The Asset API" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+        <a href="keys.html" class="btn btn-neutral float-right" title="Using Keys" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="custom/serialization.html" class="btn btn-neutral" title="Serializing Custom Data" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
     <hr/>
@@ -291,8 +257,8 @@ which the value is identified.</p>
 
             <dl>
                 <dt>Contribute</dt>
-                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/config-list/source/plugin/data/index.rst">Source</a></dd>
-                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/config-list/source/plugin/data/index.rst">Edit</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/config-list/source/plugin/data/catalog-types.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/config-list/source/plugin/data/catalog-types.rst">Edit</a></dd>
             </dl>
     </div>
 </div>

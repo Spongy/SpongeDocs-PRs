@@ -499,7 +499,14 @@ the PermissionService, through a <a class="reference external" href="https://jd.
 context key with your plugin id) unless these contexts are meant to be shared.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Please make sure that your <code class="docutils literal"><span class="pre">ContextCalculator</span></code> responds as fast as possible as it will get called frequently.</p>
+<p class="last">Please make sure that your <code class="docutils literal"><span class="pre">ContextCalculator</span></code> responds as <strong>fast</strong> as possible as it will get called frequently.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last"><code class="docutils literal"><span class="pre">ContextCalculator</span></code> implementations must be <strong>thread safe</strong>, because they may be called from outside of the main
+thread, or even called in parallel. For to this reason, all non-name or non-uuid based <code class="docutils literal"><span class="pre">ContextCalculator</span></code>s
+(such as location based ones) have to utilize a cache and must be to be updated using event listeners or
+synchronized schedulers.</p>
 </div>
 <div class="section" id="id2">
 <h3>Example<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
