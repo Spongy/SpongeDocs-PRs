@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Commands &mdash; Sponge 7.0.0 documentation</title>
+  <title>Commands and Permissions &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -76,7 +76,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../management/index.html">Server Management</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Becoming an Expert Spongineer</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Commands</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Commands and Permissions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="logs.html">Log Files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="debugging.html">Debugging</a></li>
@@ -124,7 +124,7 @@
     <li><a href="../../index.html">Docs</a> &raquo;</li>
           <li><a href="../index.html">Creating a Server</a> &raquo;</li>
           <li><a href="index.html">Becoming an Expert Spongineer</a> &raquo;</li>
-    <li>Commands</li>
+    <li>Commands and Permissions</li>
       <li class="wy-breadcrumbs-aside">
             <a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/multi-command-arguments/source/server/spongineer/commands.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -132,8 +132,8 @@
   <hr/>
 </div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-  <div class="section" id="commands">
-<h1>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="commands-and-permissions">
+<h1>Commands and Permissions<a class="headerlink" href="#commands-and-permissions" title="Permalink to this headline">¶</a></h1>
 <p>Commands are one method in which server operators can administer their server, and in which players can interact with
 the server.</p>
 <p>In Sponge, commands follow a system of <a class="reference internal" href="../../plugin/permissions.html"><span class="doc">Permissions</span></a>. Permissions allow server operators to control
@@ -155,7 +155,7 @@ by Sponge.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="24%" />
-<col width="44%" />
+<col width="45%" />
 <col width="32%" />
 </colgroup>
 <thead valign="bottom">
@@ -170,27 +170,39 @@ by Sponge.</p>
 enable mixin debugging.</td>
 <td>sponge.command.audit</td>
 </tr>
-<tr class="row-odd"><td>/sponge chunks</td>
+<tr class="row-odd"><td>/sponge blockinfo</td>
+<td>Shows the type and the some additional
+information about the block you are
+looking at.</td>
+<td>sponge.command.blockinfo</td>
+</tr>
+<tr class="row-even"><td>/sponge chunks</td>
 <td>Prints out the chunk data for a world, a
 dimension, or globally.</td>
 <td>sponge.command.chunks</td>
 </tr>
-<tr class="row-even"><td>/sponge config</td>
+<tr class="row-odd"><td>/sponge config</td>
 <td>Alters a global, world, or a dimension
 config.</td>
 <td>sponge.command.config</td>
+</tr>
+<tr class="row-even"><td>/sponge entityinfo</td>
+<td>Shows the type and the some additional
+information about the entity you are
+looking at.</td>
+<td>sponge.command.entityinfo</td>
 </tr>
 <tr class="row-odd"><td>/sponge heap</td>
 <td>Dumps the JVM heap.</td>
 <td>sponge.command.heap</td>
 </tr>
-<tr class="row-even"><td>/sponge help</td>
-<td>View information on commands used on the
-server.</td>
-<td>sponge.command.help</td>
+<tr class="row-even"><td>/sponge mods</td>
+<td>Lists currently installed forge mods.
+(SpongeForge only)</td>
+<td>sponge.command.mods</td>
 </tr>
 <tr class="row-odd"><td>/sponge plugins</td>
-<td>Lists currently installed plugins.</td>
+<td>Lists currently installed Sponge plugins.</td>
 <td>sponge.command.plugins</td>
 </tr>
 <tr class="row-even"><td>/sponge plugins reload</td>
@@ -220,6 +232,22 @@ config.</td>
 <td>Prints the Sponge/SpongeAPI versions to
 the console.</td>
 <td>sponge.command.version</td>
+</tr>
+<tr class="row-even"><td>/sponge which</td>
+<td>Prints which plugin provided the command,
+it’s aliases and alternatives.</td>
+<td>sponge.command.which</td>
+</tr>
+<tr class="row-odd"><td>/sponge:callback</td>
+<td>Internally used for callback actions on
+<code class="docutils literal"><span class="pre">Text</span></code>s (such as pagination). Not
+intended to be invoked by hand.</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>/sponge:help</td>
+<td>View information on commands used on the
+server.</td>
+<td>sponge.command.help</td>
 </tr>
 </tbody>
 </table>
@@ -268,6 +296,11 @@ mystcraft dimension, this would alter the mystcraft dimension config.</div></blo
 </ol>
 <p class="last">This would alter the config of world named DIM1.</p>
 </div>
+<p>Sponge provides two permissions for debugging purposes:</p>
+<ul class="simple">
+<li>Allow using Sponge’s block tracking message channel: <code class="docutils literal"><span class="pre">sponge.debug.block-tracking</span></code></li>
+<li>Allow hovering of command execution errors to get the stacktrace: <code class="docutils literal"><span class="pre">sponge.debug.hover-stacktrace</span></code></li>
+</ul>
 </div>
 <div class="section" id="timings">
 <h3>Timings<a class="headerlink" href="#timings" title="Permalink to this headline">¶</a></h3>
@@ -472,15 +505,18 @@ before getting kicked.</td>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>Sponge also creates a spawn-protection bypass permission, a force-gamemode bypass permission, and two permissions for
-controlling the ability to edit commandblocks. Note that these permissions use the actual <em>name</em> of the commandblock,
-which is normally <code class="docutils literal"><span class="pre">&#64;</span></code> by default.</p>
+<p>Sponge also creates permissions for these Minecraft features:</p>
 <ul class="simple">
+<li>Allow player to use the entity-selector in commands: <code class="docutils literal"><span class="pre">minecraft.selector</span></code></li>
 <li>Allow player to bypass spawn-protection in all worlds: <code class="docutils literal"><span class="pre">minecraft.spawn-protection.override</span></code></li>
 <li>Allow player to bypass force-gamemode in all worlds: <code class="docutils literal"><span class="pre">minecraft.force-gamemode.override</span></code></li>
 <li>Allow editing an ordinary commandblock of the given name: <code class="docutils literal"><span class="pre">minecraft.commandblock.edit.block.&lt;name&gt;</span></code></li>
 <li>Allow editing a minecart commandblock of the given name: <code class="docutils literal"><span class="pre">minecraft.commandblock.edit.minecart.&lt;name&gt;</span></code></li>
 </ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">These permissions use the actual <em>name</em> of the commandblock, which is normally <code class="docutils literal"><span class="pre">&#64;</span></code> by default.</p>
+</div>
 <p>There are also extra permissions managing the access to the server:</p>
 <ul class="simple">
 <li>Treat the user as whitelisted: <code class="docutils literal"><span class="pre">minecraft.login.bypass-whitelist</span></code></li>
