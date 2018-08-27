@@ -202,16 +202,14 @@ which you can specify using <a class="reference external" href="https://jd.spong
 <p>Using the <code class="docutils literal"><span class="pre">Task.Builder</span></code>, you can specify other, optional properties, as described below.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="10%" />
 <col width="15%" />
-<col width="44%" />
-<col width="31%" />
+<col width="21%" />
+<col width="65%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Property</th>
 <th class="head">Method Used</th>
 <th class="head">Description</th>
-<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -226,12 +224,12 @@ method, or it may be provided as a number of a more convenient time
 unit by specifying a <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html">TimeUnit</a> with the delay() method.</p>
 <p class="last"><em>Either method, but not both, can specified per task.</em></p>
 </td>
-<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>interval</td>
 <td><p class="first">intervalTicks(
 long interval)</p>
-<p class="last">interval(long interval,
+<p class="last">interval(
+long interval,
 TimeUnit unit)</p>
 </td>
 <td><p class="first">The amount of time between repetitions of the task.  If an interval is
@@ -241,7 +239,6 @@ method, or it may be provided as a number of a more convenient time
 unit by specifying a <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html">TimeUnit</a> with the interval() method.</p>
 <p class="last"><em>Either method, but not both, can specified per task.</em></p>
 </td>
-<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>synchronization</td>
 <td>async()</td>
@@ -250,16 +247,14 @@ tick cycle. If <code class="docutils literal"><span class="pre">Task.Builder#asy
 asynchronously. Therefore, it will run in its own thread, independently
 of the tick cycle, and may not safely use game state.
 (See <a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a>.)</td>
-<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>name</td>
 <td>name(String name)</td>
 <td>The name of the task. By default, the name of the task will be
-PLUGIN_ID “-” ( “A-”
+PLUGIN_ID “-” ( “A-” | “S-” ) SERIAL_ID. For example, a default task name
 could look like “fooplugin-A-12”. No two active tasks will have the same
 serial ID for the same synchronization type. If a task name is specified,
 it should be descriptive and aid users in debugging your plugin.</td>
-<td>“S-” ) SERIAL_ID. For example, a default task name</td>
 </tr>
 </tbody>
 </table>
