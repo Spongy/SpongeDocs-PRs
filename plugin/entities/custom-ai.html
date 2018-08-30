@@ -90,7 +90,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Plugin Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../event/index.html">Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
@@ -289,8 +289,7 @@ what to do in that case. We start with the check whether the task should be exec
             <span class="o">.</span><span class="na">getEntities</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
             <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">entityFilter</span><span class="o">)</span>
             <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">getPositionOf</span><span class="o">(</span><span class="n">e</span><span class="o">).</span><span class="na">distanceSquared</span><span class="o">(</span><span class="n">position</span><span class="o">)</span> <span class="o">&lt;</span> <span class="n">MAX_DISTANCE_SQUARED</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">sorted</span><span class="o">(</span><span class="n">Comparator</span><span class="o">.</span><span class="na">comparingDouble</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">getPositionOf</span><span class="o">(</span><span class="n">e</span><span class="o">).</span><span class="na">distanceSquared</span><span class="o">(</span><span class="n">position</span><span class="o">)))</span>
-            <span class="o">.</span><span class="na">findFirst</span><span class="o">();</span>
+            <span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">Comparator</span><span class="o">.</span><span class="na">comparingDouble</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">getPositionOf</span><span class="o">(</span><span class="n">e</span><span class="o">).</span><span class="na">distanceSquared</span><span class="o">(</span><span class="n">position</span><span class="o">)));</span>
     <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">optTarget</span><span class="o">.</span><span class="na">isPresent</span><span class="o">();</span>
 <span class="o">}</span>
 
@@ -345,7 +344,7 @@ that.</p>
 <span class="nd">@Override</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">reset</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">getNavigator</span><span class="o">().</span><span class="na">clearPath</span><span class="o">();</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">optTarget</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">optTarget</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
 <span class="o">}</span>
 </pre></div>
 </div>

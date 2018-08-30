@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Data API &mdash; Sponge 7.0.0 documentation</title>
+  <title>Version Numbers &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Creating a Plugin" href="../index.html"/>        <link rel="next" title="Custom Data" href="custom/index.html"/>        <link rel="prev" title="The Asset API" href="../assets.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Setting Up Your Project" href="index.html"/>        <link rel="next" title="Plugin Identifiers" href="../plugin-identifier.html"/>        <link rel="prev" title="Setting Up Maven" href="maven.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -81,7 +81,12 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Creating a Plugin</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../buildsystem.html">Build Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../workspace/index.html">Setting Up Your Workspace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../project/index.html">Setting Up Your Project</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Setting Up Your Project</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="gradle.html">Setting Up Gradle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maven.html">Setting Up Maven</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Version Numbers</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../plugin-identifier.html">Plugin Identifiers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plugin-class.html">Main Plugin Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a></li>
@@ -94,15 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../event/index.html">Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">The Data API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="custom/index.html">Custom Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="catalog-types.html">Catalog Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="keys.html">Using Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="datamanipulators.html">Data Manipulators</a></li>
-<li class="toctree-l3"><a class="reference internal" href="transactions.html">Transactions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="serialization.html">Serializing Data</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../blocks/index.html">Blocks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Entities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../items/index.html">Items</a></li>
@@ -159,97 +156,92 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../../index.html">Docs</a> &raquo;</li>
           <li><a href="../index.html">Creating a Plugin</a> &raquo;</li>
-    <li>The Data API</li>
+          <li><a href="index.html">Setting Up Your Project</a> &raquo;</li>
+    <li>Version Numbers</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/entity-ai/source/plugin/data/index.rst" class="fa fa-github"> Edit on GitHub</a>
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/entity-ai/source/plugin/project/version-numbers.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
 </div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-  <div class="section" id="the-data-api">
-<h1>The Data API<a class="headerlink" href="#the-data-api" title="Permalink to this headline">¶</a></h1>
-<p>The unified Data API aims to provide a consistent way of accessing and modifying data. ‘Data’, in this context
-means any data that is consistently synchronized between client and server. It can be changed server-side and
-then those changes will be synchronized to the connected clients. This includes, among many others, the text on
-a sign, the looks of a horse or the health of any living entity.</p>
-<p>Where other approaches define the available data using interfaces and inheritance (like a <code class="docutils literal"><span class="pre">LivingEntity</span></code>
-interface providing getter and setter functions for current and maximum health), in Sponge every entity, block
-etc. is completely oblivious to what data it holds. While this may appear less straightforward than direct
-accessor methods, it is foremost far more extensible. And thanks to the addition of <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/key/Key.html">Key</a>s, simply accessing
-specific values is no less straightforward.</p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">If the data API behaves differently from what you expect (e.g. returns an empty <code class="docutils literal"><span class="pre">Optional</span></code> even if the data are
-supposed to be present), or there is a feature/value missing that you need, check the <a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/issues/8">Implementation Tracker</a>, ask in the <code class="docutils literal"><span class="pre">#spongedev</span></code> IRC channel or on the
-<a class="reference external" href="https://forums.spongepowered.org">Forums</a>.</p>
+  <div class="section" id="version-numbers">
+<h1>Version Numbers<a class="headerlink" href="#version-numbers" title="Permalink to this headline">¶</a></h1>
+<p>Your plugin needs a unique version number in order to allow humans to find out which version of a plugin is the
+successor of the other. There are plenty of versioning schemes that you could use for your own plugin. In the following
+part we explain a few concepts with their pros and cons.</p>
+<p>Sponge recommends to use a version identifier that consists of either two or three numeric version parts separated with
+a <code class="docutils literal"><span class="pre">.</span></code> and additional label appended with a hyphens <code class="docutils literal"><span class="pre">-</span></code> such as <code class="docutils literal"><span class="pre">3.1</span></code> or <code class="docutils literal"><span class="pre">1.0.3-API7</span></code> similar to SemVer.
+Start with <code class="docutils literal"><span class="pre">1.x</span></code> if your plugin is ready. Start with <code class="docutils literal"><span class="pre">0.x</span></code> if your plugin is not yet ready or unstable.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">While Sponge recommends using the above versioning scheme, plugin authors are free to choose their own. Please keep
+in mind that your users have to deal with a multitude of versioning schemes, so keep it simple.</p>
 </div>
-<div class="section" id="concepts">
-<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
-<p>On first glance at the API docs, the data API threatens to overwhelm you with lots of interfaces and packages. But
-to simply use the data API, you will not have to deal with many of them, as most interfaces found there are just
-specific data manipulators.</p>
-<div class="section" id="catalogtypes">
-<h3>CatalogTypes<a class="headerlink" href="#catalogtypes" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="catalog-types.html"><span class="doc">Catalog Types</span></a> are groups of values that can be used in certain context. Famous examples of these types are
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/BlockType.html">BlockType</a>s, <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/EntityType.html">EntityType</a>s and <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/item/ItemType.html">ItemType</a>s.</p>
-</div>
-<div class="section" id="dataholder">
-<h3>DataHolder<a class="headerlink" href="#dataholder" title="Permalink to this headline">¶</a></h3>
-<p>A data holder is just that - something that holds data. It provides methods to retrieve and offer back data. The
-interface itself is completely oblivious to the type of data held. Since only the implementations will possess
-this knowledge, it is possible to ask a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/DataHolder.html">DataHolder</a> to provide data it does not have or to accept data it
-cannot use. In those cases, the return values of the methods will provide the information that data is not available
-(via <code class="docutils literal"><span class="pre">Optional.empty()</span></code>) or not accepted (via the <a class="reference internal" href="transactions.html"><span class="doc">DataTransactionResult</span></a>).</p>
-</div>
-<div class="section" id="property">
-<h3>Property<a class="headerlink" href="#property" title="Permalink to this headline">¶</a></h3>
-<p>A property too is data, but not synchronized between server and clients. Therefore, it can only be
-changed by modifications present on both client and server. Since Sponge is not intended to require a
-client-side counterpart, properties are not modifiable.
-Examples of properties are the harvesting ablities on tools (represented as <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/property/item/HarvestingProperty.html">HarvestingProperty</a> or the damage
-absorption of an equippable armor item (represented as <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/property/item/DamageAbsorptionProperty.html">DamageAbsorptionProperty</a>).</p>
-</div>
-<div class="section" id="datamanipulator">
-<h3>DataManipulator<a class="headerlink" href="#datamanipulator" title="Permalink to this headline">¶</a></h3>
-<p>A data manipulator represents points of cohesive data that describes a certain component of its holder. For
-example <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a>, which contains both current and maximum health. If a data holder has <code class="docutils literal"><span class="pre">HealthData</span></code>, it
-has health that can somehow be depleted and replenished and can die if that health is depleted. This allows for the
-re-use of such components over the API and prevents duplication of accessor methods. For example, sheep, stained glass
-blocks and leather armor all can share the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/DyeableData.html">DyeableData</a> holding the color they are dyed in.</p>
-</div>
-<div class="section" id="key">
-<h3>Key<a class="headerlink" href="#key" title="Permalink to this headline">¶</a></h3>
-<p>A <code class="docutils literal"><span class="pre">Key</span></code> is a unique identifier for a single point of data and can be used to directly read or set that point of
-data without worrying about data manipulators. It was designed to provide a convenient way of accessing data
-similar to direct getter/setter methods. All keys used within Sponge are listed as constants in the
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/key/Keys.html">Keys</a> utility class.</p>
-</div>
-<div class="section" id="value">
-<h3>Value<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h3>
-<p>Within the Data API, a value referred to by a <code class="docutils literal"><span class="pre">Key</span></code> is encoded in a container object. For this documentation,
-it is referred to as ‘keyed value’ to avoid confusion with the actual value. A keyed value encapsulates the
-actual data value (if it is present), a default value (to be used if no direct value is present) and the Key by
-which the value is identified.</p>
-</div>
-</div>
-<div class="section" id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="custom/index.html">Custom Data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="custom/datamanipulators.html">Custom DataManipulators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="custom/dataholders.html">Custom DataHolders</a></li>
-<li class="toctree-l2"><a class="reference internal" href="custom/serialization.html">Serializing Custom Data</a></li>
+<div class="section" id="semver">
+<h2>SemVer<a class="headerlink" href="#semver" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://semver.org/">SemVer</a> is a commonly used semantic versioning scheme. It consists of three numeric blocks that
+are separated by dots and additional labels which are appended using hyphens. The three numeric blocks make up
+the <code class="docutils literal"><span class="pre">MAJOR</span></code>, <code class="docutils literal"><span class="pre">MINOR</span></code> and <code class="docutils literal"><span class="pre">PATCH</span></code> version parts.</p>
+<ul class="simple">
+<li>A change in the <strong>MAJOR</strong> version indicates that you made incompatible API changes. Rewriting large parts of your
+plugin or the entire plugin would also count as incompatible changes.</li>
+<li>A change in <strong>MINOR</strong> version indicates that a feature has been added without breaking backwards
+compatibility.</li>
+<li>A change in the <strong>PATCH</strong> version indicates that some bugs have been fixed.</li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="catalog-types.html">Catalog Types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="keys.html">Using Keys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="datamanipulators.html">Data Manipulators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transactions.html">Transactions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="serialization.html">Serializing Data</a></li>
+<p>The labels can be used to mark builds as pre-releases or contain build metadata such as the supported minecraft version.
+If you increase one part of the version, then you will set the following parts back to zero. Using this strategy you
+can find the latest version by comparing the version blocks with each other, however this scheme does not contain any
+information about the release order for versions which differ in two version number blocks. Example: Version <code class="docutils literal"><span class="pre">1.0.9</span></code>
+would be released after <code class="docutils literal"><span class="pre">1.0.8</span></code>, but version <code class="docutils literal"><span class="pre">1.1.0</span></code> could be released before, after or even at the same time as
+either of them.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The SpongeAPI uses this versioning scheme.</p>
+</div>
+<p><strong>Examples</strong></p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">0.1.0</span></code></li>
+<li><code class="docutils literal"><span class="pre">1.0.0</span></code></li>
+<li><code class="docutils literal"><span class="pre">1.1.0-SNAPHOT</span></code></li>
+<li><code class="docutils literal"><span class="pre">3.12.21-API7</span></code></li>
+</ul>
+<p><strong>Pros</strong></p>
+<ul class="simple">
+<li>Easy to read and understand</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul class="simple">
+<li>Mostly API oriented so the terms don’t really apply if you don’t provide an API in your plugin.</li>
 </ul>
 </div>
+<div class="section" id="timestamp">
+<h2>Timestamp<a class="headerlink" href="#timestamp" title="Permalink to this headline">¶</a></h2>
+<p>This is a less commonly used versioning scheme, but it is also a very simple one, as it does not contain any additional
+information in the version numbers. It does not matter which separators you use (if any) or which date and time parts
+you include. However we recommend you to order date and time parts in the descending order of duration like
+<code class="docutils literal"><span class="pre">YYYY-MM-DD</span></code>. If you sort your files alphabetically, please make sure that the order would be the same as the version
+order. It is also possible to add a build qualifier or a build number.</p>
+<p><strong>Examples</strong></p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">18.01.31</span></code></li>
+<li><code class="docutils literal"><span class="pre">v2018-05-29.1</span></code></li>
+<li><code class="docutils literal"><span class="pre">2018.01.13-SNAPHOT</span></code></li>
+</ul>
+<p><strong>Pros</strong></p>
+<ul class="simple">
+<li>Easy to read and understand</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul class="simple">
+<li>Does not contain any information about compatibility.</li>
+</ul>
+</div>
+<div class="section" id="other">
+<h2>Other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
+<p>You can read more about Software versioning and versioning schemes
+<a class="reference external" href="https://en.wikipedia.org/wiki/Software_versioning">online</a>.</p>
 </div>
 </div>
 
@@ -257,8 +249,8 @@ which the value is identified.</p>
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="custom/index.html" class="btn btn-neutral float-right" title="Custom Data" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
-        <a href="../assets.html" class="btn btn-neutral" title="The Asset API" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+        <a href="../plugin-identifier.html" class="btn btn-neutral float-right" title="Plugin Identifiers" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="maven.html" class="btn btn-neutral" title="Setting Up Maven" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
     <hr/>
@@ -291,8 +283,8 @@ which the value is identified.</p>
 
             <dl>
                 <dt>Contribute</dt>
-                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/entity-ai/source/plugin/data/index.rst">Source</a></dd>
-                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/feature/entity-ai/source/plugin/data/index.rst">Edit</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/entity-ai/source/plugin/project/version-numbers.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/feature/entity-ai/source/plugin/project/version-numbers.rst">Edit</a></dd>
             </dl>
     </div>
 </div>
