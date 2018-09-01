@@ -168,10 +168,10 @@
            <div itemprop="articleBody">
   <div class="section" id="entity-ai">
 <h1>Entity AI<a class="headerlink" href="#entity-ai" title="Permalink to this headline">¶</a></h1>
-<p>Entity AI (not to be confused with actual AI) are fixed goals (defeat enemies) that an entity tries to achieve using
-smaller scaled tasks (go to enemy and hit him with your weapon). The following sections will describe what goals, tasks
-and other components of the entity AI are, how you change the behavior of entities and last but not least describe how
-you can write your own AI goals.</p>
+<p>Entity AI (not to be confused with actual AI) is the logic that controls agents. It is structured using goals
+(e.g. defeat enemies) that an entity tries to achieve using smaller scaled tasks (e.g. go to enemy and hit him with your
+weapon). The following sections will describe what the goals, tasks and other components of the entity AI API are, how
+you can change the behavior of entities, and describe how you can write your own AI goals.</p>
 <div class="section" id="agents">
 <h2>Agents<a class="headerlink" href="#agents" title="Permalink to this headline">¶</a></h2>
 <p>An <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/living/Agent.html">Agent</a> is a type of living <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/Entity.html">Entity</a> that supports AI and thus simulates the typical behavior of
@@ -196,7 +196,7 @@ or shops.</p>
 <p>In vanilla Minecraft there are two <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/ai/GoalTypes.html">types</a> of <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/ai/Goal.html">Goal</a>s.</p>
 <p>The first one is the default one: <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/ai/GoalTypes.html#NORMAL">NORMAL</a>. This part of the AI controls the behavior of the
 entity. This goal contains tasks such as attacking a target using a melee or ranged weapon and looking idly around the
-area, if there are no enemies nearby. If we want to override or modify the AI we will usually change this goal and it’s
+area if there are no enemies nearby. If we want to override or modify the AI we will usually change this goal and its
 tasks.</p>
 <p>The second goal is more for hostile mods: <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/ai/GoalTypes.html#TARGET">TARGET</a>. This goal contains tasks that help the
 entity to identify which target it should select and then attack using the normal goal. The target goal contains tasks
@@ -214,11 +214,12 @@ such as select nearest attackable target and select the enemy that attacked you 
 </pre></div>
 </div>
 <p>An entity with an empty goal will not move by itself, however it will complete its current action/movement and might
-take an idle pose (look straight ahead). The AI does not affect any sound effects that an entity might play randomly.</p>
+take an idle pose (i.e. look straight ahead). The AI does not affect any sound effects that an entity might play
+randomly.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Please note that editing the goals or tasks of an entity will directly edit the entity. This behavior differs from
-other parts of the API where only copies are returned which must be applied afterwards. Thus it is not possible to
+other parts of the API where only copies are returned which must be applied afterwards. Thus, it is not possible to
 transfer the tasks from one entity to another.</p>
 </div>
 <div class="admonition note">
@@ -228,7 +229,7 @@ transfer the tasks from one entity to another.</p>
 </div>
 <div class="section" id="tasks">
 <h2>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h2>
-<p>The behavior of many entity types is similar to each other. For this reason was the entity AI split into multiple
+<p>The behavior of many entity types is similar to each other. For this reason, the entity AI split into multiple
 smaller and reusable parts called <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/ai/task/AITask.html">AITask</a>s. Each of the <code class="docutils literal"><span class="pre">AITask</span></code>s represents a single behavior trait of an
 entity such as <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/ai/task/AITaskTypes.html#WATCH_CLOSEST">WATCH_CLOSEST</a>, which makes the entity look at the nearest matching
 entity, or <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/ai/task/AITask.html#AVOID_ENTITY">AVOID_ENTITY</a>, which makes the entity flee from certain matching entities.</p>
@@ -238,7 +239,7 @@ entity, or <a class="reference external" href="https://jd.spongepowered.org/7.0.
 the API.</p>
 </div>
 <div class="section" id="adding-additional-aitasks">
-<h3>Adding additional AITasks<a class="headerlink" href="#adding-additional-aitasks" title="Permalink to this headline">¶</a></h3>
+<h3>Adding Additional AITasks<a class="headerlink" href="#adding-additional-aitasks" title="Permalink to this headline">¶</a></h3>
 <p>Adding additional <code class="docutils literal"><span class="pre">AITask</span></code>s to an <code class="docutils literal"><span class="pre">Entity</span></code>s goal is pretty easy. We start with creating with a simple <code class="docutils literal"><span class="pre">AITask</span></code>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.ai.task.builtin.WatchClosestAITask</span><span class="o">;</span>
 
@@ -254,9 +255,9 @@ the API.</p>
 </pre></div>
 </div>
 <p>In this example we create an <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/ai/task/builtin/WatchClosestAITask.html">WatchClosestAITask</a> using the associated builder. Using the build we define that
-the chance of this goal triggering is 100%. Thus whenever a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/living/player/Player.html">Player</a> gets closer to the entity than 30 blocks
-then the entity will look at him. Also we assign zero as a priority, which is a high priority, thus this goal takes
-precedence about almost all other tasks.</p>
+the chance of this goal triggering is 100%. Thus, the entity will look at the closest <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/living/player/Player.html">Player</a> in a range of 30
+blocks. We assign zero as a priority, which is a high priority, thus this goal takes precedence above almost all other
+tasks.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Minecraft uses low values as high priority and high values as low priority. By default Minecraft uses priority
@@ -264,7 +265,7 @@ values from zero to roughly ten.</p>
 </div>
 </div>
 <div class="section" id="removing-certain-aitasks">
-<h3>Removing certain AITasks<a class="headerlink" href="#removing-certain-aitasks" title="Permalink to this headline">¶</a></h3>
+<h3>Removing Certain AITasks<a class="headerlink" href="#removing-certain-aitasks" title="Permalink to this headline">¶</a></h3>
 <p>Removing the correct <code class="docutils literal"><span class="pre">AITask</span></code>s can be a little tricky, especially if modded entities or custom AI come into play.
 The Sponge API tries to provides a disambiguator. Calling <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/ai/task/AITask.html#getType--">AITask#getType()</a> returns an <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/ai/task/AITaskType.html">AITaskType</a>
 which can be used to differentiate between the existing types of tasks.</p>
@@ -312,8 +313,8 @@ you will encounter.</p>
 <li><a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/entity/ai/AITaskEvent.Remove.html">AITaskEvent.Remove</a></li>
 <li><a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/entity/ai/SetAITargetEvent.html">SetAITargetEvent</a></li>
 </ul>
-<p>The <code class="docutils literal"><span class="pre">AITaskEvent.Add</span></code> event is published whenever a new <code class="docutils literal"><span class="pre">AITask</span></code> has been added to a <code class="docutils literal"><span class="pre">Goal</span></code>, likewise is the
-<code class="docutils literal"><span class="pre">AITaskEvent.Remove</span></code> event published if an <code class="docutils literal"><span class="pre">AITask</span></code> has been removed.</p>
+<p>The <code class="docutils literal"><span class="pre">AITaskEvent.Add</span></code> event is published whenever a new <code class="docutils literal"><span class="pre">AITask</span></code> has been added to a <code class="docutils literal"><span class="pre">Goal</span></code>, likewise, the
+<code class="docutils literal"><span class="pre">AITaskEvent.Remove</span></code> event is published if an <code class="docutils literal"><span class="pre">AITask</span></code> has been removed.</p>
 <p>The <code class="docutils literal"><span class="pre">SetAITargetEvent</span></code> is published every time that an <code class="docutils literal"><span class="pre">Agent</span></code> selects a new target (usually for attacking) or drops
 a target.</p>
 <p>All of these events are cancelable, thus allowing us to prevent unwanted third-party changes to our custom entities.</p>

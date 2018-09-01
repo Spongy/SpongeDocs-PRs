@@ -190,7 +190,7 @@ follow the instructions in <a class="reference internal" href="../internals/mcp-
 <span class="kn">import</span> <span class="nn">net.minecraft.pathfinding.PathNavigate</span><span class="o">;</span>
 </pre></div>
 </div>
-<p>To simplify the implementation we use the following constants. They are optional and could be easily replaced by dynamic
+<p>To simplify the implementation, we use the following constants. They are optional and could be easily replaced by dynamic
 fields set via a constructor.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">MOVEMENT_SPEED</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
 <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">APPROACH_DISTANCE_SQUARED</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span>
@@ -200,7 +200,7 @@ fields set via a constructor.</p>
 </pre></div>
 </div>
 <p>If you want to implement your own <code class="docutils literal"><span class="pre">AITask</span></code> then you must extend <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/ai/task/AbstractAITask.html">AbstractAITask</a> with your task. The
-following example shows an example implementation of such a custom AITask. Also we need to generate a new
+following example shows an example implementation of such a custom AITask. Also, we need to generate a new
 <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/ai/task/AITaskType.html">AITaskType</a> for our <code class="docutils literal"><span class="pre">AITask</span></code>. To avoid spreading the logic everywhere we simply create a static field and a
 <code class="docutils literal"><span class="pre">register</span></code> method for it in the class itself as shown by the following code example:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CreepyCompanionAITask</span> <span class="kd">extends</span> <span class="n">AbstractAITask</span><span class="o">&lt;</span><span class="n">Agent</span><span class="o">&gt;</span> <span class="o">{</span>
@@ -217,7 +217,7 @@ following example shows an example implementation of such a custom AITask. Also 
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Of course we still need to call that method from our main class, but that can be easily done like this from our plugin
+<p>Of course, we still need to call that method from our main class, but that can be easily done like this from our plugin
 main class:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInitialize</span><span class="o">(</span><span class="kd">final</span> <span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
@@ -240,8 +240,8 @@ constructor:</p>
 <p>The following image roughly describes the method execution order:</p>
 <img alt="The method execution order of the ai task" class="align-center" src="../../_images/ai-execution-order.png" />
 <p>We need the constructor to set any parameters we want our <code class="docutils literal"><span class="pre">AITask</span></code> to have and configure some base options for it. In
-this case its setting the <code class="docutils literal"><span class="pre">AITaskType</span></code> and configuring the mutex bits along with an <code class="docutils literal"><span class="pre">entityFilter</span></code>
-<a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html">Predicate</a>, that we will use later on.</p>
+this case it’s setting the <code class="docutils literal"><span class="pre">AITaskType</span></code> and configuring the mutex bits, along with an <code class="docutils literal"><span class="pre">entityFilter</span></code>
+<a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html">Predicate</a> that we will use later on.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="kd">final</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;</span> <span class="n">entityFilter</span><span class="o">;</span>
 
 <span class="kd">private</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;</span> <span class="n">optTarget</span><span class="o">;</span>
@@ -253,10 +253,10 @@ this case its setting the <code class="docutils literal"><span class="pre">AITas
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Unfortunately we have to resort to dirty casts to plain Minecraft classes. This is also the reason we have to setup our
+<p>Unfortunately, we have to resort to dirty casts to plain Minecraft classes. This is also the reason we have to setup our
 workspace with MCP mappings.</p>
 <p>After that we continue with the first set of methods: <code class="docutils literal"><span class="pre">canRunConcurrentWith</span></code> and <code class="docutils literal"><span class="pre">canBeInterrupted</span></code>. They are very
-easy to implement. For the first one we are going to rely on the default Minecraft logic. However this once again
+easy to implement. For the first one we are going to rely on the default Minecraft logic, but this once again
 requires dirty casts. For the second one we just have to consider whether it can be interrupted or needs to complete
 first.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
@@ -302,15 +302,15 @@ what to do in that case. We start with the check whether the task should be exec
 <p>The owner’s <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/Random.html">Random</a> is usually a good source of randomness in those tasks, but any other <code class="docutils literal"><span class="pre">Random</span></code> would work
 as well. The sole reason the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/Entity.html">Entity</a> has a random is to avoid having a <code class="docutils literal"><span class="pre">Random</span></code> in every class that
 interacts with the entity.</p>
-<p>The search for the target is pretty straight forward. First we get all entities from the world the entity is currently
+<p>The search for the target is pretty straight forward. First, we get all entities from the world the entity is currently
 in and then we filter that list using the <code class="docutils literal"><span class="pre">entityFilter</span></code> <code class="docutils literal"><span class="pre">Predicate</span></code> that we set in the constructor. After that we
-remove all entities that are too far away. In our case that are 20 blocks, but you can increase this distance some more.
+remove all entities that are too far away. That is 20 blocks, but you can increase this distance.
 Please keep in mind that by increasing the range you also increase the computation time needed for path-finding.</p>
-<p>After we have found our target we just have to tell the entity move towards it. The speed is an very important factor
-for this. If the speed is too fast, then the entity might as well accidentally miss the target and end up running back
+<p>After we have found our target we just have to tell the entity move towards it. The speed is a very important factor
+for this. If the speed is too fast, then the entity might well accidentally miss the target and end up running back
 and forth forever (so make sure that you calculate your acceptance criteria appropriately). If the speed is too slow,
 then the entity will barely move (which looks somewhat strange and makes tasks such as follow X ridiculous).</p>
-<p>The above code contains some method calls that have been added to increase the code readability, the following code
+<p>The above code contains some method calls that have been added to increase the code readability; the following code
 block shows those helper methods:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">Vector3d</span> <span class="nf">getPositionOf</span><span class="o">(</span><span class="kd">final</span> <span class="n">Entity</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">entity</span><span class="o">.</span><span class="na">getLocation</span><span class="o">().</span><span class="na">getPosition</span><span class="o">();</span>
@@ -348,16 +348,16 @@ that.</p>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>For our <code class="docutils literal"><span class="pre">AITask</span></code> this is very easy. First we check whether the entity lost its path and then whether the entity is
+<p>For our <code class="docutils literal"><span class="pre">AITask</span></code> this is very easy. First, we check whether the entity lost its path and then whether the entity is
 already close enough. If we return <code class="docutils literal"><span class="pre">false</span></code>, then Minecraft will invoke the <code class="docutils literal"><span class="pre">reset()</span></code> method next. There we should
-perform some cleanup. Especially the reference to the entity should be cleaned up, because otherwise we risk a memory
-leak. If we return <code class="docutils literal"><span class="pre">true</span></code>, then Minecraft will invoke <code class="docutils literal"><span class="pre">update()</span></code>, which does nothing in our case because the
-movement controller works independent from the AI and the entity will continue walking towards the target.</p>
-<p>That’s all there is to writing custom <code class="docutils literal"><span class="pre">AITask</span></code>s. Now we can actually use it inside of an <code class="docutils literal"><span class="pre">Entity</span></code>, the
-“Adding additional AITasks” chapter on the <a class="reference internal" href="ai.html"><span class="doc">Entity AI</span></a> page explains how to do it.</p>
+perform some cleanup. In particular, the reference to the entity should be cleaned up, because otherwise we risk a
+memory leak. If we return <code class="docutils literal"><span class="pre">true</span></code>, then Minecraft will invoke <code class="docutils literal"><span class="pre">update()</span></code>, which does nothing in our case because the
+movement controller works independently from the AI and the entity will continue walking towards the target.</p>
+<p>That’s all there is to writing custom <code class="docutils literal"><span class="pre">AITask</span></code>s. Now we can actually use it inside of an <code class="docutils literal"><span class="pre">Entity</span></code>, and the
+“Adding Additional AITasks” chapter on the <a class="reference internal" href="ai.html"><span class="doc">Entity AI</span></a> page explains how to do that.</p>
 <p>But why did we call this task <code class="docutils literal"><span class="pre">CreepyCompanionAITask</span></code>? There is a simple solution to that. When checking whether the
 <code class="docutils literal"><span class="pre">AITask</span></code> should be executed, we don’t check whether the entity is already close enough, thus it will move a tiny bit
-towards the target each time. The next step in creepiness would probably be, that the entity only does this if the
+towards the target each time. The next step in creepiness would probably be that the entity only does this if the
 target is not looking. Imagine a creeper slowly approaching from your back.</p>
 </div>
 

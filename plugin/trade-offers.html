@@ -172,7 +172,7 @@ The <code class="docutils literal"><span class="pre">Merchant</span></code> inte
 <h2>TradeOffer<a class="headerlink" href="#tradeoffer" title="Permalink to this headline">¶</a></h2>
 <p>A trade offer consists of</p>
 <ul class="simple">
-<li>an primary/first buying <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/item/inventory/ItemStackSnapshot.html">ItemStackSnapshot</a></li>
+<li>a primary/first buying <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/item/inventory/ItemStackSnapshot.html">ItemStackSnapshot</a></li>
 <li>an optional secondary buying <code class="docutils literal"><span class="pre">ItemStackSnapshot</span></code></li>
 <li>a selling <code class="docutils literal"><span class="pre">ItemStackSnapshot</span></code></li>
 <li>already used uses</li>
@@ -199,8 +199,8 @@ block items. This trade offer has four initial uses, after that the <code class=
 <div class="section" id="tradeofferlistmutator">
 <h3>TradeOfferListMutator<a class="headerlink" href="#tradeofferlistmutator" title="Permalink to this headline">¶</a></h3>
 <p>A <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/item/merchant/TradeOfferListMutator.html">TradeOfferListMutator</a> is an interface that is invoked during <code class="docutils literal"><span class="pre">Villager</span></code> level ups.
-It can be used to replace existing <code class="docutils literal"><span class="pre">TradeOffers</span></code> (ex higher tier) and add new <code class="docutils literal"><span class="pre">TradeOffers</span></code>.
-Its simplist and only API provided variant is the <code class="docutils literal"><span class="pre">TradeOfferGenerator</span></code>.
+It can be used to replace existing <code class="docutils literal"><span class="pre">TradeOffers</span></code> (e.g. higher tier) and add new <code class="docutils literal"><span class="pre">TradeOffers</span></code>.
+Its simplest and only API provided variant is the <code class="docutils literal"><span class="pre">TradeOfferGenerator</span></code>.
 The different <code class="docutils literal"><span class="pre">TradeOfferListMutators</span></code> for each level and <code class="docutils literal"><span class="pre">Career</span></code> can be configured in the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/item/merchant/VillagerRegistry.html">VillagerRegistry</a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -240,7 +240,7 @@ selling items.</p>
 <div class="section" id="villagerregistry">
 <h2>VillagerRegistry<a class="headerlink" href="#villagerregistry" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal"><span class="pre">VillagerRegistry</span></code> can be obtained from the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/GameRegistry.html">GameRegistry</a>. It will be used to configure the
-<code class="docutils literal"><span class="pre">TradeOfferListMutator</span></code> that will be applied on a <code class="docutils literal"><span class="pre">Villager</span></code>’s level-up .</p>
+<code class="docutils literal"><span class="pre">TradeOfferListMutator</span></code> that will be applied on a <code class="docutils literal"><span class="pre">Villager</span></code>’s level-up.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">VillagerRegistry</span> <span class="n">villagerRegistry</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">game</span><span class="o">.</span><span class="na">getRegistry</span><span class="o">().</span><span class="na">getVillagerRegistry</span><span class="o">();</span>
 <span class="n">List</span><span class="o">&lt;</span><span class="n">TradeOfferListMutator</span><span class="o">&gt;</span> <span class="n">generators</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(</span><span class="n">villagerRegistry</span><span class="o">.</span><span class="na">getMutatorsForCareer</span><span class="o">(</span><span class="n">Careers</span><span class="o">.</span><span class="na">FARMER</span><span class="o">,</span> <span class="mi">1</span><span class="o">));</span>
 <span class="n">generators</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">additionalFarmerLevel1TradeOffers</span><span class="o">());</span>
