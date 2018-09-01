@@ -173,7 +173,7 @@
 <div class="section" id="accessing-and-modifying-data">
 <h2>Accessing and modifying data<a class="headerlink" href="#accessing-and-modifying-data" title="Permalink to this headline">¶</a></h2>
 <p>A data manipulator represents a certain component and all of its data. It stores a representation of that data and can
-be offered to or created from data holders which possess a matching component. Again, let’s use an example. And again
+be offered to or created from data holders which possess a matching component. Again, let’s use an example. Once more we
 try to heal someone (or something).</p>
 <p><strong>Code Example: Healing with data manipulators</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataHolder</span><span class="o">;</span>
@@ -198,7 +198,7 @@ try to heal someone (or something).</p>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>First we need to check if our target has health data. We do so by first asking it to provide us with its health
+<p>First, we need to check if our target has health data. We do so by first asking it to provide us with its health
 data by passing its class to the <code class="docutils literal"><span class="pre">get()</span></code> method. We get an <code class="docutils literal"><span class="pre">Optional</span></code> which we can use for our check.
 This <code class="docutils literal"><span class="pre">Optional</span></code> will be absent if either our target does not support <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a> or if it supports it but
 at the present moment does not hold any health data.</p>
@@ -244,7 +244,7 @@ that it contains <em>all</em> data pertaining to a certain component. Let us tak
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>First we check if both targets support HealthData. If they do, we save the health of both in one variable each. We
+<p>First, we check if both targets support HealthData. If they do, we save the health of both in one variable each. We
 don’t need to bother with <code class="docutils literal"><span class="pre">Optional</span></code> this time since we verified that <code class="docutils literal"><span class="pre">HealthData</span></code> is supported and the
 <code class="docutils literal"><span class="pre">getOrCreate()</span></code> method ensures that even if no data is present, default values are generated.</p>
 <p>Then we just offer the saved health data to the <em>other</em> target, thus switching their health status with each other.</p>
@@ -278,7 +278,7 @@ data.</p>
 methods, which each will return a copy of the data. The only way to obtain an immutable data manipulator
 from a data holder is obtaining a mutable one and then using <code class="docutils literal"><span class="pre">asImmutable()</span></code>.</p>
 <p>A possible use case for this would be a custom event fired when someone is healed. It should provide copies of
-the health data before and after, but event listeners should not be able to change them. Therefore we can write
+the health data before and after, but event listeners should not be able to change them. Therefore, we can write
 our event to only provide <code class="docutils literal"><span class="pre">ImmutableHealthData</span></code> instances. That way, even if third party code gets to interact
 with our data, we can rest assured that it will not be changed.</p>
 </div>

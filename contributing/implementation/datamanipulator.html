@@ -224,11 +224,11 @@ second is the interface implemented by the corresponding <code class="docutils l
 </pre></div>
 </div>
 <p>Since we know that both current health and maximum health are bounded values, we need to make sure no values
-outside of these bounds can be passed. To achieve this we use guava’s <code class="docutils literal"><span class="pre">Preconditions</span></code> of which we import the
+outside of these bounds can be passed. To achieve this, we use guava’s <code class="docutils literal"><span class="pre">Preconditions</span></code> of which we import the
 required methods statically.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Never use so-called magic values (arbitrary numbers, booleans etc) in your code. Instead, locate the
+<p class="last">Never use so-called magic values (arbitrary numbers, booleans etc.) in your code. Instead, locate the
 <code class="docutils literal"><span class="pre">DataConstants</span></code> class and use a fitting constant - or create one, if necessary.</p>
 </div>
 </div>
@@ -330,7 +330,7 @@ line has not thrown an exception yet.</p>
 <li>Instead of <code class="docutils literal"><span class="pre">registerGettersAndSetters()</span></code>, the method is called <code class="docutils literal"><span class="pre">registerGetters()</span></code></li>
 </ul>
 <p>When creating <code class="docutils literal"><span class="pre">ImmutableDataHolder</span></code>s or <code class="docutils literal"><span class="pre">ImmutableValue</span></code>s, check if it makes sense to use the
-<code class="docutils literal"><span class="pre">ImmutableDataCachingUtil</span></code>. For example if you have <code class="docutils literal"><span class="pre">WetData</span></code> which contains nothing more than a boolean, it
+<code class="docutils literal"><span class="pre">ImmutableDataCachingUtil</span></code>. For example, if you have <code class="docutils literal"><span class="pre">WetData</span></code> which contains nothing more than a boolean, it
 is more feasible to retain only two cached instances of <code class="docutils literal"><span class="pre">ImmutableWetData</span></code> - one for each possible value. For
 manipulators and values with many possible values (like <code class="docutils literal"><span class="pre">SignData</span></code>) however, caching is proven to be too expensive.</p>
 <div class="admonition tip">
@@ -371,7 +371,7 @@ upper camel case.</p>
 <p>Next up is the <code class="docutils literal"><span class="pre">DataProcessor</span></code>. A <code class="docutils literal"><span class="pre">DataProcessor</span></code> serves as a bridge between our <code class="docutils literal"><span class="pre">DataManipulator</span></code> and
 Minecraft’s objects. Whenever any data is requested from or offered to <code class="docutils literal"><span class="pre">DataHolders</span></code> that exist in Vanilla
 Minecraft, those calls end up being delegated to a <code class="docutils literal"><span class="pre">DataProcessor</span></code> or a <code class="docutils literal"><span class="pre">ValueProcessor</span></code>.</p>
-<p>For your name, you should use the name of the <code class="docutils literal"><span class="pre">DataManipulator</span></code> interface and append <code class="docutils literal"><span class="pre">Processor</span></code>. Thus for
+<p>For your name, you should use the name of the <code class="docutils literal"><span class="pre">DataManipulator</span></code> interface and append <code class="docutils literal"><span class="pre">Processor</span></code>. Thus, for
 <code class="docutils literal"><span class="pre">HealthData</span></code> we create a <code class="docutils literal"><span class="pre">HealthDataProcessor</span></code>.</p>
 <p>In order to reduce boilerplate code, the <code class="docutils literal"><span class="pre">DataProcessor</span></code> should inherit from the appropriate abstract class in
 the <code class="docutils literal"><span class="pre">org.spongepowered.common.data.processor.common</span></code> package. Since health can only be present on certain
@@ -498,7 +498,7 @@ These values either come from a <code class="docutils literal"><span class="pre"
 returns <code class="docutils literal"><span class="pre">Optional.empty()</span></code> if the <code class="docutils literal"><span class="pre">DataHolder</span></code> is incompatible.</p>
 <p><code class="docutils literal"><span class="pre">AbstractEntityDataProcessor</span></code> already handles filling from <code class="docutils literal"><span class="pre">DataHolders</span></code> by creating a <code class="docutils literal"><span class="pre">DataManipulator</span></code>
 from the holder and then merging it with the supplied manipulator, but the <code class="docutils literal"><span class="pre">DataContainer</span></code> deserialization it
-can not provide.</p>
+cannot provide.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
 <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">fill</span><span class="o">(</span><span class="n">DataContainer</span> <span class="n">container</span><span class="o">,</span> <span class="n">HealthData</span> <span class="n">healthData</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(!</span><span class="n">container</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">.</span><span class="na">getQuery</span><span class="o">())</span> <span class="o">||</span> <span class="o">!</span><span class="n">container</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">.</span><span class="na">getQuery</span><span class="o">()))</span> <span class="o">{</span>
