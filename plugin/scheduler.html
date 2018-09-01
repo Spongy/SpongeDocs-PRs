@@ -90,7 +90,7 @@
 <li class="toctree-l2"><a class="reference internal" href="optional/index.html">Optionals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging and Debugging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="text/index.html">Text</a></li>
-<li class="toctree-l2"><a class="reference internal" href="commands/index.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands/index.html">Plugin Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="event/index.html">Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assets.html">The Asset API</a></li>
@@ -105,6 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="database.html">Databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="permissions.html">Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">Metrics Collection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bookview.html">Book Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="economy/index.html">Economy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wgen/index.html">World Generation</a></li>
@@ -203,8 +204,8 @@ which you can specify using <a class="reference external" href="https://jd.spong
 <table border="1" class="docutils">
 <colgroup>
 <col width="15%" />
-<col width="22%" />
-<col width="64%" />
+<col width="21%" />
+<col width="65%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Property</th>
@@ -215,10 +216,8 @@ which you can specify using <a class="reference external" href="https://jd.spong
 <tbody valign="top">
 <tr class="row-even"><td>delay</td>
 <td><p class="first">delayTicks(long delay)</p>
-<dl class="last docutils">
-<dt>delay(long delay,</dt>
-<dd>TimeUnit unit)</dd>
-</dl>
+<p class="last">delay(long delay,
+TimeUnit unit)</p>
 </td>
 <td><p class="first">The optional amount of time to pass before the task is to be run.</p>
 <p>The time is specified as a number of ticks with the <code class="docutils literal"><span class="pre">delayTicks()</span></code>
@@ -228,12 +227,11 @@ unit by specifying a <a class="reference external" href="https://docs.oracle.com
 </td>
 </tr>
 <tr class="row-odd"><td>interval</td>
-<td><dl class="first last docutils">
-<dt>intervalTicks(</dt>
-<dd>long interval)</dd>
-<dt>interval(long interval,</dt>
-<dd>TimeUnit unit)</dd>
-</dl>
+<td><p class="first">intervalTicks(
+long interval)</p>
+<p class="last">interval(
+long interval,
+TimeUnit unit)</p>
 </td>
 <td><p class="first">The amount of time between repetitions of the task.  If an interval is
 not specified, the task will not be repeated.</p>
@@ -427,7 +425,7 @@ Most methods of the Future accept an
 determined where that part of the operation is executed.
 This is different from the CompletableFuture or RxJava since they default to executing on the same thread on which
 the previous operation ended.</p>
-<p>The fact that all these operation try to implicitly find an <code class="docutils literal"><span class="pre">ExecutionContext</span></code> means that you can easily use
+<p>The fact that all these operations try to implicitly find an <code class="docutils literal"><span class="pre">ExecutionContext</span></code> means that you can easily use
 the default <code class="docutils literal"><span class="pre">ExecutionContext.global</span></code> and specifically run the parts that need to be thread-safe on the Sponge
 server thread.</p>
 <p>To avoid accidentally scheduling work on through the Sponge <code class="docutils literal"><span class="pre">ExecutorContext</span></code> another context should be implicitly

@@ -90,7 +90,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../optional/index.html">Optionals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../logging.html">Logging and Debugging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../text/index.html">Text</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../commands/index.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../commands/index.html">Plugin Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../event/index.html">Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../configuration/index.html">Configuring Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../assets.html">The Asset API</a></li>
@@ -118,6 +118,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../database.html">Databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../permissions.html">Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../metrics.html">Metrics Collection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../bookview.html">Book Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../economy/index.html">Economy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../wgen/index.html">World Generation</a></li>
@@ -316,7 +317,7 @@ listening to <a class="reference external" href="https://jd.spongepowered.org/7.
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Data that was serialized prior to <code class="docutils literal"><span class="pre">6.0.0</span></code>, or data where you have changed the ID, will <em>not</em> be recognised unless
+<p class="last">Data that was serialized prior to <code class="docutils literal"><span class="pre">6.0.0</span></code>, or data where you have changed the ID, will <em>not</em> be recognized unless
 registered with <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/DataManager.html#registerLegacyManipulatorIds-java.lang.String-org.spongepowered.api.data.DataRegistration-">DataManager#registerLegacyManipulatorIds(String, DataRegistration)</a>. If registering a
 pre-6.0.0 <code class="docutils literal"><span class="pre">DataManipulator</span></code> the ID is taken from <cite>Class.getName()</cite>, such as <code class="docutils literal"><span class="pre">com.example.MyCustomData</span></code>.</p>
 </div>
@@ -356,7 +357,7 @@ values that will be checked, as well as a <a class="reference external" href="ht
 <p class="last"><code class="docutils literal"><span class="pre">List</span></code> and <code class="docutils literal"><span class="pre">Mapped</span></code> single types must instead implement <code class="docutils literal"><span class="pre">ListData</span></code> / <code class="docutils literal"><span class="pre">MappedData</span></code> (or the immutable
 equivalent). This adds additional methods to allow Map-like/List-like behavior directly on the <code class="docutils literal"><span class="pre">DataManipulator</span></code>.</p>
 </div>
-<p>The following 3 methods must be defined on mutable manipluators:</p>
+<p>The following 3 methods must be defined on mutable manipulators:</p>
 <p><code class="docutils literal"><span class="pre">fill(DataHolder,</span> <span class="pre">MergeFunction)</span></code> should replace the data on your object with that of the given <code class="docutils literal"><span class="pre">DataHolder</span></code>,
 using the result of <code class="docutils literal"><span class="pre">MergeFunction#merge()</span></code>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataHolder</span><span class="o">;</span>
@@ -412,7 +413,7 @@ using the result of <code class="docutils literal"><span class="pre">MergeFuncti
 </div>
 <div class="section" id="custom-single-types">
 <h3>Custom Single Types<a class="headerlink" href="#custom-single-types" title="Permalink to this headline">¶</a></h3>
-<p>In addition to the , you need to override the following methods:</p>
+<p>In addition to the methods from the simple single types, you need to override the following methods:</p>
 <p><code class="docutils literal"><span class="pre">getValueGetter()</span></code> should pass the <code class="docutils literal"><span class="pre">Value</span></code> representing your data (see above).</p>
 <p><code class="docutils literal"><span class="pre">toContainer()</span></code> should return a <code class="docutils literal"><span class="pre">DataContainer</span></code> representing your data (see above).</p>
 </div>

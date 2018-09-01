@@ -90,7 +90,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Plugin Commands</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Events</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="listeners.html">Event Listeners</a></li>
 <li class="toctree-l3"><a class="reference internal" href="causes.html">Event Causes</a></li>
@@ -111,6 +111,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../database.html">Databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../permissions.html">Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrics.html">Metrics Collection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
@@ -206,7 +207,7 @@ just the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/
 recieve <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/entity/DamageEntityEvent.html">DamageEntityEvent</a> and <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/entity/DestructEntityEvent.html">DestructEntityEvent</a>s.</p>
 <p><strong>&#64;IsCancelled</strong>
 This annotation allows filtering events by their cancellation state at the time that your event listener would normally be
-called. By default your event listener will not be called if the event has been cancelled by a previous event listener.
+called. By default, your event listener will not be called if the event has been cancelled by a previous event listener.
 However you can change this behavior to one of three states depending on the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/util/Tristate.html">Tristate</a> value in the
 <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/filter/IsCancelled.html">IsCancelled</a> annotation.</p>
 <blockquote>
@@ -259,10 +260,10 @@ The</strong> <code class="docutils literal"><span class="pre">player</span></cod
 </div>
 <p><strong>&#64;After</strong> This is similar to <code class="docutils literal"><span class="pre">&#64;Before</span></code>, but it instead uses <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/cause/Cause.html#after-java.lang.Class-">Cause#after(Class)</a>.</p>
 <p><strong>&#64;All</strong> This parameter source annotation requires that the annotated parameter be an array type. The returned array
-will be equivalent to the contents of calling <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/cause/Cause.html#allOf-java.lang.Class-">Cause#allOf(Class)</a>. By default if the returned array would be
+will be equivalent to the contents of calling <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/cause/Cause.html#allOf-java.lang.Class-">Cause#allOf(Class)</a>. By default, if the returned array would be
 empty then the validation fails however this can be disabled by setting <code class="docutils literal"><span class="pre">ignoreEmpty=false</span></code>.</p>
-<p><strong>In this example your listener will always be called, although the players array may be empty if the event’s cause contained
-no players.</strong></p>
+<p><strong>In this example your listener will always be called, although the players array may be empty if the event’s cause
+contained no players.</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="o">,</span> <span class="nd">@All</span><span class="o">(</span><span class="n">ignoreEmpty</span><span class="o">=</span><span class="kc">false</span><span class="o">)</span> <span class="n">Player</span><span class="o">[]</span> <span class="n">players</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">// do something</span>
@@ -275,8 +276,8 @@ parameter.</p>
 <p><strong>&#64;Named</strong> This parameter source annotation tells the event system to find the object with the name specified by the annotation
 parameter (This is equivalent to <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/cause/Cause.html#get-java.lang.String-java.lang.Class-">Cause#get(String, Class)</a>). Additionally, the found object must match the
 type of the parameter. If no object is found meeting these criteria, then your listener is not called.</p>
-<p><strong>In this example your listener will only be called if there is a player associated with the name</strong> <code class="docutils literal"><span class="pre">NamedCause.OWNER</span></code> <strong>.
-The</strong> <code class="docutils literal"><span class="pre">player</span></code> <strong>parameter will be set to that player.</strong></p>
+<p><strong>In this example your listener will only be called if there is a player associated with the name</strong>
+<code class="docutils literal"><span class="pre">NamedCause.OWNER</span></code><strong>. The</strong> <code class="docutils literal"><span class="pre">player</span></code> <strong>parameter will be set to that player.</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="o">,</span> <span class="nd">@Named</span><span class="o">(</span><span class="n">NamedCause</span><span class="o">.</span><span class="na">OWNER</span><span class="o">)</span> <span class="n">Player</span> <span class="n">player</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">// do something</span>

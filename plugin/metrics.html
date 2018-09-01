@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book Views &mdash; Sponge 7.0.0 documentation</title>
+  <title>Metrics Collection &mdash; Sponge 7.0.0 documentation</title>
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Economy" href="economy/index.html"/>        <link rel="prev" title="Metrics Collection" href="metrics.html"/>
+              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Book Views" href="bookview.html"/>        <link rel="prev" title="Bans" href="bans.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -105,8 +105,8 @@
 <li class="toctree-l2"><a class="reference internal" href="database.html">Databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="permissions.html">Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bans.html">Bans</a></li>
-<li class="toctree-l2"><a class="reference internal" href="metrics.html">Metrics Collection</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Book Views</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Metrics Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bookview.html">Book Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="economy/index.html">Economy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wgen/index.html">World Generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="manager.html">Plugin Manager</a></li>
@@ -152,53 +152,75 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
           <li><a href="index.html">Creating a Plugin</a> &raquo;</li>
-    <li>Book Views</li>
+    <li>Metrics Collection</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/metrics/source/plugin/bookview.rst" class="fa fa-github"> Edit on GitHub</a>
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/metrics/source/plugin/metrics.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
 </div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-  <div class="section" id="book-views">
-<h1>Book Views<a class="headerlink" href="#book-views" title="Permalink to this headline">¶</a></h1>
-<p>A <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/BookView.html">BookView</a> is the representation of the Book GUI on the client. The <code class="docutils literal"><span class="pre">BookView</span></code> is not associated with an
-actual <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/item/inventory/ItemStack.html">ItemStack</a> and is only for displaying <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/Text.html">Text</a> through a book to the player. Note that a
-<code class="docutils literal"><span class="pre">BookView</span></code> is read-only, due to it being impossible to tell the client to open an unsigned book.</p>
-<p>To create a <code class="docutils literal"><span class="pre">BookView</span></code>, we simply need to obtain a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/BookView.Builder.html">BookView.Builder</a>, which is provided through the
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/BookView.html#builder--">BookView#builder()</a> method. Using the builder, we can specify the title, the author, and the pages of the
-<code class="docutils literal"><span class="pre">BookView</span></code>. Then to use the view, we have to send it to a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/effect/Viewer.html">Viewer</a>. An example of this is shown below:</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.effect.Viewer</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.BookView</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
+  <div class="section" id="metrics-collection">
+<h1>Metrics Collection<a class="headerlink" href="#metrics-collection" title="Permalink to this headline">¶</a></h1>
+<p>Collection of metrics from servers that use your plugin can be an incredibly useful tool for knowing what direction
+to take your plugin in. However, the <a class="reference internal" href="../ore/guidelines.html"><span class="doc">Ore Plugin Submission Guidelines</span></a> (under External Connections) state that plugins may
+collect metrics if informed consent has been granted. Such consent must be <strong>opt-in</strong>, metrics collection must be off
+by default.</p>
+<p>To simplify gathering consent, Sponge provides an API that allow plugins to check for this consent in a central way.</p>
+<p>Metrics collection consent is on a per-plugin basis. Plugins <strong>must not</strong> assume that consent for one plugin means
+consent for all.</p>
+<div class="section" id="obtaining-consent">
+<h2>Obtaining Consent<a class="headerlink" href="#obtaining-consent" title="Permalink to this headline">¶</a></h2>
+<p>In order to gain consent from server owners, plugins may request that server owners enable metrics. This can be
+of the form of a message on startup instructing the playes that they can enable metrics by updating the configuration
+option in configuration files. SpongeForge and SpongeVanilla also provide the <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">metrics</span> <span class="pre">&lt;pluginid&gt;</span> <span class="pre">enable</span></code>
+command.</p>
+<p>Plugins <strong>may</strong> prompt server owners to run the command or allow for a “one click” enable in game.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Plugins <strong>may not</strong> run the <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">metrics</span> <span class="pre">&lt;pluginid&gt;</span> <span class="pre">enable</span></code> command without a server owner’s informed
+consent. Doing so will cause a plugin to be rejected from the Ore platform.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">metrics</span></code> command is only guaranteed to exist on the <code class="docutils literal"><span class="pre">SpongeForge</span></code> and <code class="docutils literal"><span class="pre">SpongeVanilla</span></code> server
+implementations. Other implementations, such as <code class="docutils literal"><span class="pre">Lantern</span></code>, may not include this command.</p>
+</div>
+</div>
+<div class="section" id="checking-for-consent">
+<h2>Checking for Consent<a class="headerlink" href="#checking-for-consent" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/util/metric/MetricsConfigManager.html">MetricsConfigManager</a> allows you to determine if your plugin has gained consent to send metrics. This
+can either be injected into your plugin class, or obtained via <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/Sponge.html#getMetricsConfigManager--">Sponge#getMetricsConfigManager()</a> object
+on demand.</p>
+<p><strong>Every time</strong> your plugin wishes to send metrics, you must check the
+<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/util/metric/MetricsConfigManager.html#areMetricsEnabled-org.spongepowered.api.plugin.PluginContainer-">MetricsConfigManager#areMetricsEnabled(PluginContainer)</a>, supplying the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/plugin/PluginContainer.html">PluginContainer</a> of
+your plugin. Metrics must only be sent if this returns <code class="docutils literal"><span class="pre">true</span></code> for your plugin.</p>
+<p>The following example shows how to use field injections to get the <code class="docutils literal"><span class="pre">MetricsConfigManager</span></code> and the
+<code class="docutils literal"><span class="pre">PluginContainer</span></code> for your plugin, and uses those to determine whether consent to send metrics has been obtained.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.metric.MetricsConfigManager</span><span class="o">;</span>
 
-<span class="n">BookView</span> <span class="n">bookView</span> <span class="o">=</span> <span class="n">BookView</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">title</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Story Mode&quot;</span><span class="o">))</span>
-        <span class="o">.</span><span class="na">author</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Notch&quot;</span><span class="o">))</span>
-        <span class="o">.</span><span class="na">addPage</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;There once was a Steve...&quot;</span><span class="o">))</span>
-        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-<span class="n">viewer</span><span class="o">.</span><span class="na">sendBookView</span><span class="o">(</span><span class="n">bookView</span><span class="o">);</span>
+<span class="nd">@Inject</span>
+<span class="kd">private</span> <span class="n">PluginContainer</span> <span class="n">container</span><span class="o">;</span>
+
+<span class="nd">@Inject</span>
+<span class="kd">private</span> <span class="n">MetricsConfigManager</span> <span class="n">metricsConfigManager</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasConsent</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">metricsConfigManager</span><span class="o">.</span><span class="na">areMetricsEnabled</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">container</span><span class="o">);</span>
+<span class="o">}</span>
 </pre></div>
 </div>
-<p>This will display a book to the client with a single page that contains the text specified in the
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/BookView.Builder.html#addPage-org.spongepowered.api.text.Text-">BookView.Builder#addPage(Text)</a> method. Of course, you don’t have to call <code class="docutils literal"><span class="pre">addPage(Text)</span></code> for every page
-you wish to add. The <code class="docutils literal"><span class="pre">BookView.Builder</span></code> class provides a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/BookView.Builder.html#addPages-java.util.Collection-">BookView.Builder#addPages(Collection&lt;Text&gt;)</a>
-method that accepts multiple <code class="docutils literal"><span class="pre">Text</span></code>s.</p>
-<p>The <code class="docutils literal"><span class="pre">BookView.Builder</span></code> class also provides the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/BookView.Builder.html#insertPage-int-org.spongepowered.api.text.Text-">BookView.Builder#insertPage(int, Text)</a> and the corresponding
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/BookView.Builder.html#insertPages-int-java.util.Collection-">BookView.Builder#insertPages(int, Collection&lt;Text&gt;)</a> methods for inserting a page or several pages at any
-given index.</p>
-<p>You may also remove pages of a <code class="docutils literal"><span class="pre">BookView</span></code> by providing either the <code class="docutils literal"><span class="pre">Text</span></code> from the page or by specifying the index
-of the page that you wish to remove. You simply need to use the corresponding
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/BookView.Builder.html#removePage-org.spongepowered.api.text.Text-">BookView.Builder#removePage(Text)</a>, <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/BookView.Builder.html#removePage-int-">BookView.Builder#removePage(int)</a>, or
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/BookView.Builder.html#removePages-java.util.Collection-">BookView.Builder#removePages(Collection&lt;Text&gt;)</a> methods.</p>
+</div>
 </div>
 
            </div>
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="economy/index.html" class="btn btn-neutral float-right" title="Economy" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
-        <a href="metrics.html" class="btn btn-neutral" title="Metrics Collection" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+        <a href="bookview.html" class="btn btn-neutral float-right" title="Book Views" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="bans.html" class="btn btn-neutral" title="Bans" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
     <hr/>
@@ -231,8 +253,8 @@ of the page that you wish to remove. You simply need to use the corresponding
 
             <dl>
                 <dt>Contribute</dt>
-                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/metrics/source/plugin/bookview.rst">Source</a></dd>
-                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/feature/metrics/source/plugin/bookview.rst">Edit</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/metrics/source/plugin/metrics.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/feature/metrics/source/plugin/metrics.rst">Edit</a></dd>
             </dl>
     </div>
 </div>
