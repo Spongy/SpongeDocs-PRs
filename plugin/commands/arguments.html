@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Commands" href="index.html"/>        <link rel="next" title="Command Flags" href="flags.html"/>        <link rel="prev" title="Building a Command" href="creating.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Plugin Commands" href="index.html"/>        <link rel="next" title="Command Flags" href="flags.html"/>        <link rel="prev" title="Building a Command" href="creating.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -90,7 +90,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Commands</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Plugin Commands</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="creating.html">Building a Command</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Argument Parsing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="flags.html">Command Flags</a></li>
@@ -159,7 +159,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../../index.html">Docs</a> &raquo;</li>
           <li><a href="../index.html">Creating a Plugin</a> &raquo;</li>
-          <li><a href="index.html">Commands</a> &raquo;</li>
+          <li><a href="index.html">Plugin Commands</a> &raquo;</li>
     <li>Argument Parsing</li>
       <li class="wy-breadcrumbs-aside">
             <a href="https://github.com/SpongePowered/SpongeDocs/blob/more-debugging-improvements/source/plugin/commands/arguments.rst" class="fa fa-github"> Edit on GitHub</a>
@@ -171,23 +171,26 @@
   <div class="section" id="argument-parsing">
 <h1>Argument Parsing<a class="headerlink" href="#argument-parsing" title="Permalink to this headline">¶</a></h1>
 <p>The Command Builder API comes with a powerful argument parser. It converts the string input to java base types
-(integers, booleans, strings) or game objects (players, worlds, block types , …). The parser supports optional
+(integers, booleans, strings) or game objects (players, worlds, block types, …). The parser supports optional
 arguments and flags. It also handles TAB completion of arguments.</p>
 <p>The parsed arguments are stored in the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/CommandContext.html">CommandContext</a> object. If the parser returns a single object, obtain
 it with <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/CommandContext.html#getOne-java.lang.String-">CommandContext#getOne(String)</a>. Optional and weak arguments may return <code class="docutils literal"><span class="pre">Optional.empty()</span></code>.</p>
 <p>Many of the parsers may return more than one object (e.g. multiple players with a matching username). In that case, you
 must use the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/CommandContext.html#getAll-java.lang.String-">CommandContext#getAll(String)</a> method to get the <code class="docutils literal"><span class="pre">Collection</span></code> of possible matches.
 <strong>Otherwise, the context object will throw an exception!</strong></p>
+<p>When creating a command, consider whether the argument could return multiple values, for example, whether a player
+argument could support multiple players when using a selector. If you support multiple values the users need to type
+only one command and can use an easier command syntax. Example: <code class="docutils literal"><span class="pre">/tell</span> <span class="pre">&#64;a</span> <span class="pre">Who</span> <span class="pre">took</span> <span class="pre">the</span> <span class="pre">cookies?</span></code></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">You can use the
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/GenericArguments.html#onlyOne-org.spongepowered.api.command.args.CommandElement-">GenericArguments#onlyOne(CommandElement)</a> element to limit the amount of returned values to a single one,
-so you can safely use <code class="docutils literal"><span class="pre">args.&lt;T&gt;getOne(String)</span></code>.</p>
+<p class="last">You can use the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/GenericArguments.html#onlyOne-org.spongepowered.api.command.args.CommandElement-">GenericArguments#onlyOne(CommandElement)</a> element to restrict the amount of returned values
+to a single one, so you can safely use <code class="docutils literal"><span class="pre">args.&lt;T&gt;getOne(String)</span></code>. However the user will still get a message, if they
+try to select more than one value.</p>
 </div>
 <p>To create a new <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/CommandElement.html">CommandElement</a> (argument), use the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/GenericArguments.html">GenericArguments</a> factory class. Many command
 elements require a short text key, which is displayed in error and help messages.</p>
 <p>Apply the <code class="docutils literal"><span class="pre">CommandElement</span></code> to the command builder with the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/spec/CommandSpec.Builder.html#arguments-org.spongepowered.api.command.args.CommandElement...-">CommandSpec.Builder#arguments(CommandElement…)</a>
-method. It is possible to pass more than one <code class="docutils literal"><span class="pre">CommandElement</span></code> to the method, thus chaining multiple arguments (e.g
+method. It is possible to pass more than one <code class="docutils literal"><span class="pre">CommandElement</span></code> to the method, thus chaining multiple arguments (e.g.
 <code class="docutils literal"><span class="pre">/msg</span> <span class="pre">&lt;player&gt;</span> <span class="pre">&lt;msg&gt;</span></code>). This has the same effect as wrapping the <code class="docutils literal"><span class="pre">CommandElement</span></code> objects in a
 <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/GenericArguments.html#seq-org.spongepowered.api.command.args.CommandElement...-">GenericArguments#seq(CommandElement…)</a> element.</p>
 <div class="section" id="example-building-a-command-with-multiple-arguments">
@@ -211,17 +214,14 @@ method. It is possible to pass more than one <code class="docutils literal"><spa
                 <span class="n">GenericArguments</span><span class="o">.</span><span class="na">onlyOne</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">player</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;player&quot;</span><span class="o">))),</span>
                 <span class="n">GenericArguments</span><span class="o">.</span><span class="na">remainingJoinedStrings</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;message&quot;</span><span class="o">)))</span>
 
-        <span class="o">.</span><span class="na">executor</span><span class="o">(</span><span class="k">new</span> <span class="n">CommandExecutor</span><span class="o">()</span> <span class="o">{</span>
-            <span class="nd">@Override</span>
-            <span class="kd">public</span> <span class="n">CommandResult</span> <span class="nf">execute</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">src</span><span class="o">,</span> <span class="n">CommandContext</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">CommandException</span> <span class="o">{</span>
+        <span class="o">.</span><span class="na">executor</span><span class="o">((</span><span class="n">CommandSource</span> <span class="n">src</span><span class="o">,</span> <span class="n">CommandContext</span> <span class="n">args</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
 
-                <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="n">args</span><span class="o">.&lt;</span><span class="n">Player</span><span class="o">&gt;</span><span class="n">getOne</span><span class="o">(</span><span class="s">&quot;player&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
-                <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">args</span><span class="o">.&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="n">getOne</span><span class="o">(</span><span class="s">&quot;message&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+            <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="n">args</span><span class="o">.&lt;</span><span class="n">Player</span><span class="o">&gt;</span><span class="n">getOne</span><span class="o">(</span><span class="s">&quot;player&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+            <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">args</span><span class="o">.&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="n">getOne</span><span class="o">(</span><span class="s">&quot;message&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
 
-                <span class="n">player</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">message</span><span class="o">));</span>
+            <span class="n">player</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">message</span><span class="o">));</span>
 
-                <span class="k">return</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">success</span><span class="o">();</span>
-            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">success</span><span class="o">();</span>
         <span class="o">})</span>
         <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 
@@ -379,6 +379,13 @@ command argument</td>
 <p class="first admonition-title">Tip</p>
 <p class="last">See the Javadocs for <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/args/GenericArguments.html">GenericArguments</a> for more information.</p>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Don’t expect that a <code class="docutils literal"><span class="pre">CommandElement</span></code>s will only ever return a single value, a lot of them support multiple return
+values; some might even support regular expressions or use a command selector. This is intentional as it makes
+commands easier to use. Example: <code class="docutils literal"><span class="pre">/tell</span> <span class="pre">&#64;a</span> <span class="pre">BanditPlayer</span> <span class="pre">has</span> <span class="pre">the</span> <span class="pre">cookies!</span></code>. If you want to make sure to only get a
+single value use <code class="docutils literal"><span class="pre">GenericArguments#onlyOne(CommandElement)</span></code>.</p>
+</div>
 </div>
 <div class="section" id="custom-command-elements">
 <h2>Custom Command Elements<a class="headerlink" href="#custom-command-elements" title="Permalink to this headline">¶</a></h2>
@@ -471,7 +478,7 @@ Note that if the string is not a valid selector, an <a class="reference external
 objects selected by the selector.</p>
 <p>The following <code class="docutils literal"><span class="pre">parseValue</span></code> method from the <code class="docutils literal"><span class="pre">CommandElement</span></code> class attempts to parse a selector and return a set of
 entities based on the location of the <code class="docutils literal"><span class="pre">CommandSource</span></code>. If the passed string does not start with <code class="docutils literal"><span class="pre">&#64;</span></code>, an exception
-will be thrown indicating the passed argument is not a selector.</p>
+will be thrown indicating that the passed argument is not a selector.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
 <span class="kd">protected</span> <span class="n">Object</span> <span class="nf">parseValue</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">,</span> <span class="n">CommandArgs</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ArgumentParseException</span> <span class="o">{</span>
     <span class="n">String</span> <span class="n">nextArg</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>

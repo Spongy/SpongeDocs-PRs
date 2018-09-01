@@ -90,7 +90,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../optional/index.html">Optionals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../logging.html">Logging and Debugging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../text/index.html">Text</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../commands/index.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../commands/index.html">Plugin Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../event/index.html">Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../configuration/index.html">Configuring Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../assets.html">The Asset API</a></li>
@@ -191,7 +191,7 @@ and deserialization</li>
 <h2>Reading DataViews<a class="headerlink" href="#reading-dataviews" title="Permalink to this headline">¶</a></h2>
 <p>Whenever you’re reading a serialized object, it’s tempting to read all the individual values yourself in order to
 manually create all the required objects (and their parameters) for your data. However, depending on the data saved in
-the container there are a few ways ways that are far more convenient:</p>
+the container there are a few ways that are far more convenient:</p>
 <ul class="simple">
 <li>Common java types such as <code class="docutils literal"><span class="pre">int</span></code>, <code class="docutils literal"><span class="pre">String</span></code>, <code class="docutils literal"><span class="pre">double</span></code>, <code class="docutils literal"><span class="pre">List</span></code> and <code class="docutils literal"><span class="pre">Map</span></code> can be retrieved using built-in
 methods <code class="docutils literal"><span class="pre">getInt(DataQuery)</span></code>, <code class="docutils literal"><span class="pre">getString(DataQuery)</span></code>, etc. Lists of these types can also be retrieved in a
@@ -245,7 +245,7 @@ as the query. This will allow for versioning upgrades with <a class="reference i
 <p>The next part is to implement a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/persistence/DataBuilder.html">DataBuilder</a>. It’s recommended to extend <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/persistence/AbstractDataBuilder.html">AbstractDataBuilder</a> as
 it will try to upgrade your data if the version is less than the current version. There’s only one method you need to
 implement - <code class="docutils literal"><span class="pre">build(DataView)</span></code>, or <code class="docutils literal"><span class="pre">buildContent(DataView)</span></code> if you’re using <code class="docutils literal"><span class="pre">AbstractDataBuilder</span></code>.</p>
-<p>You’ll want to check that all the queries you want to retrieve are present using <code class="docutils literal"><span class="pre">DataView.contains(Key...)</span></code>. If not
+<p>You’ll want to check that all the queries you want to retrieve are present using <code class="docutils literal"><span class="pre">DataView.contains(Key...)</span></code>. If not,
 the data is likely incomplete and you should return <code class="docutils literal"><span class="pre">Optional.empty()</span></code>.</p>
 <p>If everything seems to be there, use the <code class="docutils literal"><span class="pre">getX</span></code> methods to construct the values and return a newly created object as
 an <code class="docutils literal"><span class="pre">Optional</span></code>.</p>
