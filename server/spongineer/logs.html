@@ -155,10 +155,10 @@ logfiles from SpongeForge and SpongeVanilla servers including short descriptions
 </div>
 <div class="section" id="configure-logging">
 <h2><a class="toc-backref" href="#id2">Configure Logging</a><a class="headerlink" href="#configure-logging" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes plugins log messages that the server owner does not need or the sheer number of messages hide some more
+<p>Sometimes plugins log messages that the server owner does not need, or the sheer number of messages hide some more
 important information. In other cases, plugins or the server log debug messages that normally don’t appear in any logs.
-This section explains how to configure the logging. It is also possible to configure the logging in a way that split the
-logs in two or more separate files. One could be optimized for the moderators that pay attention to their users’
+This section explains how to configure the logging. It is also possible to configure the logging in a way that splits
+the logs in two or more separate files. One could be optimized for the moderators that pay attention to their users’
 activity/behavior and other logs could be used to monitor plugins that are important to the admins.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -207,14 +207,14 @@ are there.</p>
 <p>The <code class="docutils literal"><span class="pre">Appenders</span></code> section defines the output channels for the log messages. This could be a file, the console, or even
 a central log collection and analysis server. Read more about configuring appenders
 <a class="reference external" href="https://logging.apache.org/log4j/2.x/manual/configuration.html#Appenders">here</a>.</p>
-<p>The <code class="docutils literal"><span class="pre">Loggers</span></code> section defines filters for loggers and which to which targets they should be forwarded to. This section
-is usually the section you have to edit if you want to mute a specific plugin in the logs. Let’s look into this a bit
-more:</p>
+<p>The <code class="docutils literal"><span class="pre">Loggers</span></code> section defines filters for loggers and to which targets the messages should be forwarded to. This is
+usually the section you must edit if you want to mute a specific plugin in the logs. Let’s look into this
+a bit more:</p>
 <div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;Logger</span> <span class="na">level=</span><span class="s">&quot;info&quot;</span> <span class="na">name=</span><span class="s">&quot;com.example.mod&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
-<p>This will limit the logs of <code class="docutils literal"><span class="pre">com.example.mod</span></code> to <code class="docutils literal"><span class="pre">info</span></code> and higher messages. Beware this affects all output channels
-and also any logger that is created for a sub-package of the given path. Read more about filters
+<p>This will limit the logs of <code class="docutils literal"><span class="pre">com.example.mod</span></code> to <code class="docutils literal"><span class="pre">info</span></code> and higher messages. Beware, this affects all output
+channels and also any logger that is created for a sub-package of the given path. Read more about filters
 <a class="reference external" href="https://logging.apache.org/log4j/2.x/manual/configuration.html#Filters">here</a>.</p>
 <div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;Root</span> <span class="na">level=</span><span class="s">&quot;all&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">&quot;Console&quot;</span> <span class="na">level=</span><span class="s">&quot;info&quot;</span><span class="nt">/&gt;</span>
@@ -227,12 +227,12 @@ and higher, and last, the appender called <code class="docutils literal"><span c
 target such as a file for later error search.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you are wondering, why your new plugin’s log messages don’t seem to show up: The Console’s log level is
+<p class="last">If you are wondering why your new plugin’s log messages don’t seem to show up: The Console’s log level is
 configured to be at least info by default which hides your debug messages.</p>
 </div>
 <p>If you don’t want to reconfigure the entire logging, but want to hide a certain plugin from the logs you can also use
-composite logging options. This can be achieved by referencing both the original logging config and you specialized
-config that does only contain the changed logging options. The following example shows this:</p>
+composite logging options. This can be achieved by referencing both the original logging config and your specialized
+config that only contains the changed logging options. The following example shows this:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>java -Dlog4j.configurationFile<span class="o">=</span>log4j2_server.xml,log4j2_custom.xml -jar server.jar
 </pre></div>
 </div>
@@ -245,8 +245,8 @@ config that does only contain the changed logging options. The following example
 </pre></div>
 </div>
 <p>In this example all logs from the <code class="docutils literal"><span class="pre">com.example.logspammer</span></code> package won’t be shown or saved. For debugging purposes, it
-might be useful to include your plugin’s log messages in the console so you don’t have to tail the debug log. This can
-be achieved using the following example:</p>
+might be useful to include your plugin’s log messages in the console so you don’t have to <code class="docutils literal"><span class="pre">tail</span></code> the debug log. This
+can be achieved using the following example:</p>
 <div class="highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 <span class="nt">&lt;Configuration</span> <span class="na">status=</span><span class="s">&quot;WARN&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;Loggers&gt;</span>
@@ -260,8 +260,8 @@ be achieved using the following example:</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Logging affects performance. If you log too much you might lose a small amount of tps. If you don’t have (complete)
-logs nobody can help you to reconstruct what happened on your server.</p>
+<p class="last">Logging affects performance. If you log too much you might lose a small amount of tps. Also remember that it will
+become harder to reproduce errors if there are no/incomplete logs available.</p>
 </div>
 </div>
 <div class="section" id="spongeforge-logfiles">
