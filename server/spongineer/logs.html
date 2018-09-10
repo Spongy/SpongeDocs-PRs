@@ -139,21 +139,133 @@ logfiles from SpongeForge and SpongeVanilla servers including short descriptions
 <div class="contents local topic" id="provided-logfiles">
 <p class="topic-title first"><strong>Provided Logfiles</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#spongeforge-logfiles" id="id2">SpongeForge logfiles</a><ul>
-<li><a class="reference internal" href="#debug-log" id="id3">debug.log</a></li>
-<li><a class="reference internal" href="#latest-log" id="id4">latest.log</a></li>
+<li><a class="reference internal" href="#configure-logging" id="id2">Configure Logging</a></li>
+<li><a class="reference internal" href="#spongeforge-logfiles" id="id3">SpongeForge logfiles</a><ul>
+<li><a class="reference internal" href="#debug-log" id="id4">debug.log</a></li>
+<li><a class="reference internal" href="#latest-log" id="id5">latest.log</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#spongevanilla-logfiles" id="id5">SpongeVanilla logfiles</a><ul>
-<li><a class="reference internal" href="#id1" id="id6">latest.log</a></li>
+<li><a class="reference internal" href="#spongevanilla-logfiles" id="id6">SpongeVanilla logfiles</a><ul>
+<li><a class="reference internal" href="#id1" id="id7">latest.log</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#reading-logfiles" id="id7">Reading logfiles</a></li>
-<li><a class="reference internal" href="#common-errors" id="id8">Common errors</a></li>
+<li><a class="reference internal" href="#reading-logfiles" id="id8">Reading logfiles</a></li>
+<li><a class="reference internal" href="#common-errors" id="id9">Common errors</a></li>
 </ul>
 </div>
+<div class="section" id="configure-logging">
+<h2><a class="toc-backref" href="#id2">Configure Logging</a><a class="headerlink" href="#configure-logging" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes plugins log messages that the server owner does not need, or the sheer number of messages hide some more
+important information. In other cases, plugins or the server will log debug messages that normally don’t appear in any
+logs. This section explains how to configure the logging. It is also possible to configure the logging in a way that
+splits the logs in two or more separate files. One could be optimized for the moderators that pay attention to their
+users’ activity/behavior and other logs could be used to monitor plugins that are important to the admins.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you think that a plugin logs too many/few messages or on wrong log levels, please report it to its author.</p>
+</div>
+<p>The simplest way to configure the logging is modifying the <code class="docutils literal"><span class="pre">log4j2.xml</span></code> configuration file that will be used by
+Minecraft/Forge itself. You can find and extract it from the root of the <code class="docutils literal"><span class="pre">forge-...-universal.jar</span></code> and
+<code class="docutils literal"><span class="pre">minecraft_server.jar</span></code>. Do <strong>NOT</strong> edit the file inside the jar.</p>
+<p>You can tell log4j2 to use the new config file by adding a start parameter to your server launch script.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>java -Dlog4j.configurationFile<span class="o">=</span>log4j2_server.xml -jar server.jar
+</pre></div>
+</div>
+<p>The default configuration looks similar to the following example.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;Configuration</span> <span class="na">status=</span><span class="s">&quot;warn&quot;</span> <span class="na">packages=</span><span class="s">&quot;com.mojang.util,net.minecraftforge.server.console.log4j&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Appenders&gt;</span>
+        <span class="nt">&lt;TerminalConsole</span> <span class="na">name=</span><span class="s">&quot;Console&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;PatternLayout</span> <span class="na">pattern=</span><span class="s">&quot;[%d{HH:mm:ss}] [%t/%level] [%logger]: %msg%n&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/TerminalConsole&gt;</span>
+
+        <span class="nt">&lt;RollingRandomAccessFile</span> <span class="na">name=</span><span class="s">&quot;DebugFile&quot;</span> <span class="na">fileName=</span><span class="s">&quot;logs/debug.log&quot;</span> <span class="na">filePattern=</span><span class="s">&quot;logs/debug-%i.log.gz&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;PatternLayout</span> <span class="na">pattern=</span><span class="s">&quot;[%d{HH:mm:ss}] [%t/%level] [%logger]: %msg%n&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;Policies&gt;</span>
+                <span class="nt">&lt;OnStartupTriggeringPolicy/&gt;</span>
+                <span class="nt">&lt;SizeBasedTriggeringPolicy</span> <span class="na">size=</span><span class="s">&quot;200MB&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/Policies&gt;</span>
+            <span class="nt">&lt;DefaultRolloverStrategy</span> <span class="na">max=</span><span class="s">&quot;5&quot;</span> <span class="na">fileIndex=</span><span class="s">&quot;min&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/RollingRandomAccessFile&gt;</span>
+    <span class="nt">&lt;/Appenders&gt;</span>
+    <span class="nt">&lt;Loggers&gt;</span>
+        <span class="nt">&lt;Logger</span> <span class="na">level=</span><span class="s">&quot;info&quot;</span> <span class="na">name=</span><span class="s">&quot;org.spongepowered&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;Logger</span> <span class="na">level=</span><span class="s">&quot;info&quot;</span> <span class="na">name=</span><span class="s">&quot;com.example.mod&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;Root</span> <span class="na">level=</span><span class="s">&quot;all&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">&quot;Console&quot;</span> <span class="na">level=</span><span class="s">&quot;info&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">&quot;DebugFile&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/Root&gt;</span>
+    <span class="nt">&lt;/Loggers&gt;</span>
+<span class="nt">&lt;/Configuration&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This example lacks some comments that are present in the original, make sure you read them to understand why they
+are there.</p>
+</div>
+<p>The <code class="docutils literal"><span class="pre">Appenders</span></code> section defines the output channels for the log messages. This could be a file, the console, or even
+a central log collection and analysis server. Read more about configuring appenders
+<a class="reference external" href="https://logging.apache.org/log4j/2.x/manual/configuration.html#Appenders">here</a>.</p>
+<p>The <code class="docutils literal"><span class="pre">Loggers</span></code> section defines filters for loggers and to which targets the messages should be forwarded to. This is
+usually the section you must edit if you want to mute a specific plugin in the logs. Let’s look into this
+a bit more:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;Logger</span> <span class="na">level=</span><span class="s">&quot;info&quot;</span> <span class="na">name=</span><span class="s">&quot;com.example.mod&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>This will limit the logs of <code class="docutils literal"><span class="pre">com.example.mod</span></code> to <code class="docutils literal"><span class="pre">info</span></code> and higher messages. Beware, this affects all output
+channels and also any logger that is created for a sub-package of the given path. Read more about filters
+<a class="reference external" href="https://logging.apache.org/log4j/2.x/manual/configuration.html#Filters">here</a>.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;Root</span> <span class="na">level=</span><span class="s">&quot;all&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">&quot;Console&quot;</span> <span class="na">level=</span><span class="s">&quot;info&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">&quot;DebugFile&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Root&gt;</span>
+</pre></div>
+</div>
+<p>This section configures two output channels. First, the appender called <code class="docutils literal"><span class="pre">Console</span></code> with a log level filter of <code class="docutils literal"><span class="pre">info</span></code>
+and higher, and last, the appender called <code class="docutils literal"><span class="pre">DebugFile</span></code>. It is recommended to keep at least one logger to a persistent
+target such as a file for later error search.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are wondering why your new plugin’s log messages don’t seem to show up: The Console’s log level is
+configured to be at least info by default which hides your debug messages.</p>
+</div>
+<p>If you don’t want to reconfigure the entire logging, but want to hide a certain plugin from the logs you can also use
+composite logging options. This can be achieved by referencing both the original logging config and your specialized
+config that only contains the changed logging options. The following example shows this:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>java -Dlog4j.configurationFile<span class="o">=</span>log4j2_server.xml,log4j2_custom.xml -jar server.jar
+</pre></div>
+</div>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;Configuration</span> <span class="na">status=</span><span class="s">&quot;WARN&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Loggers&gt;</span>
+        <span class="nt">&lt;Logger</span> <span class="na">name=</span><span class="s">&quot;com.example.logspammer&quot;</span> <span class="na">level=</span><span class="s">&quot;off&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Loggers&gt;</span>
+<span class="nt">&lt;/Configuration&gt;</span>
+</pre></div>
+</div>
+<p>In this example all logs from the <code class="docutils literal"><span class="pre">com.example.logspammer</span></code> package won’t be shown or saved. For debugging purposes, it
+might be useful to include your plugin’s log messages in the console so you don’t have to <code class="docutils literal"><span class="pre">tail</span></code> the debug log. This
+can be achieved using the following example:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;Configuration</span> <span class="na">status=</span><span class="s">&quot;WARN&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Loggers&gt;</span>
+        <span class="nt">&lt;Logger</span> <span class="na">name=</span><span class="s">&quot;com.example.newplugin&quot;</span> <span class="na">level=</span><span class="s">&quot;all&quot;</span> <span class="na">additivity=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">&quot;Console&quot;</span><span class="nt">/&gt;</span>
+            [...]
+        <span class="nt">&lt;/Logger&gt;</span>
+    <span class="nt">&lt;/Loggers&gt;</span>
+<span class="nt">&lt;/Configuration&gt;</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Logging affects performance. If you log too much you might lose a small amount of tps. Also remember that it will
+become harder to reproduce errors if there are no/incomplete logs available.</p>
+</div>
+</div>
 <div class="section" id="spongeforge-logfiles">
-<h2><a class="toc-backref" href="#id2">SpongeForge logfiles</a><a class="headerlink" href="#spongeforge-logfiles" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">SpongeForge logfiles</a><a class="headerlink" href="#spongeforge-logfiles" title="Permalink to this headline">¶</a></h2>
 <p>SpongeForge writes several logfiles to the <code class="docutils literal"><span class="pre">/logs</span></code> folder located inside your server’s directory.
 As of Forge 1.12.2 - 14.23.4.2705 these are:</p>
 <ol class="arabic simple">
@@ -161,7 +273,7 @@ As of Forge 1.12.2 - 14.23.4.2705 these are:</p>
 <li><code class="docutils literal"><span class="pre">latest.log</span></code></li>
 </ol>
 <div class="section" id="debug-log">
-<h3><a class="toc-backref" href="#id3">debug.log</a><a class="headerlink" href="#debug-log" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id4">debug.log</a><a class="headerlink" href="#debug-log" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Only a few example lines are shown here. To read the full example log, follow this link:
@@ -195,7 +307,7 @@ Older builds or newer Java major versions (like 9 or 10) are not supported.</p>
 naming scheme, have a look here: <a class="reference internal" href="../getting-started/implementations/spongeforge.html"><span class="doc">Installing SpongeForge</span></a>.</p>
 </div>
 <div class="section" id="latest-log">
-<h3><a class="toc-backref" href="#id4">latest.log</a><a class="headerlink" href="#latest-log" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5">latest.log</a><a class="headerlink" href="#latest-log" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Only a few example lines are shown here. To read the full example log, follow this link:
@@ -205,9 +317,9 @@ naming scheme, have a look here: <a class="reference internal" href="../getting-
 </div>
 </div>
 <div class="section" id="spongevanilla-logfiles">
-<h2><a class="toc-backref" href="#id5">SpongeVanilla logfiles</a><a class="headerlink" href="#spongevanilla-logfiles" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">SpongeVanilla logfiles</a><a class="headerlink" href="#spongevanilla-logfiles" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
-<h3><a class="toc-backref" href="#id6">latest.log</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">latest.log</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Only a few example lines are shown here. To read the full example log, follow this link:
@@ -217,7 +329,7 @@ naming scheme, have a look here: <a class="reference internal" href="../getting-
 </div>
 </div>
 <div class="section" id="reading-logfiles">
-<h2><a class="toc-backref" href="#id7">Reading logfiles</a><a class="headerlink" href="#reading-logfiles" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">Reading logfiles</a><a class="headerlink" href="#reading-logfiles" title="Permalink to this headline">¶</a></h2>
 <p>If you’re unsure on how to read a common crashlog, you’ll find help here, but first we need a crashlog. For this short
 introduction we will just use an example crash from the <a class="reference internal" href="debugging.html"><span class="doc">Debugging</span></a> page:
 <a class="reference download internal" href="../../_downloads/crashlog-sponge575-plugin750.txt" download=""><code class="xref download docutils literal"><span class="pre">Example</span> <span class="pre">crashlog</span> <span class="pre">of</span> <span class="pre">an</span> <span class="pre">outdated</span> <span class="pre">SpongeForge</span> <span class="pre">build</span></code></a>.</p>
@@ -281,7 +393,7 @@ run properly.</p>
 <p>If you want to know how to solve this, head over to our checklist on the <a class="reference internal" href="debugging.html"><span class="doc">Debugging</span></a> page.</p>
 </div>
 <div class="section" id="common-errors">
-<h2><a class="toc-backref" href="#id8">Common errors</a><a class="headerlink" href="#common-errors" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">Common errors</a><a class="headerlink" href="#common-errors" title="Permalink to this headline">¶</a></h2>
 <p>Head over to <a class="reference internal" href="debugging.html"><span class="doc">Debugging</span></a> to read about common errors and exceptions.</p>
 </div>
 </div>
