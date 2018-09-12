@@ -169,9 +169,22 @@
   <div class="section" id="serializing-objects">
 <h1>Serializing Objects<a class="headerlink" href="#serializing-objects" title="Permalink to this headline">¶</a></h1>
 <p>The Configurate library also provides the means to tweak automatic serialization and deserialization of objects.
-Per default, a set of data types can be (de)serialized: among others Strings, ints, doubles, UUIDs, Lists
-(of serializable values) and Maps (where both keys and values are serializable). But if you want to write your
-custom data structures to a config file, this will not be enough.</p>
+Per default, a set of data types can be (de)serialized:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">String</span></code>s, the most commonly used primitive types and their wrappers</li>
+<li><a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a>s and <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html">Set</a>s of serializable values (not including specific implementations)</li>
+<li><a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html">Map</a>s where both keys and values are serializable (not including specific implementations)</li>
+<li>The types <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">UUID</a>, <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/net/URL.html">URL</a>, <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/net/URI.html">URI</a> and <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html">(regex) Pattern</a></li>
+<li>Any enum or <a class="reference internal" href="../data/catalog-types.html"><span class="doc">CatalogType</span></a></li>
+<li>The types <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/Text.html">Text</a>, <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/format/TextFormat.html">TextFormat</a> and <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/text/TextTemplate.html">TextTemplate</a> (See also
+<a class="reference internal" href="../text/index.html"><span class="doc">here</span></a>)</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you need special constraints or rules for your serialization (such as sorting the elements in a <code class="docutils literal"><span class="pre">Set</span></code>),
+then you should consider using your own <code class="docutils literal"><span class="pre">TypeSerializer</span></code> implementations.</p>
+</div>
+<p>But if you want to write your custom data structures to a config file, this will not be enough.</p>
 <p>Imagine a data structure tracking how many diamonds a player has mined. It might look a little like this:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounter</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="n">UUID</span> <span class="n">playerUUID</span><span class="o">;</span>
