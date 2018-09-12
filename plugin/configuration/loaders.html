@@ -195,18 +195,20 @@ discussed in <a class="reference internal" href="nodes.html"><span class="doc">a
 <p><code class="docutils literal"><span class="pre">ConfigurationLoader</span></code>s usually hold a builder for you to statically access and create a new instance of the loader of
 your desired type. For a basic configuration, we don’t really need to specify anything other than the file we want to
 load from and/or save to, so all we’ll do is tell it exactly that, using
-<code class="docutils literal"><span class="pre">HoconConfigurationLoader.builder().setPath(path)</span></code>. We then tell the builder to build the instance (<code class="docutils literal"><span class="pre">build()</span></code>) for
-it and store it in a variable.</p>
-<p>Of course, this isn’t the only way to load a file. The builder also has the method <code class="docutils literal"><span class="pre">setURL(URL)</span></code>, in case you want
-to load a resource without using a <code class="docutils literal"><span class="pre">Path</span></code> object. Bear in mind that configuration loaders created from an <code class="docutils literal"><span class="pre">URL</span></code>
-are read-only as they have no way of writing back data to the URL.</p>
+<a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/loader/AbstractConfigurationLoader.Builder.html#setPath-java.nio.file.Path-">HoconConfigurationLoader.builder().setPath(path)</a>.
+We then tell the builder to build the instance (<a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/hocon/HoconConfigurationLoader.Builder.html#build--">build()</a>) for it
+and store it in a variable.</p>
+<p>Of course, this isn’t the only way to load a file. The builder also has the method
+<a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/loader/AbstractConfigurationLoader.Builder.html#setPath-java.net.URL-">setURL(url)</a>, in case you want
+to load a resource without using a <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> object. Bear in mind that configuration loaders created from an
+<a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/net/URL.html">URL</a> are read-only as they have no way of writing back data to the URL.</p>
 <p>This functionality may be used to bundle default configurations with your plugin jar file and load them as initial
 configuration to be edited by the server administrator (or your plugin itself).</p>
 </div>
 <div class="section" id="loading-and-saving">
 <h2>Loading and Saving<a class="headerlink" href="#loading-and-saving" title="Permalink to this headline">¶</a></h2>
 <p>Once you obtained your <code class="docutils literal"><span class="pre">ConfigurationLoader</span></code> you can use it to obtain an empty <a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/ConfigurationNode.html">ConfigurationNode</a> using the
-<code class="docutils literal"><span class="pre">createEmptyNode()</span></code> method.</p>
+<a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/loader/ConfigurationLoader.html#createEmptyNode--">createEmptyNode()</a> method.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationOptions</span><span class="o">;</span>
 
@@ -215,12 +217,13 @@ configuration to be edited by the server administrator (or your plugin itself).<
 <span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">createEmptyNode</span><span class="o">(</span><span class="n">ConfigurationOptions</span><span class="o">.</span><span class="na">defaults</span><span class="o">());</span>
 </pre></div>
 </div>
-<p>This method expects the <cite>ninja.leaping.configurate.ConfigurationOptions</cite> to use as a parameter. Unless you want to use
+<p>This method expects the <a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/ConfigurationOptions.html">ConfigurationOptions</a> to use as a parameter. Unless you want to use
 features like custom type serialization, you can just use <a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/ConfigurationOptions.html#defaults--">ConfigurationOptions#defaults()</a> to create an
 options object with default values.</p>
-<p>Using the <code class="docutils literal"><span class="pre">load()</span></code> method you can attempt to load the configuration contents from the source specified upon creation
-of the <code class="docutils literal"><span class="pre">ConfigurationLoader</span></code>. It also expects a <code class="docutils literal"><span class="pre">ConfigurationOptions</span></code> instance, but also provides a no-args form
-that is shorthand for <code class="docutils literal"><span class="pre">load(ConfigurationOptions.defaults())</span></code>.</p>
+<p>Using the <a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/loader/ConfigurationLoader.html#load--">load()</a> method you can attempt to load the configuration contents from
+the source specified upon creation of the <code class="docutils literal"><span class="pre">ConfigurationLoader</span></code>. It also expects a <code class="docutils literal"><span class="pre">ConfigurationOptions</span></code> instance,
+but also provides a no-args form that is shorthand for
+<a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/loader/ConfigurationLoader.html#load-ninja.leaping.configurate.ConfigurationOptions-">load(ConfigurationOptions.defaults())</a>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
 
 <span class="n">Path</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="n">getConfigPath</span><span class="o">();</span>
@@ -229,7 +232,7 @@ that is shorthand for <code class="docutils literal"><span class="pre">load(Conf
 <span class="k">try</span> <span class="o">{</span>
     <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
 <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-    <span class="c1">// error</span>
+    <span class="c1">// handle error</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -243,7 +246,7 @@ it will be created. If it does exist, all contents will be overwritten.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="o">{</span>
     <span class="n">loader</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">rootNode</span><span class="o">);</span>
 <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-    <span class="c1">// error</span>
+    <span class="c1">// handle error</span>
 <span class="o">}</span>
 </pre></div>
 </div>
