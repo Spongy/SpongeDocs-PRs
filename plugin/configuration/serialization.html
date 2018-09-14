@@ -196,7 +196,7 @@ then you should consider using your own <code class="docutils literal"><span cla
 </div>
 <p>Also assume some methods to access those fields, a nice constructor setting both of those etc.</p>
 <div class="section" id="creating-a-custom-typeserializer">
-<h2>Creating a custom TypeSerializer<a class="headerlink" href="#creating-a-custom-typeserializer" title="Permalink to this headline">¶</a></h2>
+<h2>Creating a Custom TypeSerializer<a class="headerlink" href="#creating-a-custom-typeserializer" title="Permalink to this headline">¶</a></h2>
 <p>A very straightforward way of writing and loading such a data structure is providing a custom <a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/objectmapping/serialize/TypeSerializer.html">TypeSerializer</a>.
 The <code class="docutils literal"><span class="pre">TypeSerializer</span></code> interface provides two methods, one to write the data from an object to a configuration node and
 one to create an object from a given configuration node.</p>
@@ -250,6 +250,12 @@ when loading your config.</p>
 ever register them locally in order to avoid conflicts with other plugins or Sponge, caused by a <code class="docutils literal"><span class="pre">TypeSerializer</span></code>
 being overwritten.</p>
 </div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you need the <code class="docutils literal"><span class="pre">TypeToken.of(DiamondCounter.class)</span></code> in multiple places, then you should consider creating a
+constant for it. You can do it in a similar fashion as Sponge does in the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/util/TypeTokens.html">TypeTokens</a> class, or just
+define the constant inside of your data or serializer class.</p>
+</div>
 </div>
 <div class="section" id="using-objectmappers">
 <h2>Using ObjectMappers<a class="headerlink" href="#using-objectmappers" title="Permalink to this headline">¶</a></h2>
@@ -286,6 +292,69 @@ configuration nodes, otherwise it will be discarded.</p>
 <p>The <code class="docutils literal"><span class="pre">&#64;ConfigSerializable</span></code> annotation eliminates the need for any registration since it allows Configurate to
 just generate an <a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/objectmapping/ObjectMapper.html">ObjectMapper</a> for the class. The only limitation is that Configurate needs an empty
 constructor to instantiate a new object before filling in the annotated fields.</p>
+<div class="section" id="using-default-values-in-configserializable-types">
+<h3>Using Default Values in ConfigSerializable Types<a class="headerlink" href="#using-default-values-in-configserializable-types" title="Permalink to this headline">¶</a></h3>
+<p>It is also possible to use default values inside of <code class="docutils literal"><span class="pre">&#64;ConfigSerializable</span></code> types, you just have to use Java’s field
+initializers to set some default values; as long as the entry is not present in the config file the value won’t be
+overwritten.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@ConfigSerializable</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounter</span> <span class="o">{</span>
+
+    <span class="nd">@Setting</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;player&quot;</span><span class="o">,</span> <span class="n">comment</span><span class="o">=</span><span class="s">&quot;Player UUID&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">UUID</span> <span class="n">playerUUID</span><span class="o">;</span>
+
+    <span class="nd">@Setting</span><span class="o">(</span><span class="n">comment</span><span class="o">=</span><span class="s">&quot;Number of diamonds mined&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">diamonds</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="nd">@Setting</span><span class="o">(</span><span class="n">comment</span><span class="o">=</span><span class="s">&quot;The time the player found a diamond last.&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">LocalDateTime</span> <span class="n">diamonds</span> <span class="o">=</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+
+    <span class="o">[...]</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-loading-a-configserializable-config-with-default-values">
+<h3>Example: Loading a ConfigSerializable Config with Default Values<a class="headerlink" href="#example-loading-a-configserializable-config-with-default-values" title="Permalink to this headline">¶</a></h3>
+<p>Instead of loading a default config from the plugin jar itself, it is also possible to just ask Configurate to create
+it if it is missing.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">config</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">configManager</span><span class="o">.</span><span class="na">load</span><span class="o">().&lt;</span><span class="n">Configuration</span><span class="o">&gt;</span><span class="n">getValue</span><span class="o">(</span><span class="n">Configuration</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="n">Configuration</span><span class="o">::</span><span class="n">generateDefault</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ObjectMappingException</span> <span class="o">|</span> <span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">&quot;Failed to load the config - Using a default&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">config</span> <span class="o">=</span> <span class="n">Configuration</span><span class="o">.</span><span class="na">generateErrorDefault</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>In this case you load the entire configuration into a <code class="docutils literal"><span class="pre">Configuration</span></code> object that contains all of your plugins
+configuration. Using such a class has the following benefits:</p>
+<ul class="simple">
+<li>Type safety is guaranteed</li>
+<li>No need to update the configuration file shipped in your plugin</li>
+<li>You don’t need to store lots of references for each of your configuration options</li>
+<li>You can pass this config (or its parts) into methods or reference it from other classes</li>
+<li>It is easy to write comments for each attribute in a place that also helps you during development</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In this case <code class="docutils literal"><span class="pre">Configuration.generateDefault()</span></code> is called when the config file is missing or empty.
+If you still want to load the shipped default config asset you can load it inside of that method.
+<code class="docutils literal"><span class="pre">Configuration.generateErrorDefault()</span></code> is called when there was an error reading or parsing the config.
+It is not necessary to use separate methods for those cases, you can also use the no-arg constructor in those cases,
+or use an entirely custom solution.</p>
+</div>
+</div>
+<div class="section" id="example-saving-a-configserializable-config">
+<h3>Example: Saving a ConfigSerializable Config<a class="headerlink" href="#example-saving-a-configserializable-config" title="Permalink to this headline">¶</a></h3>
+<p>Saving a <code class="docutils literal"><span class="pre">&#64;ConfigSerializable</span></code> config is also very simple as shown by the following example:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">configManager</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">configManager</span><span class="o">.</span><span class="na">createEmptyNode</span><span class="o">().</span><span class="na">setValue</span><span class="o">(</span><span class="n">Configuration</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">config</span><span class="o">));</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="o">|</span> <span class="n">ObjectMappingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">&quot;Failed to save the config&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="providing-a-custom-objectmapperfactory">
 <h2>Providing a custom ObjectMapperFactory<a class="headerlink" href="#providing-a-custom-objectmapperfactory" title="Permalink to this headline">¶</a></h2>
