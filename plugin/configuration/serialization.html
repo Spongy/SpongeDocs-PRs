@@ -299,9 +299,9 @@ These fields won’t be persisted to config files and can be used to store tempo
 </div>
 <div class="section" id="using-default-values-in-configserializable-types">
 <h3>Using Default Values in ConfigSerializable Types<a class="headerlink" href="#using-default-values-in-configserializable-types" title="Permalink to this headline">¶</a></h3>
-<p>It is also possible to use default values inside of <code class="docutils literal"><span class="pre">&#64;ConfigSerializable</span></code> types, you just have to use Java’s field
-initializers to set some default values; as long as the entry is not present in the config file the value won’t be
-overwritten.</p>
+<p>It is also possible to use default values inside of <code class="docutils literal"><span class="pre">&#64;ConfigSerializable</span></code> types. You just have to use Java’s field
+initializers (or getters) to set some default values. As long as the entry is not present in the config file the value
+won’t be overwritten.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@ConfigSerializable</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounter</span> <span class="o">{</span>
 
@@ -344,14 +344,14 @@ configuration. Using such a class has the following benefits:</p>
 <p class="first admonition-title">Note</p>
 <p class="last">In this case <code class="docutils literal"><span class="pre">Configuration.generateDefault()</span></code> is called when the config file is missing or empty.
 If you still want to load the shipped default config asset you can load it inside of that method.
-<code class="docutils literal"><span class="pre">Configuration.generateErrorDefault()</span></code> is called when there was an error reading or parsing the config.
-It is not necessary to use separate methods for those cases, you can also use the no-arg constructor in those cases,
+<code class="docutils literal"><span class="pre">Configuration.generateErrorDefault()</span></code> is called when there is an error reading or parsing the config.
+It is not necessary to use separate methods for those cases; you can also use the no-arg constructor,
 or use an entirely custom solution.</p>
 </div>
 </div>
 <div class="section" id="example-saving-a-configserializable-config">
 <h3>Example: Saving a ConfigSerializable Config<a class="headerlink" href="#example-saving-a-configserializable-config" title="Permalink to this headline">¶</a></h3>
-<p>Saving a <code class="docutils literal"><span class="pre">&#64;ConfigSerializable</span></code> config is also very simple as shown by the following example:</p>
+<p>Saving a <code class="docutils literal"><span class="pre">&#64;ConfigSerializable</span></code> config is also very simple, as shown by the following example:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">configManager</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">configManager</span><span class="o">.</span><span class="na">createEmptyNode</span><span class="o">().</span><span class="na">setValue</span><span class="o">(</span><span class="n">Configuration</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">config</span><span class="o">));</span>
 <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="o">|</span> <span class="n">ObjectMappingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
