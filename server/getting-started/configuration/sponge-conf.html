@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>global.conf &mdash; Sponge 7.0.0 documentation</title>
+  <title>global.conf &mdash; Sponge 7.1.0 documentation</title>
 
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../../genindex.html"/>        <link rel="search" title="Search" href="../../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../../index.html"/>        <link rel="up" title="Configuring Sponge" href="index.html"/>        <link rel="next" title="server.properties" href="server-properties.html"/>        <link rel="prev" title="JSON Syntax" href="json.html"/>
+              href="../../../genindex.html"/>        <link rel="search" title="Search" href="../../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../../index.html"/>        <link rel="up" title="Configuring Sponge" href="index.html"/>        <link rel="next" title="server.properties" href="server-properties.html"/>        <link rel="prev" title="JSON Syntax" href="json.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -626,7 +626,7 @@ The server-wide view distance will be used when the value is -1.</dd>
 <dd>If ‘true’, this world will be registered.</dd>
 </dl>
 <hr class="docutils" />
-<p>This config was generated using SpongeForge build 2990 (with Forge 2611), SpongeAPI version 7.0.0:</p>
+<p>This config was generated using SpongeForge build 3442 (with Forge 2705), SpongeAPI version 7.1.0:</p>
 <div class="highlight-guess"><div class="highlight"><pre><span></span># 1.0
 #
 # # If you need help with the configuration or have any questions related to Sponge,
@@ -637,28 +637,12 @@ The server-wide view distance will be used when the value is -1.</dd>
 #
 
 sponge {
-    block-capturing {
-        # If &#39;true&#39;, newly discovered blocks will be added to this config with a default value.
-        auto-populate=false
-        # Per-mod block id mappings for controlling capturing behavior
-        mods {
-            extrautils2 {
-                # If &#39;true&#39;, individual capturing (i.e. skip bulk capturing) for scheduled ticks for
-                # a block type will be performed.
-                block-tick-capturing {
-                    redstoneclock=true
-                }
-                # If &#39;false&#39;, all specific rules for this mod will be ignored.
-                enabled=true
-            }
-        }
-    }
-    block-tracking {
-        # Block IDs that will be blacklisted for player block placement tracking.
-        block-blacklist=[]
-        # If &#39;true&#39;, adds player tracking support for block positions.
-        # Note: This should only be disabled if you do not care who caused a block to change.
-        enabled=true
+    # Stopgap measures for dealing with broken mods
+    broken-mods {
+        # A list of mod ids that have broken network handlers (they interact with the game from a Netty handler thread).
+        # All network handlers from a forcibly scheduled to run on the main thread.
+        # Note that this setting should be considered a last resort, and should only be used as a stopgap measure while waiting for a mod to properly fix the issue.
+        broken-network-handler-mods=[]
     }
     bungeecord {
         # If &#39;true&#39;, allows BungeeCord to forward IP address, UUID, and Game Profile to this server.
@@ -682,6 +666,15 @@ sponge {
         # not extremely performant and may have some associated costs
         # with generating the stack traces constantly.
         generate-stacktrace-per-phase=false
+        # The maximum number of times to recursively process transactions in a single phase.
+        # Some mods may interact badly with Sponge&#39;s block capturing system, causing Sponge to
+        # end up capturing block transactions every time it tries to process an existing batch.
+        # Due to the recursive nature of the depth-first processing that Sponge uses to handle block transactions,
+        # this can result in a stack overflow, which causes us to lose all infomration about the original cause of the issue.
+        # To prevent a stack overflow, Sponge tracks the current processing depth, and aborts processing when it exceeds
+        # this threshold.
+        # The default value should almost always work properly -  it&#39;s unlikely you&#39;ll ever have to change it.
+        max-block-processing-depth=100
         # If verbose is not enabled, this restricts the amount of
         # runaway phase state printouts, usually happens on a server
         # where a PhaseState is not completing. Although rare, it should
@@ -706,22 +699,12 @@ sponge {
         aliases {}
         # Patches the specified commands to respect the world of the sender instead of applying the
         # changes on the all worlds.
-        multi-world-patches {
-            defaultgamemode=true
-            difficulty=true
-            gamerule=true
-            seed=true
-            setdefaultspawnpoint=true
-            time=true
-            toggledownfall=true
-            weather=true
-            worldborder=true
-        }
+        multi-world-patches {}
     }
-    # This setting does nothing in the global config. In dimension/world configs, it allows the config
-    # to override config(s) that it inherits from
-    config-enabled=false
     debug {
+        # Detect and prevent parts of PlayerChunkMap being called off the main thread.
+        # This may decrease sever preformance, so you should only enable it when debugging a specific issue.
+        concurrent-chunk-map-checks=false
         # Detect and prevent certain attempts to use entities concurrently.
         # WARNING: May drastically decrease server performance. Only set this to &#39;true&#39; to debug a pre-existing issue.
         concurrent-entity-checks=false
@@ -885,8 +868,24 @@ sponge {
         # Log when a world auto-saves its chunk data. Note: This may be spammy depending on the auto-save-interval configured for world.
         world-auto-save=false
     }
+    metrics {
+        # Determines whether plugins that are newly added are allowed to perform
+        # data/metric collection by default. Plugins detected by Sponge will be added to the &quot;plugin-permissions&quot; section with this value.
+        #
+        # Set to true to enable metric gathering by default, false otherwise.
+        default-permission=false
+        # Provides (or revokes) permission for metric gathering on a per plugin basis.
+        # Entries should be in the format &quot;plugin-id=<span class="nt">&lt;true</span><span class="err">|false</span><span class="nt">&gt;</span>&quot;.
+        #
+        # Deleting an entry from this list will reset it to the default specified in
+        # &quot;default-permission&quot;
+        plugin-permissions {
+            test-gradle-plugin=false
+        }
+    }
     modules {
-        block-capturing-control=true
+        # Enables experimental fixes for broken mods
+        broken-mod=false
         bungeecord=false
         entity-activation-range=true
         entity-collisions=true
@@ -928,6 +927,26 @@ sponge {
         # pre-merged and actually spawned, in which case, the items will flow right through
         # without being merged.
         drops-pre-merge=false
+        # If &#39;true&#39;, provides a fix for possible leaks through
+        # Minecraft&#39;s enchantment helper code that can leak
+        # entity and world references without much interaction
+        # Forge native (so when running SpongeForge implementation)
+        # has a similar patch, but Sponge&#39;s patch works a little harder
+        # at it, but Vanilla (SpongeVanilla implementation) does NOT
+        # have any of the patch, leading to the recommendation that this
+        # patch is enabled &quot;for sure&quot; when using SpongeVanilla implementation.
+        # See https://bugs.mojang.com/browse/MC-128547 for more information.
+        #
+        enchantment-helper-leak-fix=true
+        # If &#39;true&#39;, allows for Sponge to make better assumptinos on single threaded
+        # operations with relation to various checks for server threaded operations.
+        # This is default to true due to Sponge being able to precisely inject when
+        # the server thread is available. This should make an already fast operation
+        # much faster for better thread checks to ensure stability of sponge&#39;s systems.
+        faster-thread-checks=true
+        # If &#39;true&#39;, re-writes the incredibly inefficient Vanilla Map code.
+        # This yields enormous performance enhancements when using many maps, but has a tiny chance of breaking mods that invasively modify Vanilla.It is strongly reccomended to keep this on, unless explicitly advised otherwise by a Sponge developer
+        map-optimization=true
         # If &#39;true&#39;, uses Panda4494&#39;s redstone implementation which improves performance.
         # See https://bugs.mojang.com/browse/MC-11193 for more information.
         # Note: This optimization has a few issues which are explained in the bug report.
@@ -952,6 +971,13 @@ sponge {
                 }
             }
         }
+    }
+    player-block-tracker {
+        # Block IDs that will be blacklisted for player block placement tracking.
+        block-blacklist=[]
+        # If &#39;true&#39;, adds player tracking support for block positions.
+        # Note: This should only be disabled if you do not care who caused a block to change.
+        enabled=true
     }
     # Used to control spawn limits around players.
     # Note: The radius uses the lower value of mob spawn range and server&#39;s view distance.
@@ -1010,7 +1036,7 @@ sponge {
         history-interval=300
         history-length=3600
         server-name-privacy=false
-        verbose=true
+        verbose=false
     }
     world {
         # The auto-save tick interval used when saving global player data. (Default: 900)
@@ -1050,7 +1076,7 @@ sponge {
         # Finally, if set to 0 or less, the default interval will be used.
         gameprofile-lookup-task-interval=4
         # If &#39;true&#39;, this world will generate its spawn the moment its loaded.
-        generate-spawn-on-load=null
+        generate-spawn-on-load=false
         # Vanilla water source behavior - is infinite
         infinite-water-source=false
         # The list of uuid&#39;s that should never perform a lookup against Mojang&#39;s session server.
@@ -1069,11 +1095,11 @@ sponge {
         # areas for more items. Setting to a negative value is not supported!
         item-merge-radius=2.5
         # If &#39;true&#39;, this worlds spawn will remain loaded with no players.
-        keep-spawn-loaded=null
+        keep-spawn-loaded=true
         # If &#39;true&#39;, natural leaf decay is allowed.
         leaf-decay=true
         # If &#39;true&#39;, this world will load on startup.
-        load-on-startup=null
+        load-on-startup=true
         # The maximum number of queued unloaded chunks that will be unloaded in a single tick.
         # Note: With the chunk gc enabled, this setting only applies to the ticks
         # where the gc runs (controlled by &#39;chunk-gc-tick-interval&#39;)
@@ -1087,8 +1113,8 @@ sponge {
         # In order to override, change the target world name to any other valid world.
         # Note: If world is not found, it will fallback to default.
         portal-agents {
-            &quot;minecraft:default_nether&quot;=DIM-1
             &quot;minecraft:default_the_end&quot;=DIM1
+            &quot;minecraft:default_the_nether&quot;=DIM-1
         }
         # If &#39;true&#39;, this world will allow PVP combat.
         pvp-enabled=true
@@ -1138,7 +1164,7 @@ sponge {
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 7.0.0
+        v: 7.1.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -1157,7 +1183,7 @@ sponge {
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'7.0.0',
+            VERSION:'7.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

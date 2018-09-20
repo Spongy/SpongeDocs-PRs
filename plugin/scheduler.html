@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scheduler &mdash; Sponge 7.0.0 documentation</title>
+  <title>Scheduler &mdash; Sponge 7.1.0 documentation</title>
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Services" href="services.html"/>        <link rel="prev" title="Effects" href="effects.html"/>
+              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Services" href="services.html"/>        <link rel="prev" title="Effects" href="effects.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -162,8 +162,8 @@
            <div itemprop="articleBody">
   <div class="section" id="scheduler">
 <h1>Scheduler<a class="headerlink" href="#scheduler" title="Permalink to this headline">¶</a></h1>
-<p>Sponge exposes the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/scheduler/Scheduler.html">Scheduler</a> to allow you to designate tasks to be executed in the future. The <code class="docutils literal"><span class="pre">Scheduler</span></code>
-provides a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/scheduler/Task.Builder.html">Task.Builder</a> with which you can specify task properties such as the delay, interval, name,
+<p>Sponge exposes the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/scheduler/Scheduler.html">Scheduler</a> to allow you to designate tasks to be executed in the future. The <code class="docutils literal"><span class="pre">Scheduler</span></code>
+provides a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/scheduler/Task.Builder.html">Task.Builder</a> with which you can specify task properties such as the delay, interval, name,
 (a)synchronicity, and <code class="docutils literal"><span class="pre">Runnable</span></code> (see <a class="reference internal" href="#task-properties"><span class="std std-ref">Task Properties</span></a>).</p>
 <div class="section" id="task-builder">
 <h2>Task Builder<a class="headerlink" href="#task-builder" title="Permalink to this headline">¶</a></h2>
@@ -174,7 +174,7 @@ provides a <a class="reference external" href="https://jd.spongepowered.org/7.0.
 </pre></div>
 </div>
 <p>The only required property is the <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">Runnable</a>,
-which you can specify using <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/scheduler/Task.Builder.html#execute-java.lang.Runnable-">Task.Builder#execute(Runnable)</a>:</p>
+which you can specify using <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/scheduler/Task.Builder.html#execute-java.lang.Runnable-">Task.Builder#execute(Runnable)</a>:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="o">);</span>
@@ -259,7 +259,7 @@ it should be descriptive and aid users in debugging your plugin.</td>
 </tr>
 </tbody>
 </table>
-<p>Lastly, submit the task to the scheduler using <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/scheduler/Task.Builder.html#submit-java.lang.Object-">Task.Builder#submit(Object)</a>.</p>
+<p>Lastly, submit the task to the scheduler using <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/scheduler/Task.Builder.html#submit-java.lang.Object-">Task.Builder#submit(Object)</a>.</p>
 <p>And that’s it! To summarize, a fully functional scheduled task that would run asynchronously every 5 minutes after an
 initial delay of 100 milliseconds could be built and submitted using the following code:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
@@ -269,7 +269,7 @@ initial delay of 100 milliseconds could be built and submitted using the followi
     <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;ExamplePlugin - Fetch Stats from Database&quot;</span><span class="o">).</span><span class="na">submit</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
 </pre></div>
 </div>
-<p>To cancel a task, simply call the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/scheduler/Task.html#cancel--">Task#cancel()</a> method:</p>
+<p>To cancel a task, simply call the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/scheduler/Task.html#cancel--">Task#cancel()</a> method:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">task</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
 </pre></div>
 </div>
@@ -335,9 +335,9 @@ These libraries do tend to support Java’s
 of directing on which thread the task is executed.</p>
 <p>To allow these libraries to work with Sponge’s <code class="docutils literal"><span class="pre">Scheduler</span></code> the following methods can be used:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/scheduler/Scheduler.html#createSyncExecutor-java.lang.Object-">Scheduler#createSyncExecutor(Object)</a> creates a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/scheduler/SpongeExecutorService.html">SpongeExecutorService</a> which executes tasks
+<li><a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/scheduler/Scheduler.html#createSyncExecutor-java.lang.Object-">Scheduler#createSyncExecutor(Object)</a> creates a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/scheduler/SpongeExecutorService.html">SpongeExecutorService</a> which executes tasks
 through Sponge’s synchronous scheduler.</li>
-<li><a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/scheduler/Scheduler.html#createAsyncExecutor-java.lang.Object-">Scheduler#createAsyncExecutor(Object)</a> creates a <code class="docutils literal"><span class="pre">SpongeExecutorService</span></code> which executes tasks through
+<li><a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/scheduler/Scheduler.html#createAsyncExecutor-java.lang.Object-">Scheduler#createAsyncExecutor(Object)</a> creates a <code class="docutils literal"><span class="pre">SpongeExecutorService</span></code> which executes tasks through
 Sponge’s asynchronous scheduler. Tasks are subject to the restrictions mentioned in <a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a>.</li>
 </ul>
 <p>One thing to keep in mind is that any tasks that interacts with Sponge outside of the interactions listed in
@@ -485,7 +485,7 @@ will need to have the Sponge executor specified.</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 7.0.0
+        v: 7.1.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -504,7 +504,7 @@ will need to have the Sponge executor specified.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'7.0.0',
+            VERSION:'7.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

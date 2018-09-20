@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Transactions &mdash; Sponge 7.0.0 documentation</title>
+  <title>Transactions &mdash; Sponge 7.1.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="The Data API" href="index.html"/>        <link rel="next" title="Serializing Data" href="serialization.html"/>        <link rel="prev" title="Data Manipulators" href="datamanipulators.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../index.html"/>        <link rel="up" title="The Data API" href="index.html"/>        <link rel="next" title="Serializing Data" href="serialization.html"/>        <link rel="prev" title="Data Manipulators" href="datamanipulators.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -173,11 +173,11 @@
 <h1>Transactions<a class="headerlink" href="#transactions" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="reading-the-result">
 <h2>Reading the Result<a class="headerlink" href="#reading-the-result" title="Permalink to this headline">¶</a></h2>
-<p>For everything you <code class="docutils literal"><span class="pre">offer</span></code> to a data holder, the <code class="docutils literal"><span class="pre">offer</span></code> method will yield a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/DataTransactionResult.html">DataTransactionResult</a>. This
+<p>For everything you <code class="docutils literal"><span class="pre">offer</span></code> to a data holder, the <code class="docutils literal"><span class="pre">offer</span></code> method will yield a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataTransactionResult.html">DataTransactionResult</a>. This
 object will contain the following:</p>
 <div class="section" id="type">
 <h3>Type<a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h3>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/DataTransactionResult.Type.html">DataTransactionResult.Type</a> indicates whether the transaction was completed
+<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataTransactionResult.Type.html">DataTransactionResult.Type</a> indicates whether the transaction was completed
 successfully and, if not, how it failed.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -239,7 +239,7 @@ the data that was involved in the transaction.</p>
 <li><code class="docutils literal"><span class="pre">getSuccessfulData()</span></code> would contain one value container for the <code class="docutils literal"><span class="pre">Keys.HEALTH</span></code> key with a value of 20.0</li>
 </ul>
 <p>Now what would be different if we used the healing example from the <a class="reference internal" href="datamanipulators.html"><span class="doc">Data Manipulators</span></a> page instead? Since the
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a> data manipulator contains values for both the current and the maximum health, in addition to the
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a> data manipulator contains values for both the current and the maximum health, in addition to the
 above result, both the <code class="docutils literal"><span class="pre">getReplacedData()</span></code> list and the <code class="docutils literal"><span class="pre">getSuccessfulData()</span></code> list would contain one more element:
 A value container for the <code class="docutils literal"><span class="pre">Keys.MAX_HEALTH</span></code> key with a value of 20.0.</p>
 </div>
@@ -247,7 +247,7 @@ A value container for the <code class="docutils literal"><span class="pre">Keys.
 <h3>Offering HealthData to a block of stone<a class="headerlink" href="#offering-healthdata-to-a-block-of-stone" title="Permalink to this headline">¶</a></h3>
 <p>Now our above-mentioned examples are coded in a such a way that they will fail silently rather than try to offer the
 incompatible data. But imagine we took a (fully healed) player’s <code class="docutils literal"><span class="pre">HealthData</span></code> and tried to offer it to the
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/Location.html">Location</a> of the stone block he’s currently standing on. We can do this, since <code class="docutils literal"><span class="pre">Location</span></code> is also a data
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/world/Location.html">Location</a> of the stone block he’s currently standing on. We can do this, since <code class="docutils literal"><span class="pre">Location</span></code> is also a data
 holder. And if we do, it would reward us with a <code class="docutils literal"><span class="pre">DataTransactionResult</span></code> like this:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">getType()</span></code> would return <code class="docutils literal"><span class="pre">FAILURE</span></code></li>
@@ -307,7 +307,7 @@ you may wish to undo the partial successes.</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 7.0.0
+        v: 7.1.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -326,7 +326,7 @@ you may wish to undo the partial successes.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'7.0.0',
+            VERSION:'7.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

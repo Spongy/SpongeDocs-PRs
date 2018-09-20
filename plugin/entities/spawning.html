@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spawning an Entity &mdash; Sponge 7.0.0 documentation</title>
+  <title>Spawning an Entity &mdash; Sponge 7.1.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Entities" href="index.html"/>        <link rel="next" title="Modifying an Entity" href="modifying.html"/>        <link rel="prev" title="Entities" href="index.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Entities" href="index.html"/>        <link rel="next" title="Modifying an Entity" href="modifying.html"/>        <link rel="prev" title="Entities" href="index.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -167,8 +167,8 @@
            <div itemprop="articleBody">
   <div class="section" id="spawning-an-entity">
 <h1>Spawning an Entity<a class="headerlink" href="#spawning-an-entity" title="Permalink to this headline">¶</a></h1>
-<p>You will need three things for spawning an <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/Entity.html">Entity</a>: a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/Location.html">Location</a>, an <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/extent/Extent.html">Extent</a>, and an
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/EntityType.html">EntityType</a>. The process for getting these is quite simple, you just need to grab a <code class="docutils literal"><span class="pre">Location</span></code> from
+<p>You will need three things for spawning an <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/entity/Entity.html">Entity</a>: a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/world/Location.html">Location</a>, an <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/world/extent/Extent.html">Extent</a>, and an
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/entity/EntityType.html">EntityType</a>. The process for getting these is quite simple, you just need to grab a <code class="docutils literal"><span class="pre">Location</span></code> from
 somewhere in your plugin code and choose the type of <code class="docutils literal"><span class="pre">Entity</span></code> you wish to spawn.</p>
 <p>For example, let’s try to spawn a Creeper:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.Entity</span><span class="o">;</span>
@@ -197,14 +197,14 @@ somewhere in your plugin code and choose the type of <code class="docutils liter
 </pre></div>
 </div>
 <p>This will grab the world from our <code class="docutils literal"><span class="pre">Location</span></code>, which we will need for the actual spawning. Next, it uses
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/extent/EntityUniverse.html#createEntity-org.spongepowered.api.entity.EntityType-com.flowpowered.math.vector.Vector3d-">EntityUniverse#createEntity(EntityType, Vector3d)</a> to create the entity, but do note that this does not
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/world/extent/EntityUniverse.html#createEntity-org.spongepowered.api.entity.EntityType-com.flowpowered.math.vector.Vector3d-">EntityUniverse#createEntity(EntityType, Vector3d)</a> to create the entity, but do note that this does not
 spawn the entity into the world, it just will create it. We will need to specify the type of <code class="docutils literal"><span class="pre">Entity</span></code> to spawn, and
 the co-ordinates from our <code class="docutils literal"><span class="pre">Location</span></code>.</p>
 <p>Once we have created our <code class="docutils literal"><span class="pre">Entity</span></code> we can then use the world for spawning the <code class="docutils literal"><span class="pre">Entity</span></code>. We should specify a
 <code class="docutils literal"><span class="pre">Cause</span></code> for the spawning so other plugins can handle it accordingly. For spawning <code class="docutils literal"><span class="pre">Entity</span></code>s, it is best to use a
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/cause/entity/spawn/SpawnType.html">SpawnType</a> as part of the context. In this example, we stated that our entity was spawned from a plugin,
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/cause/entity/spawn/SpawnType.html">SpawnType</a> as part of the context. In this example, we stated that our entity was spawned from a plugin,
 however we can make it any cause/context that best describes why we are spawning this in, such as a mob spawner
-(See <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/cause/entity/spawn/SpawnTypes.html#MOB_SPAWNER">SpawnTypes#MOB_SPAWNER</a>), or spawn egg (See <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/event/cause/entity/spawn/SpawnTypes.html#SPAWN_EGG">SpawnTypes#SPAWN_EGG</a>).</p>
+(See <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/cause/entity/spawn/SpawnTypes.html#MOB_SPAWNER">SpawnTypes#MOB_SPAWNER</a>), or spawn egg (See <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/cause/entity/spawn/SpawnTypes.html#SPAWN_EGG">SpawnTypes#SPAWN_EGG</a>).</p>
 </div>
 
            </div>
@@ -235,7 +235,7 @@ however we can make it any cause/context that best describes why we are spawning
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 7.0.0
+        v: 7.1.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -254,7 +254,7 @@ however we can make it any cause/context that best describes why we are spawning
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'7.0.0',
+            VERSION:'7.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
