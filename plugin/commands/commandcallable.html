@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Low-Level Command API &mdash; Sponge 7.0.0 documentation</title>
+  <title>Low-Level Command API &mdash; Sponge 7.1.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Plugin Commands" href="index.html"/>        <link rel="next" title="Events" href="../event/index.html"/>        <link rel="prev" title="The Command Manager" href="service.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Plugin Commands" href="index.html"/>        <link rel="next" title="Events" href="../event/index.html"/>        <link rel="prev" title="The Command Manager" href="service.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -113,6 +113,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../database.html">Databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../permissions.html">Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrics.html">Metrics Collection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
@@ -170,7 +171,7 @@
            <div itemprop="articleBody">
   <div class="section" id="low-level-command-api">
 <h1>Low-Level Command API<a class="headerlink" href="#low-level-command-api" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/CommandCallable.html">CommandCallable</a> and <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/dispatcher/Dispatcher.html">Dispatcher</a> interfaces can be used to define commands. The interfaces can
+<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/CommandCallable.html">CommandCallable</a> and <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/dispatcher/Dispatcher.html">Dispatcher</a> interfaces can be used to define commands. The interfaces can
 be used as a base for custom command APIs.</p>
 <p>It is recommended to use the <a class="reference internal" href="creating.html"><span class="doc">Command Builder API</span></a> for simple command definitions.</p>
 <div class="section" id="writing-a-command">
@@ -222,14 +223,14 @@ be used as a base for custom command APIs.</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">See the JavaDoc for <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/CommandCallable.html">CommandCallable</a> for the purposes of each method in this example.</p>
+<p class="last">See the JavaDoc for <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/CommandCallable.html">CommandCallable</a> for the purposes of each method in this example.</p>
 </div>
 </div>
 <div class="section" id="registering-the-command">
 <h2>Registering the command<a class="headerlink" href="#registering-the-command" title="Permalink to this headline">¶</a></h2>
-<p>Now we can register the class in the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/CommandManager.html">CommandManager</a>. The <code class="docutils literal"><span class="pre">CommandManager</span></code> stands as the manager for
+<p>Now we can register the class in the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/CommandManager.html">CommandManager</a>. The <code class="docutils literal"><span class="pre">CommandManager</span></code> stands as the manager for
 watching what commands get typed into chat, and redirecting them to the right command handler.
-To register your command, use the method <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/CommandManager.html#register-java.lang.Object-org.spongepowered.api.command.CommandCallable-java.lang.String...-">CommandManager#register(Object, CommandCallable, String…)</a>,
+To register your command, use the method <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/CommandManager.html#register-java.lang.Object-org.spongepowered.api.command.CommandCallable-java.lang.String...-">CommandManager#register(Object, CommandCallable, String…)</a>,
 passing your plugin, an instance of the command, and any needed aliases as parameters.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandManager</span><span class="o">;</span>
 
@@ -247,7 +248,7 @@ used by another command are ignored.</p>
 <div class="section" id="command-dispatchers">
 <h2>Command Dispatchers<a class="headerlink" href="#command-dispatchers" title="Permalink to this headline">¶</a></h2>
 <p>Command dispatchers can be used to create hierarchical command structures (subcommands).</p>
-<p>The default implementation of the <code class="docutils literal"><span class="pre">Dispatcher</span></code> interface is the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/command/dispatcher/SimpleDispatcher.html">SimpleDispatcher</a> class.</p>
+<p>The default implementation of the <code class="docutils literal"><span class="pre">Dispatcher</span></code> interface is the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/dispatcher/SimpleDispatcher.html">SimpleDispatcher</a> class.</p>
 <p>A <code class="docutils literal"><span class="pre">Dispatcher</span></code> is also a <code class="docutils literal"><span class="pre">CommandCallable</span></code>, so it can be registered like any other command.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.dispatcher.SimpleDispatcher</span><span class="o">;</span>
 
@@ -293,7 +294,7 @@ used by another command are ignored.</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 7.0.0
+        v: 7.1.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -312,7 +313,7 @@ used by another command are ignored.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'7.0.0',
+            VERSION:'7.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

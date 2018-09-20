@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logging and Debugging &mdash; Sponge 7.0.0 documentation</title>
+  <title>Logging and Debugging &mdash; Sponge 7.1.0 documentation</title>
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Text" href="text/index.html"/>        <link rel="prev" title="Usage Examples" href="optional/usage.html"/>
+              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Text" href="text/index.html"/>        <link rel="prev" title="Usage Examples" href="optional/usage.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -105,6 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="database.html">Databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="permissions.html">Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">Metrics Collection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bookview.html">Book Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="economy/index.html">Economy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wgen/index.html">World Generation</a></li>
@@ -235,6 +236,35 @@ previous section. This may differ for you depending on what you named your gette
 </pre></div>
 </div>
 </div>
+<div class="section" id="manipulating-the-logging">
+<h2>Manipulating the Logging<a class="headerlink" href="#manipulating-the-logging" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">These techniques should only be used in very rare cases such as badly chosen logging defaults in libraries.
+Add a config option to disable those if you use them.</p>
+</div>
+<p>Some libraries use bad logging practices such as logging on too high a level. In these cases, you have three choices:</p>
+<ol class="arabic">
+<li><p class="first">Ask the author of that library to adjust their logging standards, as this fixes the problem at its source.</p>
+</li>
+<li><p class="first">Recommend your users to <a class="reference internal" href="../server/spongineer/logs.html"><span class="doc">configure the logging</span></a> using a <code class="docutils literal"><span class="pre">log4j2.xml</span></code> config file.
+Provide users with the recommended configuration additions.</p>
+</li>
+<li><p class="first">Configure the logging in your plugin yourself:</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="o">((</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">logging</span><span class="o">.</span><span class="na">log4j</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">Logger</span><span class="o">)</span> <span class="n">LogManager</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">&quot;FtpLoggingFilter&quot;</span><span class="o">)).</span><span class="na">setLevel</span><span class="o">(</span><span class="n">Level</span><span class="o">.</span><span class="na">WARN</span><span class="o">);</span>
+</pre></div>
+</div>
+<p>This configures the log level of the <code class="docutils literal"><span class="pre">FtpLoggingFilter</span></code> logger to <code class="docutils literal"><span class="pre">WARN</span></code>. This will hide all messages that use a
+lower log level such as <code class="docutils literal"><span class="pre">INFO</span></code> and <code class="docutils literal"><span class="pre">DEBUG</span></code>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This solution assumes that log4j2 is used as logging framework by the server, however that might not be the case
+for all/future implementations of the SpongeAPI.</p>
+</div>
+</li>
+</ol>
+<p>If you have any questions regarding logging you can always ask us on IRC, Discord or the Forums.</p>
+</div>
 </div>
 
            </div>
@@ -265,7 +295,7 @@ previous section. This may differ for you depending on what you named your gette
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 7.0.0
+        v: 7.1.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -284,7 +314,7 @@ previous section. This may differ for you depending on what you named your gette
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'7.0.0',
+            VERSION:'7.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

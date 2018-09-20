@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Debugging &mdash; Sponge 7.0.0 documentation</title>
+  <title>Debugging &mdash; Sponge 7.1.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Becoming an Expert Spongineer" href="index.html"/>        <link rel="next" title="Reporting Bugs" href="bugreport.html"/>        <link rel="prev" title="Log Files" href="logs.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Becoming an Expert Spongineer" href="index.html"/>        <link rel="next" title="Reporting Bugs" href="bugreport.html"/>        <link rel="prev" title="Log Files" href="logs.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -139,40 +139,49 @@ some basic logging examples and will try to explain what you can do to fix your 
 <div class="section" id="checklist">
 <h2>Checklist<a class="headerlink" href="#checklist" title="Permalink to this headline">¶</a></h2>
 <p>Whenever you encounter a crash or warning make sure you set SpongeForge or SpongeVanilla up correctly. Here’s a short
-checklist to help you out. If you’re unsure on how to acquire  the information needed, have a look at the <a class="reference internal" href="logs.html"><span class="doc">Log Files</span></a>
+checklist to help you out. If you’re unsure on how to acquire the information needed, have a look at the <a class="reference internal" href="logs.html"><span class="doc">Log Files</span></a>
 page. It explains how you get the desired answers out of your log files.</p>
-<ol class="arabic simple">
-<li>Is Java 8 installed and is Sponge using it?</li>
-</ol>
+<div class="section" id="is-java-8-installed-and-is-sponge-using-it">
+<h3>Is Java 8 installed and is Sponge using it?<a class="headerlink" href="#is-java-8-installed-and-is-sponge-using-it" title="Permalink to this headline">¶</a></h3>
 <p>Sponge requires Java 8 and will crash when using Java 7 or older.</p>
-<ol class="arabic simple" start="2">
-<li>Is the recommended Forge version installed?</li>
-</ol>
+</div>
+<div class="section" id="is-the-recommended-forge-version-installed">
+<h3>Is the recommended Forge version installed?<a class="headerlink" href="#is-the-recommended-forge-version-installed" title="Permalink to this headline">¶</a></h3>
 <p>Usually SpongeForge will run on older or newer Forge builds than the recommended build.
 However, it is strongly advised to run the recommended build only.
 If you encounter a crash and your versions are mismatching, match them first and try again.
 If you’re unsure which Forge build you need, take a look at <a class="reference internal" href="../getting-started/implementations/spongeforge.html"><span class="doc">Installing SpongeForge</span></a></p>
-<ol class="arabic simple" start="3">
-<li>Are there any other coremods (besides SpongeForge) installed?</li>
-</ol>
-<p>Some coremods modify Forge in a way that makes it impossible to run SpongeForge properly. If you have coremods installed
-and Sponge crashes, try to remove them and test again. Please report any incompatible Coremods on
-<a class="reference external" href="https://github.com/SpongePowered">GitHub</a> or the <a class="reference external" href="https://forums.spongepowered.org">Sponge Forums</a>. This allows
-staff to solve these issues as soon as possible.</p>
-<ol class="arabic simple" start="4">
-<li>Is every plugin you’re using built against your desired Sponge build?</li>
-</ol>
+</div>
+<div class="section" id="are-there-any-other-coremods-installed">
+<h3>Are there any other coremods installed?<a class="headerlink" href="#are-there-any-other-coremods-installed" title="Permalink to this headline">¶</a></h3>
+<p>Some coremods modify Forge or Minecraft in a way that makes it impossible to run SpongeForge properly. If you have
+coremods installed and Sponge crashes, try to remove them and test again. Please report any incompatible coremods on
+<a class="reference external" href="https://github.com/SpongePowered/SpongeForge/issues">GitHub</a>. This allows staff to solve these issues as soon as
+possible.</p>
+</div>
+<div class="section" id="is-every-plugin-you-re-using-built-against-your-desired-sponge-build">
+<h3>Is every plugin you’re using built against your desired Sponge build?<a class="headerlink" href="#is-every-plugin-you-re-using-built-against-your-desired-sponge-build" title="Permalink to this headline">¶</a></h3>
 <p>SpongeAPI is subject to change sometimes. When you try to use an older plugin on the most recent Sponge build and
 a crash occurs, try downgrading Sponge or contact the plugin author to get an updated plugin. If you’re on an older
 Sponge build and a recent plugin crashes, try to update Sponge first. If that doesn’t fix the issue, contact the
 plugin author and ask for a fix.</p>
-<ol class="arabic simple" start="5">
-<li>Separating a faulty plugin</li>
-</ol>
+</div>
+<div class="section" id="separating-a-faulty-plugin">
+<h3>Separating a faulty plugin<a class="headerlink" href="#separating-a-faulty-plugin" title="Permalink to this headline">¶</a></h3>
 <p>If the problem still persists, try to remove all plugins and re-add them one by one while trying to start the server
 every time you added a plugin.</p>
 <p>If you’re still unsure why and what exactly crashed, have a look at your crashlog. Some common crashes and common
 solutions are listed below.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you encounter a bug it is usually a good idea to create a backup first, then try to reproduce it, then narrow
+it down by removing mods. Only then should you report the error. If the error occurs in the absence of Sponge
+plugins, try removing SpongeForge. If the error persists its not related to Sponge. Its usually a good idea to
+report bugs to the mod authors first as they have good knowledge of the parts of code they are working with. However
+you can always <a class="reference external" href="https://www.spongepowered.org/chat">contact us</a> for questions. For more information see
+<a class="reference internal" href="bugreport.html"><span class="doc">Reporting Bugs</span></a>.</p>
+</div>
+</div>
 </div>
 <div class="section" id="general-warnings">
 <h2>General Warnings<a class="headerlink" href="#general-warnings" title="Permalink to this headline">¶</a></h2>
@@ -309,30 +318,23 @@ mod names; checking the <code class="docutils literal"><span class="pre">Caused<
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">java</span></code> classes can be ignored during the error search.</li>
 <li><code class="docutils literal"><span class="pre">net.minecraft</span></code> is the vanilla Minecraft code. If only these elements are present, it’s either a Minecraft bug or a
-really nasty one (these are explained later).</li>
+coremod.</li>
 <li><code class="docutils literal"><span class="pre">org.spongepowered</span></code> is from Sponge itself, having only these and Minecraft packages present usually indicates a
-Sponge bug (or a nasty one). The <a class="reference internal" href="bugreport.html"><span class="doc">Reporting Bugs</span></a> chapter explains where to report bugs.</li>
-<li>Other classes have to be mapped to their mods by hand. In this case there is an entry <code class="docutils literal"><span class="pre">com.example.extendedaiplugin</span></code>
-which gives us the following hints. <code class="docutils literal"><span class="pre">com</span></code> probably from an English speaking mod author. This could also be a
-language code such as <code class="docutils literal"><span class="pre">de</span></code> or <code class="docutils literal"><span class="pre">zh</span></code>. The next part usually indicates the mod authors name, but in some cases it may
-also point to a hosting platform such as <code class="docutils literal"><span class="pre">github</span></code>. In those cases you should also take a look at the next parts.
-After that there is usually something related to the mod itself. <code class="docutils literal"><span class="pre">extendedaiplugin</span></code> might be related to the plugin
-name. Please be aware that the mod may use additional separator characters such as <code class="docutils literal"><span class="pre">-</span></code> or spaces, or use a different
-character case for some parts. Beware this strategy is not always accurate, even less so in mod packs or bundles.</li>
+Sponge bug (or another coremod being present).</li>
+<li>Other classes have to be mapped to their mods by hand. In this case there is this entry
+<code class="docutils literal"><span class="pre">com.example.extendedaiplugin</span></code>; Java projects are usually named following this format <code class="docutils literal"><span class="pre">groupId.groupId.artifactId</span></code>.
+The group is usually a domain backwards; in this case <code class="docutils literal"><span class="pre">example.com</span></code>, followed by the name of the project also known
+as artifact, for more information on package naming in Java you can refer to its
+<a class="reference external" href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-6.html#jls-6.2">official docs</a>. This plugin is probably
+called <code class="docutils literal"><span class="pre">extendedaiplugin</span></code>, when in doubt, searching the web for the full package name can help.</li>
 </ul>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you encounter a bug it is usually a good idea to create a backup first, then try to reproduce it, then narrow
-it down by removing mods. Only then should you report the error. If the error occurs in the absence of Sponge
-plugins, try removing SpongeForge. If the error persists it’s not related to Sponge. It’s usually a good idea to
-report bugs to the mod authors first as they have good knowledge of the parts of code they are working with.
-However, you can always contact us through IRC or other means. Please provide logs for bug reports, if possible.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Be careful when coremods are present. It can mean that, although a Minecraft class was reported as the cause, it does
+not mean the code executed is necessarily part of the Minecraft source, and could have been added by a third party.
+You can check your logs for loaded coremods and potentially find the culprit by removing them one by one. Be
+warned the issue may only occur when certain coremods are loaded at the same time.</p>
 </div>
-<p>Nasty bugs: Minecraft modding uses some advanced techniques such as Mixins and ClassLoaderTransformations, which means
-that although a Minecraft class has been reported as the cause, it does not mean the code executed inside is from
-Minecraft itself. Sponge and other plugins hook into the native methods and execute their own code, such as
-posting events. In that case you have to do a blind search for the misbehaving mod. These often occur only through
-interaction between some combinations of plugins and thus are very hard to find.</p>
 </div>
 </div>
 
@@ -364,7 +366,7 @@ interaction between some combinations of plugins and thus are very hard to find.
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 7.0.0
+        v: 7.1.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -383,7 +385,7 @@ interaction between some combinations of plugins and thus are very hard to find.
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'7.0.0',
+            VERSION:'7.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

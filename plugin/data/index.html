@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Data API &mdash; Sponge 7.0.0 documentation</title>
+  <title>The Data API &mdash; Sponge 7.1.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Creating a Plugin" href="../index.html"/>        <link rel="next" title="Custom Data" href="custom/index.html"/>        <link rel="prev" title="The Asset API" href="../assets.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Creating a Plugin" href="../index.html"/>        <link rel="next" title="Custom Data" href="custom/index.html"/>        <link rel="prev" title="The Asset API" href="../assets.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -113,6 +113,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../database.html">Databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../permissions.html">Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrics.html">Metrics Collection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
@@ -176,7 +177,7 @@ a sign, the looks of a horse or the health of any living entity.</p>
 <p>Where other approaches define the available data using interfaces and inheritance (like a <code class="docutils literal"><span class="pre">LivingEntity</span></code>
 interface providing getter and setter functions for current and maximum health), in Sponge every entity, block
 etc. is completely oblivious to what data it holds. While this may appear less straightforward than direct
-accessor methods, it is foremost far more extensible. And thanks to the addition of <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/key/Key.html">Key</a>s, simply accessing
+accessor methods, it is foremost far more extensible. And thanks to the addition of <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Key.html">Key</a>s, simply accessing
 specific values is no less straightforward.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -192,13 +193,13 @@ specific data manipulators.</p>
 <div class="section" id="catalogtypes">
 <h3>CatalogTypes<a class="headerlink" href="#catalogtypes" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="catalog-types.html"><span class="doc">Catalog Types</span></a> are groups of values that can be used in certain context. Famous examples of these types are
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/BlockType.html">BlockType</a>s, <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/EntityType.html">EntityType</a>s and <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/item/ItemType.html">ItemType</a>s.</p>
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/block/BlockType.html">BlockType</a>s, <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/entity/EntityType.html">EntityType</a>s and <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/item/ItemType.html">ItemType</a>s.</p>
 </div>
 <div class="section" id="dataholder">
 <h3>DataHolder<a class="headerlink" href="#dataholder" title="Permalink to this headline">¶</a></h3>
 <p>A data holder is just that - something that holds data. It provides methods to retrieve and offer back data. The
 interface itself is completely oblivious to the type of data held. Since only the implementations will possess
-this knowledge, it is possible to ask a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/DataHolder.html">DataHolder</a> to provide data it does not have or to accept data it
+this knowledge, it is possible to ask a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataHolder.html">DataHolder</a> to provide data it does not have or to accept data it
 cannot use. In those cases, the return values of the methods will provide the information that data is not available
 (via <code class="docutils literal"><span class="pre">Optional.empty()</span></code>) or not accepted (via the <a class="reference internal" href="transactions.html"><span class="doc">DataTransactionResult</span></a>).</p>
 </div>
@@ -207,23 +208,23 @@ cannot use. In those cases, the return values of the methods will provide the in
 <p>A property too is data, but not synchronized between server and clients. Therefore, it can only be
 changed by modifications present on both client and server. Since Sponge is not intended to require a
 client-side counterpart, properties are not modifiable.
-Examples of properties are the harvesting abilities on tools (represented as <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/property/item/HarvestingProperty.html">HarvestingProperty</a> or the damage
-absorption of an equipable armor item (represented as <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/property/item/DamageAbsorptionProperty.html">DamageAbsorptionProperty</a>).</p>
+Examples of properties are the harvesting abilities on tools (represented as <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/property/item/HarvestingProperty.html">HarvestingProperty</a> or the damage
+absorption of an equipable armor item (represented as <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/property/item/DamageAbsorptionProperty.html">DamageAbsorptionProperty</a>).</p>
 </div>
 <div class="section" id="datamanipulator">
 <h3>DataManipulator<a class="headerlink" href="#datamanipulator" title="Permalink to this headline">¶</a></h3>
 <p>A data manipulator represents points of cohesive data that describes a certain component of its holder. For
-example <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a>, which contains both current and maximum health. If a data holder has <code class="docutils literal"><span class="pre">HealthData</span></code>, it
+example <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a>, which contains both current and maximum health. If a data holder has <code class="docutils literal"><span class="pre">HealthData</span></code>, it
 has health that can somehow be depleted and replenished and can die if that health is depleted. This allows for the
 re-use of such components over the API and prevents duplication of accessor methods. For example, sheep, stained glass
-blocks and leather armor all can share the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/DyeableData.html">DyeableData</a> holding the color they are dyed in.</p>
+blocks and leather armor all can share the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/DyeableData.html">DyeableData</a> holding the color they are dyed in.</p>
 </div>
 <div class="section" id="key">
 <h3>Key<a class="headerlink" href="#key" title="Permalink to this headline">¶</a></h3>
 <p>A <code class="docutils literal"><span class="pre">Key</span></code> is a unique identifier for a single point of data and can be used to directly read or set that point of
 data without worrying about data manipulators. It was designed to provide a convenient way of accessing data
 similar to direct getter/setter methods. All keys used within Sponge are listed as constants in the
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/key/Keys.html">Keys</a> utility class.</p>
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Keys.html">Keys</a> utility class.</p>
 </div>
 <div class="section" id="value">
 <h3>Value<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h3>
@@ -281,7 +282,7 @@ which the value is identified.</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 7.0.0
+        v: 7.1.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -300,7 +301,7 @@ which the value is identified.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'7.0.0',
+            VERSION:'7.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

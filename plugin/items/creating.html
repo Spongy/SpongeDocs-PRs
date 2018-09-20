@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Creating an ItemStack &mdash; Sponge 7.0.0 documentation</title>
+  <title>Creating an ItemStack &mdash; Sponge 7.1.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Items" href="index.html"/>        <link rel="next" title="Trade-Offers" href="../trade-offers.html"/>        <link rel="prev" title="Basic Item Usage" href="usage.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Items" href="index.html"/>        <link rel="next" title="Trade-Offers" href="../trade-offers.html"/>        <link rel="prev" title="Basic Item Usage" href="usage.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -109,6 +109,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../database.html">Databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../permissions.html">Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrics.html">Metrics Collection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
@@ -168,8 +169,8 @@
 <h1>Creating an ItemStack<a class="headerlink" href="#creating-an-itemstack" title="Permalink to this headline">¶</a></h1>
 <p>If you want to create your own items, you need to go through several steps. Let’s go through a basic example and create
 an enchanted diamond sword.</p>
-<p>To create an <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/item/inventory/ItemStack.html">ItemStack</a>, we need to first grab the builder from the <code class="docutils literal"><span class="pre">ItemStack</span></code>. This is done with the
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/item/inventory/ItemStack.html#builder--">ItemStack#builder()</a> method. In the builder, we can specify things such as the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/item/ItemType.html">ItemType</a> or the
+<p>To create an <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/item/inventory/ItemStack.html">ItemStack</a>, we need to first grab the builder from the <code class="docutils literal"><span class="pre">ItemStack</span></code>. This is done with the
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/item/inventory/ItemStack.html#builder--">ItemStack#builder()</a> method. In the builder, we can specify things such as the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/item/ItemType.html">ItemType</a> or the
 quantity of the item. In our example, we will be creating a diamond sword that contains enchantments, a custom name,
 and is unbreakable. If you want a plain sword without any other data, then this is all you need to do:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.item.ItemTypes</span><span class="o">;</span>
@@ -183,7 +184,7 @@ and is unbreakable. If you want a plain sword without any other data, then this 
 </pre></div>
 </div>
 <p>Creating the basic item is done. Now this is a normal diamond sword that we created, but what if we wanted something
-more interesting? What about enchanting and naming our sword? We can use <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/item/EnchantmentData.html">EnchantmentData</a> to give our sword
+more interesting? What about enchanting and naming our sword? We can use <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/item/EnchantmentData.html">EnchantmentData</a> to give our sword
 some enchantments. The following example will give our sword every enchantment in the game, to level 1000. Make sure to
 include this all before <code class="docutils literal"><span class="pre">return</span> <span class="pre">superMegaAwesomeSword;</span></code>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
@@ -228,9 +229,9 @@ the <code class="docutils literal"><span class="pre">ItemStack</span></code>. Us
 <h2>Spawning the Item<a class="headerlink" href="#spawning-the-item" title="Permalink to this headline">¶</a></h2>
 <p>Sure, we can simply put the sword into a player’s inventory, but what if we wanted to throw it out into the open world
 and spawn the item? This is where <a class="reference internal" href="../entities/spawning.html"><span class="doc">entity spawning</span></a> comes into play. Since the in-game
-graphical representation of an <code class="docutils literal"><span class="pre">ItemStack</span></code> is <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/Item.html">Item</a>, we can spawn it in similarly to a normal
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/Entity.html">Entity</a>. The <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/EntityType.html">EntityType</a> will simply be <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/entity/EntityTypes.html#ITEM">EntityTypes#ITEM</a> and we will need to specify
-that the <code class="docutils literal"><span class="pre">Entity</span></code> will represent our <code class="docutils literal"><span class="pre">ItemStack</span></code>. This can be done using the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/key/Keys.html#REPRESENTED_ITEM">Keys#REPRESENTED_ITEM</a> key.
+graphical representation of an <code class="docutils literal"><span class="pre">ItemStack</span></code> is <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/entity/Item.html">Item</a>, we can spawn it in similarly to a normal
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/entity/Entity.html">Entity</a>. The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/entity/EntityType.html">EntityType</a> will simply be <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/entity/EntityTypes.html#ITEM">EntityTypes#ITEM</a> and we will need to specify
+that the <code class="docutils literal"><span class="pre">Entity</span></code> will represent our <code class="docutils literal"><span class="pre">ItemStack</span></code>. This can be done using the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Keys.html#REPRESENTED_ITEM">Keys#REPRESENTED_ITEM</a> key.
 An example is shown below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.Entity</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.EntityTypes</span><span class="o">;</span>
@@ -256,10 +257,10 @@ An example is shown below:</p>
 </div>
 <div class="section" id="creating-an-itemstack-from-a-block">
 <h2>Creating an ItemStack From a Block<a class="headerlink" href="#creating-an-itemstack-from-a-block" title="Permalink to this headline">¶</a></h2>
-<p>An <code class="docutils literal"><span class="pre">ItemStack</span></code> for a block can be created by using the method <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/item/inventory/ItemStack.Builder.html#itemType-org.spongepowered.api.item.ItemType-">ItemStack.Builder#itemType(ItemType)</a>
-similarly to normal items, but what if we wanted to create an <code class="docutils literal"><span class="pre">ItemStack</span></code> from a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/BlockState.html">BlockState</a> itself? To
+<p>An <code class="docutils literal"><span class="pre">ItemStack</span></code> for a block can be created by using the method <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/item/inventory/ItemStack.Builder.html#itemType-org.spongepowered.api.item.ItemType-">ItemStack.Builder#itemType(ItemType)</a>
+similarly to normal items, but what if we wanted to create an <code class="docutils literal"><span class="pre">ItemStack</span></code> from a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/block/BlockState.html">BlockState</a> itself? To
 create an <code class="docutils literal"><span class="pre">ItemStack</span></code> from a <code class="docutils literal"><span class="pre">BlockState</span></code>, you would need to use the
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/item/inventory/ItemStack.Builder.html#fromBlockState-org.spongepowered.api.block.BlockState-">ItemStack.Builder#fromBlockState(BlockState)</a> method on the <code class="docutils literal"><span class="pre">ItemStack</span></code> builder. An example of this is
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/item/inventory/ItemStack.Builder.html#fromBlockState-org.spongepowered.api.block.BlockState-">ItemStack.Builder#fromBlockState(BlockState)</a> method on the <code class="docutils literal"><span class="pre">ItemStack</span></code> builder. An example of this is
 shown below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockState</span><span class="o">;</span>
 
@@ -299,7 +300,7 @@ shown below:</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 7.0.0
+        v: 7.1.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -318,7 +319,7 @@ shown below:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'7.0.0',
+            VERSION:'7.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

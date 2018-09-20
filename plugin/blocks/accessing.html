@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accessing Blocks &mdash; Sponge 7.0.0 documentation</title>
+  <title>Accessing Blocks &mdash; Sponge 7.1.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="Blocks" href="index.html"/>        <link rel="next" title="Modifying Blocks" href="modifying.html"/>        <link rel="prev" title="Concepts" href="concepts.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Blocks" href="index.html"/>        <link rel="next" title="Modifying Blocks" href="modifying.html"/>        <link rel="prev" title="Concepts" href="concepts.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -112,6 +112,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../database.html">Databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../permissions.html">Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrics.html">Metrics Collection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
@@ -171,8 +172,8 @@
 <h1>Accessing Blocks<a class="headerlink" href="#accessing-blocks" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="basic-information">
 <h2>Basic Information<a class="headerlink" href="#basic-information" title="Permalink to this headline">¶</a></h2>
-<p>Blocks are most commonly identified and accessed by their <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/Location.html">Location</a>. This location points to a certain
-coordinate within an <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/extent/Extent.html">Extent</a>. In most cases a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/world/World.html">World</a> will be used as the <code class="docutils literal"><span class="pre">Extent</span></code>.</p>
+<p>Blocks are most commonly identified and accessed by their <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/world/Location.html">Location</a>. This location points to a certain
+coordinate within an <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/world/extent/Extent.html">Extent</a>. In most cases a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/world/World.html">World</a> will be used as the <code class="docutils literal"><span class="pre">Extent</span></code>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="o">;</span>
@@ -203,16 +204,16 @@ referenced block is any kind of banner by checking the blocks type.</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">The function <code class="docutils literal"><span class="pre">==</span></code> could be used in place of <code class="docutils literal"><span class="pre">equals()</span></code> as there is only one <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/BlockType.html">BlockType</a> instance for
+<p class="last">The function <code class="docutils literal"><span class="pre">==</span></code> could be used in place of <code class="docutils literal"><span class="pre">equals()</span></code> as there is only one <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/block/BlockType.html">BlockType</a> instance for
 every block, however it is generally recommended to use <code class="docutils literal"><span class="pre">equals()</span></code>.</p>
 </div>
 </div>
 <div class="section" id="block-data-manipulators">
 <h2>Block Data Manipulators<a class="headerlink" href="#block-data-manipulators" title="Permalink to this headline">¶</a></h2>
-<p>The data of a block is held as a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a>, similar to other parts of the API. This is the container
+<p>The data of a block is held as a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a>, similar to other parts of the API. This is the container
 that holds information on components of our block such as the orientation of a block, specific types (stone vs.
 granite), and so on. Checking the values of these manipulators is easy, you just need to check the block’s direction
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/block/DirectionalData.html">DirectionalData</a>.</p>
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/block/DirectionalData.html">DirectionalData</a>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.block.DirectionalData</span><span class="o">;</span>
 
@@ -230,8 +231,8 @@ granite), and so on. Checking the values of these manipulators is easy, you just
 </pre></div>
 </div>
 <p>First, we need to know which <code class="docutils literal"><span class="pre">DataManipulator</span></code> sub-interface we need. Those that are applicable to blocks are found
-in the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/package-summary.html">org.spongepowered.api.data.manipulator.mutable</a> and
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/block/package-summary.html">org.spongepowered.api.data.manipulator.mutable.block</a> packages. Then, we can just pass that class to the
+in the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/package-summary.html">org.spongepowered.api.data.manipulator.mutable</a> and
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/block/package-summary.html">org.spongepowered.api.data.manipulator.mutable.block</a> packages. Then, we can just pass that class to the
 <code class="docutils literal"><span class="pre">get(DataManipulator)</span></code> method of <code class="docutils literal"><span class="pre">Location</span></code> which will return an <code class="docutils literal"><span class="pre">Optional</span></code>. We then have to check if our
 <code class="docutils literal"><span class="pre">DataManipulator</span></code> actually exists for our block by checking <code class="docutils literal"><span class="pre">ifPresent()</span></code>. If it exists, then we can use it.</p>
 <p>More on <code class="docutils literal"><span class="pre">DataManipulator</span></code>s can be found in the <a class="reference internal" href="../data/datamanipulators.html"><span class="doc">data documentation</span></a>.</p>
@@ -245,9 +246,9 @@ fetch the non-optional data by adding <code class="docutils literal"><span class
 </div>
 <div class="section" id="block-states">
 <h2>Block States<a class="headerlink" href="#block-states" title="Permalink to this headline">¶</a></h2>
-<p>A <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/BlockState.html">BlockState</a> contains a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/BlockType.html">BlockType</a>,  any <code class="docutils literal"><span class="pre">DataManipulator</span></code>s and properties that are applied to
-the block, and any <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/trait/BlockTrait.html">BlockTrait</a>s for a block. It stores all immutable values for a particular block. One
-use of this is getting an <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/ImmutableDataManipulator.html">ImmutableDataManipulator</a>, as shown below:</p>
+<p>A <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/block/BlockState.html">BlockState</a> contains a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/block/BlockType.html">BlockType</a>,  any <code class="docutils literal"><span class="pre">DataManipulator</span></code>s and properties that are applied to
+the block, and any <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/block/trait/BlockTrait.html">BlockTrait</a>s for a block. It stores all immutable values for a particular block. One
+use of this is getting an <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/ImmutableDataManipulator.html">ImmutableDataManipulator</a>, as shown below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.BlockState</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.immutable.ImmutableWetData</span><span class="o">;</span>
 
@@ -286,14 +287,14 @@ get the blast resistance of a block and checking if it is greater than or equal 
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>This will get the blast resistance of our block and compare it to a new <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/property/DoubleProperty.html">DoubleProperty</a>, as
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/property/block/BlastResistanceProperty.html">BlastResistanceProperty</a> inherits from <code class="docutils literal"><span class="pre">DoubleProperty</span></code>. The method will then return if the blast
+<p>This will get the blast resistance of our block and compare it to a new <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/property/DoubleProperty.html">DoubleProperty</a>, as
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/property/block/BlastResistanceProperty.html">BlastResistanceProperty</a> inherits from <code class="docutils literal"><span class="pre">DoubleProperty</span></code>. The method will then return if the blast
 resistance of our block is greater than one, the value in placed <code class="docutils literal"><span class="pre">matches()</span></code>. If we wanted to see if it was less than
 two, we would replace the property operator in the <code class="docutils literal"><span class="pre">DoubleProperty</span></code> ctor  with <code class="docutils literal"><span class="pre">Property.Operator.LESS</span></code>.</p>
 <p>If we were comparing two pre-existing properties, it will take the <code class="docutils literal"><span class="pre">Operator</span></code> of our first value, the one we are
 creating a double property for. If the <code class="docutils literal"><span class="pre">Operator</span></code> is <code class="docutils literal"><span class="pre">DELEGATE</span></code>, which is the none operator, then it will take the
 <code class="docutils literal"><span class="pre">Operator</span></code> of the second value, the one in <code class="docutils literal"><span class="pre">matches()</span></code>. Comparison will return false if both are <code class="docutils literal"><span class="pre">DELEGATE</span></code>.
-An example of comparing two <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/property/block/PoweredProperty.html">PoweredProperty</a>s, a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/property/BooleanProperty.html">BooleanProperty</a>, can be seen below:</p>
+An example of comparing two <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/property/block/PoweredProperty.html">PoweredProperty</a>s, a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/property/BooleanProperty.html">BooleanProperty</a>, can be seen below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.property.BooleanProperty</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.data.property.block.PoweredProperty</span><span class="o">;</span>
 
@@ -317,14 +318,14 @@ An example of comparing two <a class="reference external" href="https://jd.spong
 <p>The second <code class="docutils literal"><span class="pre">if</span></code> check checks if one of the properties is true. If it is true and both are equal, then both
 of the values must be true. Therefore, eliminating the need to check the second value. Now we know that both
 blocks are being powered.</p>
-<p>A list of possible block properties can be found in the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/property/block/package-summary.html">org.spongepowered.api.data.property.block</a> package.</p>
+<p>A list of possible block properties can be found in the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/property/block/package-summary.html">org.spongepowered.api.data.property.block</a> package.</p>
 </div>
 <div class="section" id="block-traits">
 <h2>Block Traits<a class="headerlink" href="#block-traits" title="Permalink to this headline">¶</a></h2>
 <p>A block trait is a certain value on the current state of a block. A block may or may not contain block traits depending
-on the type of block. For example, a bed has a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/trait/BooleanTrait.html">BooleanTrait</a> called
+on the type of block. For example, a bed has a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/block/trait/BooleanTrait.html">BooleanTrait</a> called
 <code class="docutils literal"><span class="pre">BED_OCCUPIED</span></code>. As a boolean can only have two values, true and false, the <code class="docutils literal"><span class="pre">BED_OCCUPIED</span></code> trait can only be true or
-false. Checking this value is simple, just call the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/block/BlockState.html#getTraitValue-org.spongepowered.api.block.trait.BlockTrait-">BlockState#getTraitValue(BlockTrait)</a> method. An example
+false. Checking this value is simple, just call the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/block/BlockState.html#getTraitValue-org.spongepowered.api.block.trait.BlockTrait-">BlockState#getTraitValue(BlockTrait)</a> method. An example
 of this with a bed is shown below:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.trait.BooleanTraits</span><span class="o">;</span>
 
@@ -372,7 +373,7 @@ only to be meant as a fallback for modded compatibility.</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 7.0.0
+        v: 7.1.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -391,7 +392,7 @@ only to be meant as a fallback for modded compatibility.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'7.0.0',
+            VERSION:'7.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

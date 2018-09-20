@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Serializing Data &mdash; Sponge 7.0.0 documentation</title>
+  <title>Serializing Data &mdash; Sponge 7.1.0 documentation</title>
 
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.0.0 documentation" href="../../index.html"/>        <link rel="up" title="The Data API" href="index.html"/>        <link rel="next" title="Blocks" href="../blocks/index.html"/>        <link rel="prev" title="Transactions" href="transactions.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../index.html"/>        <link rel="up" title="The Data API" href="index.html"/>        <link rel="next" title="Blocks" href="../blocks/index.html"/>        <link rel="prev" title="Transactions" href="transactions.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -113,6 +113,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../database.html">Databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../permissions.html">Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrics.html">Metrics Collection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
@@ -170,18 +171,18 @@
            <div itemprop="articleBody">
   <div class="section" id="serializing-data">
 <h1>Serializing Data<a class="headerlink" href="#serializing-data" title="Permalink to this headline">¶</a></h1>
-<p>While an <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/ImmutableDataManipulator.html">ImmutableDataManipulator</a> is a good way to store data while the server is running, it will not
-persist over a restart. However, every <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a> implements the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/DataSerializable.html">DataSerializable</a> interface
-and thus can be serialized to a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/DataContainer.html">DataContainer</a> and deserialized by a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/persistence/DataBuilder.html">DataBuilder</a>.</p>
+<p>While an <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/ImmutableDataManipulator.html">ImmutableDataManipulator</a> is a good way to store data while the server is running, it will not
+persist over a restart. However, every <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a> implements the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataSerializable.html">DataSerializable</a> interface
+and thus can be serialized to a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataContainer.html">DataContainer</a> and deserialized by a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/persistence/DataBuilder.html">DataBuilder</a>.</p>
 <p>After this initial conversion from the specialized <code class="docutils literal"><span class="pre">DataManipulator</span></code> to a more general structure, the <code class="docutils literal"><span class="pre">DataContainer</span></code>
 can be further processed.</p>
 <div class="section" id="datacontainer-and-dataview">
 <h2>DataContainer and DataView<a class="headerlink" href="#datacontainer-and-dataview" title="Permalink to this headline">¶</a></h2>
-<p>A <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/DataView.html">DataView</a> is a general-purpose structure for holding any kind of data. It supports multiple values and even
+<p>A <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataView.html">DataView</a> is a general-purpose structure for holding any kind of data. It supports multiple values and even
 nested <code class="docutils literal"><span class="pre">DataView</span></code>s as a value, thus allowing for a tree-like structure. Every value is identified by a
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/DataQuery.html">DataQuery</a>. A <code class="docutils literal"><span class="pre">DataContainer</span></code> is a root <code class="docutils literal"><span class="pre">DataView</span></code>.</p>
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataQuery.html">DataQuery</a>. A <code class="docutils literal"><span class="pre">DataContainer</span></code> is a root <code class="docutils literal"><span class="pre">DataView</span></code>.</p>
 <p>Every <code class="docutils literal"><span class="pre">DataSerializable</span></code> provides a <code class="docutils literal"><span class="pre">toContainer()</span></code> method which will create and return a <code class="docutils literal"><span class="pre">DataContainer</span></code>.
-As an example, calling <code class="docutils literal"><span class="pre">toContainer()</span></code> on a <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a> instance will yield a <code class="docutils literal"><span class="pre">DataContainer</span></code> containing
+As an example, calling <code class="docutils literal"><span class="pre">toContainer()</span></code> on a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a> instance will yield a <code class="docutils literal"><span class="pre">DataContainer</span></code> containing
 two values, one for the current and one for the maximum health, each identified by the <code class="docutils literal"><span class="pre">DataQuery</span></code> of the respective
 <code class="docutils literal"><span class="pre">Key</span></code>.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="o">;</span>
@@ -193,8 +194,8 @@ two values, one for the current and one for the maximum health, each identified 
 </pre></div>
 </div>
 <p>Converting this container back into a <code class="docutils literal"><span class="pre">HealthData</span></code> instance is done by the corresponding <code class="docutils literal"><span class="pre">DataBuilder</span></code>. Those are
-registered and managed by the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/DataManager.html">DataManager</a>. It can either be obtained from a valid <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/Game.html">Game</a> instance
-or using the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/Sponge.html">Sponge</a> utility class. The <code class="docutils literal"><span class="pre">DataManager</span></code> provides a method to get the appropriate
+registered and managed by the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataManager.html">DataManager</a>. It can either be obtained from a valid <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/Game.html">Game</a> instance
+or using the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/Sponge.html">Sponge</a> utility class. The <code class="docutils literal"><span class="pre">DataManager</span></code> provides a method to get the appropriate
 <code class="docutils literal"><span class="pre">DataBuilder</span></code> to deserialize a given class and additionally a shorthand method to get the <code class="docutils literal"><span class="pre">DataBuilder</span></code> and have it
 do the deserialization in one step. Both of the following code examples are functionally equivalent.</p>
 <p><strong>Code Example: Deserialization, the long way</strong></p>
@@ -223,14 +224,14 @@ do the deserialization in one step. Both of the following code examples are func
 </div>
 <p>The <code class="docutils literal"><span class="pre">deserializeHealth</span></code> function will return <code class="docutils literal"><span class="pre">Optional.empty()</span></code> if there is no <code class="docutils literal"><span class="pre">DataBuilder</span></code> registered for
 <code class="docutils literal"><span class="pre">HealthData</span></code> or the supplied <code class="docutils literal"><span class="pre">DataContainer</span></code> is empty. If invalid data is present in the <code class="docutils literal"><span class="pre">DataContainer</span></code>, an
-<a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/persistence/InvalidDataException.html">InvalidDataException</a> will be thrown.</p>
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/persistence/InvalidDataException.html">InvalidDataException</a> will be thrown.</p>
 </div>
 <div class="section" id="datatranslator">
 <h2>DataTranslator<a class="headerlink" href="#datatranslator" title="Permalink to this headline">¶</a></h2>
-<p>In Sponge, generally the implementations <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/MemoryDataView.html">MemoryDataView</a> and <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/MemoryDataContainer.html">MemoryDataContainer</a> are used, which
+<p>In Sponge, generally the implementations <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/MemoryDataView.html">MemoryDataView</a> and <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/MemoryDataContainer.html">MemoryDataContainer</a> are used, which
 reside in memory only and thus will not persist over a server restart. In order to persistently store a
 <code class="docutils literal"><span class="pre">DataContainer</span></code>, it first has to be converted into a storable representation.</p>
-<p>Using the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/persistence/DataTranslators.html#CONFIGURATION_NODE">DataTranslators#CONFIGURATION_NODE</a> implementation of <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/persistence/DataTranslator.html">DataTranslator</a>, we can convert a
+<p>Using the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/persistence/DataTranslators.html#CONFIGURATION_NODE">DataTranslators#CONFIGURATION_NODE</a> implementation of <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/persistence/DataTranslator.html">DataTranslator</a>, we can convert a
 <code class="docutils literal"><span class="pre">DataView</span></code> to a <a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/ConfigurationNode.html">ConfigurationNode</a> and vice versa. <code class="docutils literal"><span class="pre">ConfigurationNode</span></code>s can then be written to and read
 from persistent files using the <a class="reference internal" href="../configuration/index.html"><span class="doc">Configurate Library</span></a>.</p>
 <p><strong>Code Example: Serializing a HealthData instance to Configurate</strong></p>
@@ -258,10 +259,10 @@ from persistent files using the <a class="reference internal" href="../configura
 </div>
 <div class="section" id="dataformat">
 <h2>DataFormat<a class="headerlink" href="#dataformat" title="Permalink to this headline">¶</a></h2>
-<p>An alternative to using a <code class="docutils literal"><span class="pre">DataTranslator</span></code> is to use <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/persistence/DataFormat.html">DataFormat</a>, which allows you to store a
+<p>An alternative to using a <code class="docutils literal"><span class="pre">DataTranslator</span></code> is to use <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/persistence/DataFormat.html">DataFormat</a>, which allows you to store a
 <code class="docutils literal"><span class="pre">DataContainer</span></code> in HOCON, JSON or NBT format. You can also recreate DataContainers using <code class="docutils literal"><span class="pre">DataFormats</span></code>. Sponge
-provided <code class="docutils literal"><span class="pre">DataFormat</span></code> implementations are available in the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/persistence/DataFormats.html">DataFormats</a> class.</p>
-<p>For example, we can use the <a class="reference external" href="https://jd.spongepowered.org/7.0.0/org/spongepowered/api/data/persistence/DataFormats.html#JSON">DataFormats#JSON</a> <code class="docutils literal"><span class="pre">DataFormat</span></code> which allows us to create a JSON representation
+provided <code class="docutils literal"><span class="pre">DataFormat</span></code> implementations are available in the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/persistence/DataFormats.html">DataFormats</a> class.</p>
+<p>For example, we can use the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/persistence/DataFormats.html#JSON">DataFormats#JSON</a> <code class="docutils literal"><span class="pre">DataFormat</span></code> which allows us to create a JSON representation
 of a <code class="docutils literal"><span class="pre">DataContainer</span></code>. The output JSON could then easily be stored in a database. We can then use the same
 <code class="docutils literal"><span class="pre">DataFormat</span></code> to recreate the original <code class="docutils literal"><span class="pre">DataContainer</span></code> from this JSON when required.</p>
 <p><strong>Imports for code examples</strong></p>
@@ -344,7 +345,7 @@ of a <code class="docutils literal"><span class="pre">DataContainer</span></code
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <i class="fa fa-book"> <span>SpongeDocs</span></i>
-        v: 7.0.0
+        v: 7.1.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div id="versions" class="rst-other-versions">
@@ -363,7 +364,7 @@ of a <code class="docutils literal"><span class="pre">DataContainer</span></code
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'7.0.0',
+            VERSION:'7.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
