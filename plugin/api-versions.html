@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plugin Lifecycle &mdash; Sponge 7.1.0 documentation</title>
+  <title>API-Versions &mdash; Sponge 7.1.0 documentation</title>
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
 
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Dependency Injection" href="injection.html"/>        <link rel="prev" title="Main Plugin Class" href="plugin-class.html"/>
+              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Build Systems" href="buildsystem.html"/>        <link rel="prev" title="Creating a Plugin" href="index.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -79,13 +79,13 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Creating a Plugin</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="api-versions.html">API-Versions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">API-Versions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="buildsystem.html">Build Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="workspace/index.html">Setting Up Your Workspace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="project/index.html">Setting Up Your Project</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plugin-identifier.html">Plugin Identifiers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plugin-class.html">Main Plugin Class</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Plugin Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lifecycle.html">Plugin Lifecycle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="injection.html">Dependency Injection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="practices/index.html">Practices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="optional/index.html">Optionals</a></li>
@@ -153,95 +153,138 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
           <li><a href="index.html">Creating a Plugin</a> &raquo;</li>
-    <li>Plugin Lifecycle</li>
+    <li>API-Versions</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/plugin-config/source/plugin/lifecycle.rst" class="fa fa-github"> Edit on GitHub</a>
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/plugin-config/source/plugin/api-versions.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
 </div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-  <div class="section" id="plugin-lifecycle">
-<h1>Plugin Lifecycle<a class="headerlink" href="#plugin-lifecycle" title="Permalink to this headline">¶</a></h1>
-<p>Prior to any states that make the plugin visible, the plugin loader first sorts through the available plugins, determines
-if all dependencies are present, and sorts plugins by dependency order. Lifecycle events are given to plugins in this
-order. For example, plugin A containing “[required-]after:B” will get each event after plugin B has completed work for
-the given state. Additionally, lifecycle states are global. This means that all plugins visible to each other must be
-transitioned through all states at once.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">The Sponge <code class="docutils literal"><span class="pre">Server</span></code> object is not always available. Availability can be checked using the method
-<code class="docutils literal"><span class="pre">Sponge.isServerAvailable()</span></code> or <code class="docutils literal"><span class="pre">Game.isServerAvailable()</span></code>.</p>
+  <div class="section" id="api-versions">
+<h1>API-Versions<a class="headerlink" href="#api-versions" title="Permalink to this headline">¶</a></h1>
+<p>This page explains which API versions exist, and to which Minecraft version their implementations belong.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="16%" />
+<col width="19%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">API-Version</th>
+<th class="head">Release Date</th>
+<th class="head">End of Support</th>
+<th class="head">Known Implementations (Minecraft Version)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><em>8.0.0</em></td>
+<td>TBA</td>
+<td>TBA</td>
+<td><ul class="first last simple">
+<li><em>SpongeForge (1.13.x)</em></li>
+<li><em>SpongeVanilla (1.13.x)</em></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>7.1.0</td>
+<td>Sep 6, 2018</td>
+<td>TBA</td>
+<td><ul class="first last simple">
+<li>SpongeForge (1.12.2)</li>
+<li>SpongeVanilla (1.12.2)</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>7.0.0</td>
+<td>Jan 1, 2018</td>
+<td>TBA</td>
+<td><ul class="first last simple">
+<li>SpongeForge (1.12.2)</li>
+<li>SpongeVanilla (1.12.2)</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>6.0.0</td>
+<td>May 2, 2017</td>
+<td>Dec 31, 2017</td>
+<td><ul class="first last simple">
+<li>SpongeForge (1.11.2)</li>
+<li>SpongeVanilla (1.11.2)</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>5.1.0</td>
+<td>Feb 25, 2017</td>
+<td>Dec 31, 2017</td>
+<td><ul class="first last simple">
+<li>SpongeForge (1.10.2)</li>
+<li>SpongeVanilla (1.10.2)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>It is recommended to always update to the latest stable version of the API or to an LTS version.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You may still choose to develop and release plugins against versions that have reached the end of support,
+but the Sponge team will not provide bug fixes or features to unsupported builds.</p>
 </div>
-<div class="section" id="state-events">
-<h2>State Events<a class="headerlink" href="#state-events" title="Permalink to this headline">¶</a></h2>
-<p>There are three categories of state events:</p>
-<ol class="arabic simple">
-<li><strong>Initialization:</strong> When Sponge and plugins are loading, before the actual game has started. Initialization states
-only occur once.</li>
-<li><strong>Running:</strong> When the game and world are loading. Running states may occur multiple times.</li>
-<li><strong>Stopping:</strong> When the game is shutting down. Stopping states, like initialization states, only occur once.</li>
-</ol>
+<div class="section" id="getting-the-api-version-from-implementations">
+<h2>Getting the API Version from Implementations<a class="headerlink" href="#getting-the-api-version-from-implementations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="getting-it-from-the-jar">
+<h3>Getting it from the Jar<a class="headerlink" href="#getting-it-from-the-jar" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">For <a class="reference external" href="https://www.spongepowered.org/downloads/spongeforge/">SpongeForge</a>:</p>
+<p><strong>Example:</strong> <code class="docutils literal"><span class="pre">spongeforge-1.12.2-2705-7.1.0-BETA-3361.jar</span></code></p>
+<p>=&gt; API-Version <code class="docutils literal"><span class="pre">7.1.0</span></code></p>
+<p>See also <a class="reference internal" href="../server/getting-started/implementations/spongeforge.html#sponge-forge-file-name"><span class="std std-ref">Reading the Download Filename</span></a>.</p>
+</li>
+<li><p class="first">For <a class="reference external" href="https://www.spongepowered.org/downloads/spongevanilla/">SpongeVanilla</a>:</p>
+<p><strong>Example:</strong> <code class="docutils literal"><span class="pre">spongevanilla-1.12.2-7.1.0-BETA-59.jar</span></code></p>
+<p>=&gt; API-Version <code class="docutils literal"><span class="pre">7.1.0</span></code></p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The version string in SpongeForge &amp; SpongeVanilla is currently flawed, it currently has a minor version number
+referring to <strong>unreleased</strong> API versions, and is planned to be fixed going forward in some future update.</p>
+<p>As we follow SemVer, changes in 7.1.0 should be backwards compatible with 7.0.0, as such, we often ship
+SpongeForge &amp; SpongeVanilla with <strong>preview</strong> implementations of the upcoming API release.</p>
+<p>The API contained within the preview API builds can and will change before it’s released, so for plugin
+compatibility sake, it’s best to use plugins for the latest stable released API, and not the API preview versions.</p>
+<p>As such, if the API version number in the filename points to 7.2.0 but 7.2.0 is not yet announced to be released,
+you should use plugins built against 7.1.0 unless specifically testing new functionality as asked by plugin devs, or
+you are willing to put up with small breakages occasionally for the sake of new features.</p>
+<p>This <strong>WILL</strong> be fixed in the near future. When this happens the Version number of SpongeForge &amp; SpongeVanilla will
+no longer reference unreleased SpongeAPI minor versions, but will still ship previews of the next minor API for
+testing purposes.</p>
+<p class="last">Major API version bumps will be reserved for the experimental / bleeding builds, and will be very explicit as their
+major version number will be different.</p>
 </div>
-<div class="section" id="initialization-states">
-<h2>Initialization States<a class="headerlink" href="#initialization-states" title="Permalink to this headline">¶</a></h2>
-<p>Initialization states only occur once during a single run.</p>
-<p><strong>CONSTRUCTION</strong></p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameConstructionEvent.html">GameConstructionEvent</a> is triggered.
-During this state, the <code class="docutils literal"><span class="pre">&#64;Plugin</span></code> class instance for each plugin is triggered.</p>
-<p><strong>PRE_INITIALIZATION</strong></p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GamePreInitializationEvent.html">GamePreInitializationEvent</a> is triggered.
-During this state, the plugin gets ready for initialization. Access to a default logger instance and access to
-information regarding preferred configuration file locations is available.</p>
-<p><strong>INITIALIZATION</strong></p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameInitializationEvent.html">GameInitializationEvent</a> is triggered.
-During this state, the plugin should finish any work needed in order to be functional. Global event handlers should get
-registered in this stage.</p>
-<p><strong>POST_INITIALIZATION</strong></p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GamePostInitializationEvent.html">GamePostInitializationEvent</a> is triggered.
-By this state, inter-plugin communication should be ready to occur. Plugins providing an API should be ready to accept
-basic requests.</p>
-<p><strong>LOAD_COMPLETE</strong></p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameLoadCompleteEvent.html">GameLoadCompleteEvent</a> is triggered.
-By this state, all plugin initialization should be completed.</p>
 </div>
-<div class="section" id="running-states">
-<h2>Running States<a class="headerlink" href="#running-states" title="Permalink to this headline">¶</a></h2>
-<p>Running States can occur multiple times during a single run. <code class="docutils literal"><span class="pre">SERVER_ABOUT_TO_START</span></code> may follow <code class="docutils literal"><span class="pre">SERVER_STOPPED</span></code>,
-and <code class="docutils literal"><span class="pre">SERVER_STOPPED</span></code> may occur at any point during the process if there is an error.</p>
-<p><strong>SERVER_ABOUT_TO_START</strong></p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameAboutToStartServerEvent.html">GameAboutToStartServerEvent</a> event is triggered.
-The server instance exists, but worlds are not yet loaded.</p>
-<p><strong>SERVER_STARTING</strong></p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameStartingServerEvent.html">GameStartingServerEvent</a> is triggered.
-The server instance exists, and worlds are loaded. Command registration is handled during this state.</p>
-<p><strong>SERVER_STARTED</strong></p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameStartedServerEvent.html">GameStartedServerEvent</a> event is triggered.
-The server instance exists, and worlds are loaded.</p>
-<p><strong>SERVER_STOPPING</strong></p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameStoppingServerEvent.html">GameStoppingServerEvent</a> is triggered.
-This state occurs immediately before the final tick, before the worlds are saved.</p>
-<p><strong>SERVER_STOPPED</strong></p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameStoppedServerEvent.html">GameStoppedServerEvent</a> is triggered.
-During this state, no players are connected and no changes to worlds are saved.</p>
 </div>
-<div class="section" id="stopping-states">
-<h2>Stopping States<a class="headerlink" href="#stopping-states" title="Permalink to this headline">¶</a></h2>
-<p>Stopping states never occur more than once during a single run. They occur when the game stops normally. (On Servers:
-the <code class="docutils literal"><span class="pre">/stop</span></code> command is typed. On Clients: The “Close” button or the “Quit Game” button are clicked)</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Stopping states are not guaranteed to be run during shutdown. They may <strong>not</strong> fire if the game is force-stopped via
-Ctrl-C, Task Manager, a computer crash, or similar situations.</p>
+<div class="section" id="getting-the-minecraft-version-from-implementations">
+<span id="associated-minecraft-version"></span><h2>Getting the Minecraft Version from Implementations<a class="headerlink" href="#getting-the-minecraft-version-from-implementations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="getting-it-from-the-sources">
+<h3>Getting it from the Sources<a class="headerlink" href="#getting-it-from-the-sources" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">For <a class="reference external" href="https://github.com/SpongePowered/SpongeForge">SpongeForge</a> or
+<a class="reference external" href="https://github.com/SpongePowered/SpongeVanilla">SpongeVanilla</a>:</p>
+<p>Go to the referenced SpongeCommon repository and check the <code class="docutils literal"><span class="pre">gradle.properties</span></code> in the project root. It contains an
+entry with the <code class="docutils literal"><span class="pre">minecraftVersion</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The same works for the <code class="docutils literal"><span class="pre">mcpMappings</span></code> version.</p>
 </div>
-<p><strong>GAME_STOPPING</strong></p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameStoppingEvent.html">GameStoppingEvent</a> is triggered.
-This state occurs immediately before <code class="docutils literal"><span class="pre">GAME_STOPPED</span></code>. Plugins providing an API should still be capable of accepting
-basic requests.</p>
-<p><strong>GAME_STOPPED</strong></p>
-<p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameStoppedEvent.html">GameStoppedEvent</a> is triggered.
-Once this event has finished executing, Minecraft will shut down. No further interaction with the game or other plugins
-should be attempted at this point.</p>
+</li>
+<li><p class="first">For <a class="reference external" href="https://github.com/SpongePowered/SpongeVanilla">SpongeVanilla</a> (only):</p>
+<p>Check the <code class="docutils literal"><span class="pre">gradle.properties</span></code> in the project root. It contains an entry with the <code class="docutils literal"><span class="pre">minecraftVersion</span></code>.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 
@@ -249,8 +292,8 @@ should be attempted at this point.</p>
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="injection.html" class="btn btn-neutral float-right" title="Dependency Injection" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
-        <a href="plugin-class.html" class="btn btn-neutral" title="Main Plugin Class" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+        <a href="buildsystem.html" class="btn btn-neutral float-right" title="Build Systems" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="index.html" class="btn btn-neutral" title="Creating a Plugin" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
     <hr/>
@@ -283,8 +326,8 @@ should be attempted at this point.</p>
 
             <dl>
                 <dt>Contribute</dt>
-                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/plugin-config/source/plugin/lifecycle.rst">Source</a></dd>
-                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/feature/plugin-config/source/plugin/lifecycle.rst">Edit</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/feature/plugin-config/source/plugin/api-versions.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/feature/plugin-config/source/plugin/api-versions.rst">Edit</a></dd>
             </dl>
     </div>
 </div>

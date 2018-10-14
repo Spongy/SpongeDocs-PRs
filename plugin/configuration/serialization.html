@@ -79,6 +79,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api-versions.html">API-Versions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../buildsystem.html">Build Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../workspace/index.html">Setting Up Your Workspace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../project/index.html">Setting Up Your Project</a></li>
@@ -226,6 +227,11 @@ one to create an object from a given configuration node.</p>
 <p>This <code class="docutils literal"><span class="pre">TypeSerializer</span></code> must then be registered with Configurate. This can be done either globally, by registering to
 the default <a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/objectmapping/serialize/TypeSerializerCollection.html">TypeSerializerCollection</a> or locally, by specifying it in the <a class="reference external" href="http://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/ConfigurationOptions.html">ConfigurationOptions</a>
 when loading your config.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">ConfigurationOptions</span></code> are immutable. Every time you try to modify the original instance a new instance is
+created; so you either have to use the (chained) result directly or update your variable accordingly.</p>
+</div>
 <p><strong>Code Example: Registering a TypeSerializer globally</strong></p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.TypeSerializers</span><span class="o">;</span>
 
