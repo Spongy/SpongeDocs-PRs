@@ -205,8 +205,8 @@ which you can specify using <a class="reference external" href="https://jd.spong
 <table border="1" class="docutils">
 <colgroup>
 <col width="15%" />
-<col width="21%" />
-<col width="65%" />
+<col width="22%" />
+<col width="64%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Property</th>
@@ -217,8 +217,10 @@ which you can specify using <a class="reference external" href="https://jd.spong
 <tbody valign="top">
 <tr class="row-even"><td>delay</td>
 <td><p class="first">delayTicks(long delay)</p>
-<p class="last">delay(long delay,
-TimeUnit unit)</p>
+<dl class="last docutils">
+<dt>delay(long delay,</dt>
+<dd>TimeUnit unit)</dd>
+</dl>
 </td>
 <td><p class="first">The optional amount of time to pass before the task is to be run.</p>
 <p>The time is specified as a number of ticks with the <code class="docutils literal"><span class="pre">delayTicks()</span></code>
@@ -228,11 +230,12 @@ unit by specifying a <a class="reference external" href="https://docs.oracle.com
 </td>
 </tr>
 <tr class="row-odd"><td>interval</td>
-<td><p class="first">intervalTicks(
-long interval)</p>
-<p class="last">interval(
-long interval,
-TimeUnit unit)</p>
+<td><dl class="first last docutils">
+<dt>intervalTicks(</dt>
+<dd>long interval)</dd>
+<dt>interval(long interval,</dt>
+<dd>TimeUnit unit)</dd>
+</dl>
 </td>
 <td><p class="first">The amount of time between repetitions of the task.  If an interval is
 not specified, the task will not be repeated.</p>
@@ -299,6 +302,12 @@ reaching 0.</p>
 <span class="o">}</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last"><strong>Any</strong> scheduled tasks should either watch the current <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/GameState.html">state</a> of the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/Game.html">Game</a> or
+should be unregistered if they are no longer needed (e.g. during a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameStoppingServerEvent.html">GameStoppingServerEvent</a>). This is of
+particular importance for the client because it can start and stop the server multiple times.</p>
+</div>
 </div>
 <div class="section" id="asynchronous-tasks">
 <h3>Asynchronous Tasks<a class="headerlink" href="#asynchronous-tasks" title="Permalink to this headline">¶</a></h3>
@@ -324,6 +333,12 @@ with <cite>asynchronously</cite>, including:</p>
 <p class="last">Accessing game objects outside of the main thread can lead to crashes, inconsistencies and various other problems
 and should be avoided. If this is done wrong, you can get a <code class="docutils literal"><span class="pre">ConcurrentModificationException</span></code> with or without a
 server crash at best and a corrupted player/world/server at worst.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last"><strong>Any</strong> scheduled tasks should either watch the current <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/GameState.html">state</a> of the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/Game.html">Game</a> or
+should be unregistered if they are no longer needed (e.g. during a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameStoppingServerEvent.html">GameStoppingServerEvent</a>). This is of
+particular importance for the client because it can start and stop the server multiple times.</p>
 </div>
 </div>
 </div>
