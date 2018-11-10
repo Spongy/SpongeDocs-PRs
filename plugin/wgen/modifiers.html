@@ -213,12 +213,13 @@ apply your generator changes to nether worlds.</p>
 </div>
 <div class="section" id="registering-a-worldgeneratormodifier">
 <h2>Registering a WorldGeneratorModifier<a class="headerlink" href="#registering-a-worldgeneratormodifier" title="Permalink to this headline">¶</a></h2>
-<p>Now that you have created our modifier, you need to register it. A good time to do this is during the <code class="docutils literal"><span class="pre">INITIALIZATION</span></code>
-State. To register it, simply call <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/GameRegistry.html#register-java.lang.Class-T-">GameRegistry#register(Class, T)</a> with <code class="docutils literal"><span class="pre">WorldGeneratorModifier.class</span></code> as
-the first argument and your modifier as the second.</p>
+<p>Now that you have created the modifier, all you have to do is register it in the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/GameRegistry.html">GameRegistry</a>. To do this
+you need to create a <a class="reference internal" href="../event/listeners.html"><span class="doc">listener</span></a> for the
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/GameRegistryEvent.Register.html">GameRegistryEvent.Register&lt;WorldGeneratorModifier&gt;</a> event and register your instance there, as shown in the
+following example:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGameInitialization</span><span class="o">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Sponge</span><span class="o">.</span><span class="na">getRegistry</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="n">WorldGeneratorModifier</span><span class="o">.</span><span class="na">class</span> <span class="o">,</span> <span class="k">new</span> <span class="n">MyModifier</span><span class="o">());</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onWorldGeneratorModifierRegistration</span><span class="o">(</span><span class="n">GameRegistryEvent</span><span class="o">.</span><span class="na">Register</span><span class="o">&lt;</span><span class="n">WorldGeneratorModifier</span><span class="o">&gt;</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">event</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="n">MyModifier</span><span class="o">());</span>
 <span class="o">}</span>
 </pre></div>
 </div>
