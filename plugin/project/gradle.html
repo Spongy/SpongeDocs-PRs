@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setting Up Gradle &mdash; Sponge 7.1.0 documentation</title>
+
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Setting Up Your Project" href="index.html"/>        <link rel="next" title="Setting Up Maven" href="maven.html"/>        <link rel="prev" title="Setting Up Your Project" href="index.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../index.html">
+            <img src="../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api-versions.html">API-Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../buildsystem.html">Build Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../workspace/index.html">Setting Up Your Workspace</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Setting Up Your Project</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Setting Up Gradle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maven.html">Setting Up Maven</a></li>
+<li class="toctree-l3"><a class="reference internal" href="version-numbers.html">Version Numbers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-class.html">Main Plugin Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../practices/index.html">Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Plugin Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/index.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blocks/index.html">Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../items/index.html">Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trade-offers.html">Trade-Offers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects.html">Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database.html">Databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../permissions.html">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrics.html">Metrics Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tab-lists.html">Tab Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-meta.html">Plugin Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internals/index.html">Implementation-dependent Plugins</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+          <li><a href="../index.html">Creating a Plugin</a> &raquo;</li>
+          <li><a href="index.html">Setting Up Your Project</a> &raquo;</li>
+    <li>Setting Up Gradle</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/continue-691/source/plugin/project/gradle.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="setting-up-gradle">
+<h1>Setting Up Gradle<a class="headerlink" href="#setting-up-gradle" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="using-spongegradle">
+<span id="id1"></span><h2>Using SpongeGradle<a class="headerlink" href="#using-spongegradle" title="Permalink to this headline">¶</a></h2>
+<p>Using <a class="reference external" href="https://github.com/SpongePowered/SpongeGradle">SpongeGradle</a> is very simple and allows you to minimize the necessary Gradle configuration for setting up a
+Sponge plugin on Gradle. Additionally, it provides integration for <a class="reference internal" href="../plugin-meta.html"><span class="doc">Plugin Metadata</span></a>, such as automatically
+contributing the group, project name, version and description defined in your build script to the built plugin, so you
+only need to update your plugin version in one file.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Most problems are caused by attempting to use an outdated Gradle version. We recommend using the latest Gradle
+version together with <a class="reference external" href="https://github.com/SpongePowered/SpongeGradle">SpongeGradle</a>. <a class="reference internal" href="../buildsystem.html#gradle-setup"><span class="std std-ref">The Gradle section of the build systems page</span></a> explains how
+to setup Gradle on your computer.</p>
+</div>
+<p>Below is a simple template that should be usable for most plugins. <strong>Make sure to replace the group with the group ID
+you have chosen before.</strong></p>
+<div class="highlight-groovy"><div class="highlight"><pre><span></span><span class="n">plugins</span> <span class="o">{</span>
+    <span class="n">id</span> <span class="s1">&#39;java&#39;</span>
+    <span class="n">id</span> <span class="s1">&#39;org.spongepowered.plugin&#39;</span> <span class="n">version</span> <span class="s1">&#39;0.9.0&#39;</span>
+<span class="o">}</span>
+
+<span class="c1">// This may not be required, but has solved issues in the past</span>
+<span class="n">compileJava</span><span class="o">.</span><span class="na">options</span><span class="o">.</span><span class="na">encoding</span> <span class="o">=</span> <span class="s1">&#39;UTF-8&#39;</span>
+
+<span class="c1">// TODO: Change the following to match your information</span>
+<span class="n">group</span> <span class="o">=</span> <span class="s1">&#39;com.example&#39;</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0-SNAPSHOT&#39;</span>
+<span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Here lies an example plugin definition&#39;</span>
+
+<span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">jcenter</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">compile</span> <span class="s1">&#39;org.spongepowered:spongeapi:7.1.0&#39;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>These few lines handle most settings you would normally do manually:</p>
+<ul class="simple">
+<li>Basic Gradle Java setup</li>
+<li>Set your project to compile with Java 8</li>
+<li>Add Sponge’s Maven repository (and Maven Central)</li>
+<li>Set up a plugin with the project name in lower case as <strong>plugin ID</strong></li>
+<li>Automatically includes the project name, description and <a class="reference internal" href="version-numbers.html"><span class="doc">version</span></a> in
+<a class="reference internal" href="../plugin-meta.html"><span class="doc">Plugin Metadata</span></a>.</li>
+</ul>
+<div class="section" id="manually-setting-the-plugin-id">
+<h3>Manually setting the plugin ID<a class="headerlink" href="#manually-setting-the-plugin-id" title="Permalink to this headline">¶</a></h3>
+<p>By default, the Gradle plugin will configure your <strong>plugin ID</strong> with project name (in lowercase) you have configured.
+If you want to use a custom <strong>plugin ID</strong> and still use the <a class="reference internal" href="../plugin-meta.html"><span class="doc">Plugin Metadata</span></a> integration you can change it
+manually:</p>
+<div class="highlight-groovy"><div class="highlight"><pre><span></span><span class="n">sponge</span> <span class="o">{</span>
+    <span class="n">plugin</span> <span class="o">{</span>
+        <span class="n">id</span> <span class="o">=</span> <span class="s1">&#39;pluginidgoeshere&#39;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="overriding-defaults">
+<h3>Overriding defaults<a class="headerlink" href="#overriding-defaults" title="Permalink to this headline">¶</a></h3>
+<p>By default, the Gradle plugin will contribute the <strong>plugin name</strong>, <strong>plugin version</strong>, and <strong>description</strong> automatically
+to <a class="reference internal" href="../plugin-meta.html"><span class="doc">Plugin Metadata</span></a> with defaults defined in the project properties. It is also possible to override these if
+you want to specify them manually:</p>
+<div class="highlight-groovy"><div class="highlight"><pre><span></span><span class="n">sponge</span> <span class="o">{</span>
+    <span class="n">plugin</span> <span class="o">{</span>
+        <span class="n">meta</span> <span class="o">{</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Example Plugin&#39;</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0-SNAPSHOT&#39;</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;This is an example plugin&#39;</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://www.example.com/&#39;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>You can also remove a default value entirely:</p>
+<div class="highlight-groovy"><div class="highlight"><pre><span></span><span class="n">sponge</span> <span class="o">{</span>
+    <span class="n">plugin</span> <span class="o">{</span>
+        <span class="n">meta</span> <span class="o">{</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="kc">null</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="kc">null</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="without-spongegradle">
+<h2>Without SpongeGradle<a class="headerlink" href="#without-spongegradle" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">We recommend using <a class="reference internal" href="#using-spongegradle"><span class="std std-ref">SpongeGradle</span></a> for Gradle plugins since it will provide additional Gradle
+integration for Sponge plugins.</p>
+</div>
+<p>Generally, everything necessary to compile a Sponge plugin using Gradle can be done by simply adding the SpongeAPI
+dependency to your project:</p>
+<div class="highlight-groovy"><div class="highlight"><pre><span></span><span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">jcenter</span><span class="o">()</span>
+    <span class="n">maven</span> <span class="o">{</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;sponge-repo&#39;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://repo.spongepowered.org/maven&#39;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">compile</span> <span class="s1">&#39;org.spongepowered:spongeapi:7.1.0&#39;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="maven.html" class="btn btn-neutral float-right" title="Setting Up Maven" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="index.html" class="btn btn-neutral" title="Setting Up Your Project" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.1.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/continue-691/source/plugin/project/gradle.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/continue-691/source/plugin/project/gradle.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'7.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../../_static/jquery.js"></script>      <script type="text/javascript" src="../../_static/underscore.js"></script>      <script type="text/javascript" src="../../_static/doctools.js"></script>      <script type="text/javascript" src="../../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>
