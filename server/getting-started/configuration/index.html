@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../../genindex.html"/>        <link rel="search" title="Search" href="../../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../../index.html"/>        <link rel="up" title="Getting Started" href="../index.html"/>        <link rel="next" title="Introduction to HOCON" href="hocon.html"/>        <link rel="prev" title="Using Sponge with BungeeCord" href="../bungeecord.html"/>
+              href="../../../genindex.html"/>        <link rel="search" title="Search" href="../../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../../index.html"/>        <link rel="up" title="Getting Started" href="../index.html"/>        <link rel="next" title="global.conf" href="sponge-conf.html"/>        <link rel="prev" title="Using Sponge with BungeeCord" href="../bungeecord.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -81,10 +81,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../port-forward.html">Port Forwarding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../bungeecord.html">Using Sponge with BungeeCord</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Configuring Sponge</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="hocon.html">Introduction to HOCON</a></li>
-<li class="toctree-l4"><a class="reference internal" href="json.html">JSON Syntax</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sponge-conf.html">global.conf</a></li>
-<li class="toctree-l4"><a class="reference internal" href="server-properties.html">server.properties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hocon.html">Introduction to HOCON</a></li>
 </ul>
 </li>
 </ul>
@@ -142,69 +140,86 @@
            <div itemprop="articleBody">
   <div class="section" id="configuring-sponge">
 <h1>Configuring Sponge<a class="headerlink" href="#configuring-sponge" title="Permalink to this headline">¶</a></h1>
-<p>You can find all configuration files inside the “config” folder.</p>
-<div class="section" id="config-syntax">
-<h2>Config Syntax<a class="headerlink" href="#config-syntax" title="Permalink to this headline">¶</a></h2>
-<p>Most configuration files will make use of the <a class="reference internal" href="hocon.html"><span class="doc">HOCON</span></a> format.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="hocon.html">Introduction to HOCON</a></li>
-<li class="toctree-l1"><a class="reference internal" href="json.html">JSON Syntax</a></li>
-</ul>
-</div>
-</div>
-<div class="section" id="what-you-can-configure">
-<h2>What You Can Configure<a class="headerlink" href="#what-you-can-configure" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="sponge-conf.html">global.conf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="server-properties.html">server.properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hocon.html">Introduction to HOCON</a></li>
 </ul>
 </div>
-<p>Plugins will also have their own configuration files in the “config” folder.</p>
-</div>
-<div class="section" id="world-configs">
-<h2>World Configs<a class="headerlink" href="#world-configs" title="Permalink to this headline">¶</a></h2>
-<p>There are three types of world configs:</p>
+<p id="configuration-sponge">This article is about configuring Sponge itself; plugins will usually create their own configuration files inside the
+server “config” directory.
+For Vanilla configuration check out the <a class="reference external" href="https://minecraft.gamepedia.com/Server.properties">Minecraft Wiki</a>.</p>
+<div class="section" id="sponge-configuration-files">
+<h2>Sponge Configuration Files<a class="headerlink" href="#sponge-configuration-files" title="Permalink to this headline">¶</a></h2>
+<p>Sponge has multiple configuration files, which all can be found in the <code class="docutils literal"><span class="pre">config/sponge/</span></code> directory of your server:</p>
 <ul class="simple">
-<li>Global</li>
-<li>Dimension</li>
-<li>World</li>
+<li><code class="docutils literal"><span class="pre">tracker.conf</span></code></li>
+<li><code class="docutils literal"><span class="pre">custom_data.conf</span></code></li>
+<li><code class="docutils literal"><span class="pre">global.conf</span></code>
+and the corresponding dimension and world subconfigs in the <code class="docutils literal"><span class="pre">worlds</span></code> folder</li>
 </ul>
-<p>Global configuration files can affect all of a server’s worlds and dimensions. This is the default level for configs.
-Dimension configuration files are used to affect a certain dimension or group of worlds. These types of configs will
-override the global config files. World configuration files are used to modify individual worlds only. World configs
-override dimension and global configs.</p>
-<div class="section" id="modifying-the-config-in-game">
-<h3>Modifying the Config In-Game<a class="headerlink" href="#modifying-the-config-in-game" title="Permalink to this headline">¶</a></h3>
-<p>It is possible to modify these configs through the in-game command <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">config</span></code>. The syntax for the config
+<p>The <code class="docutils literal"><span class="pre">global.conf</span></code> file contains the global configuration settings for Sponge. Its properties can be also overridden
+for each world and dimension type by using the config files in the subfolders of <code class="docutils literal"><span class="pre">config/worlds</span></code>.</p>
+<p>The <code class="docutils literal"><span class="pre">tracker.conf</span></code> can be used to configure the Phase Tracker, and the <code class="docutils literal"><span class="pre">custom_data.conf</span></code> is used to manage custom
+data added by plugins.</p>
+</div>
+<div class="section" id="modifying-the-configuration-using-a-text-editor">
+<h2>Modifying the Configuration Using a Text Editor<a class="headerlink" href="#modifying-the-configuration-using-a-text-editor" title="Permalink to this headline">¶</a></h2>
+<p>Open the desired file using your preferred editor. Sponge configuration files use HOCON format, which you can read
+more about in the <a class="reference internal" href="hocon.html"><span class="doc">“Introduction to HOCON”</span></a>.</p>
+<p>After making your desired changes, save your file. If your server was running while you made changes, you must reload
+the config file using the reload commands explained <a class="reference internal" href="#configuration-sponge-reload"><span class="std std-ref">below</span></a>. For example, after
+making changes to your <code class="docutils literal"><span class="pre">global.conf</span></code>, run <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">reload</span> <span class="pre">-g</span></code> to reload the global configurations from file.</p>
+<div class="section" id="overriding-the-global-configuration">
+<h3>Overriding the Global Configuration<a class="headerlink" href="#overriding-the-global-configuration" title="Permalink to this headline">¶</a></h3>
+<p>If you would like to override the global configs in just a single world or dimension type, for example raise the
+spawn cap of monsters in the Vanilla Nether alone, subconfigs allow you to do just that. You can find configs for
+every world and dimension on your server within the <code class="docutils literal"><span class="pre">worlds</span></code> folder, inside the main Sponge config folder. These
+are sorted first by mods, and then dimension type. Simply modify those configs to your needs, and the changes will
+be applied to all the related worlds, overriding broader configs.
+This follows a simple order: World &gt; Dimension &gt; Global</p>
+</div>
+</div>
+<div class="section" id="modifying-the-configuration-using-commands">
+<h2>Modifying the Configuration Using Commands<a class="headerlink" href="#modifying-the-configuration-using-commands" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to modify most configs through the in-game command <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">config</span></code>. The syntax for the config
 command looks like this:</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>/sponge config &lt;flag&gt; &lt;key&gt; &lt;value&gt;
 </pre></div>
 </div>
-<p>There are <em>flags</em> for specifying the target that you would wish to change. These flags are global, dimension, and world.</p>
+<p>There are the following <strong>flags</strong> for specifying the target that you would wish to change.</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">-g</span></code> is the flag for global</li>
-<li><code class="docutils literal"><span class="pre">-d</span> <span class="pre">&lt;dim&gt;</span></code> targets a dimension (replacing <em>&lt;dim&gt;</em> with the dimension you want to configure)</li>
-<li><code class="docutils literal"><span class="pre">-w</span> <span class="pre">&lt;world&gt;</span></code> targets one world (replacing <em>&lt;world&gt;</em> with your chosen world).</li>
+<li><code class="docutils literal"><span class="pre">-g</span></code> is the flag for global (<code class="docutils literal"><span class="pre">global.conf</span></code>)</li>
+<li><code class="docutils literal"><span class="pre">-d</span> <span class="pre">&lt;dim&gt;</span></code> targets a dimension (<code class="docutils literal"><span class="pre">dimension.conf</span></code>)</li>
+<li><code class="docutils literal"><span class="pre">-w</span> <span class="pre">&lt;world&gt;</span></code> targets one world (<code class="docutils literal"><span class="pre">world.conf</span></code>)</li>
+<li><code class="docutils literal"><span class="pre">-t</span></code> is the flag for tracker (<code class="docutils literal"><span class="pre">tracker.conf</span></code>)</li>
 </ul>
-<p>The <em>key</em> is the value you want to change. The <em>value</em> is whatever you want to change the value of the key to.</p>
-<p>Here is an example of this command in action:</p>
+<p><code class="docutils literal"><span class="pre">&lt;name&gt;</span></code> being a placeholder, you need replace with the name of your target, e.g. <code class="docutils literal"><span class="pre">-d</span> <span class="pre">minecraft:nether</span></code>.</p>
+<p>The <strong>key</strong> is the value you want to change. The <strong>value</strong> is whatever you want to change the value of the key to.
+For example, if you want to change <code class="docutils literal"><span class="pre">chunk-load</span></code> to <code class="docutils literal"><span class="pre">true</span></code>
+in the file <code class="docutils literal"><span class="pre">config/sponge/minecraft/nether/dimension.conf</span></code>:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>sponge {
+    logging {
+        # Log when chunks are loaded
+        chunk-load=false
+    }
+}
+</pre></div>
+</div>
+<p>Here is the command you should use:</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>/sponge config -d minecraft:nether logging.chunk-load true
 </pre></div>
 </div>
-<p>This will set the config to log when chunks are loaded for the nether.</p>
-<p>If you need to check the value of a key, you would need to omit the <em>value</em>. Checking the value of a key such as
-<code class="docutils literal"><span class="pre">logging.chunk-load</span></code> in the nether would be done like so:</p>
+<p>If you need to check the value of a key, simply omit the value.
+Checking the value of a key such as <code class="docutils literal"><span class="pre">logging.chunk-load</span></code> in the nether can be done like so:</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>/sponge config -d minecraft:nether logging.chunk-load
 </pre></div>
 </div>
-</div>
-<div class="section" id="saving-a-world-config">
-<h3>Saving a World Config<a class="headerlink" href="#saving-a-world-config" title="Permalink to this headline">¶</a></h3>
-<p>Saving a world config to the file may be desired after making modifications. This would be useful in the event of an
-unexpected server crash. This would be done by using the <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">save</span></code> command on the sponge server. The syntax for
-this command is similar to the config command:</p>
+<div class="section" id="saving-config">
+<h3>Saving Config<a class="headerlink" href="#saving-config" title="Permalink to this headline">¶</a></h3>
+<p>Saving a world config to the file may be desired after making modifications. This can be useful in the event of an
+unexpected server crash. This is done by using the <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">save</span></code> command on the server. The syntax for this
+command is similar to the config command:</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>/sponge save &lt;flag&gt;
 </pre></div>
 </div>
@@ -213,10 +228,10 @@ this command is similar to the config command:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="reloading-a-world-config">
-<h3>Reloading a World Config<a class="headerlink" href="#reloading-a-world-config" title="Permalink to this headline">¶</a></h3>
-<p>Sometimes it may be desired that a world config is reloaded while the server is still running. This would be useful if
-you have made changes to the local config file and would like to reload it for use on the live server. This is made
+<div class="section" id="reloading-a-config">
+<span id="configuration-sponge-reload"></span><h3>Reloading a Config<a class="headerlink" href="#reloading-a-config" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes you need to reload a world config while the server is still running. This is useful when you have
+made changes to the local config file, and want to reload it for use on the live server. This is made
 possible by the command <code class="docutils literal"><span class="pre">/sponge</span> <span class="pre">reload</span></code>. The syntax for the command is as follows:</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>/sponge reload &lt;flag&gt;
 </pre></div>
@@ -233,7 +248,7 @@ possible by the command <code class="docutils literal"><span class="pre">/sponge
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="hocon.html" class="btn btn-neutral float-right" title="Introduction to HOCON" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="sponge-conf.html" class="btn btn-neutral float-right" title="global.conf" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
         <a href="../bungeecord.html" class="btn btn-neutral" title="Using Sponge with BungeeCord" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 
