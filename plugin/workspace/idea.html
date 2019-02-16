@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setting Up IntelliJ IDEA &mdash; Sponge 7.1.0 documentation</title>
+
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Setting Up Your Workspace" href="index.html"/>        <link rel="next" title="Setting Up Eclipse" href="eclipse.html"/>        <link rel="prev" title="Setting Up Your Workspace" href="index.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../index.html">
+            <img src="../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api-versions.html">API-Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../buildsystem.html">Build Systems</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Setting Up Your Workspace</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Setting Up IntelliJ IDEA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="eclipse.html">Setting Up Eclipse</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../project/index.html">Setting Up Your Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-class.html">Main Plugin Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../practices/index.html">Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Plugin Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/index.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blocks/index.html">Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../items/index.html">Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trade-offers.html">Trade-Offers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects.html">Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database.html">Databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../permissions.html">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrics.html">Metrics Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tab-lists.html">Tab Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-meta.html">Plugin Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internals/index.html">Implementation-dependent Plugins</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+          <li><a href="../index.html">Creating a Plugin</a> &raquo;</li>
+          <li><a href="index.html">Setting Up Your Workspace</a> &raquo;</li>
+    <li>Setting Up IntelliJ IDEA</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/Staff-shuffle-again/source/plugin/workspace/idea.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="setting-up-intellij-idea">
+<h1>Setting Up IntelliJ IDEA<a class="headerlink" href="#setting-up-intellij-idea" title="Permalink to this headline">¶</a></h1>
+<p>This article describes how to configure your <strong>IntelliJ IDEA</strong> workspace for plugin development with SpongeAPI and
+<a class="reference internal" href="../buildsystem.html"><span class="doc">a build system such as Maven or Gradle</span></a> or the
+<a class="reference external" href="https://minecraftdev.org/">Minecraft Development plugin</a>.</p>
+<p>If you want to create your project completely from scratch, please skip ahead to the Gradle or Maven sections.
+Using the Minecraft Dev plugin sets up a working starting point and eliminates some of the guesswork in getting
+your project off the ground.</p>
+<div class="section" id="using-idea-minecraft-dev-plugin-to-create-a-working-starting-point">
+<h2>Using IDEA Minecraft Dev Plugin to Create a Working Starting Point<a class="headerlink" href="#using-idea-minecraft-dev-plugin-to-create-a-working-starting-point" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://minecraftdev.org/">Minecraft Development plugin</a> for IntelliJ is a great plugin by a community
+member which makes plugin project creation much easier while also providing some neat and useful features for
+development.  By default, it will create a project which uses Gradle as the build tool.</p>
+<div class="section" id="installing-the-minecraft-dev-plugin">
+<h3>Installing the Minecraft Dev Plugin<a class="headerlink" href="#installing-the-minecraft-dev-plugin" title="Permalink to this headline">¶</a></h3>
+<p>This plugin is available on the JetBrains IntelliJ plugin repository.</p>
+<p>Because of this, you can install the plugin through IntelliJ’s internal plugin browser. Navigate to
+<code class="docutils literal"><span class="pre">File</span> <span class="pre">-&gt;</span> <span class="pre">Settings</span> <span class="pre">-&gt;</span> <span class="pre">Plugins</span></code> and click the <code class="docutils literal"><span class="pre">Browse</span> <span class="pre">Repositories...</span></code> button at the bottom of the
+window. In the search box, simply search for <code class="docutils literal"><span class="pre">Minecraft</span></code>. You can install it from there and
+restart IntelliJ to activate the plugin.</p>
+</div>
+<div class="section" id="creating-your-project-from-a-template">
+<h3>Creating Your Project from a Template<a class="headerlink" href="#creating-your-project-from-a-template" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Open <strong>IntelliJ IDEA</strong>.</li>
+<li>Click <code class="docutils literal"><span class="pre">Create</span> <span class="pre">New</span> <span class="pre">Project</span></code>.</li>
+<li>Select <code class="docutils literal"><span class="pre">Minecraft</span></code> in the popup.</li>
+<li>Make sure your <strong>Project SDK</strong> is set to some version of Java 8/1.8.</li>
+<li>Select <code class="docutils literal"><span class="pre">Sponge</span> <span class="pre">plugin</span></code> for your project type, then click <code class="docutils literal"><span class="pre">Next</span></code>.</li>
+<li>Enter your <strong>Group ID</strong>, <strong>Artifact ID</strong>, and <strong>Version</strong>.<ul>
+<li>Your <strong>Group ID</strong> should usually correspond to your Java package name. See <a class="reference internal" href="../plugin-class.html"><span class="doc">Main Plugin Class</span></a> for details.</li>
+<li>Your <strong>Artifact ID</strong> should usually correspond to your <strong>plugin ID</strong> you chose earlier, e.g. <code class="docutils literal"><span class="pre">myplugin</span></code>.</li>
+<li>Your <strong>Version</strong> is up to you. See <a class="reference internal" href="../project/version-numbers.html"><span class="doc">Version Numbers</span></a> for details.</li>
+</ul>
+</li>
+<li>Select your desired build tool, either Gradle or Maven, and click <code class="docutils literal"><span class="pre">Next</span></code>.</li>
+<li>Check your <strong>Plugin Name</strong> and <strong>Main Class Name</strong> to make sure they are what you want.</li>
+<li>Specify your desired plugin <strong>description</strong>, <strong>authors</strong>, <strong>website</strong>, and <strong>dependencies</strong> if you want.</li>
+<li>Click <code class="docutils literal"><span class="pre">Next</span></code> to move on.</li>
+<li>Verify your project name, location, and module information, then click <code class="docutils literal"><span class="pre">Finish</span></code>.</li>
+<li>The plugin will create a main java file as a starting point, with the logger already injected.
+You may add a <code class="docutils literal"><span class="pre">logger.info()</span></code> statement in the <code class="docutils literal"><span class="pre">onServerStart</span></code> event handler to verify that the plugin
+is working when you run it.</li>
+</ul>
+</div>
+<div class="section" id="editing-the-project-configuration">
+<h3>Editing the Project Configuration<a class="headerlink" href="#editing-the-project-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Refer to the <a class="reference internal" href="#gradle">Gradle</a> or <a class="reference internal" href="#maven">Maven</a> configuration sections, depending on what you chose during project creation.</p>
+</div>
+</div>
+<div class="section" id="creating-a-plugin-from-scratch-gradle">
+<span id="gradle"></span><h2>Creating a Plugin from Scratch – Gradle<a class="headerlink" href="#creating-a-plugin-from-scratch-gradle" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Open <strong>IntelliJ IDEA</strong>.</li>
+<li>Click <code class="docutils literal"><span class="pre">Create</span> <span class="pre">New</span> <span class="pre">Project</span></code>.</li>
+<li>Select <code class="docutils literal"><span class="pre">Gradle</span></code> in the popup.</li>
+<li>If you want, select any additional libraries and frameworks you desire, for example Kotlin.</li>
+<li>Make sure your <strong>Project SDK</strong> is set to some version of Java 8/1.8.</li>
+<li>Click <code class="docutils literal"><span class="pre">Next</span></code> to move on.</li>
+<li>Enter your <strong>Group ID</strong>, <strong>Artifact ID</strong>, and <strong>Version</strong>.<ul>
+<li>Your <strong>Group ID</strong> should usually correspond to your Java package name. See <a class="reference internal" href="../plugin-class.html"><span class="doc">Main Plugin Class</span></a> for details.</li>
+<li>Your <strong>Artifact ID</strong> should usually correspond to your <strong>plugin ID</strong> you chose earlier, e.g. <code class="docutils literal"><span class="pre">myplugin</span></code>.</li>
+<li>Your <strong>Version</strong> is up to you. See <a class="reference internal" href="../project/version-numbers.html"><span class="doc">Version Numbers</span></a> for details.</li>
+</ul>
+</li>
+<li>Click <code class="docutils literal"><span class="pre">Next</span></code> twice, name your project, and click <code class="docutils literal"><span class="pre">Finish</span></code>.</li>
+<li>The project will be created without a <code class="docutils literal"><span class="pre">src</span></code> directory.  If you add java files to the incorrect
+location underneath the project, they will be ignored and not compiled, so it is a good idea to
+enable the checkbox “Create directories for empty content roots”, found in:<ul>
+<li><strong>Windows</strong>: <code class="docutils literal"><span class="pre">File</span></code> -&gt; <code class="docutils literal"><span class="pre">Settings</span></code> -&gt; <code class="docutils literal"><span class="pre">Build,</span> <span class="pre">Execution,</span> <span class="pre">Deployment</span></code> -&gt; <code class="docutils literal"><span class="pre">Gradle</span></code></li>
+<li><strong>Mac</strong>: <code class="docutils literal"><span class="pre">Intellij</span> <span class="pre">IDEA</span></code> -&gt; <code class="docutils literal"><span class="pre">Preferences</span></code> -&gt; <code class="docutils literal"><span class="pre">Build,</span> <span class="pre">Execution,</span> <span class="pre">Deployment</span></code> -&gt; <code class="docutils literal"><span class="pre">Build</span> <span class="pre">Tools</span></code> -&gt; <code class="docutils literal"><span class="pre">Gradle</span></code></li>
+</ul>
+</li>
+<li>Enabling <code class="docutils literal"><span class="pre">Use</span> <span class="pre">Auto-import</span></code> in the same location will allow change to the gradle configuration to
+automatically reload without IDEA prompting you each time.</li>
+<li>Upon enabling those settings, a <code class="docutils literal"><span class="pre">/src/main/java</span></code> directory should be created, where you can
+start creating your main plugin code files.</li>
+</ul>
+<div class="section" id="editing-the-build-script">
+<h3>Editing the Build Script<a class="headerlink" href="#editing-the-build-script" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Open <code class="docutils literal"><span class="pre">build.gradle</span></code> in the navigator and add the dependencies.</li>
+<li>Edit the build script according to the instructions at <a class="reference internal" href="../project/gradle.html"><span class="doc">Setting Up Gradle</span></a>.</li>
+<li>Open the <strong>Gradle tab</strong> on the right of the IntelliJ window and hit the refresh button.</li>
+<li>Gradle setup is done! Now you can start coding your plugin.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="creating-a-plugin-from-scratch-maven">
+<span id="maven"></span><h2>Creating a Plugin from Scratch – Maven<a class="headerlink" href="#creating-a-plugin-from-scratch-maven" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="creating-your-project">
+<h3>Creating Your Project<a class="headerlink" href="#creating-your-project" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Open <strong>IntelliJ IDEA</strong>.</li>
+<li>Click <code class="docutils literal"><span class="pre">Create</span> <span class="pre">New</span> <span class="pre">Project</span></code>.</li>
+<li>Select <code class="docutils literal"><span class="pre">Maven</span></code> in the popup.</li>
+<li>Make sure your <strong>Project SDK</strong> is set to some version of Java 8/1.8.</li>
+<li>Click <code class="docutils literal"><span class="pre">Next</span></code> to move on.</li>
+<li>Enter your <strong>Group ID</strong>, <strong>Artifact ID</strong>, and <strong>Version</strong>.<ul>
+<li>Your <strong>Group ID</strong> should usually correspond to your Java package name. See <a class="reference internal" href="../plugin-class.html"><span class="doc">Main Plugin Class</span></a> for details.</li>
+<li>Your <strong>Artifact ID</strong> should usually correspond to your <strong>plugin ID</strong> you chose earlier, e.g. <code class="docutils literal"><span class="pre">myplugin</span></code>.</li>
+<li>Your <strong>Version</strong> is up to you. See <a class="reference internal" href="../project/version-numbers.html"><span class="doc">Version Numbers</span></a> for details.</li>
+</ul>
+</li>
+<li>Click <code class="docutils literal"><span class="pre">Next</span></code>.</li>
+<li>Enter your project’s name, and click <code class="docutils literal"><span class="pre">Finish</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>Editing the Project Configuration<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Open <code class="docutils literal"><span class="pre">pom.xml</span></code> in the navigator.</li>
+<li>Edit the build configuration according to the instructions at <a class="reference internal" href="../project/maven.html"><span class="doc">Setting Up Maven</span></a>.</li>
+<li>Refresh your Maven project.</li>
+<li>Import the Maven changes, if prompted.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="testing-your-plugin">
+<h2>Testing Your Plugin<a class="headerlink" href="#testing-your-plugin" title="Permalink to this headline">¶</a></h2>
+<p>The following instructions are a quick way to test your plugin, but won’t be the most efficient way
+to iteratively develop.</p>
+<p>To make a <code class="docutils literal"><span class="pre">.jar</span></code> file, using Gradle:</p>
+<ul class="simple">
+<li>Go to <code class="docutils literal"><span class="pre">View</span></code> -&gt; <code class="docutils literal"><span class="pre">Tool</span> <span class="pre">Windows</span></code> -&gt; <code class="docutils literal"><span class="pre">Gradle</span></code></li>
+<li>Under <code class="docutils literal"><span class="pre">Tasks</span></code> -&gt; <code class="docutils literal"><span class="pre">Build</span></code>, click on <code class="docutils literal"><span class="pre">jar</span></code></li>
+<li>The build process should create the jar underneath <code class="docutils literal"><span class="pre">build\libs</span></code></li>
+</ul>
+<p>To make a <code class="docutils literal"><span class="pre">.jar</span></code> file, using Maven:</p>
+<ul class="simple">
+<li>Go to <code class="docutils literal"><span class="pre">View</span></code> -&gt; <code class="docutils literal"><span class="pre">Tool</span> <span class="pre">Windows</span></code> -&gt; <code class="docutils literal"><span class="pre">Maven</span> <span class="pre">Projects</span></code></li>
+<li>In the <code class="docutils literal"><span class="pre">Maven</span> <span class="pre">Projects</span></code> window, expand your project’s name</li>
+<li>Under <code class="docutils literal"><span class="pre">Plugins</span></code>, expand <code class="docutils literal"><span class="pre">jar</span></code></li>
+<li>Double click <code class="docutils literal"><span class="pre">jar:jar</span></code></li>
+<li>The build process should create the jar underneath <code class="docutils literal"><span class="pre">target</span></code></li>
+</ul>
+<p>Copy your jar file to the <code class="docutils literal"><span class="pre">mods</span></code> directory of a working Sponge server, then restart the server to test.</p>
+<p>For a more efficient development process, see <a class="reference internal" href="../debugging.html"><span class="doc">Plugin Debugging</span></a> for instructions on running both
+the Sponge server and your plugin from within IDEA.  This process allows for hot-swapping, allowing
+you to change plugin code without restarting the server.</p>
+</div>
+<div class="section" id="importing-an-existing-project-gradle-or-maven">
+<h2>Importing An Existing Project (Gradle or Maven)<a class="headerlink" href="#importing-an-existing-project-gradle-or-maven" title="Permalink to this headline">¶</a></h2>
+<p>If you’ve already started with your project and want to import it again at a later point you need to import it instead
+of re-creating it inside your IDE:</p>
+<ul class="simple">
+<li>Click <code class="docutils literal"><span class="pre">File</span> <span class="pre">&gt;</span> <span class="pre">Open</span></code> or <code class="docutils literal"><span class="pre">Import</span> <span class="pre">Project</span></code>.</li>
+<li><strong>Gradle</strong>: Navigate to the project’s <code class="docutils literal"><span class="pre">build.gradle</span></code> file and select it.</li>
+<li><strong>Maven</strong>: Navigate to the project’s <code class="docutils literal"><span class="pre">pom.xml</span></code> file and select it.</li>
+<li>Make sure the settings are as you desire and click <code class="docutils literal"><span class="pre">Ok</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="git-integration">
+<h2>Git Integration<a class="headerlink" href="#git-integration" title="Permalink to this headline">¶</a></h2>
+<p>JetBrains offers in-depth documentation on using their Git integration:</p>
+<p><a class="reference external" href="https://www.jetbrains.com/help/idea/using-git-integration.html">https://www.jetbrains.com/help/idea/using-git-integration.html</a></p>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="eclipse.html" class="btn btn-neutral float-right" title="Setting Up Eclipse" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="index.html" class="btn btn-neutral" title="Setting Up Your Workspace" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.1.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/Staff-shuffle-again/source/plugin/workspace/idea.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/Staff-shuffle-again/source/plugin/workspace/idea.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'7.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../../_static/jquery.js"></script>      <script type="text/javascript" src="../../_static/underscore.js"></script>      <script type="text/javascript" src="../../_static/doctools.js"></script>      <script type="text/javascript" src="../../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>
