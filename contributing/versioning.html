@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Versioning System and Repository Branch Layout &mdash; Sponge 7.1.0 documentation</title>
+  <title>Repository Branch Layout &mdash; Sponge 7.1.0 documentation</title>
 
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
 
@@ -75,6 +75,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../server/index.html">Creating a Server</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../preparing/index.html">Preparing for Development</a></li>
 </ul>
 <ul>
@@ -90,7 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="implementation/index.html">Developing Sponge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="spongedocs.html">SpongeDocs Writing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="porting.html">Porting Sponge to Other Platforms</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Versioning System and Repository Branch Layout</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Repository Branch Layout</a></li>
 </ul>
 </li>
 </ul>
@@ -119,7 +122,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
           <li><a href="index.html">Contributing to Sponge</a> &raquo;</li>
-    <li>Versioning System and Repository Branch Layout</li>
+    <li>Repository Branch Layout</li>
       <li class="wy-breadcrumbs-aside">
             <a href="https://github.com/SpongePowered/SpongeDocs/blob/update-config/source/contributing/versioning.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -127,32 +130,18 @@
   <hr/>
 </div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-  <div class="section" id="versioning-system-and-repository-branch-layout">
-<h1>Versioning System and Repository Branch Layout<a class="headerlink" href="#versioning-system-and-repository-branch-layout" title="Permalink to this headline">¶</a></h1>
-<p>With the release for beta we’ve moved SpongeAPI versioning to semantic versioning (see <a class="reference external" href="https://semver.org/">https://semver.org/</a>).
-This change means that every time that we make a release we have to increment the version according to the rules
-of SemVer.</p>
-<div class="section" id="semver">
-<h2>SemVer<a class="headerlink" href="#semver" title="Permalink to this headline">¶</a></h2>
-<p>SemVer uses the scheme <code class="docutils literal"><span class="pre">X.Y.Z</span></code>, where <code class="docutils literal"><span class="pre">X</span></code> is a <em>major</em> version, <code class="docutils literal"><span class="pre">Y</span></code> is a <em>minor</em> one and <code class="docutils literal"><span class="pre">Z</span></code> finally is a
-<em>patch</em> version.
-A release containing changes which are not backwards-compatible must be one <em>major</em> version ahead of the previous
-release. If there are only new features that are still backwards compatible, then the new release will be one <em>minor</em>
-version ahead of the previous release, and if the release strictly contains bugfixes then only the <em>patch</em> version will
-be incremented.</p>
-<p>This means that for example <code class="docutils literal"><span class="pre">3.2.0</span></code> is fully compatible to <code class="docutils literal"><span class="pre">3.0.0</span></code> while <code class="docutils literal"><span class="pre">4.0.0</span></code> isn’t binary compatible to
-<code class="docutils literal"><span class="pre">3.0.0</span></code>. <code class="docutils literal"><span class="pre">3.1.0</span></code> and <code class="docutils literal"><span class="pre">3.1.2</span></code> are fully interchangeable besides the bugs that were fixed.</p>
-<p>The layout of our branches (described below) is designed to assist this process by allowing us to make minor releases
-without a breaking change forcing us to make it a major release. This branch layout applies to SpongeAPI,
+  <div class="section" id="repository-branch-layout">
+<h1>Repository Branch Layout<a class="headerlink" href="#repository-branch-layout" title="Permalink to this headline">¶</a></h1>
+<p>The layout of our branches is designed to assist <a class="reference internal" href="../versions/versioning.html#sem-ver"><span class="std std-ref">semantic versioning</span></a> by allowing us to make minor
+releases without a breaking change forcing us to make it a major release. This branch layout applies to SpongeAPI,
 SpongeCommon, SpongeForge, and SpongeVanilla repositories but not to the SpongeDocs.</p>
-</div>
 <div class="section" id="spongeapi-spongecommon-spongeforge-and-spongevanilla">
 <h2>SpongeAPI, SpongeCommon, SpongeForge and SpongeVanilla<a class="headerlink" href="#spongeapi-spongecommon-spongeforge-and-spongevanilla" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="the-bleeding-branch">
 <h3>The Bleeding Branch<a class="headerlink" href="#the-bleeding-branch" title="Permalink to this headline">¶</a></h3>
 <p>The core of our repositories is the <code class="docutils literal"><span class="pre">bleeding</span></code> branch. Almost all changes will be added to <code class="docutils literal"><span class="pre">bleeding</span></code>, including
 new features, changes, and bugfixes. The version of <code class="docutils literal"><span class="pre">bleeding</span></code> will always be the next major release version
-appended with <code class="docutils literal"><span class="pre">-SNAPSHOT</span></code> (e.g. <code class="docutils literal"><span class="pre">6.0.0-SNAPSHOT</span></code>) to denote that it is not yet a final build and subject to change.</p>
+appended with <code class="docutils literal"><span class="pre">-SNAPSHOT</span></code> (e.g. <code class="docutils literal"><span class="pre">7.0.0-SNAPSHOT</span></code>) to denote that it is not yet a final build and subject to change.</p>
 <p>The primary reason for having the <code class="docutils literal"><span class="pre">bleeding</span></code> branch is to have a testing ground for changes. Even experienced
 members of the Sponge team can accidentally cause a build to fail or miss a bug. The <code class="docutils literal"><span class="pre">bleeding</span></code> branch will be
 tested by people in the community that want the very latest, and it means that we can fix bugs that arise far more
@@ -164,7 +153,7 @@ readily.</p>
 will be no breakages to API, only non-breaking additions. There is a branch named after each major API release, which
 contains the latest API/implementation for that release including any minor or patch releases.</p>
 <p>When the time comes to release a major version, a new <code class="docutils literal"><span class="pre">stable-x</span></code> branch will be created from <code class="docutils literal"><span class="pre">bleeding</span></code>, where
-<code class="docutils literal"><span class="pre">x</span></code> is the new major version - for example, <code class="docutils literal"><span class="pre">stable-5</span></code>. <code class="docutils literal"><span class="pre">bleeding</span></code> will be appropriately updated to be the next
+<code class="docutils literal"><span class="pre">x</span></code> is the new major version - for example, <code class="docutils literal"><span class="pre">stable-7</span></code>. <code class="docutils literal"><span class="pre">bleeding</span></code> will be appropriately updated to be the next
 major release as described above.</p>
 <p>Changes that have been in <code class="docutils literal"><span class="pre">bleeding</span></code> for a while, which have no known bugs, and that can be applied to a previous
 major release will be cherry-picked to the relevant <code class="docutils literal"><span class="pre">stable</span></code> branch for future release. Changes will be grouped into
