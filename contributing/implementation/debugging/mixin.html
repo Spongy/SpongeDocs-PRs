@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debugging Mixin &mdash; Sponge 7.1.0 documentation</title>
+
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../../../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>        <link rel="search" title="Search" href="../../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../../index.html"/>        <link rel="up" title="Debugging Sponge" href="index.html"/>        <link rel="next" title="Debugging Tools" href="tools.html"/>        <link rel="prev" title="Common Issues When Debugging" href="issues.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../../index.html">
+            <img src="../../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugin/index.html">Creating a Plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Contributing to Sponge</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../guidelines.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../howtogit.html">How to Git(Hub)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Developing Sponge</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../codestyle.html">Code Style</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-implementation.html">Git Workflow for API and Implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pr.html">Submitting a Pull-Request</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Debugging Sponge</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="git.html">Git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ide.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="testing.html">Testing Plugins or Mods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="issues.html">Common Issues When Debugging</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Debugging Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tools.html">Debugging Tools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="more.html">More Information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datamanipulator.html">Implementing DataManipulators</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../spongedocs.html">SpongeDocs Writing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../porting.html">Porting Sponge to Other Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../versioning.html">Repository Branch Layout</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+          <li><a href="../../index.html">Contributing to Sponge</a> &raquo;</li>
+          <li><a href="../index.html">Developing Sponge</a> &raquo;</li>
+          <li><a href="index.html">Debugging Sponge</a> &raquo;</li>
+    <li>Debugging Mixin</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/fix-config-field-type/source/contributing/implementation/debugging/mixin.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="debugging-mixin">
+<h1>Debugging Mixin<a class="headerlink" href="#debugging-mixin" title="Permalink to this headline">¶</a></h1>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The <strong>Mixins</strong> section of <a class="reference internal" href="../../../plugin/practices/best.html"><span class="doc">Best Practices</span></a> has a discussion on mixins, coremods, and other low-level
+definitions.</p>
+</div>
+<p><a class="reference external" href="https://github.com/SpongePowered/Mixin">Spongepowered Mixin</a> is the subsystem that allows SpongeAPI and other
+programs to interface with Minecraft. This article is not to provide a comprehensive explanation of Mixin. Please see
+<a class="reference external" href="https://github.com/SpongePowered/Mixin/wiki">Mixin’s wiki</a> for its documentation and support options.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Mixin has its own repository which you can clone and import into IntelliJ to find error messages and research
+problems. Alternatively, you can specify your local clone of the Mixin repository as a Module in the Project
+Settings of your Sponge implementation and debug Mixin.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>By default, a directory named <code class="docutils literal"><span class="pre">.mixin.out</span></code> is created in the <code class="docutils literal"><span class="pre">run</span></code> directory. The directory contains a sub-directory
+named <code class="docutils literal"><span class="pre">audit</span></code> with empty reports in text and comma-separated-values formatted files. These files are used if the
+<code class="docutils literal"><span class="pre">mixin.checks.interfaces</span></code> option is enabled.</p>
+<p>However, Mixin supports <em>Java System Properties</em> to enable various debugging and auditing features. There are times
+when you may need or want to see the results of the process. You can see the mixin output by supplying <strong>one</strong> of the
+following VM options:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">-Dmixin.debug=true</span></code></td>
+<td>Turns on all debugging features</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">-Dmixin.debug.export=true</span></code></td>
+<td>Turns on only the feature that sends the output to disk</td>
+</tr>
+</tbody>
+</table>
+<p>In IntelliJ, open the <code class="docutils literal"><span class="pre">Run/Debug</span> <span class="pre">Configurations</span></code> window by clicking on <code class="docutils literal"><span class="pre">Run</span></code> -&gt; <code class="docutils literal"><span class="pre">Edit</span> <span class="pre">Configurations...</span></code>. Be sure
+to add the options to the appropriate application (<code class="docutils literal"><span class="pre">Minecraft</span> <span class="pre">Client</span></code>, <code class="docutils literal"><span class="pre">Minecraft</span> <span class="pre">Server</span></code>, or both).</p>
+<p>A new directory named <code class="docutils literal"><span class="pre">classes</span></code> is created in the <code class="docutils literal"><span class="pre">.mixin.out</span></code> directory when one of these options is used. This
+directory contains the new class content from the mixin process in a standard package/class structure.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">These options are not contingent upon having cloned the Mixin repository, adding Mixin as a module, or using the
+Minecraft Development for IntelliJ plugin by DemonWav.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">See <a class="reference external" href="https://github.com/SpongePowered/Mixin/wiki/Mixin-Java-System-Properties">Mixin Java System Properties</a>
+for more mixin VM options with explanations for each option.</p>
+</div>
+</div>
+<div class="section" id="decompiling">
+<h2>Decompiling<a class="headerlink" href="#decompiling" title="Permalink to this headline">¶</a></h2>
+<p>There are a several ways to view the class files from the mixin process.</p>
+<ul>
+<li><p class="first">IDE</p>
+<p>Opening the file in your IDE will decompile it and display the source code</p>
+</li>
+<li><p class="first">Fernflower</p>
+<p>Having the fernflower jar on your runtime classpath will cause the class files to be decompiled as they are created.</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://jd.benow.ca/">JD-Gui</a> is a standalone graphical utility that displays Java source codes of class files.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="phases-and-environments">
+<h2>Phases And Environments<a class="headerlink" href="#phases-and-environments" title="Permalink to this headline">¶</a></h2>
+<p>Important to understanding Mixin is knowing that game execution is split into two distinct phases: <code class="docutils literal"><span class="pre">pre-init</span></code> and
+<code class="docutils literal"><span class="pre">default</span></code>. The <code class="docutils literal"><span class="pre">pre-init</span></code> phase occurs between starting the game (running a command, script, double-clicking a
+shortcut, clicking a “launch” button or whatever method you use to tell your computer to run Minecraft) and launching
+the game (all modifications are complete and the game starts up and enters its main loop). The <code class="docutils literal"><span class="pre">default</span></code> phase begins
+when the game is in its “ready to be loaded” state and is the same as simply launching Minecraft.</p>
+<p>Changes occur to infrastructure classes (loader, transformers, etc.) during the <code class="docutils literal"><span class="pre">pre-init</span></code> phase. Mixin also gathers
+information pertaining to all other mixins during the <code class="docutils literal"><span class="pre">pre-init</span></code> phase and applies them during the <code class="docutils literal"><span class="pre">default</span></code> phase.</p>
+<p>Phases are handled by separating them into environments, where the <code class="docutils literal"><span class="pre">pre-init</span></code> <strong>phase</strong> is the <code class="docutils literal"><span class="pre">PREINIT</span></code>
+<strong>environment</strong> and the <code class="docutils literal"><span class="pre">default</span></code> <strong>phase</strong> is the <code class="docutils literal"><span class="pre">DEFAULT</span></code> <strong>environment</strong>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Environments are among the properties specified in mixin configuration files. Examples of how they are specified
+are <code class="docutils literal"><span class="pre">&quot;target&quot;:</span> <span class="pre">&quot;&#64;env(PREINIT)&quot;</span></code> and <code class="docutils literal"><span class="pre">&quot;target&quot;:</span> <span class="pre">&quot;&#64;env(DEFAULT)&quot;</span></code></p>
+</div>
+</div>
+<div class="section" id="configurations">
+<h2>Configurations<a class="headerlink" href="#configurations" title="Permalink to this headline">¶</a></h2>
+<p>The primary resource Mixin requires is the configuration file(s). Each configuration file defines a mixin set - the
+mixins to be applied with that configuration. Any mixin not specified by a configuration is not applied even though the
+mixin may exist in the code. An application may have one to many sets; however, each set <strong>must</strong> contain mixins for
+only <strong>one</strong> environment. Another reason to separate configurations into multiple files is for organizational purposes.</p>
+<p>Each mixin set (configuration file) is subdivided into three discrete areas: common, client, and server. The common
+mixins are mixed first followed by client <strong>or</strong> server, depending on the detected <em>side</em>.</p>
+</div>
+<div class="section" id="who-started-it">
+<h2>Who Started It?<a class="headerlink" href="#who-started-it" title="Permalink to this headline">¶</a></h2>
+<p>The Mixin subsystem interacts with all programs through a single instance of the subsystem, regardless of file, author,
+or organization. Yet, only one <strong>starts</strong> the subsystem, and it determines which version of Mixin is used. A problem
+occurs many times because an older version of Mixin is started. So, the order in which files are launched is important.
+Ideally, Sponge should launch first after Forge and before other tweakers and coremods.</p>
+</div>
+<div class="section" id="a-broken-mixin">
+<h2>A Broken Mixin<a class="headerlink" href="#a-broken-mixin" title="Permalink to this headline">¶</a></h2>
+<p>The game will crash when a class cannot be loaded, and this condition is known as a broken mixin. A broken mixin
+generally means a problem exists with the annotations and/or signature. For example, consider the following log
+snippet:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>MixinSpongeSmeltingRecipe.java:41: error: No obfuscation mapping for @Overwrite method
+    default String getId() {
+                   ^
+</pre></div>
+</div>
+<p>This error was corrected by changing the <code class="docutils literal"><span class="pre">&#64;Overwrite</span></code> annotation to <code class="docutils literal"><span class="pre">&#64;Overwrite(remap</span> <span class="pre">=</span> <span class="pre">false)</span></code>. The
+remap element set to <em>false</em> causes the annotation processor to skip this annotation when attempting to build the
+obfuscation table for the mixin.</p>
+<p>Analysis of the source code might lead one to think the <code class="docutils literal"><span class="pre">default</span></code> keyword in the method declaration is the problem.
+Changing the keyword to <code class="docutils literal"><span class="pre">static</span></code> results in the following log snippet:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>MixinSpongeSmeltingRecipe.java:41: error: getId() in MixinSpongeSmeltingRecipe clashes with getId() in
+    static String getId() {
+                  ^
+  overriding method is static
+
+MixinSpongeSmeltingRecipe.java:40: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+
+MixinSpongeSmeltingRecipe.java:42: error: non-static variable this cannot be referenced from a static context
+        return CustomSmeltingRecipeIds.getDefaultId((SmeltingRecipe) this);
+                                                                     ^
+</pre></div>
+</div>
+<p>As you can see, three different errors occurred instead of the one error. The correct fix was adding the <code class="docutils literal"><span class="pre">remap</span></code>
+element as described above. Keep in mind, though, the point of this example is not to show how to solve this problem,
+but to demonstrate what a broken mixin looks like and to point out that most broken mixins are the result of incorrect
+annotations or signatures.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>See the Mixin Wiki for a description on <a class="reference external" href="https://github.com/SpongePowered/Mixin/wiki/Introduction-to-Mixins---Understanding-Mixin-Architecture#2-through-the-looking-glass">methods’ signatures</a></p>
+<p class="last">This section will be expanded in the future to list common causes of broken mixins and the solutions to fix them.
+If you feel like you can help, you can do so on <a class="reference external" href="https://github.com/spongepowered/spongedocs">our GitHub repository</a>.</p>
+</div>
+</div>
+<div class="section" id="minecraft-development-for-intellij">
+<h2>Minecraft Development for IntelliJ<a class="headerlink" href="#minecraft-development-for-intellij" title="Permalink to this headline">¶</a></h2>
+<p>A useful tool for working with Mixin is the <a class="reference external" href="https://github.com/minecraft-dev/MinecraftDev">Minecraft Development</a>
+plugin for IntelliJ. You can debug and step through mixin code without having to deal with outputted class files from
+the mixin class loader.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The plugin’s <a class="reference external" href="https://minecraftdev.org/">website</a> provides information about installing and support options. A
+link to its GitHub repository is also provided where you can contribute and/or learn more about the project.</p>
+</div>
+<div class="section" id="installing">
+<h3>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h3>
+<p>To use the plugin without cloning the source:</p>
+<ol class="arabic simple">
+<li>Open <code class="docutils literal"><span class="pre">File</span> <span class="pre">-&gt;</span> <span class="pre">Settings</span> <span class="pre">-&gt;</span> <span class="pre">Plugins</span></code> and select <code class="docutils literal"><span class="pre">Marketplace</span></code>.</li>
+<li>Search for <em>minecraft</em> in the search bar and select <code class="docutils literal"><span class="pre">Minecraft</span> <span class="pre">Development</span> <span class="pre">by</span> <span class="pre">DemonWav</span></code>.</li>
+<li>Click the <code class="docutils literal"><span class="pre">Install</span></code> button (do <strong>not</strong> restart IntelliJ <em>yet</em>).</li>
+<li>Go to <a class="reference external" href="https://github.com/minecraft-dev/MinecraftDev">https://github.com/minecraft-dev/MinecraftDev</a> and download a ZIP file of the repository.</li>
+<li>Do <strong>one</strong> of the following:<ul>
+<li>Open your program of choice for extracting zip files. Navigate to the <code class="docutils literal"><span class="pre">idea-configs</span></code> directory and copy/extract
+<strong>the contents</strong> of that directory to the <code class="docutils literal"><span class="pre">.idea</span></code> directory of your Sponge workspace.</li>
+<li>Extract the zip file to a location on your drive.  Navigate to the <code class="docutils literal"><span class="pre">idea-configs</span></code> directory and copy <strong>the
+contents</strong> of that directory to the <code class="docutils literal"><span class="pre">.idea</span></code> directory of your Sponge workspace.</li>
+</ul>
+</li>
+<li>Restart IntelliJ</li>
+</ol>
+<p>The plugin will now be active and your project will have useful configurations and copyright settings.</p>
+</div>
+<div class="section" id="using">
+<h3>Using<a class="headerlink" href="#using" title="Permalink to this headline">¶</a></h3>
+<p>Coming soon!</p>
+</div>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="tools.html" class="btn btn-neutral float-right" title="Debugging Tools" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="issues.html" class="btn btn-neutral" title="Common Issues When Debugging" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.1.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/fix-config-field-type/source/contributing/implementation/debugging/mixin.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/fix-config-field-type/source/contributing/implementation/debugging/mixin.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'7.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../../../_static/jquery.js"></script>      <script type="text/javascript" src="../../../_static/underscore.js"></script>      <script type="text/javascript" src="../../../_static/doctools.js"></script>      <script type="text/javascript" src="../../../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>
