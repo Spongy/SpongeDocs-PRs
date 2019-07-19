@@ -1,0 +1,1204 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>global.conf &mdash; Sponge 7.1.0 documentation</title>
+
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../../../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>        <link rel="search" title="Search" href="../../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../../index.html"/>        <link rel="up" title="Configuring Sponge" href="index.html"/>        <link rel="next" title="Introduction to HOCON" href="hocon.html"/>        <link rel="prev" title="Configuring Sponge" href="index.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../../index.html">
+            <img src="../../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Creating a Server</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Getting Started</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../jre.html">Installing Java</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../migrating.html">Migrating to Sponge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../implementations/index.html">Choosing an Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../launch-script.html">Creating a Launch Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../port-forward.html">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bungeecord.html">Using Sponge with BungeeCord</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Configuring Sponge</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">global.conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hocon.html">Introduction to HOCON</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../management/index.html">Server Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../spongineer/index.html">Becoming an Expert Spongineer</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugin/index.html">Creating a Plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+          <li><a href="../../index.html">Creating a Server</a> &raquo;</li>
+          <li><a href="../index.html">Getting Started</a> &raquo;</li>
+          <li><a href="index.html">Configuring Sponge</a> &raquo;</li>
+    <li>global.conf</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/dependabot/npm_and_yarn/lodash-4.17.15/source/server/getting-started/configuration/sponge-conf.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="global-conf">
+<h1>global.conf<a class="headerlink" href="#global-conf" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="global-configuration">
+<h2>Global Configuration<a class="headerlink" href="#global-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The global.conf file contains the global configuration settings for Sponge. This file is created in the config/sponge
+directory in your server folder. Many of these properties can be also overridden per-world or per-dimension type by
+using the config files in the subfolders of config/worlds.</p>
+<p>Below is a list of available config settings and their comments inside the global.conf file. Note that certain sections
+will not be filled immediately, and may optionally be added to the file when the server encounters them. There’s also
+full example of an unmodified <code class="docutils literal notranslate"><span class="pre">global.conf</span></code> file at the bottom of this page, below the following list:</p>
+</div>
+<div class="section" id="global-properties-of-sponge">
+<h2>Global Properties of Sponge<a class="headerlink" href="#global-properties-of-sponge" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="block-capturing">
+<h3>block-capturing<a class="headerlink" href="#block-capturing" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>auto-populate</dt>
+<dd>If ‘true’, newly discovered blocks will be added to this config with a default value.</dd>
+<dt>mods</dt>
+<dd>Per-mod block id mappings for controlling capturing behavior</dd>
+<dt>block-tick-capturing</dt>
+<dd>If ‘true’, individual capturing (i.e. skip bulk capturing) for scheduled ticks for
+a block type will be performed.</dd>
+<dt>enabled</dt>
+<dd>If ‘false’, all specific rules for this mod will be ignored.</dd>
+<dt>block-tick-capturing</dt>
+<dd>If ‘true’, individual capturing (i.e. skip bulk capturing) for scheduled ticks for
+a block type will be performed.</dd>
+</dl>
+</div>
+<div class="section" id="block-tracking">
+<h3>block-tracking<a class="headerlink" href="#block-tracking" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>block-blacklist</dt>
+<dd>Block IDs that will be blacklisted for player block placement tracking.</dd>
+<dt>enabled</dt>
+<dd>If ‘true’, adds player tracking support for block positions.
+Note: This should only be disabled if you do not care who caused a block to change.</dd>
+</dl>
+</div>
+<div class="section" id="bungeecord">
+<h3>bungeecord<a class="headerlink" href="#bungeecord" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>ip-forwarding</dt>
+<dd>If ‘true’, allows BungeeCord to forward IP address, UUID, and Game Profile to this server.</dd>
+</dl>
+</div>
+<div class="section" id="cause-tracker">
+<h3>cause-tracker<a class="headerlink" href="#cause-tracker" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>capture-async-spawning-entities</dt>
+<dd>If set to ‘true’, when a mod or plugin attempts to spawn an entity
+off the main server thread, Sponge will automatically
+capture said entity to spawn it properly on the main
+server thread. The catch to this is that some mods are
+not considering the consequences of spawning an entity
+off the server thread, and are unaware of potential race
+conditions they may cause. If this is set to false,
+Sponge will politely ignore the entity being spawned,
+and emit a warning about said spawn anyways.</dd>
+<dt>generate-stacktrace-per-phase</dt>
+<dd>If ‘true’, more thorough debugging for PhaseStates
+such that a StackTrace is created every time a PhaseState
+switches, allowing for more fine grained troubleshooting
+in the cases of runaway phase states. Note that this is
+not extremely performant and may have some associated costs
+with generating the stack traces constantly.</dd>
+<dt>maximum-printed-runaway-counts</dt>
+<dd>If verbose is not enabled, this restricts the amount of
+runaway phase state printouts, usually happens on a server
+where a PhaseState is not completing. Although rare, it should
+never happen, but when it does, sometimes it can continuously print
+more and more. This attempts to placate that while a fix can be worked on
+to resolve the runaway. If verbose is enabled, they will always print.</dd>
+<dt>verbose</dt>
+<dd>If ‘true’, the phase tracker will print out when there are too many phases
+being entered, usually considered as an issue of phase re-entrance and
+indicates an unexpected issue of tracking phases not to complete.
+If this is not reported yet, please report to Sponge. If it has been
+reported, you may disable this.</dd>
+<dt>verbose-errors</dt>
+<dd>If ‘true’, the phase tracker will dump extra information about the current phases
+when certain non-PhaseTracker related exceptions occur. This is usually not necessary, as the information
+in the exception itself can normally be used to determine the cause of the issue</dd>
+</dl>
+</div>
+<div class="section" id="commands">
+<h3>commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>aliases</dt>
+<dd>Command aliases will resolve conflicts when multiple plugins request a specific command,
+Correct syntax is &lt;unqualified command&gt;=&lt;plugin name&gt; e.g. “sethome=homeplugin”</dd>
+<dt>multi-world-patches</dt>
+<dd>Patches the specified commands to respect the world of the sender instead of applying the
+changes on the all worlds.</dd>
+<dt>config-enabled</dt>
+<dd>This setting does nothing in the global config. In dimension/world configs, it allows the config
+to override config(s) that it inherits from</dd>
+</dl>
+</div>
+<div class="section" id="debug">
+<h3>debug<a class="headerlink" href="#debug" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>concurrent-entity-checks</dt>
+<dd>Detect and prevent certain attempts to use entities concurrently.
+WARNING: May drastically decrease server performance. Only set this to ‘true’ to debug a pre-existing issue.</dd>
+<dt>dump-chunks-on-deadlock</dt>
+<dd>Dump chunks in the event of a deadlock</dd>
+<dt>dump-heap-on-deadlock</dt>
+<dd>Dump the heap in the event of a deadlock</dd>
+<dt>dump-threads-on-warn</dt>
+<dd>Dump the server thread on deadlock warning</dd>
+<dt>thread-contention-monitoring</dt>
+<dd>If ‘true’, Java’s thread contention monitoring for thread dumps is enabled.</dd>
+</dl>
+</div>
+<div class="section" id="entity">
+<h3>entity<a class="headerlink" href="#entity" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>collision-warn-size</dt>
+<dd>Number of colliding entities in one spot before logging a warning. Set to 0 to disable</dd>
+<dt>count-warn-size</dt>
+<dd>Number of entities in one dimension before logging a warning. Set to 0 to disable</dd>
+<dt>entity-painting-respawn-delay</dt>
+<dd>Number of ticks before a painting is respawned on clients when their art is changed</dd>
+<dt>human-player-list-remove-delay</dt>
+<dd>Number of ticks before the fake player entry of a human is removed from the tab list (range of 0 to 100 ticks).</dd>
+<dt>item-despawn-rate</dt>
+<dd>Controls the time in ticks for when an item despawns.</dd>
+<dt>living-hard-despawn-range</dt>
+<dd>The upper bounded range where living entities farther from a player will likely despawn</dd>
+<dt>living-soft-despawn-minimum-life</dt>
+<dd>The amount of seconds before a living entity between the soft and hard despawn ranges from a player to be considered for despawning</dd>
+<dt>living-soft-despawn-range</dt>
+<dd>The lower bounded range where living entities near a player may potentially despawn</dd>
+<dt>max-bounding-box-size</dt>
+<dd>Maximum size of an entity’s bounding box before removing it. Set to 0 to disable</dd>
+<dt>max-speed</dt>
+<dd>Square of the maximum speed of an entity before removing it. Set to 0 to disable</dd>
+</dl>
+</div>
+<div class="section" id="entity-activation-range">
+<h3>entity-activation-range<a class="headerlink" href="#entity-activation-range" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>auto-populate</dt>
+<dd>If ‘true’, newly discovered entities will be added to this config with a default value.</dd>
+<dt>defaults</dt>
+<dd>Default activation ranges used for all entities unless overridden.</dd>
+<dt>mods</dt>
+<dd>Per-mod overrides. Refer to the minecraft default mod for example.</dd>
+</dl>
+</div>
+<div class="section" id="entity-collisions">
+<h3>entity-collisions<a class="headerlink" href="#entity-collisions" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>auto-populate</dt>
+<dd>If ‘true’, newly discovered entities/blocks will be added to this config with a default value.</dd>
+<dt>defaults</dt>
+<dd>Default maximum collisions used for all entities/blocks unless overridden.</dd>
+<dt>max-entities-within-aabb</dt>
+<dd>Maximum amount of entities any given entity or block can collide with. This improves
+performance when there are more than 8 entities on top of each other such as a 1x1
+spawn pen. Set to 0 to disable.</dd>
+<dt>mods</dt>
+<dd>Per-mod overrides. Refer to the minecraft default mod for example.</dd>
+<dt>defaults</dt>
+<dd>Default maximum collisions used for all entities/blocks unless overridden.</dd>
+<dt>enabled</dt>
+<dd>If ‘false’, entity collision rules for this mod will be ignored.</dd>
+<dt>defaults</dt>
+<dd>Default maximum collisions used for all entities/blocks unless overridden.</dd>
+<dt>enabled</dt>
+<dd>If ‘false’, entity collision rules for this mod will be ignored.</dd>
+</dl>
+</div>
+<div class="section" id="exploits">
+<h3>exploits<a class="headerlink" href="#exploits" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>prevent-creative-itemstack-name-exploit</dt>
+<dd>Prevents an exploit in which the client sends a packet with the
+itemstack name exceeding the string limit.</dd>
+<dt>prevent-sign-command-exploit</dt>
+<dd>Prevents an exploit in which the client sends a packet to update a sign containing
+commands from a player without permission.</dd>
+</dl>
+</div>
+<div class="section" id="general">
+<h3>general<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>config-dir</dt>
+<dd>The directory for Sponge plugin configurations, relative to the
+execution root or specified as an absolute path.
+Note that the default: “${CANONICAL_GAME_DIR}/config”
+is going to use the “plugins” directory in the root game directory.
+If you wish for plugin configs to reside within a child of the configuration
+directory, change the value to, for example, “${CANONICAL_CONFIG_DIR}/sponge/plugins”.
+Note: It is not recommended to set this to “${CANONICAL_CONFIG_DIR}/sponge”, as there is
+a possibility that plugin configurations can conflict the Sponge core configurations.</dd>
+<dt>disable-warnings</dt>
+<dd>Disable warning messages to server admins</dd>
+<dt>file-io-thread-sleep</dt>
+<dd>If ‘true’, sleeping between chunk saves will be enabled, beware of memory issues.</dd>
+<dt>plugins-dir</dt>
+<dd>Additional directory to search for plugins, relative to the
+execution root or specified as an absolute path.
+Note that the default: “${CANONICAL_MODS_DIR}/plugins”
+is going to search for a plugins folder in the mods directory.
+If you wish for the plugins folder to reside in the root game
+directory, change the value to “${CANONICAL_GAME_DIR}/plugins”.</dd>
+</dl>
+</div>
+<div class="section" id="logging">
+<h3>logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>block-break</dt>
+<dd>Log when blocks are broken</dd>
+<dt>block-modify</dt>
+<dd>Log when blocks are modified</dd>
+<dt>block-place</dt>
+<dd>Log when blocks are placed</dd>
+<dt>block-populate</dt>
+<dd>Log when blocks are populated in a chunk</dd>
+<dt>block-tracking</dt>
+<dd>Log when blocks are placed by players and tracked</dd>
+<dt>chunk-gc-queue-unload</dt>
+<dd>Log when chunks are queued to be unloaded by the chunk garbage collector.</dd>
+<dt>chunk-load</dt>
+<dd>Log when chunks are loaded</dd>
+<dt>chunk-unload</dt>
+<dd>Log when chunks are unloaded</dd>
+<dt>entity-collision-checks</dt>
+<dd>Whether to log entity collision/count checks</dd>
+<dt>entity-death</dt>
+<dd>Log when living entities are destroyed</dd>
+<dt>entity-despawn</dt>
+<dd>Log when living entities are despawned</dd>
+<dt>entity-spawn</dt>
+<dd>Log when living entities are spawned</dd>
+<dt>entity-speed-removal</dt>
+<dd>Whether to log entity removals due to speed</dd>
+<dt>exploit-itemstack-name-overflow</dt>
+<dd>Log when server receives exploited packet with itemstack name exceeding string limit.</dd>
+<dt>exploit-respawn-invisibility</dt>
+<dd>Log when player attempts to respawn invisible to surrounding players.</dd>
+<dt>exploit-sign-command-updates</dt>
+<dd>Log when server receives exploited packet to update a sign containing commands from player with no permission.</dd>
+<dt>log-stacktraces</dt>
+<dd>Add stack traces to dev logging</dd>
+<dt>world-auto-save</dt>
+<dd>Log when a world auto-saves its chunk data. Note: This may be spammy depending on the auto-save-interval configured for world.</dd>
+</dl>
+</div>
+<div class="section" id="metrics-collection">
+<h3>metrics-collection<a class="headerlink" href="#metrics-collection" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>default-permission</dt>
+<dd>Determines whether newly added plugins can collect server metrics by default</dd>
+<dt>plugin-permissions</dt>
+<dd>Per-plugin toggles indicating whether a plugin is allowed to collect server metrics</dd>
+</dl>
+</div>
+<div class="section" id="modules">
+<h3>modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>movement-checks</dt>
+<dd>Allows configuring Vanilla movement and speed checks</dd>
+<dt>realtime</dt>
+<dd>Use real (wall) time instead of ticks as much as possible</dd>
+<dt>tileentity-activation</dt>
+<dd>Controls block range and tick rate of tileentities.
+Use with caution as this can break intended functionality.</dd>
+</dl>
+</div>
+<div class="section" id="movement-checks">
+<h3>movement-checks<a class="headerlink" href="#movement-checks" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>moved-wrongly</dt>
+<dd>Controls whether the ‘player/entity moved wrongly!’ check will be enforced</dd>
+<dt>player-moved-too-quickly</dt>
+<dd>Controls whether the ‘player moved too quickly!’ check will be enforced</dd>
+<dt>player-vehicle-moved-too-quickly</dt>
+<dd>Controls whether the ‘vehicle of player moved too quickly!’ check will be enforced</dd>
+</dl>
+</div>
+<div class="section" id="optimizations">
+<h3>optimizations<a class="headerlink" href="#optimizations" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>async-lighting</dt>
+<dd>Runs lighting updates asynchronously.</dd>
+<dt>enabled</dt>
+<dd>If ‘true’, lighting updates are run asynchronously.</dd>
+<dt>num-threads</dt>
+<dd>The amount of threads to dedicate for asynchronous lighting updates. (Default: 2)</dd>
+<dt>cache-tameable-owners</dt>
+<dd>Caches tameable entities owners to avoid constant lookups against data watchers. If mods
+cause issues, disable this.</dd>
+<dt>drops-pre-merge</dt>
+<dd>If ‘true’, block item drops are pre-processed to avoid
+having to spawn extra entities that will be merged post spawning.
+Usually, Sponge is smart enough to determine when to attempt an item pre-merge
+and when not to, however, in certain cases, some mods rely on items not being
+pre-merged and actually spawned, in which case, the items will flow right through
+without being merged.</dd>
+<dt>enchantment-helper-leak-fix</dt>
+<dd>If ‘true’, provides a fix for possible leaks through
+Minecraft’s enchantment helper code that can leak
+entity and world references without much interaction
+Forge native (so when running SpongeForge implementation)
+has a similar patch, but Sponge’s patch works a little harder
+at it, but Vanilla (SpongeVanilla implementation) does NOT
+have any of the patch, leading to the recommendation that this
+patch is enabled “for sure” when using SpongeVanilla implementation.
+See <a class="reference external" href="https://bugs.mojang.com/browse/MC-128547">https://bugs.mojang.com/browse/MC-128547</a> for more information.</dd>
+<dt>panda-redstone</dt>
+<dd>If ‘true’, uses Panda4494’s redstone implementation which improves performance.
+See <a class="reference external" href="https://bugs.mojang.com/browse/MC-11193">https://bugs.mojang.com/browse/MC-11193</a> for more information.
+Note: This optimization has a few issues which are explained in the bug report.</dd>
+<dt>structure-saving</dt>
+<dd>Handles structures that are saved to disk. Certain structures can take up large amounts
+of disk space for very large maps and the data for these structures is only needed while the
+world around them is generating. Disabling saving of these structures can save disk space and
+time during saves if your world is already fully generated.
+Warning: disabling structure saving will break the vanilla locate command.</dd>
+<dt>auto-populate</dt>
+<dd>If ‘true’, newly discovered structures will be added to this config with a default value.</dd>
+<dt>mods</dt>
+<dd>Per-mod overrides. Refer to the minecraft default mod for example.</dd>
+<dt>enabled</dt>
+<dd>If ‘false’, this mod will never save its structures.</dd>
+<dt>spawner</dt>
+<dd>Used to control spawn limits around players.
+Note: The radius uses the lower value of mob spawn range and server’s view distance.</dd>
+</dl>
+</div>
+<div class="section" id="spawner">
+<h3>spawner<a class="headerlink" href="#spawner" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>spawn-limit-ambient</dt>
+<dd>The number of ambients the spawner can potentially spawn around a player.</dd>
+<dt>spawn-limit-animal</dt>
+<dd>The number of animals the spawner can potentially spawn around a player.</dd>
+<dt>spawn-limit-aquatic</dt>
+<dd>The number of aquatics the spawner can potentially spawn around a player.</dd>
+<dt>spawn-limit-monster</dt>
+<dd>The number of monsters the spawner can potentially spawn around a player.</dd>
+<dt>tick-rate-ambient</dt>
+<dd>The ambient spawning tick rate. Default: 400</dd>
+<dt>tick-rate-animal</dt>
+<dd>The animal spawning tick rate. Default: 400</dd>
+<dt>tick-rate-aquatic</dt>
+<dd>The aquatic spawning tick rate. Default: 400</dd>
+<dt>tick-rate-monster</dt>
+<dd>The monster spawning tick rate. Default: 1</dd>
+<dt>sql</dt>
+<dd>Configuration options related to the Sql service, including connection aliases etc</dd>
+</dl>
+</div>
+<div class="section" id="sql">
+<h3>sql<a class="headerlink" href="#sql" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>aliases</dt>
+<dd>Aliases for SQL connections, in the format <a class="reference external" href="jdbc:protocol://[username[:password]&#64;]host/database">jdbc:protocol://[username[:password]&#64;]host/database</a></dd>
+<dt>teleport-helper</dt>
+<dd>Blocks to blacklist for safe teleportation.</dd>
+</dl>
+</div>
+<div class="section" id="teleport-helper">
+<h3>teleport-helper<a class="headerlink" href="#teleport-helper" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>force-blacklist</dt>
+<dd>If ‘true’, this blacklist will always be respected, otherwise, plugins can choose whether
+or not to respect it.</dd>
+<dt>unsafe-body-block-ids</dt>
+<dd>Block IDs that are listed here will not be selected by Sponge’s safe teleport routine as
+a safe block for players to warp into.
+You should only list blocks here that are incorrectly selected, solid blocks that prevent
+movement are automatically excluded.</dd>
+<dt>unsafe-floor-block-ids</dt>
+<dd>Block IDs that are listed here will not be selected by Sponge’s safe
+teleport routine as a safe floor block.</dd>
+</dl>
+</div>
+<div class="section" id="tileentity-activation">
+<h3>tileentity-activation<a class="headerlink" href="#tileentity-activation" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>auto-populate</dt>
+<dd>If ‘true’, newly discovered tileentities will be added to this config with default settings.</dd>
+<dt>default-block-range</dt>
+<dd>Default activation block range used for all tileentities unless overridden.</dd>
+<dt>default-tick-rate</dt>
+<dd>Default tick rate used for all tileentities unless overridden.</dd>
+<dt>mods</dt>
+<dd>Per-mod overrides. Refer to the minecraft default mod for example.</dd>
+</dl>
+</div>
+<div class="section" id="timings">
+<h3>timings<a class="headerlink" href="#timings" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="world">
+<h3>world<a class="headerlink" href="#world" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>auto-player-save-interval</dt>
+<dd>The auto-save tick interval used when saving global player data. (Default: 900)
+Note: 20 ticks is equivalent to 1 second. Set to 0 to disable.</dd>
+<dt>auto-save-interval</dt>
+<dd>The auto-save tick interval used to save all loaded chunks in a world.
+Set to 0 to disable. (Default: 900)
+Note: 20 ticks is equivalent to 1 second.</dd>
+<dt>chunk-gc-load-threshold</dt>
+<dd>The number of newly loaded chunks before triggering a forced cleanup.
+Note: When triggered, the loaded chunk threshold will reset and start incrementing.
+Disabled by default.</dd>
+<dt>chunk-gc-tick-interval</dt>
+<dd>The tick interval used to cleanup all inactive chunks that have leaked in a world.
+Set to 0 to disable which restores vanilla handling. (Default: 600)</dd>
+<dt>chunk-unload-delay</dt>
+<dd>The number of seconds to delay a chunk unload once marked inactive. (Default: 15)
+Note: This gets reset if the chunk becomes active again.</dd>
+<dt>deny-chunk-requests</dt>
+<dd>If ‘true’, any request for a chunk not currently loaded will be denied (exceptions apply
+for things like world gen and player movement).
+Warning: As this is an experimental setting for performance gain, if you encounter any issues
+then we recommend disabling it.</dd>
+<dt>flowing-lava-decay</dt>
+<dd>Lava behaves like vanilla water when source block is removed</dd>
+<dt>gameprofile-lookup-batch-size</dt>
+<dd>The amount of GameProfile requests to make against Mojang’s session server. (Default: 1)
+Note: Mojang accepts a maximum of 600 requests every 10 minutes from a single IP address.
+If you are running multiple servers behind the same IP, it is recommended to raise the ‘gameprofile-task-interval’ setting
+in order to compensate for the amount requests being sent.
+Finally, if set to 0 or less, the default batch size will be used.
+For more information visit <a class="reference external" href="https://wiki.vg/Mojang_API">https://wiki.vg/Mojang_API</a></dd>
+<dt>gameprofile-lookup-task-interval</dt>
+<dd>The interval, in seconds, used by the GameProfileQueryTask to process queued GameProfile requests. (Default: 4)
+Note: This setting should be raised if you experience the following error:
+“The client has sent too many requests within a certain amount of time”.
+Finally, if set to 0 or less, the default interval will be used.</dd>
+<dt>generate-spawn-on-load</dt>
+<dd>If ‘true’, this world will generate its spawn the moment its loaded.</dd>
+<dt>infinite-water-source</dt>
+<dd>Vanilla water source behavior - is infinite</dd>
+<dt>invalid-lookup-uuids</dt>
+<dd>The list of uuid’s that should never perform a lookup against Mojang’s session server.
+Note: If you are using SpongeForge, make sure to enter any mod fake player’s UUID to this list.</dd>
+<dt>item-merge-radius</dt>
+<dd>The defined merge radius for Item entities such that when two items are
+within the defined radius of each other, they will attempt to merge. Usually,
+the default radius is set to 0.5 in Vanilla, however, for performance reasons
+2.5 is generally acceptable.
+Note: Increasing the radius higher will likely cause performance degradation
+with larger amount of items as they attempt to merge and search nearby
+areas for more items. Setting to a negative value is not supported!</dd>
+<dt>keep-spawn-loaded</dt>
+<dd>If ‘true’, this worlds spawn will remain loaded with no players.</dd>
+<dt>leaf-decay</dt>
+<dd>If ‘true’, natural leaf decay is allowed.</dd>
+<dt>load-on-startup</dt>
+<dd>If ‘true’, this world will load on startup.</dd>
+<dt>max-chunk-unloads-per-tick</dt>
+<dd>The maximum number of queued unloaded chunks that will be unloaded in a single tick.
+Note: With the chunk gc enabled, this setting only applies to the ticks
+where the gc runs (controlled by ‘chunk-gc-tick-interval’)
+Note: If the maximum unloads is too low, too many chunks may remain
+loaded on the world and increases the chance for a drop in tps. (Default: 100)</dd>
+<dt>mob-spawn-range</dt>
+<dd>Specifies the radius (in chunks) of where creatures will spawn.
+This value is capped to the current view distance setting in server.properties</dd>
+<dt>portal-agents</dt>
+<dd>A list of all detected portal agents used in this world.
+In order to override, change the target world name to any other valid world.
+Note: If world is not found, it will fallback to default.</dd>
+<dt>pvp-enabled</dt>
+<dd>If ‘true’, this world will allow PVP combat.</dd>
+<dt>view-distance</dt>
+<dd>Override world distance per world/dimension
+The value must be greater than or equal to 3 and less than or equal to 32
+The server-wide view distance will be used when the value is -1.</dd>
+<dt>weather-ice-and-snow</dt>
+<dd>If ‘true’, natural formation of ice and snow in supported biomes will be allowed.</dd>
+<dt>weather-thunder</dt>
+<dd>If ‘true’, thunderstorms will be initiated in supported biomes.</dd>
+<dt>world-enabled</dt>
+<dd>If ‘true’, this world will be registered.</dd>
+</dl>
+<hr class="docutils" />
+<p>This config was generated using SpongeForge build 3442 (with Forge 2705), SpongeAPI version 7.1.0:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span># <span class="mi">1</span>.<span class="mi">0</span>
+#
+# # <span class="k">If</span> <span class="nv">you</span> <span class="nv">need</span> <span class="nv">help</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">configuration</span> <span class="nv">or</span> <span class="nv">have</span> <span class="nv">any</span> <span class="nv">questions</span> <span class="nv">related</span> <span class="nv">to</span> <span class="nv">Sponge</span>,
+# # <span class="nv">join</span> <span class="nv">us</span> <span class="nv">at</span> <span class="nv">the</span> <span class="nv">IRC</span> <span class="nv">or</span> <span class="nv">drop</span> <span class="nv">by</span> <span class="nv">our</span> <span class="nv">forums</span> <span class="nv">and</span> <span class="nv">leave</span> <span class="nv">a</span> <span class="nv">post</span>.
+#
+# # <span class="nv">IRC</span>: #<span class="nv">sponge</span> @ <span class="nv">irc</span>.<span class="nv">esper</span>.<span class="nv">net</span> <span class="ss">(</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">webchat</span>.<span class="nv">esper</span>.<span class="nv">net</span><span class="o">/</span>?<span class="nv">channel</span><span class="o">=</span><span class="nv">sponge</span> <span class="ss">)</span>
+# # <span class="nv">Forums</span>: <span class="nv">https</span>:<span class="o">//</span><span class="nv">forums</span>.<span class="nv">spongepowered</span>.<span class="nv">org</span><span class="o">/</span>
+#
+
+<span class="nv">sponge</span> {
+    # <span class="nv">Stopgap</span> <span class="nv">measures</span> <span class="k">for</span> <span class="nv">dealing</span> <span class="nv">with</span> <span class="nv">broken</span> <span class="nv">mods</span>
+    <span class="nv">broken</span><span class="o">-</span><span class="nv">mods</span> {
+        # <span class="nv">A</span> <span class="nv">list</span> <span class="nv">of</span> <span class="nv">mod</span> <span class="nv">ids</span> <span class="nv">that</span> <span class="nv">have</span> <span class="nv">broken</span> <span class="nv">network</span> <span class="nv">handlers</span> <span class="ss">(</span><span class="nv">they</span> <span class="nv">interact</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">game</span> <span class="nv">from</span> <span class="nv">a</span> <span class="nv">Netty</span> <span class="nv">handler</span> <span class="nv">thread</span><span class="ss">)</span>.
+        # <span class="nv">All</span> <span class="nv">network</span> <span class="nv">handlers</span> <span class="nv">from</span> <span class="nv">a</span> <span class="nv">forcibly</span> <span class="nv">scheduled</span> <span class="nv">to</span> <span class="nv">run</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">main</span> <span class="nv">thread</span>.
+        # <span class="nv">Note</span> <span class="nv">that</span> <span class="nv">this</span> <span class="nv">setting</span> <span class="nv">should</span> <span class="nv">be</span> <span class="nv">considered</span> <span class="nv">a</span> <span class="nv">last</span> <span class="nv">resort</span>, <span class="nv">and</span> <span class="nv">should</span> <span class="nv">only</span> <span class="nv">be</span> <span class="nv">used</span> <span class="nv">as</span> <span class="nv">a</span> <span class="nv">stopgap</span> <span class="nv">measure</span> <span class="k">while</span> <span class="nv">waiting</span> <span class="k">for</span> <span class="nv">a</span> <span class="nv">mod</span> <span class="nv">to</span> <span class="nv">properly</span> <span class="nv">fix</span> <span class="nv">the</span> <span class="nv">issue</span>.
+        <span class="nv">broken</span><span class="o">-</span><span class="nv">network</span><span class="o">-</span><span class="nv">handler</span><span class="o">-</span><span class="nv">mods</span><span class="o">=</span>[]
+    }
+    <span class="nv">bungeecord</span> {
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">allows</span> <span class="nv">BungeeCord</span> <span class="nv">to</span> <span class="nv">forward</span> <span class="nv">IP</span> <span class="nv">address</span>, <span class="nv">UUID</span>, <span class="nv">and</span> <span class="nv">Game</span> <span class="nv">Profile</span> <span class="nv">to</span> <span class="nv">this</span> <span class="nv">server</span>.
+        <span class="nv">ip</span><span class="o">-</span><span class="nv">forwarding</span><span class="o">=</span><span class="nv">false</span>
+    }
+    <span class="nv">cause</span><span class="o">-</span><span class="nv">tracker</span> {
+        # <span class="k">If</span> <span class="nv">set</span> <span class="nv">to</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">when</span> <span class="nv">a</span> <span class="nv">mod</span> <span class="nv">or</span> <span class="nv">plugin</span> <span class="nv">attempts</span> <span class="nv">to</span> <span class="nv">spawn</span> <span class="nv">an</span> <span class="nv">entity</span>
+        # <span class="nv">off</span> <span class="nv">the</span> <span class="nv">main</span> <span class="nv">server</span> <span class="nv">thread</span>, <span class="nv">Sponge</span> <span class="nv">will</span> <span class="nv">automatically</span>
+        # <span class="nv">capture</span> <span class="nv">said</span> <span class="nv">entity</span> <span class="nv">to</span> <span class="nv">spawn</span> <span class="nv">it</span> <span class="nv">properly</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">main</span>
+        # <span class="nv">server</span> <span class="nv">thread</span>. <span class="nv">The</span> <span class="nv">catch</span> <span class="nv">to</span> <span class="nv">this</span> <span class="nv">is</span> <span class="nv">that</span> <span class="nv">some</span> <span class="nv">mods</span> <span class="nv">are</span>
+        # <span class="nv">not</span> <span class="nv">considering</span> <span class="nv">the</span> <span class="nv">consequences</span> <span class="nv">of</span> <span class="nv">spawning</span> <span class="nv">an</span> <span class="nv">entity</span>
+        # <span class="nv">off</span> <span class="nv">the</span> <span class="nv">server</span> <span class="nv">thread</span>, <span class="nv">and</span> <span class="nv">are</span> <span class="nv">unaware</span> <span class="nv">of</span> <span class="nv">potential</span> <span class="nv">race</span>
+        # <span class="nv">conditions</span> <span class="nv">they</span> <span class="nv">may</span> <span class="nv">cause</span>. <span class="k">If</span> <span class="nv">this</span> <span class="nv">is</span> <span class="nv">set</span> <span class="nv">to</span> <span class="nv">false</span>,
+        # <span class="nv">Sponge</span> <span class="nv">will</span> <span class="nv">politely</span> <span class="nv">ignore</span> <span class="nv">the</span> <span class="nv">entity</span> <span class="nv">being</span> <span class="nv">spawned</span>,
+        # <span class="nv">and</span> <span class="nv">emit</span> <span class="nv">a</span> <span class="nv">warning</span> <span class="nv">about</span> <span class="nv">said</span> <span class="nv">spawn</span> <span class="nv">anyways</span>.
+        <span class="nv">capture</span><span class="o">-</span><span class="nv">async</span><span class="o">-</span><span class="nv">spawning</span><span class="o">-</span><span class="nv">entities</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">more</span> <span class="nv">thorough</span> <span class="nv">debugging</span> <span class="k">for</span> <span class="nv">PhaseStates</span>
+        # <span class="nv">such</span> <span class="nv">that</span> <span class="nv">a</span> <span class="nv">StackTrace</span> <span class="nv">is</span> <span class="nv">created</span> <span class="nv">every</span> <span class="nv">time</span> <span class="nv">a</span> <span class="nv">PhaseState</span>
+        # <span class="nv">switches</span>, <span class="nv">allowing</span> <span class="k">for</span> <span class="nv">more</span> <span class="nv">fine</span> <span class="nv">grained</span> <span class="nv">troubleshooting</span>
+        # <span class="nv">in</span> <span class="nv">the</span> <span class="nv">cases</span> <span class="nv">of</span> <span class="nv">runaway</span> <span class="nv">phase</span> <span class="nv">states</span>. <span class="nv">Note</span> <span class="nv">that</span> <span class="nv">this</span> <span class="nv">is</span>
+        # <span class="nv">not</span> <span class="nv">extremely</span> <span class="nv">performant</span> <span class="nv">and</span> <span class="nv">may</span> <span class="nv">have</span> <span class="nv">some</span> <span class="nv">associated</span> <span class="nv">costs</span>
+        # <span class="nv">with</span> <span class="nv">generating</span> <span class="nv">the</span> <span class="nv">stack</span> <span class="nv">traces</span> <span class="nv">constantly</span>.
+        <span class="nv">generate</span><span class="o">-</span><span class="nv">stacktrace</span><span class="o">-</span><span class="nv">per</span><span class="o">-</span><span class="nv">phase</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">The</span> <span class="nv">maximum</span> <span class="nv">number</span> <span class="nv">of</span> <span class="nv">times</span> <span class="nv">to</span> <span class="nv">recursively</span> <span class="nv">process</span> <span class="nv">transactions</span> <span class="nv">in</span> <span class="nv">a</span> <span class="nv">single</span> <span class="nv">phase</span>.
+        # <span class="nv">Some</span> <span class="nv">mods</span> <span class="nv">may</span> <span class="nv">interact</span> <span class="nv">badly</span> <span class="nv">with</span> <span class="nv">Sponge</span><span class="s1">&#39;</span><span class="s">s block capturing system, causing Sponge to</span>
+        # <span class="k">end</span> <span class="nv">up</span> <span class="nv">capturing</span> <span class="nv">block</span> <span class="nv">transactions</span> <span class="nv">every</span> <span class="nv">time</span> <span class="nv">it</span> <span class="nv">tries</span> <span class="nv">to</span> <span class="nv">process</span> <span class="nv">an</span> <span class="nv">existing</span> <span class="nv">batch</span>.
+        # <span class="nv">Due</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">recursive</span> <span class="nv">nature</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">depth</span><span class="o">-</span><span class="nv">first</span> <span class="nv">processing</span> <span class="nv">that</span> <span class="nv">Sponge</span> <span class="nv">uses</span> <span class="nv">to</span> <span class="nv">handle</span> <span class="nv">block</span> <span class="nv">transactions</span>,
+        # <span class="nv">this</span> <span class="nv">can</span> <span class="nb">result</span> <span class="nv">in</span> <span class="nv">a</span> <span class="nv">stack</span> <span class="nv">overflow</span>, <span class="nv">which</span> <span class="nv">causes</span> <span class="nv">us</span> <span class="nv">to</span> <span class="nv">lose</span> <span class="nv">all</span> <span class="nv">infomration</span> <span class="nv">about</span> <span class="nv">the</span> <span class="nv">original</span> <span class="nv">cause</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">issue</span>.
+        # <span class="nv">To</span> <span class="nv">prevent</span> <span class="nv">a</span> <span class="nv">stack</span> <span class="nv">overflow</span>, <span class="nv">Sponge</span> <span class="nv">tracks</span> <span class="nv">the</span> <span class="nv">current</span> <span class="nv">processing</span> <span class="nv">depth</span>, <span class="nv">and</span> <span class="nv">aborts</span> <span class="nv">processing</span> <span class="nv">when</span> <span class="nv">it</span> <span class="nv">exceeds</span>
+        # <span class="nv">this</span> <span class="nv">threshold</span>.
+        # <span class="nv">The</span> <span class="nv">default</span> <span class="nv">value</span> <span class="nv">should</span> <span class="nv">almost</span> <span class="nv">always</span> <span class="nv">work</span> <span class="nv">properly</span> <span class="o">-</span>  <span class="nv">it</span><span class="s1">&#39;</span><span class="s">s unlikely you</span><span class="s1">&#39;</span><span class="nv">ll</span> <span class="nv">ever</span> <span class="nv">have</span> <span class="nv">to</span> <span class="nv">change</span> <span class="nv">it</span>.
+        <span class="nv">max</span><span class="o">-</span><span class="nv">block</span><span class="o">-</span><span class="nv">processing</span><span class="o">-</span><span class="nv">depth</span><span class="o">=</span><span class="mi">100</span>
+        # <span class="k">If</span> <span class="nv">verbose</span> <span class="nv">is</span> <span class="nv">not</span> <span class="nv">enabled</span>, <span class="nv">this</span> <span class="nv">restricts</span> <span class="nv">the</span> <span class="nv">amount</span> <span class="nv">of</span>
+        # <span class="nv">runaway</span> <span class="nv">phase</span> <span class="nv">state</span> <span class="nv">printouts</span>, <span class="nv">usually</span> <span class="nv">happens</span> <span class="nv">on</span> <span class="nv">a</span> <span class="nv">server</span>
+        # <span class="nv">where</span> <span class="nv">a</span> <span class="nv">PhaseState</span> <span class="nv">is</span> <span class="nv">not</span> <span class="nv">completing</span>. <span class="nv">Although</span> <span class="nv">rare</span>, <span class="nv">it</span> <span class="nv">should</span>
+        # <span class="nv">never</span> <span class="nv">happen</span>, <span class="nv">but</span> <span class="nv">when</span> <span class="nv">it</span> <span class="nv">does</span>, <span class="nv">sometimes</span> <span class="nv">it</span> <span class="nv">can</span> <span class="nv">continuously</span> <span class="nv">print</span>
+        # <span class="nv">more</span> <span class="nv">and</span> <span class="nv">more</span>. <span class="nv">This</span> <span class="nv">attempts</span> <span class="nv">to</span> <span class="nv">placate</span> <span class="nv">that</span> <span class="k">while</span> <span class="nv">a</span> <span class="nv">fix</span> <span class="nv">can</span> <span class="nv">be</span> <span class="nv">worked</span> <span class="nv">on</span>
+        # <span class="nv">to</span> <span class="nv">resolve</span> <span class="nv">the</span> <span class="nv">runaway</span>. <span class="k">If</span> <span class="nv">verbose</span> <span class="nv">is</span> <span class="nv">enabled</span>, <span class="nv">they</span> <span class="nv">will</span> <span class="nv">always</span> <span class="nv">print</span>.
+        <span class="nv">maximum</span><span class="o">-</span><span class="nv">printed</span><span class="o">-</span><span class="nv">runaway</span><span class="o">-</span><span class="nv">counts</span><span class="o">=</span><span class="mi">3</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">the</span> <span class="nv">phase</span> <span class="nv">tracker</span> <span class="nv">will</span> <span class="nv">print</span> <span class="nv">out</span> <span class="nv">when</span> <span class="nv">there</span> <span class="nv">are</span> <span class="nv">too</span> <span class="nv">many</span> <span class="nv">phases</span>
+        # <span class="nv">being</span> <span class="nv">entered</span>, <span class="nv">usually</span> <span class="nv">considered</span> <span class="nv">as</span> <span class="nv">an</span> <span class="nv">issue</span> <span class="nv">of</span> <span class="nv">phase</span> <span class="nv">re</span><span class="o">-</span><span class="nv">entrance</span> <span class="nv">and</span>
+        # <span class="nv">indicates</span> <span class="nv">an</span> <span class="nv">unexpected</span> <span class="nv">issue</span> <span class="nv">of</span> <span class="nv">tracking</span> <span class="nv">phases</span> <span class="nv">not</span> <span class="nv">to</span> <span class="nv">complete</span>.
+        # <span class="k">If</span> <span class="nv">this</span> <span class="nv">is</span> <span class="nv">not</span> <span class="nv">reported</span> <span class="nv">yet</span>, <span class="nv">please</span> <span class="nv">report</span> <span class="nv">to</span> <span class="nv">Sponge</span>. <span class="k">If</span> <span class="nv">it</span> <span class="nv">has</span> <span class="nv">been</span>
+        # <span class="nv">reported</span>, <span class="nv">you</span> <span class="nv">may</span> <span class="nv">disable</span> <span class="nv">this</span>.
+        <span class="nv">verbose</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">the</span> <span class="nv">phase</span> <span class="nv">tracker</span> <span class="nv">will</span> <span class="nv">dump</span> <span class="nv">extra</span> <span class="nv">information</span> <span class="nv">about</span> <span class="nv">the</span> <span class="nv">current</span> <span class="nv">phases</span>
+        # <span class="nv">when</span> <span class="nv">certain</span> <span class="nv">non</span><span class="o">-</span><span class="nv">PhaseTracker</span> <span class="nv">related</span> <span class="nv">exceptions</span> <span class="nv">occur</span>. <span class="nv">This</span> <span class="nv">is</span> <span class="nv">usually</span> <span class="nv">not</span> <span class="nv">necessary</span>, <span class="nv">as</span> <span class="nv">the</span> <span class="nv">information</span>
+        # <span class="nv">in</span> <span class="nv">the</span> <span class="nv">exception</span> <span class="nv">itself</span> <span class="nv">can</span> <span class="nv">normally</span> <span class="nv">be</span> <span class="nv">used</span> <span class="nv">to</span> <span class="nv">determine</span> <span class="nv">the</span> <span class="nv">cause</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">issue</span>
+        <span class="nv">verbose</span><span class="o">-</span><span class="nv">errors</span><span class="o">=</span><span class="nv">false</span>
+    }
+    <span class="nv">commands</span> {
+        # <span class="nv">Command</span> <span class="nv">aliases</span> <span class="nv">will</span> <span class="nv">resolve</span> <span class="nv">conflicts</span> <span class="nv">when</span> <span class="nv">multiple</span> <span class="nv">plugins</span> <span class="nv">request</span> <span class="nv">a</span> <span class="nv">specific</span> <span class="nv">command</span>,
+        # <span class="nv">Correct</span> <span class="nv">syntax</span> <span class="nv">is</span> <span class="o">&lt;</span><span class="nv">unqualified</span> <span class="nv">command</span><span class="o">&gt;=&lt;</span><span class="nv">plugin</span> <span class="nv">name</span><span class="o">&gt;</span> <span class="nv">e</span>.<span class="nv">g</span>. <span class="s2">&quot;</span><span class="s">sethome=homeplugin</span><span class="s2">&quot;</span>
+        <span class="nv">aliases</span> {}
+        # <span class="nv">Patches</span> <span class="nv">the</span> <span class="nv">specified</span> <span class="nv">commands</span> <span class="nv">to</span> <span class="nv">respect</span> <span class="nv">the</span> <span class="nv">world</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">sender</span> <span class="nv">instead</span> <span class="nv">of</span> <span class="nv">applying</span> <span class="nv">the</span>
+        # <span class="nv">changes</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">all</span> <span class="nv">worlds</span>.
+        <span class="nv">multi</span><span class="o">-</span><span class="nv">world</span><span class="o">-</span><span class="nv">patches</span> {}
+    }
+    <span class="nv">debug</span> {
+        # <span class="nv">Detect</span> <span class="nv">and</span> <span class="nv">prevent</span> <span class="nv">parts</span> <span class="nv">of</span> <span class="nv">PlayerChunkMap</span> <span class="nv">being</span> <span class="nv">called</span> <span class="nv">off</span> <span class="nv">the</span> <span class="nv">main</span> <span class="nv">thread</span>.
+        # <span class="nv">This</span> <span class="nv">may</span> <span class="nv">decrease</span> <span class="nv">sever</span> <span class="nv">preformance</span>, <span class="nv">so</span> <span class="nv">you</span> <span class="nv">should</span> <span class="nv">only</span> <span class="nv">enable</span> <span class="nv">it</span> <span class="nv">when</span> <span class="nv">debugging</span> <span class="nv">a</span> <span class="nv">specific</span> <span class="nv">issue</span>.
+        <span class="nv">concurrent</span><span class="o">-</span><span class="nv">chunk</span><span class="o">-</span><span class="nv">map</span><span class="o">-</span><span class="nv">checks</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Detect</span> <span class="nv">and</span> <span class="nv">prevent</span> <span class="nv">certain</span> <span class="nv">attempts</span> <span class="nv">to</span> <span class="nv">use</span> <span class="nv">entities</span> <span class="nv">concurrently</span>.
+        # <span class="nv">WARNING</span>: <span class="nv">May</span> <span class="nv">drastically</span> <span class="nv">decrease</span> <span class="nv">server</span> <span class="nv">performance</span>. <span class="nv">Only</span> <span class="nv">set</span> <span class="nv">this</span> <span class="nv">to</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span> <span class="nv">to</span> <span class="nv">debug</span> <span class="nv">a</span> <span class="nv">pre</span><span class="o">-</span><span class="nv">existing</span> <span class="nv">issue</span>.
+        <span class="nv">concurrent</span><span class="o">-</span><span class="nv">entity</span><span class="o">-</span><span class="nv">checks</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Dump</span> <span class="nv">chunks</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">event</span> <span class="nv">of</span> <span class="nv">a</span> <span class="nv">deadlock</span>
+        <span class="nv">dump</span><span class="o">-</span><span class="nv">chunks</span><span class="o">-</span><span class="nv">on</span><span class="o">-</span><span class="nv">deadlock</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Dump</span> <span class="nv">the</span> <span class="nv">heap</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">event</span> <span class="nv">of</span> <span class="nv">a</span> <span class="nv">deadlock</span>
+        <span class="nv">dump</span><span class="o">-</span><span class="nv">heap</span><span class="o">-</span><span class="nv">on</span><span class="o">-</span><span class="nv">deadlock</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Dump</span> <span class="nv">the</span> <span class="nv">server</span> <span class="nv">thread</span> <span class="nv">on</span> <span class="nv">deadlock</span> <span class="nv">warning</span>
+        <span class="nv">dump</span><span class="o">-</span><span class="nv">threads</span><span class="o">-</span><span class="nv">on</span><span class="o">-</span><span class="nv">warn</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">Java</span><span class="s1">&#39;</span><span class="s">s thread contention monitoring for thread dumps is enabled.</span>
+        <span class="nv">thread</span><span class="o">-</span><span class="nv">contention</span><span class="o">-</span><span class="nv">monitoring</span><span class="o">=</span><span class="nv">false</span>
+    }
+    <span class="nv">entity</span> {
+        # <span class="nv">Number</span> <span class="nv">of</span> <span class="nv">colliding</span> <span class="nv">entities</span> <span class="nv">in</span> <span class="nv">one</span> <span class="nv">spot</span> <span class="nv">before</span> <span class="nv">logging</span> <span class="nv">a</span> <span class="nv">warning</span>. <span class="nv">Set</span> <span class="nv">to</span> <span class="mi">0</span> <span class="nv">to</span> <span class="nv">disable</span>
+        <span class="nv">collision</span><span class="o">-</span><span class="nv">warn</span><span class="o">-</span><span class="nv">size</span><span class="o">=</span><span class="mi">200</span>
+        # <span class="nv">Number</span> <span class="nv">of</span> <span class="nv">entities</span> <span class="nv">in</span> <span class="nv">one</span> <span class="nv">dimension</span> <span class="nv">before</span> <span class="nv">logging</span> <span class="nv">a</span> <span class="nv">warning</span>. <span class="nv">Set</span> <span class="nv">to</span> <span class="mi">0</span> <span class="nv">to</span> <span class="nv">disable</span>
+        <span class="nv">count</span><span class="o">-</span><span class="nv">warn</span><span class="o">-</span><span class="nv">size</span><span class="o">=</span><span class="mi">0</span>
+        # <span class="nv">Number</span> <span class="nv">of</span> <span class="nv">ticks</span> <span class="nv">before</span> <span class="nv">a</span> <span class="nv">painting</span> <span class="nv">is</span> <span class="nv">respawned</span> <span class="nv">on</span> <span class="nv">clients</span> <span class="nv">when</span> <span class="nv">their</span> <span class="nv">art</span> <span class="nv">is</span> <span class="nv">changed</span>
+        <span class="nv">entity</span><span class="o">-</span><span class="nv">painting</span><span class="o">-</span><span class="nv">respawn</span><span class="o">-</span><span class="nv">delay</span><span class="o">=</span><span class="mi">2</span>
+        # <span class="nv">Number</span> <span class="nv">of</span> <span class="nv">ticks</span> <span class="nv">before</span> <span class="nv">the</span> <span class="nv">fake</span> <span class="nv">player</span> <span class="nv">entry</span> <span class="nv">of</span> <span class="nv">a</span> <span class="nv">human</span> <span class="nv">is</span> <span class="nv">removed</span> <span class="nv">from</span> <span class="nv">the</span> <span class="nv">tab</span> <span class="nv">list</span> <span class="ss">(</span><span class="nv">range</span> <span class="nv">of</span> <span class="mi">0</span> <span class="nv">to</span> <span class="mi">100</span> <span class="nv">ticks</span><span class="ss">)</span>.
+        <span class="nv">human</span><span class="o">-</span><span class="nv">player</span><span class="o">-</span><span class="nv">list</span><span class="o">-</span><span class="nv">remove</span><span class="o">-</span><span class="nv">delay</span><span class="o">=</span><span class="mi">10</span>
+        # <span class="nv">Controls</span> <span class="nv">the</span> <span class="nv">time</span> <span class="nv">in</span> <span class="nv">ticks</span> <span class="k">for</span> <span class="nv">when</span> <span class="nv">an</span> <span class="nv">item</span> <span class="nv">despawns</span>.
+        <span class="nv">item</span><span class="o">-</span><span class="nv">despawn</span><span class="o">-</span><span class="nv">rate</span><span class="o">=</span><span class="mi">6000</span>
+        # <span class="nv">The</span> <span class="nv">upper</span> <span class="nv">bounded</span> <span class="nv">range</span> <span class="nv">where</span> <span class="nv">living</span> <span class="nv">entities</span> <span class="nv">farther</span> <span class="nv">from</span> <span class="nv">a</span> <span class="nv">player</span> <span class="nv">will</span> <span class="nv">likely</span> <span class="nv">despawn</span>
+        <span class="nv">living</span><span class="o">-</span><span class="nv">hard</span><span class="o">-</span><span class="nv">despawn</span><span class="o">-</span><span class="nv">range</span><span class="o">=</span><span class="mi">128</span>
+        # <span class="nv">The</span> <span class="nv">amount</span> <span class="nv">of</span> <span class="nv">seconds</span> <span class="nv">before</span> <span class="nv">a</span> <span class="nv">living</span> <span class="nv">entity</span> <span class="nv">between</span> <span class="nv">the</span> <span class="nv">soft</span> <span class="nv">and</span> <span class="nv">hard</span> <span class="nv">despawn</span> <span class="nv">ranges</span> <span class="nv">from</span> <span class="nv">a</span> <span class="nv">player</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">considered</span> <span class="k">for</span> <span class="nv">despawning</span>
+        <span class="nv">living</span><span class="o">-</span><span class="nv">soft</span><span class="o">-</span><span class="nv">despawn</span><span class="o">-</span><span class="nv">minimum</span><span class="o">-</span><span class="nv">life</span><span class="o">=</span><span class="mi">30</span>
+        # <span class="nv">The</span> <span class="nv">lower</span> <span class="nv">bounded</span> <span class="nv">range</span> <span class="nv">where</span> <span class="nv">living</span> <span class="nv">entities</span> <span class="nv">near</span> <span class="nv">a</span> <span class="nv">player</span> <span class="nv">may</span> <span class="nv">potentially</span> <span class="nv">despawn</span>
+        <span class="nv">living</span><span class="o">-</span><span class="nv">soft</span><span class="o">-</span><span class="nv">despawn</span><span class="o">-</span><span class="nv">range</span><span class="o">=</span><span class="mi">32</span>
+        # <span class="nv">Maximum</span> <span class="nv">size</span> <span class="nv">of</span> <span class="nv">an</span> <span class="nv">entity</span><span class="s1">&#39;</span><span class="s">s bounding box before removing it. Set to 0 to disable</span>
+        <span class="nv">max</span><span class="o">-</span><span class="nv">bounding</span><span class="o">-</span><span class="nv">box</span><span class="o">-</span><span class="nv">size</span><span class="o">=</span><span class="mi">1000</span>
+        # <span class="nv">Square</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">maximum</span> <span class="nv">speed</span> <span class="nv">of</span> <span class="nv">an</span> <span class="nv">entity</span> <span class="nv">before</span> <span class="nv">removing</span> <span class="nv">it</span>. <span class="nv">Set</span> <span class="nv">to</span> <span class="mi">0</span> <span class="nv">to</span> <span class="nv">disable</span>
+        <span class="nv">max</span><span class="o">-</span><span class="nv">speed</span><span class="o">=</span><span class="mi">100</span>
+    }
+    <span class="nv">entity</span><span class="o">-</span><span class="nv">activation</span><span class="o">-</span><span class="nv">range</span> {
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">newly</span> <span class="nv">discovered</span> <span class="nv">entities</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">added</span> <span class="nv">to</span> <span class="nv">this</span> <span class="nv">config</span> <span class="nv">with</span> <span class="nv">a</span> <span class="nv">default</span> <span class="nv">value</span>.
+        <span class="nv">auto</span><span class="o">-</span><span class="nv">populate</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Default</span> <span class="nv">activation</span> <span class="nv">ranges</span> <span class="nv">used</span> <span class="k">for</span> <span class="nv">all</span> <span class="nv">entities</span> <span class="nv">unless</span> <span class="nv">overridden</span>.
+        <span class="nv">defaults</span> {
+            <span class="nv">ambient</span><span class="o">=</span><span class="mi">32</span>
+            <span class="nv">aquatic</span><span class="o">=</span><span class="mi">32</span>
+            <span class="nv">creature</span><span class="o">=</span><span class="mi">32</span>
+            <span class="nv">misc</span><span class="o">=</span><span class="mi">16</span>
+            <span class="nv">monster</span><span class="o">=</span><span class="mi">32</span>
+        }
+        # <span class="nv">Per</span><span class="o">-</span><span class="nv">mod</span> <span class="nv">overrides</span>. <span class="nv">Refer</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">minecraft</span> <span class="nv">default</span> <span class="nv">mod</span> <span class="k">for</span> <span class="nv">example</span>.
+        <span class="nv">mods</span> {}
+    }
+    <span class="nv">entity</span><span class="o">-</span><span class="nv">collisions</span> {
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">newly</span> <span class="nv">discovered</span> <span class="nv">entities</span><span class="o">/</span><span class="nv">blocks</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">added</span> <span class="nv">to</span> <span class="nv">this</span> <span class="nv">config</span> <span class="nv">with</span> <span class="nv">a</span> <span class="nv">default</span> <span class="nv">value</span>.
+        <span class="nv">auto</span><span class="o">-</span><span class="nv">populate</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Default</span> <span class="nv">maximum</span> <span class="nv">collisions</span> <span class="nv">used</span> <span class="k">for</span> <span class="nv">all</span> <span class="nv">entities</span><span class="o">/</span><span class="nv">blocks</span> <span class="nv">unless</span> <span class="nv">overridden</span>.
+        <span class="nv">defaults</span> {
+            <span class="nv">blocks</span><span class="o">=</span><span class="mi">8</span>
+            <span class="nv">entities</span><span class="o">=</span><span class="mi">8</span>
+        }
+        # <span class="nv">Maximum</span> <span class="nv">amount</span> <span class="nv">of</span> <span class="nv">entities</span> <span class="nv">any</span> <span class="nv">given</span> <span class="nv">entity</span> <span class="nv">or</span> <span class="nv">block</span> <span class="nv">can</span> <span class="nv">collide</span> <span class="nv">with</span>. <span class="nv">This</span> <span class="nv">improves</span>
+        # <span class="nv">performance</span> <span class="nv">when</span> <span class="nv">there</span> <span class="nv">are</span> <span class="nv">more</span> <span class="nv">than</span> <span class="mi">8</span> <span class="nv">entities</span> <span class="nv">on</span> <span class="nv">top</span> <span class="nv">of</span> <span class="nv">each</span> <span class="nv">other</span> <span class="nv">such</span> <span class="nv">as</span> <span class="nv">a</span> <span class="mi">1</span><span class="nv">x1</span>
+        # <span class="nv">spawn</span> <span class="nv">pen</span>. <span class="nv">Set</span> <span class="nv">to</span> <span class="mi">0</span> <span class="nv">to</span> <span class="nv">disable</span>.
+        <span class="nv">max</span><span class="o">-</span><span class="nv">entities</span><span class="o">-</span><span class="nv">within</span><span class="o">-</span><span class="nv">aabb</span><span class="o">=</span><span class="mi">8</span>
+        # <span class="nv">Per</span><span class="o">-</span><span class="nv">mod</span> <span class="nv">overrides</span>. <span class="nv">Refer</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">minecraft</span> <span class="nv">default</span> <span class="nv">mod</span> <span class="k">for</span> <span class="nv">example</span>.
+        <span class="nv">mods</span> {
+            <span class="nv">botania</span> {
+                <span class="nv">blocks</span> {}
+                # <span class="nv">Default</span> <span class="nv">maximum</span> <span class="nv">collisions</span> <span class="nv">used</span> <span class="k">for</span> <span class="nv">all</span> <span class="nv">entities</span><span class="o">/</span><span class="nv">blocks</span> <span class="nv">unless</span> <span class="nv">overridden</span>.
+                <span class="nv">defaults</span> {}
+                # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">false</span><span class="s1">&#39;</span>, <span class="nv">entity</span> <span class="nv">collision</span> <span class="nv">rules</span> <span class="k">for</span> <span class="nv">this</span> <span class="nv">mod</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">ignored</span>.
+                <span class="nv">enabled</span><span class="o">=</span><span class="nv">true</span>
+                <span class="nv">entities</span> {
+                    <span class="nv">botaniacorporeaspark</span><span class="o">=-</span><span class="mi">1</span>
+                    <span class="nv">botaniaspark</span><span class="o">=-</span><span class="mi">1</span>
+                }
+            }
+            <span class="nv">minecraft</span> {
+                <span class="nv">blocks</span> {
+                    <span class="s2">&quot;</span><span class="s">detector_rail</span><span class="s2">&quot;</span><span class="o">=</span><span class="mi">1</span>
+                    <span class="s2">&quot;</span><span class="s">heavy_weighted_pressure_plate</span><span class="s2">&quot;</span><span class="o">=</span><span class="mi">150</span>
+                    <span class="s2">&quot;</span><span class="s">light_weighted_pressure_plate</span><span class="s2">&quot;</span><span class="o">=</span><span class="mi">15</span>
+                    <span class="s2">&quot;</span><span class="s">mob_spawner</span><span class="s2">&quot;</span><span class="o">=-</span><span class="mi">1</span>
+                    <span class="s2">&quot;</span><span class="s">stone_pressure_plate</span><span class="s2">&quot;</span><span class="o">=</span><span class="mi">1</span>
+                    <span class="s2">&quot;</span><span class="s">wooden_button</span><span class="s2">&quot;</span><span class="o">=</span><span class="mi">1</span>
+                    <span class="s2">&quot;</span><span class="s">wooden_pressure_plate</span><span class="s2">&quot;</span><span class="o">=</span><span class="mi">1</span>
+                }
+                # <span class="nv">Default</span> <span class="nv">maximum</span> <span class="nv">collisions</span> <span class="nv">used</span> <span class="k">for</span> <span class="nv">all</span> <span class="nv">entities</span><span class="o">/</span><span class="nv">blocks</span> <span class="nv">unless</span> <span class="nv">overridden</span>.
+                <span class="nv">defaults</span> {}
+                # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">false</span><span class="s1">&#39;</span>, <span class="nv">entity</span> <span class="nv">collision</span> <span class="nv">rules</span> <span class="k">for</span> <span class="nv">this</span> <span class="nv">mod</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">ignored</span>.
+                <span class="nv">enabled</span><span class="o">=</span><span class="nv">true</span>
+                <span class="nv">entities</span> {
+                    <span class="nv">thrownpotion</span><span class="o">=-</span><span class="mi">1</span>
+                }
+            }
+        }
+    }
+    <span class="nv">exploits</span> {
+        # <span class="nv">Prevents</span> <span class="nv">an</span> <span class="nv">exploit</span> <span class="nv">in</span> <span class="nv">which</span> <span class="nv">the</span> <span class="nv">client</span> <span class="nv">sends</span> <span class="nv">a</span> <span class="nv">packet</span> <span class="nv">with</span> <span class="nv">the</span>
+        # <span class="nv">itemstack</span> <span class="nv">name</span> <span class="nv">exceeding</span> <span class="nv">the</span> <span class="nv">string</span> <span class="nv">limit</span>.
+        <span class="nv">prevent</span><span class="o">-</span><span class="nv">creative</span><span class="o">-</span><span class="nv">itemstack</span><span class="o">-</span><span class="nv">name</span><span class="o">-</span><span class="nv">exploit</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="nv">Prevents</span> <span class="nv">an</span> <span class="nv">exploit</span> <span class="nv">in</span> <span class="nv">which</span> <span class="nv">the</span> <span class="nv">client</span> <span class="nv">sends</span> <span class="nv">a</span> <span class="nv">packet</span> <span class="nv">to</span> <span class="nv">update</span> <span class="nv">a</span> <span class="nv">sign</span> <span class="nv">containing</span>
+        # <span class="nv">commands</span> <span class="nv">from</span> <span class="nv">a</span> <span class="nv">player</span> <span class="nv">without</span> <span class="nv">permission</span>.
+        <span class="nv">prevent</span><span class="o">-</span><span class="nv">sign</span><span class="o">-</span><span class="nv">command</span><span class="o">-</span><span class="nv">exploit</span><span class="o">=</span><span class="nv">true</span>
+    }
+    <span class="nv">general</span> {
+        # <span class="nv">The</span> <span class="nv">directory</span> <span class="k">for</span> <span class="nv">Sponge</span> <span class="nv">plugin</span> <span class="nv">configurations</span>, <span class="nv">relative</span> <span class="nv">to</span> <span class="nv">the</span>
+        # <span class="nv">execution</span> <span class="nv">root</span> <span class="nv">or</span> <span class="nv">specified</span> <span class="nv">as</span> <span class="nv">an</span> <span class="nv">absolute</span> <span class="nv">path</span>.
+        # <span class="nv">Note</span> <span class="nv">that</span> <span class="nv">the</span> <span class="nv">default</span>: <span class="s2">&quot;</span><span class="s">${CANONICAL_GAME_DIR}/config</span><span class="s2">&quot;</span>
+        # <span class="nv">is</span> <span class="nv">going</span> <span class="nv">to</span> <span class="nv">use</span> <span class="nv">the</span> <span class="s2">&quot;</span><span class="s">plugins</span><span class="s2">&quot;</span> <span class="nv">directory</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">root</span> <span class="nv">game</span> <span class="nv">directory</span>.
+        # <span class="k">If</span> <span class="nv">you</span> <span class="nv">wish</span> <span class="k">for</span> <span class="nv">plugin</span> <span class="nv">configs</span> <span class="nv">to</span> <span class="nv">reside</span> <span class="nv">within</span> <span class="nv">a</span> <span class="nv">child</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">configuration</span>
+        # <span class="nv">directory</span>, <span class="nv">change</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">to</span>, <span class="k">for</span> <span class="nv">example</span>, <span class="s2">&quot;</span><span class="s">${CANONICAL_CONFIG_DIR}/sponge/plugins</span><span class="s2">&quot;</span>.
+        # <span class="nv">Note</span>: <span class="nv">It</span> <span class="nv">is</span> <span class="nv">not</span> <span class="nv">recommended</span> <span class="nv">to</span> <span class="nv">set</span> <span class="nv">this</span> <span class="nv">to</span> <span class="s2">&quot;</span><span class="s">${CANONICAL_CONFIG_DIR}/sponge</span><span class="s2">&quot;</span>, <span class="nv">as</span> <span class="nv">there</span> <span class="nv">is</span>
+        # <span class="nv">a</span> <span class="nv">possibility</span> <span class="nv">that</span> <span class="nv">plugin</span> <span class="nv">configurations</span> <span class="nv">can</span> <span class="nv">conflict</span> <span class="nv">the</span> <span class="nv">Sponge</span> <span class="nv">core</span> <span class="nv">configurations</span>.
+        #
+        <span class="nv">config</span><span class="o">-</span><span class="nv">dir</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">${CANONICAL_GAME_DIR}/config</span><span class="s2">&quot;</span>
+        # <span class="nv">Disable</span> <span class="nv">warning</span> <span class="nv">messages</span> <span class="nv">to</span> <span class="nv">server</span> <span class="nv">admins</span>
+        <span class="nv">disable</span><span class="o">-</span><span class="nv">warnings</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">sleeping</span> <span class="nv">between</span> <span class="nv">chunk</span> <span class="nv">saves</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">enabled</span>, <span class="nv">beware</span> <span class="nv">of</span> <span class="nv">memory</span> <span class="nv">issues</span>.
+        <span class="nv">file</span><span class="o">-</span><span class="nv">io</span><span class="o">-</span><span class="nv">thread</span><span class="o">-</span><span class="nv">sleep</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Additional</span> <span class="nv">directory</span> <span class="nv">to</span> <span class="nv">search</span> <span class="k">for</span> <span class="nv">plugins</span>, <span class="nv">relative</span> <span class="nv">to</span> <span class="nv">the</span>
+        # <span class="nv">execution</span> <span class="nv">root</span> <span class="nv">or</span> <span class="nv">specified</span> <span class="nv">as</span> <span class="nv">an</span> <span class="nv">absolute</span> <span class="nv">path</span>.
+        # <span class="nv">Note</span> <span class="nv">that</span> <span class="nv">the</span> <span class="nv">default</span>: <span class="s2">&quot;</span><span class="s">${CANONICAL_MODS_DIR}/plugins</span><span class="s2">&quot;</span>
+        # <span class="nv">is</span> <span class="nv">going</span> <span class="nv">to</span> <span class="nv">search</span> <span class="k">for</span> <span class="nv">a</span> <span class="nv">plugins</span> <span class="nv">folder</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">mods</span> <span class="nv">directory</span>.
+        # <span class="k">If</span> <span class="nv">you</span> <span class="nv">wish</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">plugins</span> <span class="nv">folder</span> <span class="nv">to</span> <span class="nv">reside</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">root</span> <span class="nv">game</span>
+        # <span class="nv">directory</span>, <span class="nv">change</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">to</span> <span class="s2">&quot;</span><span class="s">${CANONICAL_GAME_DIR}/plugins</span><span class="s2">&quot;</span>.
+        <span class="nv">plugins</span><span class="o">-</span><span class="nv">dir</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">${CANONICAL_MODS_DIR}/plugins</span><span class="s2">&quot;</span>
+    }
+    <span class="nv">ip</span><span class="o">-</span><span class="nv">sets</span> {}
+    <span class="nv">logging</span> {
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">blocks</span> <span class="nv">are</span> <span class="nv">broken</span>
+        <span class="nv">block</span><span class="o">-</span><span class="k">break</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">blocks</span> <span class="nv">are</span> <span class="nv">modified</span>
+        <span class="nv">block</span><span class="o">-</span><span class="nv">modify</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">blocks</span> <span class="nv">are</span> <span class="nv">placed</span>
+        <span class="nv">block</span><span class="o">-</span><span class="nv">place</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">blocks</span> <span class="nv">are</span> <span class="nv">populated</span> <span class="nv">in</span> <span class="nv">a</span> <span class="nv">chunk</span>
+        <span class="nv">block</span><span class="o">-</span><span class="nv">populate</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">blocks</span> <span class="nv">are</span> <span class="nv">placed</span> <span class="nv">by</span> <span class="nv">players</span> <span class="nv">and</span> <span class="nv">tracked</span>
+        <span class="nv">block</span><span class="o">-</span><span class="nv">tracking</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">chunks</span> <span class="nv">are</span> <span class="nv">queued</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">unloaded</span> <span class="nv">by</span> <span class="nv">the</span> <span class="nv">chunk</span> <span class="nv">garbage</span> <span class="nv">collector</span>.
+        <span class="nv">chunk</span><span class="o">-</span><span class="nv">gc</span><span class="o">-</span><span class="nv">queue</span><span class="o">-</span><span class="nv">unload</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">chunks</span> <span class="nv">are</span> <span class="nv">loaded</span>
+        <span class="nv">chunk</span><span class="o">-</span><span class="nv">load</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">chunks</span> <span class="nv">are</span> <span class="nv">unloaded</span>
+        <span class="nv">chunk</span><span class="o">-</span><span class="nv">unload</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Whether</span> <span class="nv">to</span> <span class="nv">log</span> <span class="nv">entity</span> <span class="nv">collision</span><span class="o">/</span><span class="nv">count</span> <span class="nv">checks</span>
+        <span class="nv">entity</span><span class="o">-</span><span class="nv">collision</span><span class="o">-</span><span class="nv">checks</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">living</span> <span class="nv">entities</span> <span class="nv">are</span> <span class="nv">destroyed</span>
+        <span class="nv">entity</span><span class="o">-</span><span class="nv">death</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">living</span> <span class="nv">entities</span> <span class="nv">are</span> <span class="nv">despawned</span>
+        <span class="nv">entity</span><span class="o">-</span><span class="nv">despawn</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">living</span> <span class="nv">entities</span> <span class="nv">are</span> <span class="nv">spawned</span>
+        <span class="nv">entity</span><span class="o">-</span><span class="nv">spawn</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Whether</span> <span class="nv">to</span> <span class="nv">log</span> <span class="nv">entity</span> <span class="nv">removals</span> <span class="nv">due</span> <span class="nv">to</span> <span class="nv">speed</span>
+        <span class="nv">entity</span><span class="o">-</span><span class="nv">speed</span><span class="o">-</span><span class="nv">removal</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">server</span> <span class="nv">receives</span> <span class="nv">exploited</span> <span class="nv">packet</span> <span class="nv">with</span> <span class="nv">itemstack</span> <span class="nv">name</span> <span class="nv">exceeding</span> <span class="nv">string</span> <span class="nv">limit</span>.
+        <span class="nv">exploit</span><span class="o">-</span><span class="nv">itemstack</span><span class="o">-</span><span class="nv">name</span><span class="o">-</span><span class="nv">overflow</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">player</span> <span class="nv">attempts</span> <span class="nv">to</span> <span class="nv">respawn</span> <span class="nv">invisible</span> <span class="nv">to</span> <span class="nv">surrounding</span> <span class="nv">players</span>.
+        <span class="nv">exploit</span><span class="o">-</span><span class="nv">respawn</span><span class="o">-</span><span class="nv">invisibility</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">server</span> <span class="nv">receives</span> <span class="nv">exploited</span> <span class="nv">packet</span> <span class="nv">to</span> <span class="nv">update</span> <span class="nv">a</span> <span class="nv">sign</span> <span class="nv">containing</span> <span class="nv">commands</span> <span class="nv">from</span> <span class="nv">player</span> <span class="nv">with</span> <span class="nv">no</span> <span class="nv">permission</span>.
+        <span class="nv">exploit</span><span class="o">-</span><span class="nv">sign</span><span class="o">-</span><span class="nv">command</span><span class="o">-</span><span class="nv">updates</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Add</span> <span class="nv">stack</span> <span class="nv">traces</span> <span class="nv">to</span> <span class="nv">dev</span> <span class="nv">logging</span>
+        <span class="nv">log</span><span class="o">-</span><span class="nv">stacktraces</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Log</span> <span class="nv">when</span> <span class="nv">a</span> <span class="nv">world</span> <span class="nv">auto</span><span class="o">-</span><span class="nv">saves</span> <span class="nv">its</span> <span class="nv">chunk</span> <span class="nv">data</span>. <span class="nv">Note</span>: <span class="nv">This</span> <span class="nv">may</span> <span class="nv">be</span> <span class="nv">spammy</span> <span class="nv">depending</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">auto</span><span class="o">-</span><span class="nv">save</span><span class="o">-</span><span class="nv">interval</span> <span class="nv">configured</span> <span class="k">for</span> <span class="nv">world</span>.
+        <span class="nv">world</span><span class="o">-</span><span class="nv">auto</span><span class="o">-</span><span class="nv">save</span><span class="o">=</span><span class="nv">false</span>
+    }
+    <span class="nv">metrics</span> {
+        # <span class="nv">Determines</span> <span class="nv">whether</span> <span class="nv">plugins</span> <span class="nv">that</span> <span class="nv">are</span> <span class="nv">newly</span> <span class="nv">added</span> <span class="nv">are</span> <span class="nv">allowed</span> <span class="nv">to</span> <span class="nv">perform</span>
+        # <span class="nv">data</span><span class="o">/</span><span class="nv">metric</span> <span class="nv">collection</span> <span class="nv">by</span> <span class="nv">default</span>. <span class="nv">Plugins</span> <span class="nv">detected</span> <span class="nv">by</span> <span class="nv">Sponge</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">added</span> <span class="nv">to</span> <span class="nv">the</span> <span class="s2">&quot;</span><span class="s">plugin-permissions</span><span class="s2">&quot;</span> <span class="nv">section</span> <span class="nv">with</span> <span class="nv">this</span> <span class="nv">value</span>.
+        #
+        # <span class="nv">Set</span> <span class="nv">to</span> <span class="nv">true</span> <span class="nv">to</span> <span class="nv">enable</span> <span class="nv">metric</span> <span class="nv">gathering</span> <span class="nv">by</span> <span class="nv">default</span>, <span class="nv">false</span> <span class="nv">otherwise</span>.
+        <span class="nv">default</span><span class="o">-</span><span class="nv">permission</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Provides</span> <span class="ss">(</span><span class="nv">or</span> <span class="nv">revokes</span><span class="ss">)</span> <span class="nv">permission</span> <span class="k">for</span> <span class="nv">metric</span> <span class="nv">gathering</span> <span class="nv">on</span> <span class="nv">a</span> <span class="nv">per</span> <span class="nv">plugin</span> <span class="nv">basis</span>.
+        # <span class="nv">Entries</span> <span class="nv">should</span> <span class="nv">be</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">format</span> <span class="s2">&quot;</span><span class="s">plugin-id=&lt;true|false&gt;</span><span class="s2">&quot;</span>.
+        #
+        # <span class="nv">Deleting</span> <span class="nv">an</span> <span class="nv">entry</span> <span class="nv">from</span> <span class="nv">this</span> <span class="nv">list</span> <span class="nv">will</span> <span class="nv">reset</span> <span class="nv">it</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">default</span> <span class="nv">specified</span> <span class="nv">in</span>
+        # <span class="s2">&quot;</span><span class="s">default-permission</span><span class="s2">&quot;</span>
+        <span class="nv">plugin</span><span class="o">-</span><span class="nv">permissions</span> {
+            <span class="nv">test</span><span class="o">-</span><span class="nv">gradle</span><span class="o">-</span><span class="nv">plugin</span><span class="o">=</span><span class="nv">false</span>
+        }
+    }
+    <span class="nv">modules</span> {
+        # <span class="nv">Enables</span> <span class="nv">experimental</span> <span class="nv">fixes</span> <span class="k">for</span> <span class="nv">broken</span> <span class="nv">mods</span>
+        <span class="nv">broken</span><span class="o">-</span><span class="nv">mod</span><span class="o">=</span><span class="nv">false</span>
+        <span class="nv">bungeecord</span><span class="o">=</span><span class="nv">false</span>
+        <span class="nv">entity</span><span class="o">-</span><span class="nv">activation</span><span class="o">-</span><span class="nv">range</span><span class="o">=</span><span class="nv">true</span>
+        <span class="nv">entity</span><span class="o">-</span><span class="nv">collisions</span><span class="o">=</span><span class="nv">true</span>
+        <span class="nv">exploits</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="nv">Allows</span> <span class="nv">configuring</span> <span class="nv">Vanilla</span> <span class="nv">movement</span> <span class="nv">and</span> <span class="nv">speed</span> <span class="nv">checks</span>
+        <span class="nv">movement</span><span class="o">-</span><span class="nv">checks</span><span class="o">=</span><span class="nv">false</span>
+        <span class="nv">optimizations</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="nv">Use</span> <span class="nv">real</span> <span class="ss">(</span><span class="nv">wall</span><span class="ss">)</span> <span class="nv">time</span> <span class="nv">instead</span> <span class="nv">of</span> <span class="nv">ticks</span> <span class="nv">as</span> <span class="nv">much</span> <span class="nv">as</span> <span class="nv">possible</span>
+        <span class="nv">realtime</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Controls</span> <span class="nv">block</span> <span class="nv">range</span> <span class="nv">and</span> <span class="nv">tick</span> <span class="nv">rate</span> <span class="nv">of</span> <span class="nv">tileentities</span>.
+        # <span class="nv">Use</span> <span class="nv">with</span> <span class="nv">caution</span> <span class="nv">as</span> <span class="nv">this</span> <span class="nv">can</span> <span class="k">break</span> <span class="nv">intended</span> <span class="nv">functionality</span>.
+        <span class="nv">tileentity</span><span class="o">-</span><span class="nv">activation</span><span class="o">=</span><span class="nv">false</span>
+        <span class="nv">timings</span><span class="o">=</span><span class="nv">true</span>
+        <span class="nv">tracking</span><span class="o">=</span><span class="nv">true</span>
+    }
+    <span class="nv">movement</span><span class="o">-</span><span class="nv">checks</span> {
+        # <span class="nv">Controls</span> <span class="nv">whether</span> <span class="nv">the</span> <span class="s1">&#39;</span><span class="s">player/entity moved wrongly!</span><span class="s1">&#39;</span> <span class="nv">check</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">enforced</span>
+        <span class="nv">moved</span><span class="o">-</span><span class="nv">wrongly</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="nv">Controls</span> <span class="nv">whether</span> <span class="nv">the</span> <span class="s1">&#39;</span><span class="s">player moved too quickly!</span><span class="s1">&#39;</span> <span class="nv">check</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">enforced</span>
+        <span class="nv">player</span><span class="o">-</span><span class="nv">moved</span><span class="o">-</span><span class="nv">too</span><span class="o">-</span><span class="nv">quickly</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="nv">Controls</span> <span class="nv">whether</span> <span class="nv">the</span> <span class="s1">&#39;</span><span class="s">vehicle of player moved too quickly!</span><span class="s1">&#39;</span> <span class="nv">check</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">enforced</span>
+        <span class="nv">player</span><span class="o">-</span><span class="nv">vehicle</span><span class="o">-</span><span class="nv">moved</span><span class="o">-</span><span class="nv">too</span><span class="o">-</span><span class="nv">quickly</span><span class="o">=</span><span class="nv">true</span>
+    }
+    <span class="nv">optimizations</span> {
+        # <span class="nv">Runs</span> <span class="nv">lighting</span> <span class="nv">updates</span> <span class="nv">asynchronously</span>.
+        <span class="nv">async</span><span class="o">-</span><span class="nv">lighting</span> {
+            # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">lighting</span> <span class="nv">updates</span> <span class="nv">are</span> <span class="nv">run</span> <span class="nv">asynchronously</span>.
+            <span class="nv">enabled</span><span class="o">=</span><span class="nv">true</span>
+            # <span class="nv">The</span> <span class="nv">amount</span> <span class="nv">of</span> <span class="nv">threads</span> <span class="nv">to</span> <span class="nv">dedicate</span> <span class="k">for</span> <span class="nv">asynchronous</span> <span class="nv">lighting</span> <span class="nv">updates</span>. <span class="ss">(</span><span class="nv">Default</span>: <span class="mi">2</span><span class="ss">)</span>
+            <span class="nv">num</span><span class="o">-</span><span class="nv">threads</span><span class="o">=</span><span class="mi">2</span>
+        }
+        # <span class="nv">Caches</span> <span class="nv">tameable</span> <span class="nv">entities</span> <span class="nv">owners</span> <span class="nv">to</span> <span class="nv">avoid</span> <span class="nv">constant</span> <span class="nv">lookups</span> <span class="nv">against</span> <span class="nv">data</span> <span class="nv">watchers</span>. <span class="k">If</span> <span class="nv">mods</span>
+        # <span class="nv">cause</span> <span class="nv">issues</span>, <span class="nv">disable</span> <span class="nv">this</span>.
+        <span class="nv">cache</span><span class="o">-</span><span class="nv">tameable</span><span class="o">-</span><span class="nv">owners</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">block</span> <span class="nv">item</span> <span class="nv">drops</span> <span class="nv">are</span> <span class="nv">pre</span><span class="o">-</span><span class="nv">processed</span> <span class="nv">to</span> <span class="nv">avoid</span>
+        # <span class="nv">having</span> <span class="nv">to</span> <span class="nv">spawn</span> <span class="nv">extra</span> <span class="nv">entities</span> <span class="nv">that</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">merged</span> <span class="nv">post</span> <span class="nv">spawning</span>.
+        # <span class="nv">Usually</span>, <span class="nv">Sponge</span> <span class="nv">is</span> <span class="nv">smart</span> <span class="nv">enough</span> <span class="nv">to</span> <span class="nv">determine</span> <span class="nv">when</span> <span class="nv">to</span> <span class="nv">attempt</span> <span class="nv">an</span> <span class="nv">item</span> <span class="nv">pre</span><span class="o">-</span><span class="nv">merge</span>
+        # <span class="nv">and</span> <span class="nv">when</span> <span class="nv">not</span> <span class="nv">to</span>, <span class="nv">however</span>, <span class="nv">in</span> <span class="nv">certain</span> <span class="nv">cases</span>, <span class="nv">some</span> <span class="nv">mods</span> <span class="nv">rely</span> <span class="nv">on</span> <span class="nv">items</span> <span class="nv">not</span> <span class="nv">being</span>
+        # <span class="nv">pre</span><span class="o">-</span><span class="nv">merged</span> <span class="nv">and</span> <span class="nv">actually</span> <span class="nv">spawned</span>, <span class="nv">in</span> <span class="nv">which</span> <span class="nv">case</span>, <span class="nv">the</span> <span class="nv">items</span> <span class="nv">will</span> <span class="nv">flow</span> <span class="nv">right</span> <span class="nv">through</span>
+        # <span class="nv">without</span> <span class="nv">being</span> <span class="nv">merged</span>.
+        <span class="nv">drops</span><span class="o">-</span><span class="nv">pre</span><span class="o">-</span><span class="nv">merge</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">provides</span> <span class="nv">a</span> <span class="nv">fix</span> <span class="k">for</span> <span class="nv">possible</span> <span class="nv">leaks</span> <span class="nv">through</span>
+        # <span class="nv">Minecraft</span><span class="s1">&#39;</span><span class="s">s enchantment helper code that can leak</span>
+        # <span class="nv">entity</span> <span class="nv">and</span> <span class="nv">world</span> <span class="nv">references</span> <span class="nv">without</span> <span class="nv">much</span> <span class="nv">interaction</span>
+        # <span class="nv">Forge</span> <span class="nv">native</span> <span class="ss">(</span><span class="nv">so</span> <span class="nv">when</span> <span class="nv">running</span> <span class="nv">SpongeForge</span> <span class="nv">implementation</span><span class="ss">)</span>
+        # <span class="nv">has</span> <span class="nv">a</span> <span class="nv">similar</span> <span class="nv">patch</span>, <span class="nv">but</span> <span class="nv">Sponge</span><span class="s1">&#39;</span><span class="s">s patch works a little harder</span>
+        # <span class="nv">at</span> <span class="nv">it</span>, <span class="nv">but</span> <span class="nv">Vanilla</span> <span class="ss">(</span><span class="nv">SpongeVanilla</span> <span class="nv">implementation</span><span class="ss">)</span> <span class="nv">does</span> <span class="nv">NOT</span>
+        # <span class="nv">have</span> <span class="nv">any</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">patch</span>, <span class="nv">leading</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">recommendation</span> <span class="nv">that</span> <span class="nv">this</span>
+        # <span class="nv">patch</span> <span class="nv">is</span> <span class="nv">enabled</span> <span class="s2">&quot;</span><span class="s">for sure</span><span class="s2">&quot;</span> <span class="nv">when</span> <span class="nv">using</span> <span class="nv">SpongeVanilla</span> <span class="nv">implementation</span>.
+        # <span class="nv">See</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">bugs</span>.<span class="nv">mojang</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">browse</span><span class="o">/</span><span class="nv">MC</span><span class="o">-</span><span class="mi">128547</span> <span class="k">for</span> <span class="nv">more</span> <span class="nv">information</span>.
+        #
+        <span class="nv">enchantment</span><span class="o">-</span><span class="nv">helper</span><span class="o">-</span><span class="nv">leak</span><span class="o">-</span><span class="nv">fix</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">allows</span> <span class="k">for</span> <span class="nv">Sponge</span> <span class="nv">to</span> <span class="nv">make</span> <span class="nv">better</span> <span class="nv">assumptinos</span> <span class="nv">on</span> <span class="nv">single</span> <span class="nv">threaded</span>
+        # <span class="nv">operations</span> <span class="nv">with</span> <span class="nv">relation</span> <span class="nv">to</span> <span class="nv">various</span> <span class="nv">checks</span> <span class="k">for</span> <span class="nv">server</span> <span class="nv">threaded</span> <span class="nv">operations</span>.
+        # <span class="nv">This</span> <span class="nv">is</span> <span class="nv">default</span> <span class="nv">to</span> <span class="nv">true</span> <span class="nv">due</span> <span class="nv">to</span> <span class="nv">Sponge</span> <span class="nv">being</span> <span class="nv">able</span> <span class="nv">to</span> <span class="nv">precisely</span> <span class="nv">inject</span> <span class="nv">when</span>
+        # <span class="nv">the</span> <span class="nv">server</span> <span class="nv">thread</span> <span class="nv">is</span> <span class="nv">available</span>. <span class="nv">This</span> <span class="nv">should</span> <span class="nv">make</span> <span class="nv">an</span> <span class="nv">already</span> <span class="nv">fast</span> <span class="nv">operation</span>
+        # <span class="nv">much</span> <span class="nv">faster</span> <span class="k">for</span> <span class="nv">better</span> <span class="nv">thread</span> <span class="nv">checks</span> <span class="nv">to</span> <span class="nv">ensure</span> <span class="nv">stability</span> <span class="nv">of</span> <span class="nv">sponge</span><span class="s1">&#39;</span><span class="s">s systems.</span>
+        <span class="nv">faster</span><span class="o">-</span><span class="nv">thread</span><span class="o">-</span><span class="nv">checks</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">re</span><span class="o">-</span><span class="nv">writes</span> <span class="nv">the</span> <span class="nv">incredibly</span> <span class="nv">inefficient</span> <span class="nv">Vanilla</span> <span class="nv">Map</span> <span class="nv">code</span>.
+        # <span class="nv">This</span> <span class="nv">yields</span> <span class="nv">enormous</span> <span class="nv">performance</span> <span class="nv">enhancements</span> <span class="nv">when</span> <span class="nv">using</span> <span class="nv">many</span> <span class="nv">maps</span>, <span class="nv">but</span> <span class="nv">has</span> <span class="nv">a</span> <span class="nv">tiny</span> <span class="nv">chance</span> <span class="nv">of</span> <span class="nv">breaking</span> <span class="nv">mods</span> <span class="nv">that</span> <span class="nv">invasively</span> <span class="nv">modify</span> <span class="nv">Vanilla</span>.<span class="nv">It</span> <span class="nv">is</span> <span class="nv">strongly</span> <span class="nv">reccomended</span> <span class="nv">to</span> <span class="nv">keep</span> <span class="nv">this</span> <span class="nv">on</span>, <span class="nv">unless</span> <span class="nv">explicitly</span> <span class="nv">advised</span> <span class="nv">otherwise</span> <span class="nv">by</span> <span class="nv">a</span> <span class="nv">Sponge</span> <span class="nv">developer</span>
+        <span class="nv">map</span><span class="o">-</span><span class="nv">optimization</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">uses</span> <span class="nv">Panda4494</span><span class="s1">&#39;</span><span class="s">s redstone implementation which improves performance.</span>
+        # <span class="nv">See</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">bugs</span>.<span class="nv">mojang</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">browse</span><span class="o">/</span><span class="nv">MC</span><span class="o">-</span><span class="mi">11193</span> <span class="k">for</span> <span class="nv">more</span> <span class="nv">information</span>.
+        # <span class="nv">Note</span>: <span class="nv">This</span> <span class="nv">optimization</span> <span class="nv">has</span> <span class="nv">a</span> <span class="nv">few</span> <span class="nv">issues</span> <span class="nv">which</span> <span class="nv">are</span> <span class="nv">explained</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">bug</span> <span class="nv">report</span>.
+        <span class="nv">panda</span><span class="o">-</span><span class="nv">redstone</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Handles</span> <span class="nv">structures</span> <span class="nv">that</span> <span class="nv">are</span> <span class="nv">saved</span> <span class="nv">to</span> <span class="nv">disk</span>. <span class="nv">Certain</span> <span class="nv">structures</span> <span class="nv">can</span> <span class="nv">take</span> <span class="nv">up</span> <span class="nv">large</span> <span class="nv">amounts</span>
+        # <span class="nv">of</span> <span class="nv">disk</span> <span class="nv">space</span> <span class="k">for</span> <span class="nv">very</span> <span class="nv">large</span> <span class="nv">maps</span> <span class="nv">and</span> <span class="nv">the</span> <span class="nv">data</span> <span class="k">for</span> <span class="nv">these</span> <span class="nv">structures</span> <span class="nv">is</span> <span class="nv">only</span> <span class="nv">needed</span> <span class="k">while</span> <span class="nv">the</span>
+        # <span class="nv">world</span> <span class="nv">around</span> <span class="nv">them</span> <span class="nv">is</span> <span class="nv">generating</span>. <span class="nv">Disabling</span> <span class="nv">saving</span> <span class="nv">of</span> <span class="nv">these</span> <span class="nv">structures</span> <span class="nv">can</span> <span class="nv">save</span> <span class="nv">disk</span> <span class="nv">space</span> <span class="nv">and</span>
+        # <span class="nv">time</span> <span class="nv">during</span> <span class="nv">saves</span> <span class="k">if</span> <span class="nv">your</span> <span class="nv">world</span> <span class="nv">is</span> <span class="nv">already</span> <span class="nv">fully</span> <span class="nv">generated</span>.
+        # <span class="nv">Warning</span>: <span class="nv">disabling</span> <span class="nv">structure</span> <span class="nv">saving</span> <span class="nv">will</span> <span class="k">break</span> <span class="nv">the</span> <span class="nv">vanilla</span> <span class="nv">locate</span> <span class="nv">command</span>.
+        <span class="nv">structure</span><span class="o">-</span><span class="nv">saving</span> {
+            # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">newly</span> <span class="nv">discovered</span> <span class="nv">structures</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">added</span> <span class="nv">to</span> <span class="nv">this</span> <span class="nv">config</span> <span class="nv">with</span> <span class="nv">a</span> <span class="nv">default</span> <span class="nv">value</span>.
+            <span class="nv">auto</span><span class="o">-</span><span class="nv">populate</span><span class="o">=</span><span class="nv">false</span>
+            <span class="nv">enabled</span><span class="o">=</span><span class="nv">false</span>
+            # <span class="nv">Per</span><span class="o">-</span><span class="nv">mod</span> <span class="nv">overrides</span>. <span class="nv">Refer</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">minecraft</span> <span class="nv">default</span> <span class="nv">mod</span> <span class="k">for</span> <span class="nv">example</span>.
+            <span class="nv">mods</span> {
+                <span class="nv">minecraft</span> {
+                    # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">false</span><span class="s1">&#39;</span>, <span class="nv">this</span> <span class="nv">mod</span> <span class="nv">will</span> <span class="nv">never</span> <span class="nv">save</span> <span class="nv">its</span> <span class="nv">structures</span>.
+                    <span class="nv">enabled</span><span class="o">=</span><span class="nv">true</span>
+                    <span class="nv">structures</span> {
+                        <span class="nv">mineshaft</span><span class="o">=</span><span class="nv">false</span>
+                    }
+                }
+            }
+        }
+    }
+    <span class="nv">player</span><span class="o">-</span><span class="nv">block</span><span class="o">-</span><span class="nv">tracker</span> {
+        # <span class="nv">Block</span> <span class="nv">IDs</span> <span class="nv">that</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">blacklisted</span> <span class="k">for</span> <span class="nv">player</span> <span class="nv">block</span> <span class="nv">placement</span> <span class="nv">tracking</span>.
+        <span class="nv">block</span><span class="o">-</span><span class="nv">blacklist</span><span class="o">=</span>[]
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">adds</span> <span class="nv">player</span> <span class="nv">tracking</span> <span class="nv">support</span> <span class="k">for</span> <span class="nv">block</span> <span class="nv">positions</span>.
+        # <span class="nv">Note</span>: <span class="nv">This</span> <span class="nv">should</span> <span class="nv">only</span> <span class="nv">be</span> <span class="nv">disabled</span> <span class="k">if</span> <span class="nv">you</span> <span class="k">do</span> <span class="nv">not</span> <span class="nv">care</span> <span class="nv">who</span> <span class="nv">caused</span> <span class="nv">a</span> <span class="nv">block</span> <span class="nv">to</span> <span class="nv">change</span>.
+        <span class="nv">enabled</span><span class="o">=</span><span class="nv">true</span>
+    }
+    # <span class="nv">Used</span> <span class="nv">to</span> <span class="nv">control</span> <span class="nv">spawn</span> <span class="nv">limits</span> <span class="nv">around</span> <span class="nv">players</span>.
+    # <span class="nv">Note</span>: <span class="nv">The</span> <span class="nv">radius</span> <span class="nv">uses</span> <span class="nv">the</span> <span class="nv">lower</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">mob</span> <span class="nv">spawn</span> <span class="nv">range</span> <span class="nv">and</span> <span class="nv">server</span><span class="s1">&#39;</span><span class="s">s view distance.</span>
+    <span class="nv">spawner</span> {
+        # <span class="nv">The</span> <span class="nv">number</span> <span class="nv">of</span> <span class="nv">ambients</span> <span class="nv">the</span> <span class="nv">spawner</span> <span class="nv">can</span> <span class="nv">potentially</span> <span class="nv">spawn</span> <span class="nv">around</span> <span class="nv">a</span> <span class="nv">player</span>.
+        <span class="nv">spawn</span><span class="o">-</span><span class="nv">limit</span><span class="o">-</span><span class="nv">ambient</span><span class="o">=</span><span class="mi">15</span>
+        # <span class="nv">The</span> <span class="nv">number</span> <span class="nv">of</span> <span class="nv">animals</span> <span class="nv">the</span> <span class="nv">spawner</span> <span class="nv">can</span> <span class="nv">potentially</span> <span class="nv">spawn</span> <span class="nv">around</span> <span class="nv">a</span> <span class="nv">player</span>.
+        <span class="nv">spawn</span><span class="o">-</span><span class="nv">limit</span><span class="o">-</span><span class="nv">animal</span><span class="o">=</span><span class="mi">15</span>
+        # <span class="nv">The</span> <span class="nv">number</span> <span class="nv">of</span> <span class="nv">aquatics</span> <span class="nv">the</span> <span class="nv">spawner</span> <span class="nv">can</span> <span class="nv">potentially</span> <span class="nv">spawn</span> <span class="nv">around</span> <span class="nv">a</span> <span class="nv">player</span>.
+        <span class="nv">spawn</span><span class="o">-</span><span class="nv">limit</span><span class="o">-</span><span class="nv">aquatic</span><span class="o">=</span><span class="mi">5</span>
+        # <span class="nv">The</span> <span class="nv">number</span> <span class="nv">of</span> <span class="nv">monsters</span> <span class="nv">the</span> <span class="nv">spawner</span> <span class="nv">can</span> <span class="nv">potentially</span> <span class="nv">spawn</span> <span class="nv">around</span> <span class="nv">a</span> <span class="nv">player</span>.
+        <span class="nv">spawn</span><span class="o">-</span><span class="nv">limit</span><span class="o">-</span><span class="nv">monster</span><span class="o">=</span><span class="mi">70</span>
+        # <span class="nv">The</span> <span class="nv">ambient</span> <span class="nv">spawning</span> <span class="nv">tick</span> <span class="nv">rate</span>. <span class="nv">Default</span>: <span class="mi">400</span>
+        <span class="nv">tick</span><span class="o">-</span><span class="nv">rate</span><span class="o">-</span><span class="nv">ambient</span><span class="o">=</span><span class="mi">400</span>
+        # <span class="nv">The</span> <span class="nv">animal</span> <span class="nv">spawning</span> <span class="nv">tick</span> <span class="nv">rate</span>. <span class="nv">Default</span>: <span class="mi">400</span>
+        <span class="nv">tick</span><span class="o">-</span><span class="nv">rate</span><span class="o">-</span><span class="nv">animal</span><span class="o">=</span><span class="mi">400</span>
+        # <span class="nv">The</span> <span class="nv">aquatic</span> <span class="nv">spawning</span> <span class="nv">tick</span> <span class="nv">rate</span>. <span class="nv">Default</span>: <span class="mi">400</span>
+        <span class="nv">tick</span><span class="o">-</span><span class="nv">rate</span><span class="o">-</span><span class="nv">aquatic</span><span class="o">=</span><span class="mi">400</span>
+        # <span class="nv">The</span> <span class="nv">monster</span> <span class="nv">spawning</span> <span class="nv">tick</span> <span class="nv">rate</span>. <span class="nv">Default</span>: <span class="mi">1</span>
+        <span class="nv">tick</span><span class="o">-</span><span class="nv">rate</span><span class="o">-</span><span class="nv">monster</span><span class="o">=</span><span class="mi">1</span>
+    }
+    # <span class="nv">Configuration</span> <span class="nv">options</span> <span class="nv">related</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">Sql</span> <span class="nv">service</span>, <span class="nv">including</span> <span class="nv">connection</span> <span class="nv">aliases</span> <span class="nv">etc</span>
+    <span class="nv">sql</span> {
+        # <span class="nv">Aliases</span> <span class="k">for</span> <span class="nv">SQL</span> <span class="nv">connections</span>, <span class="nv">in</span> <span class="nv">the</span> <span class="nv">format</span> <span class="nv">jdbc</span>:<span class="nv">protocol</span>:<span class="o">//</span>[<span class="nv">username</span>[:<span class="nv">password</span>]@]<span class="nv">host</span><span class="o">/</span><span class="nv">database</span>
+        <span class="nv">aliases</span> {}
+    }
+    # <span class="nv">Blocks</span> <span class="nv">to</span> <span class="nv">blacklist</span> <span class="k">for</span> <span class="nv">safe</span> <span class="nv">teleportation</span>.
+    <span class="nv">teleport</span><span class="o">-</span><span class="nv">helper</span> {
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">this</span> <span class="nv">blacklist</span> <span class="nv">will</span> <span class="nv">always</span> <span class="nv">be</span> <span class="nv">respected</span>, <span class="nv">otherwise</span>, <span class="nv">plugins</span> <span class="nv">can</span> <span class="nv">choose</span> <span class="nv">whether</span>
+        # <span class="nv">or</span> <span class="nv">not</span> <span class="nv">to</span> <span class="nv">respect</span> <span class="nv">it</span>.
+        <span class="nv">force</span><span class="o">-</span><span class="nv">blacklist</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Block</span> <span class="nv">IDs</span> <span class="nv">that</span> <span class="nv">are</span> <span class="nv">listed</span> <span class="nv">here</span> <span class="nv">will</span> <span class="nv">not</span> <span class="nv">be</span> <span class="nv">selected</span> <span class="nv">by</span> <span class="nv">Sponge</span><span class="s1">&#39;</span><span class="s">s safe teleport routine as</span>
+        # <span class="nv">a</span> <span class="nv">safe</span> <span class="nv">block</span> <span class="k">for</span> <span class="nv">players</span> <span class="nv">to</span> <span class="nv">warp</span> <span class="nv">into</span>.
+        # <span class="nv">You</span> <span class="nv">should</span> <span class="nv">only</span> <span class="nv">list</span> <span class="nv">blocks</span> <span class="nv">here</span> <span class="nv">that</span> <span class="nv">are</span> <span class="nv">incorrectly</span> <span class="nv">selected</span>, <span class="nv">solid</span> <span class="nv">blocks</span> <span class="nv">that</span> <span class="nv">prevent</span>
+        # <span class="nv">movement</span> <span class="nv">are</span> <span class="nv">automatically</span> <span class="nv">excluded</span>.
+        <span class="nv">unsafe</span><span class="o">-</span><span class="nv">body</span><span class="o">-</span><span class="nv">block</span><span class="o">-</span><span class="nv">ids</span><span class="o">=</span>[]
+        # <span class="nv">Block</span> <span class="nv">IDs</span> <span class="nv">that</span> <span class="nv">are</span> <span class="nv">listed</span> <span class="nv">here</span> <span class="nv">will</span> <span class="nv">not</span> <span class="nv">be</span> <span class="nv">selected</span> <span class="nv">by</span> <span class="nv">Sponge</span><span class="s1">&#39;</span><span class="s">s safe</span>
+        # <span class="nv">teleport</span> <span class="nv">routine</span> <span class="nv">as</span> <span class="nv">a</span> <span class="nv">safe</span> <span class="nv">floor</span> <span class="nv">block</span>.
+        <span class="nv">unsafe</span><span class="o">-</span><span class="nv">floor</span><span class="o">-</span><span class="nv">block</span><span class="o">-</span><span class="nv">ids</span><span class="o">=</span>[]
+    }
+    <span class="nv">tileentity</span><span class="o">-</span><span class="nv">activation</span> {
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">newly</span> <span class="nv">discovered</span> <span class="nv">tileentities</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">added</span> <span class="nv">to</span> <span class="nv">this</span> <span class="nv">config</span> <span class="nv">with</span> <span class="nv">default</span> <span class="nv">settings</span>.
+        <span class="nv">auto</span><span class="o">-</span><span class="nv">populate</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Default</span> <span class="nv">activation</span> <span class="nv">block</span> <span class="nv">range</span> <span class="nv">used</span> <span class="k">for</span> <span class="nv">all</span> <span class="nv">tileentities</span> <span class="nv">unless</span> <span class="nv">overridden</span>.
+        <span class="nv">default</span><span class="o">-</span><span class="nv">block</span><span class="o">-</span><span class="nv">range</span><span class="o">=</span><span class="mi">64</span>
+        # <span class="nv">Default</span> <span class="nv">tick</span> <span class="nv">rate</span> <span class="nv">used</span> <span class="k">for</span> <span class="nv">all</span> <span class="nv">tileentities</span> <span class="nv">unless</span> <span class="nv">overridden</span>.
+        <span class="nv">default</span><span class="o">-</span><span class="nv">tick</span><span class="o">-</span><span class="nv">rate</span><span class="o">=</span><span class="mi">1</span>
+        # <span class="nv">Per</span><span class="o">-</span><span class="nv">mod</span> <span class="nv">overrides</span>. <span class="nv">Refer</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">minecraft</span> <span class="nv">default</span> <span class="nv">mod</span> <span class="k">for</span> <span class="nv">example</span>.
+        <span class="nv">mods</span> {}
+    }
+    <span class="nv">timings</span> {
+        <span class="nv">enabled</span><span class="o">=</span><span class="nv">true</span>
+        <span class="nv">hidden</span><span class="o">-</span><span class="nv">config</span><span class="o">-</span><span class="nv">entries</span><span class="o">=</span>[
+            <span class="s2">&quot;</span><span class="s">sponge.sql</span><span class="s2">&quot;</span>
+        ]
+        <span class="nv">history</span><span class="o">-</span><span class="nv">interval</span><span class="o">=</span><span class="mi">300</span>
+        <span class="nv">history</span><span class="o">-</span><span class="nv">length</span><span class="o">=</span><span class="mi">3600</span>
+        <span class="nv">server</span><span class="o">-</span><span class="nv">name</span><span class="o">-</span><span class="nv">privacy</span><span class="o">=</span><span class="nv">false</span>
+        <span class="nv">verbose</span><span class="o">=</span><span class="nv">false</span>
+    }
+    <span class="nv">world</span> {
+        # <span class="nv">The</span> <span class="nv">auto</span><span class="o">-</span><span class="nv">save</span> <span class="nv">tick</span> <span class="nv">interval</span> <span class="nv">used</span> <span class="nv">when</span> <span class="nv">saving</span> <span class="nv">global</span> <span class="nv">player</span> <span class="nv">data</span>. <span class="ss">(</span><span class="nv">Default</span>: <span class="mi">900</span><span class="ss">)</span>
+        # <span class="nv">Note</span>: <span class="mi">20</span> <span class="nv">ticks</span> <span class="nv">is</span> <span class="nv">equivalent</span> <span class="nv">to</span> <span class="mi">1</span> <span class="nv">second</span>. <span class="nv">Set</span> <span class="nv">to</span> <span class="mi">0</span> <span class="nv">to</span> <span class="nv">disable</span>.
+        <span class="nv">auto</span><span class="o">-</span><span class="nv">player</span><span class="o">-</span><span class="nv">save</span><span class="o">-</span><span class="nv">interval</span><span class="o">=</span><span class="mi">900</span>
+        # <span class="nv">The</span> <span class="nv">auto</span><span class="o">-</span><span class="nv">save</span> <span class="nv">tick</span> <span class="nv">interval</span> <span class="nv">used</span> <span class="nv">to</span> <span class="nv">save</span> <span class="nv">all</span> <span class="nv">loaded</span> <span class="nv">chunks</span> <span class="nv">in</span> <span class="nv">a</span> <span class="nv">world</span>.
+        # <span class="nv">Set</span> <span class="nv">to</span> <span class="mi">0</span> <span class="nv">to</span> <span class="nv">disable</span>. <span class="ss">(</span><span class="nv">Default</span>: <span class="mi">900</span><span class="ss">)</span>
+        # <span class="nv">Note</span>: <span class="mi">20</span> <span class="nv">ticks</span> <span class="nv">is</span> <span class="nv">equivalent</span> <span class="nv">to</span> <span class="mi">1</span> <span class="nv">second</span>.
+        <span class="nv">auto</span><span class="o">-</span><span class="nv">save</span><span class="o">-</span><span class="nv">interval</span><span class="o">=</span><span class="mi">900</span>
+        # <span class="nv">The</span> <span class="nv">number</span> <span class="nv">of</span> <span class="nv">newly</span> <span class="nv">loaded</span> <span class="nv">chunks</span> <span class="nv">before</span> <span class="nv">triggering</span> <span class="nv">a</span> <span class="nv">forced</span> <span class="nv">cleanup</span>.
+        # <span class="nv">Note</span>: <span class="nv">When</span> <span class="nv">triggered</span>, <span class="nv">the</span> <span class="nv">loaded</span> <span class="nv">chunk</span> <span class="nv">threshold</span> <span class="nv">will</span> <span class="nv">reset</span> <span class="nv">and</span> <span class="nv">start</span> <span class="nv">incrementing</span>.
+        # <span class="nv">Disabled</span> <span class="nv">by</span> <span class="nv">default</span>.
+        <span class="nv">chunk</span><span class="o">-</span><span class="nv">gc</span><span class="o">-</span><span class="nv">load</span><span class="o">-</span><span class="nv">threshold</span><span class="o">=</span><span class="mi">0</span>
+        # <span class="nv">The</span> <span class="nv">tick</span> <span class="nv">interval</span> <span class="nv">used</span> <span class="nv">to</span> <span class="nv">cleanup</span> <span class="nv">all</span> <span class="nv">inactive</span> <span class="nv">chunks</span> <span class="nv">that</span> <span class="nv">have</span> <span class="nv">leaked</span> <span class="nv">in</span> <span class="nv">a</span> <span class="nv">world</span>.
+        # <span class="nv">Set</span> <span class="nv">to</span> <span class="mi">0</span> <span class="nv">to</span> <span class="nv">disable</span> <span class="nv">which</span> <span class="nv">restores</span> <span class="nv">vanilla</span> <span class="nv">handling</span>. <span class="ss">(</span><span class="nv">Default</span>: <span class="mi">600</span><span class="ss">)</span>
+        <span class="nv">chunk</span><span class="o">-</span><span class="nv">gc</span><span class="o">-</span><span class="nv">tick</span><span class="o">-</span><span class="nv">interval</span><span class="o">=</span><span class="mi">600</span>
+        # <span class="nv">The</span> <span class="nv">number</span> <span class="nv">of</span> <span class="nv">seconds</span> <span class="nv">to</span> <span class="nv">delay</span> <span class="nv">a</span> <span class="nv">chunk</span> <span class="nv">unload</span> <span class="nv">once</span> <span class="nv">marked</span> <span class="nv">inactive</span>. <span class="ss">(</span><span class="nv">Default</span>: <span class="mi">15</span><span class="ss">)</span>
+        # <span class="nv">Note</span>: <span class="nv">This</span> <span class="nv">gets</span> <span class="nv">reset</span> <span class="k">if</span> <span class="nv">the</span> <span class="nv">chunk</span> <span class="nv">becomes</span> <span class="nv">active</span> <span class="nv">again</span>.
+        <span class="nv">chunk</span><span class="o">-</span><span class="nv">unload</span><span class="o">-</span><span class="nv">delay</span><span class="o">=</span><span class="mi">15</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">any</span> <span class="nv">request</span> <span class="k">for</span> <span class="nv">a</span> <span class="nv">chunk</span> <span class="nv">not</span> <span class="nv">currently</span> <span class="nv">loaded</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">denied</span> <span class="ss">(</span><span class="nv">exceptions</span> <span class="nv">apply</span>
+        # <span class="k">for</span> <span class="nv">things</span> <span class="nv">like</span> <span class="nv">world</span> <span class="nv">gen</span> <span class="nv">and</span> <span class="nv">player</span> <span class="nv">movement</span><span class="ss">)</span>.
+        # <span class="nv">Warning</span>: <span class="nv">As</span> <span class="nv">this</span> <span class="nv">is</span> <span class="nv">an</span> <span class="nv">experimental</span> <span class="nv">setting</span> <span class="k">for</span> <span class="nv">performance</span> <span class="nv">gain</span>, <span class="k">if</span> <span class="nv">you</span> <span class="nv">encounter</span> <span class="nv">any</span> <span class="nv">issues</span>
+        # <span class="k">then</span> <span class="nv">we</span> <span class="nv">recommend</span> <span class="nv">disabling</span> <span class="nv">it</span>.
+        <span class="nv">deny</span><span class="o">-</span><span class="nv">chunk</span><span class="o">-</span><span class="nv">requests</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Lava</span> <span class="nv">behaves</span> <span class="nv">like</span> <span class="nv">vanilla</span> <span class="nv">water</span> <span class="nv">when</span> <span class="nv">source</span> <span class="nv">block</span> <span class="nv">is</span> <span class="nv">removed</span>
+        <span class="nv">flowing</span><span class="o">-</span><span class="nv">lava</span><span class="o">-</span><span class="nv">decay</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">The</span> <span class="nv">amount</span> <span class="nv">of</span> <span class="nv">GameProfile</span> <span class="nv">requests</span> <span class="nv">to</span> <span class="nv">make</span> <span class="nv">against</span> <span class="nv">Mojang</span><span class="s1">&#39;</span><span class="s">s session server. (Default: 1)</span>
+        # <span class="nv">Note</span>: <span class="nv">Mojang</span> <span class="nv">accepts</span> <span class="nv">a</span> <span class="nv">maximum</span> <span class="nv">of</span> <span class="mi">600</span> <span class="nv">requests</span> <span class="nv">every</span> <span class="mi">10</span> <span class="nv">minutes</span> <span class="nv">from</span> <span class="nv">a</span> <span class="nv">single</span> <span class="nv">IP</span> <span class="nv">address</span>.
+        # <span class="k">If</span> <span class="nv">you</span> <span class="nv">are</span> <span class="nv">running</span> <span class="nv">multiple</span> <span class="nv">servers</span> <span class="nv">behind</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">IP</span>, <span class="nv">it</span> <span class="nv">is</span> <span class="nv">recommended</span> <span class="nv">to</span> <span class="nv">raise</span> <span class="nv">the</span> <span class="s1">&#39;</span><span class="s">gameprofile-task-interval</span><span class="s1">&#39;</span> <span class="nv">setting</span>
+        # <span class="nv">in</span> <span class="nv">order</span> <span class="nv">to</span> <span class="nv">compensate</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">amount</span> <span class="nv">requests</span> <span class="nv">being</span> <span class="nv">sent</span>.
+        # <span class="nv">Finally</span>, <span class="k">if</span> <span class="nv">set</span> <span class="nv">to</span> <span class="mi">0</span> <span class="nv">or</span> <span class="nv">less</span>, <span class="nv">the</span> <span class="nv">default</span> <span class="nv">batch</span> <span class="nv">size</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">used</span>.
+        # <span class="k">For</span> <span class="nv">more</span> <span class="nv">information</span> <span class="nv">visit</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">wiki</span>.<span class="nv">vg</span><span class="o">/</span><span class="nv">Mojang_API</span>
+        <span class="nv">gameprofile</span><span class="o">-</span><span class="nv">lookup</span><span class="o">-</span><span class="nv">batch</span><span class="o">-</span><span class="nv">size</span><span class="o">=</span><span class="mi">1</span>
+        # <span class="nv">The</span> <span class="nv">interval</span>, <span class="nv">in</span> <span class="nv">seconds</span>, <span class="nv">used</span> <span class="nv">by</span> <span class="nv">the</span> <span class="nv">GameProfileQueryTask</span> <span class="nv">to</span> <span class="nv">process</span> <span class="nv">queued</span> <span class="nv">GameProfile</span> <span class="nv">requests</span>. <span class="ss">(</span><span class="nv">Default</span>: <span class="mi">4</span><span class="ss">)</span>
+        # <span class="nv">Note</span>: <span class="nv">This</span> <span class="nv">setting</span> <span class="nv">should</span> <span class="nv">be</span> <span class="nv">raised</span> <span class="k">if</span> <span class="nv">you</span> <span class="nv">experience</span> <span class="nv">the</span> <span class="nv">following</span> <span class="nv">error</span>:
+        # <span class="s2">&quot;</span><span class="s">The client has sent too many requests within a certain amount of time</span><span class="s2">&quot;</span>.
+        # <span class="nv">Finally</span>, <span class="k">if</span> <span class="nv">set</span> <span class="nv">to</span> <span class="mi">0</span> <span class="nv">or</span> <span class="nv">less</span>, <span class="nv">the</span> <span class="nv">default</span> <span class="nv">interval</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">used</span>.
+        <span class="nv">gameprofile</span><span class="o">-</span><span class="nv">lookup</span><span class="o">-</span><span class="nv">task</span><span class="o">-</span><span class="nv">interval</span><span class="o">=</span><span class="mi">4</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">this</span> <span class="nv">world</span> <span class="nv">will</span> <span class="nv">generate</span> <span class="nv">its</span> <span class="nv">spawn</span> <span class="nv">the</span> <span class="nv">moment</span> <span class="nv">its</span> <span class="nv">loaded</span>.
+        <span class="nv">generate</span><span class="o">-</span><span class="nv">spawn</span><span class="o">-</span><span class="nv">on</span><span class="o">-</span><span class="nv">load</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">Vanilla</span> <span class="nv">water</span> <span class="nv">source</span> <span class="nv">behavior</span> <span class="o">-</span> <span class="nv">is</span> <span class="nv">infinite</span>
+        <span class="nv">infinite</span><span class="o">-</span><span class="nv">water</span><span class="o">-</span><span class="nv">source</span><span class="o">=</span><span class="nv">false</span>
+        # <span class="nv">The</span> <span class="nv">list</span> <span class="nv">of</span> <span class="nv">uuid</span><span class="s1">&#39;</span><span class="s">s that should never perform a lookup against Mojang</span><span class="s1">&#39;</span><span class="nv">s</span> <span class="nv">session</span> <span class="nv">server</span>.
+        # <span class="nv">Note</span>: <span class="k">If</span> <span class="nv">you</span> <span class="nv">are</span> <span class="nv">using</span> <span class="nv">SpongeForge</span>, <span class="nv">make</span> <span class="nv">sure</span> <span class="nv">to</span> <span class="nv">enter</span> <span class="nv">any</span> <span class="nv">mod</span> <span class="nv">fake</span> <span class="nv">player</span><span class="s1">&#39;</span><span class="s">s UUID to this list.</span>
+        <span class="nv">invalid</span><span class="o">-</span><span class="nv">lookup</span><span class="o">-</span><span class="nv">uuids</span><span class="o">=</span>[
+            <span class="s2">&quot;</span><span class="s">00000000-0000-0000-0000-000000000000</span><span class="s2">&quot;</span>,
+            <span class="s2">&quot;</span><span class="s">0d0c4ca0-4ff1-11e4-916c-0800200c9a66</span><span class="s2">&quot;</span>,
+            <span class="s2">&quot;</span><span class="s">41c82c87-7afb-4024-ba57-13d2c99cae77</span><span class="s2">&quot;</span>
+        ]
+        # <span class="nv">The</span> <span class="nv">defined</span> <span class="nv">merge</span> <span class="nv">radius</span> <span class="k">for</span> <span class="nv">Item</span> <span class="nv">entities</span> <span class="nv">such</span> <span class="nv">that</span> <span class="nv">when</span> <span class="nv">two</span> <span class="nv">items</span> <span class="nv">are</span>
+        # <span class="nv">within</span> <span class="nv">the</span> <span class="nv">defined</span> <span class="nv">radius</span> <span class="nv">of</span> <span class="nv">each</span> <span class="nv">other</span>, <span class="nv">they</span> <span class="nv">will</span> <span class="nv">attempt</span> <span class="nv">to</span> <span class="nv">merge</span>. <span class="nv">Usually</span>,
+        # <span class="nv">the</span> <span class="nv">default</span> <span class="nv">radius</span> <span class="nv">is</span> <span class="nv">set</span> <span class="nv">to</span> <span class="mi">0</span>.<span class="mi">5</span> <span class="nv">in</span> <span class="nv">Vanilla</span>, <span class="nv">however</span>, <span class="k">for</span> <span class="nv">performance</span> <span class="nv">reasons</span>
+        # <span class="mi">2</span>.<span class="mi">5</span> <span class="nv">is</span> <span class="nv">generally</span> <span class="nv">acceptable</span>.
+        # <span class="nv">Note</span>: <span class="nv">Increasing</span> <span class="nv">the</span> <span class="nv">radius</span> <span class="nv">higher</span> <span class="nv">will</span> <span class="nv">likely</span> <span class="nv">cause</span> <span class="nv">performance</span> <span class="nv">degradation</span>
+        # <span class="nv">with</span> <span class="nv">larger</span> <span class="nv">amount</span> <span class="nv">of</span> <span class="nv">items</span> <span class="nv">as</span> <span class="nv">they</span> <span class="nv">attempt</span> <span class="nv">to</span> <span class="nv">merge</span> <span class="nv">and</span> <span class="nv">search</span> <span class="nv">nearby</span>
+        # <span class="nv">areas</span> <span class="k">for</span> <span class="nv">more</span> <span class="nv">items</span>. <span class="nv">Setting</span> <span class="nv">to</span> <span class="nv">a</span> <span class="nv">negative</span> <span class="nv">value</span> <span class="nv">is</span> <span class="nv">not</span> <span class="nv">supported</span><span class="o">!</span>
+        <span class="nv">item</span><span class="o">-</span><span class="nv">merge</span><span class="o">-</span><span class="nv">radius</span><span class="o">=</span><span class="mi">2</span>.<span class="mi">5</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">this</span> <span class="nv">worlds</span> <span class="nv">spawn</span> <span class="nv">will</span> <span class="nv">remain</span> <span class="nv">loaded</span> <span class="nv">with</span> <span class="nv">no</span> <span class="nv">players</span>.
+        <span class="nv">keep</span><span class="o">-</span><span class="nv">spawn</span><span class="o">-</span><span class="nv">loaded</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">natural</span> <span class="nv">leaf</span> <span class="nv">decay</span> <span class="nv">is</span> <span class="nv">allowed</span>.
+        <span class="nv">leaf</span><span class="o">-</span><span class="nv">decay</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">this</span> <span class="nv">world</span> <span class="nv">will</span> <span class="nv">load</span> <span class="nv">on</span> <span class="nv">startup</span>.
+        <span class="nv">load</span><span class="o">-</span><span class="nv">on</span><span class="o">-</span><span class="nv">startup</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="nv">The</span> <span class="nv">maximum</span> <span class="nv">number</span> <span class="nv">of</span> <span class="nv">queued</span> <span class="nv">unloaded</span> <span class="nv">chunks</span> <span class="nv">that</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">unloaded</span> <span class="nv">in</span> <span class="nv">a</span> <span class="nv">single</span> <span class="nv">tick</span>.
+        # <span class="nv">Note</span>: <span class="nv">With</span> <span class="nv">the</span> <span class="nv">chunk</span> <span class="nv">gc</span> <span class="nv">enabled</span>, <span class="nv">this</span> <span class="nv">setting</span> <span class="nv">only</span> <span class="nv">applies</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">ticks</span>
+        # <span class="nv">where</span> <span class="nv">the</span> <span class="nv">gc</span> <span class="nv">runs</span> <span class="ss">(</span><span class="nv">controlled</span> <span class="nv">by</span> <span class="s1">&#39;</span><span class="s">chunk-gc-tick-interval</span><span class="s1">&#39;</span><span class="ss">)</span>
+        # <span class="nv">Note</span>: <span class="k">If</span> <span class="nv">the</span> <span class="nv">maximum</span> <span class="nv">unloads</span> <span class="nv">is</span> <span class="nv">too</span> <span class="nv">low</span>, <span class="nv">too</span> <span class="nv">many</span> <span class="nv">chunks</span> <span class="nv">may</span> <span class="nv">remain</span>
+        # <span class="nv">loaded</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">world</span> <span class="nv">and</span> <span class="nv">increases</span> <span class="nv">the</span> <span class="nv">chance</span> <span class="k">for</span> <span class="nv">a</span> <span class="nv">drop</span> <span class="nv">in</span> <span class="nv">tps</span>. <span class="ss">(</span><span class="nv">Default</span>: <span class="mi">100</span><span class="ss">)</span>
+        <span class="nv">max</span><span class="o">-</span><span class="nv">chunk</span><span class="o">-</span><span class="nv">unloads</span><span class="o">-</span><span class="nv">per</span><span class="o">-</span><span class="nv">tick</span><span class="o">=</span><span class="mi">100</span>
+        # <span class="nv">Specifies</span> <span class="nv">the</span> <span class="nv">radius</span> <span class="ss">(</span><span class="nv">in</span> <span class="nv">chunks</span><span class="ss">)</span> <span class="nv">of</span> <span class="nv">where</span> <span class="nv">creatures</span> <span class="nv">will</span> <span class="nv">spawn</span>.
+        # <span class="nv">This</span> <span class="nv">value</span> <span class="nv">is</span> <span class="nv">capped</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">current</span> <span class="nv">view</span> <span class="nv">distance</span> <span class="nv">setting</span> <span class="nv">in</span> <span class="nv">server</span>.<span class="nv">properties</span>
+        <span class="nv">mob</span><span class="o">-</span><span class="nv">spawn</span><span class="o">-</span><span class="nv">range</span><span class="o">=</span><span class="mi">4</span>
+        # <span class="nv">A</span> <span class="nv">list</span> <span class="nv">of</span> <span class="nv">all</span> <span class="nv">detected</span> <span class="nv">portal</span> <span class="nv">agents</span> <span class="nv">used</span> <span class="nv">in</span> <span class="nv">this</span> <span class="nv">world</span>.
+        # <span class="nv">In</span> <span class="nv">order</span> <span class="nv">to</span> <span class="nv">override</span>, <span class="nv">change</span> <span class="nv">the</span> <span class="nv">target</span> <span class="nv">world</span> <span class="nv">name</span> <span class="nv">to</span> <span class="nv">any</span> <span class="nv">other</span> <span class="nv">valid</span> <span class="nv">world</span>.
+        # <span class="nv">Note</span>: <span class="k">If</span> <span class="nv">world</span> <span class="nv">is</span> <span class="nv">not</span> <span class="nv">found</span>, <span class="nv">it</span> <span class="nv">will</span> <span class="nv">fallback</span> <span class="nv">to</span> <span class="nv">default</span>.
+        <span class="nv">portal</span><span class="o">-</span><span class="nv">agents</span> {
+            <span class="s2">&quot;</span><span class="s">minecraft:default_the_end</span><span class="s2">&quot;</span><span class="o">=</span><span class="nv">DIM1</span>
+            <span class="s2">&quot;</span><span class="s">minecraft:default_the_nether</span><span class="s2">&quot;</span><span class="o">=</span><span class="nv">DIM</span><span class="o">-</span><span class="mi">1</span>
+        }
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">this</span> <span class="nv">world</span> <span class="nv">will</span> <span class="nv">allow</span> <span class="nv">PVP</span> <span class="nv">combat</span>.
+        <span class="nv">pvp</span><span class="o">-</span><span class="nv">enabled</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="nv">Override</span> <span class="nv">world</span> <span class="nv">distance</span> <span class="nv">per</span> <span class="nv">world</span><span class="o">/</span><span class="nv">dimension</span>
+        # <span class="nv">The</span> <span class="nv">value</span> <span class="nv">must</span> <span class="nv">be</span> <span class="nv">greater</span> <span class="nv">than</span> <span class="nv">or</span> <span class="nv">equal</span> <span class="nv">to</span> <span class="mi">3</span> <span class="nv">and</span> <span class="nv">less</span> <span class="nv">than</span> <span class="nv">or</span> <span class="nv">equal</span> <span class="nv">to</span> <span class="mi">32</span>
+        # <span class="nv">The</span> <span class="nv">server</span><span class="o">-</span><span class="nv">wide</span> <span class="nv">view</span> <span class="nv">distance</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">used</span> <span class="nv">when</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">is</span> <span class="o">-</span><span class="mi">1</span>.
+        <span class="nv">view</span><span class="o">-</span><span class="nv">distance</span><span class="o">=-</span><span class="mi">1</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">natural</span> <span class="nv">formation</span> <span class="nv">of</span> <span class="nv">ice</span> <span class="nv">and</span> <span class="nv">snow</span> <span class="nv">in</span> <span class="nv">supported</span> <span class="nv">biomes</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">allowed</span>.
+        <span class="nv">weather</span><span class="o">-</span><span class="nv">ice</span><span class="o">-</span><span class="nv">and</span><span class="o">-</span><span class="nv">snow</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">thunderstorms</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">initiated</span> <span class="nv">in</span> <span class="nv">supported</span> <span class="nv">biomes</span>.
+        <span class="nv">weather</span><span class="o">-</span><span class="nv">thunder</span><span class="o">=</span><span class="nv">true</span>
+        # <span class="k">If</span> <span class="s1">&#39;</span><span class="s">true</span><span class="s1">&#39;</span>, <span class="nv">this</span> <span class="nv">world</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">registered</span>.
+        <span class="nv">world</span><span class="o">-</span><span class="nv">enabled</span><span class="o">=</span><span class="nv">true</span>
+    }
+}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="hocon.html" class="btn btn-neutral float-right" title="Introduction to HOCON" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="index.html" class="btn btn-neutral" title="Configuring Sponge" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.1.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/dependabot/npm_and_yarn/lodash-4.17.15/source/server/getting-started/configuration/sponge-conf.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/dependabot/npm_and_yarn/lodash-4.17.15/source/server/getting-started/configuration/sponge-conf.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'7.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../../../_static/jquery.js"></script>      <script type="text/javascript" src="../../../_static/underscore.js"></script>      <script type="text/javascript" src="../../../_static/doctools.js"></script>      <script type="text/javascript" src="../../../_static/language_data.js"></script>      <script type="text/javascript" src="../../../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>
