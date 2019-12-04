@@ -244,30 +244,30 @@ like. This is possible by extending <code class="docutils literal notranslate"><
 <p>The following code excerpt defines an <code class="docutils literal notranslate"><span class="pre">AdminMessageChannel</span></code> class which overrides the default <code class="docutils literal notranslate"><span class="pre">transformMessage</span></code>
 method. The new <code class="docutils literal notranslate"><span class="pre">transformMessage</span></code> method will take the original message and append a red <code class="docutils literal notranslate"><span class="pre">[Admin]</span></code> tag to the
 front of the message.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MessageChannel</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MessageReceiver</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MessageChannel</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MessageReceiver</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AdminMessageChannel</span> <span class="kd">implements</span> <span class="n">MessageChannel</span> <span class="o">{</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="nf">transformMessage</span><span class="o">(</span><span class="n">Object</span> <span class="n">sender</span><span class="o">,</span> <span class="n">MessageReceiver</span> <span class="n">recipient</span><span class="o">,</span>
-                <span class="n">Text</span> <span class="n">original</span><span class="o">,</span> <span class="n">ChatType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="n">original</span><span class="o">;</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">RED</span><span class="o">,</span> <span class="s">&quot;[Admin]&quot;</span><span class="o">,</span> <span class="n">TextColors</span><span class="o">.</span><span class="na">RESET</span><span class="o">,</span> <span class="n">text</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
-    <span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AdminMessageChannel</span> <span class="kd">implements</span> <span class="n">MessageChannel</span> <span class="p">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="nf">getMembers</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="nf">transformMessage</span><span class="p">(</span><span class="n">Object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">MessageReceiver</span> <span class="n">recipient</span><span class="p">,</span>
+                <span class="n">Text</span> <span class="n">original</span><span class="p">,</span> <span class="n">ChatType</span> <span class="n">type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="n">original</span><span class="p">;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">TextColors</span><span class="p">.</span><span class="na">RED</span><span class="p">,</span> <span class="s">&quot;[Admin]&quot;</span><span class="p">,</span> <span class="n">TextColors</span><span class="p">.</span><span class="na">RESET</span><span class="p">,</span> <span class="n">text</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">text</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="nf">getMembers</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Collections</span><span class="p">.</span><span class="na">emptyList</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Note that we do not wish to define any additional recipients, so we return an empty collection in the
@@ -277,22 +277,22 @@ with any other <code class="docutils literal notranslate"><span class="pre">Mess
 <code class="docutils literal notranslate"><span class="pre">MessageChannel</span></code> his messages are sent to, combine it with an <code class="docutils literal notranslate"><span class="pre">AdminMessageChannel</span></code> and set the combined channel
 back onto the player. That way all his messages are sent to everyone specified in the original channel, but due to the
 addition of the <code class="docutils literal notranslate"><span class="pre">AdminMessageChannel</span></code>, a red <code class="docutils literal notranslate"><span class="pre">[Admin]</span></code> tag will be prefixed.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.network.ClientConnectionEvent</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.network.ClientConnectionEvent</span><span class="p">;</span>
 
-<span class="kd">private</span> <span class="n">AdminMessageChannel</span> <span class="n">adminChannel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AdminMessageChannel</span><span class="o">();</span>
+<span class="kd">private</span> <span class="n">AdminMessageChannel</span> <span class="n">adminChannel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AdminMessageChannel</span><span class="p">();</span>
 
 <span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClientConnectionJoin</span><span class="o">(</span><span class="n">ClientConnectionEvent</span><span class="o">.</span><span class="na">Join</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getTargetEntity</span><span class="o">();</span>
-    <span class="k">if</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myplugin.admin&quot;</span><span class="o">))</span> <span class="o">{</span>
-        <span class="n">MessageChannel</span> <span class="n">originalChannel</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getOriginalChannel</span><span class="o">();</span>
-        <span class="n">MessageChannel</span> <span class="n">newChannel</span> <span class="o">=</span> <span class="n">MessageChannel</span><span class="o">.</span><span class="na">combined</span><span class="o">(</span><span class="n">originalChannel</span><span class="o">,</span>
-            <span class="n">adminChannel</span><span class="o">);</span>
-        <span class="n">player</span><span class="o">.</span><span class="na">setMessageChannel</span><span class="o">(</span><span class="n">newChannel</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClientConnectionJoin</span><span class="p">(</span><span class="n">ClientConnectionEvent</span><span class="p">.</span><span class="na">Join</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="n">event</span><span class="p">.</span><span class="na">getTargetEntity</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">hasPermission</span><span class="p">(</span><span class="s">&quot;myplugin.admin&quot;</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">MessageChannel</span> <span class="n">originalChannel</span> <span class="o">=</span> <span class="n">event</span><span class="p">.</span><span class="na">getOriginalChannel</span><span class="p">();</span>
+        <span class="n">MessageChannel</span> <span class="n">newChannel</span> <span class="o">=</span> <span class="n">MessageChannel</span><span class="p">.</span><span class="na">combined</span><span class="p">(</span><span class="n">originalChannel</span><span class="p">,</span>
+            <span class="n">adminChannel</span><span class="p">);</span>
+        <span class="n">player</span><span class="p">.</span><span class="na">setMessageChannel</span><span class="p">(</span><span class="n">newChannel</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Note that this will prefix <cite>all</cite> messages pertaining to a player. This includes death messages, leave messages, etc. If
@@ -300,7 +300,7 @@ you only want to prefix all <cite>chat</cite> messages, you would need to listen
 the channel onto the event rather than the player. This would be done using <code class="docutils literal notranslate"><span class="pre">event.setChannel(newChannel)</span></code> onto the
 <code class="docutils literal notranslate"><span class="pre">MessageChannelEvent.Chat</span></code> event. To get the player from the event to check for permissions, you would need to get a
 <code class="docutils literal notranslate"><span class="pre">Player</span></code> from the <code class="docutils literal notranslate"><span class="pre">Cause</span></code> of the event. This is demonstrated below:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">Player</span><span class="o">&gt;</span> <span class="n">playerOptional</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getCause</span><span class="o">().&lt;</span><span class="n">Player</span><span class="o">&gt;</span><span class="n">first</span><span class="o">(</span><span class="n">Player</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">Player</span><span class="o">&gt;</span> <span class="n">playerOptional</span> <span class="o">=</span> <span class="n">event</span><span class="p">.</span><span class="na">getCause</span><span class="p">().</span><span class="o">&lt;</span><span class="n">Player</span><span class="o">&gt;</span><span class="n">first</span><span class="p">(</span><span class="n">Player</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>More on causes can be found on the <a class="reference internal" href="../event/causes.html"><span class="doc">causes page</span></a>.</p>
@@ -317,54 +317,54 @@ empty <code class="docutils literal notranslate"><span class="pre">Optional</spa
 <p>A <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/text/channel/MutableMessageChannel.html">MutableMessageChannel</a> contains methods for changing who may receive the messages sent through our channel.
 As such, we must implement methods for performing actions that modify our members. To do this, we simply will create a
 class named <code class="docutils literal notranslate"><span class="pre">MutableAdminMessageChannel</span></code> that will implement a <code class="docutils literal notranslate"><span class="pre">MutableMessageChannel</span></code>.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.WeakHashMap</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Set</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.WeakHashMap</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MutableMessageChannel</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MutableMessageChannel</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MutableAdminMessageChannel</span> <span class="kd">implements</span> <span class="n">MutableMessageChannel</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MutableAdminMessageChannel</span> <span class="kd">implements</span> <span class="n">MutableMessageChannel</span> <span class="p">{</span>
 
-    <span class="kd">private</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="n">members</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="n">members</span><span class="p">;</span>
 
-    <span class="kd">public</span> <span class="nf">MutableAdminMessageChannel</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">(</span><span class="n">Collections</span><span class="o">.</span><span class="na">emptySet</span><span class="o">());</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">MutableAdminMessageChannel</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">(</span><span class="n">Collections</span><span class="p">.</span><span class="na">emptySet</span><span class="p">());</span>
+    <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="nf">MutableAdminMessageChannel</span><span class="o">(</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="n">members</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">members</span> <span class="o">=</span> <span class="n">Collections</span><span class="o">.</span><span class="na">newSetFromMap</span><span class="o">(</span><span class="k">new</span> <span class="n">WeakHashMap</span><span class="o">&lt;&gt;());</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">members</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">members</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="nf">getMembers</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">unmodifiableSet</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">members</span><span class="o">);</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">MutableAdminMessageChannel</span><span class="p">(</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="n">members</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">members</span> <span class="o">=</span> <span class="n">Collections</span><span class="p">.</span><span class="na">newSetFromMap</span><span class="p">(</span><span class="k">new</span> <span class="n">WeakHashMap</span><span class="o">&lt;&gt;</span><span class="p">());</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">members</span><span class="p">.</span><span class="na">addAll</span><span class="p">(</span><span class="n">members</span><span class="p">);</span>
+    <span class="p">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">addMember</span><span class="o">(</span><span class="n">MessageReceiver</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">members</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="nf">getMembers</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Collections</span><span class="p">.</span><span class="na">unmodifiableSet</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">members</span><span class="p">);</span>
+    <span class="p">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">removeMember</span><span class="o">(</span><span class="n">MessageReceiver</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">members</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">addMember</span><span class="p">(</span><span class="n">MessageReceiver</span> <span class="n">member</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">members</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">member</span><span class="p">);</span>
+    <span class="p">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">clearMembers</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">members</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">removeMember</span><span class="p">(</span><span class="n">MessageReceiver</span> <span class="n">member</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">members</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">member</span><span class="p">);</span>
+    <span class="p">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="nf">transformMessage</span><span class="o">(</span><span class="n">Object</span> <span class="n">sender</span><span class="o">,</span> <span class="n">MessageReceiver</span> <span class="n">recipient</span><span class="o">,</span>
-                <span class="n">Text</span> <span class="n">original</span><span class="o">,</span> <span class="n">ChatType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="n">original</span><span class="o">;</span>
-        <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">members</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">recipient</span><span class="o">))</span> <span class="o">{</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">RED</span><span class="o">,</span> <span class="s">&quot;[Admin]&quot;</span><span class="o">,</span> <span class="n">TextColors</span><span class="o">.</span><span class="na">RESET</span><span class="o">,</span> <span class="n">text</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">clearMembers</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">members</span><span class="p">.</span><span class="na">clear</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="nf">transformMessage</span><span class="p">(</span><span class="n">Object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">MessageReceiver</span> <span class="n">recipient</span><span class="p">,</span>
+                <span class="n">Text</span> <span class="n">original</span><span class="p">,</span> <span class="n">ChatType</span> <span class="n">type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="n">original</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">members</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">recipient</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">TextColors</span><span class="p">.</span><span class="na">RED</span><span class="p">,</span> <span class="s">&quot;[Admin]&quot;</span><span class="p">,</span> <span class="n">TextColors</span><span class="p">.</span><span class="na">RESET</span><span class="p">,</span> <span class="n">text</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">text</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The main difference between our <code class="docutils literal notranslate"><span class="pre">AdminMessageChannel</span></code> and our new <code class="docutils literal notranslate"><span class="pre">MutableAdminMessageChannel</span></code> is that we check if

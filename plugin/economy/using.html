@@ -187,14 +187,14 @@ information.</p>
 </div>
 <div class="section" id="example-loading-the-economyservice">
 <h3>Example: Loading the EconomyService<a class="headerlink" href="#example-loading-the-economyservice" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.economy.EconomyService</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.economy.EconomyService</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="p">;</span>
 
-<span class="n">Optional</span><span class="o">&lt;</span><span class="n">EconomyService</span><span class="o">&gt;</span> <span class="n">serviceOpt</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getServiceManager</span><span class="o">().</span><span class="na">provide</span><span class="o">(</span><span class="n">EconomyService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-<span class="k">if</span> <span class="o">(!</span><span class="n">serviceOpt</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">EconomyService</span><span class="o">&gt;</span> <span class="n">serviceOpt</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getServiceManager</span><span class="p">().</span><span class="na">provide</span><span class="p">(</span><span class="n">EconomyService</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">serviceOpt</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
     <span class="c1">// handle there not being an economy implementation</span>
-<span class="o">}</span>
-<span class="n">EconomyService</span> <span class="n">economyService</span> <span class="o">=</span> <span class="n">serviceOpt</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+<span class="p">}</span>
+<span class="n">EconomyService</span> <span class="n">economyService</span> <span class="o">=</span> <span class="n">serviceOpt</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -217,17 +217,17 @@ of the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/or
 Economy API has to offer.</p>
 <div class="section" id="example-getting-a-player-s-balance">
 <h3>Example: Getting a player’s balance<a class="headerlink" href="#example-getting-a-player-s-balance" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.economy.EconomyService</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.economy.account.UniqueAccount</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.math.BigDecimal</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.economy.EconomyService</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.economy.account.UniqueAccount</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.math.BigDecimal</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
 
-<span class="n">Optional</span><span class="o">&lt;</span><span class="n">UniqueAccount</span><span class="o">&gt;</span> <span class="n">uOpt</span> <span class="o">=</span> <span class="n">economyService</span><span class="o">.</span><span class="na">getOrCreateAccount</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">getUniqueId</span><span class="o">());</span>
-<span class="k">if</span> <span class="o">(</span><span class="n">uOpt</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-    <span class="n">UniqueAccount</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">uOpt</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-    <span class="n">BigDecimal</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">acc</span><span class="o">.</span><span class="na">getBalance</span><span class="o">(</span><span class="n">economyService</span><span class="o">.</span><span class="na">getDefaultCurrency</span><span class="o">());</span>
-<span class="o">}</span>
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">UniqueAccount</span><span class="o">&gt;</span> <span class="n">uOpt</span> <span class="o">=</span> <span class="n">economyService</span><span class="p">.</span><span class="na">getOrCreateAccount</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">());</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">uOpt</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">UniqueAccount</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">uOpt</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+    <span class="n">BigDecimal</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">acc</span><span class="p">.</span><span class="na">getBalance</span><span class="p">(</span><span class="n">economyService</span><span class="p">.</span><span class="na">getDefaultCurrency</span><span class="p">());</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Some <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/service/economy/account/Account.html">Account</a> methods require variables such as:</p>

@@ -182,12 +182,12 @@ text (like chests, signs or command blocks).</p>
 <p>Again, it all starts with a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/world/Location.html">Location</a>. The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/world/Location.html#getTileEntity--">Location#getTileEntity()</a> function will return the tile
 entity corresponding to the block or <code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code> if the block is not a tile entity.</p>
 <blockquote>
-<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="o">;</span>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.Location</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isTileEntity</span><span class="o">(</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockLoc</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">blockLoc</span><span class="o">.</span><span class="na">getTileEntity</span><span class="o">().</span><span class="na">isPresent</span><span class="o">();</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isTileEntity</span><span class="p">(</span><span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockLoc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">blockLoc</span><span class="p">.</span><span class="na">getTileEntity</span><span class="p">().</span><span class="na">isPresent</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -195,20 +195,20 @@ entity corresponding to the block or <code class="docutils literal notranslate">
 <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/block/tileentity/TileEntityType.html">TileEntityType</a>. Which can then be compared similar to a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/block/BlockType.html">BlockType</a>. After performing this check
 the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/block/tileentity/TileEntity.html">TileEntity</a> variable can safely be cast to the according subtype.</p>
 <blockquote>
-<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.Jukebox</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.TileEntity</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.TileEntityTypes</span><span class="o">;</span>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.Jukebox</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.TileEntity</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.TileEntityTypes</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isJukebox</span><span class="o">(</span><span class="n">TileEntity</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">entity</span><span class="o">.</span><span class="na">getType</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">TileEntityTypes</span><span class="o">.</span><span class="na">JUKEBOX</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isJukebox</span><span class="p">(</span><span class="n">TileEntity</span> <span class="n">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">entity</span><span class="p">.</span><span class="na">getType</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">TileEntityTypes</span><span class="p">.</span><span class="na">JUKEBOX</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">ejectDiscFromJukebox</span><span class="o">(</span><span class="n">TileEntity</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">isJukebox</span><span class="o">(</span><span class="n">entity</span><span class="o">))</span> <span class="o">{</span>
-        <span class="n">Jukebox</span> <span class="n">jukebox</span> <span class="o">=</span> <span class="o">(</span><span class="n">Jukebox</span><span class="o">)</span> <span class="n">entity</span><span class="o">;</span>
-        <span class="n">jukebox</span><span class="o">.</span><span class="na">ejectRecord</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">ejectDiscFromJukebox</span><span class="p">(</span><span class="n">TileEntity</span> <span class="n">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">isJukebox</span><span class="p">(</span><span class="n">entity</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">Jukebox</span> <span class="n">jukebox</span> <span class="o">=</span> <span class="p">(</span><span class="n">Jukebox</span><span class="p">)</span> <span class="n">entity</span><span class="p">;</span>
+        <span class="n">jukebox</span><span class="p">.</span><span class="na">ejectRecord</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -224,28 +224,28 @@ kind of a data is fully described by the <code class="docutils literal notransla
 <p>The following example contains two methods to alter the data of a sign. The first method reads (if possible) the first
 line, the second attempts to set it and returns the boolean value indicating its success.</p>
 <blockquote>
-<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.tileentity.SignData</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.tileentity.SignData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="nf">getFirstLine</span><span class="o">(</span><span class="n">TileEntity</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">SignData</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="na">getOrCreate</span><span class="o">(</span><span class="n">SignData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">lines</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">));</span>
-    <span class="o">}</span>
-    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="nf">getFirstLine</span><span class="p">(</span><span class="n">TileEntity</span> <span class="n">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">SignData</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="n">entity</span><span class="p">.</span><span class="na">getOrCreate</span><span class="p">(</span><span class="n">SignData</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">lines</span><span class="p">().</span><span class="na">get</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+<span class="p">}</span>
 
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">setFirstLine</span><span class="o">(</span><span class="n">TileEntity</span> <span class="n">entity</span><span class="o">,</span> <span class="n">Text</span> <span class="n">line</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">entity</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">SignData</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
-        <span class="n">SignData</span> <span class="n">sign</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="na">getOrCreate</span><span class="o">(</span><span class="n">SignData</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
-        <span class="n">sign</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">sign</span><span class="o">.</span><span class="na">lines</span><span class="o">().</span><span class="na">set</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">line</span><span class="o">));</span>
-        <span class="n">entity</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">sign</span><span class="o">);</span>
-        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">setFirstLine</span><span class="p">(</span><span class="n">TileEntity</span> <span class="n">entity</span><span class="p">,</span> <span class="n">Text</span> <span class="n">line</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">entity</span><span class="p">.</span><span class="na">supports</span><span class="p">(</span><span class="n">SignData</span><span class="p">.</span><span class="na">class</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">SignData</span> <span class="n">sign</span> <span class="o">=</span> <span class="n">entity</span><span class="p">.</span><span class="na">getOrCreate</span><span class="p">(</span><span class="n">SignData</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+        <span class="n">sign</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">sign</span><span class="p">.</span><span class="na">lines</span><span class="p">().</span><span class="na">set</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">line</span><span class="p">));</span>
+        <span class="n">entity</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">sign</span><span class="p">);</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -258,16 +258,16 @@ opposed to the immutable <code class="docutils literal notranslate"><span class=
 be accessed directly from the <code class="docutils literal notranslate"><span class="pre">TileEntity</span></code> interface. So a cast will be necessary. Since all tile entities containing
 an inventory extend the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/block/tileentity/carrier/TileEntityCarrier.html">TileEntityCarrier</a> interface it suffices to cast to that interface as shown below.</p>
 <blockquote>
-<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.carrier.TileEntityCarrier</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.item.inventory.Inventory</span><span class="o">;</span>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.block.tileentity.carrier.TileEntityCarrier</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.item.inventory.Inventory</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">useInventory</span><span class="o">(</span><span class="n">TileEntity</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">entity</span> <span class="k">instanceof</span> <span class="n">TileEntityCarrier</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">TileEntityCarrier</span> <span class="n">carrier</span> <span class="o">=</span> <span class="o">(</span><span class="n">TileEntityCarrier</span><span class="o">)</span> <span class="n">entity</span><span class="o">;</span>
-        <span class="n">Inventory</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">carrier</span><span class="o">.</span><span class="na">getInventory</span><span class="o">();</span>
-        <span class="o">[...]</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">useInventory</span><span class="p">(</span><span class="n">TileEntity</span> <span class="n">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">entity</span> <span class="k">instanceof</span> <span class="n">TileEntityCarrier</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">TileEntityCarrier</span> <span class="n">carrier</span> <span class="o">=</span> <span class="p">(</span><span class="n">TileEntityCarrier</span><span class="p">)</span> <span class="n">entity</span><span class="p">;</span>
+        <span class="n">Inventory</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">carrier</span><span class="p">.</span><span class="na">getInventory</span><span class="p">();</span>
+        <span class="o">[</span><span class="p">...</span><span class="o">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div></blockquote>

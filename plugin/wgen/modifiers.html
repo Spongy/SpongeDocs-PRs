@@ -181,26 +181,26 @@ for that world is set up, allowing it to make changes to the generator.</p>
 <h2>Creating a WorldGeneratorModifier<a class="headerlink" href="#creating-a-worldgeneratormodifier" title="Permalink to this headline">¶</a></h2>
 <p>Let’s start with the format of a <code class="docutils literal notranslate"><span class="pre">WorldGeneratorModifier</span></code>. First, you need a class which implements
 the <code class="docutils literal notranslate"><span class="pre">WorldGeneratorModifier</span></code> interface:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.storage.WorldProperties</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.world.storage.WorldProperties</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyModifier</span> <span class="kd">implements</span> <span class="n">WorldGeneratorModifier</span> <span class="o">{</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="s">&quot;pluginid:mymodifier&quot;</span><span class="o">;</span>
-    <span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyModifier</span> <span class="kd">implements</span> <span class="n">WorldGeneratorModifier</span> <span class="p">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="s">&quot;My Modifier&quot;</span><span class="o">;</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getId</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;pluginid:mymodifier&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">modifyWorldGenerator</span><span class="o">(</span><span class="n">WorldProperties</span> <span class="n">world</span><span class="o">,</span> <span class="n">DataContainer</span> <span class="n">settings</span><span class="o">,</span> <span class="n">WorldGenerator</span> <span class="n">worldGenerator</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;My Modifier&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">modifyWorldGenerator</span><span class="p">(</span><span class="n">WorldProperties</span> <span class="n">world</span><span class="p">,</span> <span class="n">DataContainer</span> <span class="n">settings</span><span class="p">,</span> <span class="n">WorldGenerator</span> <span class="n">worldGenerator</span><span class="p">)</span> <span class="p">{</span>
 
-<span class="o">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>As you can see, <code class="docutils literal notranslate"><span class="pre">WorldGeneratorModifier</span></code> has three methods which we override. <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/CatalogType.html#getId--">CatalogType#getId()</a> must be
@@ -221,18 +221,18 @@ you need to create a <a class="reference internal" href="../event/listeners.html
 <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/GameRegistryEvent.Register.html">GameRegistryEvent.Register&lt;WorldGeneratorModifier&gt;</a> event and register your instance there, as shown in the
 following example:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onWorldGeneratorModifierRegistration</span><span class="o">(</span><span class="n">GameRegistryEvent</span><span class="o">.</span><span class="na">Register</span><span class="o">&lt;</span><span class="n">WorldGeneratorModifier</span><span class="o">&gt;</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">event</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="n">MyModifier</span><span class="o">());</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onWorldGeneratorModifierRegistration</span><span class="p">(</span><span class="n">GameRegistryEvent</span><span class="p">.</span><span class="na">Register</span><span class="o">&lt;</span><span class="n">WorldGeneratorModifier</span><span class="o">&gt;</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">event</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="k">new</span> <span class="n">MyModifier</span><span class="p">());</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>To apply your WorldGeneratorModifier to a world you must add it to the <code class="docutils literal notranslate"><span class="pre">world-generation-modifiers</span></code> array within
 the world config file found at <code class="docutils literal notranslate"><span class="pre">config/sponge/worlds/[dimension]/[worldName]/world.conf</span></code>. For example, to apply
 the skylands WorldGeneratorModifier to a world you would add the skylands modifier’s id to the modifiers list.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">WorldGenerationModifiers</span> <span class="k">to</span> <span class="n">apply</span> <span class="k">to</span> <span class="n">the</span> <span class="n">world</span>
-<span class="n">world</span><span class="o">-</span><span class="n">generation</span><span class="o">-</span><span class="n">modifiers</span><span class="o">=</span><span class="p">[</span>
-    <span class="ss">&quot;sponge:skylands&quot;</span>
-<span class="p">]</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err"># WorldGenerationModifiers to apply to the world</span>
+<span class="err">world-generation-modifiers=[</span>
+<span class="err">    &quot;sponge:skylands&quot;</span>
+<span class="err">]</span>
 </pre></div>
 </div>
 <p>Note that the <code class="docutils literal notranslate"><span class="pre">world-generation-modifiers</span></code> list may not be there, as by default there are no modifiers applied to

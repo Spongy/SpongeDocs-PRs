@@ -181,16 +181,16 @@ you can change the behavior of entities, and describe how you can write your own
 <h2>Agents<a class="headerlink" href="#agents" title="Permalink to this headline">¶</a></h2>
 <p>An <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/entity/living/Agent.html">Agent</a> is a type of living <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/entity/Entity.html">Entity</a> that supports AI and thus simulates the typical behavior of
 the mobs. You can check whether an <code class="docutils literal notranslate"><span class="pre">Entity</span></code> is also an <code class="docutils literal notranslate"><span class="pre">Agent</span></code> by simply trying to cast it.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.Agent</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.Agent</span><span class="p">;</span>
 
-<span class="n">World</span> <span class="n">world</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">UUID</span> <span class="n">uuid</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="n">World</span> <span class="n">world</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">UUID</span> <span class="n">uuid</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">Agent</span> <span class="n">entity</span> <span class="o">=</span> <span class="o">(</span><span class="n">Agent</span><span class="o">)</span> <span class="n">world</span><span class="o">.</span><span class="na">getEntity</span><span class="o">(</span><span class="n">uuid</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+<span class="n">Agent</span> <span class="n">entity</span> <span class="o">=</span> <span class="p">(</span><span class="n">Agent</span><span class="p">)</span> <span class="n">world</span><span class="p">.</span><span class="na">getEntity</span><span class="p">(</span><span class="n">uuid</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
 
-<span class="k">if</span> <span class="o">(</span><span class="n">entity</span><span class="o">.</span><span class="na">getAgentData</span><span class="o">().</span><span class="na">aiEnabled</span><span class="o">().</span><span class="na">get</span><span class="o">())</span> <span class="o">{</span>
-    <span class="n">configureAI</span><span class="o">(</span><span class="n">entity</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">entity</span><span class="p">.</span><span class="na">getAgentData</span><span class="p">().</span><span class="na">aiEnabled</span><span class="p">().</span><span class="na">get</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">configureAI</span><span class="p">(</span><span class="n">entity</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>After the cast we can also check whether the AI is actually enabled. Some plugins disable it to simulate statues, guards
@@ -207,15 +207,15 @@ tasks.</p>
 entity to identify which target it should select and then attack using the normal goal. The target goal contains tasks
 such as select nearest attackable target and select the enemy that attacked you first.</p>
 <p>The following code gets the <code class="docutils literal notranslate"><span class="pre">NORMAL</span></code> goal from the entity and clears it.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.ai.Goal</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.ai.GoalTypes</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.ai.Goal</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.ai.GoalTypes</span><span class="p">;</span>
 
-<span class="n">Agent</span> <span class="n">entity</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="n">Agent</span> <span class="n">entity</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">Optional</span><span class="o">&lt;</span><span class="n">Goal</span><span class="o">&lt;</span><span class="n">Agent</span><span class="o">&gt;&gt;</span> <span class="n">normalGoal</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="na">getGoal</span><span class="o">(</span><span class="n">GoalTypes</span><span class="o">.</span><span class="na">NORMAL</span><span class="o">);</span>
-<span class="k">if</span> <span class="o">(</span><span class="n">normalGoal</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-    <span class="n">normalGoal</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">clear</span><span class="o">();</span>
-<span class="o">}</span>
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">Goal</span><span class="o">&lt;</span><span class="n">Agent</span><span class="o">&gt;&gt;</span> <span class="n">normalGoal</span> <span class="o">=</span> <span class="n">entity</span><span class="p">.</span><span class="na">getGoal</span><span class="p">(</span><span class="n">GoalTypes</span><span class="p">.</span><span class="na">NORMAL</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">normalGoal</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">normalGoal</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">clear</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>An entity with an empty goal will not move by itself, however it will complete its current action/movement and might
@@ -246,17 +246,17 @@ the API.</p>
 <div class="section" id="adding-additional-aitasks">
 <h3>Adding Additional AITasks<a class="headerlink" href="#adding-additional-aitasks" title="Permalink to this headline">¶</a></h3>
 <p>Adding additional <code class="docutils literal notranslate"><span class="pre">AITask</span></code>s to an <code class="docutils literal notranslate"><span class="pre">Entity</span></code>s goal is pretty easy. We start with creating with a simple <code class="docutils literal notranslate"><span class="pre">AITask</span></code>.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.ai.task.builtin.WatchClosestAITask</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.ai.task.builtin.WatchClosestAITask</span><span class="p">;</span>
 
-<span class="n">Agent</span> <span class="n">entity</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">Goal</span><span class="o">&lt;</span><span class="n">Agent</span><span class="o">&gt;</span> <span class="n">goal</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="n">Agent</span> <span class="n">entity</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Goal</span><span class="o">&lt;</span><span class="n">Agent</span><span class="o">&gt;</span> <span class="n">goal</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">WatchClosestAITask</span> <span class="n">watchClosestAiTask</span> <span class="o">=</span> <span class="n">WatchClosestAITask</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">chance</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">maxDistance</span><span class="o">(</span><span class="mi">30</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">watch</span><span class="o">(</span><span class="n">Player</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="n">entity</span><span class="o">);</span>
-<span class="n">goal</span><span class="o">.</span><span class="na">addTask</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">watchClosestAiTask</span><span class="o">);</span>
+<span class="n">WatchClosestAITask</span> <span class="n">watchClosestAiTask</span> <span class="o">=</span> <span class="n">WatchClosestAITask</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">chance</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">maxDistance</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">watch</span><span class="p">(</span><span class="n">Player</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">(</span><span class="n">entity</span><span class="p">);</span>
+<span class="n">goal</span><span class="p">.</span><span class="na">addTask</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">watchClosestAiTask</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>In this example we create an <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/entity/ai/task/builtin/WatchClosestAITask.html">WatchClosestAITask</a> using the associated builder. Using the build we define that
@@ -275,10 +275,10 @@ values from zero to roughly ten.</p>
 The Sponge API tries to provides a disambiguator. Calling <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/entity/ai/task/AITask.html#getType--">AITask#getType()</a> returns an <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/entity/ai/task/AITaskType.html">AITaskType</a>
 which can be used to differentiate between the existing types of tasks.</p>
 <p>First we try the simple version which will only work if there are no AI altering mods present:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Goal</span><span class="o">&lt;</span><span class="n">Zombie</span><span class="o">&gt;</span> <span class="n">goal</span> <span class="o">=</span> <span class="o">...;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Goal</span><span class="o">&lt;</span><span class="n">Zombie</span><span class="o">&gt;</span> <span class="n">goal</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">AITask</span><span class="o">&lt;</span><span class="n">Zombie</span><span class="o">&gt;</span> <span class="n">attackTask</span> <span class="o">=</span> <span class="o">(</span><span class="n">AITask</span><span class="o">&lt;</span><span class="n">Zombie</span><span class="o">&gt;)</span> <span class="n">goal</span><span class="o">.</span><span class="na">getTasks</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> <span class="c1">// EntityAIZombieAttack</span>
-<span class="n">goal</span><span class="o">.</span><span class="na">removeTask</span><span class="o">(</span><span class="n">attackTask</span><span class="o">);</span>
+<span class="n">AITask</span><span class="o">&lt;</span><span class="n">Zombie</span><span class="o">&gt;</span> <span class="n">attackTask</span> <span class="o">=</span> <span class="p">(</span><span class="n">AITask</span><span class="o">&lt;</span><span class="n">Zombie</span><span class="o">&gt;</span><span class="p">)</span> <span class="n">goal</span><span class="p">.</span><span class="na">getTasks</span><span class="p">().</span><span class="na">get</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// EntityAIZombieAttack</span>
+<span class="n">goal</span><span class="p">.</span><span class="na">removeTask</span><span class="p">(</span><span class="n">attackTask</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>In this case we blindly rely on the fact that in vanilla Minecraft 1.12.2 <code class="docutils literal notranslate"><span class="pre">Zombie</span></code>s will have the
@@ -292,7 +292,7 @@ is immutable.</p>
 </div>
 <p>A much simpler but also less powerful way of removing tasks is removing them by their type. This is the approach you
 should follow, if you don’t need the task’s internals to identify which task should be removed.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">goal</span><span class="o">.</span><span class="na">removeTasks</span><span class="o">(</span><span class="n">AITaskTypes</span><span class="o">.</span><span class="na">WANDER</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">goal</span><span class="p">.</span><span class="na">removeTasks</span><span class="p">(</span><span class="n">AITaskTypes</span><span class="p">.</span><span class="na">WANDER</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>In this case we remove all AITasks that have the <code class="docutils literal notranslate"><span class="pre">AITaskType</span></code> <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/entity/ai/task/AITaskTypes.html#WANDER">WANDER</a>.</p>

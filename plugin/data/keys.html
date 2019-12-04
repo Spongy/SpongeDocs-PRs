@@ -180,15 +180,15 @@
 <p>A data holder provides methods to retrieve or alter a single point of data identified by a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Key.html">Key</a>. Let’s just
 start out with an example:</p>
 <p><strong>Code Example: Healing a data holder, if possible</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataHolder</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataHolder</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">heal</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">target</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">))</span> <span class="o">{</span>
-        <span class="kt">double</span> <span class="n">maxHealth</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
-        <span class="n">target</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">maxHealth</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">heal</span><span class="p">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">target</span><span class="p">.</span><span class="na">supports</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">))</span> <span class="p">{</span>
+        <span class="kt">double</span> <span class="n">maxHealth</span> <span class="o">=</span> <span class="n">target</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+        <span class="n">target</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="n">maxHealth</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Now for the details of the above function.</p>
@@ -212,9 +212,9 @@ holder supports it), we can silently discard the result.</p>
 <p>It is also possible to completely remove data from a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataHolder.html">DataHolder</a> using the <code class="docutils literal notranslate"><span class="pre">remove()</span></code> function. Simply
 provide a <code class="docutils literal notranslate"><span class="pre">Key</span></code> representing the data you want removed. The following example will attempt to remove a custom name
 from a given data holder:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">removeName</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">target</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">DISPLAY_NAME</span><span class="o">);</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">removeName</span><span class="p">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">target</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">DISPLAY_NAME</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -225,22 +225,22 @@ holder’s <code class="docutils literal notranslate"><span class="pre">transfor
 retrieved and the given function applied to it. The result is then stored under the key and the <code class="docutils literal notranslate"><span class="pre">transform()</span></code>
 method will return a <code class="docutils literal notranslate"><span class="pre">DataTransactionResult</span></code> accordingly.</p>
 <p>Now, as an example, imagine we want to buff a data holder by doubling his maximum health.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.function.Function</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.function.Function</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">buff</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">target</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="k">new</span> <span class="n">Function</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">,</span><span class="n">Double</span><span class="o">&gt;()</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">buff</span><span class="p">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">target</span><span class="p">.</span><span class="na">transform</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="k">new</span> <span class="n">Function</span><span class="o">&lt;</span><span class="n">Double</span><span class="p">,</span><span class="n">Double</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="n">Double</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Double</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="o">(</span><span class="n">input</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="n">input</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span>
-        <span class="o">}</span>
-    <span class="o">});</span>
-<span class="o">}</span>
+        <span class="kd">public</span> <span class="n">Double</span> <span class="nf">apply</span><span class="p">(</span><span class="n">Double</span> <span class="n">input</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">input</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="p">:</span> <span class="n">input</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Or, if you use Java 8, you’re able to shorten the line with lambda expressions:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">buff</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">target</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="n">d</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">d</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">d</span><span class="o">);</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">buff</span><span class="p">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">target</span><span class="p">.</span><span class="na">transform</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="n">d</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">d</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">d</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Note that in both cases we need to make sure our passed function can handle <code class="docutils literal notranslate"><span class="pre">null</span></code>. You will also notice that no
@@ -255,16 +255,16 @@ object inheriting from <a class="reference external" href="https://jd.spongepowe
 health is a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/value/mutable/MutableBoundedValue.html">MutableBoundedValue</a>, we can find out the minimum possible value and set our target’s health just
 a tiny bit above that.</p>
 <p><strong>Code Example: Bring a target to the brink of death</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.MutableBoundedValue</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.MutableBoundedValue</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">scare</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">target</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">))</span> <span class="o">{</span>
-        <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">health</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
-        <span class="kt">double</span> <span class="n">nearDeath</span> <span class="o">=</span> <span class="n">health</span><span class="o">.</span><span class="na">getMinValue</span><span class="o">()</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
-        <span class="n">health</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">nearDeath</span><span class="o">);</span>
-        <span class="n">target</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">health</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">scare</span><span class="p">(</span><span class="n">DataHolder</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">target</span><span class="p">.</span><span class="na">supports</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">health</span> <span class="o">=</span> <span class="n">target</span><span class="p">.</span><span class="na">getValue</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+        <span class="kt">double</span> <span class="n">nearDeath</span> <span class="o">=</span> <span class="n">health</span><span class="p">.</span><span class="na">getMinValue</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">health</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">nearDeath</span><span class="p">);</span>
+        <span class="n">target</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">health</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Again, we check if our target supports the health key and then obtain the keyed value. A

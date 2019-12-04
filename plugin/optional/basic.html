@@ -183,10 +183,10 @@ use of <code class="docutils literal notranslate"><span class="pre">Optional</sp
 <p>Let’s say we have a simple API object <code class="docutils literal notranslate"><span class="pre">Entity</span></code> with a <code class="docutils literal notranslate"><span class="pre">getFoo()</span></code> method which returns the Entity’s <code class="docutils literal notranslate"><span class="pre">Foo</span></code>.</p>
 <img alt="../../_images/optionals1.png" src="../../_images/optionals1.png" />
 <p>In the olden times of yore, our plugin might fetch and use the <code class="docutils literal notranslate"><span class="pre">Foo</span></code> from the entity using the <code class="docutils literal notranslate"><span class="pre">getter</span></code> like this:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="o">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Foo</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="o">.</span><span class="na">getFoo</span><span class="o">();</span>
-    <span class="n">entityFoo</span><span class="o">.</span><span class="na">bar</span><span class="o">();</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="p">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Foo</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="p">.</span><span class="na">getFoo</span><span class="p">();</span>
+    <span class="n">entityFoo</span><span class="p">.</span><span class="na">bar</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The problem arises because - when designing the API - we have to rely an <em>implicit</em> contract on the <code class="docutils literal notranslate"><span class="pre">getFoo</span></code> method
@@ -199,21 +199,21 @@ two ways:</p>
 <img alt="../../_images/optionals2.png" src="../../_images/optionals2.png" />
 <p>Let’s assume that the <code class="docutils literal notranslate"><span class="pre">getFoo()</span></code> method can - as part of its contract - return null. This suddenly means that our
 code above is unsafe as it may result in a <code class="docutils literal notranslate"><span class="pre">NullPointerException</span></code> if <code class="docutils literal notranslate"><span class="pre">entityFoo</span></code> is null.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="o">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Foo</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="o">.</span><span class="na">getFoo</span><span class="o">();</span>
-    <span class="n">entityFoo</span><span class="o">.</span><span class="na">bar</span><span class="o">();</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="p">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Foo</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="p">.</span><span class="na">getFoo</span><span class="p">();</span>
+    <span class="n">entityFoo</span><span class="p">.</span><span class="na">bar</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Let’s assume our plugin author is savvy to the nullable nature of our <code class="docutils literal notranslate"><span class="pre">getFoo</span></code> method and decides to fix the problem
 with null checking. Assuming they have defined a local constant <code class="docutils literal notranslate"><span class="pre">Foo</span></code>, the resultant code looks like this:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="o">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Foo</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="o">.</span><span class="na">getFoo</span><span class="o">();</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">entityFoo</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">MyPlugin</span><span class="o">.</span><span class="na">DEFAULT_FOO</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="n">entityFoo</span><span class="o">.</span><span class="na">bar</span><span class="o">();</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="p">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Foo</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="p">.</span><span class="na">getFoo</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">entityFoo</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">MyPlugin</span><span class="p">.</span><span class="na">DEFAULT_FOO</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">entityFoo</span><span class="p">.</span><span class="na">bar</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>In this example, the plugin author is aware that the method can return null and has a constant available with a
@@ -266,12 +266,12 @@ This has the same level of inherent safety as constantly performing null-checks,
 elegant and readable code in order to do so.</p>
 <p>To see why, let’s take a look at the above example, converted to use a <code class="docutils literal notranslate"><span class="pre">getFoo</span></code> method which returns
 <code class="docutils literal notranslate"><span class="pre">Optional&lt;Foo&gt;</span></code> instead:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="o">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="o">.</span><span class="na">getFoo</span><span class="o">();</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">entityFoo</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-        <span class="n">entityFoo</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">bar</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="p">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="p">.</span><span class="na">getFoo</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">entityFoo</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">entityFoo</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">bar</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>You may note that this example looks very much like a standard null-check, however the use of <code class="docutils literal notranslate"><span class="pre">Optional</span></code> actually
@@ -282,39 +282,39 @@ of the value’s absence is explicit and clear.</p>
 one that is contractually <em>enforced</em> by the getter. <em>“Whoop de do,”</em> you say, <em>“so what?”</em></p>
 <p>Well the <cite>Optional</cite> boxing allows us to take some of the traditionally more awkward aspects of null-checking and
 make them more elegant: consider the following code:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="o">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Foo</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="o">.</span><span class="na">getFoo</span><span class="o">().</span><span class="na">orElse</span><span class="o">(</span><span class="n">MyPlugin</span><span class="o">.</span><span class="na">DEFAULT_FOO</span><span class="o">);</span>
-    <span class="n">entityFoo</span><span class="o">.</span><span class="na">bar</span><span class="o">();</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="p">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Foo</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="p">.</span><span class="na">getFoo</span><span class="p">().</span><span class="na">orElse</span><span class="p">(</span><span class="n">MyPlugin</span><span class="p">.</span><span class="na">DEFAULT_FOO</span><span class="p">);</span>
+    <span class="n">entityFoo</span><span class="p">.</span><span class="na">bar</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Hold the phone! Did we just replace the tedious null-check-and-default-assignment from the example above with a
 single line of code? Yes indeed we did. In fact, for simple use cases we can even dispense with the assignment:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="o">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">someEntity</span><span class="o">.</span><span class="na">getFoo</span><span class="o">().</span><span class="na">orElse</span><span class="o">(</span><span class="n">MyPlugin</span><span class="o">.</span><span class="na">DEFAULT_FOO</span><span class="o">).</span><span class="na">bar</span><span class="o">();</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="p">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">someEntity</span><span class="p">.</span><span class="na">getFoo</span><span class="p">().</span><span class="na">orElse</span><span class="p">(</span><span class="n">MyPlugin</span><span class="p">.</span><span class="na">DEFAULT_FOO</span><span class="p">).</span><span class="na">bar</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This is perfectly safe provided that <code class="docutils literal notranslate"><span class="pre">MyPlugin.DEFAULT_FOO</span></code> is always available.</p>
 <p>Consider the following example with two entities, using an implicit nullable contract we want to use <code class="docutils literal notranslate"><span class="pre">Foo</span></code> from the
 first entity, or if not available use <code class="docutils literal notranslate"><span class="pre">Foo</span></code> from the second <code class="docutils literal notranslate"><span class="pre">entity</span></code>, and fall back on our default if neither is
 available:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="o">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="o">,</span> <span class="n">Entity</span> <span class="n">entity2</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Foo</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="o">.</span><span class="na">getFoo</span><span class="o">();</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">entityFoo</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">entity2</span><span class="o">.</span><span class="na">getFoo</span><span class="o">();</span>
-    <span class="o">}</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">entityFoo</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">MyPlugin</span><span class="o">.</span><span class="na">DEFAULT_FOO</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="n">entityFoo</span><span class="o">.</span><span class="na">bar</span><span class="o">();</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="p">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="p">,</span> <span class="n">Entity</span> <span class="n">entity2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Foo</span> <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">someEntity</span><span class="p">.</span><span class="na">getFoo</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">entityFoo</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">entity2</span><span class="p">.</span><span class="na">getFoo</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">entityFoo</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">entityFoo</span> <span class="o">=</span> <span class="n">MyPlugin</span><span class="p">.</span><span class="na">DEFAULT_FOO</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">entityFoo</span><span class="p">.</span><span class="na">bar</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Using <code class="docutils literal notranslate"><span class="pre">Optional</span></code> we can encode this much much more cleanly as:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="o">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="o">,</span> <span class="n">Entity</span> <span class="n">entity2</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">someEntity</span><span class="o">.</span><span class="na">getFoo</span><span class="o">().</span><span class="na">orElse</span><span class="o">(</span><span class="n">entity2</span><span class="o">.</span><span class="na">getFoo</span><span class="o">().</span><span class="na">orElse</span><span class="o">(</span><span class="n">MyPlugin</span><span class="o">.</span><span class="na">DEFAULT_FOO</span><span class="o">)).</span><span class="na">bar</span><span class="o">();</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someEventHandler</span><span class="p">(</span><span class="n">Entity</span> <span class="n">someEntity</span><span class="p">,</span> <span class="n">Entity</span> <span class="n">entity2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">someEntity</span><span class="p">.</span><span class="na">getFoo</span><span class="p">().</span><span class="na">orElse</span><span class="p">(</span><span class="n">entity2</span><span class="p">.</span><span class="na">getFoo</span><span class="p">().</span><span class="na">orElse</span><span class="p">(</span><span class="n">MyPlugin</span><span class="p">.</span><span class="na">DEFAULT_FOO</span><span class="p">)).</span><span class="na">bar</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This is merely the tip of the <code class="docutils literal notranslate"><span class="pre">Optional</span></code> iceberg. In java 8 <code class="docutils literal notranslate"><span class="pre">Optional</span></code> also supports the <code class="docutils literal notranslate"><span class="pre">Consumer</span></code> and

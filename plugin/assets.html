@@ -169,17 +169,17 @@
 <p>The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/asset/AssetManager.html">AssetManager</a> allows developers to retrieve resources from a plugin JAR.</p>
 <p>A plugin’s assets reside in a directory named <code class="docutils literal notranslate"><span class="pre">assets/myplugin/</span></code> where <code class="docutils literal notranslate"><span class="pre">myplugin</span></code> is the plugin ID.</p>
 <p>Once properly configured you can retrieve a resource for your (or any) plugin using the following code:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.asset.Asset</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.asset.Asset</span><span class="p">;</span>
 
-<span class="n">Asset</span> <span class="n">asset</span> <span class="o">=</span> <span class="n">plugin</span><span class="o">.</span><span class="na">getAsset</span><span class="o">(</span><span class="s">&quot;myfile.txt&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+<span class="n">Asset</span> <span class="n">asset</span> <span class="o">=</span> <span class="n">plugin</span><span class="p">.</span><span class="na">getAsset</span><span class="p">(</span><span class="s">&quot;myfile.txt&quot;</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>Alternatively, you can retrieve assets through the <code class="docutils literal notranslate"><span class="pre">AssetManager</span></code> class:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="p">;</span>
 
-<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">Asset</span> <span class="n">asset</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getAssetManager</span><span class="o">().</span><span class="na">getAsset</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="s">&quot;myfile.txt&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+<span class="n">Asset</span> <span class="n">asset</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getAssetManager</span><span class="p">().</span><span class="na">getAsset</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="s">&quot;myfile.txt&quot;</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -198,11 +198,11 @@ will return <code class="docutils literal notranslate"><span class="pre">Optiona
 cases of <code class="docutils literal notranslate"><span class="pre">Assets</span></code>s is essentially unbounded but one common use case is to generate a default configuration file if
 your plugin’s configuration file is not found. You can achieve this using a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/plugin/PluginContainer.html">PluginContainer</a> with the
 following code:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.nio.file.Files</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.nio.file.Files</span><span class="p">;</span>
 
-<span class="k">if</span> <span class="o">(</span><span class="n">Files</span><span class="o">.</span><span class="na">notExists</span><span class="o">(</span><span class="n">configPath</span><span class="o">))</span> <span class="o">{</span>
-    <span class="n">plugin</span><span class="o">.</span><span class="na">getAsset</span><span class="o">(</span><span class="s">&quot;default.conf&quot;</span><span class="o">).</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">asset</span> <span class="o">-&gt;</span> <span class="n">asset</span><span class="o">.</span><span class="na">copyToDirectory</span><span class="o">(</span><span class="n">configPath</span><span class="o">));</span>
-<span class="o">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">notExists</span><span class="p">(</span><span class="n">configPath</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">plugin</span><span class="p">.</span><span class="na">getAsset</span><span class="p">(</span><span class="s">&quot;default.conf&quot;</span><span class="p">).</span><span class="na">ifPresent</span><span class="p">(</span><span class="n">asset</span> <span class="o">-&gt;</span> <span class="n">asset</span><span class="p">.</span><span class="na">copyToDirectory</span><span class="p">(</span><span class="n">configPath</span><span class="p">));</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">

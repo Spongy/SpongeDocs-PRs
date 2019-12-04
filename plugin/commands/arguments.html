@@ -200,39 +200,39 @@ method. It is possible to pass more than one <code class="docutils literal notra
 <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/args/GenericArguments.html#seq-org.spongepowered.api.command.args.CommandElement...-">GenericArguments#seq(CommandElement…)</a> element.</p>
 <div class="section" id="example-building-a-command-with-multiple-arguments">
 <h2>Example: Building a Command with Multiple Arguments<a class="headerlink" href="#example-building-a-command-with-multiple-arguments" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandResult</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandSource</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.CommandContext</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.GenericArguments</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandExecutor</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandSpec</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandResult</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandSource</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.CommandContext</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.GenericArguments</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandExecutor</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandSpec</span><span class="p">;</span>
 
-<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">CommandSpec</span> <span class="n">myCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Send a message to a player&quot;</span><span class="o">))</span>
-        <span class="o">.</span><span class="na">permission</span><span class="o">(</span><span class="s">&quot;myplugin.command.message&quot;</span><span class="o">)</span>
+<span class="n">CommandSpec</span> <span class="n">myCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">description</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Send a message to a player&quot;</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">permission</span><span class="p">(</span><span class="s">&quot;myplugin.command.message&quot;</span><span class="p">)</span>
 
-        <span class="o">.</span><span class="na">arguments</span><span class="o">(</span>
-                <span class="n">GenericArguments</span><span class="o">.</span><span class="na">onlyOne</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">player</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;player&quot;</span><span class="o">))),</span>
-                <span class="n">GenericArguments</span><span class="o">.</span><span class="na">remainingJoinedStrings</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;message&quot;</span><span class="o">)))</span>
+        <span class="p">.</span><span class="na">arguments</span><span class="p">(</span>
+                <span class="n">GenericArguments</span><span class="p">.</span><span class="na">onlyOne</span><span class="p">(</span><span class="n">GenericArguments</span><span class="p">.</span><span class="na">player</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;player&quot;</span><span class="p">))),</span>
+                <span class="n">GenericArguments</span><span class="p">.</span><span class="na">remainingJoinedStrings</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">)))</span>
 
-        <span class="o">.</span><span class="na">executor</span><span class="o">((</span><span class="n">CommandSource</span> <span class="n">src</span><span class="o">,</span> <span class="n">CommandContext</span> <span class="n">args</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="p">.</span><span class="na">executor</span><span class="p">((</span><span class="n">CommandSource</span> <span class="n">src</span><span class="p">,</span> <span class="n">CommandContext</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span>
 
-            <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="n">args</span><span class="o">.&lt;</span><span class="n">Player</span><span class="o">&gt;</span><span class="n">getOne</span><span class="o">(</span><span class="s">&quot;player&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
-            <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">args</span><span class="o">.&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="n">getOne</span><span class="o">(</span><span class="s">&quot;message&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+            <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="n">args</span><span class="p">.</span><span class="o">&lt;</span><span class="n">Player</span><span class="o">&gt;</span><span class="n">getOne</span><span class="p">(</span><span class="s">&quot;player&quot;</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+            <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">args</span><span class="p">.</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="n">getOne</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
 
-            <span class="n">player</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">message</span><span class="o">));</span>
+            <span class="n">player</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">message</span><span class="p">));</span>
 
-            <span class="k">return</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">success</span><span class="o">();</span>
-        <span class="o">})</span>
-        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+            <span class="k">return</span> <span class="n">CommandResult</span><span class="p">.</span><span class="na">success</span><span class="p">();</span>
+        <span class="p">})</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 
-<span class="n">Sponge</span><span class="o">.</span><span class="na">getCommandManager</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="n">myCommandSpec</span><span class="o">,</span> <span class="s">&quot;message&quot;</span><span class="o">,</span> <span class="s">&quot;msg&quot;</span><span class="o">,</span> <span class="s">&quot;m&quot;</span><span class="o">);</span>
+<span class="n">Sponge</span><span class="p">.</span><span class="na">getCommandManager</span><span class="p">().</span><span class="na">register</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">myCommandSpec</span><span class="p">,</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;msg&quot;</span><span class="p">,</span> <span class="s">&quot;m&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -406,65 +406,65 @@ if the parsing fails.</p>
 <div class="section" id="example-vector2i-command-element-definition">
 <h3>Example: <code class="docutils literal notranslate"><span class="pre">Vector2i</span></code> command element definition<a class="headerlink" href="#example-vector2i-command-element-definition" title="Permalink to this headline">¶</a></h3>
 <p>The parser in this example reads two input arguments and converts them to a vector.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.flowpowered.math.vector.Vector2i</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.ArgumentParseException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.CommandArgs</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.CommandElement</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.flowpowered.math.vector.Vector2i</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.ArgumentParseException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.CommandArgs</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.CommandElement</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vector2iCommandElement</span> <span class="kd">extends</span> <span class="n">CommandElement</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vector2iCommandElement</span> <span class="kd">extends</span> <span class="n">CommandElement</span> <span class="p">{</span>
 
-    <span class="kd">protected</span> <span class="nf">Vector2iCommandElement</span><span class="o">(</span><span class="n">Text</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">Object</span> <span class="nf">parseValue</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">,</span> <span class="n">CommandArgs</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ArgumentParseException</span> <span class="o">{</span>
-
-        <span class="n">String</span> <span class="n">xInput</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
-        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">parseInt</span><span class="o">(</span><span class="n">xInput</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
-
-        <span class="n">String</span> <span class="n">yInput</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
-        <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">parseInt</span><span class="o">(</span><span class="n">yInput</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
-
-        <span class="k">return</span> <span class="k">new</span> <span class="n">Vector2i</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">parseInt</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">,</span> <span class="n">CommandArgs</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ArgumentParseException</span> <span class="o">{</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="n">args</span><span class="o">.</span><span class="na">createError</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="n">input</span> <span class="o">+</span> <span class="s">&quot;&#39; is not a valid number!&quot;</span><span class="o">));</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
+    <span class="kd">protected</span> <span class="nf">Vector2iCommandElement</span><span class="p">(</span><span class="n">Text</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">super</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+    <span class="p">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">complete</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">src</span><span class="o">,</span> <span class="n">CommandArgs</span> <span class="n">args</span><span class="o">,</span> <span class="n">CommandContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span>
-    <span class="o">}</span>
+    <span class="kd">protected</span> <span class="n">Object</span> <span class="nf">parseValue</span><span class="p">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="p">,</span> <span class="n">CommandArgs</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">ArgumentParseException</span> <span class="p">{</span>
+
+        <span class="n">String</span> <span class="n">xInput</span> <span class="o">=</span> <span class="n">args</span><span class="p">.</span><span class="na">next</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">parseInt</span><span class="p">(</span><span class="n">xInput</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+
+        <span class="n">String</span> <span class="n">yInput</span> <span class="o">=</span> <span class="n">args</span><span class="p">.</span><span class="na">next</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">parseInt</span><span class="p">(</span><span class="n">yInput</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Vector2i</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">parseInt</span><span class="p">(</span><span class="n">String</span> <span class="n">input</span><span class="p">,</span> <span class="n">CommandArgs</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">ArgumentParseException</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">Integer</span><span class="p">.</span><span class="na">parseInt</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="n">args</span><span class="p">.</span><span class="na">createError</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="n">input</span> <span class="o">+</span> <span class="s">&quot;&#39; is not a valid number!&quot;</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">Text</span> <span class="nf">getUsage</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">src</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;&lt;x&gt; &lt;y&gt;&quot;</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">complete</span><span class="p">(</span><span class="n">CommandSource</span> <span class="n">src</span><span class="p">,</span> <span class="n">CommandArgs</span> <span class="n">args</span><span class="p">,</span> <span class="n">CommandContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Collections</span><span class="p">.</span><span class="na">emptyList</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Text</span> <span class="nf">getUsage</span><span class="p">(</span><span class="n">CommandSource</span> <span class="n">src</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;&lt;x&gt; &lt;y&gt;&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-vector2i-command-element-usage">
 <h3>Example: <code class="docutils literal notranslate"><span class="pre">Vector2i</span></code> command element usage<a class="headerlink" href="#example-vector2i-command-element-usage" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// /plottp &lt;x&gt; &lt;y&gt;</span>
-<span class="n">CommandSpec</span> <span class="n">myCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Teleport to a plot&quot;</span><span class="o">))</span>
-        <span class="o">.</span><span class="na">permission</span><span class="o">(</span><span class="s">&quot;myplugin.command.plot.tp&quot;</span><span class="o">)</span>
+<span class="n">CommandSpec</span> <span class="n">myCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">description</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Teleport to a plot&quot;</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">permission</span><span class="p">(</span><span class="s">&quot;myplugin.command.plot.tp&quot;</span><span class="p">)</span>
 
-        <span class="o">.</span><span class="na">arguments</span><span class="o">(</span><span class="k">new</span> <span class="n">Vector2iCommandElement</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;coordinates&quot;</span><span class="o">)))</span>
+        <span class="p">.</span><span class="na">arguments</span><span class="p">(</span><span class="k">new</span> <span class="n">Vector2iCommandElement</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;coordinates&quot;</span><span class="p">)))</span>
 
-        <span class="o">.</span><span class="na">executor</span><span class="o">(</span><span class="k">new</span> <span class="n">MyCommandExecutor</span><span class="o">())</span>
-        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="p">.</span><span class="na">executor</span><span class="p">(</span><span class="k">new</span> <span class="n">MyCommandExecutor</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -487,25 +487,25 @@ objects selected by the selector.</p>
 entities based on the location of the <code class="docutils literal notranslate"><span class="pre">CommandSource</span></code>. If the passed string does not start with <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>, an exception
 will be thrown indicating that the passed argument is not a selector.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="n">Object</span> <span class="nf">parseValue</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">,</span> <span class="n">CommandArgs</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ArgumentParseException</span> <span class="o">{</span>
-    <span class="n">String</span> <span class="n">nextArg</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">nextArg</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">&quot;@&quot;</span><span class="o">))</span> <span class="o">{</span>
-        <span class="n">Set</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;</span> <span class="n">selectedEntities</span><span class="o">;</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">selectedEntities</span> <span class="o">=</span> <span class="n">Selector</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">nextArg</span><span class="o">).</span><span class="na">resolve</span><span class="o">(</span><span class="n">source</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IllegalArgumentException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="n">args</span><span class="o">.</span><span class="na">createError</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Could not parse selector.&quot;</span><span class="o">));</span>
-        <span class="o">}</span>
+<span class="kd">protected</span> <span class="n">Object</span> <span class="nf">parseValue</span><span class="p">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="p">,</span> <span class="n">CommandArgs</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">ArgumentParseException</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="n">nextArg</span> <span class="o">=</span> <span class="n">args</span><span class="p">.</span><span class="na">next</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">nextArg</span><span class="p">.</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&quot;@&quot;</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;</span> <span class="n">selectedEntities</span><span class="p">;</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="n">selectedEntities</span> <span class="o">=</span> <span class="n">Selector</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="n">nextArg</span><span class="p">).</span><span class="na">resolve</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IllegalArgumentException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="n">args</span><span class="p">.</span><span class="na">createError</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Could not parse selector.&quot;</span><span class="p">));</span>
+        <span class="p">}</span>
 
-        <span class="k">if</span> <span class="o">(</span><span class="n">selectedEntities</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="n">args</span><span class="o">.</span><span class="na">createError</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;No entities selected.&quot;</span><span class="o">));</span>
-        <span class="o">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">selectedEntities</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="n">args</span><span class="p">.</span><span class="na">createError</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;No entities selected.&quot;</span><span class="p">));</span>
+        <span class="p">}</span>
 
-        <span class="k">return</span> <span class="n">selectedEntities</span><span class="o">;</span>
-    <span class="o">}</span>
+        <span class="k">return</span> <span class="n">selectedEntities</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    <span class="k">throw</span> <span class="n">args</span><span class="o">.</span><span class="na">createError</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Not a selector.&quot;</span><span class="o">));</span>
-<span class="o">}</span>
+    <span class="k">throw</span> <span class="n">args</span><span class="p">.</span><span class="na">createError</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Not a selector.&quot;</span><span class="p">));</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition tip">

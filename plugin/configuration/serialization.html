@@ -190,12 +190,12 @@ then you should consider using your own <code class="docutils literal notranslat
 </div>
 <p>But if you want to write your custom data structures to a config file, this will not be enough.</p>
 <p>Imagine a data structure tracking how many diamonds a player has mined. It might look a little like this:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounter</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">UUID</span> <span class="n">playerUUID</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">diamonds</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounter</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="n">UUID</span> <span class="n">playerUUID</span><span class="p">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">diamonds</span><span class="p">;</span>
 
-    <span class="o">[...]</span>
-<span class="o">}</span>
+    <span class="o">[</span><span class="p">...</span><span class="o">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Also assume some methods to access those fields, a nice constructor setting both of those etc.</p>
@@ -204,27 +204,27 @@ then you should consider using your own <code class="docutils literal notranslat
 <p>A very straightforward way of writing and loading such a data structure is providing a custom <a class="reference external" href="https://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/objectmapping/serialize/TypeSerializer.html">TypeSerializer</a>.
 The <code class="docutils literal notranslate"><span class="pre">TypeSerializer</span></code> interface provides two methods, one to write the data from an object to a configuration node and
 one to create an object from a given configuration node.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.google.common.reflect.TypeToken</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.ObjectMappingException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.TypeSerializer</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.google.common.reflect.TypeToken</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.ObjectMappingException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.TypeSerializer</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounterSerializer</span> <span class="kd">implements</span> <span class="n">TypeSerializer</span><span class="o">&lt;</span><span class="n">DiamondCounter</span><span class="o">&gt;</span> <span class="o">{</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">DiamondCounter</span> <span class="nf">deserialize</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">&lt;?&gt;</span> <span class="n">type</span><span class="o">,</span> <span class="n">ConfigurationNode</span> <span class="n">value</span><span class="o">)</span>
-      <span class="kd">throws</span> <span class="n">ObjectMappingException</span> <span class="o">{</span>
-        <span class="n">UUID</span> <span class="n">player</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;player&quot;</span><span class="o">).</span><span class="na">getValue</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
-        <span class="kt">int</span> <span class="n">diamonds</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;diamonds&quot;</span><span class="o">).</span><span class="na">getInt</span><span class="o">();</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">DiamondCounter</span><span class="o">(</span><span class="n">player</span><span class="o">,</span> <span class="n">diamonds</span><span class="o">);</span>
-    <span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounterSerializer</span> <span class="kd">implements</span> <span class="n">TypeSerializer</span><span class="o">&lt;</span><span class="n">DiamondCounter</span><span class="o">&gt;</span> <span class="p">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">serialize</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">&lt;?&gt;</span> <span class="n">type</span><span class="o">,</span> <span class="n">DiamondCounter</span> <span class="n">obj</span><span class="o">,</span> <span class="n">ConfigurationNode</span> <span class="n">value</span><span class="o">)</span>
-      <span class="kd">throws</span> <span class="n">ObjectMappingException</span> <span class="o">{</span>
-        <span class="n">value</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;player&quot;</span><span class="o">).</span><span class="na">setValue</span><span class="o">(</span><span class="n">obj</span><span class="o">.</span><span class="na">getPlayerUUID</span><span class="o">());</span>
-        <span class="n">value</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;diamonds&quot;</span><span class="o">).</span><span class="na">setValue</span><span class="o">(</span><span class="n">obj</span><span class="o">.</span><span class="na">getDiamonds</span><span class="o">());</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+    <span class="kd">public</span> <span class="n">DiamondCounter</span> <span class="nf">deserialize</span><span class="p">(</span><span class="n">TypeToken</span><span class="o">&lt;?&gt;</span> <span class="n">type</span><span class="p">,</span> <span class="n">ConfigurationNode</span> <span class="n">value</span><span class="p">)</span>
+      <span class="kd">throws</span> <span class="n">ObjectMappingException</span> <span class="p">{</span>
+        <span class="n">UUID</span> <span class="n">player</span> <span class="o">=</span> <span class="n">value</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;player&quot;</span><span class="p">).</span><span class="na">getValue</span><span class="p">(</span><span class="n">TypeToken</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">class</span><span class="p">));</span>
+        <span class="kt">int</span> <span class="n">diamonds</span> <span class="o">=</span> <span class="n">value</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;diamonds&quot;</span><span class="p">).</span><span class="na">getInt</span><span class="p">();</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">DiamondCounter</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">diamonds</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">serialize</span><span class="p">(</span><span class="n">TypeToken</span><span class="o">&lt;?&gt;</span> <span class="n">type</span><span class="p">,</span> <span class="n">DiamondCounter</span> <span class="n">obj</span><span class="p">,</span> <span class="n">ConfigurationNode</span> <span class="n">value</span><span class="p">)</span>
+      <span class="kd">throws</span> <span class="n">ObjectMappingException</span> <span class="p">{</span>
+        <span class="n">value</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;player&quot;</span><span class="p">).</span><span class="na">setValue</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="na">getPlayerUUID</span><span class="p">());</span>
+        <span class="n">value</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;diamonds&quot;</span><span class="p">).</span><span class="na">setValue</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="na">getDiamonds</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This <code class="docutils literal notranslate"><span class="pre">TypeSerializer</span></code> must then be registered with Configurate. This can be done either globally, by registering to
@@ -236,21 +236,21 @@ when loading your config.</p>
 created; so you either have to use the (chained) result directly or update your variable accordingly.</p>
 </div>
 <p><strong>Code Example: Registering a TypeSerializer globally</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.TypeSerializers</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.TypeSerializers</span><span class="p">;</span>
 
-<span class="n">TypeSerializers</span><span class="o">.</span><span class="na">getDefaultSerializers</span><span class="o">().</span><span class="na">registerType</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">DiamondCounter</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="k">new</span> <span class="n">DiamondCounterSerializer</span><span class="o">());</span>
+<span class="n">TypeSerializers</span><span class="p">.</span><span class="na">getDefaultSerializers</span><span class="p">().</span><span class="na">registerType</span><span class="p">(</span><span class="n">TypeToken</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">DiamondCounter</span><span class="p">.</span><span class="na">class</span><span class="p">),</span> <span class="k">new</span> <span class="n">DiamondCounterSerializer</span><span class="p">());</span>
 </pre></div>
 </div>
 <p><strong>Code Example: Registering a TypeSerializer locally</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationOptions</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.TypeSerializerCollection</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.TypeSerializers</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationOptions</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.TypeSerializerCollection</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.TypeSerializers</span><span class="p">;</span>
 
-<span class="n">TypeSerializerCollection</span> <span class="n">serializers</span> <span class="o">=</span> <span class="n">TypeSerializers</span><span class="o">.</span><span class="na">getDefaultSerializers</span><span class="o">().</span><span class="na">newChild</span><span class="o">();</span>
-<span class="n">serializers</span><span class="o">.</span><span class="na">registerType</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">DiamondCounter</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="k">new</span> <span class="n">DiamondCounterSerializer</span><span class="o">());</span>
-<span class="n">ConfigurationOptions</span> <span class="n">options</span> <span class="o">=</span> <span class="n">ConfigurationOptions</span><span class="o">.</span><span class="na">defaults</span><span class="o">().</span><span class="na">setSerializers</span><span class="o">(</span><span class="n">serializers</span><span class="o">);</span>
-<span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="n">someConfigurationLoader</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">options</span><span class="o">);</span>
+<span class="n">TypeSerializerCollection</span> <span class="n">serializers</span> <span class="o">=</span> <span class="n">TypeSerializers</span><span class="p">.</span><span class="na">getDefaultSerializers</span><span class="p">().</span><span class="na">newChild</span><span class="p">();</span>
+<span class="n">serializers</span><span class="p">.</span><span class="na">registerType</span><span class="p">(</span><span class="n">TypeToken</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">DiamondCounter</span><span class="p">.</span><span class="na">class</span><span class="p">),</span> <span class="k">new</span> <span class="n">DiamondCounterSerializer</span><span class="p">());</span>
+<span class="n">ConfigurationOptions</span> <span class="n">options</span> <span class="o">=</span> <span class="n">ConfigurationOptions</span><span class="p">.</span><span class="na">defaults</span><span class="p">().</span><span class="na">setSerializers</span><span class="p">(</span><span class="n">serializers</span><span class="p">);</span>
+<span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="n">someConfigurationLoader</span><span class="p">.</span><span class="na">load</span><span class="p">(</span><span class="n">options</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -271,19 +271,19 @@ define the constant inside of your data or serializer class.</p>
 <p>Since in many cases the (de)serialization boils down to mapping fields to configuration nodes, writing such a
 <code class="docutils literal notranslate"><span class="pre">TypeSerializer</span></code> is a rather dull affair and something we’d like Configurate to do on its own. So let’s annotate our
 class with the <a class="reference external" href="https://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/objectmapping/serialize/ConfigSerializable.html">ConfigSerializable</a> and <a class="reference external" href="https://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/objectmapping/Setting.html">Setting</a> annotations.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.Setting</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.Setting</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable</span><span class="p">;</span>
 
 <span class="nd">@ConfigSerializable</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounter</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounter</span> <span class="p">{</span>
 
-    <span class="nd">@Setting</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;player&quot;</span><span class="o">,</span> <span class="n">comment</span><span class="o">=</span><span class="s">&quot;Player UUID&quot;</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">UUID</span> <span class="n">playerUUID</span><span class="o">;</span>
-    <span class="nd">@Setting</span><span class="o">(</span><span class="n">comment</span><span class="o">=</span><span class="s">&quot;Number of diamonds mined&quot;</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">diamonds</span><span class="o">;</span>
+    <span class="nd">@Setting</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;player&quot;</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s">&quot;Player UUID&quot;</span><span class="p">)</span>
+    <span class="kd">private</span> <span class="n">UUID</span> <span class="n">playerUUID</span><span class="p">;</span>
+    <span class="nd">@Setting</span><span class="p">(</span><span class="n">comment</span><span class="o">=</span><span class="s">&quot;Number of diamonds mined&quot;</span><span class="p">)</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">diamonds</span><span class="p">;</span>
 
-    <span class="o">[...]</span>
-<span class="o">}</span>
+    <span class="o">[</span><span class="p">...</span><span class="o">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The above example can now be serialized and deserialized from config nodes without further registration. The
@@ -312,19 +312,19 @@ These fields won’t be persisted to config files and can be used to store tempo
 initializers (or getters) to set some default values. As long as the entry is not present in the config file the value
 won’t be overwritten.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@ConfigSerializable</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounter</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiamondCounter</span> <span class="p">{</span>
 
-    <span class="nd">@Setting</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;player&quot;</span><span class="o">,</span> <span class="n">comment</span><span class="o">=</span><span class="s">&quot;Player UUID&quot;</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">UUID</span> <span class="n">playerUUID</span><span class="o">;</span>
+    <span class="nd">@Setting</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;player&quot;</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s">&quot;Player UUID&quot;</span><span class="p">)</span>
+    <span class="kd">private</span> <span class="n">UUID</span> <span class="n">playerUUID</span><span class="p">;</span>
 
-    <span class="nd">@Setting</span><span class="o">(</span><span class="n">comment</span><span class="o">=</span><span class="s">&quot;Number of diamonds mined&quot;</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">diamonds</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="nd">@Setting</span><span class="p">(</span><span class="n">comment</span><span class="o">=</span><span class="s">&quot;Number of diamonds mined&quot;</span><span class="p">)</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">diamonds</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-    <span class="nd">@Setting</span><span class="o">(</span><span class="n">comment</span><span class="o">=</span><span class="s">&quot;The time the player found a diamond last.&quot;</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">LocalDateTime</span> <span class="n">diamonds</span> <span class="o">=</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+    <span class="nd">@Setting</span><span class="p">(</span><span class="n">comment</span><span class="o">=</span><span class="s">&quot;The time the player found a diamond last.&quot;</span><span class="p">)</span>
+    <span class="kd">private</span> <span class="n">LocalDateTime</span> <span class="n">diamonds</span> <span class="o">=</span> <span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">();</span>
 
-    <span class="o">[...]</span>
-<span class="o">}</span>
+    <span class="o">[</span><span class="p">...</span><span class="o">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -332,12 +332,12 @@ won’t be overwritten.</p>
 <h3>Example: Loading a ConfigSerializable Config with Default Values<a class="headerlink" href="#example-loading-a-configserializable-config-with-default-values" title="Permalink to this headline">¶</a></h3>
 <p>Instead of loading a default config from the plugin jar itself, it is also possible to just ask Configurate to create
 it if it is missing.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">config</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">configManager</span><span class="o">.</span><span class="na">load</span><span class="o">().&lt;</span><span class="n">Configuration</span><span class="o">&gt;</span><span class="n">getValue</span><span class="o">(</span><span class="n">Configuration</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="n">Configuration</span><span class="o">::</span><span class="n">generateDefault</span><span class="o">);</span>
-<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ObjectMappingException</span> <span class="o">|</span> <span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">&quot;Failed to load the config - Using a default&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">config</span> <span class="o">=</span> <span class="n">Configuration</span><span class="o">.</span><span class="na">generateErrorDefault</span><span class="o">();</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">config</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">configManager</span><span class="p">.</span><span class="na">load</span><span class="p">().</span><span class="o">&lt;</span><span class="n">Configuration</span><span class="o">&gt;</span><span class="n">getValue</span><span class="p">(</span><span class="n">Configuration</span><span class="p">.</span><span class="na">TYPE</span><span class="p">,</span> <span class="n">Configuration</span><span class="p">::</span><span class="n">generateDefault</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">ObjectMappingException</span> <span class="o">|</span> <span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">logger</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="s">&quot;Failed to load the config - Using a default&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">config</span> <span class="o">=</span> <span class="n">Configuration</span><span class="p">.</span><span class="na">generateErrorDefault</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>In this case you load the entire configuration into a <code class="docutils literal notranslate"><span class="pre">Configuration</span></code> object that contains all of your plugins
@@ -361,11 +361,11 @@ or use an entirely custom solution.</p>
 <div class="section" id="example-saving-a-configserializable-config">
 <h3>Example: Saving a ConfigSerializable Config<a class="headerlink" href="#example-saving-a-configserializable-config" title="Permalink to this headline">¶</a></h3>
 <p>Saving a <code class="docutils literal notranslate"><span class="pre">&#64;ConfigSerializable</span></code> config is also very simple, as shown by the following example:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">configManager</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">configManager</span><span class="o">.</span><span class="na">createEmptyNode</span><span class="o">().</span><span class="na">setValue</span><span class="o">(</span><span class="n">Configuration</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">config</span><span class="o">));</span>
-<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="o">|</span> <span class="n">ObjectMappingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">&quot;Failed to save the config&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">configManager</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">configManager</span><span class="p">.</span><span class="na">createEmptyNode</span><span class="p">().</span><span class="na">setValue</span><span class="p">(</span><span class="n">Configuration</span><span class="p">.</span><span class="na">TYPE</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">config</span><span class="p">));</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="o">|</span> <span class="n">ObjectMappingException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">logger</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="s">&quot;Failed to save the config&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -377,27 +377,27 @@ or use an entirely custom solution.</p>
 can create via dependency injection. This also allows for a mixture of <code class="docutils literal notranslate"><span class="pre">&#64;Inject</span></code> and <code class="docutils literal notranslate"><span class="pre">&#64;Setting</span></code> annotated fields.</p>
 <p>Your plugin can just acquire a <code class="docutils literal notranslate"><span class="pre">GuiceObjectMapperFactory</span></code> simply by dependency injection
 (see <a class="reference internal" href="../injection.html"><span class="doc">Dependency Injection</span></a>) and then pass it to the <code class="docutils literal notranslate"><span class="pre">ConfigurationOptions</span></code>.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.state.GamePreInitializationEvent</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.plugin.Plugin</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.commented.CommentedConfigurationNode</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.loader.ConfigurationLoader</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.GuiceObjectMapperFactory</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.state.GamePreInitializationEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.plugin.Plugin</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.commented.CommentedConfigurationNode</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.loader.ConfigurationLoader</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.objectmapping.GuiceObjectMapperFactory</span><span class="p">;</span>
 
-<span class="nd">@Plugin</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;IStoleThisFromZml&quot;</span><span class="o">,</span> <span class="n">id</span><span class="o">=</span><span class="s">&quot;shamelesslystolen&quot;</span><span class="o">,</span> <span class="n">version</span><span class="o">=</span><span class="s">&quot;0.8.15&quot;</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&quot;Stolen&quot;</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StolenCodeExample</span> <span class="o">{</span>
+<span class="nd">@Plugin</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;IStoleThisFromZml&quot;</span><span class="p">,</span> <span class="n">id</span><span class="o">=</span><span class="s">&quot;shamelesslystolen&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s">&quot;0.8.15&quot;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&quot;Stolen&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StolenCodeExample</span> <span class="p">{</span>
 
-    <span class="nd">@Inject</span> <span class="kd">private</span> <span class="n">GuiceObjectMapperFactory</span> <span class="n">factory</span><span class="o">;</span>
-    <span class="nd">@Inject</span> <span class="kd">private</span> <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span><span class="o">;</span>
+    <span class="nd">@Inject</span> <span class="kd">private</span> <span class="n">GuiceObjectMapperFactory</span> <span class="n">factory</span><span class="p">;</span>
+    <span class="nd">@Inject</span> <span class="kd">private</span> <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span><span class="p">;</span>
 
     <span class="nd">@Listener</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">enable</span><span class="o">(</span><span class="n">GamePreInitializationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ObjectMappingException</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">enable</span><span class="p">(</span><span class="n">GamePreInitializationEvent</span> <span class="n">event</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="p">,</span> <span class="n">ObjectMappingException</span> <span class="p">{</span>
         <span class="n">CommentedConfigurationNode</span> <span class="n">node</span> <span class="o">=</span>
-          <span class="n">loader</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">ConfigurationOptions</span><span class="o">.</span><span class="na">defaults</span><span class="o">().</span><span class="na">setObjectMapperFactory</span><span class="o">(</span><span class="n">factory</span><span class="o">));</span>
-        <span class="n">DiamondCounter</span> <span class="n">myDiamonds</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">DiamondCounter</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+          <span class="n">loader</span><span class="p">.</span><span class="na">load</span><span class="p">(</span><span class="n">ConfigurationOptions</span><span class="p">.</span><span class="na">defaults</span><span class="p">().</span><span class="na">setObjectMapperFactory</span><span class="p">(</span><span class="n">factory</span><span class="p">));</span>
+        <span class="n">DiamondCounter</span> <span class="n">myDiamonds</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="na">getValue</span><span class="p">(</span><span class="n">TypeToken</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">DiamondCounter</span><span class="p">.</span><span class="na">class</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">

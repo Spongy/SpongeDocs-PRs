@@ -172,34 +172,34 @@ provides a <a class="reference external" href="https://jd.spongepowered.org/7.1.
 <div class="section" id="task-builder">
 <h2>Task Builder<a class="headerlink" href="#task-builder" title="Permalink to this headline">¶</a></h2>
 <p>First, obtain an instance of the <code class="docutils literal notranslate"><span class="pre">Task.Builder</span></code>:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.scheduler.Task</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.scheduler.Task</span><span class="p">;</span>
 
-<span class="n">Task</span><span class="o">.</span><span class="na">Builder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">Task</span><span class="o">.</span><span class="na">builder</span><span class="o">();</span>
+<span class="n">Task</span><span class="p">.</span><span class="na">Builder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">Task</span><span class="p">.</span><span class="na">builder</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>The only required property is the <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">Runnable</a>,
 which you can specify using <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/scheduler/Task.Builder.html#execute-java.lang.Runnable-">Task.Builder#execute(Runnable)</a>:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">});</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
 </pre></div>
 </div>
 <p>or using Java 8 syntax with <code class="docutils literal notranslate"><span class="pre">Task.Builder#execute(Runnable</span> <span class="pre">runnable)</span></code></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span>
-    <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
-        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span>
+    <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">{</span>
+        <span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">);</span>
 </pre></div>
 </div>
 <p>or using Java 8 syntax with <code class="docutils literal notranslate"><span class="pre">Task.Builder#execute(Consumer&lt;Task&gt;</span> <span class="pre">task)</span></code></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span>
-    <span class="n">task</span> <span class="o">-&gt;</span> <span class="o">{</span>
-        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers! :&quot;</span> <span class="o">+</span> <span class="n">task</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
-    <span class="o">}</span>
-<span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span>
+    <span class="n">task</span> <span class="o">-&gt;</span> <span class="p">{</span>
+        <span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&quot;Yay! Schedulers! :&quot;</span> <span class="o">+</span> <span class="n">task</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">);</span>
 </pre></div>
 </div>
 <div class="section" id="task-properties">
@@ -269,42 +269,42 @@ it should be descriptive and aid users in debugging your plugin.</td>
 <p>Lastly, submit the task to the scheduler using <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/scheduler/Task.Builder.html#submit-java.lang.Object-">Task.Builder#submit(Object)</a>.</p>
 <p>And that’s it! To summarize, a fully functional scheduled task that would run asynchronously every 5 minutes after an
 initial delay of 100 milliseconds could be built and submitted using the following code:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="p">;</span>
 
-<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">Task</span> <span class="n">task</span> <span class="o">=</span> <span class="n">Task</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">execute</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="o">))</span>
-    <span class="o">.</span><span class="na">async</span><span class="o">().</span><span class="na">delay</span><span class="o">(</span><span class="mi">100</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">).</span><span class="na">interval</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;ExamplePlugin - Fetch Stats from Database&quot;</span><span class="o">).</span><span class="na">submit</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
+<span class="n">Task</span> <span class="n">task</span> <span class="o">=</span> <span class="n">Task</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">execute</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="p">))</span>
+    <span class="p">.</span><span class="na">async</span><span class="p">().</span><span class="na">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">MILLISECONDS</span><span class="p">).</span><span class="na">interval</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">MINUTES</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">name</span><span class="p">(</span><span class="s">&quot;ExamplePlugin - Fetch Stats from Database&quot;</span><span class="p">).</span><span class="na">submit</span><span class="p">(</span><span class="n">plugin</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>To cancel a task, simply call the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/scheduler/Task.html#cancel--">Task#cancel()</a> method:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">task</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">task</span><span class="p">.</span><span class="na">cancel</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>If you need to cancel the task from within the runnable itself, you can instead opt to use a <code class="docutils literal notranslate"><span class="pre">Consumer&lt;Task&gt;</span></code> in
 order to access the task. The below example will schedule a task that will count down from 60 and cancel itself upon
 reaching 0.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGameInit</span><span class="o">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Task</span> <span class="n">task</span> <span class="o">=</span> <span class="n">Task</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">CancellingTimerTask</span><span class="o">())</span>
-        <span class="o">.</span><span class="na">interval</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;Self-Cancelling Timer Task&quot;</span><span class="o">).</span><span class="na">submit</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGameInit</span><span class="p">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Task</span> <span class="n">task</span> <span class="o">=</span> <span class="n">Task</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">execute</span><span class="p">(</span><span class="k">new</span> <span class="n">CancellingTimerTask</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">name</span><span class="p">(</span><span class="s">&quot;Self-Cancelling Timer Task&quot;</span><span class="p">).</span><span class="na">submit</span><span class="p">(</span><span class="n">plugin</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="kd">private</span> <span class="kd">class</span> <span class="nc">CancellingTimerTask</span> <span class="kd">implements</span> <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Task</span><span class="o">&gt;</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">seconds</span> <span class="o">=</span> <span class="mi">60</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">class</span> <span class="nc">CancellingTimerTask</span> <span class="kd">implements</span> <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Task</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">seconds</span> <span class="o">=</span> <span class="mi">60</span><span class="p">;</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">Task</span> <span class="n">task</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">seconds</span><span class="o">--;</span>
-        <span class="n">Sponge</span><span class="o">.</span><span class="na">getServer</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">getBroadcastChannel</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Remaining Time: &quot;</span><span class="o">+</span><span class="n">seconds</span><span class="o">+</span><span class="s">&quot;s&quot;</span><span class="o">));</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">seconds</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">task</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="p">(</span><span class="n">Task</span> <span class="n">task</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">seconds</span><span class="o">--</span><span class="p">;</span>
+        <span class="n">Sponge</span><span class="p">.</span><span class="na">getServer</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">getBroadcastChannel</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Remaining Time: &quot;</span><span class="o">+</span><span class="n">seconds</span><span class="o">+</span><span class="s">&quot;s&quot;</span><span class="p">));</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">seconds</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">task</span><span class="p">.</span><span class="na">cancel</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -364,15 +364,15 @@ Sponge’s asynchronous scheduler. Tasks are subject to the restrictions mention
 <p>One thing to keep in mind is that any tasks that interacts with Sponge outside of the interactions listed in
 <a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a> need to be executed on the ExecutorService created with  <code class="docutils literal notranslate"><span class="pre">Scheduler#createSyncExecutor(Object)</span></code>
 to be thread-safe.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.scheduler.SpongeExecutorService</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.scheduler.SpongeExecutorService</span><span class="p">;</span>
 
-<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">SpongeExecutorService</span> <span class="n">minecraftExecutor</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">().</span><span class="na">createSyncExecutor</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
+<span class="n">SpongeExecutorService</span> <span class="n">minecraftExecutor</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getScheduler</span><span class="p">().</span><span class="na">createSyncExecutor</span><span class="p">(</span><span class="n">plugin</span><span class="p">);</span>
 
-<span class="n">minecraftExecutor</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> <span class="o">...</span> <span class="o">});</span>
+<span class="n">minecraftExecutor</span><span class="p">.</span><span class="na">submit</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
 
-<span class="n">minecraftExecutor</span><span class="o">.</span><span class="na">schedule</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> <span class="o">...</span> <span class="o">},</span> <span class="mi">10</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+<span class="n">minecraftExecutor</span><span class="p">.</span><span class="na">schedule</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="p">...</span> <span class="p">},</span> <span class="mi">10</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Almost all libraries have some way of adapting the <code class="docutils literal notranslate"><span class="pre">ExecutorService</span></code> to natively schedule tasks.
@@ -388,20 +388,20 @@ completes rather than blocking the thread until the future eventually completes.
 <li><code class="docutils literal notranslate"><span class="pre">CompletableFuture#&lt;function&gt;Async(...)</span></code> Executes this function through <code class="docutils literal notranslate"><span class="pre">ForkJoinPool.commonPool()</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">CompletableFuture#&lt;function&gt;(...)</span></code> Executes this function on whatever thread the previous <code class="docutils literal notranslate"><span class="pre">CompletableFuture</span></code> was completed on.</li>
 </ul>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.concurrent.CompletableFuture</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.concurrent.CompletableFuture</span><span class="p">;</span>
 
-<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">SpongeExecutorService</span> <span class="n">minecraftExecutor</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">().</span><span class="na">createSyncExecutor</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
+<span class="n">SpongeExecutorService</span> <span class="n">minecraftExecutor</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getScheduler</span><span class="p">().</span><span class="na">createSyncExecutor</span><span class="p">(</span><span class="n">plugin</span><span class="p">);</span>
 
-<span class="n">CompletableFuture</span><span class="o">.</span><span class="na">supplyAsync</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+<span class="n">CompletableFuture</span><span class="p">.</span><span class="na">supplyAsync</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
     <span class="c1">// ASYNC: ForkJoinPool.commonPool()</span>
-    <span class="k">return</span> <span class="mi">42</span><span class="o">;</span>
-<span class="o">}).</span><span class="na">thenAcceptAsync</span><span class="o">((</span><span class="n">awesomeValue</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="mi">42</span><span class="p">;</span>
+<span class="p">}).</span><span class="na">thenAcceptAsync</span><span class="p">((</span><span class="n">awesomeValue</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span>
     <span class="c1">// SYNC: minecraftExecutor</span>
-<span class="o">},</span> <span class="n">minecraftExecutor</span><span class="o">).</span><span class="na">thenRun</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+<span class="p">},</span> <span class="n">minecraftExecutor</span><span class="p">).</span><span class="na">thenRun</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
     <span class="c1">// SYNC: minecraftExecutor</span>
-<span class="o">});</span>
+<span class="p">});</span>
 </pre></div>
 </div>
 </div>
@@ -419,27 +419,27 @@ Use <code class="docutils literal notranslate"><span class="pre">Observable#obse
 <p>One important thing to bear in mind is that the root <code class="docutils literal notranslate"><span class="pre">Observable</span></code> gets invoked on whatever thread
 <code class="docutils literal notranslate"><span class="pre">Observable#subscribe()</span></code> was called on. If the root observable interacts with Sponge it should be forced to run
 synchronously using <code class="docutils literal notranslate"><span class="pre">Observable#subscribeOn(Scheduler</span> <span class="pre">scheduler)</span></code>.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rx.Observable</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">rx.Scheduler</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">rx.schedulers.Schedulers</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rx.Observable</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">rx.Scheduler</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">rx.schedulers.Schedulers</span><span class="p">;</span>
 
-<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">SpongeExecutorService</span> <span class="n">executor</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">().</span><span class="na">createSyncExecutor</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
-<span class="n">Scheduler</span> <span class="n">minecraftScheduler</span> <span class="o">=</span> <span class="n">Schedulers</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">executor</span><span class="o">);</span>
+<span class="n">SpongeExecutorService</span> <span class="n">executor</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getScheduler</span><span class="p">().</span><span class="na">createSyncExecutor</span><span class="p">(</span><span class="n">plugin</span><span class="p">);</span>
+<span class="n">Scheduler</span> <span class="n">minecraftScheduler</span> <span class="o">=</span> <span class="n">Schedulers</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">executor</span><span class="p">);</span>
 
-<span class="n">Observable</span><span class="o">.</span><span class="na">defer</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">Sponge</span><span class="o">.</span><span class="na">getServer</span><span class="o">().</span><span class="na">getOnlinePlayers</span><span class="o">()))</span>
-          <span class="o">.</span><span class="na">subscribeOn</span><span class="o">(</span><span class="n">minecraftScheduler</span><span class="o">)</span> <span class="c1">// defer -&gt; SYNC: minecraftScheduler</span>
-          <span class="o">.</span><span class="na">observeOn</span><span class="o">(</span><span class="n">Schedulers</span><span class="o">.</span><span class="na">io</span><span class="o">())</span> <span class="c1">// -&gt; ASYNC: Schedulers.io()</span>
-          <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">player</span> <span class="o">-&gt;</span> <span class="o">{</span>
+<span class="n">Observable</span><span class="p">.</span><span class="na">defer</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">Sponge</span><span class="p">.</span><span class="na">getServer</span><span class="p">().</span><span class="na">getOnlinePlayers</span><span class="p">()))</span>
+          <span class="p">.</span><span class="na">subscribeOn</span><span class="p">(</span><span class="n">minecraftScheduler</span><span class="p">)</span> <span class="c1">// defer -&gt; SYNC: minecraftScheduler</span>
+          <span class="p">.</span><span class="na">observeOn</span><span class="p">(</span><span class="n">Schedulers</span><span class="p">.</span><span class="na">io</span><span class="p">())</span> <span class="c1">// -&gt; ASYNC: Schedulers.io()</span>
+          <span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">player</span> <span class="o">-&gt;</span> <span class="p">{</span>
               <span class="c1">// ASYNC: Schedulers.io()</span>
-              <span class="k">return</span> <span class="s">&quot;Flards&quot;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
-          <span class="o">})</span>
-          <span class="o">.</span><span class="na">observeOn</span><span class="o">(</span><span class="n">minecraftScheduler</span><span class="o">)</span> <span class="c1">// -&gt; SYNC: minecraftScheduler</span>
-          <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">player</span> <span class="o">-&gt;</span> <span class="o">{</span>
+              <span class="k">return</span> <span class="s">&quot;Flards&quot;</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span>
+          <span class="p">})</span>
+          <span class="p">.</span><span class="na">observeOn</span><span class="p">(</span><span class="n">minecraftScheduler</span><span class="p">)</span> <span class="c1">// -&gt; SYNC: minecraftScheduler</span>
+          <span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="n">player</span> <span class="o">-&gt;</span> <span class="p">{</span>
               <span class="c1">// SYNC: minecraftScheduler</span>
-              <span class="n">player</span><span class="o">.</span><span class="na">kick</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Computer says no&quot;</span><span class="o">));</span>
-          <span class="o">});</span>
+              <span class="n">player</span><span class="p">.</span><span class="na">kick</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Computer says no&quot;</span><span class="p">));</span>
+          <span class="p">});</span>
 </pre></div>
 </div>
 </div>

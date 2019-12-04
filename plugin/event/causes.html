@@ -217,11 +217,11 @@ the event. Since a <code class="docutils literal notranslate"><span class="pre">
 subtype of the given class. For example, given a cause which contained a player followed by an entity
 <code class="docutils literal notranslate"><span class="pre">[Player,</span> <span class="pre">Entity,</span> <span class="pre">...]</span></code></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onEvent</span><span class="o">(</span><span class="n">ExampleCauseEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Cause</span> <span class="n">cause</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getCause</span><span class="o">();</span> <span class="c1">// [Player, Entity]</span>
-    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Player</span><span class="o">&gt;</span> <span class="n">firstPlayer</span> <span class="o">=</span> <span class="n">cause</span><span class="o">.</span><span class="na">first</span><span class="o">(</span><span class="n">Player</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> <span class="c1">// 1</span>
-    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;</span> <span class="n">firstEntity</span> <span class="o">=</span> <span class="n">cause</span><span class="o">.</span><span class="na">first</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> <span class="c1">// 2</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onEvent</span><span class="p">(</span><span class="n">ExampleCauseEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Cause</span> <span class="n">cause</span> <span class="o">=</span> <span class="n">event</span><span class="p">.</span><span class="na">getCause</span><span class="p">();</span> <span class="c1">// [Player, Entity]</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Player</span><span class="o">&gt;</span> <span class="n">firstPlayer</span> <span class="o">=</span> <span class="n">cause</span><span class="p">.</span><span class="na">first</span><span class="p">(</span><span class="n">Player</span><span class="p">.</span><span class="na">class</span><span class="p">);</span> <span class="c1">// 1</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;</span> <span class="n">firstEntity</span> <span class="o">=</span> <span class="n">cause</span><span class="p">.</span><span class="na">first</span><span class="p">(</span><span class="n">Entity</span><span class="p">.</span><span class="na">class</span><span class="p">);</span> <span class="c1">// 2</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Both optionals would contain the player object as its type directly matched request for a
@@ -246,9 +246,9 @@ requested. Some examples of use cases for named causes is the <cite>Notifier</ci
 <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/cause/EventContextKey.html">EventContextKey</a> is guaranteed to be of the type specified by the key.</p>
 <p><strong>Retrieving a entry from the context of a cause</strong></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGrow</span><span class="o">(</span><span class="n">ChangeBlockEvent</span><span class="o">.</span><span class="na">Grow</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">notifier</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getCause</span><span class="o">().</span><span class="na">getContext</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">EventContextKeys</span><span class="o">.</span><span class="na">NOTIFIER</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGrow</span><span class="p">(</span><span class="n">ChangeBlockEvent</span><span class="p">.</span><span class="na">Grow</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">notifier</span> <span class="o">=</span> <span class="n">event</span><span class="p">.</span><span class="na">getCause</span><span class="p">().</span><span class="na">getContext</span><span class="p">().</span><span class="na">get</span><span class="p">(</span><span class="n">EventContextKeys</span><span class="p">.</span><span class="na">NOTIFIER</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This example makes use of <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/cause/EventContext.html#get-org.spongepowered.api.event.cause.EventContextKey-">EventContext#get(EventContextKey)</a> which can be used to retrieve the expected object
@@ -306,17 +306,17 @@ simulating in the context (as the simulated player is not directly responsible f
 the root cause, the <code class="docutils literal notranslate"><span class="pre">sourceRunningSudo</span></code> as the second object in the cause and the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/profile/GameProfile.html">GameProfile</a>
 as the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/cause/EventContextKeys.html#PLAYER_SIMULATED">EventContextKeys#PLAYER_SIMULATED</a> context, in addition to anything already in the
 <code class="docutils literal notranslate"><span class="pre">CauseStackManager</span></code>. Your event code would be at the bottom of the method.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">CommandSource</span> <span class="n">sourceRunningSudo</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">Player</span> <span class="n">playerToSimulate</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="k">try</span> <span class="o">(</span><span class="n">CauseStackManager</span><span class="o">.</span><span class="na">StackFrame</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getCauseStackManager</span><span class="o">().</span><span class="na">pushCauseFrame</span><span class="o">())</span> <span class="o">{</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">CommandSource</span> <span class="n">sourceRunningSudo</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Player</span> <span class="n">playerToSimulate</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="k">try</span> <span class="p">(</span><span class="n">CauseStackManager</span><span class="p">.</span><span class="na">StackFrame</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getCauseStackManager</span><span class="p">().</span><span class="na">pushCauseFrame</span><span class="p">())</span> <span class="p">{</span>
 
-  <span class="n">frame</span><span class="o">.</span><span class="na">pushCause</span><span class="o">(</span><span class="n">sourceRunningSudo</span><span class="o">);</span>
-  <span class="n">frame</span><span class="o">.</span><span class="na">pushCause</span><span class="o">(</span><span class="n">playerToSimulate</span><span class="o">);</span>
+  <span class="n">frame</span><span class="p">.</span><span class="na">pushCause</span><span class="p">(</span><span class="n">sourceRunningSudo</span><span class="p">);</span>
+  <span class="n">frame</span><span class="p">.</span><span class="na">pushCause</span><span class="p">(</span><span class="n">playerToSimulate</span><span class="p">);</span>
 
-  <span class="n">frame</span><span class="o">.</span><span class="na">addContext</span><span class="o">(</span><span class="n">EventContextKeys</span><span class="o">.</span><span class="na">PLAYER_SIMULATED</span><span class="o">,</span> <span class="n">playerToSimulate</span><span class="o">.</span><span class="na">getProfile</span><span class="o">());</span>
+  <span class="n">frame</span><span class="p">.</span><span class="na">addContext</span><span class="p">(</span><span class="n">EventContextKeys</span><span class="p">.</span><span class="na">PLAYER_SIMULATED</span><span class="p">,</span> <span class="n">playerToSimulate</span><span class="p">.</span><span class="na">getProfile</span><span class="p">());</span>
 
-  <span class="n">Cause</span> <span class="n">cause</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="na">getCurrentCause</span><span class="o">();</span>
-<span class="o">}</span>
+  <span class="n">Cause</span> <span class="n">cause</span> <span class="o">=</span> <span class="n">frame</span><span class="p">.</span><span class="na">getCurrentCause</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Note that the last item you push to the cause stack will be the root of the <code class="docutils literal notranslate"><span class="pre">Cause</span></code> as
@@ -343,20 +343,20 @@ you have finished building the <code class="docutils literal notranslate"><span 
 <p><strong>Creating a custom Cause with the Cause and EventContext builders</strong></p>
 <p>Note that in this example, the variables would be populated, and that the first entry appended
 to the cause would be the root cause.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">CommandSource</span> <span class="n">sourceRunningSudo</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">Player</span> <span class="n">playerToSimulate</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">CommandSource</span> <span class="n">sourceRunningSudo</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Player</span> <span class="n">playerToSimulate</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">EventContext</span> <span class="n">context</span> <span class="o">=</span> <span class="n">EventContext</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-  <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">EventContextKeys</span><span class="o">.</span><span class="na">PLAYER_SIMULATED</span><span class="o">,</span> <span class="n">playerToSimulate</span><span class="o">.</span><span class="na">getProfile</span><span class="o">())</span>
-  <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">EventContextKeys</span><span class="o">.</span><span class="na">PLUGIN</span><span class="o">,</span> <span class="n">plugin</span><span class="o">)</span>
-  <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="n">EventContext</span> <span class="n">context</span> <span class="o">=</span> <span class="n">EventContext</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+  <span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">EventContextKeys</span><span class="p">.</span><span class="na">PLAYER_SIMULATED</span><span class="p">,</span> <span class="n">playerToSimulate</span><span class="p">.</span><span class="na">getProfile</span><span class="p">())</span>
+  <span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">EventContextKeys</span><span class="p">.</span><span class="na">PLUGIN</span><span class="p">,</span> <span class="n">plugin</span><span class="p">)</span>
+  <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 
-<span class="n">Cause</span> <span class="n">cause</span> <span class="o">=</span> <span class="n">Cause</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-  <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">playerToSimulate</span><span class="o">)</span>
-  <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">sourceRunningSudo</span><span class="o">)</span>
-  <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">plugin</span><span class="o">)</span>
-  <span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+<span class="n">Cause</span> <span class="n">cause</span> <span class="o">=</span> <span class="n">Cause</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+  <span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">playerToSimulate</span><span class="p">)</span>
+  <span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">sourceRunningSudo</span><span class="p">)</span>
+  <span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">plugin</span><span class="p">)</span>
+  <span class="p">.</span><span class="na">build</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Think carefully about what information to include in your cause.

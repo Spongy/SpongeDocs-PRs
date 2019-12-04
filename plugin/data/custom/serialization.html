@@ -232,19 +232,19 @@ above. Just use the <code class="docutils literal notranslate"><span class="pre"
 as the query. This will allow for versioning upgrades with <a class="reference internal" href="#content-updaters"><span class="std std-ref">DataContentUpdaters</span></a>.</p>
 </div>
 <p><strong>Code Example: Implementing toContainer</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataQuery</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.Queries</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.MemoryDataContainer</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataQuery</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.Queries</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.MemoryDataContainer</span><span class="p">;</span>
 
-<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Spongie&quot;</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Spongie&quot;</span><span class="p">;</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">DataContainer</span> <span class="nf">toContainer</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">DataContainer</span><span class="o">.</span><span class="na">createNew</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">DataQuery</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Name&quot;</span><span class="o">),</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Queries</span><span class="o">.</span><span class="na">CONTENT_VERSION</span><span class="o">,</span> <span class="n">getContentVersion</span><span class="o">());</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="n">DataContainer</span> <span class="nf">toContainer</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">DataContainer</span><span class="p">.</span><span class="na">createNew</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">DataQuery</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">),</span> <span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Queries</span><span class="p">.</span><span class="na">CONTENT_VERSION</span><span class="p">,</span> <span class="n">getContentVersion</span><span class="p">());</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The next part is to implement a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/persistence/DataBuilder.html">DataBuilder</a>. It’s recommended to extend <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/persistence/AbstractDataBuilder.html">AbstractDataBuilder</a> as
@@ -272,26 +272,26 @@ the builder.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.persistence.DataContentUpdater</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NameUpdater</span> <span class="kd">implements</span> <span class="n">DataContentUpdater</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NameUpdater</span> <span class="kd">implements</span> <span class="n">DataContentUpdater</span> <span class="p">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getInputVersion</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getInputVersion</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getOutputVersion</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="mi">2</span><span class="o">;</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getOutputVersion</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">DataView</span> <span class="nf">update</span><span class="o">(</span><span class="n">DataView</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">DataQuery</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Name&quot;</span><span class="o">)).</span><span class="na">get</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="n">DataView</span> <span class="nf">update</span><span class="p">(</span><span class="n">DataView</span> <span class="n">content</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">content</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="n">DataQuery</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">)).</span><span class="na">get</span><span class="p">();</span>
 
         <span class="c1">// For example, version 2 uses a text for the name</span>
-        <span class="k">return</span> <span class="n">content</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">DataQuery</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Name&quot;</span><span class="o">),</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">name</span><span class="o">));</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+        <span class="k">return</span> <span class="n">content</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">DataQuery</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Name&quot;</span><span class="p">),</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">name</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>

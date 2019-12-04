@@ -184,40 +184,40 @@ correct plugin ID.</p>
 <p class="last">See <a class="reference internal" href="plugin-class.html"><span class="doc">Main Plugin Class</span></a> for information on configuring your plugin ID.</p>
 </div>
 <p><strong>Example - Field</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.slf4j.Logger</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.Logger</span><span class="p">;</span>
 
 <span class="nd">@Inject</span>
-<span class="kd">private</span> <span class="n">Logger</span> <span class="n">logger</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">Logger</span> <span class="n">logger</span><span class="p">;</span>
 </pre></div>
 </div>
 <p><strong>Example - Method</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">Logger</span> <span class="n">logger</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">Logger</span> <span class="n">logger</span><span class="p">;</span>
 
 <span class="nd">@Inject</span>
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setLogger</span><span class="o">(</span><span class="n">Logger</span> <span class="n">logger</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">logger</span> <span class="o">=</span> <span class="n">logger</span><span class="o">;</span>
-<span class="o">}</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setLogger</span><span class="p">(</span><span class="n">Logger</span> <span class="n">logger</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">logger</span> <span class="o">=</span> <span class="n">logger</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Example - Constructor</strong></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// For the purpose of this example, &quot;Banana&quot; is the class name</span>
 
-<span class="kd">private</span> <span class="n">Logger</span> <span class="n">logger</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">Logger</span> <span class="n">logger</span><span class="p">;</span>
 
 <span class="nd">@Inject</span>
-<span class="kd">public</span> <span class="nf">Banana</span><span class="o">(</span><span class="n">Logger</span> <span class="n">logger</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">logger</span> <span class="o">=</span> <span class="n">logger</span><span class="o">;</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="nf">Banana</span><span class="p">(</span><span class="n">Logger</span> <span class="n">logger</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">logger</span> <span class="o">=</span> <span class="n">logger</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>It is recommended to set your logger in your main plugin class, as it is instantiated with the Guice injector when the
 plugin is loaded.</p>
 <p>Creating a getter method for your logger in the same class in which it was set is also ideal, although optional. An
 example getter method is illustrated below.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">Logger</span> <span class="nf">getLogger</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">logger</span><span class="o">;</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">Logger</span> <span class="nf">getLogger</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">logger</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -229,14 +229,14 @@ example getter method is illustrated below.</p>
 <p class="last">The following example assumes that the getter method for your logger is named <code class="docutils literal notranslate"><span class="pre">getLogger()</span></code>, as shown in the
 previous section. This may differ for you depending on what you named your getter method.</p>
 </div>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">getLogger</span><span class="o">().</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;String&quot;</span><span class="o">);</span>
-<span class="n">getLogger</span><span class="o">().</span><span class="na">debug</span><span class="o">(</span><span class="s">&quot;String&quot;</span><span class="o">);</span>
-<span class="n">getLogger</span><span class="o">().</span><span class="na">warn</span><span class="o">(</span><span class="s">&quot;String&quot;</span><span class="o">);</span>
-<span class="n">getLogger</span><span class="o">().</span><span class="na">error</span><span class="o">(</span><span class="s">&quot;String&quot;</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">getLogger</span><span class="p">().</span><span class="na">info</span><span class="p">(</span><span class="s">&quot;String&quot;</span><span class="p">);</span>
+<span class="n">getLogger</span><span class="p">().</span><span class="na">debug</span><span class="p">(</span><span class="s">&quot;String&quot;</span><span class="p">);</span>
+<span class="n">getLogger</span><span class="p">().</span><span class="na">warn</span><span class="p">(</span><span class="s">&quot;String&quot;</span><span class="p">);</span>
+<span class="n">getLogger</span><span class="p">().</span><span class="na">error</span><span class="p">(</span><span class="s">&quot;String&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The String is the message you wish to emit. For example:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">getLogger</span><span class="o">().</span><span class="na">warn</span><span class="o">(</span><span class="s">&quot;This is a warning!&quot;</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">getLogger</span><span class="p">().</span><span class="na">warn</span><span class="p">(</span><span class="s">&quot;This is a warning!&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -255,7 +255,7 @@ Add a config option to disable those if you use them.</p>
 Provide users with the recommended configuration additions.</p>
 </li>
 <li><p class="first">Configure the logging in your plugin yourself:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="o">((</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">logging</span><span class="o">.</span><span class="na">log4j</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">Logger</span><span class="o">)</span> <span class="n">LogManager</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">&quot;FtpLoggingFilter&quot;</span><span class="o">)).</span><span class="na">setLevel</span><span class="o">(</span><span class="n">Level</span><span class="o">.</span><span class="na">WARN</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="p">((</span><span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">logging</span><span class="p">.</span><span class="na">log4j</span><span class="p">.</span><span class="na">core</span><span class="p">.</span><span class="na">Logger</span><span class="p">)</span> <span class="n">LogManager</span><span class="p">.</span><span class="na">getLogger</span><span class="p">(</span><span class="s">&quot;FtpLoggingFilter&quot;</span><span class="p">)).</span><span class="na">setLevel</span><span class="p">(</span><span class="n">Level</span><span class="p">.</span><span class="na">WARN</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>This configures the log level of the <code class="docutils literal notranslate"><span class="pre">FtpLoggingFilter</span></code> logger to <code class="docutils literal notranslate"><span class="pre">WARN</span></code>. This will hide all messages that use a

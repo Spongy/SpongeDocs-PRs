@@ -205,20 +205,20 @@ the specified number of blocks.</li>
 <p>Of course, you can also write your own <code class="docutils literal notranslate"><span class="pre">Predicate&lt;BlockRayHit&lt;E&gt;&gt;</span></code> filter.</p>
 <p>Finally, use <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/util/blockray/BlockRay.BlockRayBuilder.html#build--">BlockRay.BlockRayBuilder#build()</a> to finish building the <code class="docutils literal notranslate"><span class="pre">BlockRay</span></code>. An example usage of
 <code class="docutils literal notranslate"><span class="pre">BlockRayBuilder</span></code> to get the first non-air block a <code class="docutils literal notranslate"><span class="pre">Player</span></code> is looking at is provided below.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.blockray.BlockRay</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.blockray.BlockRay</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="p">;</span>
 
-<span class="n">Player</span> <span class="n">player</span><span class="o">;</span>
-<span class="n">BlockRay</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockRay</span> <span class="o">=</span> <span class="n">BlockRay</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">player</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">stopFilter</span><span class="o">(</span><span class="n">BlockRay</span><span class="o">.</span><span class="na">continueAfterFilter</span><span class="o">(</span><span class="n">BlockRay</span><span class="o">.</span><span class="na">onlyAirFilter</span><span class="o">(),</span> <span class="mi">1</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
+<span class="n">Player</span> <span class="n">player</span><span class="p">;</span>
+<span class="n">BlockRay</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockRay</span> <span class="o">=</span> <span class="n">BlockRay</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">stopFilter</span><span class="p">(</span><span class="n">BlockRay</span><span class="p">.</span><span class="na">continueAfterFilter</span><span class="p">(</span><span class="n">BlockRay</span><span class="p">.</span><span class="na">onlyAirFilter</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)).</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>We can rewrite the above to use <code class="docutils literal notranslate"><span class="pre">BlockRay#skipFilter(Predicate&lt;BlockRayHit&gt;)</span></code> in addition to
 <code class="docutils literal notranslate"><span class="pre">BlockRay#stopFilter(Predicate&lt;BlockRayHit&gt;)</span></code>. This will skip all air blocks and stop at the first non-air block it
 hits.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">BlockRay</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockRay</span> <span class="o">=</span> <span class="n">BlockRay</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">player</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">skipFilter</span><span class="o">(</span><span class="n">BlockRay</span><span class="o">.</span><span class="na">onlyAirFilter</span><span class="o">()).</span><span class="na">stopFilter</span><span class="o">(</span><span class="n">BlockRay</span><span class="o">.</span><span class="na">allFilter</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">BlockRay</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockRay</span> <span class="o">=</span> <span class="n">BlockRay</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">skipFilter</span><span class="p">(</span><span class="n">BlockRay</span><span class="p">.</span><span class="na">onlyAirFilter</span><span class="p">()).</span><span class="na">stopFilter</span><span class="p">(</span><span class="n">BlockRay</span><span class="p">.</span><span class="na">allFilter</span><span class="p">()).</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
@@ -236,16 +236,16 @@ to get the last block accepted by the filter (or none if the block limit was rea
 direction of the ray, the coordinates of the <em>intersection</em> of the ray and the block, and other similar data. The
 following code uses the <code class="docutils literal notranslate"><span class="pre">BlockRay</span></code> from the previous example to print out the location of the first non-air block
 in front of the player.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.util.blockray.BlockRayHit</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.util.blockray.BlockRayHit</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
 
-<span class="n">BlockRay</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockRay</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">Optional</span><span class="o">&lt;</span><span class="n">BlockRayHit</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;&gt;</span> <span class="n">hitOpt</span> <span class="o">=</span> <span class="n">blockRay</span><span class="o">.</span><span class="na">end</span><span class="o">();</span>
-<span class="k">if</span> <span class="o">(</span><span class="n">hitOpt</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-    <span class="n">BlockRayHit</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">hit</span> <span class="o">=</span> <span class="n">hitOpt</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Found &quot;</span> <span class="o">+</span> <span class="n">hit</span><span class="o">.</span><span class="na">getLocation</span><span class="o">().</span><span class="na">getBlockType</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; block at &quot;</span>
-        <span class="o">+</span> <span class="n">hit</span><span class="o">.</span><span class="na">getLocation</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; with intersection at &quot;</span> <span class="o">+</span> <span class="n">hit</span><span class="o">.</span><span class="na">getPosition</span><span class="o">());</span>
-<span class="o">}</span>
+<span class="n">BlockRay</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">blockRay</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">BlockRayHit</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;&gt;</span> <span class="n">hitOpt</span> <span class="o">=</span> <span class="n">blockRay</span><span class="p">.</span><span class="na">end</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">hitOpt</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">BlockRayHit</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">hit</span> <span class="o">=</span> <span class="n">hitOpt</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Found &quot;</span> <span class="o">+</span> <span class="n">hit</span><span class="p">.</span><span class="na">getLocation</span><span class="p">().</span><span class="na">getBlockType</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; block at &quot;</span>
+        <span class="o">+</span> <span class="n">hit</span><span class="p">.</span><span class="na">getLocation</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; with intersection at &quot;</span> <span class="o">+</span> <span class="n">hit</span><span class="p">.</span><span class="na">getPosition</span><span class="p">());</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
