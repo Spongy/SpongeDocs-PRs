@@ -184,40 +184,40 @@
 </li>
 </ul>
 <p>Every child command is a separate <code class="docutils literal notranslate"><span class="pre">CommandSpec</span></code> and can be created in the same way a regular command is.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandSpec</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandSpec</span><span class="p">;</span>
 
 <span class="c1">// /mail read</span>
-<span class="n">CommandSpec</span> <span class="n">readCmd</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">permission</span><span class="o">(</span><span class="s">&quot;myplugin.mail.read&quot;</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Read your inbox&quot;</span><span class="o">))</span>
-    <span class="o">.</span><span class="na">executor</span><span class="o">(...)</span>
-    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="n">CommandSpec</span> <span class="n">readCmd</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">permission</span><span class="p">(</span><span class="s">&quot;myplugin.mail.read&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">description</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Read your inbox&quot;</span><span class="p">))</span>
+    <span class="p">.</span><span class="na">executor</span><span class="p">(...)</span>
+    <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 
 <span class="c1">// /mail send</span>
-<span class="n">CommandSpec</span> <span class="n">sendCmd</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">permission</span><span class="o">(</span><span class="s">&quot;myplugin.mail.send&quot;</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Send a mail&quot;</span><span class="o">))</span>
-    <span class="o">.</span><span class="na">arguments</span><span class="o">(...)</span>
-    <span class="o">.</span><span class="na">executor</span><span class="o">(...)</span>
-    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="n">CommandSpec</span> <span class="n">sendCmd</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">permission</span><span class="p">(</span><span class="s">&quot;myplugin.mail.send&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">description</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Send a mail&quot;</span><span class="p">))</span>
+    <span class="p">.</span><span class="na">arguments</span><span class="p">(...)</span>
+    <span class="p">.</span><span class="na">executor</span><span class="p">(...)</span>
+    <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>Instead of registering them to the command service, child commands are registered on their parent command using the
 <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/spec/CommandSpec.Builder.html#child-org.spongepowered.api.command.CommandCallable-java.lang.String...-">CommandSpec.Builder#child(CommandCallable, String…)</a> method. They are registered with a list of aliases.
 The first alias supplied is the primary one and will appear in the usage message.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="p">;</span>
 
-<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">CommandSpec</span> <span class="n">mailCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">permission</span><span class="o">(</span><span class="s">&quot;myplugin.mail&quot;</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Send and receive mails&quot;</span><span class="o">))</span>
-    <span class="o">.</span><span class="na">child</span><span class="o">(</span><span class="n">readCmd</span><span class="o">,</span> <span class="s">&quot;read&quot;</span><span class="o">,</span> <span class="s">&quot;r&quot;</span><span class="o">,</span> <span class="s">&quot;inbox&quot;</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">child</span><span class="o">(</span><span class="n">sendCmd</span><span class="o">,</span> <span class="s">&quot;send&quot;</span><span class="o">,</span> <span class="s">&quot;s&quot;</span><span class="o">,</span> <span class="s">&quot;write&quot;</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="n">CommandSpec</span> <span class="n">mailCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">permission</span><span class="p">(</span><span class="s">&quot;myplugin.mail&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">description</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Send and receive mails&quot;</span><span class="p">))</span>
+    <span class="p">.</span><span class="na">child</span><span class="p">(</span><span class="n">readCmd</span><span class="p">,</span> <span class="s">&quot;read&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">,</span> <span class="s">&quot;inbox&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">child</span><span class="p">(</span><span class="n">sendCmd</span><span class="p">,</span> <span class="s">&quot;send&quot;</span><span class="p">,</span> <span class="s">&quot;s&quot;</span><span class="p">,</span> <span class="s">&quot;write&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 
-<span class="n">Sponge</span><span class="o">.</span><span class="na">getCommandManager</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="n">mailCommandSpec</span><span class="o">,</span> <span class="s">&quot;mail&quot;</span><span class="o">,</span> <span class="s">&quot;email&quot;</span><span class="o">);</span>
+<span class="n">Sponge</span><span class="p">.</span><span class="na">getCommandManager</span><span class="p">().</span><span class="na">register</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">mailCommandSpec</span><span class="p">,</span> <span class="s">&quot;mail&quot;</span><span class="p">,</span> <span class="s">&quot;email&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="section" id="fallback-behavior">

@@ -176,12 +176,12 @@
 <p>In order to listen for an event, an event listener must be registered. This is done by making a method with any name,
 defining the first parameter to be the desired event type, and then affixing the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/Listener.html">Listener</a> annotation to the
 method, as illustrated below.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="p">;</span>
 
 <span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSomeEvent</span><span class="o">(</span><span class="n">SomeEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSomeEvent</span><span class="p">(</span><span class="n">SomeEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Do something with the event</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>In addition, the class containing these methods must be registered with the event manager:</p>
@@ -203,17 +203,17 @@ of other types of <code class="docutils literal notranslate"><span class="pre">C
 <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/EventManager.html#registerListeners-java.lang.Object-java.lang.Object-">EventManager#registerListeners(Object, Object)</a>, which accepts a reference to the plugin and an instance of
 the class containing the event listeners.</p>
 <p><strong>Example: Registering Event Listeners in Other Classes</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleListener</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleListener</span> <span class="p">{</span>
 
     <span class="nd">@Listener</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSomeEvent</span><span class="o">(</span><span class="n">SomeEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSomeEvent</span><span class="p">(</span><span class="n">SomeEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// Do something with the event</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-<span class="n">Sponge</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">registerListeners</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="k">new</span> <span class="n">ExampleListener</span><span class="o">());</span>
+<span class="n">Sponge</span><span class="p">.</span><span class="na">getEventManager</span><span class="p">().</span><span class="na">registerListeners</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="k">new</span> <span class="n">ExampleListener</span><span class="p">());</span>
 </pre></div>
 </div>
 <div class="section" id="dynamically-registering-event-listeners">
@@ -226,21 +226,21 @@ final argument. Optionally, you can specify an <a class="reference external" hre
 boolean value as the fourth argument (before the instance of the listener) which determines whether to call the listener
 before other server modifications.</p>
 <p><strong>Example: Implementing EventListener</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.EventListener</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.block.ChangeBlockEvent</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.EventListener</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.block.ChangeBlockEvent</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleListener</span> <span class="kd">implements</span> <span class="n">EventListener</span><span class="o">&lt;</span><span class="n">ChangeBlockEvent</span><span class="o">.</span><span class="na">Break</span><span class="o">&gt;</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleListener</span> <span class="kd">implements</span> <span class="n">EventListener</span><span class="o">&lt;</span><span class="n">ChangeBlockEvent</span><span class="p">.</span><span class="na">Break</span><span class="o">&gt;</span> <span class="p">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">ChangeBlockEvent</span><span class="o">.</span><span class="na">Break</span> <span class="n">event</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-        <span class="o">[...]</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="p">(</span><span class="n">ChangeBlockEvent</span><span class="p">.</span><span class="na">Break</span> <span class="n">event</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="o">[</span><span class="p">...</span><span class="o">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Example: Dynamically Registering the Event Listener</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">EventListener</span><span class="o">&lt;</span><span class="n">ChangeBlockEvent</span><span class="o">.</span><span class="na">Break</span><span class="o">&gt;</span> <span class="n">listener</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ExampleListener</span><span class="o">();</span>
-<span class="n">Sponge</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">registerListener</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">ChangeBlockEvent</span><span class="o">.</span><span class="na">Break</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">listener</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">EventListener</span><span class="o">&lt;</span><span class="n">ChangeBlockEvent</span><span class="p">.</span><span class="na">Break</span><span class="o">&gt;</span> <span class="n">listener</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ExampleListener</span><span class="p">();</span>
+<span class="n">Sponge</span><span class="p">.</span><span class="na">getEventManager</span><span class="p">().</span><span class="na">registerListener</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">ChangeBlockEvent</span><span class="p">.</span><span class="na">Break</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">listener</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -254,15 +254,15 @@ to the third argument the <code class="docutils literal notranslate"><span class
 <h3>Unregistering Event Listeners<a class="headerlink" href="#unregistering-event-listeners" title="Permalink to this headline">¶</a></h3>
 <p>To unregister a single event listener, you can use the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/EventManager.html#unregisterListeners-java.lang.Object-">EventManager#unregisterListeners(Object)</a> method,
 which accepts an instance of the class containing the event listeners.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">EventListener</span> <span class="n">listener</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">Sponge</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">unregisterListeners</span><span class="o">(</span><span class="n">listener</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">EventListener</span> <span class="n">listener</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Sponge</span><span class="p">.</span><span class="na">getEventManager</span><span class="p">().</span><span class="na">unregisterListeners</span><span class="p">(</span><span class="n">listener</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Alternatively, you can use <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/EventManager.html#unregisterPluginListeners-java.lang.Object-">EventManager#unregisterPluginListeners(Object)</a>, passing in a reference to the
 plugin, to unregister all event listeners associated with that plugin. Note that this will remove <em>all</em> of the plugin’s
 event listeners, including those registered with <code class="docutils literal notranslate"><span class="pre">&#64;Listener</span></code> annotations.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">Sponge</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">unregisterPluginListeners</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Sponge</span><span class="p">.</span><span class="na">getEventManager</span><span class="p">().</span><span class="na">unregisterPluginListeners</span><span class="p">(</span><span class="n">plugin</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -284,12 +284,12 @@ cancellable and has been cancelled (such as by another plugin).</p>
 to, and when executed, perform any reloading actions. What constitutes as a ‘reloading action’ is purely up to the
 plugin to decide. The <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/GameReloadEvent.html">GameReloadEvent</a> will fire when a player executes the
 <code class="docutils literal notranslate"><span class="pre">/sponge</span> <span class="pre">plugins</span> <span class="pre">reload</span></code> command. The event is not necessarily limited to reloading configuration.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.GameReloadEvent</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.GameReloadEvent</span><span class="p">;</span>
 
 <span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">reload</span><span class="o">(</span><span class="n">GameReloadEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">reload</span><span class="p">(</span><span class="n">GameReloadEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Do reload stuff</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Note that this is different for what generally is considered a ‘reload’, as the event is purely all callback for
@@ -300,7 +300,7 @@ plugins and does not do any reloading on its own.</p>
 <h2>Firing Events<a class="headerlink" href="#firing-events" title="Permalink to this headline">¶</a></h2>
 <p>To dispatch an event, you need an object that implements the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/Event.html">Event</a> interface.</p>
 <p>You can fire events using the event bus (<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/EventManager.html">EventManager</a>):</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">boolean</span> <span class="n">cancelled</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">post</span><span class="o">(</span><span class="n">theEventObject</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">boolean</span> <span class="n">cancelled</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getEventManager</span><span class="p">().</span><span class="na">post</span><span class="p">(</span><span class="n">theEventObject</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The method returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if the event was cancelled, <code class="docutils literal notranslate"><span class="pre">false</span></code> if not.</p>
@@ -312,17 +312,17 @@ created by the <code class="docutils literal notranslate"><span class="pre">Spon
 </div>
 <div class="section" id="example-firing-lightningevent">
 <h3>Example: Firing LightningEvent<a class="headerlink" href="#example-firing-lightningevent" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.action.LightningEvent</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.Cause</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.EventContext</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.EventContextKeys</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.SpongeEventFactory</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.action.LightningEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.Cause</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.EventContext</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.EventContextKeys</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.SpongeEventFactory</span><span class="p">;</span>
 
-<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">EventContext</span> <span class="n">eventContext</span> <span class="o">=</span> <span class="n">EventContext</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">EventContextKeys</span><span class="o">.</span><span class="na">PLUGIN</span><span class="o">,</span> <span class="n">plugin</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">EventContext</span> <span class="n">eventContext</span> <span class="o">=</span> <span class="n">EventContext</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">EventContextKeys</span><span class="p">.</span><span class="na">PLUGIN</span><span class="p">,</span> <span class="n">plugin</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
 
-<span class="n">LightningEvent</span> <span class="n">lightningEvent</span> <span class="o">=</span> <span class="n">SpongeEventFactory</span><span class="o">.</span><span class="na">createLightningEventPre</span><span class="o">(</span><span class="n">Cause</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">eventContext</span><span class="o">,</span> <span class="n">plugin</span><span class="o">));</span>
-<span class="n">Sponge</span><span class="o">.</span><span class="na">getEventManager</span><span class="o">().</span><span class="na">post</span><span class="o">(</span><span class="n">lightningEvent</span><span class="o">);</span>
+<span class="n">LightningEvent</span> <span class="n">lightningEvent</span> <span class="o">=</span> <span class="n">SpongeEventFactory</span><span class="p">.</span><span class="na">createLightningEventPre</span><span class="p">(</span><span class="n">Cause</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">eventContext</span><span class="p">,</span> <span class="n">plugin</span><span class="p">));</span>
+<span class="n">Sponge</span><span class="p">.</span><span class="na">getEventManager</span><span class="p">().</span><span class="na">post</span><span class="p">(</span><span class="n">lightningEvent</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition warning">

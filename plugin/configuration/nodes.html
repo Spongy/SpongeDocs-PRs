@@ -197,20 +197,20 @@ of a config.</p>
 <p class="last">When written down, paths are commonly represented by joining the keys together with a separator char, usually <code class="docutils literal notranslate"><span class="pre">.</span></code>.
 The above mentioned path would be written <code class="docutils literal notranslate"><span class="pre">modules.blockCheats.enabled</span></code>.</p>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">modules</span> {
-    <span class="n">blockCheats</span> {
-        <span class="n">enabled</span>=<span class="nb">true</span>
-    }
-}
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">modules {</span>
+<span class="err">    blockCheats {</span>
+<span class="err">        enabled=true</span>
+<span class="err">    }</span>
+<span class="err">}</span>
 </pre></div>
 </div>
 <p>In Java, you can get the child node for a path using the <code class="docutils literal notranslate"><span class="pre">getNode(...)</span></code> method. The method accepts any number of
 arguments, where each argument is one key in the path. The path <code class="docutils literal notranslate"><span class="pre">modules.blockCheats.enabled</span></code> from a root node is
 acquired as follows.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="p">;</span>
 
-<span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">ConfigurationNode</span> <span class="n">targetNode</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">);</span>
+<span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">ConfigurationNode</span> <span class="n">targetNode</span> <span class="o">=</span> <span class="n">rootNode</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;modules&quot;</span><span class="p">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="p">,</span> <span class="s">&quot;enabled&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -226,7 +226,7 @@ acquired as follows.</p>
 which will return the value or a default if the node does not contain a value of that type. Let’s check if the server
 administrator wants our plugin to enable its blockCheats module by checking the value at the
 <code class="docutils literal notranslate"><span class="pre">modules.blockCheats.enabled</span></code> path.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">getBoolean</span><span class="o">();</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;modules&quot;</span><span class="p">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="p">,</span> <span class="s">&quot;enabled&quot;</span><span class="p">).</span><span class="na">getBoolean</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>Yes, it’s really as simple as that. Similar to the above example, methods like <a class="reference external" href="https://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/ConfigurationNode.html#getInt--">ConfigurationNode#getInt()</a>,
@@ -237,7 +237,7 @@ that it accepts an <a class="reference external" href="https://docs.oracle.com/j
 by itself.</p>
 <p>Imagine the blockCheats module is deactivated by a user command. This change will need to be reflected in the config
 and can be done as follows:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">setValue</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">rootNode</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;modules&quot;</span><span class="p">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="p">,</span> <span class="s">&quot;enabled&quot;</span><span class="p">).</span><span class="na">setValue</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -258,9 +258,9 @@ there is a collection of <a class="reference external" href="https://configurate
 want to read a player <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">UUID</a> from the config node <code class="docutils literal notranslate"><span class="pre">towns.aFLARDia.mayor</span></code>. To do so, we need to call the
 <a class="reference external" href="https://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/ConfigurationNode.html#getValue-com.google.common.reflect.TypeToken-">getValue(…)</a> method while providing a <code class="docutils literal notranslate"><span class="pre">TypeToken</span></code>
 representing the <code class="docutils literal notranslate"><span class="pre">UUID</span></code> class.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="p">;</span>
 
-<span class="n">UUID</span> <span class="n">mayor</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;towns&quot;</span><span class="o">,</span> <span class="s">&quot;aFLARDia&quot;</span><span class="o">,</span> <span class="s">&quot;mayor&quot;</span><span class="o">).</span><span class="na">getValue</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+<span class="n">UUID</span> <span class="n">mayor</span> <span class="o">=</span> <span class="n">rootNode</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;towns&quot;</span><span class="p">,</span> <span class="s">&quot;aFLARDia&quot;</span><span class="p">,</span> <span class="s">&quot;mayor&quot;</span><span class="p">).</span><span class="na">getValue</span><span class="p">(</span><span class="n">TypeToken</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">class</span><span class="p">));</span>
 </pre></div>
 </div>
 <p>This prompts Configurate to locate the proper <code class="docutils literal notranslate"><span class="pre">TypeSerializer</span></code> for <code class="docutils literal notranslate"><span class="pre">UUID</span></code>s and then use it to convert the stored
@@ -269,7 +269,7 @@ value into a <code class="docutils literal notranslate"><span class="pre">UUID</
 <p>Now if we want to write a new <code class="docutils literal notranslate"><span class="pre">UUID</span></code> to that config node, the syntax is very similar. Use the
 <a class="reference external" href="https://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/ConfigurationNode.html#setValue-com.google.common.reflect.TypeToken-java.lang.Object-">setValue(…)</a>
 method with a <code class="docutils literal notranslate"><span class="pre">TypeToken</span></code> and the object you want to serialize.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;towns&quot;</span><span class="o">,</span><span class="s">&quot;aFLARDia&quot;</span><span class="o">,</span> <span class="s">&quot;mayor&quot;</span><span class="o">).</span><span class="na">setValue</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">newUuid</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">rootNode</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;towns&quot;</span><span class="p">,</span><span class="s">&quot;aFLARDia&quot;</span><span class="p">,</span> <span class="s">&quot;mayor&quot;</span><span class="p">).</span><span class="na">setValue</span><span class="p">(</span><span class="n">TypeToken</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">class</span><span class="p">),</span> <span class="n">newUuid</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -305,23 +305,23 @@ that would return an object (like <code class="docutils literal notranslate"><sp
 manually handle those special cases, you can use <em>default values</em>. Every <code class="docutils literal notranslate"><span class="pre">getXXX()</span></code> method discussed above has an
 overloaded form accepting an additional parameter as a default value.</p>
 <p>Let us take a look at the example for reading a boolean value again.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">getBoolean</span><span class="o">();</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;modules&quot;</span><span class="p">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="p">,</span> <span class="s">&quot;enabled&quot;</span><span class="p">).</span><span class="na">getBoolean</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>This call will return <code class="docutils literal notranslate"><span class="pre">false</span></code> if either the value <code class="docutils literal notranslate"><span class="pre">false</span></code> is saved in the config or the value is not present in the
 config. Since those two cases are indistinguishable we have no simple way of setting our variable to <code class="docutils literal notranslate"><span class="pre">false</span></code> only if
 that is the value specified on the config. Unless we specify <code class="docutils literal notranslate"><span class="pre">true</span></code> as the default value.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;modules&quot;</span><span class="o">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="o">,</span> <span class="s">&quot;enabled&quot;</span><span class="o">).</span><span class="na">getBoolean</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">boolean</span> <span class="n">shouldEnable</span> <span class="o">=</span> <span class="n">rootNode</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;modules&quot;</span><span class="p">,</span> <span class="s">&quot;blockCheats&quot;</span><span class="p">,</span> <span class="s">&quot;enabled&quot;</span><span class="p">).</span><span class="na">getBoolean</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Similarly, you can specify defaults on any value you get from the config, thus avoiding <code class="docutils literal notranslate"><span class="pre">null</span></code> returns or
 <code class="docutils literal notranslate"><span class="pre">ObjectMappingException</span></code> caused by the absence of the whole value. It also works on the deserializing <code class="docutils literal notranslate"><span class="pre">getValue()</span></code>
 method. Some examples:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">greeting</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;messages&quot;</span><span class="o">,</span> <span class="s">&quot;greeting&quot;</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&quot;FLARD be with you good man!&quot;</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">greeting</span> <span class="o">=</span> <span class="n">rootNode</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;messages&quot;</span><span class="p">,</span> <span class="s">&quot;greeting&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;FLARD be with you good man!&quot;</span><span class="p">);</span>
 
-<span class="n">UUID</span> <span class="n">mayor</span> <span class="o">=</span> <span class="n">rootNode</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;towns&quot;</span><span class="o">,</span> <span class="s">&quot;aFLARDia&quot;</span><span class="o">,</span> <span class="s">&quot;mayor&quot;</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="n">TypeTokens</span><span class="o">.</span><span class="na">UUID_TOKEN</span><span class="o">,</span> <span class="n">somePlayer</span><span class="o">.</span><span class="na">getUniqueId</span><span class="o">());</span>
+<span class="n">UUID</span> <span class="n">mayor</span> <span class="o">=</span> <span class="n">rootNode</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;towns&quot;</span><span class="p">,</span> <span class="s">&quot;aFLARDia&quot;</span><span class="p">,</span> <span class="s">&quot;mayor&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">getValue</span><span class="p">(</span><span class="n">TypeTokens</span><span class="p">.</span><span class="na">UUID_TOKEN</span><span class="p">,</span> <span class="n">somePlayer</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">());</span>
 </pre></div>
 </div>
 <p>Another useful application of those defaults is that they can be copied to your configuration if needed. Upon creation

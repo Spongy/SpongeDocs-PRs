@@ -188,14 +188,14 @@ configurations, giving you the option of hard-coding default values or loading f
 see the <a class="reference internal" href="index.html"><span class="doc">main configuration page</span></a>.</p>
 </div>
 <p>First, let’s grab a new <a class="reference external" href="https://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/hocon/HoconConfigurationLoader.html">HoconConfigurationLoader</a> that points to our configuration file.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.commented.CommentedConfigurationNode</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.hocon.HoconConfigurationLoader</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.loader.ConfigurationLoader</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.commented.CommentedConfigurationNode</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.hocon.HoconConfigurationLoader</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.loader.ConfigurationLoader</span><span class="p">;</span>
 
-<span class="n">Path</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="n">getConfigPath</span><span class="o">();</span>
+<span class="n">Path</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="n">getConfigPath</span><span class="p">();</span>
 <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span>
-        <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setPath</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+        <span class="n">HoconConfigurationLoader</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">setPath</span><span class="p">(</span><span class="n">potentialFile</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>The loader will also hold a generic type depending what kind of node it will build. These <em>Configuration Nodes</em> will be
@@ -223,13 +223,13 @@ configs.</p>
 <h2>Loading and Saving<a class="headerlink" href="#loading-and-saving" title="Permalink to this headline">¶</a></h2>
 <p>Once you obtained your <code class="docutils literal notranslate"><span class="pre">ConfigurationLoader</span></code> you can use it to obtain an empty <a class="reference external" href="https://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/ConfigurationNode.html">ConfigurationNode</a> using the
 <a class="reference external" href="https://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/loader/ConfigurationLoader.html#createEmptyNode--">createEmptyNode()</a> method.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationOptions</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationOptions</span><span class="p">;</span>
 
-<span class="n">Path</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="n">getConfigPath</span><span class="o">();</span>
+<span class="n">Path</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="n">getConfigPath</span><span class="p">();</span>
 <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span>
-        <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setPath</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
-<span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">createEmptyNode</span><span class="o">(</span><span class="n">ConfigurationOptions</span><span class="o">.</span><span class="na">defaults</span><span class="o">());</span>
+        <span class="n">HoconConfigurationLoader</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">setPath</span><span class="p">(</span><span class="n">potentialFile</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
+<span class="n">ConfigurationNode</span> <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="p">.</span><span class="na">createEmptyNode</span><span class="p">(</span><span class="n">ConfigurationOptions</span><span class="p">.</span><span class="na">defaults</span><span class="p">());</span>
 </pre></div>
 </div>
 <p>This method expects the <a class="reference external" href="https://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/ConfigurationOptions.html">ConfigurationOptions</a> to use as a parameter. Unless you want to use
@@ -239,17 +239,17 @@ options object with default values.</p>
 the source specified upon creation of the <code class="docutils literal notranslate"><span class="pre">ConfigurationLoader</span></code>. It also expects a <code class="docutils literal notranslate"><span class="pre">ConfigurationOptions</span></code> instance,
 but also provides a no-args form that is shorthand for
 <a class="reference external" href="https://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/loader/ConfigurationLoader.html#load-ninja.leaping.configurate.ConfigurationOptions-">load(ConfigurationOptions.defaults())</a>.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="p">;</span>
 
-<span class="n">Path</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="n">getConfigPath</span><span class="o">();</span>
+<span class="n">Path</span> <span class="n">potentialFile</span> <span class="o">=</span> <span class="n">getConfigPath</span><span class="p">();</span>
 <span class="n">ConfigurationLoader</span><span class="o">&lt;</span><span class="n">CommentedConfigurationNode</span><span class="o">&gt;</span> <span class="n">loader</span> <span class="o">=</span>
-        <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setPath</span><span class="o">(</span><span class="n">potentialFile</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
-<span class="n">ConfigurationNode</span> <span class="n">rootNode</span><span class="o">;</span>
-<span class="k">try</span> <span class="o">{</span>
-    <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
-<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">HoconConfigurationLoader</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">setPath</span><span class="p">(</span><span class="n">potentialFile</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
+<span class="n">ConfigurationNode</span> <span class="n">rootNode</span><span class="p">;</span>
+<span class="k">try</span> <span class="p">{</span>
+    <span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="p">.</span><span class="na">load</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// handle error</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>If the <code class="docutils literal notranslate"><span class="pre">Path</span></code> given does not exist, the <code class="docutils literal notranslate"><span class="pre">load()</span></code> method will create an empty <code class="docutils literal notranslate"><span class="pre">ConfigurationNode</span></code>. Any other error
@@ -259,11 +259,11 @@ ability to serialize and deserialize a large number of Sponge objects.</p>
 <p>Once you modified your <code class="docutils literal notranslate"><span class="pre">ConfigurationNode</span></code> to hold the data you like to be saved, you can use the
 <code class="docutils literal notranslate"><span class="pre">ConfigurationLoader</span></code> to save the node to the file specified while creating the loader. If that file does not exist,
 it will be created. If it does exist, all contents will be overwritten.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="o">{</span>
-    <span class="n">loader</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">rootNode</span><span class="o">);</span>
-<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
+    <span class="n">loader</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">rootNode</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// handle error</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Again, errors will be propagated as an <code class="docutils literal notranslate"><span class="pre">IOException</span></code> and must be handled.</p>
@@ -280,12 +280,12 @@ avoid.</p>
 <p>A popular way to provide a default configuration file with your plugin is to include a copy of it in your plugin jar,
 copying it to the config directory when the config file has yet to be created.
 You can use <a class="reference internal" href="../assets.html"><span class="doc">the Asset API</span></a> to do this, as shown in the example below:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">Path</span> <span class="n">path</span> <span class="o">=</span> <span class="o">...;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Path</span> <span class="n">path</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">Sponge</span><span class="o">.</span><span class="na">getAssetManager</span><span class="o">().</span><span class="na">getAsset</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="s">&quot;default.conf&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">().</span><span class="na">copyToFile</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-<span class="n">loader</span> <span class="o">=</span> <span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">setPath</span><span class="o">(</span><span class="n">path</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
-<span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
+<span class="n">Sponge</span><span class="p">.</span><span class="na">getAssetManager</span><span class="p">().</span><span class="na">getAsset</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="s">&quot;default.conf&quot;</span><span class="p">).</span><span class="na">get</span><span class="p">().</span><span class="na">copyToFile</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="n">loader</span> <span class="o">=</span> <span class="n">HoconConfigurationLoader</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">setPath</span><span class="p">(</span><span class="n">path</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
+<span class="n">rootNode</span> <span class="o">=</span> <span class="n">loader</span><span class="p">.</span><span class="na">load</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>For this example it is important to note that the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/asset/AssetManager.html#getAsset-java.lang.String-">AssetManager#getAsset(String)</a> method works relative to the
@@ -308,12 +308,12 @@ config is missing. See also the examples on the <a class="reference internal" hr
 <code class="docutils literal notranslate"><span class="pre">CommentedConfigurationNode</span></code> and load values from a given asset explained above. This will take each node in
 your asset file and attempt to place it into the new root node if it does not exist. This method is different to simply
 copying to a file as this will automatically place values that were absent while just copying to file will not.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">node</span><span class="o">.</span><span class="na">mergeValuesFrom</span><span class="o">(</span><span class="n">HoconConfigurationLoader</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-                    <span class="o">.</span><span class="na">setURL</span><span class="o">(</span><span class="n">plugin</span><span class="o">.</span><span class="na">getAsset</span><span class="o">(</span><span class="s">&quot;default.conf&quot;</span><span class="o">).</span><span class="na">get</span><span class="o">().</span><span class="na">getUrl</span><span class="o">())</span>
-                    <span class="o">.</span><span class="na">build</span><span class="o">()</span>
-                    <span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">ConfigurationOptions</span><span class="o">.</span><span class="na">defaults</span><span class="o">()));</span>
+<span class="n">node</span><span class="p">.</span><span class="na">mergeValuesFrom</span><span class="p">(</span><span class="n">HoconConfigurationLoader</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+                    <span class="p">.</span><span class="na">setURL</span><span class="p">(</span><span class="n">plugin</span><span class="p">.</span><span class="na">getAsset</span><span class="p">(</span><span class="s">&quot;default.conf&quot;</span><span class="p">).</span><span class="na">get</span><span class="p">().</span><span class="na">getUrl</span><span class="p">())</span>
+                    <span class="p">.</span><span class="na">build</span><span class="p">()</span>
+                    <span class="p">.</span><span class="na">load</span><span class="p">(</span><span class="n">ConfigurationOptions</span><span class="p">.</span><span class="na">defaults</span><span class="p">()));</span>
 </pre></div>
 </div>
 <div class="admonition note">

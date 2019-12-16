@@ -161,15 +161,15 @@ An updated list of DataManipulators to be implemented can be found at
 <p class="last">Make sure you follow our <a class="reference internal" href="../guidelines.html"><span class="doc">Contribution Guidelines</span></a>.</p>
 </div>
 <p>The following snippet shows the imports/paths for some classes in SpongeCommon that you will need:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.common.data.DataProcessor</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.ValueProcessor</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.manipulator.immutable.entity.ImmutableSpongeHealthData</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.manipulator.mutable.common.AbstractData</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.manipulator.mutable.entity.SpongeHealthData</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.processor.common.AbstractEntityDataProcessor</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.common.util.Constants</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.util.NbtDataUtil</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.common.registry.type.data.KeyRegistryModule</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.common.data.DataProcessor</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.ValueProcessor</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.manipulator.immutable.entity.ImmutableSpongeHealthData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.manipulator.mutable.common.AbstractData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.manipulator.mutable.entity.SpongeHealthData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.processor.common.AbstractEntityDataProcessor</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.util.Constants</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.util.NbtDataUtil</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.registry.type.data.KeyRegistryModule</span><span class="p">;</span>
 </pre></div>
 </div>
 <div class="section" id="implement-the-datamanipulator">
@@ -180,9 +180,9 @@ For implementing the <code class="docutils literal notranslate"><span class="pre
 <code class="docutils literal notranslate"><span class="pre">org.spongepowered.common.data.manipulator.mutable.common</span></code> package. The most generic there is <code class="docutils literal notranslate"><span class="pre">AbstractData</span></code>
 but there are also abstractions that reduce boilerplate code even more for some special cases like
 <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code>s only containing a single value.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpongeHealthData</span> <span class="kd">extends</span> <span class="n">AbstractData</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">,</span> <span class="n">ImmutableHealthData</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">HealthData</span> <span class="o">{</span>
-    <span class="o">[...]</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpongeHealthData</span> <span class="kd">extends</span> <span class="n">AbstractData</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="p">,</span> <span class="n">ImmutableHealthData</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">HealthData</span> <span class="p">{</span>
+    <span class="o">[</span><span class="p">...</span><span class="o">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>There are two type arguments to the AbstractData class. The first is the interface implemented by this class, the
@@ -200,28 +200,28 @@ second is the interface implemented by the corresponding <code class="docutils l
 <li>make sure the values passed are valid</li>
 <li>call the <code class="docutils literal notranslate"><span class="pre">registerGettersAndSetters()</span></code> method</li>
 </ul>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import static</span> <span class="nn">com.google.common.base.Preconditions.checkArgument</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import static</span> <span class="nn">com.google.common.base.Preconditions.checkArgument</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpongeHealthData</span> <span class="kd">extends</span> <span class="n">AbstractData</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">,</span> <span class="n">ImmutableHealthData</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">HealthData</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpongeHealthData</span> <span class="kd">extends</span> <span class="n">AbstractData</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="p">,</span> <span class="n">ImmutableHealthData</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">HealthData</span> <span class="p">{</span>
 
-    <span class="kd">private</span> <span class="kt">double</span> <span class="n">health</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kt">double</span> <span class="n">maxHealth</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">health</span><span class="p">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">maxHealth</span><span class="p">;</span>
 
-    <span class="kd">public</span> <span class="nf">SpongeHealthData</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">(</span><span class="mi">20</span><span class="n">D</span><span class="o">,</span> <span class="mi">20</span><span class="n">D</span><span class="o">);</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">SpongeHealthData</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">(</span><span class="mi">20</span><span class="n">D</span><span class="p">,</span> <span class="mi">20</span><span class="n">D</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="nf">SpongeHealthData</span><span class="o">(</span><span class="kt">double</span> <span class="n">health</span><span class="o">,</span> <span class="kt">double</span> <span class="n">maxHealth</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-        <span class="n">checkArgument</span><span class="o">(</span><span class="n">maxHealth</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">);</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">health</span> <span class="o">=</span> <span class="n">health</span><span class="o">;</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">maxHealth</span> <span class="o">=</span> <span class="n">maxHealth</span><span class="o">;</span>
-        <span class="n">registerGettersAndSetters</span><span class="o">();</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">SpongeHealthData</span><span class="p">(</span><span class="kt">double</span> <span class="n">health</span><span class="p">,</span> <span class="kt">double</span> <span class="n">maxHealth</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">super</span><span class="p">(</span><span class="n">HealthData</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="n">checkArgument</span><span class="p">(</span><span class="n">maxHealth</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">health</span> <span class="o">=</span> <span class="n">health</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">maxHealth</span> <span class="o">=</span> <span class="n">maxHealth</span><span class="p">;</span>
+        <span class="n">registerGettersAndSetters</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    <span class="o">[...]</span>
+    <span class="o">[</span><span class="p">...</span><span class="o">]</span>
 
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Since we know that both current health and maximum health are bounded values, we need to make sure no values
@@ -237,14 +237,14 @@ required methods statically.</p>
 <h3>Accessors defined by the Interface<a class="headerlink" href="#accessors-defined-by-the-interface" title="Permalink to this headline">¶</a></h3>
 <p>The interface we implement specifies some methods to access <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/value/mutable/Value.html">Value</a> objects. For <code class="docutils literal notranslate"><span class="pre">HealthData</span></code>, those are
 <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html#health--">HealthData#health()</a> and <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html#maxHealth--">HealthData#maxHealth()</a>. Every call to those should yield a new <code class="docutils literal notranslate"><span class="pre">Value</span></code>.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">health</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">SpongeValueFactory</span><span class="o">.</span><span class="na">boundedBuilder</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">minimum</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">maximum</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">maxHealth</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">defaultValue</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">maxHealth</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">actualValue</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">health</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">health</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">SpongeValueFactory</span><span class="p">.</span><span class="na">boundedBuilder</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">minimum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">maximum</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">maxHealth</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">defaultValue</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">maxHealth</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">actualValue</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">health</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -262,11 +262,11 @@ data as the current instance.</p>
 <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataContainer.html#createNew--">DataContainer#createNew()</a> as the result and apply to it the values stored within this instance.
 A <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataContainer.html">DataContainer</a> is basically a map mapping <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataQuery.html">DataQuery</a>s to values. Since a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Key.html">Key</a> always
 contains a corresponding <code class="docutils literal notranslate"><span class="pre">DataQuery</span></code>, just use those by passing the <code class="docutils literal notranslate"><span class="pre">Key</span></code> directly.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">DataContainer</span> <span class="nf">toContainer</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">toContainer</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">health</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">maxHealth</span><span class="o">);</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">DataContainer</span> <span class="nf">toContainer</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="p">.</span><span class="na">toContainer</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">health</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">maxHealth</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -281,33 +281,33 @@ by <code class="docutils literal notranslate"><span class="pre">AbstractData</sp
 <li>register a <code class="docutils literal notranslate"><span class="pre">Supplier&lt;Value&gt;</span></code> to get the mutable <code class="docutils literal notranslate"><span class="pre">Value</span></code></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">Supplier</span></code> and <code class="docutils literal notranslate"><span class="pre">Consumer</span></code> are functional interfaces, so Java 8 Lambdas can be used.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">SpongeHealthData</span> <span class="nf">setCurrentHealthIfValid</span><span class="o">(</span><span class="kt">double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">health</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
-    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;Invalid value for current health&quot;</span><span class="o">);</span>
-    <span class="o">}</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">SpongeHealthData</span> <span class="nf">setCurrentHealthIfValid</span><span class="p">(</span><span class="kt">double</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="n">Float</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">health</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;Invalid value for current health&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="kd">private</span> <span class="n">SpongeHealthData</span> <span class="nf">setMaximumHealthIfValid</span><span class="o">(</span><span class="kt">double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">maxHealth</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
-    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;Invalid value for maximum health&quot;</span><span class="o">);</span>
-    <span class="o">}</span>
-    <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
-<span class="o">}</span>
+<span class="kd">private</span> <span class="n">SpongeHealthData</span> <span class="nf">setMaximumHealthIfValid</span><span class="p">(</span><span class="kt">double</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="n">Float</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">maxHealth</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;Invalid value for maximum health&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">registerGettersAndSetters</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">registerFieldGetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">this</span><span class="o">.</span><span class="na">health</span><span class="o">);</span>
-    <span class="n">registerFieldSetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">setCurrentHealthIfValid</span><span class="o">);</span>
-    <span class="n">registerKeyValue</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">health</span><span class="o">);</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">registerGettersAndSetters</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">registerFieldGetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="k">this</span><span class="p">.</span><span class="na">health</span><span class="p">);</span>
+    <span class="n">registerFieldSetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">setCurrentHealthIfValid</span><span class="p">);</span>
+    <span class="n">registerKeyValue</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">health</span><span class="p">);</span>
 
-    <span class="n">registerFieldGetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">this</span><span class="o">.</span><span class="na">maxHealth</span><span class="o">);</span>
-    <span class="n">registerFieldSetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">setMaximumHealthIfValid</span><span class="o">);</span>
-    <span class="n">registerKeyValue</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">maxHealth</span><span class="o">);</span>
-<span class="o">}</span>
+    <span class="n">registerFieldGetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="k">this</span><span class="p">.</span><span class="na">maxHealth</span><span class="p">);</span>
+    <span class="n">registerFieldSetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">setMaximumHealthIfValid</span><span class="p">);</span>
+    <span class="n">registerKeyValue</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">maxHealth</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">Consumer</span></code> registered as field setter must perform the adequate checks to make sure the supplied value is valid.
@@ -346,20 +346,20 @@ prevent accidental changes.</p>
 <p>The next step is to register your <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Key.html">Key</a>s to the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Keys.html">Keys</a>. To do so, locate the
 <code class="docutils literal notranslate"><span class="pre">KeyRegistryModule</span></code> class and find the <code class="docutils literal notranslate"><span class="pre">registerDefaults()</span></code> method.
 There add a line to register (and create) your used keys.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import static</span> <span class="nn">org.spongepowered.api.data.DataQuery.of</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import static</span> <span class="nn">org.spongepowered.api.data.DataQuery.of</span><span class="p">;</span>
 
-<span class="k">this</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="s">&quot;health&quot;</span><span class="o">,</span> <span class="n">Key</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="n">TypeTokens</span><span class="o">.</span><span class="na">BOUNDED_DOUBLE_VALUE_TOKEN</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">&quot;health&quot;</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;Health&quot;</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">of</span><span class="o">(</span><span class="s">&quot;Health&quot;</span><span class="o">))</span>
-        <span class="o">.</span><span class="na">build</span><span class="o">());</span>
-<span class="k">this</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="s">&quot;max_health&quot;</span><span class="o">,</span> <span class="n">Key</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="n">TypeTokens</span><span class="o">.</span><span class="na">BOUNDED_DOUBLE_VALUE_TOKEN</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">&quot;max_health&quot;</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;Max Health&quot;</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">of</span><span class="o">(</span><span class="s">&quot;MaxHealth&quot;</span><span class="o">))</span>
-        <span class="o">.</span><span class="na">build</span><span class="o">());</span>
+<span class="k">this</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="s">&quot;health&quot;</span><span class="p">,</span> <span class="n">Key</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">type</span><span class="p">(</span><span class="n">TypeTokens</span><span class="p">.</span><span class="na">BOUNDED_DOUBLE_VALUE_TOKEN</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">id</span><span class="p">(</span><span class="s">&quot;health&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">name</span><span class="p">(</span><span class="s">&quot;Health&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;Health&quot;</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">());</span>
+<span class="k">this</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="s">&quot;max_health&quot;</span><span class="p">,</span> <span class="n">Key</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">type</span><span class="p">(</span><span class="n">TypeTokens</span><span class="p">.</span><span class="na">BOUNDED_DOUBLE_VALUE_TOKEN</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">id</span><span class="p">(</span><span class="s">&quot;max_health&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">name</span><span class="p">(</span><span class="s">&quot;Max Health&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;MaxHealth&quot;</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">());</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">register(Key)</span></code> method registers your <code class="docutils literal notranslate"><span class="pre">Key</span></code>s for later use. The string used for the id should be the
@@ -383,15 +383,15 @@ entities, we can make use of the <code class="docutils literal notranslate"><spa
 based on <code class="docutils literal notranslate"><span class="pre">net.minecraft.entity.Entity</span></code>. <code class="docutils literal notranslate"><span class="pre">AbstractEntitySingleDataProcessor</span></code> would require less
 implementation work, but cannot be used as <code class="docutils literal notranslate"><span class="pre">HealthData</span></code> contains more than just one value.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HealthDataProcessor</span>
-        <span class="kd">extends</span> <span class="n">AbstractEntityDataProcessor</span><span class="o">&lt;</span><span class="n">EntityLivingBase</span><span class="o">,</span> <span class="n">HealthData</span><span class="o">,</span> <span class="n">ImmutableHealthData</span><span class="o">&gt;</span> <span class="o">{</span>
+        <span class="kd">extends</span> <span class="n">AbstractEntityDataProcessor</span><span class="o">&lt;</span><span class="n">EntityLivingBase</span><span class="p">,</span> <span class="n">HealthData</span><span class="p">,</span> <span class="n">ImmutableHealthData</span><span class="o">&gt;</span> <span class="p">{</span>
 
-    <span class="kd">public</span> <span class="nf">HealthDataProcessor</span><span class="o">()</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">(</span><span class="n">EntityLivingBase</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">HealthDataProcessor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">super</span><span class="p">(</span><span class="n">EntityLivingBase</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    <span class="o">[...]</span>
+    <span class="o">[</span><span class="p">...</span><span class="o">]</span>
 
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Depending on which abstraction you use, the methods you have to implement may differ greatly, depending on how
@@ -417,9 +417,9 @@ obtain the data, it leaves this function to be implemented. As the name says, th
 already exists on the supported target. For the <code class="docutils literal notranslate"><span class="pre">HealthDataProcessor</span></code>, this always returns true, since every
 living entity always has health.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">doesDataExist</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-<span class="o">}</span>
+<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">doesDataExist</span><span class="p">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -435,13 +435,13 @@ some values to return <code class="docutils literal notranslate"><span class="pr
 <code class="docutils literal notranslate"><span class="pre">Key</span></code> from the <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> to its value and then construct a <code class="docutils literal notranslate"><span class="pre">DataTransactionResult</span></code> depending on
 whether the operation was successful or not.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">set</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="o">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">keyValues</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">entity</span><span class="o">.</span><span class="na">getEntityAttribute</span><span class="o">(</span><span class="n">SharedMonsterAttributes</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">setBaseValue</span><span class="o">(((</span><span class="n">Double</span><span class="o">)</span> <span class="n">keyValues</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">)).</span><span class="na">floatValue</span><span class="o">());</span>
-    <span class="kt">float</span> <span class="n">health</span> <span class="o">=</span> <span class="o">((</span><span class="n">Double</span><span class="o">)</span> <span class="n">keyValues</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">)).</span><span class="na">floatValue</span><span class="o">();</span>
-    <span class="n">entity</span><span class="o">.</span><span class="na">setHealth</span><span class="o">(</span><span class="n">health</span><span class="o">);</span>
-    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-<span class="o">}</span>
+<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">set</span><span class="p">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="p">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;</span><span class="p">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">keyValues</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">entity</span><span class="p">.</span><span class="na">getEntityAttribute</span><span class="p">(</span><span class="n">SharedMonsterAttributes</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">setBaseValue</span><span class="p">(((</span><span class="n">Double</span><span class="p">)</span> <span class="n">keyValues</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">)).</span><span class="na">floatValue</span><span class="p">());</span>
+    <span class="kt">float</span> <span class="n">health</span> <span class="o">=</span> <span class="p">((</span><span class="n">Double</span><span class="p">)</span> <span class="n">keyValues</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">)).</span><span class="na">floatValue</span><span class="p">();</span>
+    <span class="n">entity</span><span class="p">.</span><span class="na">setHealth</span><span class="p">(</span><span class="n">health</span><span class="p">);</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -465,9 +465,9 @@ is always present on a compatible <code class="docutils literal notranslate"><sp
 <p>Since a living entity <em>always</em> has health, <code class="docutils literal notranslate"><span class="pre">HealthData</span></code> is always present and removal therefore not supported.
 Therefore we just return <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataTransactionResult.html#failNoData--">DataTransactionResult#failNoData()</a>.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">DataTransactionResult</span> <span class="nf">remove</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">dataHolder</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">DataTransactionResult</span><span class="o">.</span><span class="na">failNoData</span><span class="o">();</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="n">DataTransactionResult</span> <span class="nf">remove</span><span class="p">(</span><span class="n">DataHolder</span> <span class="n">dataHolder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">DataTransactionResult</span><span class="p">.</span><span class="na">failNoData</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -487,11 +487,11 @@ and <code class="docutils literal notranslate"><span class="pre">doesDataExist()
 if the data is present and <code class="docutils literal notranslate"><span class="pre">false</span></code> if it is not.</p>
 </div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;,</span> <span class="o">?&gt;</span> <span class="n">getValues</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="kt">double</span> <span class="n">health</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="na">getHealth</span><span class="o">();</span>
-    <span class="kd">final</span> <span class="kt">double</span> <span class="n">maxHealth</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="na">getMaxHealth</span><span class="o">();</span>
-    <span class="k">return</span> <span class="n">ImmutableMap</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">health</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="n">maxHealth</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="kd">protected</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;</span><span class="p">,</span> <span class="o">?&gt;</span> <span class="n">getValues</span><span class="p">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="kt">double</span> <span class="n">health</span> <span class="o">=</span> <span class="n">entity</span><span class="p">.</span><span class="na">getHealth</span><span class="p">();</span>
+    <span class="kd">final</span> <span class="kt">double</span> <span class="n">maxHealth</span> <span class="o">=</span> <span class="n">entity</span><span class="p">.</span><span class="na">getMaxHealth</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">ImmutableMap</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="n">health</span><span class="p">,</span> <span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="n">maxHealth</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -504,14 +504,14 @@ returns <code class="docutils literal notranslate"><span class="pre">Optional.em
 from the holder and then merging it with the supplied manipulator, but the <code class="docutils literal notranslate"><span class="pre">DataContainer</span></code> deserialization it
 cannot provide.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">fill</span><span class="o">(</span><span class="n">DataContainer</span> <span class="n">container</span><span class="o">,</span> <span class="n">HealthData</span> <span class="n">healthData</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(!</span><span class="n">container</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">.</span><span class="na">getQuery</span><span class="o">())</span> <span class="o">||</span> <span class="o">!</span><span class="n">container</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">.</span><span class="na">getQuery</span><span class="o">()))</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
-    <span class="o">}</span>
-    <span class="n">healthData</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="n">getData</span><span class="o">(</span><span class="n">container</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">));</span>
-    <span class="n">healthData</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="n">getData</span><span class="o">(</span><span class="n">container</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">));</span>
-    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">healthData</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">fill</span><span class="p">(</span><span class="n">DataContainer</span> <span class="n">container</span><span class="p">,</span> <span class="n">HealthData</span> <span class="n">healthData</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">container</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">.</span><span class="na">getQuery</span><span class="p">())</span> <span class="o">||</span> <span class="o">!</span><span class="n">container</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">.</span><span class="na">getQuery</span><span class="p">()))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">healthData</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="n">getData</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">));</span>
+    <span class="n">healthData</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="n">getData</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">healthData</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">fill()</span></code> method is to return an <code class="docutils literal notranslate"><span class="pre">Optional</span></code> of the altered <code class="docutils literal notranslate"><span class="pre">healthData</span></code>, if and only if all required data could
@@ -526,9 +526,9 @@ function that has to be provided by the final implementation. This does nothing 
 <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> with default data.</p>
 <p>If you implemented your <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> as recommended, you can just use the no-args constructor.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="n">HealthData</span> <span class="nf">createManipulator</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">SpongeHealthData</span><span class="o">();</span>
-<span class="o">}</span>
+<span class="kd">protected</span> <span class="n">HealthData</span> <span class="nf">createManipulator</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">SpongeHealthData</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -544,15 +544,15 @@ and then suffixed with <code class="docutils literal notranslate"><span class="p
 portion of the <code class="docutils literal notranslate"><span class="pre">supports()</span></code> checks based on the type of the <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code>. For <code class="docutils literal notranslate"><span class="pre">Keys.HEALTH</span></code>, we’ll create
 and construct <code class="docutils literal notranslate"><span class="pre">HealthValueProcessor</span></code> as follows.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HealthValueProcessor</span>
-        <span class="kd">extends</span> <span class="n">AbstractSpongeValueProcessor</span><span class="o">&lt;</span><span class="n">EntityLivingBase</span><span class="o">,</span> <span class="n">Double</span><span class="o">,</span> <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;&gt;</span> <span class="o">{</span>
+        <span class="kd">extends</span> <span class="n">AbstractSpongeValueProcessor</span><span class="o">&lt;</span><span class="n">EntityLivingBase</span><span class="p">,</span> <span class="n">Double</span><span class="p">,</span> <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
 
-    <span class="kd">public</span> <span class="nf">HealthValueProcessor</span><span class="o">()</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">(</span><span class="n">EntityLivingBase</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">);</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">HealthValueProcessor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">super</span><span class="p">(</span><span class="n">EntityLivingBase</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    <span class="o">[...]</span>
+    <span class="o">[</span><span class="p">...</span><span class="o">]</span>
 
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Now the <code class="docutils literal notranslate"><span class="pre">AbstractSpongeValueProcessor</span></code> will relieve us of the necessity to check if the value is supported.
@@ -565,45 +565,45 @@ It is assumed to be supported if the target <code class="docutils literal notran
 <p>Again, most work is done by the abstraction class. We just need to implement two helper methods for creating
 a <code class="docutils literal notranslate"><span class="pre">Value</span></code> and its immutable counterpart and three methods to get, set and remove data.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">constructValue</span><span class="o">(</span><span class="n">Double</span> <span class="n">health</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">SpongeValueFactory</span><span class="o">.</span><span class="na">boundedBuilder</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">minimum</span><span class="o">(</span><span class="mf">0D</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">maximum</span><span class="o">(((</span><span class="n">Float</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">).</span><span class="na">doubleValue</span><span class="o">())</span>
-        <span class="o">.</span><span class="na">defaultValue</span><span class="o">(</span><span class="mi">20</span><span class="n">D</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">actualValue</span><span class="o">(</span><span class="n">health</span><span class="o">)</span>
-        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-<span class="o">}</span>
+<span class="kd">protected</span> <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">constructValue</span><span class="p">(</span><span class="n">Double</span> <span class="n">health</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">SpongeValueFactory</span><span class="p">.</span><span class="na">boundedBuilder</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">minimum</span><span class="p">(</span><span class="mf">0D</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">maximum</span><span class="p">(((</span><span class="n">Float</span><span class="p">)</span> <span class="n">Float</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">).</span><span class="na">doubleValue</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">defaultValue</span><span class="p">(</span><span class="mi">20</span><span class="n">D</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">actualValue</span><span class="p">(</span><span class="n">health</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="p">}</span>
 
 <span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="n">ImmutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">constructImmutableValue</span><span class="o">(</span><span class="n">Double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">constructValue</span><span class="o">(</span><span class="n">value</span><span class="o">).</span><span class="na">asImmutable</span><span class="o">();</span>
-<span class="o">}</span>
+<span class="kd">protected</span> <span class="n">ImmutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">constructImmutableValue</span><span class="p">(</span><span class="n">Double</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">constructValue</span><span class="p">(</span><span class="n">value</span><span class="p">).</span><span class="na">asImmutable</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">getVal</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">((</span><span class="kt">double</span><span class="o">)</span> <span class="n">container</span><span class="o">.</span><span class="na">getHealth</span><span class="o">());</span>
-<span class="o">}</span>
+<span class="kd">protected</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">getVal</span><span class="p">(</span><span class="n">EntityLivingBase</span> <span class="n">container</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">((</span><span class="kt">double</span><span class="p">)</span> <span class="n">container</span><span class="p">.</span><span class="na">getHealth</span><span class="p">());</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Since it is impossible for an <code class="docutils literal notranslate"><span class="pre">EntityLivingBase</span></code> to not have health, this method will never return
 <code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code>.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">set</span><span class="o">(</span><span class="n">EntityLivingBase</span> <span class="n">container</span><span class="o">,</span> <span class="n">Double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Float</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">container</span><span class="o">.</span><span class="na">setHealth</span><span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="na">floatValue</span><span class="o">());</span>
-        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-    <span class="o">}</span>
-    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-<span class="o">}</span>
+<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">set</span><span class="p">(</span><span class="n">EntityLivingBase</span> <span class="n">container</span><span class="p">,</span> <span class="n">Double</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="n">Float</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">container</span><span class="p">.</span><span class="na">setHealth</span><span class="p">(</span><span class="n">value</span><span class="p">.</span><span class="na">floatValue</span><span class="p">());</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">set()</span></code> method will return a boolean value indicating whether the value could successfully be set.
 This implementation will reject values outside of the bounds used in our value construction methods above.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">DataTransactionResult</span> <span class="nf">removeFrom</span><span class="o">(</span><span class="n">ValueContainer</span><span class="o">&lt;?&gt;</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">DataTransactionResult</span><span class="o">.</span><span class="na">failNoData</span><span class="o">();</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="n">DataTransactionResult</span> <span class="nf">removeFrom</span><span class="p">(</span><span class="n">ValueContainer</span><span class="o">&lt;?&gt;</span> <span class="n">container</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">DataTransactionResult</span><span class="p">.</span><span class="na">failNoData</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Since the data is guaranteed to be always present, attempts to remove it will just fail.</p>
@@ -617,9 +617,9 @@ add our processors.</p>
 <h3>DataProcessors<a class="headerlink" href="#dataprocessors" title="Permalink to this headline">¶</a></h3>
 <p>A <code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code> is registered alongside the interface and implementation classes of the <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> it
 handles. For every pair of mutable / immutable <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code>s at least one <code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code> must be registered.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">DataUtil</span><span class="o">.</span><span class="na">registerDataProcessorAndImpl</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">SpongeHealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
-        <span class="n">ImmutableHealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">ImmutableSpongeHealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
-        <span class="k">new</span> <span class="n">HealthDataProcessor</span><span class="o">());</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">DataUtil</span><span class="p">.</span><span class="na">registerDataProcessorAndImpl</span><span class="p">(</span><span class="n">HealthData</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">SpongeHealthData</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+        <span class="n">ImmutableHealthData</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">ImmutableSpongeHealthData</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+        <span class="k">new</span> <span class="n">HealthDataProcessor</span><span class="p">());</span>
 </pre></div>
 </div>
 </div>
@@ -627,8 +627,8 @@ handles. For every pair of mutable / immutable <code class="docutils literal not
 <h3>ValueProcessors<a class="headerlink" href="#valueprocessors" title="Permalink to this headline">¶</a></h3>
 <p>Value processors are registered at the bottom of the very same function. For each <code class="docutils literal notranslate"><span class="pre">Key</span></code> multiple processors
 can be registered by subsequent calls of the <code class="docutils literal notranslate"><span class="pre">registerValueProcessor()</span></code> method.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">DataUtil</span><span class="o">.</span><span class="na">registerValueProcessor</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">,</span> <span class="k">new</span> <span class="n">HealthValueProcessor</span><span class="o">());</span>
-<span class="n">DataUtil</span><span class="o">.</span><span class="na">registerValueProcessor</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">MAX_HEALTH</span><span class="o">,</span> <span class="k">new</span> <span class="n">MaxHealthValueProcessor</span><span class="o">());</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">DataUtil</span><span class="p">.</span><span class="na">registerValueProcessor</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="k">new</span> <span class="n">HealthValueProcessor</span><span class="p">());</span>
+<span class="n">DataUtil</span><span class="p">.</span><span class="na">registerValueProcessor</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="k">new</span> <span class="n">MaxHealthValueProcessor</span><span class="p">());</span>
 </pre></div>
 </div>
 </div>
@@ -638,57 +638,57 @@ can be registered by subsequent calls of the <code class="docutils literal notra
 <p>Block data is somewhat different from other types of data in that it is implemented by mixing in to the block itself.
 There are several methods in <code class="docutils literal notranslate"><span class="pre">org.spongepowered.mixin.core.block.MixinBlock</span></code> that must be overridden to implement
 data for blocks.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Mixin</span><span class="o">(</span><span class="n">BlockHorizontal</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">MixinBlockHorizontal</span> <span class="kd">extends</span> <span class="n">MixinBlock</span> <span class="o">{</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Mixin</span><span class="p">(</span><span class="n">BlockHorizontal</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">MixinBlockHorizontal</span> <span class="kd">extends</span> <span class="n">MixinBlock</span> <span class="p">{</span>
 
-    <span class="o">[...]</span>
+    <span class="o">[</span><span class="p">...</span><span class="o">]</span>
 
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">supports()</span></code> should return <code class="docutils literal notranslate"><span class="pre">true</span></code> if either the <code class="docutils literal notranslate"><span class="pre">ImmutableDataManipulator</span></code> interface is assignable from the
 <code class="docutils literal notranslate"><span class="pre">Class</span></code> passed in as the argument, or the superclass supports it.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supports</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">ImmutableDataManipulator</span><span class="o">&lt;?,</span> <span class="o">?&gt;&gt;</span> <span class="n">immutable</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">immutable</span><span class="o">)</span> <span class="o">||</span> <span class="n">ImmutableDirectionalData</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">immutable</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supports</span><span class="p">(</span><span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">ImmutableDataManipulator</span><span class="o">&lt;?</span><span class="p">,</span> <span class="o">?&gt;&gt;</span> <span class="n">immutable</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="p">.</span><span class="na">supports</span><span class="p">(</span><span class="n">immutable</span><span class="p">)</span> <span class="o">||</span> <span class="n">ImmutableDirectionalData</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">isAssignableFrom</span><span class="p">(</span><span class="n">immutable</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">getStateWithData()</span></code> should return a new <code class="docutils literal notranslate"><span class="pre">BlockState</span></code> with the data from the <code class="docutils literal notranslate"><span class="pre">ImmutableDataManipulator</span></code> applied
 to it. If the manipulator is not directly supported, the method should delegate to the superclass.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">BlockState</span><span class="o">&gt;</span> <span class="nf">getStateWithData</span><span class="o">(</span><span class="n">IBlockState</span> <span class="n">blockState</span><span class="o">,</span> <span class="n">ImmutableDataManipulator</span><span class="o">&lt;?,</span> <span class="o">?&gt;</span> <span class="n">manipulator</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">manipulator</span> <span class="k">instanceof</span> <span class="n">ImmutableDirectionalData</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">final</span> <span class="n">Direction</span> <span class="n">direction</span> <span class="o">=</span> <span class="o">((</span><span class="n">ImmutableDirectionalData</span><span class="o">)</span> <span class="n">manipulator</span><span class="o">).</span><span class="na">direction</span><span class="o">().</span><span class="na">get</span><span class="o">();</span>
-        <span class="kd">final</span> <span class="n">EnumFacing</span> <span class="n">facing</span> <span class="o">=</span> <span class="n">DirectionResolver</span><span class="o">.</span><span class="na">getFor</span><span class="o">(</span><span class="n">direction</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">((</span><span class="n">BlockState</span><span class="o">)</span> <span class="n">blockState</span><span class="o">.</span><span class="na">withProperty</span><span class="o">(</span><span class="n">BlockHorizontal</span><span class="o">.</span><span class="na">FACING</span><span class="o">,</span> <span class="n">facing</span><span class="o">));</span>
-    <span class="o">}</span>
-    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">getStateWithData</span><span class="o">(</span><span class="n">blockState</span><span class="o">,</span> <span class="n">manipulator</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">BlockState</span><span class="o">&gt;</span> <span class="nf">getStateWithData</span><span class="p">(</span><span class="n">IBlockState</span> <span class="n">blockState</span><span class="p">,</span> <span class="n">ImmutableDataManipulator</span><span class="o">&lt;?</span><span class="p">,</span> <span class="o">?&gt;</span> <span class="n">manipulator</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">manipulator</span> <span class="k">instanceof</span> <span class="n">ImmutableDirectionalData</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">final</span> <span class="n">Direction</span> <span class="n">direction</span> <span class="o">=</span> <span class="p">((</span><span class="n">ImmutableDirectionalData</span><span class="p">)</span> <span class="n">manipulator</span><span class="p">).</span><span class="na">direction</span><span class="p">().</span><span class="na">get</span><span class="p">();</span>
+        <span class="kd">final</span> <span class="n">EnumFacing</span> <span class="n">facing</span> <span class="o">=</span> <span class="n">DirectionResolver</span><span class="p">.</span><span class="na">getFor</span><span class="p">(</span><span class="n">direction</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">((</span><span class="n">BlockState</span><span class="p">)</span> <span class="n">blockState</span><span class="p">.</span><span class="na">withProperty</span><span class="p">(</span><span class="n">BlockHorizontal</span><span class="p">.</span><span class="na">FACING</span><span class="p">,</span> <span class="n">facing</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="p">.</span><span class="na">getStateWithData</span><span class="p">(</span><span class="n">blockState</span><span class="p">,</span> <span class="n">manipulator</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">getStateWithValue()</span></code> is the equivalent of <code class="docutils literal notranslate"><span class="pre">getStateWithData()</span></code>, but works with single <code class="docutils literal notranslate"><span class="pre">Key</span></code>s.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">BlockState</span><span class="o">&gt;</span> <span class="nf">getStateWithValue</span><span class="o">(</span><span class="n">IBlockState</span> <span class="n">blockState</span><span class="o">,</span> <span class="n">Key</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">BaseValue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;&gt;</span> <span class="n">key</span><span class="o">,</span> <span class="n">E</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">DIRECTION</span><span class="o">))</span> <span class="o">{</span>
-        <span class="kd">final</span> <span class="n">Direction</span> <span class="n">direction</span> <span class="o">=</span> <span class="o">(</span><span class="n">Direction</span><span class="o">)</span> <span class="n">value</span><span class="o">;</span>
-        <span class="kd">final</span> <span class="n">EnumFacing</span> <span class="n">facing</span> <span class="o">=</span> <span class="n">DirectionResolver</span><span class="o">.</span><span class="na">getFor</span><span class="o">(</span><span class="n">direction</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">((</span><span class="n">BlockState</span><span class="o">)</span> <span class="n">blockState</span><span class="o">.</span><span class="na">withProperty</span><span class="o">(</span><span class="n">BlockHorizontal</span><span class="o">.</span><span class="na">FACING</span><span class="o">,</span> <span class="n">facing</span><span class="o">));</span>
-    <span class="o">}</span>
-    <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">getStateWithValue</span><span class="o">(</span><span class="n">blockState</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">BlockState</span><span class="o">&gt;</span> <span class="nf">getStateWithValue</span><span class="p">(</span><span class="n">IBlockState</span> <span class="n">blockState</span><span class="p">,</span> <span class="n">Key</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">BaseValue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;&gt;</span> <span class="n">key</span><span class="p">,</span> <span class="n">E</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">DIRECTION</span><span class="p">))</span> <span class="p">{</span>
+        <span class="kd">final</span> <span class="n">Direction</span> <span class="n">direction</span> <span class="o">=</span> <span class="p">(</span><span class="n">Direction</span><span class="p">)</span> <span class="n">value</span><span class="p">;</span>
+        <span class="kd">final</span> <span class="n">EnumFacing</span> <span class="n">facing</span> <span class="o">=</span> <span class="n">DirectionResolver</span><span class="p">.</span><span class="na">getFor</span><span class="p">(</span><span class="n">direction</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">((</span><span class="n">BlockState</span><span class="p">)</span> <span class="n">blockState</span><span class="p">.</span><span class="na">withProperty</span><span class="p">(</span><span class="n">BlockHorizontal</span><span class="p">.</span><span class="na">FACING</span><span class="p">,</span> <span class="n">facing</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="p">.</span><span class="na">getStateWithValue</span><span class="p">(</span><span class="n">blockState</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Finally, <code class="docutils literal notranslate"><span class="pre">getManipulators()</span></code> should return a list of all <code class="docutils literal notranslate"><span class="pre">ImmutableDataManipulator</span></code>s the block supports, along with
 the current values for the provided <code class="docutils literal notranslate"><span class="pre">IBlockState</span></code>. It should include all <code class="docutils literal notranslate"><span class="pre">ImmutableDataManipulator</span></code>s from the
 superclass.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ImmutableDataManipulator</span><span class="o">&lt;?,</span> <span class="o">?&gt;&gt;</span> <span class="n">getManipulators</span><span class="o">(</span><span class="n">IBlockState</span> <span class="n">blockState</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">ImmutableList</span><span class="o">.&lt;</span><span class="n">ImmutableDataManipulator</span><span class="o">&lt;?,</span> <span class="o">?&gt;&gt;</span><span class="n">builder</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="kd">super</span><span class="o">.</span><span class="na">getManipulators</span><span class="o">(</span><span class="n">blockState</span><span class="o">))</span>
-            <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">ImmutableSpongeDirectionalData</span><span class="o">(</span><span class="n">DirectionResolver</span><span class="o">.</span><span class="na">getFor</span><span class="o">(</span><span class="n">blockState</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="n">BlockHorizontal</span><span class="o">.</span><span class="na">FACING</span><span class="o">))))</span>
-            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ImmutableDataManipulator</span><span class="o">&lt;?</span><span class="p">,</span> <span class="o">?&gt;&gt;</span> <span class="n">getManipulators</span><span class="p">(</span><span class="n">IBlockState</span> <span class="n">blockState</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">ImmutableList</span><span class="p">.</span><span class="o">&lt;</span><span class="n">ImmutableDataManipulator</span><span class="o">&lt;?</span><span class="p">,</span> <span class="o">?&gt;&gt;</span><span class="n">builder</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">addAll</span><span class="p">(</span><span class="kd">super</span><span class="p">.</span><span class="na">getManipulators</span><span class="p">(</span><span class="n">blockState</span><span class="p">))</span>
+            <span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="n">ImmutableSpongeDirectionalData</span><span class="p">(</span><span class="n">DirectionResolver</span><span class="p">.</span><span class="na">getFor</span><span class="p">(</span><span class="n">blockState</span><span class="p">.</span><span class="na">getValue</span><span class="p">(</span><span class="n">BlockHorizontal</span><span class="p">.</span><span class="na">FACING</span><span class="p">))))</span>
+            <span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -697,8 +697,10 @@ superclass.</p>
 <p>With <code class="docutils literal notranslate"><span class="pre">Data</span></code> being a rather abstract concept in Sponge, it is hard to give general directions on how to
 acquire the needed data from the Minecraft classes itself. It may be helpful to take a look at already
 implemented processors similar to the one you are working on to get a better understanding of how it should work.</p>
-<p>If you are stuck or are unsure about certain aspects, go visit the <code class="docutils literal notranslate"><span class="pre">#spongedev</span></code> IRC channel, the forums, or
-open up an Issue on GitHub. Be sure to check the <a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/issues/8">Data Processor Implementation Checklist</a> for general contribution requirements.</p>
+<p>If you are stuck or are unsure about certain aspects, go visit the <code class="docutils literal notranslate"><span class="pre">#spongedev</span></code> IRC channel,
+the <code class="docutils literal notranslate"><span class="pre">#dev</span></code> channel on Discord, the forums, or open up an Issue on GitHub.
+Be sure to check the <a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/issues/8">Data Processor Implementation Checklist</a>
+for general contribution requirements.</p>
 </div>
 </div>
 

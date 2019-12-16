@@ -181,19 +181,19 @@ messages, command arguments and the command logic. These methods can be chained.
 <p>After that, you have to register the command.</p>
 <div class="section" id="example-building-a-simple-command">
 <h2>Example: Building a Simple Command<a class="headerlink" href="#example-building-a-simple-command" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandSpec</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandSpec</span><span class="p">;</span>
 
-<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">CommandSpec</span> <span class="n">myCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Hello World Command&quot;</span><span class="o">))</span>
-    <span class="o">.</span><span class="na">permission</span><span class="o">(</span><span class="s">&quot;myplugin.command.helloworld&quot;</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">executor</span><span class="o">(</span><span class="k">new</span> <span class="n">HelloWorldCommand</span><span class="o">())</span>
-    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="n">CommandSpec</span> <span class="n">myCommandSpec</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">description</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Hello World Command&quot;</span><span class="p">))</span>
+    <span class="p">.</span><span class="na">permission</span><span class="p">(</span><span class="s">&quot;myplugin.command.helloworld&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">executor</span><span class="p">(</span><span class="k">new</span> <span class="n">HelloWorldCommand</span><span class="p">())</span>
+    <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 
-<span class="n">Sponge</span><span class="o">.</span><span class="na">getCommandManager</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="n">myCommandSpec</span><span class="o">,</span> <span class="s">&quot;helloworld&quot;</span><span class="o">,</span> <span class="s">&quot;hello&quot;</span><span class="o">,</span> <span class="s">&quot;test&quot;</span><span class="o">);</span>
+<span class="n">Sponge</span><span class="p">.</span><span class="na">getCommandManager</span><span class="p">().</span><span class="na">register</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="n">myCommandSpec</span><span class="p">,</span> <span class="s">&quot;helloworld&quot;</span><span class="p">,</span> <span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="s">&quot;test&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -259,20 +259,20 @@ has two arguments:</p>
 </div>
 <div class="section" id="example-simple-command-executor">
 <h2>Example: Simple Command Executor<a class="headerlink" href="#example-simple-command-executor" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandResult</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandSource</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.CommandContext</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandExecutor</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandResult</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandSource</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.CommandContext</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandExecutor</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldCommand</span> <span class="kd">implements</span> <span class="n">CommandExecutor</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldCommand</span> <span class="kd">implements</span> <span class="n">CommandExecutor</span> <span class="p">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">CommandResult</span> <span class="nf">execute</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">src</span><span class="o">,</span> <span class="n">CommandContext</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">CommandException</span> <span class="o">{</span>
-        <span class="n">src</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Hello World!&quot;</span><span class="o">));</span>
-        <span class="k">return</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">success</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+    <span class="kd">public</span> <span class="n">CommandResult</span> <span class="nf">execute</span><span class="p">(</span><span class="n">CommandSource</span> <span class="n">src</span><span class="p">,</span> <span class="n">CommandContext</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">CommandException</span> <span class="p">{</span>
+        <span class="n">src</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">));</span>
+        <span class="k">return</span> <span class="n">CommandResult</span><span class="p">.</span><span class="na">success</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -285,22 +285,22 @@ define the command executor in the command build process (See the example in the
 <h2>Player-Only Commands<a class="headerlink" href="#player-only-commands" title="Permalink to this headline">¶</a></h2>
 <p>Sometimes it is necessary that only players can execute a command (e.g. a <code class="docutils literal notranslate"><span class="pre">/suicide</span></code> command).</p>
 <p>Perform an <code class="docutils literal notranslate"><span class="pre">instanceof</span></code> check to determine the type of the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/CommandSource.html">CommandSource</a>:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.source.CommandBlockSource</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.source.ConsoleSource</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.source.CommandBlockSource</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.source.ConsoleSource</span><span class="p">;</span>
 
-<span class="k">if</span> <span class="o">(</span><span class="n">src</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="o">(</span><span class="n">Player</span><span class="o">)</span> <span class="n">src</span><span class="o">;</span>
-    <span class="n">player</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Hello &quot;</span> <span class="o">+</span> <span class="n">player</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;!&quot;</span><span class="o">));</span>
-<span class="o">}</span>
-<span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">src</span> <span class="k">instanceof</span> <span class="n">ConsoleSource</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">src</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Hello GLaDOS!&quot;</span><span class="o">));</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">src</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="p">(</span><span class="n">Player</span><span class="p">)</span> <span class="n">src</span><span class="p">;</span>
+    <span class="n">player</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Hello &quot;</span> <span class="o">+</span> <span class="n">player</span><span class="p">.</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;!&quot;</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">src</span> <span class="k">instanceof</span> <span class="n">ConsoleSource</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">src</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Hello GLaDOS!&quot;</span><span class="p">));</span>
     <span class="c1">// The Cake Is a Lie</span>
-<span class="o">}</span>
-<span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">src</span> <span class="k">instanceof</span> <span class="n">CommandBlockSource</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">src</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Hello Companion Cube!&quot;</span><span class="o">));</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">src</span> <span class="k">instanceof</span> <span class="n">CommandBlockSource</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">src</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Hello Companion Cube!&quot;</span><span class="p">));</span>
     <span class="c1">// &lt;3</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -323,10 +323,10 @@ consisting of multiple command blocks. A tutorial how the data is accessed can b
 </div>
 <div class="section" id="example-building-a-commandresult">
 <h2>Example: Building a CommandResult<a class="headerlink" href="#example-building-a-commandresult" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">CommandResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">affectedEntities</span><span class="o">(</span><span class="mi">42</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">successCount</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">CommandResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">CommandResult</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">affectedEntities</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">successCount</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>This example uses a builder to create a <code class="docutils literal notranslate"><span class="pre">CommandResult</span></code> for a command which affected 42 entities and was successful.</p>

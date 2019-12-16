@@ -210,18 +210,18 @@ objects into a constructor for the alternate version.</p>
 lot of type by using Sponge’s already implemented <code class="docutils literal notranslate"><span class="pre">Value</span></code> objects. Depending on what value you’re creating there a
 different methods to call such as <code class="docutils literal notranslate"><span class="pre">createMapValue</span></code>, <code class="docutils literal notranslate"><span class="pre">createBoundedComparableValue</span></code>, etc.</p>
 <p><strong>Code Example: Implementing a Value Getter</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.ValueFactory</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.Value</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.ValueFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.Value</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.home.Home</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.Keys</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.home.Home</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.Keys</span><span class="p">;</span>
 
 <span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="n">Value</span><span class="o">&lt;</span><span class="n">Home</span><span class="o">&gt;</span> <span class="nf">defaultHome</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getRegistry</span><span class="o">().</span><span class="na">getValueFactory</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">createValue</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">DEFAULT_HOME</span><span class="o">,</span> <span class="n">getValue</span><span class="o">(),</span> <span class="kc">null</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="kd">protected</span> <span class="n">Value</span><span class="o">&lt;</span><span class="n">Home</span><span class="o">&gt;</span> <span class="nf">defaultHome</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getRegistry</span><span class="p">().</span><span class="na">getValueFactory</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">createValue</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">DEFAULT_HOME</span><span class="p">,</span> <span class="n">getValue</span><span class="p">(),</span> <span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Note that an <code class="docutils literal notranslate"><span class="pre">ImmutableDataManipulator</span></code> would instead return an <code class="docutils literal notranslate"><span class="pre">ImmutableValue</span></code>, by calling <code class="docutils literal notranslate"><span class="pre">asImmutable()</span></code> on
@@ -233,20 +233,20 @@ to values, you use one of the <code class="docutils literal notranslate"><span c
 <code class="docutils literal notranslate"><span class="pre">Value</span></code>. As with any catalog type you must also provide a unique ID and a name. Put this all together and you have a
 <code class="docutils literal notranslate"><span class="pre">Key</span></code> you can use in your <code class="docutils literal notranslate"><span class="pre">Value</span></code>s.</p>
 <p><strong>Code Example: Creating a Key</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataQuery</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Key</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.KeyFactory</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.Value</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.Value</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataQuery</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Key</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.KeyFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.Value</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.Value</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">com.google.common.reflect.TypeToken</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.google.common.reflect.TypeToken</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.home.Home</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.home.Home</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Key</span><span class="o">&lt;</span><span class="n">Value</span><span class="o">&lt;</span><span class="n">Home</span><span class="o">&gt;&gt;</span> <span class="n">DEFAULT_HOME</span> <span class="o">=</span> <span class="n">KeyFactory</span><span class="o">.</span><span class="na">makeSingleKey</span><span class="o">(</span>
-        <span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">Home</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
-        <span class="k">new</span> <span class="n">TypeToken</span><span class="o">&lt;</span><span class="n">Value</span><span class="o">&lt;</span><span class="n">Home</span><span class="o">&gt;&gt;()</span> <span class="o">{},</span>
-        <span class="n">DataQuery</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;DefaultHome&quot;</span><span class="o">),</span> <span class="s">&quot;myhomes:default_home&quot;</span><span class="o">,</span> <span class="s">&quot;Default Home&quot;</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Key</span><span class="o">&lt;</span><span class="n">Value</span><span class="o">&lt;</span><span class="n">Home</span><span class="o">&gt;&gt;</span> <span class="n">DEFAULT_HOME</span> <span class="o">=</span> <span class="n">KeyFactory</span><span class="p">.</span><span class="na">makeSingleKey</span><span class="p">(</span>
+        <span class="n">TypeToken</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Home</span><span class="p">.</span><span class="na">class</span><span class="p">),</span>
+        <span class="k">new</span> <span class="n">TypeToken</span><span class="o">&lt;</span><span class="n">Value</span><span class="o">&lt;</span><span class="n">Home</span><span class="o">&gt;&gt;</span><span class="p">()</span> <span class="p">{},</span>
+        <span class="n">DataQuery</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;DefaultHome&quot;</span><span class="p">),</span> <span class="s">&quot;myhomes:default_home&quot;</span><span class="p">,</span> <span class="s">&quot;Default Home&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -271,19 +271,19 @@ change is made to the format of your serialized data, and use <a class="referenc
 <p class="last">This is not required for simple single types, as the already implement <code class="docutils literal notranslate"><span class="pre">toContainer()</span></code></p>
 </div>
 <p><strong>Code Example: Implementing toContainer</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.Keys</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.Keys</span><span class="p">;</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">DataContainer</span> <span class="nf">toContainer</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">DataContainer</span> <span class="n">container</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">toContainer</span><span class="o">();</span>
+<span class="kd">public</span> <span class="n">DataContainer</span> <span class="nf">toContainer</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">DataContainer</span> <span class="n">container</span> <span class="o">=</span> <span class="kd">super</span><span class="p">.</span><span class="na">toContainer</span><span class="p">();</span>
     <span class="c1">// This is the simplest, but use whatever structure you want!</span>
-    <span class="n">container</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">DEFAULT_HOME</span><span class="o">.</span><span class="na">getQuery</span><span class="o">(),</span> <span class="k">this</span><span class="o">.</span><span class="na">defaultHome</span><span class="o">);</span>
-    <span class="n">container</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HOMES</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">homes</span><span class="o">);</span>
+    <span class="n">container</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">DEFAULT_HOME</span><span class="p">.</span><span class="na">getQuery</span><span class="p">(),</span> <span class="k">this</span><span class="p">.</span><span class="na">defaultHome</span><span class="p">);</span>
+    <span class="n">container</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HOMES</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">homes</span><span class="p">);</span>
 
-    <span class="k">return</span> <span class="n">container</span><span class="o">;</span>
-<span class="o">}</span>
+    <span class="k">return</span> <span class="n">container</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -300,23 +300,23 @@ directly.</p>
 listening to <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameInitializationEvent.html">GameInitializationEvent</a> such as in the example below. If you try to register a
 <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> once initialization is complete an exception will be thrown.</p>
 </div>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.state.GameInitializationEvent</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataRegistration</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.state.GameInitializationEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataRegistration</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">org.example.MyCustomData</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.example.ImmutableCustomData</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.example.CustomDataBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.example.MyCustomData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.example.ImmutableCustomData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.example.CustomDataBuilder</span><span class="p">;</span>
 
 <span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInit</span><span class="o">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-  <span class="n">DataRegistration</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-      <span class="o">.</span><span class="na">dataClass</span><span class="o">(</span><span class="n">MyCustomData</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-      <span class="o">.</span><span class="na">immutableClass</span><span class="o">(</span><span class="n">ImmutableCustomData</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-      <span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="k">new</span> <span class="n">CustomDataBuilder</span><span class="o">())</span>
-      <span class="o">.</span><span class="na">manipulatorId</span><span class="o">(</span><span class="s">&quot;my-custom&quot;</span><span class="o">)</span>
-      <span class="o">.</span><span class="na">dataName</span><span class="o">(</span><span class="s">&quot;My Custom&quot;</span><span class="o">)</span>
-      <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInit</span><span class="p">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">DataRegistration</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+      <span class="p">.</span><span class="na">dataClass</span><span class="p">(</span><span class="n">MyCustomData</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+      <span class="p">.</span><span class="na">immutableClass</span><span class="p">(</span><span class="n">ImmutableCustomData</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+      <span class="p">.</span><span class="na">builder</span><span class="p">(</span><span class="k">new</span> <span class="n">CustomDataBuilder</span><span class="p">())</span>
+      <span class="p">.</span><span class="na">manipulatorId</span><span class="p">(</span><span class="s">&quot;my-custom&quot;</span><span class="p">)</span>
+      <span class="p">.</span><span class="na">dataName</span><span class="p">(</span><span class="s">&quot;My Custom&quot;</span><span class="p">)</span>
+      <span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -364,54 +364,54 @@ equivalent). This adds additional methods to allow Map-like/List-like behavior d
 <p>The following 3 methods must be defined on mutable manipulators:</p>
 <p><code class="docutils literal notranslate"><span class="pre">fill(DataHolder,</span> <span class="pre">MergeFunction)</span></code> should replace the data on your object with that of the given <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code>,
 using the result of <code class="docutils literal notranslate"><span class="pre">MergeFunction#merge()</span></code>.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataHolder</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.merge.MergeFunction</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataHolder</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.merge.MergeFunction</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.friends.FriendsData</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.friends.FriendsData</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">FriendsData</span><span class="o">&gt;</span> <span class="nf">fill</span><span class="o">(</span><span class="n">DataHolder</span> <span class="n">dataHolder</span><span class="o">,</span> <span class="n">MergeFunction</span> <span class="n">overlap</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">FriendsData</span> <span class="n">merged</span> <span class="o">=</span> <span class="n">overlap</span><span class="o">.</span><span class="na">merge</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">dataHolder</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">FriendsData</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">orElse</span><span class="o">(</span><span class="kc">null</span><span class="o">));</span>
-    <span class="n">setValue</span><span class="o">(</span><span class="n">merged</span><span class="o">.</span><span class="na">friends</span><span class="o">().</span><span class="na">get</span><span class="o">());</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">FriendsData</span><span class="o">&gt;</span> <span class="nf">fill</span><span class="p">(</span><span class="n">DataHolder</span> <span class="n">dataHolder</span><span class="p">,</span> <span class="n">MergeFunction</span> <span class="n">overlap</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">FriendsData</span> <span class="n">merged</span> <span class="o">=</span> <span class="n">overlap</span><span class="p">.</span><span class="na">merge</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">dataHolder</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">FriendsData</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">orElse</span><span class="p">(</span><span class="kc">null</span><span class="p">));</span>
+    <span class="n">setValue</span><span class="p">(</span><span class="n">merged</span><span class="p">.</span><span class="na">friends</span><span class="p">().</span><span class="na">get</span><span class="p">());</span>
 
-    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-<span class="o">}</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">from(DataContainer)</span></code> should overwrite its value with the one in the container and return itself, otherwise return
 <code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataQuery</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataQuery</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.Keys</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.friends.FriendsData</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.friends.ImmutableFriendsData</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.Keys</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.friends.FriendsData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.friends.ImmutableFriendsData</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">com.google.common.collect.Maps</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.google.common.collect.Maps</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="p">;</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">FriendsData</span><span class="o">&gt;</span> <span class="nf">from</span><span class="o">(</span><span class="n">DataContainer</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span><span class="o">(</span><span class="n">container</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">FRIENDS</span><span class="o">))</span> <span class="o">{</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">UUID</span><span class="o">&gt;</span> <span class="n">friends</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="na">getObjectList</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">FRIENDS</span><span class="o">.</span><span class="na">getQuery</span><span class="o">(),</span> <span class="n">UUID</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
-        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">setValue</span><span class="o">(</span><span class="n">friends</span><span class="o">));</span>
-    <span class="o">}</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">FriendsData</span><span class="o">&gt;</span> <span class="nf">from</span><span class="p">(</span><span class="n">DataContainer</span> <span class="n">container</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">container</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">FRIENDS</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">UUID</span><span class="o">&gt;</span> <span class="n">friends</span> <span class="o">=</span> <span class="n">container</span><span class="p">.</span><span class="na">getObjectList</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">FRIENDS</span><span class="p">.</span><span class="na">getQuery</span><span class="p">(),</span> <span class="n">UUID</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">setValue</span><span class="p">(</span><span class="n">friends</span><span class="p">));</span>
+    <span class="p">}</span>
 
-    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
-<span class="o">}</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">copy()</span></code> should, as the name suggests, return a copy of itself with the same data.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.friends.FriendsData</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.friends.FriendsData</span><span class="p">;</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">FriendsData</span> <span class="nf">copy</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">FriendsDataImpl</span><span class="o">(</span><span class="n">getValue</span><span class="o">());</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="n">FriendsData</span> <span class="nf">copy</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">FriendsDataImpl</span><span class="p">(</span><span class="n">getValue</span><span class="p">());</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -447,17 +447,17 @@ version</li>
 
 <span class="c1">// registerGetters() for immutable implementation</span>
 <span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">registerGettersAndSetters</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">registerKeyValue</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">DEFAULT_HOME</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">defaultHome</span><span class="o">);</span>
-    <span class="n">registerKeyValue</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HOMES</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">homes</span><span class="o">);</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">registerGettersAndSetters</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">registerKeyValue</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">DEFAULT_HOME</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">defaultHome</span><span class="p">);</span>
+    <span class="n">registerKeyValue</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HOMES</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">homes</span><span class="p">);</span>
 
-    <span class="n">registerFieldGetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">DEFAULT_HOME</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getDefaultHome</span><span class="o">);</span>
-    <span class="n">registerFieldGetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HOMES</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getHomes</span><span class="o">);</span>
+    <span class="n">registerFieldGetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">DEFAULT_HOME</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">getDefaultHome</span><span class="p">);</span>
+    <span class="n">registerFieldGetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HOMES</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">getHomes</span><span class="p">);</span>
 
     <span class="c1">// Only on mutable implementation</span>
-    <span class="n">registerFieldSetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">DEFAULT_HOME</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">setDefaultHome</span><span class="o">);</span>
-    <span class="n">registerFieldSetter</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HOMES</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">setHomes</span><span class="o">);</span>
-<span class="o">}</span>
+    <span class="n">registerFieldSetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">DEFAULT_HOME</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">setDefaultHome</span><span class="p">);</span>
+    <span class="n">registerFieldSetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HOMES</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">setHomes</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">fill(DataHolder,</span> <span class="pre">MergeFunction)</span></code> and <code class="docutils literal notranslate"><span class="pre">from(DataContainer)</span></code> are similar to the implementations for single data,

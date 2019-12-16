@@ -158,43 +158,43 @@ set its value to <code class="docutils literal notranslate"><span class="pre">0<
 will then add all available mobs to the activation range list, it is advised to disable it after the list is filled.
 If you add new mobs to the game, just repeat the procedure and those new mobs will also be added to the list below.</p>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="nv">entity</span><span class="o">-</span><span class="nv">activation</span><span class="o">-</span><span class="nv">range</span> {
-    # <span class="k">If</span> <span class="nv">enabled</span>, <span class="nv">newly</span> <span class="nv">discovered</span> <span class="nv">entities</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">added</span> <span class="nv">to</span> <span class="nv">this</span> <span class="nv">config</span> <span class="nv">with</span> <span class="nv">a</span> <span class="nv">default</span> <span class="nv">value</span>.
-    <span class="nv">auto</span><span class="o">-</span><span class="nv">populate</span><span class="o">=</span><span class="nv">false</span>
-    # <span class="nv">Default</span> <span class="nv">activation</span> <span class="nv">ranges</span> <span class="nv">used</span> <span class="k">for</span> <span class="nv">all</span> <span class="nv">entities</span> <span class="nv">unless</span> <span class="nv">overridden</span>.
-    <span class="nv">defaults</span> {
-        <span class="nv">ambient</span><span class="o">=</span><span class="mi">32</span>
-        <span class="nv">aquatic</span><span class="o">=</span><span class="mi">32</span>
-        <span class="nv">creature</span><span class="o">=</span><span class="mi">32</span>
-        <span class="nv">misc</span><span class="o">=</span><span class="mi">16</span>
-        <span class="nv">monster</span><span class="o">=</span><span class="mi">32</span>
-    }
-}
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">entity-activation-range {</span>
+<span class="err">    # If enabled, newly discovered entities will be added to this config with a default value.</span>
+<span class="err">    auto-populate=false</span>
+<span class="err">    # Default activation ranges used for all entities unless overridden.</span>
+<span class="err">    defaults {</span>
+<span class="err">        ambient=32</span>
+<span class="err">        aquatic=32</span>
+<span class="err">        creature=32</span>
+<span class="err">        misc=16</span>
+<span class="err">        monster=32</span>
+<span class="err">    }</span>
+<span class="err">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="async-lighting">
 <h2>Async Lighting<a class="headerlink" href="#async-lighting" title="Permalink to this headline">¶</a></h2>
 <p>This setting will run lighting checks on a separate thread to improve performance.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="nv">optimizations</span> {
-    # <span class="nv">Runs</span> <span class="nv">lighting</span> <span class="nv">updates</span> <span class="nv">async</span>.
-    <span class="nv">async</span><span class="o">-</span><span class="nv">lighting</span> {
-        # <span class="k">If</span> <span class="nv">enabled</span>, <span class="nv">runs</span> <span class="nv">lighting</span> <span class="nv">updates</span> <span class="nv">async</span>.
-        <span class="nv">enabled</span><span class="o">=</span><span class="nv">true</span>
-        # <span class="nv">The</span> <span class="nv">amount</span> <span class="nv">of</span> <span class="nv">threads</span> <span class="nv">to</span> <span class="nv">dedicate</span> <span class="k">for</span> <span class="nv">async</span> <span class="nv">lighting</span> <span class="nv">updates</span>. <span class="ss">(</span><span class="nv">Default</span>: <span class="mi">2</span><span class="ss">)</span>
-        <span class="nv">num</span><span class="o">-</span><span class="nv">threads</span><span class="o">=</span><span class="mi">2</span>
-    }
-}
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">optimizations {</span>
+<span class="err">    # Runs lighting updates async.</span>
+<span class="err">    async-lighting {</span>
+<span class="err">        # If enabled, runs lighting updates async.</span>
+<span class="err">        enabled=true</span>
+<span class="err">        # The amount of threads to dedicate for async lighting updates. (Default: 2)</span>
+<span class="err">        num-threads=2</span>
+<span class="err">    }</span>
+<span class="err">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="cache-tameable-owners">
 <h2>Cache Tameable Owners<a class="headerlink" href="#cache-tameable-owners" title="Permalink to this headline">¶</a></h2>
 <p>This setting will cache tameable entities owners’ UUID to save constant lookups from the data watcher.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="nv">optimizations</span> {
-    # <span class="nv">Caches</span> <span class="nv">tameable</span> <span class="nv">entities</span> <span class="nv">owners</span> <span class="nv">to</span> <span class="nv">avoid</span> <span class="nv">constant</span> <span class="nv">lookups</span> <span class="nv">against</span> <span class="nv">data</span> <span class="nv">watchers</span>. <span class="k">If</span> <span class="nv">mods</span> <span class="nv">cause</span> <span class="nv">issue</span>, <span class="nv">disable</span>.
-    <span class="nv">cache</span><span class="o">-</span><span class="nv">tameable</span><span class="o">-</span><span class="nv">owners</span><span class="o">=</span><span class="nv">true</span>
-}
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">optimizations {</span>
+<span class="err">    # Caches tameable entities owners to avoid constant lookups against data watchers. If mods cause issue, disable.</span>
+<span class="err">    cache-tameable-owners=true</span>
+<span class="err">}</span>
 </pre></div>
 </div>
 </div>
@@ -202,27 +202,27 @@ If you add new mobs to the game, just repeat the procedure and those new mobs wi
 <h2>Drops Pre Merge<a class="headerlink" href="#drops-pre-merge" title="Permalink to this headline">¶</a></h2>
 <p>This setting will pre-process and potentially merge item drops to avoid spawning extra entities that are then merged
 post-spawning.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="nv">optimizations</span> {
-    # <span class="k">If</span> <span class="nv">enabled</span>, <span class="nv">block</span> <span class="nv">item</span> <span class="nv">drops</span> <span class="nv">are</span> <span class="nv">pre</span><span class="o">-</span><span class="nv">processed</span> <span class="nv">to</span> <span class="nv">avoid</span>
-    # <span class="nv">having</span> <span class="nv">to</span> <span class="nv">spawn</span> <span class="nv">extra</span> <span class="nv">entities</span> <span class="nv">that</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">merged</span> <span class="nv">post</span> <span class="nv">spawning</span>.
-    # <span class="nv">Usually</span>, <span class="nv">Sponge</span> <span class="nv">is</span> <span class="nv">smart</span> <span class="nv">enough</span> <span class="nv">to</span> <span class="nv">determine</span> <span class="nv">when</span> <span class="nv">to</span> <span class="nv">attempt</span> <span class="nv">an</span> <span class="nv">item</span> <span class="nv">pre</span><span class="o">-</span><span class="nv">merge</span>
-    # <span class="nv">and</span> <span class="nv">when</span> <span class="nv">not</span> <span class="nv">to</span>, <span class="nv">however</span>, <span class="nv">in</span> <span class="nv">certain</span> <span class="nv">cases</span>, <span class="nv">some</span> <span class="nv">mods</span> <span class="nv">rely</span> <span class="nv">on</span> <span class="nv">items</span> <span class="nv">not</span> <span class="nv">being</span>
-    # <span class="nv">pre</span><span class="o">-</span><span class="nv">merged</span> <span class="nv">and</span> <span class="nv">actually</span> <span class="nv">spawned</span>, <span class="nv">in</span> <span class="nv">which</span> <span class="nv">case</span>, <span class="nv">the</span> <span class="nv">items</span> <span class="nv">will</span> <span class="nv">flow</span> <span class="nv">right</span> <span class="nv">through</span>
-    # <span class="nv">without</span> <span class="nv">being</span> <span class="nv">merged</span>.
-    <span class="nv">drops</span><span class="o">-</span><span class="nv">pre</span><span class="o">-</span><span class="nv">merge</span><span class="o">=</span><span class="nv">true</span>
-}
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">optimizations {</span>
+<span class="err">    # If enabled, block item drops are pre-processed to avoid</span>
+<span class="err">    # having to spawn extra entities that will be merged post spawning.</span>
+<span class="err">    # Usually, Sponge is smart enough to determine when to attempt an item pre-merge</span>
+<span class="err">    # and when not to, however, in certain cases, some mods rely on items not being</span>
+<span class="err">    # pre-merged and actually spawned, in which case, the items will flow right through</span>
+<span class="err">    # without being merged.</span>
+<span class="err">    drops-pre-merge=true</span>
+<span class="err">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="panda-redstone">
 <h2>Panda Redstone<a class="headerlink" href="#panda-redstone" title="Permalink to this headline">¶</a></h2>
 <p>An alternative Redstone update algorithm, leads to less block updates when Redstone changes.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="nv">optimizations</span> {
-    # <span class="k">If</span> <span class="nv">enabled</span>, <span class="nv">uses</span> <span class="nv">Panda4494</span><span class="s1">&#39;</span><span class="s">s Redstone implementation which improves performance.</span>
-    # <span class="nv">See</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">bugs</span>.<span class="nv">mojang</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">browse</span><span class="o">/</span><span class="nv">MC</span><span class="o">-</span><span class="mi">11193</span> <span class="k">for</span> <span class="nv">more</span> <span class="nv">information</span>.
-    # <span class="nv">Note</span>: <span class="nv">This</span> <span class="nv">optimization</span> <span class="nv">has</span> <span class="nv">a</span> <span class="nv">few</span> <span class="nv">issues</span> <span class="nv">which</span> <span class="nv">is</span> <span class="nv">explained</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">bug</span> <span class="nv">report</span>. <span class="nv">We</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">responsible</span> <span class="k">for</span> <span class="nv">any</span> <span class="nv">issues</span> <span class="nv">this</span> <span class="nv">may</span> <span class="nv">cause</span>.
-    <span class="nv">panda</span><span class="o">-</span><span class="nv">redstone</span><span class="o">=</span><span class="nv">false</span>
-}
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">optimizations {</span>
+<span class="err">    # If enabled, uses Panda4494&#39;s Redstone implementation which improves performance.</span>
+<span class="err">    # See https://bugs.mojang.com/browse/MC-11193 for more information.</span>
+<span class="err">    # Note: This optimization has a few issues which is explained in the bug report. We are not responsible for any issues this may cause.</span>
+<span class="err">    panda-redstone=false</span>
+<span class="err">}</span>
 </pre></div>
 </div>
 </div>
@@ -249,10 +249,10 @@ hardware, but at the expense of increasing the amount of in-game progress that c
 <h2>Realtime<a class="headerlink" href="#realtime" title="Permalink to this headline">¶</a></h2>
 <p>Enabling this will just improve your players experience when tick rate is low, it will not improve performance.
 A limited set of entities, tile entities, and world time will use real time instead of ticks to update.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">modules</span> {
-    <span class="c1"># Use real (wall) time instead of ticks as much as possible</span>
-    <span class="n">realtime</span>=<span class="n">false</span>
-}
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">modules {</span>
+<span class="err">    # Use real (wall) time instead of ticks as much as possible</span>
+<span class="err">    realtime=false</span>
+<span class="err">}</span>
 </pre></div>
 </div>
 <p>One example of this is baby animals. Normally, they take 20 minutes to grow into an adult. However, if the server is
@@ -267,11 +267,11 @@ breaking, so no more “breaking blocks multiple times”.</p>
 <p class="last">This is an experimental setting for performance gain, we recommend to not enable it when you have mods on the server
 and to disable it if you experience any issues regarding the loading of tileentities.</p>
 </div>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="nv">world</span> {
-    # <span class="k">If</span> <span class="nv">enabled</span>, <span class="nv">any</span> <span class="nv">request</span> <span class="k">for</span> <span class="nv">a</span> <span class="nv">chunk</span> <span class="nv">not</span> <span class="nv">currently</span> <span class="nv">loaded</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">denied</span> <span class="ss">(</span><span class="nv">exceptions</span> <span class="nv">apply</span> <span class="k">for</span> <span class="nv">things</span> <span class="nv">like</span> <span class="nv">world</span> <span class="nv">gen</span> <span class="nv">and</span> <span class="nv">player</span> <span class="nv">movement</span><span class="ss">)</span>.
-    # <span class="nv">Note</span>: <span class="nv">As</span> <span class="nv">this</span> <span class="nv">is</span> <span class="nv">an</span> <span class="nv">experimental</span> <span class="nv">setting</span> <span class="k">for</span> <span class="nv">performance</span> <span class="nv">gain</span>, <span class="k">if</span> <span class="nv">you</span> <span class="nv">encounter</span> <span class="nv">any</span> <span class="nv">issues</span> <span class="k">then</span> <span class="nv">we</span> <span class="nv">recommend</span> <span class="nv">disabling</span> <span class="nv">it</span>.
-    <span class="nv">deny</span><span class="o">-</span><span class="nv">chunk</span><span class="o">-</span><span class="nv">requests</span><span class="o">=</span><span class="nv">false</span>
-}
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">world {</span>
+<span class="err">    # If enabled, any request for a chunk not currently loaded will be denied (exceptions apply for things like world gen and player movement).</span>
+<span class="err">    # Note: As this is an experimental setting for performance gain, if you encounter any issues then we recommend disabling it.</span>
+<span class="err">    deny-chunk-requests=false</span>
+<span class="err">}</span>
 </pre></div>
 </div>
 <p>When this option is enabled, mods requesting areas to be loaded to perform various tasks will be denied. Only players

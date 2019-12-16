@@ -271,18 +271,18 @@ default value is.</p>
 <p>If you have a dynamic element such as a <code class="docutils literal notranslate"><span class="pre">World</span></code> or <code class="docutils literal notranslate"><span class="pre">ItemType</span></code> then you can use <code class="docutils literal notranslate"><span class="pre">&lt;TemplateParts&gt;</span></code>.</p>
 <div class="section" id="usage-example">
 <h3>Usage-Example<a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.PermissionDescription</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.PermissionDescription.Builder</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.PermissionService</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.PermissionDescription</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.PermissionDescription.Builder</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.PermissionService</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="p">;</span>
 
-<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">permissionService</span><span class="o">.</span><span class="na">newDescriptionBuilder</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">permissionService</span><span class="p">.</span><span class="na">newDescriptionBuilder</span><span class="p">(</span><span class="n">plugin</span><span class="p">);</span>
 
-<span class="n">builder</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">&quot;myplugin.commands.teleport.execute&quot;</span><span class="o">)</span>
-       <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Allows the user to execute the teleport command.&quot;</span><span class="o">))</span>
-       <span class="o">.</span><span class="na">assign</span><span class="o">(</span><span class="n">PermissionDescription</span><span class="o">.</span><span class="na">ROLE_STAFF</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
-       <span class="o">.</span><span class="na">register</span><span class="o">();</span>
+<span class="n">builder</span><span class="p">.</span><span class="na">id</span><span class="p">(</span><span class="s">&quot;myplugin.commands.teleport.execute&quot;</span><span class="p">)</span>
+       <span class="p">.</span><span class="na">description</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Allows the user to execute the teleport command.&quot;</span><span class="p">))</span>
+       <span class="p">.</span><span class="na">assign</span><span class="p">(</span><span class="n">PermissionDescription</span><span class="p">.</span><span class="na">ROLE_STAFF</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+       <span class="p">.</span><span class="na">register</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
@@ -327,14 +327,14 @@ PermissionService’s task to respect the permission and subject inheritance.</p
 <div class="section" id="example">
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <p>The following example could be used to check whether the Player is allowed to execute the teleport command.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.world.World</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">canTeleport</span><span class="o">(</span><span class="n">Player</span> <span class="n">subject</span><span class="o">,</span> <span class="n">World</span> <span class="n">targetWorld</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">subject</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myplugin.command.teleport.execute&quot;</span><span class="o">)</span>
-            <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">subject</span><span class="o">.</span><span class="na">getWorld</span><span class="o">()</span> <span class="o">==</span> <span class="n">targetWorld</span>
-                    <span class="o">||</span> <span class="n">subject</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myplugin.command.teleport.&quot;</span> <span class="o">+</span> <span class="n">targetWorld</span><span class="o">.</span><span class="na">getName</span><span class="o">()));</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">canTeleport</span><span class="p">(</span><span class="n">Player</span> <span class="n">subject</span><span class="p">,</span> <span class="n">World</span> <span class="n">targetWorld</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">subject</span><span class="p">.</span><span class="na">hasPermission</span><span class="p">(</span><span class="s">&quot;myplugin.command.teleport.execute&quot;</span><span class="p">)</span>
+            <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="na">getWorld</span><span class="p">()</span> <span class="o">==</span> <span class="n">targetWorld</span>
+                    <span class="o">||</span> <span class="n">subject</span><span class="p">.</span><span class="na">hasPermission</span><span class="p">(</span><span class="s">&quot;myplugin.command.teleport.&quot;</span> <span class="o">+</span> <span class="n">targetWorld</span><span class="p">.</span><span class="na">getName</span><span class="p">()));</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -486,12 +486,12 @@ and persistent <code class="docutils literal notranslate"><span class="pre">Subj
 <div class="section" id="id2">
 <h3>Example<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>The following example could be used to give a player a permission with global context and a true value</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPermission</span><span class="o">(</span><span class="n">Player</span> <span class="n">player</span><span class="o">,</span> <span class="n">String</span> <span class="n">permission</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span><span class="o">(!</span><span class="n">player</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="n">permission</span><span class="o">)</span>
-        <span class="n">player</span><span class="o">.</span><span class="na">getSubjectData</span><span class="o">().</span><span class="na">setPermission</span><span class="o">(</span><span class="n">SubjectData</span><span class="o">.</span><span class="na">GLOBAL_CONTEXT</span><span class="o">,</span> <span class="n">permission</span><span class="o">,</span> <span class="n">Tristate</span><span class="o">.</span><span class="na">TRUE</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPermission</span><span class="p">(</span><span class="n">Player</span> <span class="n">player</span><span class="p">,</span> <span class="n">String</span> <span class="n">permission</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">player</span><span class="p">.</span><span class="na">hasPermission</span><span class="p">(</span><span class="n">permission</span><span class="p">)</span>
+        <span class="n">player</span><span class="p">.</span><span class="na">getSubjectData</span><span class="p">().</span><span class="na">setPermission</span><span class="p">(</span><span class="n">SubjectData</span><span class="p">.</span><span class="na">GLOBAL_CONTEXT</span><span class="p">,</span> <span class="n">permission</span><span class="p">,</span> <span class="n">Tristate</span><span class="p">.</span><span class="na">TRUE</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -534,78 +534,78 @@ synchronized schedulers.</p>
 <div class="section" id="id3">
 <h3>Example<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Your <code class="docutils literal notranslate"><span class="pre">ContextCalculator</span></code> may look like this:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandSource</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.context.Context</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.context.ContextCalculator</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.Subject</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandSource</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.context.Context</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.context.ContextCalculator</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.Subject</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleCalculator</span> <span class="kd">implements</span> <span class="n">ContextCalculator</span><span class="o">&lt;</span><span class="n">Subject</span><span class="o">&gt;</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleCalculator</span> <span class="kd">implements</span> <span class="n">ContextCalculator</span><span class="o">&lt;</span><span class="n">Subject</span><span class="o">&gt;</span> <span class="p">{</span>
 
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Context</span> <span class="n">IN_ANY_ARENA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="s">&quot;myarenaplugin-inAnyArena&quot;</span><span class="o">,</span> <span class="s">&quot;true&quot;</span><span class="o">);</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Context</span> <span class="n">NOT_ANY_ARENA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="s">&quot;myarenaplugin-inAnyArena&quot;</span><span class="o">,</span> <span class="s">&quot;false&quot;</span><span class="o">);</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">ARENA_KEY</span> <span class="o">=</span> <span class="s">&quot;myarenaplugin-arena&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Context</span> <span class="n">IN_ANY_ARENA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="p">(</span><span class="s">&quot;myarenaplugin-inAnyArena&quot;</span><span class="p">,</span> <span class="s">&quot;true&quot;</span><span class="p">);</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Context</span> <span class="n">NOT_ANY_ARENA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="p">(</span><span class="s">&quot;myarenaplugin-inAnyArena&quot;</span><span class="p">,</span> <span class="s">&quot;false&quot;</span><span class="p">);</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">ARENA_KEY</span> <span class="o">=</span> <span class="s">&quot;myarenaplugin-arena&quot;</span><span class="p">;</span>
 
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">UUID</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">playerArenas</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accumulateContexts</span><span class="o">(</span><span class="n">Subject</span> <span class="n">calculable</span><span class="o">,</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Context</span><span class="o">&gt;</span> <span class="n">accumulator</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">CommandSource</span><span class="o">&gt;</span> <span class="n">commandSource</span> <span class="o">=</span> <span class="n">calculable</span><span class="o">.</span><span class="na">getCommandSource</span><span class="o">();</span>
-
-        <span class="k">if</span> <span class="o">(</span><span class="n">commandSource</span><span class="o">.</span><span class="na">isPresent</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">commandSource</span><span class="o">.</span><span class="na">get</span><span class="o">()</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="o">)</span> <span class="o">{</span>
-            <span class="kd">final</span> <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="o">(</span><span class="n">Player</span><span class="o">)</span> <span class="n">commandSource</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-
-            <span class="kd">final</span> <span class="n">UUID</span> <span class="n">uuid</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="na">getUniqueId</span><span class="o">();</span>
-            <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">playerArenas</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">uuid</span><span class="o">))</span> <span class="o">{</span>
-                <span class="n">accumulator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">IN_ANY_ARENA</span><span class="o">);</span>
-                <span class="n">accumulator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="n">ARENA_KEY</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">playerArenas</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">uuid</span><span class="o">)));</span>
-            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-                <span class="n">accumulator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">NOT_ANY_ARENA</span><span class="o">);</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">UUID</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">playerArenas</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">matches</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Subject</span> <span class="n">subject</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(!</span><span class="n">context</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">IN_ANY_ARENA</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">context</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">NOT_ANY_ARENA</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">context</span><span class="o">.</span><span class="na">getKey</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">ARENA_KEY</span><span class="o">))</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-        <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accumulateContexts</span><span class="p">(</span><span class="n">Subject</span> <span class="n">calculable</span><span class="p">,</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Context</span><span class="o">&gt;</span> <span class="n">accumulator</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">CommandSource</span><span class="o">&gt;</span> <span class="n">commandSource</span> <span class="o">=</span> <span class="n">calculable</span><span class="p">.</span><span class="na">getCommandSource</span><span class="p">();</span>
 
-        <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">CommandSource</span><span class="o">&gt;</span> <span class="n">commandSource</span> <span class="o">=</span> <span class="n">subject</span><span class="o">.</span><span class="na">getCommandSource</span><span class="o">();</span>
-        <span class="k">if</span> <span class="o">(!</span><span class="n">commandSource</span><span class="o">.</span><span class="na">isPresent</span><span class="o">()</span> <span class="o">||</span> <span class="o">!(</span><span class="n">commandSource</span><span class="o">.</span><span class="na">get</span><span class="o">()</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="o">))</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-        <span class="o">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">commandSource</span><span class="p">.</span><span class="na">isPresent</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">commandSource</span><span class="p">.</span><span class="na">get</span><span class="p">()</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">final</span> <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="p">(</span><span class="n">Player</span><span class="p">)</span> <span class="n">commandSource</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
 
-        <span class="kd">final</span> <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="o">(</span><span class="n">Player</span><span class="o">)</span> <span class="n">commandSource</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+            <span class="kd">final</span> <span class="n">UUID</span> <span class="n">uuid</span> <span class="o">=</span> <span class="n">player</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">uuid</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">accumulator</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">IN_ANY_ARENA</span><span class="p">);</span>
+                <span class="n">accumulator</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="n">Context</span><span class="p">(</span><span class="n">ARENA_KEY</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">uuid</span><span class="p">)));</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">accumulator</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">NOT_ANY_ARENA</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
-        <span class="k">if</span> <span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">IN_ANY_ARENA</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="o">.</span><span class="na">playerArenas</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">getUniqueId</span><span class="o">()))</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-        <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">matches</span><span class="p">(</span><span class="n">Context</span> <span class="n">context</span><span class="p">,</span> <span class="n">Subject</span> <span class="n">subject</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">context</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">IN_ANY_ARENA</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">context</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">NOT_ANY_ARENA</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">context</span><span class="p">.</span><span class="na">getKey</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">ARENA_KEY</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
 
-        <span class="k">if</span> <span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">NOT_ANY_ARENA</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="na">playerArenas</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">getUniqueId</span><span class="o">()))</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-        <span class="o">}</span>
+        <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">CommandSource</span><span class="o">&gt;</span> <span class="n">commandSource</span> <span class="o">=</span> <span class="n">subject</span><span class="p">.</span><span class="na">getCommandSource</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">commandSource</span><span class="p">.</span><span class="na">isPresent</span><span class="p">()</span> <span class="o">||</span> <span class="o">!</span><span class="p">(</span><span class="n">commandSource</span><span class="p">.</span><span class="na">get</span><span class="p">()</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
 
-        <span class="k">if</span> <span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getKey</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">ARENA_KEY</span><span class="o">))</span> <span class="o">{</span>
-            <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="na">playerArenas</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">getUniqueId</span><span class="o">()))</span> <span class="o">{</span>
-                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-            <span class="o">}</span>
+        <span class="kd">final</span> <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="p">(</span><span class="n">Player</span><span class="p">)</span> <span class="n">commandSource</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
 
-            <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="na">playerArenas</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">getUniqueId</span><span class="o">()).</span><span class="na">equals</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getValue</span><span class="o">()))</span> <span class="o">{</span>
-                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">IN_ANY_ARENA</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">()))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
 
-        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">NOT_ANY_ARENA</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">()))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">getKey</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">ARENA_KEY</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">()))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">()).</span><span class="na">equals</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">getValue</span><span class="p">()))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">ContextCalculator</span></code> can be registered via:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">permissionService</span><span class="o">.</span><span class="na">registerContextCalculator</span><span class="o">(</span><span class="n">contextCalculator</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">permissionService</span><span class="p">.</span><span class="na">registerContextCalculator</span><span class="p">(</span><span class="n">contextCalculator</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -620,17 +620,17 @@ The String passed into that method has no use at all in a Vanilla Forge environm
 takes that String and converts it into a working permission.</p>
 <div class="section" id="id4">
 <h3>Example<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AwesomeBlock</span> <span class="kd">extends</span> <span class="n">Block</span> <span class="o">{</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AwesomeBlock</span> <span class="kd">extends</span> <span class="n">Block</span> <span class="p">{</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onBlockActivated</span><span class="o">(</span><span class="n">World</span> <span class="n">world</span><span class="o">,</span> <span class="n">BlockPos</span> <span class="n">pos</span><span class="o">,</span> <span class="n">IBlockState</span> <span class="n">state</span><span class="o">,</span>
-            <span class="n">EntityPlayer</span> <span class="n">player</span><span class="o">,</span> <span class="n">EnumHand</span> <span class="n">hand</span><span class="o">,</span> <span class="n">EnumFacing</span> <span class="n">facing</span><span class="o">,</span> <span class="kt">float</span> <span class="n">hitX</span><span class="o">,</span> <span class="kt">float</span> <span class="n">hitY</span><span class="o">,</span> <span class="kt">float</span> <span class="n">hitZ</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">player</span><span class="o">.</span><span class="na">canUseCommand</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="s">&quot;examplemod.awesomeblock.interact&quot;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onBlockActivated</span><span class="p">(</span><span class="n">World</span> <span class="n">world</span><span class="p">,</span> <span class="n">BlockPos</span> <span class="n">pos</span><span class="p">,</span> <span class="n">IBlockState</span> <span class="n">state</span><span class="p">,</span>
+            <span class="n">EntityPlayer</span> <span class="n">player</span><span class="p">,</span> <span class="n">EnumHand</span> <span class="n">hand</span><span class="p">,</span> <span class="n">EnumFacing</span> <span class="n">facing</span><span class="p">,</span> <span class="kt">float</span> <span class="n">hitX</span><span class="p">,</span> <span class="kt">float</span> <span class="n">hitY</span><span class="p">,</span> <span class="kt">float</span> <span class="n">hitZ</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">canUseCommand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">&quot;examplemod.awesomeblock.interact&quot;</span><span class="p">))</span> <span class="p">{</span>
             <span class="c1">// Do cool stuff</span>
-            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>As you can see, we simply check for the OP level and pass in an arbitrary String we want to use as a permission when Sponge is used.

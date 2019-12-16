@@ -181,48 +181,48 @@ be used as a base for custom command APIs.</p>
 <div class="section" id="writing-a-command">
 <h2>Writing a command<a class="headerlink" href="#writing-a-command" title="Permalink to this headline">¶</a></h2>
 <p>The first step is to create a class for the command. The class has to implement the interface <code class="docutils literal notranslate"><span class="pre">CommandCallable</span></code>:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandCallable</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandResult</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandSource</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandCallable</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandResult</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandSource</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyBroadcastCommand</span> <span class="kd">implements</span> <span class="n">CommandCallable</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyBroadcastCommand</span> <span class="kd">implements</span> <span class="n">CommandCallable</span> <span class="p">{</span>
 
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="n">desc</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Displays a message to all players&quot;</span><span class="o">));</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="n">help</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;Displays a message to all players. It has no color support!&quot;</span><span class="o">));</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Text</span> <span class="n">usage</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;&lt;message&gt;&quot;</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="n">desc</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Displays a message to all players&quot;</span><span class="p">));</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="n">help</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Displays a message to all players. It has no color support!&quot;</span><span class="p">));</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Text</span> <span class="n">usage</span> <span class="o">=</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;&lt;message&gt;&quot;</span><span class="p">);</span>
 
-    <span class="kd">public</span> <span class="n">CommandResult</span> <span class="nf">process</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">,</span> <span class="n">String</span> <span class="n">arguments</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">CommandException</span> <span class="o">{</span>
-        <span class="n">Sponge</span><span class="o">.</span><span class="na">getServer</span><span class="o">().</span><span class="na">getBroadcastChannel</span><span class="o">().</span><span class="na">send</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">arguments</span><span class="o">));</span>
-        <span class="k">return</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">success</span><span class="o">();</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">CommandResult</span> <span class="nf">process</span><span class="p">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="p">,</span> <span class="n">String</span> <span class="n">arguments</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">CommandException</span> <span class="p">{</span>
+        <span class="n">Sponge</span><span class="p">.</span><span class="na">getServer</span><span class="p">().</span><span class="na">getBroadcastChannel</span><span class="p">().</span><span class="na">send</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">arguments</span><span class="p">));</span>
+        <span class="k">return</span> <span class="n">CommandResult</span><span class="p">.</span><span class="na">success</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">testPermission</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">source</span><span class="o">.</span><span class="na">hasPermission</span><span class="o">(</span><span class="s">&quot;myplugin.broadcast&quot;</span><span class="o">);</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">testPermission</span><span class="p">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">source</span><span class="p">.</span><span class="na">hasPermission</span><span class="p">(</span><span class="s">&quot;myplugin.broadcast&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="nf">getShortDescription</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">desc</span><span class="o">;</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="nf">getShortDescription</span><span class="p">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">desc</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="nf">getHelp</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">help</span><span class="o">;</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">&gt;</span> <span class="nf">getHelp</span><span class="p">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">help</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="n">Text</span> <span class="nf">getUsage</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">usage</span><span class="o">;</span>
-    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Text</span> <span class="nf">getUsage</span><span class="p">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">usage</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getSuggestions</span><span class="o">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="o">,</span> <span class="n">String</span> <span class="n">arguments</span><span class="o">,</span> <span class="nd">@Nullable</span> <span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">targetPosition</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">CommandException</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getSuggestions</span><span class="p">(</span><span class="n">CommandSource</span> <span class="n">source</span><span class="p">,</span> <span class="n">String</span> <span class="n">arguments</span><span class="p">,</span> <span class="nd">@Nullable</span> <span class="n">Location</span><span class="o">&lt;</span><span class="n">World</span><span class="o">&gt;</span> <span class="n">targetPosition</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">CommandException</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Collections</span><span class="p">.</span><span class="na">emptyList</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -236,11 +236,11 @@ be used as a base for custom command APIs.</p>
 watching what commands get typed into chat, and redirecting them to the right command handler.
 To register your command, use the method <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/CommandManager.html#register-java.lang.Object-org.spongepowered.api.command.CommandCallable-java.lang.String...-">CommandManager#register(Object, CommandCallable, String…)</a>,
 passing your plugin, an instance of the command, and any needed aliases as parameters.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandManager</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.CommandManager</span><span class="p">;</span>
 
-<span class="n">CommandManager</span> <span class="n">cmdService</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getCommandManager</span><span class="o">();</span>
-<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">cmdService</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">plugin</span><span class="o">,</span> <span class="k">new</span> <span class="n">MyBroadcastCommand</span><span class="o">(),</span> <span class="s">&quot;message&quot;</span><span class="o">,</span> <span class="s">&quot;broadcast&quot;</span><span class="o">);</span>
+<span class="n">CommandManager</span> <span class="n">cmdService</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getCommandManager</span><span class="p">();</span>
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">cmdService</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">plugin</span><span class="p">,</span> <span class="k">new</span> <span class="n">MyBroadcastCommand</span><span class="p">(),</span> <span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="s">&quot;broadcast&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -255,17 +255,17 @@ used by another command are ignored.</p>
 <p>Command dispatchers can be used to create hierarchical command structures (subcommands).</p>
 <p>The default implementation of the <code class="docutils literal notranslate"><span class="pre">Dispatcher</span></code> interface is the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/dispatcher/SimpleDispatcher.html">SimpleDispatcher</a> class.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">Dispatcher</span></code> is also a <code class="docutils literal notranslate"><span class="pre">CommandCallable</span></code>, so it can be registered like any other command.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.dispatcher.SimpleDispatcher</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.dispatcher.SimpleDispatcher</span><span class="p">;</span>
 
-<span class="n">CommandCallable</span> <span class="n">subCommand1</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="n">CommandCallable</span> <span class="n">subCommand2</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="n">CommandCallable</span> <span class="n">subCommand1</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">CommandCallable</span> <span class="n">subCommand2</span> <span class="o">=</span> <span class="p">...;</span>
 
-<span class="n">SimpleDispatcher</span> <span class="n">rootCommand</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleDispatcher</span><span class="o">();</span>
+<span class="n">SimpleDispatcher</span> <span class="n">rootCommand</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleDispatcher</span><span class="p">();</span>
 
-<span class="n">rootCommand</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">subCommand1</span><span class="o">,</span> <span class="s">&quot;subcommand1&quot;</span><span class="o">,</span> <span class="s">&quot;sub1&quot;</span><span class="o">);</span>
-<span class="n">rootCommand</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">subCommand2</span><span class="o">,</span> <span class="s">&quot;subcommand2&quot;</span><span class="o">,</span> <span class="s">&quot;sub2&quot;</span><span class="o">);</span>
+<span class="n">rootCommand</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">subCommand1</span><span class="p">,</span> <span class="s">&quot;subcommand1&quot;</span><span class="p">,</span> <span class="s">&quot;sub1&quot;</span><span class="p">);</span>
+<span class="n">rootCommand</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">subCommand2</span><span class="p">,</span> <span class="s">&quot;subcommand2&quot;</span><span class="p">,</span> <span class="s">&quot;sub2&quot;</span><span class="p">);</span>
 
-<span class="n">Sponge</span><span class="o">.</span><span class="na">getCommandManager</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">rootCommand</span><span class="o">,</span> <span class="s">&quot;root&quot;</span><span class="o">);</span>
+<span class="n">Sponge</span><span class="p">.</span><span class="na">getCommandManager</span><span class="p">().</span><span class="na">register</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">rootCommand</span><span class="p">,</span> <span class="s">&quot;root&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>

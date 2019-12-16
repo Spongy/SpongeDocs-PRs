@@ -191,27 +191,27 @@
 <p>For example, the text <code class="docutils literal notranslate"><span class="pre">&quot;Hello</span> <span class="pre">World!&quot;</span></code>, formatted with the color red and an underline, would have the following HOCON
 representation:</p>
 <div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">{</span>
-    <span class="n">underlined</span><span class="o">=</span><span class="k">true</span>
-    <span class="n">color</span><span class="o">=</span><span class="n">red</span>
-    <span class="nb">text</span><span class="o">=</span><span class="ss">&quot;Hello World!&quot;</span>
+<span class="err">    underlined=true</span>
+<span class="err">    color=red</span>
+<span class="err">    text=&quot;Hello World!&quot;</span>
 <span class="err">}</span>
 </pre></div>
 </div>
 <p>To save a <code class="docutils literal notranslate"><span class="pre">Text</span></code> object simply set the value of your desired node using the following code:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.google.common.reflect.TypeToken</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextStyles</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">com.google.common.reflect.TypeToken</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextStyles</span><span class="p">;</span>
 
-<span class="n">ConfigurationNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
-<span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">TextColors</span><span class="o">.</span><span class="na">RED</span><span class="o">,</span> <span class="n">TextStyles</span><span class="o">.</span><span class="na">UNDERLINE</span><span class="o">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="o">);</span>
-<span class="n">node</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;mytext&quot;</span><span class="o">).</span><span class="na">setValue</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">text</span><span class="o">);</span>
-<span class="n">loader</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">node</span><span class="o">);</span>
+<span class="n">ConfigurationNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">loader</span><span class="p">.</span><span class="na">load</span><span class="p">();</span>
+<span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">TextColors</span><span class="p">.</span><span class="na">RED</span><span class="p">,</span> <span class="n">TextStyles</span><span class="p">.</span><span class="na">UNDERLINE</span><span class="p">,</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
+<span class="n">node</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;mytext&quot;</span><span class="p">).</span><span class="na">setValue</span><span class="p">(</span><span class="n">TypeToken</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">class</span><span class="p">),</span> <span class="n">text</span><span class="p">);</span>
+<span class="n">loader</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">node</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>You can then load a <code class="docutils literal notranslate"><span class="pre">Text</span></code> object using the following code:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">&quot;mytext&quot;</span><span class="o">).</span><span class="na">getValue</span><span class="o">(</span><span class="n">TypeToken</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="na">getNode</span><span class="p">(</span><span class="s">&quot;mytext&quot;</span><span class="p">).</span><span class="na">getValue</span><span class="p">(</span><span class="n">TypeToken</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">class</span><span class="p">));</span>
 </pre></div>
 </div>
 <div class="admonition note">

@@ -189,12 +189,12 @@ nested <code class="docutils literal notranslate"><span class="pre">DataView</sp
 As an example, calling <code class="docutils literal notranslate"><span class="pre">toContainer()</span></code> on a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a> instance will yield a <code class="docutils literal notranslate"><span class="pre">DataContainer</span></code> containing
 two values, one for the current and one for the maximum health, each identified by the <code class="docutils literal notranslate"><span class="pre">DataQuery</span></code> of the respective
 <code class="docutils literal notranslate"><span class="pre">Key</span></code>.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Keys</span><span class="p">;</span>
 
-<span class="n">DataContainer</span> <span class="n">serializedHealth</span> <span class="o">=</span> <span class="n">healthData</span><span class="o">.</span><span class="na">toContainer</span><span class="o">();</span>
-<span class="kt">double</span> <span class="n">currentHealth</span> <span class="o">=</span> <span class="n">serializedHealth</span><span class="o">.</span><span class="na">getDouble</span><span class="o">(</span><span class="n">Keys</span><span class="o">.</span><span class="na">HEALTH</span><span class="o">.</span><span class="na">getQuery</span><span class="o">()).</span><span class="na">get</span><span class="o">();</span>
-<span class="n">currentHealth</span> <span class="o">==</span> <span class="n">healthData</span><span class="o">.</span><span class="na">health</span><span class="o">().</span><span class="na">get</span><span class="o">();</span>  <span class="c1">// true</span>
+<span class="n">DataContainer</span> <span class="n">serializedHealth</span> <span class="o">=</span> <span class="n">healthData</span><span class="p">.</span><span class="na">toContainer</span><span class="p">();</span>
+<span class="kt">double</span> <span class="n">currentHealth</span> <span class="o">=</span> <span class="n">serializedHealth</span><span class="p">.</span><span class="na">getDouble</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">.</span><span class="na">getQuery</span><span class="p">()).</span><span class="na">get</span><span class="p">();</span>
+<span class="n">currentHealth</span> <span class="o">==</span> <span class="n">healthData</span><span class="p">.</span><span class="na">health</span><span class="p">().</span><span class="na">get</span><span class="p">();</span>  <span class="c1">// true</span>
 </pre></div>
 </div>
 <p>Converting this container back into a <code class="docutils literal notranslate"><span class="pre">HealthData</span></code> instance is done by the corresponding <code class="docutils literal notranslate"><span class="pre">DataBuilder</span></code>. Those are
@@ -203,27 +203,27 @@ or using the <a class="reference external" href="https://jd.spongepowered.org/7.
 <code class="docutils literal notranslate"><span class="pre">DataBuilder</span></code> to deserialize a given class and additionally a shorthand method to get the <code class="docutils literal notranslate"><span class="pre">DataBuilder</span></code> and have it
 do the deserialization in one step. Both of the following code examples are functionally equivalent.</p>
 <p><strong>Code Example: Deserialization, the long way</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataView</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.HealthData</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.persistence.DataBuilder</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataView</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.HealthData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.util.persistence.DataBuilder</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">deserializeHealth</span><span class="o">(</span><span class="n">DataView</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">DataBuilder</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getDataManager</span><span class="o">().</span><span class="na">getBuilder</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">build</span><span class="o">(</span><span class="n">container</span><span class="o">);</span>
-    <span class="o">}</span>
-    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">deserializeHealth</span><span class="p">(</span><span class="n">DataView</span> <span class="n">container</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">DataBuilder</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getDataManager</span><span class="p">().</span><span class="na">getBuilder</span><span class="p">(</span><span class="n">HealthData</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">builder</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">builder</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">build</span><span class="p">(</span><span class="n">container</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Code Example: Deserialization, the short way</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.HealthData</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.manipulator.mutable.entity.HealthData</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">deserializeHealth</span><span class="o">(</span><span class="n">DataView</span> <span class="n">container</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getDataManager</span><span class="o">().</span><span class="na">deserialize</span><span class="o">(</span><span class="n">HealthData</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">container</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">deserializeHealth</span><span class="p">(</span><span class="n">DataView</span> <span class="n">container</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getDataManager</span><span class="p">().</span><span class="na">deserialize</span><span class="p">(</span><span class="n">HealthData</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">container</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">deserializeHealth</span></code> function will return <code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code> if there is no <code class="docutils literal notranslate"><span class="pre">DataBuilder</span></code> registered for
@@ -239,25 +239,25 @@ reside in memory only and thus will not persist over a server restart. In order 
 <code class="docutils literal notranslate"><span class="pre">DataView</span></code> to a <a class="reference external" href="https://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/ConfigurationNode.html">ConfigurationNode</a> and vice versa. <code class="docutils literal notranslate"><span class="pre">ConfigurationNode</span></code>s can then be written to and read
 from persistent files using the <a class="reference internal" href="../configuration/index.html"><span class="doc">Configurate Library</span></a>.</p>
 <p><strong>Code Example: Serializing a HealthData instance to Configurate</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.persistence.DataTranslator</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.persistence.DataTranslators</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ninja.leaping.configurate.ConfigurationNode</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.persistence.DataTranslator</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.persistence.DataTranslators</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="n">ConfigurationNode</span> <span class="nf">translateToConfig</span><span class="o">(</span><span class="n">HealthData</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">DataTranslator</span><span class="o">&lt;</span><span class="n">ConfigurationNode</span><span class="o">&gt;</span> <span class="n">translator</span> <span class="o">=</span> <span class="n">DataTranslators</span><span class="o">.</span><span class="na">CONFIGURATION_NODE</span><span class="o">;</span>
-    <span class="kd">final</span> <span class="n">DataView</span> <span class="n">container</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">toContainer</span><span class="o">();</span>
-    <span class="k">return</span> <span class="n">translator</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="n">container</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="n">ConfigurationNode</span> <span class="nf">translateToConfig</span><span class="p">(</span><span class="n">HealthData</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="n">DataTranslator</span><span class="o">&lt;</span><span class="n">ConfigurationNode</span><span class="o">&gt;</span> <span class="n">translator</span> <span class="o">=</span> <span class="n">DataTranslators</span><span class="p">.</span><span class="na">CONFIGURATION_NODE</span><span class="p">;</span>
+    <span class="kd">final</span> <span class="n">DataView</span> <span class="n">container</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="na">toContainer</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">translator</span><span class="p">.</span><span class="na">translate</span><span class="p">(</span><span class="n">container</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Code Example: Deserializing a HealthData instance from Configurate</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
 
-<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">translateFromConfig</span><span class="o">(</span><span class="n">ConfigurationNode</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">DataTranslator</span><span class="o">&lt;</span><span class="n">ConfigurationNode</span><span class="o">&gt;</span> <span class="n">translator</span> <span class="o">=</span> <span class="n">DataTranslators</span><span class="o">.</span><span class="na">CONFIGURATION_NODE</span><span class="o">;</span>
-    <span class="kd">final</span> <span class="n">DataView</span> <span class="n">container</span> <span class="o">=</span> <span class="n">translator</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="n">node</span><span class="o">);</span>
-    <span class="k">return</span> <span class="n">deserializeHealth</span><span class="o">(</span><span class="n">container</span><span class="o">);</span>
-<span class="o">}</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">translateFromConfig</span><span class="p">(</span><span class="n">ConfigurationNode</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="n">DataTranslator</span><span class="o">&lt;</span><span class="n">ConfigurationNode</span><span class="o">&gt;</span> <span class="n">translator</span> <span class="o">=</span> <span class="n">DataTranslators</span><span class="p">.</span><span class="na">CONFIGURATION_NODE</span><span class="p">;</span>
+    <span class="kd">final</span> <span class="n">DataView</span> <span class="n">container</span> <span class="o">=</span> <span class="n">translator</span><span class="p">.</span><span class="na">translate</span><span class="p">(</span><span class="n">node</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">deserializeHealth</span><span class="p">(</span><span class="n">container</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -270,52 +270,52 @@ provided <code class="docutils literal notranslate"><span class="pre">DataFormat
 of a <code class="docutils literal notranslate"><span class="pre">DataContainer</span></code>. The output JSON could then easily be stored in a database. We can then use the same
 <code class="docutils literal notranslate"><span class="pre">DataFormat</span></code> to recreate the original <code class="docutils literal notranslate"><span class="pre">DataContainer</span></code> from this JSON when required.</p>
 <p><strong>Imports for code examples</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.persistence.DataFormats</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.item.inventory.ItemStackSnapshot</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.persistence.DataFormats</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.item.inventory.ItemStackSnapshot</span><span class="p">;</span>
 
-<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.OutputStream</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.nio.file.Files</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.OutputStream</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.nio.file.Files</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
 </pre></div>
 </div>
 <p><strong>Code Example: Serializing an ItemStackSnapshot to JSON format</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">json</span> <span class="o">=</span> <span class="n">DataFormats</span><span class="o">.</span><span class="na">JSON</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">itemStack</span><span class="o">.</span><span class="na">toContainer</span><span class="o">());</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">json</span> <span class="o">=</span> <span class="n">DataFormats</span><span class="p">.</span><span class="na">JSON</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">itemStack</span><span class="p">.</span><span class="na">toContainer</span><span class="p">());</span>
 </pre></div>
 </div>
 <p><strong>Code Example: Deserializing an ItemStackSnapshot from JSON format</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">DataContainer</span> <span class="n">container</span> <span class="o">=</span> <span class="n">DataFormats</span><span class="o">.</span><span class="na">JSON</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">json</span><span class="o">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">DataContainer</span> <span class="n">container</span> <span class="o">=</span> <span class="n">DataFormats</span><span class="p">.</span><span class="na">JSON</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">json</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><strong>Code Example: Writing an ItemStackSnapshot to a file using NBT</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeItemStackSnapshotToFile</span><span class="o">(</span><span class="n">ItemStackSnapshot</span> <span class="n">itemStackSnapshot</span><span class="o">,</span> <span class="n">Path</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">DataContainer</span> <span class="n">dataContainer</span> <span class="o">=</span> <span class="n">itemStackSnapshot</span><span class="o">.</span><span class="na">toContainer</span><span class="o">();</span>
-    <span class="k">try</span> <span class="o">(</span><span class="n">OutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="n">Files</span><span class="o">.</span><span class="na">newOutputStream</span><span class="o">(</span><span class="n">path</span><span class="o">))</span> <span class="o">{</span>
-        <span class="n">DataFormats</span><span class="o">.</span><span class="na">NBT</span><span class="o">.</span><span class="na">writeTo</span><span class="o">(</span><span class="n">outputStream</span><span class="o">,</span> <span class="n">dataContainer</span><span class="o">);</span>
-    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeItemStackSnapshotToFile</span><span class="p">(</span><span class="n">ItemStackSnapshot</span> <span class="n">itemStackSnapshot</span><span class="p">,</span> <span class="n">Path</span> <span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">DataContainer</span> <span class="n">dataContainer</span> <span class="o">=</span> <span class="n">itemStackSnapshot</span><span class="p">.</span><span class="na">toContainer</span><span class="p">();</span>
+    <span class="k">try</span> <span class="p">(</span><span class="n">OutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="n">Files</span><span class="p">.</span><span class="na">newOutputStream</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">DataFormats</span><span class="p">.</span><span class="na">NBT</span><span class="p">.</span><span class="na">writeTo</span><span class="p">(</span><span class="n">outputStream</span><span class="p">,</span> <span class="n">dataContainer</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// For the purposes of this example, we just print the error to the console. However,</span>
         <span class="c1">// as this exception indicates the file didn&#39;t save, you should handle this in a way</span>
         <span class="c1">// more suitable for your plugin.</span>
-        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+        <span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Code Example: Reading an ItemStackSnapshot from a file using NBT</strong></p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">ItemStackSnapshot</span><span class="o">&gt;</span> <span class="nf">readItemStackSnapshotFromFile</span><span class="o">(</span><span class="n">Path</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">try</span> <span class="o">(</span><span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">Files</span><span class="o">.</span><span class="na">newInputStream</span><span class="o">(</span><span class="n">path</span><span class="o">))</span> <span class="o">{</span>
-        <span class="n">DataContainer</span> <span class="n">dataContainer</span> <span class="o">=</span> <span class="n">DataFormats</span><span class="o">.</span><span class="na">NBT</span><span class="o">.</span><span class="na">readFrom</span><span class="o">(</span><span class="n">inputStream</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">Sponge</span><span class="o">.</span><span class="na">getDataManager</span><span class="o">().</span><span class="na">deserialize</span><span class="o">(</span><span class="n">ItemStackSnapshot</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">dataContainer</span><span class="o">);</span>
-    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-    <span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">ItemStackSnapshot</span><span class="o">&gt;</span> <span class="nf">readItemStackSnapshotFromFile</span><span class="p">(</span><span class="n">Path</span> <span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">(</span><span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">Files</span><span class="p">.</span><span class="na">newInputStream</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">DataContainer</span> <span class="n">dataContainer</span> <span class="o">=</span> <span class="n">DataFormats</span><span class="p">.</span><span class="na">NBT</span><span class="p">.</span><span class="na">readFrom</span><span class="p">(</span><span class="n">inputStream</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getDataManager</span><span class="p">().</span><span class="na">deserialize</span><span class="p">(</span><span class="n">ItemStackSnapshot</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">dataContainer</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
-<span class="o">}</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>

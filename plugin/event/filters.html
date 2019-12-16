@@ -190,10 +190,10 @@ These two parameters are used in conjunction with listening for supertype events
 while narrowing the events that you receive to just a subset of the events extending the event you’re listening for.</p>
 <p>For example:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="nd">@Exclude</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Primary</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="o">(</span><span class="n">InteractBlockEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+<span class="nd">@Exclude</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Primary</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// do something</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This listener would normally be called for all events extending InteractBlockEvent. However, the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/filter/type/Exclude.html">Exclude</a>
@@ -201,10 +201,10 @@ annotationte will prevent your listener from being called for the <a class="refe
 just the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/block/InteractBlockEvent.Secondary.html">InteractBlockEvent.Secondary</a> event).</p>
 <p>An example with <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/filter/type/Include.html">Include</a> could be:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="nd">@Include</span><span class="o">({</span><span class="n">DamageEntityEvent</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">DestructEntityEvent</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onEvent</span><span class="o">(</span><span class="n">TargetEntityEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+<span class="nd">@Include</span><span class="p">({</span><span class="n">DamageEntityEvent</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">DestructEntityEvent</span><span class="p">.</span><span class="na">class</span><span class="p">})</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onEvent</span><span class="p">(</span><span class="n">TargetEntityEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// do something</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This listener would normally be called for all EntityEvents, however the <code class="docutils literal notranslate"><span class="pre">Include</span></code> annotation narrows it to only
@@ -238,16 +238,16 @@ parameter then your listener is not called.</p>
 <p><strong>In this example your listener will only be called if there is a player in the event’s cause, and the</strong> <code class="docutils literal notranslate"><span class="pre">player</span></code>
 <strong>parameter will be set to the first player present the cause.</strong></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="o">,</span> <span class="nd">@First</span> <span class="n">Player</span> <span class="n">player</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@First</span> <span class="n">Player</span> <span class="n">player</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// do something</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>&#64;Last</strong> This is similar to <code class="docutils literal notranslate"><span class="pre">&#64;First</span></code> however it instead makes a call to <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/cause/Cause.html#last-java.lang.Class-">Cause#last(Class)</a>.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="o">,</span> <span class="nd">@Last</span> <span class="n">Player</span> <span class="n">player</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@Last</span> <span class="n">Player</span> <span class="n">player</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// do something</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>&#64;Before</strong> This parameter source annotation tells the event system to find the object before the one of the type
@@ -257,9 +257,9 @@ called.</p>
 <p><strong>In this example your listener will only be called if there is a player located before a plugin container in the event’s cause.
 The</strong> <code class="docutils literal notranslate"><span class="pre">player</span></code> <strong>parameter will be set to that player.</strong></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="o">,</span> <span class="nd">@Before</span><span class="o">(</span><span class="n">PluginContainer</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="n">Player</span> <span class="n">player</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@Before</span><span class="p">(</span><span class="n">PluginContainer</span><span class="p">.</span><span class="na">class</span><span class="p">)</span> <span class="n">Player</span> <span class="n">player</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// do something</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>&#64;After</strong> This is similar to <code class="docutils literal notranslate"><span class="pre">&#64;Before</span></code>, but it instead uses <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/cause/Cause.html#after-java.lang.Class-">Cause#after(Class)</a>.</p>
@@ -269,9 +269,9 @@ empty then the validation fails however this can be disabled by setting <code cl
 <p><strong>In this example your listener will always be called, although the players array may be empty if the event’s cause
 contained no players.</strong></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="o">,</span> <span class="nd">@All</span><span class="o">(</span><span class="n">ignoreEmpty</span><span class="o">=</span><span class="kc">false</span><span class="o">)</span> <span class="n">Player</span><span class="o">[]</span> <span class="n">players</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@All</span><span class="p">(</span><span class="n">ignoreEmpty</span><span class="o">=</span><span class="kc">false</span><span class="p">)</span> <span class="n">Player</span><span class="o">[]</span> <span class="n">players</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// do something</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>&#64;Root</strong> This parameter source annotation will fetch the root object of the cause, equivalent to
@@ -282,9 +282,9 @@ getter returns an <code class="docutils literal notranslate"><span class="pre">O
 <p><strong>In this example, we attempt to retrieve the value of</strong> <code class="docutils literal notranslate"><span class="pre">getUseItemResult</span></code> <strong>using the</strong> <code class="docutils literal notranslate"><span class="pre">&#64;Getter</span></code>
 <strong>annotation.</strong></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="o">,</span> <span class="nd">@Getter</span><span class="o">(</span><span class="s">&quot;getUseItemResult&quot;</span><span class="o">)</span> <span class="n">Tristate</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@Getter</span><span class="p">(</span><span class="s">&quot;getUseItemResult&quot;</span><span class="p">)</span> <span class="n">Tristate</span> <span class="n">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// do something</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -299,9 +299,9 @@ This parameter filter may be applied to any parameter type which is a <a class="
 <p><strong>In this example the listener will be called only if there is an entity in the event’s cause, and if that entity supports
 the data manipulator</strong> <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/entity/FlyingData.html">FlyingData</a>.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="o">,</span> <span class="nd">@First</span> <span class="nd">@Supports</span><span class="o">(</span><span class="n">FlyingData</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="n">Entity</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@First</span> <span class="nd">@Supports</span><span class="p">(</span><span class="n">FlyingData</span><span class="p">.</span><span class="na">class</span><span class="p">)</span> <span class="n">Entity</span> <span class="n">entity</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// do something</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>&#64;Has</strong>
@@ -310,9 +310,9 @@ This parameter filter is similar to the <code class="docutils literal notranslat
 <p><strong>In this example the listener will be called only if there is an entity in the event’s cause, and if that entity has an
 instance of</strong> <code class="docutils literal notranslate"><span class="pre">FlyingData</span></code> <strong>available.</strong></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="o">(</span><span class="n">InteractBlockEvent</span><span class="o">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="o">,</span> <span class="nd">@First</span> <span class="nd">@Has</span><span class="o">(</span><span class="n">FlyingData</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="n">Entity</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@First</span> <span class="nd">@Has</span><span class="p">(</span><span class="n">FlyingData</span><span class="p">.</span><span class="na">class</span><span class="p">)</span> <span class="n">Entity</span> <span class="n">entity</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// do something</span>
-<span class="o">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">

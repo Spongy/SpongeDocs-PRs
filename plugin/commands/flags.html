@@ -180,13 +180,13 @@ as a command argument.</p>
 <p>To create a flag, we first need a builder for flags. We can simply use the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/args/GenericArguments.html#flags--">GenericArguments#flags()</a> method
 provided by <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/args/GenericArguments.html">GenericArguments</a> to obtain the builder we need. From there, we can specify what type of flag we
 would like to create. Note that flags are specified as an argument.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.GenericArguments</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandSpec</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.GenericArguments</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.command.spec.CommandSpec</span><span class="p">;</span>
 
-<span class="n">CommandSpec</span> <span class="n">myCommand</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">executor</span><span class="o">(</span><span class="k">new</span> <span class="n">MyCommand</span><span class="o">())</span>
-    <span class="o">.</span><span class="na">arguments</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">flags</span><span class="o">().</span><span class="na">flag</span><span class="o">(</span><span class="s">&quot;s&quot;</span><span class="o">).</span><span class="na">buildWith</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">none</span><span class="o">()))</span>
-    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="n">CommandSpec</span> <span class="n">myCommand</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">executor</span><span class="p">(</span><span class="k">new</span> <span class="n">MyCommand</span><span class="p">())</span>
+    <span class="p">.</span><span class="na">arguments</span><span class="p">(</span><span class="n">GenericArguments</span><span class="p">.</span><span class="na">flags</span><span class="p">().</span><span class="na">flag</span><span class="p">(</span><span class="s">&quot;s&quot;</span><span class="p">).</span><span class="na">buildWith</span><span class="p">(</span><span class="n">GenericArguments</span><span class="p">.</span><span class="na">none</span><span class="p">()))</span>
+    <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>This will create a command flag, so that when the player performs <code class="docutils literal notranslate"><span class="pre">/our-command</span> <span class="pre">-s</span></code>, the flag for <code class="docutils literal notranslate"><span class="pre">s</span></code> will be true.
@@ -196,11 +196,11 @@ wish for the command to have arguments and flags, you will need to specify your 
 <p>Now that we have specified that our command may be run with the flag, we can now get the value of the flag. For a
 simple boolean flag like the one we have specified above, we can simply just check if it exists. In the example below,
 we are checking if the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/args/CommandContext.html">CommandContext</a> for the command has a value for <code class="docutils literal notranslate"><span class="pre">s</span></code>.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="p">;</span>
 
-<span class="k">if</span> <span class="o">(</span><span class="n">args</span><span class="o">.</span><span class="na">hasAny</span><span class="o">(</span><span class="s">&quot;s&quot;</span><span class="o">))</span> <span class="o">{</span>
-    <span class="n">src</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;The command flag s was specified!&quot;</span><span class="o">));</span>
-<span class="o">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">args</span><span class="p">.</span><span class="na">hasAny</span><span class="p">(</span><span class="s">&quot;s&quot;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">src</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;The command flag s was specified!&quot;</span><span class="p">));</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="section" id="permission-flags">
@@ -208,11 +208,11 @@ we are checking if the <a class="reference external" href="https://jd.spongepowe
 <p>Our flags so far are great, but what if we wanted to have it so that a player needs a permission to use a flag? We can
 instead use the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/args/CommandFlags.Builder.html#permissionFlag-java.lang.String-java.lang.String...-">CommandFlags.Builder#permissionFlag(String, String…)</a> method on our flag builder. This will
 require the player to have a specific permission to run the command with the flag. An example of this is below:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">CommandSpec</span> <span class="n">myCommand</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">executor</span><span class="o">(</span><span class="k">new</span> <span class="n">MyCommand</span><span class="o">())</span>
-        <span class="o">.</span><span class="na">arguments</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">flags</span><span class="o">().</span><span class="na">permissionFlag</span><span class="o">(</span><span class="s">&quot;myplugin.command.flag&quot;</span><span class="o">,</span>
-            <span class="s">&quot;s&quot;</span><span class="o">).</span><span class="na">buildWith</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">none</span><span class="o">()))</span>
-        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">CommandSpec</span> <span class="n">myCommand</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">executor</span><span class="p">(</span><span class="k">new</span> <span class="n">MyCommand</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">arguments</span><span class="p">(</span><span class="n">GenericArguments</span><span class="p">.</span><span class="na">flags</span><span class="p">().</span><span class="na">permissionFlag</span><span class="p">(</span><span class="s">&quot;myplugin.command.flag&quot;</span><span class="p">,</span>
+            <span class="s">&quot;s&quot;</span><span class="p">).</span><span class="na">buildWith</span><span class="p">(</span><span class="n">GenericArguments</span><span class="p">.</span><span class="na">none</span><span class="p">()))</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>If a player does not have the permission <code class="docutils literal notranslate"><span class="pre">myplugin.command.flag</span></code>, then they will not be allowed to execute our
@@ -224,25 +224,25 @@ command with the command flag <code class="docutils literal notranslate"><span c
 come into play. We simply need to use the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/args/CommandFlags.Builder.html#valueFlag-org.spongepowered.api.command.args.CommandElement-java.lang.String...-">CommandFlags.Builder#valueFlag(CommandElement, String…)</a> method
 on our flag builder. Using the <code class="docutils literal notranslate"><span class="pre">valueFlag()</span></code> method, we can specify the type of flag we want to create, such as an
 integer or string. Creating an integer value flag can be done like so:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">CommandSpec</span> <span class="n">myCommand</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">executor</span><span class="o">(</span><span class="k">new</span> <span class="n">MyCommand</span><span class="o">())</span>
-        <span class="o">.</span><span class="na">arguments</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">flags</span><span class="o">().</span><span class="na">valueFlag</span><span class="o">(</span><span class="n">GenericArguments</span>
-                <span class="o">.</span><span class="na">integer</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;value&quot;</span><span class="o">)),</span> <span class="s">&quot;s&quot;</span><span class="o">).</span><span class="na">buildWith</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">none</span><span class="o">()))</span>
-        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">CommandSpec</span> <span class="n">myCommand</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">executor</span><span class="p">(</span><span class="k">new</span> <span class="n">MyCommand</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">arguments</span><span class="p">(</span><span class="n">GenericArguments</span><span class="p">.</span><span class="na">flags</span><span class="p">().</span><span class="na">valueFlag</span><span class="p">(</span><span class="n">GenericArguments</span>
+                <span class="p">.</span><span class="na">integer</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">)),</span> <span class="s">&quot;s&quot;</span><span class="p">).</span><span class="na">buildWith</span><span class="p">(</span><span class="n">GenericArguments</span><span class="p">.</span><span class="na">none</span><span class="p">()))</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>You may replace <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/args/GenericArguments.html#integer-org.spongepowered.api.text.Text-">GenericArguments#integer(Text)</a> with any other flag type you would like to specify, such as
 <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/command/args/GenericArguments.html#string-org.spongepowered.api.text.Text-">GenericArguments#string(Text)</a>.</p>
 <p>Now to retrieve the flag value from our command, we can simply treat it like any other command argument. We simply need
 to check if it exists before retrieving it:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
 
-<span class="n">Optional</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">optional</span> <span class="o">=</span> <span class="n">args</span><span class="o">.&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="n">getOne</span><span class="o">(</span><span class="s">&quot;value&quot;</span><span class="o">);</span>
-<span class="k">if</span> <span class="o">(</span><span class="n">optional</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-    <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">optional</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">intValue</span><span class="o">();</span>
-<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-    <span class="n">src</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">Text</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&quot;The value flag was not specified.&quot;</span><span class="o">));</span>
-<span class="o">}</span>
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">optional</span> <span class="o">=</span> <span class="n">args</span><span class="p">.</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="n">getOne</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">optional</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">optional</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">intValue</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">src</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;The value flag was not specified.&quot;</span><span class="p">));</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -251,18 +251,18 @@ to check if it exists before retrieving it:</p>
 <p>As an alternative to short flags like the ones we have been using above, we can also use long flags. Using a long flag,
 you can specify a value along with the flag using equals (<code class="docutils literal notranslate"><span class="pre">=</span></code>) in the command. To create a long flag, simply prefix your
 normal flag with a dash <code class="docutils literal notranslate"><span class="pre">-</span></code>, like so:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">CommandSpec</span> <span class="n">myCommand</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">executor</span><span class="o">(</span><span class="k">new</span> <span class="n">MyCommand</span><span class="o">())</span>
-        <span class="o">.</span><span class="na">arguments</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">flags</span><span class="o">().</span><span class="na">flag</span><span class="o">(</span><span class="s">&quot;-myflag&quot;</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">buildWith</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">none</span><span class="o">()))</span>
-        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">CommandSpec</span> <span class="n">myCommand</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">executor</span><span class="p">(</span><span class="k">new</span> <span class="n">MyCommand</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">arguments</span><span class="p">(</span><span class="n">GenericArguments</span><span class="p">.</span><span class="na">flags</span><span class="p">().</span><span class="na">flag</span><span class="p">(</span><span class="s">&quot;-myflag&quot;</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">buildWith</span><span class="p">(</span><span class="n">GenericArguments</span><span class="p">.</span><span class="na">none</span><span class="p">()))</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>We can retrieve the value that was specified with our flag similarly to value flags:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">optional</span> <span class="o">=</span> <span class="n">args</span><span class="o">.&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="n">getOne</span><span class="o">(</span><span class="s">&quot;myflag&quot;</span><span class="o">);</span>
-<span class="k">if</span> <span class="o">(</span><span class="n">optional</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-    <span class="n">String</span> <span class="n">value</span> <span class="o">=</span> <span class="n">optional</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-<span class="o">}</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">optional</span> <span class="o">=</span> <span class="n">args</span><span class="p">.</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="n">getOne</span><span class="p">(</span><span class="s">&quot;myflag&quot;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">optional</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="n">value</span> <span class="o">=</span> <span class="n">optional</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>So if a user runs <code class="docutils literal notranslate"><span class="pre">/our-command</span> <span class="pre">--myflag=Flag_Value</span></code>, the <code class="docutils literal notranslate"><span class="pre">Flag_Value</span></code> will be stored in the string <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
@@ -271,15 +271,15 @@ normal flag with a dash <code class="docutils literal notranslate"><span class="
 <h2>Unknown Flag Behavior<a class="headerlink" href="#unknown-flag-behavior" title="Permalink to this headline">¶</a></h2>
 <p>Now what if we didn’t specify a specific flag to go along with our command, but still wanted to accept unknown flags?
 We can set the unknown flag behavior of our command to achieve this:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.CommandFlags</span><span class="o">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.command.args.CommandFlags</span><span class="p">;</span>
 
-<span class="n">CommandSpec</span> <span class="n">myCommand</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">executor</span><span class="o">(</span><span class="k">new</span> <span class="n">MyCommand</span><span class="o">())</span>
-            <span class="o">.</span><span class="na">arguments</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">flags</span><span class="o">()</span>
-                    <span class="o">.</span><span class="na">setUnknownShortFlagBehavior</span><span class="o">(</span>
-                        <span class="n">CommandFlags</span><span class="o">.</span><span class="na">UnknownFlagBehavior</span><span class="o">.</span><span class="na">ACCEPT_VALUE</span><span class="o">)</span>
-                    <span class="o">.</span><span class="na">buildWith</span><span class="o">(</span><span class="n">GenericArguments</span><span class="o">.</span><span class="na">none</span><span class="o">()))</span>
-            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="n">CommandSpec</span> <span class="n">myCommand</span> <span class="o">=</span> <span class="n">CommandSpec</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">executor</span><span class="p">(</span><span class="k">new</span> <span class="n">MyCommand</span><span class="p">())</span>
+            <span class="p">.</span><span class="na">arguments</span><span class="p">(</span><span class="n">GenericArguments</span><span class="p">.</span><span class="na">flags</span><span class="p">()</span>
+                    <span class="p">.</span><span class="na">setUnknownShortFlagBehavior</span><span class="p">(</span>
+                        <span class="n">CommandFlags</span><span class="p">.</span><span class="na">UnknownFlagBehavior</span><span class="p">.</span><span class="na">ACCEPT_VALUE</span><span class="p">)</span>
+                    <span class="p">.</span><span class="na">buildWith</span><span class="p">(</span><span class="n">GenericArguments</span><span class="p">.</span><span class="na">none</span><span class="p">()))</span>
+            <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>Using this, we can specify that any short flag with a specified value will be accepted. Without this, attempting to use
