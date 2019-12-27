@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Performance Tweaks &mdash; Sponge 7.1.0 documentation</title>
+
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Server Management" href="index.html"/>        <link rel="next" title="Becoming an Expert Spongineer" href="../spongineer/index.html"/>        <link rel="prev" title="Exploit Patches" href="exploit-patches.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../index.html">
+            <img src="../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Creating a Server</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Server Management</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="whitelist.html">Managing the Whitelist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bans.html">Managing Bans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="permissions.html">Managing Permissions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugins.html">Installing Plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exploit-patches.html">Exploit Patches</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Performance Tweaks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../spongineer/index.html">Becoming an Expert Spongineer</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin/index.html">Creating a Plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+          <li><a href="../index.html">Creating a Server</a> &raquo;</li>
+          <li><a href="index.html">Server Management</a> &raquo;</li>
+    <li>Performance Tweaks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/world-migration-prop/source/server/management/performance-tweaks.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="performance-tweaks">
+<h1>Performance Tweaks<a class="headerlink" href="#performance-tweaks" title="Permalink to this headline">¶</a></h1>
+<p>Sponge provides several performance enhancing and tweaking options to help you run a lag-free server, even
+under heavy load.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">While we try to improve the performance of every server, the performance gains depend on your setup. Please run some
+tests to ensure you configured your Sponge server to get the most out of it!</p>
+</div>
+<div class="section" id="entity-activation-range">
+<h2>Entity Activation Range<a class="headerlink" href="#entity-activation-range" title="Permalink to this headline">¶</a></h2>
+<p>This setting will alter the loading behavior of entities around players. Lowering the value will only load close
+entities, while raising it will also load entities that are far away from the player. Lower this to improve your
+server’s performance, especially with high entity and player counts. To disable activation range for a specific entity
+set its value to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">It’s possible to specify the activation range <em>per mob</em>. You can set <code class="docutils literal notranslate"><span class="pre">auto-populate</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code> and Sponge
+will then add all available mobs to the activation range list, it is advised to disable it after the list is filled.
+If you add new mobs to the game, just repeat the procedure and those new mobs will also be added to the list below.</p>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">entity-activation-range {</span>
+<span class="err">    # If enabled, newly discovered entities will be added to this config with a default value.</span>
+<span class="err">    auto-populate=false</span>
+<span class="err">    # Default activation ranges used for all entities unless overridden.</span>
+<span class="err">    defaults {</span>
+<span class="err">        ambient=32</span>
+<span class="err">        aquatic=32</span>
+<span class="err">        creature=32</span>
+<span class="err">        misc=16</span>
+<span class="err">        monster=32</span>
+<span class="err">    }</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="async-lighting">
+<h2>Async Lighting<a class="headerlink" href="#async-lighting" title="Permalink to this headline">¶</a></h2>
+<p>This setting will run lighting checks on a separate thread to improve performance.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">optimizations {</span>
+<span class="err">    # Runs lighting updates async.</span>
+<span class="err">    async-lighting {</span>
+<span class="err">        # If enabled, runs lighting updates async.</span>
+<span class="err">        enabled=true</span>
+<span class="err">        # The amount of threads to dedicate for async lighting updates. (Default: 2)</span>
+<span class="err">        num-threads=2</span>
+<span class="err">    }</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cache-tameable-owners">
+<h2>Cache Tameable Owners<a class="headerlink" href="#cache-tameable-owners" title="Permalink to this headline">¶</a></h2>
+<p>This setting will cache tameable entities owners’ UUID to save constant lookups from the data watcher.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">optimizations {</span>
+<span class="err">    # Caches tameable entities owners to avoid constant lookups against data watchers. If mods cause issue, disable.</span>
+<span class="err">    cache-tameable-owners=true</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="drops-pre-merge">
+<h2>Drops Pre Merge<a class="headerlink" href="#drops-pre-merge" title="Permalink to this headline">¶</a></h2>
+<p>This setting will pre-process and potentially merge item drops to avoid spawning extra entities that are then merged
+post-spawning.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">optimizations {</span>
+<span class="err">    # If enabled, block item drops are pre-processed to avoid</span>
+<span class="err">    # having to spawn extra entities that will be merged post spawning.</span>
+<span class="err">    # Usually, Sponge is smart enough to determine when to attempt an item pre-merge</span>
+<span class="err">    # and when not to, however, in certain cases, some mods rely on items not being</span>
+<span class="err">    # pre-merged and actually spawned, in which case, the items will flow right through</span>
+<span class="err">    # without being merged.</span>
+<span class="err">    drops-pre-merge=true</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="panda-redstone">
+<h2>Panda Redstone<a class="headerlink" href="#panda-redstone" title="Permalink to this headline">¶</a></h2>
+<p>An alternative Redstone update algorithm, leads to less block updates when Redstone changes.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">optimizations {</span>
+<span class="err">    # If enabled, uses Panda4494&#39;s Redstone implementation which improves performance.</span>
+<span class="err">    # See https://bugs.mojang.com/browse/MC-11193 for more information.</span>
+<span class="err">    # Note: This optimization has a few issues which is explained in the bug report. We are not responsible for any issues this may cause.</span>
+<span class="err">    panda-redstone=false</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="auto-saving-interval-adjustment">
+<h2>Auto-Saving Interval Adjustment<a class="headerlink" href="#auto-saving-interval-adjustment" title="Permalink to this headline">¶</a></h2>
+<p>Vanilla Minecraft defaults to saving all chunks every 900 ticks (45 seconds). If you wish to raise or
+lower this interval, then change it in the servers <code class="docutils literal notranslate"><span class="pre">global.conf</span></code> file:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">world</span> <span class="err">{</span>
+    <span class="o">#</span> <span class="n">The</span> <span class="n">auto</span><span class="o">-</span><span class="n">save</span> <span class="n">tick</span> <span class="nb">interval</span> <span class="n">used</span> <span class="k">when</span> <span class="n">saving</span> <span class="k">global</span> <span class="n">player</span> <span class="k">data</span><span class="p">.</span>
+    <span class="o">#</span> <span class="k">Set</span> <span class="k">to</span> <span class="mi">0</span> <span class="k">to</span> <span class="n">disable</span><span class="p">.</span> <span class="p">(</span><span class="k">Default</span><span class="p">:</span> <span class="mi">900</span><span class="p">)</span> <span class="n">Note</span><span class="p">:</span> <span class="mi">20</span> <span class="n">ticks</span> <span class="k">is</span> <span class="n">equivalent</span> <span class="k">to</span> <span class="mi">1</span> <span class="k">second</span><span class="p">.</span>
+    <span class="n">auto</span><span class="o">-</span><span class="n">player</span><span class="o">-</span><span class="n">save</span><span class="o">-</span><span class="nb">interval</span><span class="o">=</span><span class="mi">900</span>
+
+    <span class="o">#</span> <span class="n">The</span> <span class="n">auto</span><span class="o">-</span><span class="n">save</span> <span class="n">tick</span> <span class="nb">interval</span> <span class="n">used</span> <span class="k">to</span> <span class="n">save</span> <span class="k">all</span> <span class="n">loaded</span> <span class="n">chunks</span> <span class="k">in</span> <span class="n">a</span> <span class="n">world</span><span class="p">.</span>
+    <span class="o">#</span> <span class="k">Set</span> <span class="k">to</span> <span class="mi">0</span> <span class="k">to</span> <span class="n">disable</span><span class="p">.</span> <span class="p">(</span><span class="k">Default</span><span class="p">:</span> <span class="mi">900</span><span class="p">)</span> <span class="n">Note</span><span class="p">:</span> <span class="mi">20</span> <span class="n">ticks</span> <span class="k">is</span> <span class="n">equivalent</span> <span class="k">to</span> <span class="mi">1</span> <span class="k">second</span><span class="p">.</span>
+    <span class="n">auto</span><span class="o">-</span><span class="n">save</span><span class="o">-</span><span class="nb">interval</span><span class="o">=</span><span class="mi">900</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+<p>Reducing this interval increases the load on your server’s CPU and storage, but reduces the data loss that might occur
+if the server locks up or the power fails. Conversely, increasing the auto-save interval reduces the load on the
+hardware, but at the expense of increasing the amount of in-game progress that could be lost in case of server failure.</p>
+</div>
+<div class="section" id="realtime">
+<h2>Realtime<a class="headerlink" href="#realtime" title="Permalink to this headline">¶</a></h2>
+<p>Enabling this will just improve your players experience when tick rate is low, it will not improve performance.
+A limited set of entities, tile entities, and world time will use real time instead of ticks to update.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">modules {</span>
+<span class="err">    # Use real (wall) time instead of ticks as much as possible</span>
+<span class="err">    realtime=false</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+<p>One example of this is baby animals. Normally, they take 20 minutes to grow into an adult. However, if the server is
+lagging, each animal will receive fewer ticks thus increasing the time they take to grow up. This setting updates some
+of their logic to use the actual elapsed wall-clock time, rather than number of ticks. It will also apply to block
+breaking, so no more “breaking blocks multiple times”.</p>
+</div>
+<div class="section" id="deny-chunk-requests">
+<h2>Deny chunk requests<a class="headerlink" href="#deny-chunk-requests" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an experimental setting for performance gain, we recommend to not enable it when you have mods on the server
+and to disable it if you experience any issues regarding the loading of tileentities.</p>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="err">world {</span>
+<span class="err">    # If enabled, any request for a chunk not currently loaded will be denied (exceptions apply for things like world gen and player movement).</span>
+<span class="err">    # Note: As this is an experimental setting for performance gain, if you encounter any issues then we recommend disabling it.</span>
+<span class="err">    deny-chunk-requests=false</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+<p>When this option is enabled, mods requesting areas to be loaded to perform various tasks will be denied. Only players
+and specific world generation calls will be allowed to load new chunks.</p>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../spongineer/index.html" class="btn btn-neutral float-right" title="Becoming an Expert Spongineer" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="exploit-patches.html" class="btn btn-neutral" title="Exploit Patches" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.1.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/world-migration-prop/source/server/management/performance-tweaks.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/world-migration-prop/source/server/management/performance-tweaks.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'7.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../../_static/jquery.js"></script>      <script type="text/javascript" src="../../_static/underscore.js"></script>      <script type="text/javascript" src="../../_static/doctools.js"></script>      <script type="text/javascript" src="../../_static/language_data.js"></script>      <script type="text/javascript" src="../../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>
