@@ -354,6 +354,155 @@ section/class that describes the nested configuration structure.</p>
 </li>
 </ul>
 </div>
+<div class="section" id="cause-tracker-phasetracker">
+<span id="configtype-phasetracker"></span><h4>cause-tracker (PhaseTracker)<a class="headerlink" href="#cause-tracker-phasetracker" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first"><strong>auto-fix-null-source-block-providing-tile-entities</strong></p>
+<div class="line-block">
+<div class="line">A mapping that is semi-auto-populating for TileEntities whose types</div>
+<div class="line">are found to be providing <code class="docutils literal notranslate"><span class="pre">null</span></code> Block sources as neighbor notifications</div>
+<div class="line">that end up causing crashes or spam reports. If the value is set to</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">true</span></code>, then a <code class="docutils literal notranslate"><span class="pre">workaround</span></code> will be attempted. If not, the</div>
+<div class="line">current BlockState at the target source will be queried from the world.</div>
+<div class="line">This map having a specific</div>
+<div class="line">entry of a TileEntity will prevent a log or warning come up to any logs</div>
+<div class="line">when that <code class="docutils literal notranslate"><span class="pre">null</span></code> arises, and Sponge will self-rectify the TileEntity</div>
+<div class="line">by calling the method <code class="docutils literal notranslate"><span class="pre">getBlockType()</span></code>. It is advised that if the mod</div>
+<div class="line">id in question is coming up, that the mod author is notified about the</div>
+<div class="line">error-prone usage of the field <code class="docutils literal notranslate"><span class="pre">blockType</span></code>. You can refer them to</div>
+<div class="line">the following links for the issue:</div>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://gist.github.com/gabizou/ad570dc09dfed259cac9d74284e78e8b">https://gist.github.com/gabizou/ad570dc09dfed259cac9d74284e78e8b</a></div>
+<div class="line"><a class="reference external" href="https://github.com/SpongePowered/SpongeForge/issues/2787">https://github.com/SpongePowered/SpongeForge/issues/2787</a></div>
+</div>
+<div class="line">Also, please provide them with these links for the example PR to</div>
+<div class="line">fix the issue itself, as the fix is very simple:</div>
+<div class="line"><a class="reference external" href="https://github.com/TehNut/Soul-Shards-Respawn/pull/24">https://github.com/TehNut/Soul-Shards-Respawn/pull/24</a></div>
+<div class="line"><a class="reference external" href="https://github.com/Epoxide-Software/Enchanting-Plus/pull/135">https://github.com/Epoxide-Software/Enchanting-Plus/pull/135</a></div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">Map&lt;String,</span> <span class="pre">Boolean&gt;</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>capture-async-spawning-entities</strong></p>
+<div class="line-block">
+<div class="line">If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, when a mod or plugin attempts to spawn an entity</div>
+<div class="line">off the main server thread, Sponge will automatically</div>
+<div class="line">capture said entity to spawn it properly on the main</div>
+<div class="line">server thread. The catch to this is that some mods are</div>
+<div class="line">not considering the consequences of spawning an entity</div>
+<div class="line">off the server thread, and are unaware of potential race</div>
+<div class="line">conditions they may cause. If this is set to false,</div>
+<div class="line">Sponge will politely ignore the entity being spawned,</div>
+<div class="line">and emit a warning about said spawn anyways.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>generate-stacktrace-per-phase</strong></p>
+<div class="line-block">
+<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, more thorough debugging for PhaseStates</div>
+<div class="line">such that a StackTrace is created every time a PhaseState</div>
+<div class="line">switches, allowing for more fine grained troubleshooting</div>
+<div class="line">in the cases of runaway phase states. Note that this is</div>
+<div class="line">not extremely performant and may have some associated costs</div>
+<div class="line">with generating the stack traces constantly.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">false</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>max-block-processing-depth</strong></p>
+<div class="line-block">
+<div class="line">The maximum number of times to recursively process transactions in a single phase.</div>
+<div class="line">Some mods may interact badly with Sponge’s block capturing system, causing Sponge to</div>
+<div class="line">end up capturing block transactions every time it tries to process an existing batch.</div>
+<div class="line">Due to the recursive nature of the depth-first processing that Sponge uses to handle block transactions,</div>
+<div class="line">this can result in a stack overflow, which causes us to lose all infomration about the original cause of the issue.</div>
+<div class="line">To prevent a stack overflow, Sponge tracks the current processing depth, and aborts processing when it exceeds</div>
+<div class="line">this threshold.</div>
+<div class="line">The default value should almost always work properly -  it’s unlikely you’ll ever have to change it.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">1000</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>maximum-printed-runaway-counts</strong></p>
+<div class="line-block">
+<div class="line">If verbose is not enabled, this restricts the amount of</div>
+<div class="line">runaway phase state printouts, usually happens on a server</div>
+<div class="line">where a PhaseState is not completing. Although rare, it should</div>
+<div class="line">never happen, but when it does, sometimes it can continuously print</div>
+<div class="line">more and more. This attempts to placate that while a fix can be worked on</div>
+<div class="line">to resolve the runaway. If verbose is enabled, they will always print.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">3</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>report-null-source-blocks-on-neighbor-notifications</strong></p>
+<div class="line-block">
+<div class="line">If true, when a mod attempts to perform a neighbor notification</div>
+<div class="line">on a block, some mods do not know to perform a <code class="docutils literal notranslate"><span class="pre">null</span></code> check</div>
+<div class="line">on the source block of their TileEntity. This usually goes by</div>
+<div class="line">unnoticed by other mods, because they may perform <code class="docutils literal notranslate"><span class="pre">==</span></code> instance</div>
+<div class="line">equality checks instead of calling methods on the potentially</div>
+<div class="line">null Block, but Sponge uses the block to build information to</div>
+<div class="line">help tracking. This has caused issues in the past. Generally,</div>
+<div class="line">this can be useful for leaving <code class="docutils literal notranslate"><span class="pre">true</span></code> so a proper report is</div>
+<div class="line">generated once for your server, and can be reported to the</div>
+<div class="line">offending mod author.</div>
+<div class="line">This is <code class="docutils literal notranslate"><span class="pre">false</span></code> by default in SpongeVanilla.</div>
+<div class="line">Review the following links for more info:</div>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://gist.github.com/gabizou/ad570dc09dfed259cac9d74284e78e8b">https://gist.github.com/gabizou/ad570dc09dfed259cac9d74284e78e8b</a></div>
+<div class="line"><a class="reference external" href="https://github.com/SpongePowered/SpongeForge/issues/2787">https://github.com/SpongePowered/SpongeForge/issues/2787</a></div>
+</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>resync-commands-from-async</strong></p>
+<div class="line-block">
+<div class="line">If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, when a mod or plugin attempts to submit a command</div>
+<div class="line">asynchronously, Sponge will automatically capture said command</div>
+<div class="line">and submit it for processing on the server thread. The catch to</div>
+<div class="line">this is that some mods are performing these commands in vanilla</div>
+<div class="line">without considering the possible consequences of such commands</div>
+<div class="line">affecting any thread-unsafe parts of Minecraft, such as worlds,</div>
+<div class="line">block edits, entity spawns, etc. If this is set to false, Sponge</div>
+<div class="line">will politely ignore the command being executed, and emit a warning</div>
+<div class="line">about said command anyways.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>verbose</strong></p>
+<div class="line-block">
+<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, the phase tracker will print out when there are too many phases</div>
+<div class="line">being entered, usually considered as an issue of phase re-entrance and</div>
+<div class="line">indicates an unexpected issue of tracking phases not to complete.</div>
+<div class="line">If this is not reported yet, please report to Sponge. If it has been</div>
+<div class="line">reported, you may disable this.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>verbose-errors</strong></p>
+<div class="line-block">
+<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, the phase tracker will dump extra information about the current phases</div>
+<div class="line">when certain non-PhaseTracker related exceptions occur. This is usually not necessary, as the information</div>
+<div class="line">in the exception itself can normally be used to determine the cause of the issue</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">false</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+</ul>
+</div>
 <div class="section" id="commands-commands">
 <span id="configtype-commands"></span><h4>commands (Commands)<a class="headerlink" href="#commands-commands" title="Permalink to this headline">¶</a></h4>
 <ul>
@@ -794,206 +943,6 @@ section/class that describes the nested configuration structure.</p>
 <div class="line">directory, change the value to <code class="docutils literal notranslate"><span class="pre">${CANONICAL_GAME_DIR}/plugins</span></code>.</div>
 <div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">String</span></code></div>
 <div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">${CANONICAL_MODS_DIR}/plugins</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-</ul>
-</div>
-<div class="section" id="world-globalworld">
-<span id="configtype-globalworld"></span><h4>world (GlobalWorld)<a class="headerlink" href="#world-globalworld" title="Permalink to this headline">¶</a></h4>
-<ul>
-<li><p class="first"><strong>auto-player-save-interval</strong></p>
-<div class="line-block">
-<div class="line">The auto-save tick interval used when saving global player data.</div>
-<div class="line"><strong>Note</strong>: <code class="docutils literal notranslate"><span class="pre">20</span></code> ticks is equivalent to <code class="docutils literal notranslate"><span class="pre">1</span></code> second. Set to <code class="docutils literal notranslate"><span class="pre">0</span></code> to disable.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">900</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>auto-save-interval</strong></p>
-<div class="line-block">
-<div class="line">The auto-save tick interval used to save all loaded chunks in a world.</div>
-<div class="line">Set to <code class="docutils literal notranslate"><span class="pre">0</span></code> to disable.</div>
-<div class="line"><strong>Note</strong>: <code class="docutils literal notranslate"><span class="pre">20</span></code> ticks is equivalent to <code class="docutils literal notranslate"><span class="pre">1</span></code> second.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">900</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>chunk-gc-load-threshold</strong></p>
-<div class="line-block">
-<div class="line">The number of newly loaded chunks before triggering a forced cleanup.</div>
-<div class="line"><strong>Note</strong>: When triggered, the loaded chunk threshold will reset and start incrementing.</div>
-<div class="line">Disabled by default.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">0</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>chunk-gc-tick-interval</strong></p>
-<div class="line-block">
-<div class="line">The tick interval used to cleanup all inactive chunks that have leaked in a world.</div>
-<div class="line">Set to <code class="docutils literal notranslate"><span class="pre">0</span></code> to disable which restores vanilla handling.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">600</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>chunk-unload-delay</strong></p>
-<div class="line-block">
-<div class="line">The number of seconds to delay a chunk unload once marked inactive.</div>
-<div class="line"><strong>Note</strong>: This gets reset if the chunk becomes active again.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">15</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>deny-chunk-requests</strong></p>
-<div class="line-block">
-<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, any request for a chunk not currently loaded will be denied (exceptions apply</div>
-<div class="line">for things like world gen and player movement).</div>
-<div class="line"><strong>Warning</strong>: As this is an experimental setting for performance gain, if you encounter any issues</div>
-<div class="line">then we recommend disabling it.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>gameprofile-lookup-task-interval</strong></p>
-<div class="line-block">
-<div class="line">The interval, in seconds, used by the GameProfileQueryTask to process queued GameProfile requests.</div>
-<div class="line"><strong>Note</strong>: This setting should be raised if you experience the following error:</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">client</span> <span class="pre">has</span> <span class="pre">sent</span> <span class="pre">too</span> <span class="pre">many</span> <span class="pre">requests</span> <span class="pre">within</span> <span class="pre">a</span> <span class="pre">certain</span> <span class="pre">amount</span> <span class="pre">of</span> <span class="pre">time</span></code>.</div>
-<div class="line">Finally, if set to <code class="docutils literal notranslate"><span class="pre">0</span></code> or less, the default interval will be used.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">4</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>generate-spawn-on-load</strong></p>
-<div class="line-block">
-<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, this world will generate its spawn the moment its loaded.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">Boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">false</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>invalid-lookup-uuids</strong></p>
-<div class="line-block">
-<div class="line">The list of uuid’s that should never perform a lookup against Mojang’s session server.</div>
-<div class="line"><strong>Note</strong>: If you are using SpongeForge, make sure to enter any mod fake player’s UUID to this list.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">List&lt;UUID&gt;</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>item-merge-radius</strong></p>
-<div class="line-block">
-<div class="line">The defined merge radius for Item entities such that when two items are</div>
-<div class="line">within the defined radius of each other, they will attempt to merge. Usually,</div>
-<div class="line">the default radius is set to <code class="docutils literal notranslate"><span class="pre">0.5</span></code> in Vanilla, however, for performance reasons</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">2.5</span></code> is generally acceptable.</div>
-<div class="line"><strong>Note</strong>: Increasing the radius higher will likely cause performance degradation</div>
-<div class="line">with larger amount of items as they attempt to merge and search nearby</div>
-<div class="line">areas for more items. Setting to a negative value is not supported!</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">double</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">2.5</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>keep-spawn-loaded</strong></p>
-<div class="line-block">
-<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, this worlds spawn will remain loaded with no players.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">Boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>leaf-decay</strong></p>
-<div class="line-block">
-<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, natural leaf decay is allowed.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>load-on-startup</strong></p>
-<div class="line-block">
-<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, this world will load on startup.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">Boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">false</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>max-chunk-unloads-per-tick</strong></p>
-<div class="line-block">
-<div class="line">The maximum number of queued unloaded chunks that will be unloaded in a single tick.</div>
-<div class="line"><strong>Note</strong>: With the chunk gc enabled, this setting only applies to the ticks</div>
-<div class="line">where the gc runs (controlled by <code class="docutils literal notranslate"><span class="pre">chunk-gc-tick-interval</span></code>)</div>
-<div class="line"><strong>Note</strong>: If the maximum unloads is too low, too many chunks may remain</div>
-<div class="line">loaded on the world and increases the chance for a drop in tps.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">100</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>mob-spawn-range</strong></p>
-<div class="line-block">
-<div class="line">Specifies the radius (in chunks) of where creatures will spawn.</div>
-<div class="line">This value is capped to the current view distance setting in server.properties</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">4</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>portal-agents</strong></p>
-<div class="line-block">
-<div class="line">A list of all detected portal agents used in this world.</div>
-<div class="line">In order to override, change the target world name to any other valid world.</div>
-<div class="line"><strong>Note</strong>: If world is not found, it will fallback to default.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">Map&lt;String,</span> <span class="pre">String&gt;</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>pvp-enabled</strong></p>
-<div class="line-block">
-<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, this world will allow PVP combat.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>view-distance</strong></p>
-<div class="line-block">
-<div class="line">Override world distance per world/dimension</div>
-<div class="line">The value must be greater than or equal to <code class="docutils literal notranslate"><span class="pre">3</span></code> and less than or equal to <code class="docutils literal notranslate"><span class="pre">32</span></code></div>
-<div class="line">The server-wide view distance will be used when the value is <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">-1</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>weather-ice-and-snow</strong></p>
-<div class="line-block">
-<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, natural formation of ice and snow in supported biomes will be allowed.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>weather-thunder</strong></p>
-<div class="line-block">
-<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, thunderstorms will be initiated in supported biomes.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>world-enabled</strong></p>
-<div class="line-block">
-<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, this world will be registered.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
 <div class="line"><br /></div>
 </div>
 </li>
@@ -1595,155 +1544,6 @@ section/class that describes the nested configuration structure.</p>
 </li>
 </ul>
 </div>
-<div class="section" id="cause-tracker-phasetracker">
-<span id="configtype-phasetracker"></span><h4>cause-tracker (PhaseTracker)<a class="headerlink" href="#cause-tracker-phasetracker" title="Permalink to this headline">¶</a></h4>
-<ul>
-<li><p class="first"><strong>auto-fix-null-source-block-providing-tile-entities</strong></p>
-<div class="line-block">
-<div class="line">A mapping that is semi-auto-populating for TileEntities whose types</div>
-<div class="line">are found to be providing <code class="docutils literal notranslate"><span class="pre">null</span></code> Block sources as neighbor notifications</div>
-<div class="line">that end up causing crashes or spam reports. If the value is set to</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">true</span></code>, then a <code class="docutils literal notranslate"><span class="pre">workaround</span></code> will be attempted. If not, the</div>
-<div class="line">current BlockState at the target source will be queried from the world.</div>
-<div class="line">This map having a specific</div>
-<div class="line">entry of a TileEntity will prevent a log or warning come up to any logs</div>
-<div class="line">when that <code class="docutils literal notranslate"><span class="pre">null</span></code> arises, and Sponge will self-rectify the TileEntity</div>
-<div class="line">by calling the method <code class="docutils literal notranslate"><span class="pre">getBlockType()</span></code>. It is advised that if the mod</div>
-<div class="line">id in question is coming up, that the mod author is notified about the</div>
-<div class="line">error-prone usage of the field <code class="docutils literal notranslate"><span class="pre">blockType</span></code>. You can refer them to</div>
-<div class="line">the following links for the issue:</div>
-<div class="line-block">
-<div class="line"><a class="reference external" href="https://gist.github.com/gabizou/ad570dc09dfed259cac9d74284e78e8b">https://gist.github.com/gabizou/ad570dc09dfed259cac9d74284e78e8b</a></div>
-<div class="line"><a class="reference external" href="https://github.com/SpongePowered/SpongeForge/issues/2787">https://github.com/SpongePowered/SpongeForge/issues/2787</a></div>
-</div>
-<div class="line">Also, please provide them with these links for the example PR to</div>
-<div class="line">fix the issue itself, as the fix is very simple:</div>
-<div class="line"><a class="reference external" href="https://github.com/TehNut/Soul-Shards-Respawn/pull/24">https://github.com/TehNut/Soul-Shards-Respawn/pull/24</a></div>
-<div class="line"><a class="reference external" href="https://github.com/Epoxide-Software/Enchanting-Plus/pull/135">https://github.com/Epoxide-Software/Enchanting-Plus/pull/135</a></div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">Map&lt;String,</span> <span class="pre">Boolean&gt;</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>capture-async-spawning-entities</strong></p>
-<div class="line-block">
-<div class="line">If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, when a mod or plugin attempts to spawn an entity</div>
-<div class="line">off the main server thread, Sponge will automatically</div>
-<div class="line">capture said entity to spawn it properly on the main</div>
-<div class="line">server thread. The catch to this is that some mods are</div>
-<div class="line">not considering the consequences of spawning an entity</div>
-<div class="line">off the server thread, and are unaware of potential race</div>
-<div class="line">conditions they may cause. If this is set to false,</div>
-<div class="line">Sponge will politely ignore the entity being spawned,</div>
-<div class="line">and emit a warning about said spawn anyways.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>generate-stacktrace-per-phase</strong></p>
-<div class="line-block">
-<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, more thorough debugging for PhaseStates</div>
-<div class="line">such that a StackTrace is created every time a PhaseState</div>
-<div class="line">switches, allowing for more fine grained troubleshooting</div>
-<div class="line">in the cases of runaway phase states. Note that this is</div>
-<div class="line">not extremely performant and may have some associated costs</div>
-<div class="line">with generating the stack traces constantly.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">false</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>max-block-processing-depth</strong></p>
-<div class="line-block">
-<div class="line">The maximum number of times to recursively process transactions in a single phase.</div>
-<div class="line">Some mods may interact badly with Sponge’s block capturing system, causing Sponge to</div>
-<div class="line">end up capturing block transactions every time it tries to process an existing batch.</div>
-<div class="line">Due to the recursive nature of the depth-first processing that Sponge uses to handle block transactions,</div>
-<div class="line">this can result in a stack overflow, which causes us to lose all infomration about the original cause of the issue.</div>
-<div class="line">To prevent a stack overflow, Sponge tracks the current processing depth, and aborts processing when it exceeds</div>
-<div class="line">this threshold.</div>
-<div class="line">The default value should almost always work properly -  it’s unlikely you’ll ever have to change it.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">1000</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>maximum-printed-runaway-counts</strong></p>
-<div class="line-block">
-<div class="line">If verbose is not enabled, this restricts the amount of</div>
-<div class="line">runaway phase state printouts, usually happens on a server</div>
-<div class="line">where a PhaseState is not completing. Although rare, it should</div>
-<div class="line">never happen, but when it does, sometimes it can continuously print</div>
-<div class="line">more and more. This attempts to placate that while a fix can be worked on</div>
-<div class="line">to resolve the runaway. If verbose is enabled, they will always print.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">3</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>report-null-source-blocks-on-neighbor-notifications</strong></p>
-<div class="line-block">
-<div class="line">If true, when a mod attempts to perform a neighbor notification</div>
-<div class="line">on a block, some mods do not know to perform a <code class="docutils literal notranslate"><span class="pre">null</span></code> check</div>
-<div class="line">on the source block of their TileEntity. This usually goes by</div>
-<div class="line">unnoticed by other mods, because they may perform <code class="docutils literal notranslate"><span class="pre">==</span></code> instance</div>
-<div class="line">equality checks instead of calling methods on the potentially</div>
-<div class="line">null Block, but Sponge uses the block to build information to</div>
-<div class="line">help tracking. This has caused issues in the past. Generally,</div>
-<div class="line">this can be useful for leaving <code class="docutils literal notranslate"><span class="pre">true</span></code> so a proper report is</div>
-<div class="line">generated once for your server, and can be reported to the</div>
-<div class="line">offending mod author.</div>
-<div class="line">This is <code class="docutils literal notranslate"><span class="pre">false</span></code> by default in SpongeVanilla.</div>
-<div class="line">Review the following links for more info:</div>
-<div class="line-block">
-<div class="line"><a class="reference external" href="https://gist.github.com/gabizou/ad570dc09dfed259cac9d74284e78e8b">https://gist.github.com/gabizou/ad570dc09dfed259cac9d74284e78e8b</a></div>
-<div class="line"><a class="reference external" href="https://github.com/SpongePowered/SpongeForge/issues/2787">https://github.com/SpongePowered/SpongeForge/issues/2787</a></div>
-</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>resync-commands-from-async</strong></p>
-<div class="line-block">
-<div class="line">If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, when a mod or plugin attempts to submit a command</div>
-<div class="line">asynchronously, Sponge will automatically capture said command</div>
-<div class="line">and submit it for processing on the server thread. The catch to</div>
-<div class="line">this is that some mods are performing these commands in vanilla</div>
-<div class="line">without considering the possible consequences of such commands</div>
-<div class="line">affecting any thread-unsafe parts of Minecraft, such as worlds,</div>
-<div class="line">block edits, entity spawns, etc. If this is set to false, Sponge</div>
-<div class="line">will politely ignore the command being executed, and emit a warning</div>
-<div class="line">about said command anyways.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>verbose</strong></p>
-<div class="line-block">
-<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, the phase tracker will print out when there are too many phases</div>
-<div class="line">being entered, usually considered as an issue of phase re-entrance and</div>
-<div class="line">indicates an unexpected issue of tracking phases not to complete.</div>
-<div class="line">If this is not reported yet, please report to Sponge. If it has been</div>
-<div class="line">reported, you may disable this.</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-<li><p class="first"><strong>verbose-errors</strong></p>
-<div class="line-block">
-<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, the phase tracker will dump extra information about the current phases</div>
-<div class="line">when certain non-PhaseTracker related exceptions occur. This is usually not necessary, as the information</div>
-<div class="line">in the exception itself can normally be used to determine the cause of the issue</div>
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
-<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">false</span></code></div>
-<div class="line"><br /></div>
-</div>
-</li>
-</ul>
-</div>
 <div class="section" id="player-block-tracker-playerblocktracker">
 <span id="configtype-playerblocktracker"></span><h4>player-block-tracker (PlayerBlockTracker)<a class="headerlink" href="#player-block-tracker-playerblocktracker" title="Permalink to this headline">¶</a></h4>
 <ul>
@@ -2009,6 +1809,206 @@ section/class that describes the nested configuration structure.</p>
 <div class="line-block">
 <div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
 <div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">false</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="world-globalworld">
+<span id="configtype-globalworld"></span><h4>world (GlobalWorld)<a class="headerlink" href="#world-globalworld" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first"><strong>auto-player-save-interval</strong></p>
+<div class="line-block">
+<div class="line">The auto-save tick interval used when saving global player data.</div>
+<div class="line"><strong>Note</strong>: <code class="docutils literal notranslate"><span class="pre">20</span></code> ticks is equivalent to <code class="docutils literal notranslate"><span class="pre">1</span></code> second. Set to <code class="docutils literal notranslate"><span class="pre">0</span></code> to disable.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">900</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>auto-save-interval</strong></p>
+<div class="line-block">
+<div class="line">The auto-save tick interval used to save all loaded chunks in a world.</div>
+<div class="line">Set to <code class="docutils literal notranslate"><span class="pre">0</span></code> to disable.</div>
+<div class="line"><strong>Note</strong>: <code class="docutils literal notranslate"><span class="pre">20</span></code> ticks is equivalent to <code class="docutils literal notranslate"><span class="pre">1</span></code> second.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">900</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>chunk-gc-load-threshold</strong></p>
+<div class="line-block">
+<div class="line">The number of newly loaded chunks before triggering a forced cleanup.</div>
+<div class="line"><strong>Note</strong>: When triggered, the loaded chunk threshold will reset and start incrementing.</div>
+<div class="line">Disabled by default.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">0</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>chunk-gc-tick-interval</strong></p>
+<div class="line-block">
+<div class="line">The tick interval used to cleanup all inactive chunks that have leaked in a world.</div>
+<div class="line">Set to <code class="docutils literal notranslate"><span class="pre">0</span></code> to disable which restores vanilla handling.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">600</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>chunk-unload-delay</strong></p>
+<div class="line-block">
+<div class="line">The number of seconds to delay a chunk unload once marked inactive.</div>
+<div class="line"><strong>Note</strong>: This gets reset if the chunk becomes active again.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">15</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>deny-chunk-requests</strong></p>
+<div class="line-block">
+<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, any request for a chunk not currently loaded will be denied (exceptions apply</div>
+<div class="line">for things like world gen and player movement).</div>
+<div class="line"><strong>Warning</strong>: As this is an experimental setting for performance gain, if you encounter any issues</div>
+<div class="line">then we recommend disabling it.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>gameprofile-lookup-task-interval</strong></p>
+<div class="line-block">
+<div class="line">The interval, in seconds, used by the GameProfileQueryTask to process queued GameProfile requests.</div>
+<div class="line"><strong>Note</strong>: This setting should be raised if you experience the following error:</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">client</span> <span class="pre">has</span> <span class="pre">sent</span> <span class="pre">too</span> <span class="pre">many</span> <span class="pre">requests</span> <span class="pre">within</span> <span class="pre">a</span> <span class="pre">certain</span> <span class="pre">amount</span> <span class="pre">of</span> <span class="pre">time</span></code>.</div>
+<div class="line">Finally, if set to <code class="docutils literal notranslate"><span class="pre">0</span></code> or less, the default interval will be used.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">4</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>generate-spawn-on-load</strong></p>
+<div class="line-block">
+<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, this world will generate its spawn the moment its loaded.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">Boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">false</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>invalid-lookup-uuids</strong></p>
+<div class="line-block">
+<div class="line">The list of uuid’s that should never perform a lookup against Mojang’s session server.</div>
+<div class="line"><strong>Note</strong>: If you are using SpongeForge, make sure to enter any mod fake player’s UUID to this list.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">List&lt;UUID&gt;</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>item-merge-radius</strong></p>
+<div class="line-block">
+<div class="line">The defined merge radius for Item entities such that when two items are</div>
+<div class="line">within the defined radius of each other, they will attempt to merge. Usually,</div>
+<div class="line">the default radius is set to <code class="docutils literal notranslate"><span class="pre">0.5</span></code> in Vanilla, however, for performance reasons</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">2.5</span></code> is generally acceptable.</div>
+<div class="line"><strong>Note</strong>: Increasing the radius higher will likely cause performance degradation</div>
+<div class="line">with larger amount of items as they attempt to merge and search nearby</div>
+<div class="line">areas for more items. Setting to a negative value is not supported!</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">double</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">2.5</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>keep-spawn-loaded</strong></p>
+<div class="line-block">
+<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, this worlds spawn will remain loaded with no players.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">Boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>leaf-decay</strong></p>
+<div class="line-block">
+<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, natural leaf decay is allowed.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>load-on-startup</strong></p>
+<div class="line-block">
+<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, this world will load on startup.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">Boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">false</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>max-chunk-unloads-per-tick</strong></p>
+<div class="line-block">
+<div class="line">The maximum number of queued unloaded chunks that will be unloaded in a single tick.</div>
+<div class="line"><strong>Note</strong>: With the chunk gc enabled, this setting only applies to the ticks</div>
+<div class="line">where the gc runs (controlled by <code class="docutils literal notranslate"><span class="pre">chunk-gc-tick-interval</span></code>)</div>
+<div class="line"><strong>Note</strong>: If the maximum unloads is too low, too many chunks may remain</div>
+<div class="line">loaded on the world and increases the chance for a drop in tps.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">100</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>mob-spawn-range</strong></p>
+<div class="line-block">
+<div class="line">Specifies the radius (in chunks) of where creatures will spawn.</div>
+<div class="line">This value is capped to the current view distance setting in server.properties</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">4</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>portal-agents</strong></p>
+<div class="line-block">
+<div class="line">A list of all detected portal agents used in this world.</div>
+<div class="line">In order to override, change the target world name to any other valid world.</div>
+<div class="line"><strong>Note</strong>: If world is not found, it will fallback to default.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">Map&lt;String,</span> <span class="pre">String&gt;</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>pvp-enabled</strong></p>
+<div class="line-block">
+<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, this world will allow PVP combat.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>view-distance</strong></p>
+<div class="line-block">
+<div class="line">Override world distance per world/dimension</div>
+<div class="line">The value must be greater than or equal to <code class="docutils literal notranslate"><span class="pre">3</span></code> and less than or equal to <code class="docutils literal notranslate"><span class="pre">32</span></code></div>
+<div class="line">The server-wide view distance will be used when the value is <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">-1</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>weather-ice-and-snow</strong></p>
+<div class="line-block">
+<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, natural formation of ice and snow in supported biomes will be allowed.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>weather-thunder</strong></p>
+<div class="line-block">
+<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, thunderstorms will be initiated in supported biomes.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p class="first"><strong>world-enabled</strong></p>
+<div class="line-block">
+<div class="line">If <code class="docutils literal notranslate"><span class="pre">true</span></code>, this world will be registered.</div>
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
 <div class="line"><br /></div>
 </div>
 </li>
