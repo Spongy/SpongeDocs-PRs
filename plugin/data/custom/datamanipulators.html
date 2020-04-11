@@ -1,0 +1,532 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom DataManipulators &mdash; Sponge 7.1.0 documentation</title>
+
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../../../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>        <link rel="search" title="Search" href="../../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../../index.html"/>        <link rel="up" title="Custom Data" href="index.html"/>        <link rel="next" title="Custom DataHolders" href="dataholders.html"/>        <link rel="prev" title="Custom Data" href="index.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../../index.html">
+            <img src="../../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../api-versions.html">API-Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../buildsystem.html">Build Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../workspace/index.html">Setting Up Your Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../project/index.html">Setting Up Your Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin-class.html">Main Plugin Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lifecycle.html">Plugin Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../injection.html">Dependency Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../practices/index.html">Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../optional/index.html">Optionals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../text/index.html">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../commands/index.html">Plugin Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../event/index.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../configuration/index.html">Configuring Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../assets.html">The Asset API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">The Data API</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Custom Data</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Custom DataManipulators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dataholders.html">Custom DataHolders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="serialization.html">Serializing Custom Data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../catalog-types.html">Catalog Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../keys.html">Using Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datamanipulators.html">Data Manipulators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../transactions.html">Transactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../serialization.html">Serializing Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../blocks/index.html">Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../entities/index.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../items/index.html">Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../trade-offers.html">Trade-Offers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../effects.html">Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../database.html">Databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../permissions.html">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../metrics.html">Metrics Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../bookview.html">Book Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../economy/index.html">Economy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../wgen/index.html">World Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../manager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../game-profile-manager.html">Game Profile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../offline-userplayer-data.html">Offline Player Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tab-lists.html">Tab Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plugin-meta.html">Plugin Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html">Plugin Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials.html">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../internals/index.html">Implementation-dependent Plugins</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+          <li><a href="../../index.html">Creating a Plugin</a> &raquo;</li>
+          <li><a href="../index.html">The Data API</a> &raquo;</li>
+          <li><a href="index.html">Custom Data</a> &raquo;</li>
+    <li>Custom DataManipulators</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/Inscrutable-fixes-things/source/plugin/data/custom/datamanipulators.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="custom-datamanipulators">
+<h1>Custom DataManipulators<a class="headerlink" href="#custom-datamanipulators" title="Permalink to this headline">¶</a></h1>
+<p>The core part of custom data is the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a>. To implement it, you must first decide if you want to
+create a separate API for your custom data. Generally speaking it’s best to separate the API from the implementation
+(as SpongeAPI does), but if it won’t be seen by other developers then you can just put both in the same class.</p>
+<p>You’ll want to define an API method for each “unit” your data, such as a <code class="docutils literal notranslate"><span class="pre">String</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code>, <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/item/inventory/ItemStack.html">ItemStack</a> or
+a custom type like <code class="docutils literal notranslate"><span class="pre">Home</span></code>. These units will be wrapped in a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/value/mutable/Value.html">Value</a>, which will allow it to be accessed
+with <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Key.html">Key</a>s. There are various extensions of <code class="docutils literal notranslate"><span class="pre">Value</span></code> depending on which object will be represented, such
+as <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/value/mutable/MapValue.html">MapValue</a> which provides the standard map operations, or <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/value/mutable/MutableBoundedValue.html">MutableBoundedValue</a> which can set
+limits on the upper and lower bound of the value (like integers). The bounds of the values are verified using a
+<a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>.</p>
+<p>Now, pick which of the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/common/AbstractData.html">AbstractData</a> types you’ll extend from. While you could implement from scratch, these
+abstract types remove a <em>lot</em> of the work that needs to be done implementing the required methods. A full list can be
+found in <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/common/package-summary.html">org.spongepowered.api.data.manipulator.mutable.common</a>. See either <a class="reference internal" href="#single-data-types"><span class="std std-ref">Single Types</span></a> or
+<a class="reference internal" href="#compound-data-types"><span class="std std-ref">Compound Types</span></a> below for implementation details each type.</p>
+<p>You need to create two different classes - one which is mutable and implements <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a> and your
+abstract type, and an immutable version which implements <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/ImmutableDataManipulator.html">ImmutableDataManipulator</a> and your <em>immutable</em>
+abstract type.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>All</strong> data must have mutable and immutable versions, you must implement both.</p>
+</div>
+<p>For all types, you’ll need to define the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/DataManipulator.html#asImmutable--">DataManipulator#asImmutable()</a>/
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/ImmutableDataManipulator.html#asMutable--">asMutable()</a> methods - this is as simple as copying the existing
+objects into a constructor for the alternate version.</p>
+<div class="section" id="values">
+<h2>Values<a class="headerlink" href="#values" title="Permalink to this headline">¶</a></h2>
+<p>Your value getter(s) need to return a value. In the example below, we get the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/value/ValueFactory.html">ValueFactory</a>. This saves us a
+lot of type by using Sponge’s already implemented <code class="docutils literal notranslate"><span class="pre">Value</span></code> objects. Depending on what value you’re creating there a
+different methods to call such as <code class="docutils literal notranslate"><span class="pre">createMapValue</span></code>, <code class="docutils literal notranslate"><span class="pre">createBoundedComparableValue</span></code>, etc.</p>
+<p><strong>Code Example: Implementing a Value Getter</strong></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.Sponge</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.ValueFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.Value</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.home.Home</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.Keys</span><span class="p">;</span>
+
+<span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="n">Value</span><span class="o">&lt;</span><span class="n">Home</span><span class="o">&gt;</span> <span class="nf">defaultHome</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getRegistry</span><span class="p">().</span><span class="na">getValueFactory</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">createValue</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">DEFAULT_HOME</span><span class="p">,</span> <span class="n">getValue</span><span class="p">(),</span> <span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that an <code class="docutils literal notranslate"><span class="pre">ImmutableDataManipulator</span></code> would instead return an <code class="docutils literal notranslate"><span class="pre">ImmutableValue</span></code>, by calling <code class="docutils literal notranslate"><span class="pre">asImmutable()</span></code> on
+the returned <code class="docutils literal notranslate"><span class="pre">Value</span></code>. We recommended that you cache this (such as with a class field) in the immutable version.</p>
+<p>Each <code class="docutils literal notranslate"><span class="pre">Value</span></code> also needs a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Key.html">Key</a> to identify it, seen in the example as <code class="docutils literal notranslate"><span class="pre">Keys.DEFAULT_HOME</span></code>. Similar
+to values, you use one of the <code class="docutils literal notranslate"><span class="pre">makeXKey()</span></code> methods in <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/KeyFactory.html">KeyFactory</a> to create a <code class="docutils literal notranslate"><span class="pre">Key</span></code> for your value.</p>
+<p>You need to pass one <code class="docutils literal notranslate"><span class="pre">TypeToken</span></code> representing the <em>raw</em> type of your value, and one <code class="docutils literal notranslate"><span class="pre">TypeToken</span></code> representing the
+<code class="docutils literal notranslate"><span class="pre">Value</span></code>. You also need to provide a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataQuery.html">DataQuery</a> path - this is most commonly used to serialize the
+<code class="docutils literal notranslate"><span class="pre">Value</span></code>. As with any catalog type you must also provide a unique ID and a name. Put this all together and you have a
+<code class="docutils literal notranslate"><span class="pre">Key</span></code> you can use in your <code class="docutils literal notranslate"><span class="pre">Value</span></code>s.</p>
+<p><strong>Code Example: Creating a Key</strong></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataQuery</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.Key</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.key.KeyFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.Value</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.value.mutable.Value</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">com.google.common.reflect.TypeToken</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.home.Home</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Key</span><span class="o">&lt;</span><span class="n">Value</span><span class="o">&lt;</span><span class="n">Home</span><span class="o">&gt;&gt;</span> <span class="n">DEFAULT_HOME</span> <span class="o">=</span> <span class="n">KeyFactory</span><span class="p">.</span><span class="na">makeSingleKey</span><span class="p">(</span>
+        <span class="n">TypeToken</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Home</span><span class="p">.</span><span class="na">class</span><span class="p">),</span>
+        <span class="k">new</span> <span class="n">TypeToken</span><span class="o">&lt;</span><span class="n">Value</span><span class="o">&lt;</span><span class="n">Home</span><span class="o">&gt;&gt;</span><span class="p">()</span> <span class="p">{},</span>
+        <span class="n">DataQuery</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;DefaultHome&quot;</span><span class="p">),</span> <span class="s">&quot;myhomes:default_home&quot;</span><span class="p">,</span> <span class="s">&quot;Default Home&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p><a class="reference external" href="https://google.github.io/guava/releases/17.0/api/docs/com/google/common/reflect/TypeToken.html">TypeToken</a>s are used by the implementation to preserve the generic type of your
+values. Sponge provides a long list of pre-built tokens for the API in <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/util/TypeTokens.html">TypeTokens</a>.</p>
+<p>If you need to create your own, you can do this in one of two ways:</p>
+<ul class="last simple">
+<li>For non-generic types, use <code class="docutils literal notranslate"><span class="pre">TypeToken.of(MyType.class)</span></code></li>
+<li>For generic types, create an anonymous class with <code class="docutils literal notranslate"><span class="pre">TypeToken&lt;MyGenericType&lt;String&gt;&gt;()</span> <span class="pre">{}</span></code></li>
+</ul>
+</div>
+</div>
+<div class="section" id="serialization">
+<h2>Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h2>
+<p>To make your data <a class="reference internal" href="../serialization.html"><span class="doc">serializable</span></a> to <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataHolder.html">DataHolder</a>s or config files, you must also
+implement <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataSerializable.html#toContainer--">DataSerializable#toContainer()</a>. We recommend calling <code class="docutils literal notranslate"><span class="pre">super.toContainer()</span></code> as this will
+include the version from <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataSerializable.html#getContentVersion--">DataSerializable#getContentVersion()</a>. You should increase the version each time a
+change is made to the format of your serialized data, and use <a class="reference internal" href="serialization.html#content-updaters"><span class="std std-ref">DataContentUpdaters</span></a> to allow backwards compatability.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is not required for simple single types, as the already implement <code class="docutils literal notranslate"><span class="pre">toContainer()</span></code></p>
+</div>
+<p><strong>Code Example: Implementing toContainer</strong></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.Keys</span><span class="p">;</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">DataContainer</span> <span class="nf">toContainer</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">DataContainer</span> <span class="n">container</span> <span class="o">=</span> <span class="kd">super</span><span class="p">.</span><span class="na">toContainer</span><span class="p">();</span>
+    <span class="c1">// This is the simplest, but use whatever structure you want!</span>
+    <span class="n">container</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">DEFAULT_HOME</span><span class="p">.</span><span class="na">getQuery</span><span class="p">(),</span> <span class="k">this</span><span class="p">.</span><span class="na">defaultHome</span><span class="p">);</span>
+    <span class="n">container</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HOMES</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">homes</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">container</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="registration">
+<h2>Registration<a class="headerlink" href="#registration" title="Permalink to this headline">¶</a></h2>
+<p>Registering your <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> allows it to be accessible by Sponge and by other plugins in a generic way. The
+game/plugin can create copies of your data and serialize/deserialize your data without referencing any of your classes
+directly.</p>
+<p>To register a <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> Sponge has the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataRegistration.html#builder--">DataRegistration#builder()</a> helper. This will build a
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataRegistration.html">DataRegistration</a> and automatically register it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Due to the nature of Data, you <em>must</em> register your <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> during initialization - generally by
+listening to <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/event/game/state/GameInitializationEvent.html">GameInitializationEvent</a> such as in the example below. If you try to register a
+<code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> once initialization is complete an exception will be thrown.</p>
+</div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.state.GameInitializationEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataRegistration</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.example.MyCustomData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.example.ImmutableCustomData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.example.CustomDataBuilder</span><span class="p">;</span>
+
+<span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInit</span><span class="p">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">DataRegistration</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+      <span class="p">.</span><span class="na">dataClass</span><span class="p">(</span><span class="n">MyCustomData</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+      <span class="p">.</span><span class="na">immutableClass</span><span class="p">(</span><span class="n">ImmutableCustomData</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+      <span class="p">.</span><span class="na">builder</span><span class="p">(</span><span class="k">new</span> <span class="n">CustomDataBuilder</span><span class="p">())</span>
+      <span class="p">.</span><span class="na">manipulatorId</span><span class="p">(</span><span class="s">&quot;my-custom&quot;</span><span class="p">)</span>
+      <span class="p">.</span><span class="na">dataName</span><span class="p">(</span><span class="s">&quot;My Custom&quot;</span><span class="p">)</span>
+      <span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Data that was serialized prior to <code class="docutils literal notranslate"><span class="pre">6.0.0</span></code>, or data where you have changed the ID, will <em>not</em> be recognized unless
+registered with <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataManager.html#registerLegacyManipulatorIds-java.lang.String-org.spongepowered.api.data.DataRegistration-">DataManager#registerLegacyManipulatorIds(String, DataRegistration)</a>. If registering a
+pre-6.0.0 <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> the ID is taken from <cite>Class.getName()</cite>, such as <code class="docutils literal notranslate"><span class="pre">com.example.MyCustomData</span></code>.</p>
+</div>
+</div>
+<div class="section" id="single-types">
+<span id="single-data-types"></span><h2>Single Types<a class="headerlink" href="#single-types" title="Permalink to this headline">¶</a></h2>
+<p>Single types require little implementation because much of the work has already been done in the
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/common/AbstractSingleData.html">AbstractSingleData</a> type you extend from.</p>
+<p>The “simple” abstract types are the easiest to implement, but are restricted to only the types below:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Boolean</span></code></li>
+<li><a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html">Comparable</a></li>
+<li><code class="docutils literal notranslate"><span class="pre">Integer</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">List</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">Map</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CatalogType</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">Enum</span></code></li>
+</ul>
+<p>For all other types you must implement a custom single type by extending <code class="docutils literal notranslate"><span class="pre">AbstractSingleData</span></code>. This allows you to
+define your own single data with whatever type you want, while still doing most of the work for you.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The abstract implementations save the object for you in the constructor. You can access it in your implementation
+by calling the <code class="docutils literal notranslate"><span class="pre">getValue()</span></code> and <code class="docutils literal notranslate"><span class="pre">getValueGetter()</span></code> methods.</p>
+</div>
+<div class="section" id="simple-single-types">
+<h3>Simple Single Types<a class="headerlink" href="#simple-single-types" title="Permalink to this headline">¶</a></h3>
+<p>Almost all the work is done for you with simple abstract types. All you need to do is:</p>
+<ul class="simple">
+<li>Extend the relevant abstract type</li>
+<li>pass the <cite>Key</cite> for your data, the object itself, and the default object (if the object is null) in the constructor</li>
+</ul>
+<p><a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/common/AbstractBoundedComparableData.html">AbstractBoundedComparableData</a> (and the immutable equivalent) additionally require minimum and maximum
+values that will be checked, as well as a <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">List</span></code> and <code class="docutils literal notranslate"><span class="pre">Mapped</span></code> single types must instead implement <code class="docutils literal notranslate"><span class="pre">ListData</span></code> / <code class="docutils literal notranslate"><span class="pre">MappedData</span></code> (or the immutable
+equivalent). This adds additional methods to allow Map-like/List-like behavior directly on the <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code>.</p>
+</div>
+<p>The following 3 methods must be defined on mutable manipulators:</p>
+<p><code class="docutils literal notranslate"><span class="pre">fill(DataHolder,</span> <span class="pre">MergeFunction)</span></code> should replace the data on your object with that of the given <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code>,
+using the result of <code class="docutils literal notranslate"><span class="pre">MergeFunction#merge()</span></code>.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataHolder</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.merge.MergeFunction</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.friends.FriendsData</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">FriendsData</span><span class="o">&gt;</span> <span class="nf">fill</span><span class="p">(</span><span class="n">DataHolder</span> <span class="n">dataHolder</span><span class="p">,</span> <span class="n">MergeFunction</span> <span class="n">overlap</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">FriendsData</span> <span class="n">merged</span> <span class="o">=</span> <span class="n">overlap</span><span class="p">.</span><span class="na">merge</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">dataHolder</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">FriendsData</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">orElse</span><span class="p">(</span><span class="kc">null</span><span class="p">));</span>
+    <span class="n">setValue</span><span class="p">(</span><span class="n">merged</span><span class="p">.</span><span class="na">friends</span><span class="p">().</span><span class="na">get</span><span class="p">());</span>
+
+    <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">from(DataContainer)</span></code> should overwrite its value with the one in the container and return itself, otherwise return
+<code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataContainer</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.data.DataQuery</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.Keys</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.friends.FriendsData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.friends.ImmutableFriendsData</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">com.google.common.collect.Maps</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="p">;</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">FriendsData</span><span class="o">&gt;</span> <span class="nf">from</span><span class="p">(</span><span class="n">DataContainer</span> <span class="n">container</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">container</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">FRIENDS</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">UUID</span><span class="o">&gt;</span> <span class="n">friends</span> <span class="o">=</span> <span class="n">container</span><span class="p">.</span><span class="na">getObjectList</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">FRIENDS</span><span class="p">.</span><span class="na">getQuery</span><span class="p">(),</span> <span class="n">UUID</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">setValue</span><span class="p">(</span><span class="n">friends</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">copy()</span></code> should, as the name suggests, return a copy of itself with the same data.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.friends.FriendsData</span><span class="p">;</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">FriendsData</span> <span class="nf">copy</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">FriendsDataImpl</span><span class="p">(</span><span class="n">getValue</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="custom-single-types">
+<h3>Custom Single Types<a class="headerlink" href="#custom-single-types" title="Permalink to this headline">¶</a></h3>
+<p>In addition to the methods from the simple single types, you need to override the following methods:</p>
+<p><code class="docutils literal notranslate"><span class="pre">getValueGetter()</span></code> should pass the <code class="docutils literal notranslate"><span class="pre">Value</span></code> representing your data (see above).</p>
+<p><code class="docutils literal notranslate"><span class="pre">toContainer()</span></code> should return a <code class="docutils literal notranslate"><span class="pre">DataContainer</span></code> representing your data (see above).</p>
+</div>
+</div>
+<div class="section" id="compound-types">
+<span id="compound-data-types"></span><h2>Compound Types<a class="headerlink" href="#compound-types" title="Permalink to this headline">¶</a></h2>
+<p>Whereas single types only support one value, “compound” types support however many values you want. This is useful
+when multiple objects are grouped, such as <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/tileentity/FurnaceData.html">FurnaceData</a>. The downside, however, is that they are more
+complex to implement.</p>
+<p>To start with, create all the <code class="docutils literal notranslate"><span class="pre">Value</span></code> getters that your data will have. For each value, create a method to get and
+set the <em>raw</em> object, which you’ll use later. For immutable data, only the getters are necessary.</p>
+<div class="section" id="registering-values">
+<h3>Registering Values<a class="headerlink" href="#registering-values" title="Permalink to this headline">¶</a></h3>
+<p>Next, you’ll want to register these so that the <a class="reference internal" href="../keys.html"><span class="doc">Keys</span></a>-based system can reference them. To do this,
+implement either <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/common/AbstractData.html#registerGettersAndSetters--">AbstractData#registerGettersAndSetters()</a> or
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/immutable/common/AbstractImmutableData.html#registerGetters--">AbstractImmutableData#registerGetters()</a> depending on whether the data is mutable or not.</p>
+<p>For each value you must call:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">registerKeyValue(Key,</span> <span class="pre">Supplier)</span></code> referencing the <code class="docutils literal notranslate"><span class="pre">Value</span></code> getter for the given key</li>
+<li><code class="docutils literal notranslate"><span class="pre">registerFieldGetter(Key,</span> <span class="pre">Supplier)</span></code> referencing the getter method for the <em>raw</em> object defined above</li>
+<li><code class="docutils literal notranslate"><span class="pre">registerFieldSetter(Key,</span> <span class="pre">Consumer)</span></code> referencing the setter method above if you are implementing the mutable
+version</li>
+</ul>
+<p>We recommend using Java 8’s <code class="docutils literal notranslate"><span class="pre">::</span></code> syntax for easy <code class="docutils literal notranslate"><span class="pre">Supplier</span></code> and <code class="docutils literal notranslate"><span class="pre">Consumer</span></code> functions.</p>
+<p><strong>Code Example: Implementing Getters and Setters</strong></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.cookbook.myhomes.data.Keys</span>
+
+<span class="c1">// registerGetters() for immutable implementation</span>
+<span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">registerGettersAndSetters</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">registerKeyValue</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">DEFAULT_HOME</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">defaultHome</span><span class="p">);</span>
+    <span class="n">registerKeyValue</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HOMES</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">homes</span><span class="p">);</span>
+
+    <span class="n">registerFieldGetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">DEFAULT_HOME</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">getDefaultHome</span><span class="p">);</span>
+    <span class="n">registerFieldGetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HOMES</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">getHomes</span><span class="p">);</span>
+
+    <span class="c1">// Only on mutable implementation</span>
+    <span class="n">registerFieldSetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">DEFAULT_HOME</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">setDefaultHome</span><span class="p">);</span>
+    <span class="n">registerFieldSetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HOMES</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">setHomes</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">fill(DataHolder,</span> <span class="pre">MergeFunction)</span></code> and <code class="docutils literal notranslate"><span class="pre">from(DataContainer)</span></code> are similar to the implementations for single data,
+but loading all your values.</p>
+</div>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="dataholders.html" class="btn btn-neutral float-right" title="Custom DataHolders" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="index.html" class="btn btn-neutral" title="Custom Data" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.1.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/Inscrutable-fixes-things/source/plugin/data/custom/datamanipulators.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/Inscrutable-fixes-things/source/plugin/data/custom/datamanipulators.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'7.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../../../_static/jquery.js"></script>      <script type="text/javascript" src="../../../_static/underscore.js"></script>      <script type="text/javascript" src="../../../_static/doctools.js"></script>      <script type="text/javascript" src="../../../_static/language_data.js"></script>      <script type="text/javascript" src="../../../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+
+</body>
+</html>
