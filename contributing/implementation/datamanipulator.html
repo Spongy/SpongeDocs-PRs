@@ -1,0 +1,770 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Implementing DataManipulators &mdash; Sponge 7.1.0 documentation</title>
+
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.1.0 documentation" href="../../index.html"/>        <link rel="up" title="Developing Sponge" href="index.html"/>        <link rel="next" title="SpongeDocs Writing" href="../spongedocs.html"/>        <link rel="prev" title="Mixins" href="mixins.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../index.html">
+            <img src="../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin/index.html">Creating a Plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Contributing to Sponge</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../guidelines.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howtogit.html">How to Git(Hub)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Developing Sponge</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="codestyle.html">Code Style</a></li>
+<li class="toctree-l3"><a class="reference internal" href="git-implementation.html">Git Workflow for API and Implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pr.html">Submitting a Pull-Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="debugging/index.html">Debugging Sponge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mixins.html">Mixins</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Implementing DataManipulators</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../spongedocs.html">SpongeDocs Writing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../porting.html">Porting Sponge to Other Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../versioning.html">Repository Branch Layout</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+          <li><a href="../index.html">Contributing to Sponge</a> &raquo;</li>
+          <li><a href="index.html">Developing Sponge</a> &raquo;</li>
+    <li>Implementing DataManipulators</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/compatible-or-not/source/contributing/implementation/datamanipulator.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="implementing-datamanipulators">
+<h1>Implementing DataManipulators<a class="headerlink" href="#implementing-datamanipulators" title="Permalink to this headline">¶</a></h1>
+<p>This is a guide for contributors who want to help with Data API implementation by creating DataManipulators.
+An updated list of DataManipulators to be implemented can be found at
+<a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/issues/8">SpongeCommon Issue #8</a>.</p>
+<p>To fully implement a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a> these steps must be followed:</p>
+<ol class="arabic simple">
+<li>Implement the <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> itself</li>
+<li>Implement the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/ImmutableDataManipulator.html">ImmutableDataManipulator</a></li>
+</ol>
+<p>When these steps are complete, the following must also be done:</p>
+<ol class="arabic simple" start="3">
+<li>Register the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Key.html">Key</a> in the <code class="docutils literal notranslate"><span class="pre">KeyRegistryModule</span></code></li>
+<li>Implement the <code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code></li>
+<li>Implement the <code class="docutils literal notranslate"><span class="pre">ValueProcessor</span></code> for each <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/value/mutable/Value.html">Value</a> being represented by the <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code></li>
+</ol>
+<p>If the data applies to a block, several methods must also be mixed in to the block.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Make sure you follow our <a class="reference internal" href="../guidelines.html"><span class="doc">Contribution Guidelines</span></a>.</p>
+</div>
+<p>The following snippet shows the imports/paths for some classes in SpongeCommon that you will need:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.common.data.DataProcessor</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.ValueProcessor</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.manipulator.immutable.entity.ImmutableSpongeHealthData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.manipulator.mutable.common.AbstractData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.manipulator.mutable.entity.SpongeHealthData</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.processor.common.AbstractEntityDataProcessor</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.util.Constants</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.data.util.NbtDataUtil</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.common.registry.type.data.KeyRegistryModule</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="section" id="implement-the-datamanipulator">
+<h2>1. Implement the DataManipulator<a class="headerlink" href="#implement-the-datamanipulator" title="Permalink to this headline">¶</a></h2>
+<p>The naming convention for <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> implementations is the name of the interface prefixed with “Sponge”.
+So to implement the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html">HealthData</a> interface, we create a class named <code class="docutils literal notranslate"><span class="pre">SpongeHealthData</span></code> in the appropriate package.
+For implementing the <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> first have it extend an appropriate abstract class from the
+<code class="docutils literal notranslate"><span class="pre">org.spongepowered.common.data.manipulator.mutable.common</span></code> package. The most generic there is <code class="docutils literal notranslate"><span class="pre">AbstractData</span></code>
+but there are also abstractions that reduce boilerplate code even more for some special cases like
+<code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code>s only containing a single value.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpongeHealthData</span> <span class="kd">extends</span> <span class="n">AbstractData</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="p">,</span> <span class="n">ImmutableHealthData</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">HealthData</span> <span class="p">{</span>
+    <span class="o">[</span><span class="p">...</span><span class="o">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>There are two type arguments to the AbstractData class. The first is the interface implemented by this class, the
+second is the interface implemented by the corresponding <code class="docutils literal notranslate"><span class="pre">ImmutableDataManipulator</span></code>.</p>
+<div class="section" id="the-constructor">
+<h3>The Constructor<a class="headerlink" href="#the-constructor" title="Permalink to this headline">¶</a></h3>
+<p>In most cases while implementing an abstract <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> you need to have two constructors:</p>
+<ul class="simple">
+<li>One without arguments (no-args) which calls the second constructor with “default” values</li>
+<li>The second constructor that takes all the values it supports.</li>
+</ul>
+<p>The second constructor must</p>
+<ul class="simple">
+<li>make a call to the <code class="docutils literal notranslate"><span class="pre">AbstractData</span></code> constructor, passing the class reference for the implemented interface.</li>
+<li>make sure the values passed are valid</li>
+<li>call the <code class="docutils literal notranslate"><span class="pre">registerGettersAndSetters()</span></code> method</li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import static</span> <span class="nn">com.google.common.base.Preconditions.checkArgument</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpongeHealthData</span> <span class="kd">extends</span> <span class="n">AbstractData</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="p">,</span> <span class="n">ImmutableHealthData</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">HealthData</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">health</span><span class="p">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">maxHealth</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">SpongeHealthData</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">(</span><span class="mi">20</span><span class="n">D</span><span class="p">,</span> <span class="mi">20</span><span class="n">D</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="nf">SpongeHealthData</span><span class="p">(</span><span class="kt">double</span> <span class="n">health</span><span class="p">,</span> <span class="kt">double</span> <span class="n">maxHealth</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">super</span><span class="p">(</span><span class="n">HealthData</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="n">checkArgument</span><span class="p">(</span><span class="n">maxHealth</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">health</span> <span class="o">=</span> <span class="n">health</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">maxHealth</span> <span class="o">=</span> <span class="n">maxHealth</span><span class="p">;</span>
+        <span class="n">registerGettersAndSetters</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="o">[</span><span class="p">...</span><span class="o">]</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Since we know that both current health and maximum health are bounded values, we need to make sure no values
+outside of these bounds can be passed. To achieve this, we use guava’s <code class="docutils literal notranslate"><span class="pre">Preconditions</span></code> of which we import the
+required methods statically.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Never use so-called magic values (arbitrary numbers, booleans etc.) in your code. Instead, locate the
+<code class="docutils literal notranslate"><span class="pre">DataConstants</span></code> class and use a fitting constant - or create one, if necessary.</p>
+</div>
+</div>
+<div class="section" id="accessors-defined-by-the-interface">
+<h3>Accessors defined by the Interface<a class="headerlink" href="#accessors-defined-by-the-interface" title="Permalink to this headline">¶</a></h3>
+<p>The interface we implement specifies some methods to access <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/value/mutable/Value.html">Value</a> objects. For <code class="docutils literal notranslate"><span class="pre">HealthData</span></code>, those are
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html#health--">HealthData#health()</a> and <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/mutable/entity/HealthData.html#maxHealth--">HealthData#maxHealth()</a>. Every call to those should yield a new <code class="docutils literal notranslate"><span class="pre">Value</span></code>.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">health</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">SpongeValueFactory</span><span class="p">.</span><span class="na">boundedBuilder</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">minimum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">maximum</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">maxHealth</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">defaultValue</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">maxHealth</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">actualValue</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">health</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Since <code class="docutils literal notranslate"><span class="pre">Double</span></code> is a <code class="docutils literal notranslate"><span class="pre">Comparable</span></code>, we do not need to explicitly specify a comparator.</p>
+</div>
+<p>If no current value is specified, calling <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/value/BaseValue.html#get--">BaseValue#get()</a> on the <code class="docutils literal notranslate"><span class="pre">Value</span></code> returns the default value.</p>
+</div>
+<div class="section" id="copying-and-serialization">
+<h3>Copying and Serialization<a class="headerlink" href="#copying-and-serialization" title="Permalink to this headline">¶</a></h3>
+<p>The two methods <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/DataManipulator.html#copy--">DataManipulator#copy()</a> and <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/DataManipulator.html#asImmutable--">DataManipulator#asImmutable()</a> are not much work to
+implement. For both you just need to return a mutable or an immutable data manipulator respectively, containing the same
+data as the current instance.</p>
+<p>The method <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataSerializable.html#toContainer--">DataSerializable#toContainer()</a> is used for serialization purposes. Use
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataContainer.html#createNew--">DataContainer#createNew()</a> as the result and apply to it the values stored within this instance.
+A <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataContainer.html">DataContainer</a> is basically a map mapping <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataQuery.html">DataQuery</a>s to values. Since a <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Key.html">Key</a> always
+contains a corresponding <code class="docutils literal notranslate"><span class="pre">DataQuery</span></code>, just use those by passing the <code class="docutils literal notranslate"><span class="pre">Key</span></code> directly.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">DataContainer</span> <span class="nf">toContainer</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="p">.</span><span class="na">toContainer</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">health</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">maxHealth</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="registergettersandsetters">
+<h3>registerGettersAndSetters()<a class="headerlink" href="#registergettersandsetters" title="Permalink to this headline">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> also provides methods to get and set data using keys. The implementation for this is handled
+by <code class="docutils literal notranslate"><span class="pre">AbstractData</span></code>, but we must tell it which data it can access and how. Therefore, in the
+<code class="docutils literal notranslate"><span class="pre">registerGettersAndSetters()</span></code> method we need to do the following for each value:</p>
+<ul class="simple">
+<li>register a <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html">Supplier</a> to directly get the value</li>
+<li>register a <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html">Consumer</a> to directly set the value</li>
+<li>register a <code class="docutils literal notranslate"><span class="pre">Supplier&lt;Value&gt;</span></code> to get the mutable <code class="docutils literal notranslate"><span class="pre">Value</span></code></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Supplier</span></code> and <code class="docutils literal notranslate"><span class="pre">Consumer</span></code> are functional interfaces, so Java 8 Lambdas can be used.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="n">SpongeHealthData</span> <span class="nf">setCurrentHealthIfValid</span><span class="p">(</span><span class="kt">double</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="n">Float</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">health</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;Invalid value for current health&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">private</span> <span class="n">SpongeHealthData</span> <span class="nf">setMaximumHealthIfValid</span><span class="p">(</span><span class="kt">double</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="n">Float</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">maxHealth</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;Invalid value for maximum health&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">registerGettersAndSetters</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">registerFieldGetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="k">this</span><span class="p">.</span><span class="na">health</span><span class="p">);</span>
+    <span class="n">registerFieldSetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">setCurrentHealthIfValid</span><span class="p">);</span>
+    <span class="n">registerKeyValue</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">health</span><span class="p">);</span>
+
+    <span class="n">registerFieldGetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="k">this</span><span class="p">.</span><span class="na">maxHealth</span><span class="p">);</span>
+    <span class="n">registerFieldSetter</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">setMaximumHealthIfValid</span><span class="p">);</span>
+    <span class="n">registerKeyValue</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">maxHealth</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">Consumer</span></code> registered as field setter must perform the adequate checks to make sure the supplied value is valid.
+This applies especially for <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataHolder.html">DataHolder</a>s which won’t accept negative values. If a value is invalid, an
+<code class="docutils literal notranslate"><span class="pre">IllegalArgumentException</span></code> should be thrown.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The validity criteria for those setters are the same as for the respective <code class="docutils literal notranslate"><span class="pre">Value</span></code> object, so you might delegate
+the validity check to a call of <code class="docutils literal notranslate"><span class="pre">this.health().set()</span></code> and just set <code class="docutils literal notranslate"><span class="pre">this.health</span> <span class="pre">=</span> <span class="pre">value</span></code> if the first
+line has not thrown an exception yet.</p>
+</div>
+<p>That’s it. The <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> should be done now.</p>
+</div>
+</div>
+<div class="section" id="implement-the-immutabledatamanipulator">
+<h2>2. Implement the ImmutableDataManipulator<a class="headerlink" href="#implement-the-immutabledatamanipulator" title="Permalink to this headline">¶</a></h2>
+<p>Implementing the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/manipulator/ImmutableDataManipulator.html">ImmutableDataManipulator</a> is similar to implementing the mutable one.</p>
+<p>The only differences are:</p>
+<ul class="simple">
+<li>The class name is formed by prefixing the mutable <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code>s name with <code class="docutils literal notranslate"><span class="pre">ImmutableSponge</span></code></li>
+<li>Inherit from <code class="docutils literal notranslate"><span class="pre">ImmutableAbstractData</span></code> instead</li>
+<li>Instead of <code class="docutils literal notranslate"><span class="pre">registerGettersAndSetters()</span></code>, the method is called <code class="docutils literal notranslate"><span class="pre">registerGetters()</span></code></li>
+</ul>
+<p>When creating <code class="docutils literal notranslate"><span class="pre">ImmutableDataHolder</span></code>s or <code class="docutils literal notranslate"><span class="pre">ImmutableValue</span></code>s, check if it makes sense to use the
+<code class="docutils literal notranslate"><span class="pre">ImmutableDataCachingUtil</span></code>. For example, if you have <code class="docutils literal notranslate"><span class="pre">WetData</span></code> which contains nothing more than a boolean, it
+is more feasible to retain only two cached instances of <code class="docutils literal notranslate"><span class="pre">ImmutableWetData</span></code> - one for each possible value. For
+manipulators and values with many possible values (like <code class="docutils literal notranslate"><span class="pre">SignData</span></code>) however, caching is proven to be too expensive.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">You should declare the fields of an <code class="docutils literal notranslate"><span class="pre">ImmutableDataManipulator</span></code> as <code class="docutils literal notranslate"><span class="pre">final</span></code> in order to
+prevent accidental changes.</p>
+</div>
+</div>
+<div class="section" id="register-the-key-in-the-keyregistrymodule">
+<h2>3. Register the Key in the KeyRegistryModule<a class="headerlink" href="#register-the-key-in-the-keyregistrymodule" title="Permalink to this headline">¶</a></h2>
+<p>The next step is to register your <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Key.html">Key</a>s to the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Keys.html">Keys</a>. To do so, locate the
+<code class="docutils literal notranslate"><span class="pre">KeyRegistryModule</span></code> class and find the <code class="docutils literal notranslate"><span class="pre">registerDefaults()</span></code> method.
+There add a line to register (and create) your used keys.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import static</span> <span class="nn">org.spongepowered.api.data.DataQuery.of</span><span class="p">;</span>
+
+<span class="k">this</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="s">&quot;health&quot;</span><span class="p">,</span> <span class="n">Key</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">type</span><span class="p">(</span><span class="n">TypeTokens</span><span class="p">.</span><span class="na">BOUNDED_DOUBLE_VALUE_TOKEN</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">id</span><span class="p">(</span><span class="s">&quot;health&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">name</span><span class="p">(</span><span class="s">&quot;Health&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;Health&quot;</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">());</span>
+<span class="k">this</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="s">&quot;max_health&quot;</span><span class="p">,</span> <span class="n">Key</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">type</span><span class="p">(</span><span class="n">TypeTokens</span><span class="p">.</span><span class="na">BOUNDED_DOUBLE_VALUE_TOKEN</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">id</span><span class="p">(</span><span class="s">&quot;max_health&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">name</span><span class="p">(</span><span class="s">&quot;Max Health&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;MaxHealth&quot;</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">register(Key)</span></code> method registers your <code class="docutils literal notranslate"><span class="pre">Key</span></code>s for later use. The string used for the id should be the
+corresponding constant name from the <code class="docutils literal notranslate"><span class="pre">Keys</span></code> utility class in lowercase. The <code class="docutils literal notranslate"><span class="pre">Key</span></code> itself is created by using the
+<a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Key.Builder.html">Key.Builder</a> provided by the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/key/Key.html#builder--">Key#builder()</a> method. You have to set a <code class="docutils literal notranslate"><span class="pre">TypeToken</span></code>, an <code class="docutils literal notranslate"><span class="pre">id</span></code>,
+human readable <code class="docutils literal notranslate"><span class="pre">name</span></code> and a <code class="docutils literal notranslate"><span class="pre">DataQuery</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">DataQuery</span></code> is used for serialization. It is created from the statically imported <code class="docutils literal notranslate"><span class="pre">DataQuery.of()</span></code> method
+accepting a string. This string should also be the constant name, stripped of underscores and capitalization changed to
+upper camel case.</p>
+</div>
+<div class="section" id="implement-the-dataprocessors">
+<h2>4. Implement the DataProcessors<a class="headerlink" href="#implement-the-dataprocessors" title="Permalink to this headline">¶</a></h2>
+<p>Next up is the <code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code>. A <code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code> serves as a bridge between our <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> and
+Minecraft’s objects. Whenever any data is requested from or offered to <code class="docutils literal notranslate"><span class="pre">DataHolders</span></code> that exist in Vanilla
+Minecraft, those calls end up being delegated to a <code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code> or a <code class="docutils literal notranslate"><span class="pre">ValueProcessor</span></code>.</p>
+<p>For your name, you should use the name of the <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> interface and append <code class="docutils literal notranslate"><span class="pre">Processor</span></code>. Thus, for
+<code class="docutils literal notranslate"><span class="pre">HealthData</span></code> we create a <code class="docutils literal notranslate"><span class="pre">HealthDataProcessor</span></code>.</p>
+<p>In order to reduce boilerplate code, the <code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code> should inherit from the appropriate abstract class in
+the <code class="docutils literal notranslate"><span class="pre">org.spongepowered.common.data.processor.common</span></code> package. Since health can only be present on certain
+entities, we can make use of the <code class="docutils literal notranslate"><span class="pre">AbstractEntityDataProcessor</span></code> which is specifically targeted at <code class="docutils literal notranslate"><span class="pre">Entities</span></code>
+based on <code class="docutils literal notranslate"><span class="pre">net.minecraft.entity.Entity</span></code>. <code class="docutils literal notranslate"><span class="pre">AbstractEntitySingleDataProcessor</span></code> would require less
+implementation work, but cannot be used as <code class="docutils literal notranslate"><span class="pre">HealthData</span></code> contains more than just one value.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HealthDataProcessor</span>
+        <span class="kd">extends</span> <span class="n">AbstractEntityDataProcessor</span><span class="o">&lt;</span><span class="n">EntityLivingBase</span><span class="p">,</span> <span class="n">HealthData</span><span class="p">,</span> <span class="n">ImmutableHealthData</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="nf">HealthDataProcessor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">super</span><span class="p">(</span><span class="n">EntityLivingBase</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="o">[</span><span class="p">...</span><span class="o">]</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Depending on which abstraction you use, the methods you have to implement may differ greatly, depending on how
+much implementation work already could be done in the abstract class. Generally, the methods can be categorized.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">It is possible to create multiple <code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code>s for the same data. If vastly different <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code>s
+should be supported (for example both a <code class="docutils literal notranslate"><span class="pre">TileEntity</span></code> and a matching <code class="docutils literal notranslate"><span class="pre">ItemStack</span></code>), it may be beneficial to
+create one processor for each type of <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code> in order to make full use of the provided abstractions.
+Make sure you follow the package structure for items, tileentities and entities.</p>
+</div>
+<div class="section" id="validation-methods">
+<h3>Validation Methods<a class="headerlink" href="#validation-methods" title="Permalink to this headline">¶</a></h3>
+<p>Always return a boolean value. If any of the <code class="docutils literal notranslate"><span class="pre">supports(target)</span></code> methods is called it should perform a general check if
+the supplied target generally supports the kind of data handled by our <code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code>. Based on your level of
+abstraction you might not have to implement it at all, if you have to just implement the most specific one, as the more
+generic ones usually delegate to them.</p>
+<p>For our <code class="docutils literal notranslate"><span class="pre">HealthDataProcessor</span></code> <code class="docutils literal notranslate"><span class="pre">supports()</span></code> is implemented by the <code class="docutils literal notranslate"><span class="pre">AbstractEntityDataProcessor</span></code>. Per
+default, it will return true if the supplied argument is an instance of the class specified when calling the
+<code class="docutils literal notranslate"><span class="pre">super()</span></code> constructor.</p>
+<p>Instead, we are required to provide a <code class="docutils literal notranslate"><span class="pre">doesDataExist()</span></code> method. Since the abstraction does not know how to
+obtain the data, it leaves this function to be implemented. As the name says, the method should check if the data
+already exists on the supported target. For the <code class="docutils literal notranslate"><span class="pre">HealthDataProcessor</span></code>, this always returns true, since every
+living entity always has health.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">doesDataExist</span><span class="p">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setter-methods">
+<h3>Setter Methods<a class="headerlink" href="#setter-methods" title="Permalink to this headline">¶</a></h3>
+<p>A setter method receives a <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code> of some sort and some data that should be applied to it, if possible.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code> interface defines a <code class="docutils literal notranslate"><span class="pre">set()</span></code> method accepting a <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code> and a <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code>
+which returns a <code class="docutils literal notranslate"><span class="pre">DataTransactionResult</span></code>. Depending on the abstraction class used, some of the necessary
+functionality might already be implemented.</p>
+<p>In this case, the <code class="docutils literal notranslate"><span class="pre">AbstractEntityDataProcessor</span></code> takes care of most of it and just requires a method to set
+some values to return <code class="docutils literal notranslate"><span class="pre">true</span></code> if it was successful and <code class="docutils literal notranslate"><span class="pre">false</span></code> if it was not. All checks if the
+<code class="docutils literal notranslate"><span class="pre">DataHolder</span></code> supports the <code class="docutils literal notranslate"><span class="pre">Data</span></code> is taken care of, the abstract class will just pass a Map mapping each
+<code class="docutils literal notranslate"><span class="pre">Key</span></code> from the <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> to its value and then construct a <code class="docutils literal notranslate"><span class="pre">DataTransactionResult</span></code> depending on
+whether the operation was successful or not.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">set</span><span class="p">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="p">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;</span><span class="p">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">keyValues</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">entity</span><span class="p">.</span><span class="na">getEntityAttribute</span><span class="p">(</span><span class="n">SharedMonsterAttributes</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">setBaseValue</span><span class="p">(((</span><span class="n">Double</span><span class="p">)</span> <span class="n">keyValues</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">)).</span><span class="na">floatValue</span><span class="p">());</span>
+    <span class="kt">float</span> <span class="n">health</span> <span class="o">=</span> <span class="p">((</span><span class="n">Double</span><span class="p">)</span> <span class="n">keyValues</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">)).</span><span class="na">floatValue</span><span class="p">();</span>
+    <span class="n">entity</span><span class="p">.</span><span class="na">setHealth</span><span class="p">(</span><span class="n">health</span><span class="p">);</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">To understand <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataTransactionResult.html">DataTransactionResult</a>s, check the <a class="reference internal" href="../../plugin/data/transactions.html"><span class="doc">corresponding docs page</span></a> and refer to the <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataTransactionResult.Builder.html">DataTransactionResult.Builder</a> docs to create one.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Especially when working with <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/item/inventory/ItemStack.html">ItemStack</a>s it is likely that you will need to deal with
+<code class="docutils literal notranslate"><span class="pre">NBTTagCompound</span></code>s directly. Many NBT keys are already defined as constants in the <code class="docutils literal notranslate"><span class="pre">NbtDataUtil</span></code> class.
+If your required key is not there, you need to add it in order to avoid ‘magic values’ in the code.</p>
+</div>
+</div>
+<div class="section" id="removal-method">
+<h3>Removal Method<a class="headerlink" href="#removal-method" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">remove()</span></code> method attempts to remove data from the <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code> and returns a <code class="docutils literal notranslate"><span class="pre">DataTransactionResult</span></code>.</p>
+<p>Removal is not abstracted in any abstract <code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code> as the abstractions have no way of knowing if the data
+is always present on a compatible <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code> (like <code class="docutils literal notranslate"><span class="pre">WetData</span></code> or <code class="docutils literal notranslate"><span class="pre">HealthData</span></code>) or if it may or may not be present
+(like <code class="docutils literal notranslate"><span class="pre">LoreData</span></code>). If the data is always present, <code class="docutils literal notranslate"><span class="pre">remove()</span></code> must always fail. If it may or may not be present,
+<code class="docutils literal notranslate"><span class="pre">remove()</span></code> should remove it.</p>
+<p>Since a living entity <em>always</em> has health, <code class="docutils literal notranslate"><span class="pre">HealthData</span></code> is always present and removal therefore not supported.
+Therefore we just return <a class="reference external" href="https://jd.spongepowered.org/7.1.0/org/spongepowered/api/data/DataTransactionResult.html#failNoData--">DataTransactionResult#failNoData()</a>.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">DataTransactionResult</span> <span class="nf">remove</span><span class="p">(</span><span class="n">DataHolder</span> <span class="n">dataHolder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">DataTransactionResult</span><span class="p">.</span><span class="na">failNoData</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getter-methods">
+<h3>Getter Methods<a class="headerlink" href="#getter-methods" title="Permalink to this headline">¶</a></h3>
+<p>Getter methods obtain data from a <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code> and return an optional <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code> interface specifies the methods <code class="docutils literal notranslate"><span class="pre">from()</span></code> and <code class="docutils literal notranslate"><span class="pre">createFrom()</span></code>, the difference being that
+<code class="docutils literal notranslate"><span class="pre">from()</span></code> will return <code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code> if the data holder is compatible, but currently does not contain the
+data, while <code class="docutils literal notranslate"><span class="pre">createFrom()</span></code> will provide a <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> holding default values in that case.</p>
+<p>Again, <code class="docutils literal notranslate"><span class="pre">AbstractEntityDataProcessor</span></code> will provide most of the implementation for this and only requires a
+method to get the actual values present on the <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code>. This method is only called after <code class="docutils literal notranslate"><span class="pre">supports()</span></code>
+and <code class="docutils literal notranslate"><span class="pre">doesDataExist()</span></code> both returned true, which means it is run under the assumption that the data is present.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If the data may not always exist on the target <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code>, e.g. if the <code class="docutils literal notranslate"><span class="pre">remove()</span></code> function may be successful
+(see above), it is imperative that you implement the <code class="docutils literal notranslate"><span class="pre">doesDataExist()</span></code> method so that it returns <code class="docutils literal notranslate"><span class="pre">true</span></code>
+if the data is present and <code class="docutils literal notranslate"><span class="pre">false</span></code> if it is not.</p>
+</div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;?&gt;</span><span class="p">,</span> <span class="o">?&gt;</span> <span class="n">getValues</span><span class="p">(</span><span class="n">EntityLivingBase</span> <span class="n">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="kt">double</span> <span class="n">health</span> <span class="o">=</span> <span class="n">entity</span><span class="p">.</span><span class="na">getHealth</span><span class="p">();</span>
+    <span class="kd">final</span> <span class="kt">double</span> <span class="n">maxHealth</span> <span class="o">=</span> <span class="n">entity</span><span class="p">.</span><span class="na">getMaxHealth</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">ImmutableMap</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="n">health</span><span class="p">,</span> <span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="n">maxHealth</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filler-methods">
+<h3>Filler Methods<a class="headerlink" href="#filler-methods" title="Permalink to this headline">¶</a></h3>
+<p>A filler method is different from a getter method in that it receives a <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> to fill with values.
+These values either come from a <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code> or have to be deserialized from a <code class="docutils literal notranslate"><span class="pre">DataContainer</span></code>. The method
+returns <code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code> if the <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code> is incompatible.</p>
+<p><code class="docutils literal notranslate"><span class="pre">AbstractEntityDataProcessor</span></code> already handles filling from <code class="docutils literal notranslate"><span class="pre">DataHolders</span></code> by creating a <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code>
+from the holder and then merging it with the supplied manipulator, but the <code class="docutils literal notranslate"><span class="pre">DataContainer</span></code> deserialization it
+cannot provide.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">HealthData</span><span class="o">&gt;</span> <span class="nf">fill</span><span class="p">(</span><span class="n">DataContainer</span> <span class="n">container</span><span class="p">,</span> <span class="n">HealthData</span> <span class="n">healthData</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">container</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">.</span><span class="na">getQuery</span><span class="p">())</span> <span class="o">||</span> <span class="o">!</span><span class="n">container</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">.</span><span class="na">getQuery</span><span class="p">()))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">healthData</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="n">getData</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">));</span>
+    <span class="n">healthData</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="n">getData</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">healthData</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">fill()</span></code> method is to return an <code class="docutils literal notranslate"><span class="pre">Optional</span></code> of the altered <code class="docutils literal notranslate"><span class="pre">healthData</span></code>, if and only if all required data could
+be obtained from the <code class="docutils literal notranslate"><span class="pre">DataContainer</span></code>.</p>
+</div>
+<div class="section" id="other-methods">
+<h3>Other Methods<a class="headerlink" href="#other-methods" title="Permalink to this headline">¶</a></h3>
+<p>Depending on the abstract superclass used, some other methods may be required. For instance,
+<code class="docutils literal notranslate"><span class="pre">AbstractEntityDataProcessor</span></code> needs to create <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> instances in various points. It can’t do this
+since it knows neither the implementation class nor the constructor to use. Therefore it utilizes an abstract
+function that has to be provided by the final implementation. This does nothing more than create a
+<code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> with default data.</p>
+<p>If you implemented your <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> as recommended, you can just use the no-args constructor.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="n">HealthData</span> <span class="nf">createManipulator</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">SpongeHealthData</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="implement-the-valueprocessors">
+<h2>5. Implement the ValueProcessors<a class="headerlink" href="#implement-the-valueprocessors" title="Permalink to this headline">¶</a></h2>
+<p>Not only a <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> may be offered to a <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code>, but also a keyed <code class="docutils literal notranslate"><span class="pre">Value</span></code> on its own.
+Therefore, you need to provide at least one <code class="docutils literal notranslate"><span class="pre">ValueProcessor</span></code> for every <code class="docutils literal notranslate"><span class="pre">Key</span></code> present in your
+<code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code>. A <code class="docutils literal notranslate"><span class="pre">ValueProcessor</span></code> is named after the constant name of its <code class="docutils literal notranslate"><span class="pre">Key</span></code> in the <code class="docutils literal notranslate"><span class="pre">Keys</span></code> class
+in a fashion similar to its <code class="docutils literal notranslate"><span class="pre">DataQuery</span></code>. The constant name is stripped of underscores, used in upper camel case
+and then suffixed with <code class="docutils literal notranslate"><span class="pre">ValueProcessor</span></code>.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">ValueProcessor</span></code> should always inherit from <code class="docutils literal notranslate"><span class="pre">AbstractSpongeValueProcessor</span></code>, which already will handle a
+portion of the <code class="docutils literal notranslate"><span class="pre">supports()</span></code> checks based on the type of the <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code>. For <code class="docutils literal notranslate"><span class="pre">Keys.HEALTH</span></code>, we’ll create
+and construct <code class="docutils literal notranslate"><span class="pre">HealthValueProcessor</span></code> as follows.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HealthValueProcessor</span>
+        <span class="kd">extends</span> <span class="n">AbstractSpongeValueProcessor</span><span class="o">&lt;</span><span class="n">EntityLivingBase</span><span class="p">,</span> <span class="n">Double</span><span class="p">,</span> <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="nf">HealthValueProcessor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">super</span><span class="p">(</span><span class="n">EntityLivingBase</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="o">[</span><span class="p">...</span><span class="o">]</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now the <code class="docutils literal notranslate"><span class="pre">AbstractSpongeValueProcessor</span></code> will relieve us of the necessity to check if the value is supported.
+It is assumed to be supported if the target <code class="docutils literal notranslate"><span class="pre">ValueContainer</span></code> is of the type <code class="docutils literal notranslate"><span class="pre">EntityLivingBase</span></code>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">For a more fine-grained control over what <code class="docutils literal notranslate"><span class="pre">EntityLivingBase</span></code> objects are supported, the
+<code class="docutils literal notranslate"><span class="pre">supports(EntityLivingBase)</span></code> method can be overridden.</p>
+</div>
+<p>Again, most work is done by the abstraction class. We just need to implement two helper methods for creating
+a <code class="docutils literal notranslate"><span class="pre">Value</span></code> and its immutable counterpart and three methods to get, set and remove data.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="n">MutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">constructValue</span><span class="p">(</span><span class="n">Double</span> <span class="n">health</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">SpongeValueFactory</span><span class="p">.</span><span class="na">boundedBuilder</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">minimum</span><span class="p">(</span><span class="mf">0D</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">maximum</span><span class="p">(((</span><span class="n">Float</span><span class="p">)</span> <span class="n">Float</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">).</span><span class="na">doubleValue</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">defaultValue</span><span class="p">(</span><span class="mi">20</span><span class="n">D</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">actualValue</span><span class="p">(</span><span class="n">health</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="n">ImmutableBoundedValue</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">constructImmutableValue</span><span class="p">(</span><span class="n">Double</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">constructValue</span><span class="p">(</span><span class="n">value</span><span class="p">).</span><span class="na">asImmutable</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">getVal</span><span class="p">(</span><span class="n">EntityLivingBase</span> <span class="n">container</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">((</span><span class="kt">double</span><span class="p">)</span> <span class="n">container</span><span class="p">.</span><span class="na">getHealth</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Since it is impossible for an <code class="docutils literal notranslate"><span class="pre">EntityLivingBase</span></code> to not have health, this method will never return
+<code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code>.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">set</span><span class="p">(</span><span class="n">EntityLivingBase</span> <span class="n">container</span><span class="p">,</span> <span class="n">Double</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="n">Float</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">container</span><span class="p">.</span><span class="na">setHealth</span><span class="p">(</span><span class="n">value</span><span class="p">.</span><span class="na">floatValue</span><span class="p">());</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">set()</span></code> method will return a boolean value indicating whether the value could successfully be set.
+This implementation will reject values outside of the bounds used in our value construction methods above.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">DataTransactionResult</span> <span class="nf">removeFrom</span><span class="p">(</span><span class="n">ValueContainer</span><span class="o">&lt;?&gt;</span> <span class="n">container</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">DataTransactionResult</span><span class="p">.</span><span class="na">failNoData</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Since the data is guaranteed to be always present, attempts to remove it will just fail.</p>
+</div>
+<div class="section" id="register-processors">
+<h2>6. Register Processors<a class="headerlink" href="#register-processors" title="Permalink to this headline">¶</a></h2>
+<p>In order for Sponge to be able to use our manipulators and processors, we need to register them. This is done in the
+<code class="docutils literal notranslate"><span class="pre">DataRegistrar</span></code> class. In the <code class="docutils literal notranslate"><span class="pre">setupSerialization()</span></code> method there are two large blocks of registrations to which we
+add our processors.</p>
+<div class="section" id="dataprocessors">
+<h3>DataProcessors<a class="headerlink" href="#dataprocessors" title="Permalink to this headline">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code> is registered alongside the interface and implementation classes of the <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code> it
+handles. For every pair of mutable / immutable <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code>s at least one <code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code> must be registered.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">DataUtil</span><span class="p">.</span><span class="na">registerDataProcessorAndImpl</span><span class="p">(</span><span class="n">HealthData</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">SpongeHealthData</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+        <span class="n">ImmutableHealthData</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">ImmutableSpongeHealthData</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+        <span class="k">new</span> <span class="n">HealthDataProcessor</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="valueprocessors">
+<h3>ValueProcessors<a class="headerlink" href="#valueprocessors" title="Permalink to this headline">¶</a></h3>
+<p>Value processors are registered at the bottom of the very same function. For each <code class="docutils literal notranslate"><span class="pre">Key</span></code> multiple processors
+can be registered by subsequent calls of the <code class="docutils literal notranslate"><span class="pre">registerValueProcessor()</span></code> method.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">DataUtil</span><span class="p">.</span><span class="na">registerValueProcessor</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">HEALTH</span><span class="p">,</span> <span class="k">new</span> <span class="n">HealthValueProcessor</span><span class="p">());</span>
+<span class="n">DataUtil</span><span class="p">.</span><span class="na">registerValueProcessor</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">MAX_HEALTH</span><span class="p">,</span> <span class="k">new</span> <span class="n">MaxHealthValueProcessor</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="implementing-block-data">
+<h2>Implementing Block Data<a class="headerlink" href="#implementing-block-data" title="Permalink to this headline">¶</a></h2>
+<p>Block data is somewhat different from other types of data in that it is implemented by mixing in to the block itself.
+There are several methods in <code class="docutils literal notranslate"><span class="pre">org.spongepowered.mixin.core.block.MixinBlock</span></code> that must be overridden to implement
+data for blocks.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Mixin</span><span class="p">(</span><span class="n">BlockHorizontal</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">MixinBlockHorizontal</span> <span class="kd">extends</span> <span class="n">MixinBlock</span> <span class="p">{</span>
+
+    <span class="o">[</span><span class="p">...</span><span class="o">]</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">supports()</span></code> should return <code class="docutils literal notranslate"><span class="pre">true</span></code> if either the <code class="docutils literal notranslate"><span class="pre">ImmutableDataManipulator</span></code> interface is assignable from the
+<code class="docutils literal notranslate"><span class="pre">Class</span></code> passed in as the argument, or the superclass supports it.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supports</span><span class="p">(</span><span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">ImmutableDataManipulator</span><span class="o">&lt;?</span><span class="p">,</span> <span class="o">?&gt;&gt;</span> <span class="n">immutable</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="p">.</span><span class="na">supports</span><span class="p">(</span><span class="n">immutable</span><span class="p">)</span> <span class="o">||</span> <span class="n">ImmutableDirectionalData</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">isAssignableFrom</span><span class="p">(</span><span class="n">immutable</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">getStateWithData()</span></code> should return a new <code class="docutils literal notranslate"><span class="pre">BlockState</span></code> with the data from the <code class="docutils literal notranslate"><span class="pre">ImmutableDataManipulator</span></code> applied
+to it. If the manipulator is not directly supported, the method should delegate to the superclass.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">BlockState</span><span class="o">&gt;</span> <span class="nf">getStateWithData</span><span class="p">(</span><span class="n">IBlockState</span> <span class="n">blockState</span><span class="p">,</span> <span class="n">ImmutableDataManipulator</span><span class="o">&lt;?</span><span class="p">,</span> <span class="o">?&gt;</span> <span class="n">manipulator</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">manipulator</span> <span class="k">instanceof</span> <span class="n">ImmutableDirectionalData</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">final</span> <span class="n">Direction</span> <span class="n">direction</span> <span class="o">=</span> <span class="p">((</span><span class="n">ImmutableDirectionalData</span><span class="p">)</span> <span class="n">manipulator</span><span class="p">).</span><span class="na">direction</span><span class="p">().</span><span class="na">get</span><span class="p">();</span>
+        <span class="kd">final</span> <span class="n">EnumFacing</span> <span class="n">facing</span> <span class="o">=</span> <span class="n">DirectionResolver</span><span class="p">.</span><span class="na">getFor</span><span class="p">(</span><span class="n">direction</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">((</span><span class="n">BlockState</span><span class="p">)</span> <span class="n">blockState</span><span class="p">.</span><span class="na">withProperty</span><span class="p">(</span><span class="n">BlockHorizontal</span><span class="p">.</span><span class="na">FACING</span><span class="p">,</span> <span class="n">facing</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="p">.</span><span class="na">getStateWithData</span><span class="p">(</span><span class="n">blockState</span><span class="p">,</span> <span class="n">manipulator</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">getStateWithValue()</span></code> is the equivalent of <code class="docutils literal notranslate"><span class="pre">getStateWithData()</span></code>, but works with single <code class="docutils literal notranslate"><span class="pre">Key</span></code>s.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">BlockState</span><span class="o">&gt;</span> <span class="nf">getStateWithValue</span><span class="p">(</span><span class="n">IBlockState</span> <span class="n">blockState</span><span class="p">,</span> <span class="n">Key</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">BaseValue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;&gt;</span> <span class="n">key</span><span class="p">,</span> <span class="n">E</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">Keys</span><span class="p">.</span><span class="na">DIRECTION</span><span class="p">))</span> <span class="p">{</span>
+        <span class="kd">final</span> <span class="n">Direction</span> <span class="n">direction</span> <span class="o">=</span> <span class="p">(</span><span class="n">Direction</span><span class="p">)</span> <span class="n">value</span><span class="p">;</span>
+        <span class="kd">final</span> <span class="n">EnumFacing</span> <span class="n">facing</span> <span class="o">=</span> <span class="n">DirectionResolver</span><span class="p">.</span><span class="na">getFor</span><span class="p">(</span><span class="n">direction</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">((</span><span class="n">BlockState</span><span class="p">)</span> <span class="n">blockState</span><span class="p">.</span><span class="na">withProperty</span><span class="p">(</span><span class="n">BlockHorizontal</span><span class="p">.</span><span class="na">FACING</span><span class="p">,</span> <span class="n">facing</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kd">super</span><span class="p">.</span><span class="na">getStateWithValue</span><span class="p">(</span><span class="n">blockState</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Finally, <code class="docutils literal notranslate"><span class="pre">getManipulators()</span></code> should return a list of all <code class="docutils literal notranslate"><span class="pre">ImmutableDataManipulator</span></code>s the block supports, along with
+the current values for the provided <code class="docutils literal notranslate"><span class="pre">IBlockState</span></code>. It should include all <code class="docutils literal notranslate"><span class="pre">ImmutableDataManipulator</span></code>s from the
+superclass.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ImmutableDataManipulator</span><span class="o">&lt;?</span><span class="p">,</span> <span class="o">?&gt;&gt;</span> <span class="n">getManipulators</span><span class="p">(</span><span class="n">IBlockState</span> <span class="n">blockState</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">ImmutableList</span><span class="p">.</span><span class="o">&lt;</span><span class="n">ImmutableDataManipulator</span><span class="o">&lt;?</span><span class="p">,</span> <span class="o">?&gt;&gt;</span><span class="n">builder</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">addAll</span><span class="p">(</span><span class="kd">super</span><span class="p">.</span><span class="na">getManipulators</span><span class="p">(</span><span class="n">blockState</span><span class="p">))</span>
+            <span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="n">ImmutableSpongeDirectionalData</span><span class="p">(</span><span class="n">DirectionResolver</span><span class="p">.</span><span class="na">getFor</span><span class="p">(</span><span class="n">blockState</span><span class="p">.</span><span class="na">getValue</span><span class="p">(</span><span class="n">BlockHorizontal</span><span class="p">.</span><span class="na">FACING</span><span class="p">))))</span>
+            <span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="further-information">
+<h2>Further Information<a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h2>
+<p>With <code class="docutils literal notranslate"><span class="pre">Data</span></code> being a rather abstract concept in Sponge, it is hard to give general directions on how to
+acquire the needed data from the Minecraft classes itself. It may be helpful to take a look at already
+implemented processors similar to the one you are working on to get a better understanding of how it should work.</p>
+<p>If you are stuck or are unsure about certain aspects, go visit the <code class="docutils literal notranslate"><span class="pre">#spongedev</span></code> IRC channel,
+the <code class="docutils literal notranslate"><span class="pre">#dev</span></code> channel on Discord, the forums, or open up an Issue on GitHub.
+Be sure to check the <a class="reference external" href="https://github.com/SpongePowered/SpongeCommon/issues/8">Data Processor Implementation Checklist</a>
+for general contribution requirements.</p>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../spongedocs.html" class="btn btn-neutral float-right" title="SpongeDocs Writing" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="mixins.html" class="btn btn-neutral" title="Mixins" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.1.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/compatible-or-not/source/contributing/implementation/datamanipulator.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/compatible-or-not/source/contributing/implementation/datamanipulator.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'7.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../../_static/jquery.js"></script>      <script type="text/javascript" src="../../_static/underscore.js"></script>      <script type="text/javascript" src="../../_static/doctools.js"></script>      <script type="text/javascript" src="../../_static/language_data.js"></script>      <script type="text/javascript" src="../../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>
