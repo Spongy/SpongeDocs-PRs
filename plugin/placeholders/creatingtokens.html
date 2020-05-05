@@ -196,6 +196,12 @@ contain includes:</p>
 <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderText.html">PlaceholderText</a> that provides more information.</p>
 <p>If your placeholder is unable to provide text because there is insufficient information, the placeholder should return
 and empty <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a> and not throw an exception.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>If you wish to provide the ability to add multiple arguments to your placeholder, consider specifying a way to split
+up the argument string.</p>
+<p class="last">Remember to tell users of your plugin what you expect your argument string to look like.</p>
+</div>
 <div class="section" id="example-default-world-name-placeholderparser">
 <h3>Example: Default World Name PlaceholderParser<a class="headerlink" href="#example-default-world-name-placeholderparser" title="Permalink to this headline">¶</a></h3>
 <p>This <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> attempts to get the default world’s name, returning an empty <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a> if it
@@ -227,16 +233,16 @@ cannot be found.</p>
 <h3>Example: Player Location PlaceholderParser<a class="headerlink" href="#example-player-location-placeholderparser" title="Permalink to this headline">¶</a></h3>
 <p>This <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> attempts to get the player’s location in the world. If used without a
 <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/living/player/Player.html">Player</a> as the associated receiver, returns an empty <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a>.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PlayerBalancePlaceholder</span> <span class="kd">implements</span> <span class="n">PlaceholderParser</span> <span class="p">{</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PlayerLocationPlaceholder</span> <span class="kd">implements</span> <span class="n">PlaceholderParser</span> <span class="p">{</span>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="n">String</span> <span class="nf">getId</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s">&quot;spongedocs:balance&quot;</span>
+        <span class="k">return</span> <span class="s">&quot;spongedocs:location&quot;</span>
     <span class="p">}</span>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s">&quot;Balance Placeholder&quot;</span>
+        <span class="k">return</span> <span class="s">&quot;Location Placeholder&quot;</span>
     <span class="p">}</span>
 
     <span class="nd">@Override</span>
@@ -253,6 +259,11 @@ cannot be found.</p>
 </div>
 <div class="section" id="example-player-balance-placeholderparser">
 <h3>Example: Player Balance PlaceholderParser<a class="headerlink" href="#example-player-balance-placeholderparser" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This example uses the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/economy/EconomyService.html">EconomyService</a>. To learn more about this service and how to use it, visit our pages
+on the <a class="reference internal" href="../economy/index.html"><span class="doc">Economy</span></a>.</p>
+</div>
 <p>This <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> attempts to get the player’s balance, with an optional argument that may contain the
 ID of a currency to check, else checking the default currency. It does the following:</p>
 <ul class="simple">
@@ -285,39 +296,41 @@ that balance, else return an empty <a class="reference external" href="https://j
         <span class="c1">// First: check the EconomyService is available</span>
         <span class="n">Optional</span><span class="o">&lt;</span><span class="n">EconomyService</span><span class="o">&gt;</span> <span class="n">optionalEconService</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getServiceManager</span><span class="p">()</span>
             <span class="p">.</span><span class="na">provide</span><span class="p">(</span><span class="n">EconomyService</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">optionalEconService</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
-            <span class="n">EconomyService</span> <span class="n">econService</span> <span class="o">=</span> <span class="n">optionalEconService</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
-
-            <span class="c1">// This placeholder only applies to players, so check that</span>
-            <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Player</span><span class="o">&gt;</span> <span class="n">player</span> <span class="o">=</span> <span class="n">placeholderText</span><span class="p">.</span><span class="na">getAssociatedReceiver</span><span class="p">()</span>
-                <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="k">instanceof</span> <span class="n">Player</span> <span class="o">?</span> <span class="p">(</span><span class="n">Player</span><span class="p">)</span> <span class="n">x</span> <span class="p">:</span> <span class="kc">null</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
-
-                <span class="c1">// Check the argument string, try to get a valid currency out of it</span>
-                <span class="n">Currency</span> <span class="n">currency</span><span class="p">;</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">placeholderText</span><span class="p">.</span><span class="na">getArgumentString</span><span class="p">().</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
-                    <span class="c1">// If we have an argument string, for this placeholder, we assume the</span>
-                    <span class="c1">// entire string is the argument - so is it a valid Currency ID?</span>
-                    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Currency</span><span class="o">&gt;</span> <span class="n">co</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getRegistry</span><span class="p">()</span>
-                        <span class="p">.</span><span class="na">getType</span><span class="p">(</span><span class="n">Currency</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">placeholderText</span><span class="p">.</span><span class="na">getArgumentString</span><span class="p">().</span><span class="na">get</span><span class="p">());</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">co</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
-                        <span class="c1">// If not, then the placeholder is invalid and should return an empty text.</span>
-                        <span class="k">return</span> <span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">;</span>
-                    <span class="p">}</span>
-                    <span class="c1">// It is, so this is what we use</span>
-                    <span class="n">currency</span> <span class="o">=</span> <span class="n">co</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
-                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                    <span class="n">currency</span> <span class="o">=</span> <span class="n">econService</span><span class="p">.</span><span class="na">getDefaultCurrency</span><span class="p">();</span>
-                <span class="p">}</span>
-
-                <span class="c1">// Finally, check the account exists, and if so, return the value</span>
-                <span class="n">Optional</span><span class="o">&lt;</span><span class="n">UniqueAccount</span><span class="o">&gt;</span> <span class="n">account</span> <span class="o">=</span> <span class="n">econService</span>
-                    <span class="p">.</span><span class="na">getOrCreateAccount</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">getUniqueId</span><span class="p">());</span>
-                <span class="k">return</span> <span class="n">account</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="na">getBalance</span><span class="p">(</span><span class="n">currency</span><span class="p">))).</span><span class="na">orElse</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">);</span>
-            <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">optionalEconService</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">;</span>
         <span class="p">}</span>
 
-        <span class="k">return</span> <span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">;</span>
+        <span class="n">EconomyService</span> <span class="n">econService</span> <span class="o">=</span> <span class="n">optionalEconService</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+
+        <span class="c1">// This placeholder only applies to players, so check that</span>
+        <span class="n">Optional</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="n">receiver</span> <span class="o">=</span> <span class="n">placeholderText</span><span class="p">.</span><span class="na">getAssociatedReceiver</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">receiver</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="p">(</span><span class="n">Player</span><span class="p">)</span> <span class="n">receiver</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+
+        <span class="c1">// Check the argument string, try to get a valid currency out of it</span>
+        <span class="n">Currency</span> <span class="n">currency</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">placeholderText</span><span class="p">.</span><span class="na">getArgumentString</span><span class="p">().</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+            <span class="c1">// If we have an argument string, for this placeholder, we assume the</span>
+            <span class="c1">// entire string is the argument - so is it a valid Currency ID?</span>
+            <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Currency</span><span class="o">&gt;</span> <span class="n">co</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getRegistry</span><span class="p">()</span>
+                <span class="p">.</span><span class="na">getType</span><span class="p">(</span><span class="n">Currency</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">placeholderText</span><span class="p">.</span><span class="na">getArgumentString</span><span class="p">().</span><span class="na">get</span><span class="p">());</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">co</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+                <span class="c1">// If not, then the placeholder is invalid and should return an empty text.</span>
+                <span class="k">return</span> <span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="c1">// It is, so this is what we use</span>
+            <span class="n">currency</span> <span class="o">=</span> <span class="n">co</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">currency</span> <span class="o">=</span> <span class="n">econService</span><span class="p">.</span><span class="na">getDefaultCurrency</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Finally, check the account exists, and if so, return the value</span>
+        <span class="n">Optional</span><span class="o">&lt;</span><span class="n">UniqueAccount</span><span class="o">&gt;</span> <span class="n">account</span> <span class="o">=</span> <span class="n">econService</span>
+            <span class="p">.</span><span class="na">getOrCreateAccount</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">());</span>
+        <span class="k">return</span> <span class="n">account</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="na">getBalance</span><span class="p">(</span><span class="n">currency</span><span class="p">))).</span><span class="na">orElse</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
