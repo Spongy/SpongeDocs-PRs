@@ -191,6 +191,33 @@ load the Sponge version of Mixin first, and can resolve many problems in one ste
 <li>Solution: Change <code class="docutils literal notranslate"><span class="pre">&lt;entry</span> <span class="pre">key=&quot;World.ITickable.Override&quot;&gt;true&lt;/entry&gt;</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code> in the <code class="docutils literal notranslate"><span class="pre">/asm/hammercore.xml</span></code> file</li>
 </ul>
 </div>
+<div class="section" id="icbm-classic">
+<h3>ICBM Classic<a class="headerlink" href="#icbm-classic" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Versions: All</li>
+<li>Problem: Missiles stop in midair and appear to lag in place.</li>
+<li>Solution: Add the commented text below to the <code class="docutils literal notranslate"><span class="pre">entity-activation-range/mods</span></code> section of the <code class="docutils literal notranslate"><span class="pre">sponge/global.conf</span></code> file:</li>
+</ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>entity-activation-range {
+    mods {
+        # COPY THIS - START
+        icbmclassic {
+            defaults {
+                misc=16
+            }
+            # If &#39;false&#39;, entity activation rules for this mod will be ignored and always tick.
+            enabled=false
+            entities {
+                missile=16
+                seat=16
+            }
+        }
+        # COPY THIS - END
+    }
+}
+</pre></div>
+</div>
+</div>
 <div class="section" id="just-enough-ids-jeid">
 <h3>Just Enough IDs (JEID)<a class="headerlink" href="#just-enough-ids-jeid" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
