@@ -1,0 +1,545 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scheduler &mdash; Sponge 7.2.0 documentation</title>
+
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../genindex.html"/>        <link rel="search" title="Search" href="../search.html"/>    <link rel="top" title="Sponge 7.2.0 documentation" href="../index.html"/>        <link rel="up" title="Creating a Plugin" href="index.html"/>        <link rel="next" title="Services" href="services.html"/>        <link rel="prev" title="Effects" href="effects.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../index.html">
+            <img src="../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api-versions.html">API-Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildsystem.html">Build Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workspace/index.html">Setting Up Your Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project/index.html">Setting Up Your Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin-class.html">Main Plugin Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lifecycle.html">Plugin Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="injection.html">Dependency Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practices/index.html">Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optional/index.html">Optionals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text/index.html">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands/index.html">Plugin Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event/index.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assets.html">The Asset API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data/index.html">The Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blocks/index.html">Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities/index.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="items/index.html">Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trade-offers.html">Trade-Offers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="effects.html">Effects</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html">Databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permissions.html">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">Metrics Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bookview.html">Book Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="economy/index.html">Economy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wgen/index.html">World Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="game-profile-manager.html">Game Profile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="offline-userplayer-data.html">Offline Player Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tab-lists.html">Tab Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin-meta.html">Plugin Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals/index.html">Implementation-dependent Plugins</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+          <li><a href="index.html">Creating a Plugin</a> &raquo;</li>
+    <li>Scheduler</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/plugin/scheduler.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="scheduler">
+<h1>Scheduler<a class="headerlink" href="#scheduler" title="Permalink to this headline">¶</a></h1>
+<p>Sponge exposes the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/scheduler/Scheduler.html">Scheduler</a> to allow you to designate tasks to be executed in the future. The <code class="docutils literal notranslate"><span class="pre">Scheduler</span></code>
+provides a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/scheduler/Task.Builder.html">Task.Builder</a> with which you can specify task properties such as the delay, interval, name,
+(a)synchronicity, and <code class="docutils literal notranslate"><span class="pre">Runnable</span></code> (see <a class="reference internal" href="#task-properties"><span class="std std-ref">Task Properties</span></a>).</p>
+<div class="section" id="task-builder">
+<h2>Task Builder<a class="headerlink" href="#task-builder" title="Permalink to this headline">¶</a></h2>
+<p>First, obtain an instance of the <code class="docutils literal notranslate"><span class="pre">Task.Builder</span></code>:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.scheduler.Task</span><span class="p">;</span>
+
+<span class="n">Task</span><span class="p">.</span><span class="na">Builder</span> <span class="n">taskBuilder</span> <span class="o">=</span> <span class="n">Task</span><span class="p">.</span><span class="na">builder</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>The only required property is the <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">Runnable</a>,
+which you can specify using <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/scheduler/Task.Builder.html#execute-java.lang.Runnable-">Task.Builder#execute(Runnable)</a>:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>or using Java 8 syntax with <code class="docutils literal notranslate"><span class="pre">Task.Builder#execute(Runnable</span> <span class="pre">runnable)</span></code></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span>
+    <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">{</span>
+        <span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>or using Java 8 syntax with <code class="docutils literal notranslate"><span class="pre">Task.Builder#execute(Consumer&lt;Task&gt;</span> <span class="pre">task)</span></code></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">taskBuilder</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span>
+    <span class="n">task</span> <span class="o">-&gt;</span> <span class="p">{</span>
+        <span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&quot;Yay! Schedulers! :&quot;</span> <span class="o">+</span> <span class="n">task</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<div class="section" id="task-properties">
+<span id="id1"></span><h3>Task Properties<a class="headerlink" href="#task-properties" title="Permalink to this headline">¶</a></h3>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">Task.Builder</span></code>, you can specify other, optional properties, as described below.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="22%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Method Used</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>delay</td>
+<td><p class="first">delayTicks(long delay)</p>
+<dl class="last docutils">
+<dt>delay(long delay,</dt>
+<dd>TimeUnit unit)</dd>
+</dl>
+</td>
+<td><p class="first">The optional amount of time to pass before the task is to be run.</p>
+<p>The time is specified as a number of ticks with the <code class="docutils literal notranslate"><span class="pre">delayTicks()</span></code>
+method, or it may be provided as a number of a more convenient time
+unit by specifying a <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html">TimeUnit</a> with the delay() method.</p>
+<p class="last"><em>Either method, but not both, can specified per task.</em></p>
+</td>
+</tr>
+<tr class="row-odd"><td>interval</td>
+<td><dl class="first last docutils">
+<dt>intervalTicks(</dt>
+<dd>long interval)</dd>
+<dt>interval(long interval,</dt>
+<dd>TimeUnit unit)</dd>
+</dl>
+</td>
+<td><p class="first">The amount of time between repetitions of the task.  If an interval is
+not specified, the task will not be repeated.</p>
+<p>The time is specified as a number of ticks with the <code class="docutils literal notranslate"><span class="pre">intervalTicks()</span></code>
+method, or it may be provided as a number of a more convenient time
+unit by specifying a <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html">TimeUnit</a> with the interval() method.</p>
+<p class="last"><em>Either method, but not both, can specified per task.</em></p>
+</td>
+</tr>
+<tr class="row-even"><td>synchronization</td>
+<td>async()</td>
+<td>A synchronous task is run in the game’s main loop in series with the
+tick cycle. If <code class="docutils literal notranslate"><span class="pre">Task.Builder#async</span></code> is used, the task will be run
+asynchronously. Therefore, it will run in its own thread, independently
+of the tick cycle, and may not safely use game state.
+(See <a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a>.)</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>name(String name)</td>
+<td>The name of the task. By default, the name of the task will be
+PLUGIN_ID “-” ( “A-” | “S-” ) SERIAL_ID. For example, a default task name
+could look like “fooplugin-A-12”. No two active tasks will have the same
+serial ID for the same synchronization type. If a task name is specified,
+it should be descriptive and aid users in debugging your plugin.</td>
+</tr>
+</tbody>
+</table>
+<p>Lastly, submit the task to the scheduler using <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/scheduler/Task.Builder.html#submit-java.lang.Object-">Task.Builder#submit(Object)</a>.</p>
+<p>And that’s it! To summarize, a fully functional scheduled task that would run asynchronously every 5 minutes after an
+initial delay of 100 milliseconds could be built and submitted using the following code:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="p">;</span>
+
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
+
+<span class="n">Task</span> <span class="n">task</span> <span class="o">=</span> <span class="n">Task</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">execute</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&quot;Yay! Schedulers!&quot;</span><span class="p">))</span>
+    <span class="p">.</span><span class="na">async</span><span class="p">().</span><span class="na">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">MILLISECONDS</span><span class="p">).</span><span class="na">interval</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">MINUTES</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">name</span><span class="p">(</span><span class="s">&quot;ExamplePlugin - Fetch Stats from Database&quot;</span><span class="p">).</span><span class="na">submit</span><span class="p">(</span><span class="n">plugin</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To cancel a task, simply call the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/scheduler/Task.html#cancel--">Task#cancel()</a> method:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">task</span><span class="p">.</span><span class="na">cancel</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>If you need to cancel the task from within the runnable itself, you can instead opt to use a <code class="docutils literal notranslate"><span class="pre">Consumer&lt;Task&gt;</span></code> in
+order to access the task. The below example will schedule a task that will count down from 60 and cancel itself upon
+reaching 0.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onGameInit</span><span class="p">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Task</span> <span class="n">task</span> <span class="o">=</span> <span class="n">Task</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">execute</span><span class="p">(</span><span class="k">new</span> <span class="n">CancellingTimerTask</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">name</span><span class="p">(</span><span class="s">&quot;Self-Cancelling Timer Task&quot;</span><span class="p">).</span><span class="na">submit</span><span class="p">(</span><span class="n">plugin</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">private</span> <span class="kd">class</span> <span class="nc">CancellingTimerTask</span> <span class="kd">implements</span> <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Task</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">seconds</span> <span class="o">=</span> <span class="mi">60</span><span class="p">;</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="p">(</span><span class="n">Task</span> <span class="n">task</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">seconds</span><span class="o">--</span><span class="p">;</span>
+        <span class="n">Sponge</span><span class="p">.</span><span class="na">getServer</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">getBroadcastChannel</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Remaining Time: &quot;</span><span class="o">+</span><span class="n">seconds</span><span class="o">+</span><span class="s">&quot;s&quot;</span><span class="p">));</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">seconds</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">task</span><span class="p">.</span><span class="na">cancel</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last"><strong>Any</strong> scheduled tasks should either watch the current <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/GameState.html">state</a> of the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/Game.html">Game</a> or
+should be unregistered if they are no longer needed (e.g. during a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/event/game/state/GameStoppingServerEvent.html">GameStoppingServerEvent</a>). This is of
+particular importance for the client because it can start and stop the server multiple times.</p>
+</div>
+</div>
+<div class="section" id="asynchronous-tasks">
+<h3>Asynchronous Tasks<a class="headerlink" href="#asynchronous-tasks" title="Permalink to this headline">¶</a></h3>
+<p>Asynchronous tasks should be used primarily for code that may take a significant period of time to execute, namely
+requests to another server or database. If done on the main thread, a request to another server could greatly impact
+the performance of the game, since the next tick cannot be fired until the request is completed.</p>
+<p>Since Minecraft is largely single-threaded, there is little you can do in an asynchronous thread. If you must run a
+thread asynchronously, you should execute all of the code that does not use SpongeAPI/affect Minecraft, then register
+another <cite>synchronous</cite> task to handle the code that needs the API. There are a few parts of Minecraft that you can work
+with <cite>asynchronously</cite>, including:</p>
+<ul class="simple">
+<li>Chat</li>
+<li>Sponge’s built-in Permissions handling</li>
+<li>Sponge’s scheduler</li>
+</ul>
+<p>In addition, there are a few other operations that are safe to do asynchronously:</p>
+<ul class="simple">
+<li>Independent network requests</li>
+<li>Filesystem I/O (excluding files used by Sponge)</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Accessing game objects outside of the main thread can lead to crashes, inconsistencies and various other problems
+and should be avoided. If this is done wrong, you can get a <code class="docutils literal notranslate"><span class="pre">ConcurrentModificationException</span></code> with or without a
+server crash at best and a corrupted player/world/server at worst.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last"><strong>Any</strong> scheduled tasks should either watch the current <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/GameState.html">state</a> of the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/Game.html">Game</a> or
+should be unregistered if they are no longer needed (e.g. during a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/event/game/state/GameStoppingServerEvent.html">GameStoppingServerEvent</a>). This is of
+particular importance for the client because it can start and stop the server multiple times.</p>
+</div>
+</div>
+</div>
+<div class="section" id="compatibility-with-other-libraries">
+<h2>Compatibility with other libraries<a class="headerlink" href="#compatibility-with-other-libraries" title="Permalink to this headline">¶</a></h2>
+<p>As your plugin grows in size and scope you might want to start using one of the many concurrency libraries available
+for Java and the JVM.
+These libraries do tend to support Java’s
+<a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a> as a means
+of directing on which thread the task is executed.</p>
+<p>To allow these libraries to work with Sponge’s <code class="docutils literal notranslate"><span class="pre">Scheduler</span></code> the following methods can be used:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/scheduler/Scheduler.html#createSyncExecutor-java.lang.Object-">Scheduler#createSyncExecutor(Object)</a> creates a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/scheduler/SpongeExecutorService.html">SpongeExecutorService</a> which executes tasks
+through Sponge’s synchronous scheduler.</li>
+<li><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/scheduler/Scheduler.html#createAsyncExecutor-java.lang.Object-">Scheduler#createAsyncExecutor(Object)</a> creates a <code class="docutils literal notranslate"><span class="pre">SpongeExecutorService</span></code> which executes tasks through
+Sponge’s asynchronous scheduler. Tasks are subject to the restrictions mentioned in <a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a>.</li>
+</ul>
+<p>One thing to keep in mind is that any tasks that interacts with Sponge outside of the interactions listed in
+<a class="reference internal" href="#asynchronous-tasks">Asynchronous Tasks</a> need to be executed on the ExecutorService created with  <code class="docutils literal notranslate"><span class="pre">Scheduler#createSyncExecutor(Object)</span></code>
+to be thread-safe.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.scheduler.SpongeExecutorService</span><span class="p">;</span>
+
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
+
+<span class="n">SpongeExecutorService</span> <span class="n">minecraftExecutor</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getScheduler</span><span class="p">().</span><span class="na">createSyncExecutor</span><span class="p">(</span><span class="n">plugin</span><span class="p">);</span>
+
+<span class="n">minecraftExecutor</span><span class="p">.</span><span class="na">submit</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+
+<span class="n">minecraftExecutor</span><span class="p">.</span><span class="na">schedule</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="p">...</span> <span class="p">},</span> <span class="mi">10</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Almost all libraries have some way of adapting the <code class="docutils literal notranslate"><span class="pre">ExecutorService</span></code> to natively schedule tasks.
+As an example the following paragraphs will explain how the <code class="docutils literal notranslate"><span class="pre">ExecutorService</span></code> is used in a number of libraries.</p>
+<div class="section" id="completablefuture-java-8">
+<h3>CompletableFuture (Java 8)<a class="headerlink" href="#completablefuture-java-8" title="Permalink to this headline">¶</a></h3>
+<p>With Java 8 the <a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a> object was added to the standard library.
+Compared to the <code class="docutils literal notranslate"><span class="pre">Future</span></code> object, this allows for the developer to provide a callback that is called when the future
+completes rather than blocking the thread until the future eventually completes.</p>
+<p><a class="reference external" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a> is a fluent interface which usually has the following three variations for each of its functions:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">CompletableFuture#&lt;function&gt;Async(...,</span> <span class="pre">Executor</span> <span class="pre">ex)</span></code> Executes this function through <code class="docutils literal notranslate"><span class="pre">ex</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CompletableFuture#&lt;function&gt;Async(...)</span></code> Executes this function through <code class="docutils literal notranslate"><span class="pre">ForkJoinPool.commonPool()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">CompletableFuture#&lt;function&gt;(...)</span></code> Executes this function on whatever thread the previous <code class="docutils literal notranslate"><span class="pre">CompletableFuture</span></code> was completed on.</li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.concurrent.CompletableFuture</span><span class="p">;</span>
+
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
+
+<span class="n">SpongeExecutorService</span> <span class="n">minecraftExecutor</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getScheduler</span><span class="p">().</span><span class="na">createSyncExecutor</span><span class="p">(</span><span class="n">plugin</span><span class="p">);</span>
+
+<span class="n">CompletableFuture</span><span class="p">.</span><span class="na">supplyAsync</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
+    <span class="c1">// ASYNC: ForkJoinPool.commonPool()</span>
+    <span class="k">return</span> <span class="mi">42</span><span class="p">;</span>
+<span class="p">}).</span><span class="na">thenAcceptAsync</span><span class="p">((</span><span class="n">awesomeValue</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span>
+    <span class="c1">// SYNC: minecraftExecutor</span>
+<span class="p">},</span> <span class="n">minecraftExecutor</span><span class="p">).</span><span class="na">thenRun</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
+    <span class="c1">// SYNC: minecraftExecutor</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rxjava">
+<h3>RxJava<a class="headerlink" href="#rxjava" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/ReactiveX/RxJava">RxJava</a> is an implementation of the
+<a class="reference external" href="http://reactivex.io/">Reactive Extensions</a> concept for the JVM.</p>
+<p>Multithreading in Rx is managed through various
+<a class="reference external" href="http://reactivex.io/documentation/scheduler.html">Schedulers</a>.
+Using the <code class="docutils literal notranslate"><span class="pre">Schedulers#from(Executor</span> <span class="pre">executor)</span></code> function the <code class="docutils literal notranslate"><span class="pre">Executor</span></code> provided by Sponge can be turned into a
+<code class="docutils literal notranslate"><span class="pre">Scheduler</span></code>.</p>
+<p>Much like <code class="docutils literal notranslate"><span class="pre">CompletableFuture</span></code> by default actions are executed on the same thread that completed the previous part
+of the chain.
+Use <code class="docutils literal notranslate"><span class="pre">Observable#observeOn(Scheduler</span> <span class="pre">scheduler)</span></code> to move between threads.</p>
+<p>One important thing to bear in mind is that the root <code class="docutils literal notranslate"><span class="pre">Observable</span></code> gets invoked on whatever thread
+<code class="docutils literal notranslate"><span class="pre">Observable#subscribe()</span></code> was called on. If the root observable interacts with Sponge it should be forced to run
+synchronously using <code class="docutils literal notranslate"><span class="pre">Observable#subscribeOn(Scheduler</span> <span class="pre">scheduler)</span></code>.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rx.Observable</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">rx.Scheduler</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">rx.schedulers.Schedulers</span><span class="p">;</span>
+
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
+
+<span class="n">SpongeExecutorService</span> <span class="n">executor</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getScheduler</span><span class="p">().</span><span class="na">createSyncExecutor</span><span class="p">(</span><span class="n">plugin</span><span class="p">);</span>
+<span class="n">Scheduler</span> <span class="n">minecraftScheduler</span> <span class="o">=</span> <span class="n">Schedulers</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">executor</span><span class="p">);</span>
+
+<span class="n">Observable</span><span class="p">.</span><span class="na">defer</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">Sponge</span><span class="p">.</span><span class="na">getServer</span><span class="p">().</span><span class="na">getOnlinePlayers</span><span class="p">()))</span>
+          <span class="p">.</span><span class="na">subscribeOn</span><span class="p">(</span><span class="n">minecraftScheduler</span><span class="p">)</span> <span class="c1">// defer -&gt; SYNC: minecraftScheduler</span>
+          <span class="p">.</span><span class="na">observeOn</span><span class="p">(</span><span class="n">Schedulers</span><span class="p">.</span><span class="na">io</span><span class="p">())</span> <span class="c1">// -&gt; ASYNC: Schedulers.io()</span>
+          <span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">player</span> <span class="o">-&gt;</span> <span class="p">{</span>
+              <span class="c1">// ASYNC: Schedulers.io()</span>
+              <span class="k">return</span> <span class="s">&quot;Flards&quot;</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span>
+          <span class="p">})</span>
+          <span class="p">.</span><span class="na">observeOn</span><span class="p">(</span><span class="n">minecraftScheduler</span><span class="p">)</span> <span class="c1">// -&gt; SYNC: minecraftScheduler</span>
+          <span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="n">player</span> <span class="o">-&gt;</span> <span class="p">{</span>
+              <span class="c1">// SYNC: minecraftScheduler</span>
+              <span class="n">player</span><span class="p">.</span><span class="na">kick</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Computer says no&quot;</span><span class="p">));</span>
+          <span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scala">
+<h3>Scala<a class="headerlink" href="#scala" title="Permalink to this headline">¶</a></h3>
+<p>Scala comes with a built-in <a class="reference external" href="https://www.scala-lang.org/api/current/#scala.concurrent.Future">Future</a> object which
+a lot of scala framework mirror in design.
+Most methods of the Future accept an
+<a class="reference external" href="https://www.scala-lang.org/api/current/index.html#scala.concurrent.ExecutionContext$">ExecutionContext</a> which
+determined where that part of the operation is executed.
+This is different from the CompletableFuture or RxJava since they default to executing on the same thread on which
+the previous operation ended.</p>
+<p>The fact that all these operations try to implicitly find an <code class="docutils literal notranslate"><span class="pre">ExecutionContext</span></code> means that you can easily use
+the default <code class="docutils literal notranslate"><span class="pre">ExecutionContext.global</span></code> and specifically run the parts that need to be thread-safe on the Sponge
+server thread.</p>
+<p>To avoid accidentally scheduling work on through the Sponge <code class="docutils literal notranslate"><span class="pre">ExecutorContext</span></code> another context should be implicitly
+defined so it acts as the default choice. To maintain thread safety only the functions that actually interact with Sponge
+will need to have the Sponge executor specified.</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext</span>
+
+<span class="k">val</span> <span class="n">executor</span> <span class="k">=</span> <span class="nc">Sponge</span><span class="o">.</span><span class="n">getScheduler</span><span class="o">().</span><span class="n">createSyncExecutor</span><span class="o">(</span><span class="n">plugin</span><span class="o">)</span>
+
+<span class="k">import</span> <span class="nn">ExecutionContext.Implicits.global</span>
+<span class="k">val</span> <span class="n">ec</span> <span class="k">=</span> <span class="nc">ExecutionContext</span><span class="o">.</span><span class="n">fromExecutorService</span><span class="o">(</span><span class="n">executor</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">future</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span>
+    <span class="c1">// ASYNC: ExecutionContext.Implicits.global</span>
+<span class="o">}</span>
+
+<span class="n">future</span> <span class="n">foreach</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="n">value</span> <span class="k">=&gt;</span> <span class="c1">// SYNC: ec</span>
+<span class="o">}(</span><span class="n">ec</span><span class="o">)</span>
+
+<span class="n">future</span> <span class="n">map</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="n">value</span> <span class="k">=&gt;</span> <span class="mi">42</span> <span class="c1">// SYNC: ec</span>
+<span class="o">}(</span><span class="n">ec</span><span class="o">).</span><span class="n">foreach</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="n">value</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="c1">// ASYNC: ExecutionContext.Implicits.global</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="services.html" class="btn btn-neutral float-right" title="Services" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="effects.html" class="btn btn-neutral" title="Effects" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.2.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'7.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../_static/jquery.js"></script>      <script type="text/javascript" src="../_static/underscore.js"></script>      <script type="text/javascript" src="../_static/doctools.js"></script>      <script type="text/javascript" src="../_static/language_data.js"></script>      <script type="text/javascript" src="../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>
