@@ -273,8 +273,7 @@ This can be used to restrict/grand permissions, based on the player’s source o
 </div>
 <ul>
 <li><p class="first"><strong>metrics</strong></p>
-<p>Configuration options related to metric collection.
-Metric collection is disabled by default.</p>
+<p>Configuration options related to metric collection.</p>
 </li>
 </ul>
 <div class="line-block">
@@ -900,16 +899,9 @@ such as a 1x1 spawn pen.Set to <code class="docutils literal notranslate"><span 
 <div class="section" id="entity-collisions-mods-collisionmod">
 <span id="configtype-collisionmod"></span><h5>entity-collisions.mods (CollisionMod)<a class="headerlink" href="#entity-collisions-mods-collisionmod" title="Permalink to this headline">¶</a></h5>
 <p>Per-mod overrides. Refer to the minecraft default mod for example.</p>
-<ul class="simple">
-<li><strong>blocks</strong></li>
-</ul>
-<div class="line-block">
-<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">Map&lt;String,</span> <span class="pre">Integer&gt;</span></code></div>
-<div class="line"><br /></div>
-</div>
 <ul>
 <li><p class="first"><strong>defaults</strong></p>
-<p>Default maximum collisions used for all entities/blocks unless overridden.</p>
+<p>Default maximum collisions used for all entities unless overridden.</p>
 </li>
 </ul>
 <div class="line-block">
@@ -1053,6 +1045,22 @@ See <a class="reference external" href="https://github.com/PaperMC/Paper/blob/fd
 <div class="section" id="general-globalgeneral">
 <span id="configtype-globalgeneral"></span><h4>general (GlobalGeneral)<a class="headerlink" href="#general-globalgeneral" title="Permalink to this headline">¶</a></h4>
 <p>Contains general configuration options for Sponge that don’t fit into a specific classification</p>
+<ul>
+<li><p class="first"><strong>check-file-when-saving-sponge-data-file</strong></p>
+<p>If <code class="docutils literal notranslate"><span class="pre">true</span></code>, Sponge will try to ensure that its data is on disk
+when saving the <code class="docutils literal notranslate"><span class="pre">level_sponge.dat</span></code> file,
+but this may cause a slight performance hit.
+Setting this to <code class="docutils literal notranslate"><span class="pre">false</span></code> will mean Sponge does not
+perform any consistency checks, but you may end up
+with corrupt data if an unexpected failure occurs on your server,
+requiring restoring this file from backup.</p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><strong>Type:</strong> <code class="docutils literal notranslate"><span class="pre">boolean</span></code></div>
+<div class="line"><strong>Default:</strong> <code class="docutils literal notranslate"><span class="pre">true</span></code></div>
+<div class="line"><br /></div>
+</div>
 <ul>
 <li><p class="first"><strong>config-dir</strong></p>
 <p>The directory for Sponge plugin configurations, relative to the
@@ -1284,8 +1292,7 @@ from player with no permission.</p>
 </div>
 <div class="section" id="metrics-metrics">
 <span id="configtype-metrics"></span><h4>metrics (Metrics)<a class="headerlink" href="#metrics-metrics" title="Permalink to this headline">¶</a></h4>
-<p>Configuration options related to metric collection.
-Metric collection is disabled by default.</p>
+<p>Configuration options related to metric collection.</p>
 <ul>
 <li><p class="first"><strong>global-state</strong></p>
 <p>The global collection state that should be respected by all plugins that have no specified collection state. If <code class="docutils literal notranslate"><span class="pre">undefined</span></code> then it is treated as disabled.</p>
@@ -1711,13 +1718,13 @@ and allowing those structures to be selectively disabled.</p>
 </div>
 <ul>
 <li><p class="first"><strong>enabled</strong></p>
-<p>If <code class="docutils literal notranslate"><span class="pre">false</span></code>, disables the modification to prevent certain structures
-from saving to the world’s data folder. If you wish to prevent certain
-structures from saving, leave this <code class="docutils literal notranslate"><span class="pre">enabled=true</span></code>. When <code class="docutils literal notranslate"><span class="pre">true</span></code>, the
-modification allows for specific <code class="docutils literal notranslate"><span class="pre">named</span></code> structures to NOT be saved to
-disk. Examples of some structures that are costly and somewhat irrelivent
-is <code class="docutils literal notranslate"><span class="pre">mineshaft</span></code>s, as they build several structures and save, even after
-finished generating.</p>
+<p>Global switch to enable sponge’s changes to the structure saving mechansim.
+By default, this option is disabled, i.e. saving structures is not affected.
+If you want to prevent that a certain <code class="docutils literal notranslate"><span class="pre">named</span></code> structure is saved to the world’s folder,
+you have to enable this module/setting and disable the structure in the further settings.
+An example of a structure that is costly and somewhat irrelevant is <code class="docutils literal notranslate"><span class="pre">mineshaft</span></code>,
+as they build and save several structures even after the mine shafts have been completely generated.
+However, this has the disadvantage that these structures may no longer be locatable by some mods.</p>
 </li>
 </ul>
 <div class="line-block">
@@ -1739,12 +1746,9 @@ finished generating.</p>
 <p>Per-mod overrides. Refer to the minecraft default mod for example.</p>
 <ul>
 <li><p class="first"><strong>enabled</strong></p>
-<p>If <code class="docutils literal notranslate"><span class="pre">false</span></code>, this mod will never save its structures.
-This may break some mod functionalities when requesting to locate their
-structures in a World. If true, allows structures not overridden
-in the section below to be saved by default. If you wish to find
-a structure to prevent it being saved, enable <code class="docutils literal notranslate"><span class="pre">auto-populate</span></code> and
-restart the server/world instance.</p>
+<p>Global flag, whether this mod’s structures will be saved.
+If <code class="docutils literal notranslate"><span class="pre">false</span></code>, this mod will never save its structures.
+If <code class="docutils literal notranslate"><span class="pre">true</span></code>, it will check the <code class="docutils literal notranslate"><span class="pre">structureList</span></code> for disabled structures.</p>
 </li>
 </ul>
 <div class="line-block">
@@ -1754,8 +1758,10 @@ restart the server/world instance.</p>
 </div>
 <ul>
 <li><p class="first"><strong>structures</strong></p>
-<p>Per structure override. Having the value of <code class="docutils literal notranslate"><span class="pre">false</span></code> will prevent
-that specific named structure from saving.</p>
+<p>The configuration for each struture.
+A value of <code class="docutils literal notranslate"><span class="pre">false</span></code> prevents that struture from being saved.
+Entries that are either missing in this list or have the value <code class="docutils literal notranslate"><span class="pre">true</span></code> will still be saved,
+unless the structure saving of the mod is globally disabled.</p>
 </li>
 </ul>
 <div class="line-block">
@@ -2037,7 +2043,7 @@ teleport routine as a safe floor block.</p>
 <a class="reference external" href="https://github.com/aikar/timings#aikars-minecraft-timings-viewer-v2">https://github.com/aikar/timings#aikars-minecraft-timings-viewer-v2</a></p>
 <ul>
 <li><p class="first"><strong>enabled</strong></p>
-<p>???</p>
+<p>Enables the timing module</p>
 </li>
 </ul>
 <div class="line-block">
@@ -2047,7 +2053,10 @@ teleport routine as a safe floor block.</p>
 </div>
 <ul>
 <li><p class="first"><strong>hidden-config-entries</strong></p>
-<p>???</p>
+<p>These configuration entries/paths/sections are removed before the report is sent.
+This is to prevent credentials from being leaked unintentionally.</p>
+<p><strong>Note</strong>: The <code class="docutils literal notranslate"><span class="pre">sponge.sql</span></code> section is always ignored
+and thus is never sent to the webviewer regardless of this config.</p>
 </li>
 </ul>
 <div class="line-block">
@@ -2076,7 +2085,7 @@ teleport routine as a safe floor block.</p>
 </div>
 <ul>
 <li><p class="first"><strong>server-name-privacy</strong></p>
-<p>Hides the server name in the Airkar webviewer to no leak the l33t server you are running</p>
+<p>Hides the server name in the Aikar webviewer to no leak the l33t server you are running</p>
 </li>
 </ul>
 <div class="line-block">
