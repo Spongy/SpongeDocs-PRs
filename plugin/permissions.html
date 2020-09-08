@@ -539,10 +539,10 @@ synchronized schedulers.</p>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.service.context.Context</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.service.context.ContextCalculator</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.service.permission.Subject</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">java.util.Map</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">java.util.Set</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.concurrent.ConcurrentHashMap</span><span class="p">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleCalculator</span> <span class="kd">implements</span> <span class="n">ContextCalculator</span><span class="o">&lt;</span><span class="n">Subject</span><span class="o">&gt;</span> <span class="p">{</span>
 
@@ -550,19 +550,19 @@ synchronized schedulers.</p>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Context</span> <span class="n">NOT_ANY_ARENA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="p">(</span><span class="s">&quot;myarenaplugin-inAnyArena&quot;</span><span class="p">,</span> <span class="s">&quot;false&quot;</span><span class="p">);</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">ARENA_KEY</span> <span class="o">=</span> <span class="s">&quot;myarenaplugin-arena&quot;</span><span class="p">;</span>
 
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">UUID</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">playerArenas</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">UUID</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">playerArenas</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcurrentHashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accumulateContexts</span><span class="p">(</span><span class="n">Subject</span> <span class="n">calculable</span><span class="p">,</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Context</span><span class="o">&gt;</span> <span class="n">accumulator</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">CommandSource</span><span class="o">&gt;</span> <span class="n">commandSource</span> <span class="o">=</span> <span class="n">calculable</span><span class="p">.</span><span class="na">getCommandSource</span><span class="p">();</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accumulateContexts</span><span class="p">(</span><span class="n">Subject</span> <span class="n">subject</span><span class="p">,</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Context</span><span class="o">&gt;</span> <span class="n">accumulator</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">CommandSource</span> <span class="n">commandSource</span> <span class="o">=</span> <span class="n">subject</span><span class="p">.</span><span class="na">getCommandSource</span><span class="p">().</span><span class="na">orElse</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">commandSource</span><span class="p">.</span><span class="na">isPresent</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">commandSource</span><span class="p">.</span><span class="na">get</span><span class="p">()</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kd">final</span> <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="p">(</span><span class="n">Player</span><span class="p">)</span> <span class="n">commandSource</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">commandSource</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">UUID</span> <span class="n">uuid</span> <span class="o">=</span> <span class="p">((</span><span class="n">Player</span><span class="p">)</span> <span class="n">commandSource</span><span class="p">).</span><span class="na">getUniqueId</span><span class="p">();</span>
 
-            <span class="kd">final</span> <span class="n">UUID</span> <span class="n">uuid</span> <span class="o">=</span> <span class="n">player</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">();</span>
-            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">uuid</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">String</span> <span class="n">arena</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">uuid</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">arena</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
                 <span class="n">accumulator</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">IN_ANY_ARENA</span><span class="p">);</span>
-                <span class="n">accumulator</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="n">Context</span><span class="p">(</span><span class="n">ARENA_KEY</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">uuid</span><span class="p">)));</span>
+                <span class="n">accumulator</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="n">Context</span><span class="p">(</span><span class="n">ARENA_KEY</span><span class="p">,</span> <span class="n">arena</span><span class="p">));</span>
             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
                 <span class="n">accumulator</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">NOT_ANY_ARENA</span><span class="p">);</span>
             <span class="p">}</span>
@@ -571,37 +571,23 @@ synchronized schedulers.</p>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">matches</span><span class="p">(</span><span class="n">Context</span> <span class="n">context</span><span class="p">,</span> <span class="n">Subject</span> <span class="n">subject</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">context</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">IN_ANY_ARENA</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">context</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">NOT_ANY_ARENA</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">context</span><span class="p">.</span><span class="na">getKey</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">ARENA_KEY</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="p">}</span>
+        <span class="n">CommandSource</span> <span class="n">commandSource</span> <span class="o">=</span> <span class="n">subject</span><span class="p">.</span><span class="na">getCommandSource</span><span class="p">().</span><span class="na">orElse</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
 
-        <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">CommandSource</span><span class="o">&gt;</span> <span class="n">commandSource</span> <span class="o">=</span> <span class="n">subject</span><span class="p">.</span><span class="na">getCommandSource</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">commandSource</span><span class="p">.</span><span class="na">isPresent</span><span class="p">()</span> <span class="o">||</span> <span class="o">!</span><span class="p">(</span><span class="n">commandSource</span><span class="p">.</span><span class="na">get</span><span class="p">()</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">commandSource</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">UUID</span> <span class="n">uuid</span> <span class="o">=</span> <span class="p">((</span><span class="n">Player</span><span class="p">)</span> <span class="n">commandSource</span><span class="p">).</span><span class="na">getUniqueId</span><span class="p">();</span>
 
-        <span class="kd">final</span> <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="p">(</span><span class="n">Player</span><span class="p">)</span> <span class="n">commandSource</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">IN_ANY_ARENA</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">()))</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">NOT_ANY_ARENA</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">()))</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">getKey</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">ARENA_KEY</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">()))</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-            <span class="p">}</span>
-
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">()).</span><span class="na">equals</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">getValue</span><span class="p">()))</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">IN_ANY_ARENA</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">uuid</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">NOT_ANY_ARENA</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">uuid</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">getKey</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">ARENA_KEY</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">context</span><span class="p">.</span><span class="na">getValue</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">playerArenas</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">uuid</span><span class="p">));</span>
             <span class="p">}</span>
         <span class="p">}</span>
 
-        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">}</span>
+
 <span class="p">}</span>
 </pre></div>
 </div>

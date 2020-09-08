@@ -255,8 +255,6 @@ implement - <code class="docutils literal notranslate"><span class="pre">build(D
 the data is likely incomplete and you should return <code class="docutils literal notranslate"><span class="pre">Optional.empty()</span></code>.</p>
 <p>If everything seems to be there, use the <code class="docutils literal notranslate"><span class="pre">getX</span></code> methods to construct the values and return a newly created object as
 an <code class="docutils literal notranslate"><span class="pre">Optional</span></code>.</p>
-<p>Finally, you need to register this builder so that it can be found by plugins. To do this, simply call
-<code class="docutils literal notranslate"><span class="pre">DataManager#registerDataBuilder(Class,</span> <span class="pre">DataBuilder)</span></code> referencing the data class and an instance of the builder.</p>
 </div>
 <div class="section" id="datacontentupdaters">
 <span id="content-updaters"></span><h2>DataContentUpdaters<a class="headerlink" href="#datacontentupdaters" title="Permalink to this headline">¶</a></h2>
@@ -324,8 +322,7 @@ and deserialization of the object.</p>
 <p>The implementation of <code class="docutils literal notranslate"><span class="pre">translate</span></code> is identical to <code class="docutils literal notranslate"><span class="pre">toContainer()</span></code> and <code class="docutils literal notranslate"><span class="pre">build(DataView)</span></code> for a
 <code class="docutils literal notranslate"><span class="pre">DataSerializable</span></code> as shown above, except that an <code class="docutils literal notranslate"><span class="pre">InvalidDataException</span></code> is thrown if data is missing in place of
 returning an <code class="docutils literal notranslate"><span class="pre">Optional</span></code>.</p>
-<p>As with other data, ensure that you register the translator with
-<code class="docutils literal notranslate"><span class="pre">DataManager#registerTranslator(Class,</span> <span class="pre">DataTranslator)</span></code>.</p>
+<p>As with other data, ensure that you register the translator during <code class="docutils literal notranslate"><span class="pre">GameRegistryEvent.Register&lt;DataTranslator&lt;?&gt;&gt;</span></code>.</p>
 </div>
 </div>
 

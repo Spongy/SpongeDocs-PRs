@@ -177,6 +177,15 @@ load the Sponge version of Mixin first, and can resolve many problems in one ste
 <li><em>Newer versions of FoamFix (0.10.8+) automatically correct this when SpongeForge is present.</em></li>
 </ul>
 </div>
+<div class="section" id="forgeessentials">
+<h3>ForgeEssentials<a class="headerlink" href="#forgeessentials" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Versions: Up to 12.3.82</li>
+<li>Problem: Crash on startup (mixin NoSuchMethodError)</li>
+<li>Solution: Update to 12.3.83 or newer.</li>
+<li><em>Newer versions of ForgeEssentials have updated their Mixin usage to version 0.8.</em></li>
+</ul>
+</div>
 <div class="section" id="hammer-core">
 <h3>Hammer Core<a class="headerlink" href="#hammer-core" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -191,6 +200,33 @@ load the Sponge version of Mixin first, and can resolve many problems in one ste
 <li>Solution: Change <code class="docutils literal notranslate"><span class="pre">&lt;entry</span> <span class="pre">key=&quot;World.ITickable.Override&quot;&gt;true&lt;/entry&gt;</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code> in the <code class="docutils literal notranslate"><span class="pre">/asm/hammercore.xml</span></code> file</li>
 </ul>
 </div>
+<div class="section" id="icbm-classic">
+<h3>ICBM Classic<a class="headerlink" href="#icbm-classic" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Versions: All</li>
+<li>Problem: Missiles stop in midair and appear to lag in place.</li>
+<li>Solution: Add the commented text below to the <code class="docutils literal notranslate"><span class="pre">entity-activation-range/mods</span></code> section of the <code class="docutils literal notranslate"><span class="pre">sponge/global.conf</span></code> file:</li>
+</ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>entity-activation-range {
+    mods {
+        # COPY THIS - START
+        icbmclassic {
+            defaults {
+                misc=16
+            }
+            # If &#39;false&#39;, entity activation rules for this mod will be ignored and always tick.
+            enabled=false
+            entities {
+                missile=16
+                seat=16
+            }
+        }
+        # COPY THIS - END
+    }
+}
+</pre></div>
+</div>
+</div>
 <div class="section" id="just-enough-ids-jeid">
 <h3>Just Enough IDs (JEID)<a class="headerlink" href="#just-enough-ids-jeid" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -199,12 +235,12 @@ load the Sponge version of Mixin first, and can resolve many problems in one ste
 <li>Solution: Update to version 1.0.3-54 or newer.</li>
 </ul>
 </div>
-<div class="section" id="laggoggles">
-<h3>LagGoggles<a class="headerlink" href="#laggoggles" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="laggoggles-tickcentral">
+<h3>LagGoggles/TickCentral<a class="headerlink" href="#laggoggles-tickcentral" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Versions: Older than 1.12.2-5.3-113</li>
+<li>Versions: All</li>
 <li>Problem: Crash on startup (mixin conflict).</li>
-<li>Solution: Update to version 1.12.2-5.3-113 and install <em>TickCentral</em> core-mod.</li>
+<li>Solution: No compatibility at present. Choose one or the other.</li>
 </ul>
 </div>
 <div class="section" id="mystcraft">

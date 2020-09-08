@@ -198,8 +198,8 @@ implementations. Other implementations, such as <code class="docutils literal no
 can either be injected into your plugin class, or obtained via <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/Sponge.html#getMetricsConfigManager--">Sponge#getMetricsConfigManager()</a> object
 on demand.</p>
 <p><strong>Every time</strong> your plugin wishes to send metrics, you must check the
-<a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/util/metric/MetricsConfigManager.html#areMetricsEnabled-org.spongepowered.api.plugin.PluginContainer-">MetricsConfigManager#areMetricsEnabled(PluginContainer)</a>, supplying the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/plugin/PluginContainer.html">PluginContainer</a> of
-your plugin. Metrics must only be sent if this returns <code class="docutils literal notranslate"><span class="pre">true</span></code> for your plugin.</p>
+<a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/util/metric/MetricsConfigManager.html#getCollectionState-org.spongepowered.api.plugin.PluginContainer-">MetricsConfigManager#getCollectionState(PluginContainer)</a>, supplying the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/plugin/PluginContainer.html">PluginContainer</a> of
+your plugin. Metrics must only be sent if this returns <code class="docutils literal notranslate"><span class="pre">Tristate#TRUE</span></code> for your plugin.</p>
 <p>The following example shows how to use field injections to get the <code class="docutils literal notranslate"><span class="pre">MetricsConfigManager</span></code> and the
 <code class="docutils literal notranslate"><span class="pre">PluginContainer</span></code> for your plugin, and uses those to determine whether consent to send metrics has been obtained.</p>
 <p><strong>Example</strong></p>
@@ -214,7 +214,7 @@ your plugin. Metrics must only be sent if this returns <code class="docutils lit
 <span class="kd">private</span> <span class="n">MetricsConfigManager</span> <span class="n">metricsConfigManager</span><span class="p">;</span>
 
 <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasConsent</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">metricsConfigManager</span><span class="p">.</span><span class="na">areMetricsEnabled</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">container</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">metricsConfigManager</span><span class="p">.</span><span class="na">getCollectionState</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">container</span><span class="p">).</span><span class="na">asBoolean</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>
 </div>

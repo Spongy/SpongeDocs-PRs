@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
 
         <link rel="index" title="Index"
-              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.2.0 documentation" href="../../index.html"/>        <link rel="up" title="Placeholders" href="index.html"/>        <link rel="next" title="Implementing a Custom PlaceholderService" href="implementingservice.html"/>        <link rel="prev" title="Creating Placeholder Tokens" href="creatingtokens.html"/>
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.2.0 documentation" href="../../index.html"/>        <link rel="up" title="Placeholders" href="index.html"/>        <link rel="next" title="World Generation" href="../wgen/index.html"/>        <link rel="prev" title="Creating Placeholder Tokens" href="creatingtokens.html"/>
     <!-- Google Analytics -->
     <script>
         (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
@@ -115,7 +115,6 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Placeholders</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="creatingtokens.html">Creating Placeholder Tokens</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Retrieving and Parsing Placeholders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="implementingservice.html">Implementing a Custom PlaceholderService</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
@@ -174,65 +173,61 @@
   <div class="section" id="retrieving-and-parsing-placeholders">
 <h1>Retrieving and Parsing Placeholders<a class="headerlink" href="#retrieving-and-parsing-placeholders" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="obtaining-a-placeholderparser">
-<h2>Obtaining A PlaceholderParser<a class="headerlink" href="#obtaining-a-placeholderparser" title="Permalink to this headline">¶</a></h2>
-<p>There are two ways to obtain a registered <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a>:</p>
-<ul class="simple">
-<li>Directly obtain the parser from the Sponge Registry by calling
-<code class="docutils literal notranslate"><span class="pre">Sponge.getRegistry().getType(PlaceholderParser.class,</span> <span class="pre">id);</span></code>; or</li>
-<li>Obtain the parser via <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderService.html#getParser-String-">PlaceholderService#getParser(String)</a>.</li>
-</ul>
-<p>In general, we recommend that the second option is used, as plugin-provided implementations may allow for shorthand
-tokens to resolve to a parser, such as accepting <code class="docutils literal notranslate"><span class="pre">name</span></code> as a token, retrieving the parser for <code class="docutils literal notranslate"><span class="pre">sponge:name</span></code>,
-thereby allowing for a consistent experience across entire servers.</p>
+<h2>Obtaining a PlaceholderParser<a class="headerlink" href="#obtaining-a-placeholderparser" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParsers</a> are stored in the Sponge registry, meaning they can be obtained the
+same way as any other <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/CatalogType.html">CatalogType</a>:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Sponge</span><span class="p">.</span><span class="na">getRegistry</span><span class="p">().</span><span class="na">getType</span><span class="p">(</span><span class="n">PlaceholderParser</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Remember that the <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> ID is of the form <code class="docutils literal notranslate"><span class="pre">pluginid:placeholderid</span></code>, for example <code class="docutils literal notranslate"><span class="pre">sponge:name</span></code>.</p>
+</div>
 </div>
 <div class="section" id="creating-text-from-a-placeholderparser">
-<h2>Creating Text From A PlaceholderParser<a class="headerlink" href="#creating-text-from-a-placeholderparser" title="Permalink to this headline">¶</a></h2>
-<p>A <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> requires a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderText.html">PlaceholderText</a> in order to generate an appropriate <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a>
-object. <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderText.html">PlaceholderTexts</a> can be created by using a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderText.Builder.html">PlaceholderText.Builder</a>
-obtained from <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderService.html#placeholderBuilder--">PlaceholderService#placeholderBuilder()</a>.</p>
-<p>The builder, as a minimum, allows for the following context to be provided:</p>
+<h2>Creating Text from a PlaceholderParser<a class="headerlink" href="#creating-text-from-a-placeholderparser" title="Permalink to this headline">¶</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> requires a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderContext.html">PlaceholderContext</a> in order to generate an appropriate <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a>
+object. <code class="docutils literal notranslate"><span class="pre">PlaceholderContexts</span></code> can be created by using a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderContext.Builder.html">PlaceholderContext.Builder</a> obtained from the
+<a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderContext.html#builder--">PlaceholderContext#builder()</a> method.</p>
+<p>The builder allows for the following optional context to be provided:</p>
 <ul class="simple">
-<li>The <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> to use to generate the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a> (this must be provided)</li>
-<li>An associated <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/channel/MessageReceiver.html">MessageReceiver</a>, allowing for the placeholder to modify its output</li>
-<li>An argument string that the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> can parse, often provided by templating engines</li>
+<li>An associated object, allowing for the placeholder to modify its output (this will usually be a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/living/player/Player.html">Player</a> or
+other <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/channel/MessageReceiver.html">MessageReceiver</a>)</li>
+<li>An argument string that a <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> can parse</li>
 </ul>
-<p>If the service is not the Sponge provided service, the builder may be able to provide more context, though this will
-require depending on the service providing plugin in question.</p>
-<p>A built <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderText.html">PlaceholderText</a> is a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/TextRepresentable.html">TextRepresentable</a>, meaning it can be used in <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a> objects
-like other text-based objects. This will generate the appropriate text.</p>
-</div>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<p>If you wish to include a player’s name using the <code class="docutils literal notranslate"><span class="pre">sponge:name</span></code> parser, you could do the following:</p>
+<p>A built <code class="docutils literal notranslate"><span class="pre">PlaceholderContext</span></code> can then be supplied to the <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> by using
+<a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html#parse-org.spongepowered.api.service.placeholder.PlaceholderContext-">PlaceholderParser#parse(PlaceholderContext)</a>.</p>
+<p>For example, if you wish to include a player’s name using the <code class="docutils literal notranslate"><span class="pre">sponge:name</span></code> parser, you could do the following:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="p">...;</span>
-<span class="n">PlaceholderService</span> <span class="n">placeholderService</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getServiceManager</span><span class="p">()</span>
-    <span class="p">.</span><span class="na">provideUnchecked</span><span class="p">(</span><span class="n">PlaceholderService</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
 
 <span class="c1">// We know this exists</span>
-<span class="n">PlaceholderParser</span> <span class="n">nameParser</span> <span class="o">=</span> <span class="n">placeholderService</span><span class="p">.</span><span class="na">getParser</span><span class="p">(</span><span class="s">&quot;sponge:name&quot;</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
-<span class="n">PlaceholderText</span> <span class="n">placeholderText</span> <span class="o">=</span> <span class="n">placeholderService</span><span class="p">.</span><span class="na">placeholderBuilder</span><span class="p">()</span>
-    <span class="p">.</span><span class="na">setParser</span><span class="p">(</span><span class="n">nameParser</span><span class="p">)</span>
-    <span class="p">.</span><span class="na">setAssociatedSource</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
+<span class="n">PlaceholderParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getRegistry</span><span class="p">().</span><span class="na">getType</span><span class="p">(</span><span class="n">PlaceholderParser</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="s">&quot;sponge:name&quot;</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+<span class="n">PlaceholderContext</span> <span class="n">context</span> <span class="o">=</span> <span class="n">PlaceholderContext</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">setAssociatedObject</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
     <span class="p">.</span><span class="na">build</span><span class="p">();</span>
-
-<span class="c1">// Use in text like this</span>
-<span class="n">player</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Hello! Your name is &quot;</span><span class="p">,</span> <span class="n">placeholderText</span><span class="p">,</span> <span class="s">&quot;!&quot;</span><span class="p">));</span>
+<span class="n">Text</span> <span class="n">text</span> <span class="o">=</span> <span class="n">parser</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>You can also use the shorthand methods like so:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="p">...;</span>
-<span class="n">PlaceholderService</span> <span class="n">placeholderService</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getServiceManager</span><span class="p">()</span>
-    <span class="p">.</span><span class="na">provideUnchecked</span><span class="p">(</span><span class="n">PlaceholderService</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
-
-<span class="c1">// We know this exists</span>
-<span class="n">PlaceholderText</span> <span class="n">placeholderText</span> <span class="o">=</span> <span class="n">placeholderService</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="s">&quot;sponge:name&quot;</span><span class="p">,</span> <span class="n">player</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
-
-<span class="c1">// Use in text like this</span>
-<span class="n">player</span><span class="p">.</span><span class="na">sendMessage</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Hello! Your name is &quot;</span><span class="p">,</span> <span class="n">placeholderText</span><span class="p">,</span> <span class="s">&quot;!&quot;</span><span class="p">));</span>
+<p>If the player name is “SpongePlayer”, the returned text will say <code class="docutils literal notranslate"><span class="pre">SpongePlayer</span></code></p>
+</div>
+<div class="section" id="including-placeholders-in-text">
+<h2>Including Placeholders in Text<a class="headerlink" href="#including-placeholders-in-text" title="Permalink to this headline">¶</a></h2>
+<p>Placeholders can also be used in <code class="docutils literal notranslate"><span class="pre">Text.of(...)</span></code> and <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.Builder.html">Text.Builder</a> objects without parsing them
+first. Sponge provides a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderText.html">PlaceholderText</a> object that bundles a <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> and
+<code class="docutils literal notranslate"><span class="pre">PlaceholderContext</span></code> together into a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/TextRepresentable.html">TextRepresentable</a>.</p>
+<p>To create a <code class="docutils literal notranslate"><span class="pre">PlaceholderText</span></code>, use <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderText.html#builder--">PlaceholderText#builder()</a> and add the <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> and
+<code class="docutils literal notranslate"><span class="pre">PlaceholderContext</span></code> objects as appropriate. You can then use the built <code class="docutils literal notranslate"><span class="pre">PlaceholderText</span></code> in the <code class="docutils literal notranslate"><span class="pre">Text</span></code> objects.</p>
+<p>If you wished to use the parser and context from the previous example in <code class="docutils literal notranslate"><span class="pre">Text.of()</span></code>, you could write the following:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PlaceholderText</span> <span class="n">placeholderText</span> <span class="o">=</span> <span class="n">PlaceholderText</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">setContext</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="na">setParser</span><span class="p">(</span><span class="n">parser</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
+<span class="n">Text</span> <span class="n">result</span> <span class="o">=</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Hello! Your name is &quot;</span><span class="p">,</span> <span class="n">placeholderText</span><span class="p">,</span> <span class="s">&quot;!&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>If the player name is “SpongePlayer”, either example will send the player the message
-<code class="docutils literal notranslate"><span class="pre">Hello!</span> <span class="pre">Your</span> <span class="pre">name</span> <span class="pre">is</span> <span class="pre">SpongePlayer!</span></code></p>
+<p>The text will say “Hello! Your name is SpongePlayer!”</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A <code class="docutils literal notranslate"><span class="pre">PlaceholderText</span></code> will be parsed when the <code class="docutils literal notranslate"><span class="pre">Text</span></code> it is placed in is built, that is, either when placed in
+<code class="docutils literal notranslate"><span class="pre">Text.of(...)`</span></code>, or when added to a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.Builder.html">Text.Builder</a> and <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.Builder.html#build--">Text.Builder#build()</a> is called.</p>
+</div>
 </div>
 </div>
 
@@ -240,7 +235,7 @@ like other text-based objects. This will generate the appropriate text.</p>
           </div>
 <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="implementingservice.html" class="btn btn-neutral float-right" title="Implementing a Custom PlaceholderService" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="../wgen/index.html" class="btn btn-neutral float-right" title="World Generation" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
         <a href="creatingtokens.html" class="btn btn-neutral" title="Creating Placeholder Tokens" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
     </div>
 

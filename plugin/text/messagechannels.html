@@ -252,6 +252,7 @@ front of the message.</p>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MessageChannel</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MessageReceiver</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.chat.ChatType</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="p">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AdminMessageChannel</span> <span class="kd">implements</span> <span class="n">MessageChannel</span> <span class="p">{</span>
@@ -281,6 +282,7 @@ addition of the <code class="docutils literal notranslate"><span class="pre">Adm
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.player.Player</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.event.network.ClientConnectionEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MessageChannel</span><span class="p">;</span>
 
 <span class="kd">private</span> <span class="n">AdminMessageChannel</span> <span class="n">adminChannel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AdminMessageChannel</span><span class="p">();</span>
 
@@ -318,10 +320,17 @@ empty <code class="docutils literal notranslate"><span class="pre">Optional</spa
 <p>A <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/channel/MutableMessageChannel.html">MutableMessageChannel</a> contains methods for changing who may receive the messages sent through our channel.
 As such, we must implement methods for performing actions that modify our members. To do this, we simply will create a
 class named <code class="docutils literal notranslate"><span class="pre">MutableAdminMessageChannel</span></code> that will implement a <code class="docutils literal notranslate"><span class="pre">MutableMessageChannel</span></code>.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Set</span><span class="p">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">java.util.WeakHashMap</span><span class="p">;</span>
 
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.Text</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MessageReceiver</span><span class="p">;</span>
 <span class="kn">import</span> <span class="nn">org.spongepowered.api.text.channel.MutableMessageChannel</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.chat.ChatType</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.text.format.TextColors</span><span class="p">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MutableAdminMessageChannel</span> <span class="kd">implements</span> <span class="n">MutableMessageChannel</span> <span class="p">{</span>
 

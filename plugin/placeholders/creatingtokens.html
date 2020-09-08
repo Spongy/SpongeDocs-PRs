@@ -115,7 +115,6 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Placeholders</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Creating Placeholder Tokens</a></li>
 <li class="toctree-l3"><a class="reference internal" href="retrievingtext.html">Retrieving and Parsing Placeholders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="implementingservice.html">Implementing a Custom PlaceholderService</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
@@ -176,26 +175,30 @@
 <p>At the heart of the Sponge Placeholder API is the ability to create your own tokens and have them accessible to all
 plugins. To create your own placeholder, you must create an object that implements <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> and
 register it in the Sponge Registry.</p>
-<p><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParsers</a> are independent of a plugin’s <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderService.html">PlaceholderService</a>.</p>
-<div class="section" id="implementing-placeholderparser">
-<h2>Implementing PlaceholderParser<a class="headerlink" href="#implementing-placeholderparser" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="creating-placeholderparsers">
+<h2>Creating PlaceholderParsers<a class="headerlink" href="#creating-placeholderparsers" title="Permalink to this headline">¶</a></h2>
+<p>There are two ways you can create a <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code>:</p>
+<ul class="simple">
+<li>Using <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html#builder--">PlaceholderParser#builder()</a>, supplying your <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/plugin/PluginContainer.html">PluginContainer</a>, un-namespaced ID and
+a function that takes a <code class="docutils literal notranslate"><span class="pre">PlaceholderContext</span></code> and returns a <code class="docutils literal notranslate"><span class="pre">Text</span></code>.</li>
+<li>Directly implement the interface.</li>
+</ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParsers</a> are <a class="reference internal" href="../data/catalog-types.html"><span class="doc">Catalog Types</span></a>. As with all
-Catalog Types, the ID of the parser should be plugin namespaced, and therefore be of the form
-<code class="docutils literal notranslate"><span class="pre">[pluginid]:[placeholderid]</span></code>, and must be unique.</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">PlaceholderParsers</span></code> are <a class="reference internal" href="../data/catalog-types.html"><span class="doc">Catalog Types</span></a>. If you implement the interface directly,
+remember that the ID of the parser should be plugin namespaced, of the form  <code class="docutils literal notranslate"><span class="pre">[pluginid]:[placeholderid]</span></code>. IDs
+must also be unique.</p>
 </div>
-<p><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> objects take a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderText.html">PlaceholderText</a> object which contains the context of the
-request and returns a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a> based on that context. Information that the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderText.html">PlaceholderText</a> may
+<p><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> objects take a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderContext.html">PlaceholderContext</a> object which contains the context of the
+request and returns a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a> based on that context. Information that the <code class="docutils literal notranslate"><span class="pre">PlaceholderContext</span></code> may
 contain includes:</p>
 <ul class="simple">
-<li>An associated <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/channel/MessageReceiver.html">MessageReceiver</a>, such as a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/living/player/Player.html">Player</a></li>
-<li>An argument string which has been provided by a templating engine</li>
+<li>An associated object, such as a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/living/player/Player.html">Player</a></li>
+<li>An argument string which generally will be provided by a templating engine</li>
 </ul>
-<p>This is the minimum as specified by Sponge. If another plugin replaces the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderService.html">PlaceholderService</a>, there may a
-<a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderText.html">PlaceholderText</a> that provides more information.</p>
-<p>If your placeholder is unable to provide text because there is insufficient information, the placeholder should return
-an empty <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a> and not throw an exception.</p>
+<p>This is the minimum as specified by Sponge.</p>
+<p>If your placeholder is unable to provide text because the context does not provide the context or arguments it requires,
+the placeholder should return an empty <code class="docutils literal notranslate"><span class="pre">Text</span></code> and not throw an exception.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>If you wish to provide the ability to add multiple arguments to your placeholder, consider specifying a way to split
@@ -204,35 +207,29 @@ up the argument string.</p>
 </div>
 <div class="section" id="example-default-world-name-placeholderparser">
 <h3>Example: Default World Name PlaceholderParser<a class="headerlink" href="#example-default-world-name-placeholderparser" title="Permalink to this headline">¶</a></h3>
-<p>This <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> attempts to get the default world’s name, returning an empty <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a> if it
-cannot be found.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DefaultWorldNameParser</span> <span class="kd">implements</span> <span class="n">PlaceholderParser</span> <span class="p">{</span>
+<p>This <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> attempts to get the default world’s name, returning an empty <code class="docutils literal notranslate"><span class="pre">Text</span></code> if it cannot be
+found. It uses the builder to create the parser with ID <code class="docutils literal notranslate"><span class="pre">spongedocs:defaultworld</span></code>, assuming the plugin has an ID of
+<code class="docutils literal notranslate"><span class="pre">spongedocs</span></code>.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PluginContainer</span> <span class="n">thisPlugin</span> <span class="o">=</span> <span class="p">...;</span>
 
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getId</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s">&quot;spongedocs:defaultworld&quot;</span>
-    <span class="p">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s">&quot;Default World Placeholder&quot;</span>
-    <span class="p">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">Text</span> <span class="nf">parse</span><span class="p">(</span><span class="n">PlaceholderText</span> <span class="n">placeholderText</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">PlaceholderParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">PlaceholderParser</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">plugin</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">thisPlugin</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">id</span><span class="p">(</span><span class="s">&quot;defaultworld&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">name</span><span class="p">(</span><span class="s">&quot;Default World Placeholder&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">parser</span><span class="p">(</span><span class="n">placeholderContext</span> <span class="o">-&gt;</span> <span class="p">{</span>
         <span class="k">return</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getServer</span><span class="p">()</span>
             <span class="p">.</span><span class="na">getDefaultWorld</span><span class="p">()</span>
             <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">.</span><span class="na">getWorldName</span><span class="p">())</span>
             <span class="p">.</span><span class="na">orElse</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-player-location-placeholderparser">
 <h3>Example: Player Location PlaceholderParser<a class="headerlink" href="#example-player-location-placeholderparser" title="Permalink to this headline">¶</a></h3>
-<p>This <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> attempts to get the player’s location in the world. If used without a
-<a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/living/player/Player.html">Player</a> as the associated receiver, returns an empty <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a>.</p>
+<p>This <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> attempts to get the player’s location in the world. If used without a <code class="docutils literal notranslate"><span class="pre">Player</span></code> as the
+associated object, it returns an empty <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a>. This implements the <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> interface directly.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PlayerLocationPlaceholder</span> <span class="kd">implements</span> <span class="n">PlaceholderParser</span> <span class="p">{</span>
 
     <span class="nd">@Override</span>
@@ -257,81 +254,31 @@ cannot be found.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="example-player-balance-placeholderparser">
-<h3>Example: Player Balance PlaceholderParser<a class="headerlink" href="#example-player-balance-placeholderparser" title="Permalink to this headline">¶</a></h3>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This example uses the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/economy/EconomyService.html">EconomyService</a>. To learn more about this service and how to use it, visit our pages
-on the <a class="reference internal" href="../economy/index.html"><span class="doc">Economy</span></a>.</p>
-</div>
-<p>This <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> attempts to get the player’s balance, with an optional argument that may contain the
-ID of a currency to check, else checking the default currency. It does the following:</p>
-<ul class="simple">
-<li>Checks if an <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/economy/EconomyService.html">EconomyService</a> exists</li>
-<li>Checks if the associated receiver in the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderText.html">PlaceholderText</a> is a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/living/player/Player.html">Player</a></li>
-<li>Gets the string returned by <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderText.html#getArgumentString--">PlaceholderText#getArgumentString()</a><ul>
-<li>If the string exists and matches a valid <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/economy/Currency.html">Currency</a> and the player has an <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/economy/account/Account.html">Account</a> in that
-currency, returns the balance of that account.</li>
-<li>If the string exists and does not match a valid <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/economy/Currency.html">Currency</a>, or the player does not have an
-<a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/economy/account/Account.html">Account</a> in that currency, returns an empty <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a>.</li>
-<li>If the string does not exist, if the player has an <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/economy/account/Account.html">Account</a> in the default <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/economy/Currency.html">Currency</a>, return
-that balance, else return an empty <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a>.</li>
-</ul>
-</li>
-</ul>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PlayerBalancePlaceholder</span> <span class="kd">implements</span> <span class="n">PlaceholderParser</span> <span class="p">{</span>
+<div class="section" id="example-current-time-placeholderparser">
+<h3>Example: Current Time PlaceholderParser<a class="headerlink" href="#example-current-time-placeholderparser" title="Permalink to this headline">¶</a></h3>
+<p>This <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> returns the current time in the server’s local timezone. If the string “UTC” is provided as
+the argument string, it returns the current time in the UTC time zone. This implements the <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code>
+interface directly.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CurrentTimePlaceholder</span> <span class="kd">implements</span> <span class="n">PlaceholderParser</span> <span class="p">{</span>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="n">String</span> <span class="nf">getId</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s">&quot;spongedocs:balance&quot;</span>
+        <span class="k">return</span> <span class="s">&quot;spongedocs:currenttime&quot;</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s">&quot;Balance Placeholder&quot;</span>
+        <span class="k">return</span> <span class="s">&quot;Current Time parser&quot;</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">Text</span> <span class="nf">parse</span><span class="p">(</span><span class="n">PlaceholderText</span> <span class="n">placeholderText</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// First: check the EconomyService is available</span>
-        <span class="n">Optional</span><span class="o">&lt;</span><span class="n">EconomyService</span><span class="o">&gt;</span> <span class="n">optionalEconService</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getServiceManager</span><span class="p">()</span>
-            <span class="p">.</span><span class="na">provide</span><span class="p">(</span><span class="n">EconomyService</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">optionalEconService</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">;</span>
+    <span class="kd">public</span> <span class="n">Text</span> <span class="nf">parse</span><span class="p">(</span><span class="n">PlaceholderContext</span> <span class="n">placeholderContext</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">placeholderContext</span><span class="p">.</span><span class="na">getArgumentString</span><span class="p">().</span><span class="na">filter</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">.</span><span class="na">equalsIgnoreCase</span><span class="p">(</span><span class="s">&quot;UTC&quot;</span><span class="p">)).</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">OffsetDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">(</span><span class="n">ZoneOffset</span><span class="p">.</span><span class="na">UTC</span><span class="p">).</span><span class="na">format</span><span class="p">(</span><span class="n">FORMATTER</span><span class="p">));</span>
         <span class="p">}</span>
-
-        <span class="n">EconomyService</span> <span class="n">econService</span> <span class="o">=</span> <span class="n">optionalEconService</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
-
-        <span class="c1">// This placeholder only applies to players, so check that</span>
-        <span class="n">Optional</span><span class="o">&lt;</span><span class="n">MessageReceiver</span><span class="o">&gt;</span> <span class="n">receiver</span> <span class="o">=</span> <span class="n">placeholderText</span><span class="p">.</span><span class="na">getAssociatedReceiver</span><span class="p">()</span>
-            <span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">receiver</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="p">(</span><span class="n">Player</span><span class="p">)</span> <span class="n">receiver</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
-
-        <span class="c1">// Check the argument string, try to get a valid currency out of it</span>
-        <span class="n">Currency</span> <span class="n">currency</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">placeholderText</span><span class="p">.</span><span class="na">getArgumentString</span><span class="p">().</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
-            <span class="c1">// If we have an argument string, for this placeholder, we assume the</span>
-            <span class="c1">// entire string is the argument - so is it a valid Currency ID?</span>
-            <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Currency</span><span class="o">&gt;</span> <span class="n">co</span> <span class="o">=</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getRegistry</span><span class="p">()</span>
-                <span class="p">.</span><span class="na">getType</span><span class="p">(</span><span class="n">Currency</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">placeholderText</span><span class="p">.</span><span class="na">getArgumentString</span><span class="p">().</span><span class="na">get</span><span class="p">());</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">co</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
-                <span class="c1">// If not, then the placeholder is invalid and should return an empty text.</span>
-                <span class="k">return</span> <span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="c1">// It is, so this is what we use</span>
-            <span class="n">currency</span> <span class="o">=</span> <span class="n">co</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">currency</span> <span class="o">=</span> <span class="n">econService</span><span class="p">.</span><span class="na">getDefaultCurrency</span><span class="p">();</span>
-        <span class="p">}</span>
-
-        <span class="c1">// Finally, check the account exists, and if so, return the value</span>
-        <span class="n">Optional</span><span class="o">&lt;</span><span class="n">UniqueAccount</span><span class="o">&gt;</span> <span class="n">account</span> <span class="o">=</span> <span class="n">econService</span>
-            <span class="p">.</span><span class="na">getOrCreateAccount</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="na">getUniqueId</span><span class="p">());</span>
-        <span class="k">return</span> <span class="n">account</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="na">getBalance</span><span class="p">(</span><span class="n">currency</span><span class="p">))).</span><span class="na">orElse</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">OffsetDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">().</span><span class="na">format</span><span class="p">(</span><span class="n">FORMATTER</span><span class="p">));</span>
     <span class="p">}</span>
+
 <span class="p">}</span>
 </pre></div>
 </div>

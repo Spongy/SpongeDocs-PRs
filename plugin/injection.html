@@ -175,11 +175,25 @@ Dependency injection allows plugins to designate a few API types that will be in
 <dt><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/config/ConfigDir.html">ConfigDir</a> (annotation on Path or File)</dt>
 <dd>Used to inject the plugin’s configuration directory:
 <code class="docutils literal notranslate"><span class="pre">./config/</span></code> OR <code class="docutils literal notranslate"><span class="pre">./config/&lt;Plugin#id&gt;/</span></code> depending on <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/config/ConfigDir.html#sharedRoot--">ConfigDir#sharedRoot()</a></dd>
+<dt><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/config/DefaultConfig.html">DefaultConfig</a> (annotation on Path, ConfigurationLoader or File)</dt>
+<dd>Used to inject the plugin’s specific configuration file: <code class="docutils literal notranslate"><span class="pre">&lt;Plugin#id&gt;.conf</span></code></dd>
+<dt><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/asset/AssetId.html">AssetId</a> (annotation on Asset)</dt>
+<dd>Used to inject a <code class="docutils literal notranslate"><span class="pre">Asset</span></code> from the asset folder of the plugin</dd>
+<dt><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/scheduler/AsynchronousExecutor.html">AsynchronousExecutor</a> (annotation on SpongeExecutorService)</dt>
+<dd>Used to inject the plugin’s specific AsynchronousExecutor</dd>
+<dt><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/scheduler/SynchronousExecutor.html">SynchronousExecutor</a> (annotation on SpongeExecutorService)</dt>
+<dd>Used to inject the plugin’s specific SynchronousExecutor</dd>
+<dt><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/network/ChannelId.html">ChannelId</a> (annotation on ChannelBinding.IndexedMessageChannel or ChannelBinding.RawDataChannel)</dt>
+<dd>Used to inject a <code class="docutils literal notranslate"><span class="pre">ChannelBinding</span></code> with the given channel id</dd>
+<dt><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/asset/Asset.html">Asset</a></dt>
+<dd>Must be annotated with <code class="docutils literal notranslate"><span class="pre">&#64;AssetId</span></code>.</dd>
+<dt><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/scheduler/SpongeExecutorService.html">SpongeExecutorService</a></dt>
+<dd>Must be annotated with either <code class="docutils literal notranslate"><span class="pre">&#64;AsynchronousExecutor</span></code> or <code class="docutils literal notranslate"><span class="pre">&#64;SynchronousExecutor</span></code>.
+Depending on the annotation given this will contain a reference to the plugin’s specific
+Asynchronous or Synchronous Executor.</dd>
 <dt><a class="reference external" href="https://configurate.aoeu.xyz/apidocs/ninja/leaping/configurate/loader/ConfigurationLoader.html">ConfigurationLoader&lt;CommentedConfigurationNode&gt;</a></dt>
 <dd>Must be annotated with <code class="docutils literal notranslate"><span class="pre">&#64;DefaultConfig</span></code>.
 Used to inject a pre-generated <code class="docutils literal notranslate"><span class="pre">ConfigurationLoader</span></code> for the <code class="docutils literal notranslate"><span class="pre">File</span></code> of the same annotation.</dd>
-<dt><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/config/DefaultConfig.html">DefaultConfig</a> (annotation on Path, ConfigurationLoader or File)</dt>
-<dd>Used to inject the plugin’s specific configuration file: <code class="docutils literal notranslate"><span class="pre">&lt;Plugin#id&gt;.conf</span></code></dd>
 <dt><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/event/EventManager.html">EventManager</a></dt>
 <dd>Manages the registration of event handlers and the dispatching of events.</dd>
 <dt>File</dt>
