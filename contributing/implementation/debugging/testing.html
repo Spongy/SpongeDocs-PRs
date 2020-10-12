@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testing Plugins or Mods &mdash; Sponge 7.2.0 documentation</title>
+
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../../../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>        <link rel="search" title="Search" href="../../../search.html"/>    <link rel="top" title="Sponge 7.2.0 documentation" href="../../../index.html"/>        <link rel="up" title="Debugging Sponge" href="index.html"/>        <link rel="next" title="Common Issues When Debugging" href="issues.html"/>        <link rel="prev" title="Debugging Sponge Within the IDE" href="ide.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../../index.html">
+            <img src="../../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugin/index.html">Creating a Plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Contributing to Sponge</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../guidelines.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../howtogit.html">How to Git(Hub)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Developing Sponge</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../codestyle.html">Code Style</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-implementation.html">Git Workflow for API and Implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pr.html">Submitting a Pull-Request</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Debugging Sponge</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="git.html">Git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ide.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Testing Plugins or Mods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="issues.html">Common Issues When Debugging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mixin.html">Debugging Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tools.html">Debugging Tools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="more.html">More Information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datamanipulator.html">Implementing DataManipulators</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../spongedocs.html">SpongeDocs Writing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../porting.html">Porting Sponge to Other Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../versioning.html">Repository Branch Layout</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+          <li><a href="../../index.html">Contributing to Sponge</a> &raquo;</li>
+          <li><a href="../index.html">Developing Sponge</a> &raquo;</li>
+          <li><a href="index.html">Debugging Sponge</a> &raquo;</li>
+    <li>Testing Plugins or Mods</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/child-command-alter-permission/source/contributing/implementation/debugging/testing.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="testing-plugins-or-mods">
+<h1>Testing Plugins or Mods<a class="headerlink" href="#testing-plugins-or-mods" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The changes made by your PR determines whether you need to provide a testing plugin or a testing mod. Any changes
+to the API require a testing <em>plugin</em>, and any changes to implementation need a testing <em>mod</em>. Test plugin will
+refer to both for the remainder of this article.</p>
+</div>
+<p>Testing is an integral part of any software development project. Supplying a test plugin accomplishes two goals:</p>
+<ol class="arabic">
+<li><p>Testing</p>
+<p>A test plugin demonstrates you have tested your changes, but it also provides others with the ability to check the
+current changes as well as future changes.</p>
+</li>
+<li><p>Documentation</p>
+<p>A well-commented test plugin provides details not necessarily required in PR documentation. Furthermore, comments
+in a PR generally last until the PR is merged. Comments in a program last as long as the code remains. They should
+not provide all of the documentation. Instead, well-commented code supports and completes the documentation.</p>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>A good understanding of <a class="reference internal" href="../../../plugin/index.html"><span class="doc">Creating a Plugin</span></a> provides a solid foundation for writing test plugins. Plugin
+requirements apply to test plugins, such as <a class="reference internal" href="../../../plugin/plugin-identifier.html"><span class="doc">Plugin Identifiers</span></a> and <a class="reference internal" href="../../../plugin/logging.html"><span class="doc">Logging and Debugging</span></a>.</p>
+</div>
+<p>You should provide a test plugin when you are contributing new or modified feature(s) to the API or implementation. The
+plugin is simply a class added to the package <code class="docutils literal notranslate"><span class="pre">org.spongepowered.test</span></code>, which is found in the
+<code class="docutils literal notranslate"><span class="pre">SpongeCommon/testplugins/src/main/java/org/spongepowered/test/</span></code> directory. The PR for the contributions should
+include the test plugin.</p>
+<p>It is essential that test plugins do not change the game when not intended. As a result, a command should toggle the
+plugin functionality. Be sure not to confuse this with <strong>excluding</strong> the test plugins in the build process. A setting
+in <code class="docutils literal notranslate"><span class="pre">SpongeCommon/gradle/implementation.gradle</span></code> can exclude test plugins from the resulting jar file. However, a
+command must toggle the functionality of the test plugin whether or not test plugins get included in a jar file or not.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;Plugin</span></code> will automatically register your plugin with Sponge, but it will not allow it to be toggled.</p>
+</div>
+<p>The following code demonstrates registering your plugin and allowing it to be toggled:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="kt">boolean</span> <span class="n">registered</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+<span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInit</span><span class="p">(</span><span class="n">GameInitializationEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Sponge</span><span class="p">.</span><span class="na">getCommandManager</span><span class="p">().</span><span class="na">register</span><span class="p">(</span><span class="k">this</span><span class="p">,</span>
+        <span class="n">CommandSpec</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">executor</span><span class="p">((</span><span class="n">source</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">registered</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="na">registered</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+                <span class="n">Sponge</span><span class="p">.</span><span class="na">getEventManager</span><span class="p">().</span><span class="na">unregisterListeners</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">listener</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="na">registered</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="n">Sponge</span><span class="p">.</span><span class="na">getEventManager</span><span class="p">().</span><span class="na">registerListeners</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">listener</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">CommandResult</span><span class="p">.</span><span class="na">success</span><span class="p">();</span>
+        <span class="p">}).</span><span class="na">build</span><span class="p">(),</span> <span class="s">&quot;flowerPotTest&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>JUnit is used on a limited basis and primarily for internal purposes. Generally speaking, JUnit is useful for
+testing without a player. However, the best practice is not to use JUnit unless you have agreement from a Sponge
+staff member.</p>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="issues.html" class="btn btn-neutral float-right" title="Common Issues When Debugging" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="ide.html" class="btn btn-neutral" title="Debugging Sponge Within the IDE" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.2.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/child-command-alter-permission/source/contributing/implementation/debugging/testing.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/child-command-alter-permission/source/contributing/implementation/debugging/testing.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'7.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../../../_static/jquery.js"></script>      <script type="text/javascript" src="../../../_static/underscore.js"></script>      <script type="text/javascript" src="../../../_static/doctools.js"></script>      <script type="text/javascript" src="../../../_static/language_data.js"></script>      <script type="text/javascript" src="../../../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>

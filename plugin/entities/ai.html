@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entity AI &mdash; Sponge 7.2.0 documentation</title>
+
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+
+
+
+
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+    <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
+
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>        <link rel="search" title="Search" href="../../search.html"/>    <link rel="top" title="Sponge 7.2.0 documentation" href="../../index.html"/>        <link rel="up" title="Entities" href="index.html"/>        <link rel="next" title="Implement Your Own AITasks" href="custom-ai.html"/>        <link rel="prev" title="Modifying an Entity" href="modifying.html"/>
+    <!-- Google Analytics -->
+    <script>
+        (function(S,p,o,n,g,i,e){S['GoogleAnalyticsObject']=g;S[g]=S[g]||function(){
+        (S[g].q=S[g].q||[]).push(arguments)},S[g].l=1*new Date();i=p.createElement(o),
+        e=p.getElementsByTagName(o)[0];i.async=1;i.src=n;e.parentNode.insertBefore(i,e)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-59476017-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../index.html">
+            <img src="../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api-versions.html">API-Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../buildsystem.html">Build Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../workspace/index.html">Setting Up Your Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/index.html">Setting Up Your Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-class.html">Main Plugin Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../practices/index.html">Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Plugin Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/index.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blocks/index.html">Blocks</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Entities</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="spawning.html">Spawning an Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modifying.html">Modifying an Entity</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Entity AI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="custom-ai.html">Implement Your Own AITasks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../items/index.html">Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trade-offers.html">Trade-Offers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects.html">Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database.html">Databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../permissions.html">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrics.html">Metrics Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../placeholders/index.html">Placeholders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tab-lists.html">Tab Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-meta.html">Plugin Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internals/index.html">Implementation-dependent Plugins</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+
+ 
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+          <li><a href="../index.html">Creating a Plugin</a> &raquo;</li>
+          <li><a href="index.html">Entities</a> &raquo;</li>
+    <li>Entity AI</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="https://github.com/SpongePowered/SpongeDocs/blob/child-command-alter-permission/source/plugin/entities/ai.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+  <div class="section" id="entity-ai">
+<h1>Entity AI<a class="headerlink" href="#entity-ai" title="Permalink to this headline">¶</a></h1>
+<p>Entity AI (not to be confused with actual AI) is the logic that controls agents. It is structured using goals
+(e.g. defeat enemies) that an entity tries to achieve using smaller scaled tasks (e.g. go to enemy and hit him with your
+weapon). The following sections will describe what the goals, tasks and other components of the entity AI API are, how
+you can change the behavior of entities, and describe how you can write your own AI goals.</p>
+<div class="section" id="agents">
+<h2>Agents<a class="headerlink" href="#agents" title="Permalink to this headline">¶</a></h2>
+<p>An <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/living/Agent.html">Agent</a> is a type of living <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/Entity.html">Entity</a> that supports AI and thus simulates the typical behavior of
+the mobs. You can check whether an <code class="docutils literal notranslate"><span class="pre">Entity</span></code> is also an <code class="docutils literal notranslate"><span class="pre">Agent</span></code> by simply trying to cast it.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.living.Agent</span><span class="p">;</span>
+
+<span class="n">World</span> <span class="n">world</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">UUID</span> <span class="n">uuid</span> <span class="o">=</span> <span class="p">...;</span>
+
+<span class="n">Agent</span> <span class="n">entity</span> <span class="o">=</span> <span class="p">(</span><span class="n">Agent</span><span class="p">)</span> <span class="n">world</span><span class="p">.</span><span class="na">getEntity</span><span class="p">(</span><span class="n">uuid</span><span class="p">).</span><span class="na">get</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">entity</span><span class="p">.</span><span class="na">getAgentData</span><span class="p">().</span><span class="na">aiEnabled</span><span class="p">().</span><span class="na">get</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">configureAI</span><span class="p">(</span><span class="n">entity</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>After the cast we can also check whether the AI is actually enabled. Some plugins disable it to simulate statues, guards
+or shops.</p>
+</div>
+<div class="section" id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="Permalink to this headline">¶</a></h2>
+<p>In vanilla Minecraft there are two <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/ai/GoalTypes.html">types</a> of <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/ai/Goal.html">Goal</a>s.</p>
+<p>The first one is the default one: <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/ai/GoalTypes.html#NORMAL">NORMAL</a>. This part of the AI controls the behavior of the
+entity. This goal contains tasks such as attacking a target using a melee or ranged weapon and looking idly around the
+area if there are no enemies nearby. If we want to override or modify the AI we will usually change this goal and its
+tasks.</p>
+<p>The second goal is more for hostile mods: <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/ai/GoalTypes.html#TARGET">TARGET</a>. This goal contains tasks that help the
+entity to identify which target it should select and then attack using the normal goal. The target goal contains tasks
+such as select nearest attackable target and select the enemy that attacked you first.</p>
+<p>The following code gets the <code class="docutils literal notranslate"><span class="pre">NORMAL</span></code> goal from the entity and clears it.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.ai.Goal</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.ai.GoalTypes</span><span class="p">;</span>
+
+<span class="n">Agent</span> <span class="n">entity</span> <span class="o">=</span> <span class="p">...;</span>
+
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">Goal</span><span class="o">&lt;</span><span class="n">Agent</span><span class="o">&gt;&gt;</span> <span class="n">normalGoal</span> <span class="o">=</span> <span class="n">entity</span><span class="p">.</span><span class="na">getGoal</span><span class="p">(</span><span class="n">GoalTypes</span><span class="p">.</span><span class="na">NORMAL</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">normalGoal</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">normalGoal</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">clear</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>An entity with an empty goal will not move by itself, however it will complete its current action/movement and might
+take an idle pose (i.e. look straight ahead). The AI does not affect any sound effects that an entity might play
+randomly.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please note that editing the goals or tasks of an entity will directly edit the entity. This behavior differs from
+other parts of the API where only copies are returned which must be applied afterwards. Thus, it is not possible to
+transfer the tasks from one entity to another.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Any changes made to an entities AI will be lost after a server restart or after the entity was unloaded.</p>
+</div>
+</div>
+<div class="section" id="tasks">
+<h2>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h2>
+<p>The behavior of many entity types is similar to each other. For this reason, the entity AI split into multiple
+smaller and reusable parts called <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/ai/task/AITask.html">AITask</a>s. Each of the <code class="docutils literal notranslate"><span class="pre">AITask</span></code>s represents a single behavior trait of an
+entity such as <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/ai/task/AITaskTypes.html#WATCH_CLOSEST">WATCH_CLOSEST</a>, which makes the entity look at the nearest matching
+entity, or <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/ai/task/AITaskTypes.html#AVOID_ENTITY">AVOID_ENTITY</a>, which makes the entity flee from certain matching entities.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Vanilla Minecraft itself provides a huge variety of <code class="docutils literal notranslate"><span class="pre">AITask</span></code>s, however most of them are not yet accessible via
+the API.</p>
+</div>
+<div class="section" id="adding-additional-aitasks">
+<h3>Adding Additional AITasks<a class="headerlink" href="#adding-additional-aitasks" title="Permalink to this headline">¶</a></h3>
+<p>Adding additional <code class="docutils literal notranslate"><span class="pre">AITask</span></code>s to an <code class="docutils literal notranslate"><span class="pre">Entity</span></code>s goal is pretty easy. We start with creating with a simple <code class="docutils literal notranslate"><span class="pre">AITask</span></code>.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.entity.ai.task.builtin.WatchClosestAITask</span><span class="p">;</span>
+
+<span class="n">Agent</span> <span class="n">entity</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Goal</span><span class="o">&lt;</span><span class="n">Agent</span><span class="o">&gt;</span> <span class="n">goal</span> <span class="o">=</span> <span class="p">...;</span>
+
+<span class="n">WatchClosestAITask</span> <span class="n">watchClosestAiTask</span> <span class="o">=</span> <span class="n">WatchClosestAITask</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">chance</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">maxDistance</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">watch</span><span class="p">(</span><span class="n">Player</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">(</span><span class="n">entity</span><span class="p">);</span>
+<span class="n">goal</span><span class="p">.</span><span class="na">addTask</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">watchClosestAiTask</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In this example we create an <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/ai/task/builtin/WatchClosestAITask.html">WatchClosestAITask</a> using the associated builder. Using the build we define that
+the chance of this goal triggering is 100%. Thus, the entity will look at the closest <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/living/player/Player.html">Player</a> in a range of 30
+blocks. We assign zero as a priority, which is a high priority, thus this goal takes precedence above almost all other
+tasks.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Minecraft uses low values as high priority and high values as low priority. By default Minecraft uses priority
+values from zero to roughly ten.</p>
+</div>
+</div>
+<div class="section" id="removing-certain-aitasks">
+<h3>Removing Certain AITasks<a class="headerlink" href="#removing-certain-aitasks" title="Permalink to this headline">¶</a></h3>
+<p>Removing the correct <code class="docutils literal notranslate"><span class="pre">AITask</span></code>s can be a little tricky, especially if modded entities or custom AI come into play.
+The Sponge API tries to provides a disambiguator. Calling <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/ai/task/AITask.html#getType--">AITask#getType()</a> returns an <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/ai/task/AITaskType.html">AITaskType</a>
+which can be used to differentiate between the existing types of tasks.</p>
+<p>First we try the simple version which will only work if there are no AI altering mods present:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Goal</span><span class="o">&lt;</span><span class="n">Zombie</span><span class="o">&gt;</span> <span class="n">goal</span> <span class="o">=</span> <span class="p">...;</span>
+
+<span class="n">AITask</span><span class="o">&lt;</span><span class="n">Zombie</span><span class="o">&gt;</span> <span class="n">attackTask</span> <span class="o">=</span> <span class="p">(</span><span class="n">AITask</span><span class="o">&lt;</span><span class="n">Zombie</span><span class="o">&gt;</span><span class="p">)</span> <span class="n">goal</span><span class="p">.</span><span class="na">getTasks</span><span class="p">().</span><span class="na">get</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// EntityAIZombieAttack</span>
+<span class="n">goal</span><span class="p">.</span><span class="na">removeTask</span><span class="p">(</span><span class="n">attackTask</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In this case we blindly rely on the fact that in vanilla Minecraft 1.12.2 <code class="docutils literal notranslate"><span class="pre">Zombie</span></code>s will have the
+<code class="docutils literal notranslate"><span class="pre">EntityAIZombieAttack</span></code> task as their second task. After that you no longer have to fear attacks from that zombie.
+As you can imagine this strategy has some flaws, as it requires explicit knowledge about the order of AI tasks in the
+given entity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is not possible to remove <code class="docutils literal notranslate"><span class="pre">AITask</span></code>s directly from the list returned by <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/ai/Goal.html#getTasks--">Goal#getTasks()</a> because it
+is immutable.</p>
+</div>
+<p>A much simpler but also less powerful way of removing tasks is removing them by their type. This is the approach you
+should follow, if you don’t need the task’s internals to identify which task should be removed.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">goal</span><span class="p">.</span><span class="na">removeTasks</span><span class="p">(</span><span class="n">AITaskTypes</span><span class="p">.</span><span class="na">WANDER</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In this case we remove all AITasks that have the <code class="docutils literal notranslate"><span class="pre">AITaskType</span></code> <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/ai/task/AITaskTypes.html#WANDER">WANDER</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently this way is seriously limited in usability due to the incomplete <code class="docutils literal notranslate"><span class="pre">AITaskType</span></code> support in the API.</p>
+</div>
+<p>If you want to remove all AITasks, because you want to configure the entity’s AI from scratch, you can also use
+<a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/ai/Goal.html#clear--">Goal#clear()</a>.</p>
+</div>
+<div class="section" id="implement-your-own-aitask">
+<h3>Implement Your Own AITask<a class="headerlink" href="#implement-your-own-aitask" title="Permalink to this headline">¶</a></h3>
+<p>We can also try to implement our own <code class="docutils literal notranslate"><span class="pre">AITask</span></code>s. The <a class="reference internal" href="custom-ai.html"><span class="doc">Implement Your Own AITasks</span></a> page describes the process and some obstacles
+you will encounter.</p>
+</div>
+<div class="section" id="events">
+<h3>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h3>
+<p>The AI API as well as most other parts of the SpongeAPI utilize events. You can read more about events
+<a class="reference internal" href="../event/index.html"><span class="doc">here</span></a>.</p>
+<p>The AI API itself makes use of the following 3 events:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/event/entity/ai/AITaskEvent.Add.html">AITaskEvent.Add</a></p></li>
+<li><p><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/event/entity/ai/AITaskEvent.Remove.html">AITaskEvent.Remove</a></p></li>
+<li><p><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/event/entity/ai/SetAITargetEvent.html">SetAITargetEvent</a></p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">AITaskEvent.Add</span></code> event is published whenever a new <code class="docutils literal notranslate"><span class="pre">AITask</span></code> has been added to a <code class="docutils literal notranslate"><span class="pre">Goal</span></code>, likewise, the
+<code class="docutils literal notranslate"><span class="pre">AITaskEvent.Remove</span></code> event is published if an <code class="docutils literal notranslate"><span class="pre">AITask</span></code> has been removed.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SetAITargetEvent</span></code> is published every time that an <code class="docutils literal notranslate"><span class="pre">Agent</span></code> selects a new target (usually for attacking) or drops
+a target.</p>
+<p>All of these events are cancelable, thus allowing us to prevent unwanted third-party changes to our custom entities.</p>
+</div>
+</div>
+</div>
+
+           </div>
+          </div>
+<footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="custom-ai.html" class="btn btn-neutral float-right" title="Implement Your Own AITasks" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="modifying.html" class="btn btn-neutral" title="Modifying an Entity" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.2.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/child-command-alter-permission/source/plugin/entities/ai.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/child-command-alter-permission/source/plugin/entities/ai.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'7.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>      <script type="text/javascript" src="../../_static/jquery.js"></script>      <script type="text/javascript" src="../../_static/underscore.js"></script>      <script type="text/javascript" src="../../_static/doctools.js"></script>      <script type="text/javascript" src="../../_static/language_data.js"></script>      <script type="text/javascript" src="../../_static/spongedocs.js"></script>
+
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+ 
+</body>
+</html>
