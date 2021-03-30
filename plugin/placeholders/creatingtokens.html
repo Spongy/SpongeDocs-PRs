@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creating Placeholder Tokens &mdash; Sponge 7.2.0 documentation</title>
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />  <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>        <script src="../../_static/jquery.js"></script>        <script src="../../_static/underscore.js"></script>        <script src="../../_static/doctools.js"></script>        <script src="../../_static/language_data.js"></script>        <script src="../../_static/spongedocs.js"></script>    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    <link rel="index" title="Index" href="../../genindex.html" />    <link rel="search" title="Search" href="../../search.html" />    <link rel="next" title="Retrieving and Parsing Placeholders" href="retrievingtext.html" />    <link rel="prev" title="Placeholders" href="index.html" /></head>
+
+<body class="wy-body-for-nav">
+
+   <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../index.html">
+            <img src="../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api-versions.html">API-Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../buildsystem.html">Build Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../workspace/index.html">Setting Up Your Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/index.html">Setting Up Your Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-class.html">Main Plugin Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../practices/index.html">Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Plugin Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/index.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blocks/index.html">Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../items/index.html">Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trade-offers.html">Trade-Offers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects.html">Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database.html">Databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../permissions.html">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrics.html">Metrics Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Placeholders</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Creating Placeholder Tokens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="retrievingtext.html">Retrieving and Parsing Placeholders</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tab-lists.html">Tab Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-meta.html">Plugin Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internals/index.html">Implementation-dependent Plugins</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" aria-label="top navigation">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">        <div class="rst-content">
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Creating a Plugin</a> &raquo;</li>
+          <li><a href="index.html">Placeholders</a> &raquo;</li>
+      <li>Creating Placeholder Tokens</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/SpongePowered/SpongeDocs/blob/dependabot/npm_and_yarn/y18n-3.2.2/source/plugin/placeholders/creatingtokens.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">           <div itemprop="articleBody">
+  <div class="section" id="creating-placeholder-tokens">
+<h1>Creating Placeholder Tokens<a class="headerlink" href="#creating-placeholder-tokens" title="Permalink to this headline">¶</a></h1>
+<p>At the heart of the Sponge Placeholder API is the ability to create your own tokens and have them accessible to all
+plugins. To create your own placeholder, you must create an object that implements <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> and
+register it in the Sponge Registry.</p>
+<div class="section" id="creating-placeholderparsers">
+<h2>Creating PlaceholderParsers<a class="headerlink" href="#creating-placeholderparsers" title="Permalink to this headline">¶</a></h2>
+<p>There are two ways you can create a <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code>:</p>
+<ul class="simple">
+<li><p>Using <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html#builder--">PlaceholderParser#builder()</a>, supplying your <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/plugin/PluginContainer.html">PluginContainer</a>, un-namespaced ID and
+a function that takes a <code class="docutils literal notranslate"><span class="pre">PlaceholderContext</span></code> and returns a <code class="docutils literal notranslate"><span class="pre">Text</span></code>.</p></li>
+<li><p>Directly implement the interface.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">PlaceholderParsers</span></code> are <a class="reference internal" href="../data/catalog-types.html"><span class="doc">Catalog Types</span></a>. If you implement the interface directly,
+remember that the ID of the parser should be plugin namespaced, of the form  <code class="docutils literal notranslate"><span class="pre">[pluginid]:[placeholderid]</span></code>. IDs
+must also be unique.</p>
+</div>
+<p><a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderParser.html">PlaceholderParser</a> objects take a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/service/placeholder/PlaceholderContext.html">PlaceholderContext</a> object which contains the context of the
+request and returns a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a> based on that context. Information that the <code class="docutils literal notranslate"><span class="pre">PlaceholderContext</span></code> may
+contain includes:</p>
+<ul class="simple">
+<li><p>An associated object, such as a <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/entity/living/player/Player.html">Player</a></p></li>
+<li><p>An argument string which generally will be provided by a templating engine</p></li>
+</ul>
+<p>This is the minimum as specified by Sponge.</p>
+<p>If your placeholder is unable to provide text because the context does not provide the context or arguments it requires,
+the placeholder should return an empty <code class="docutils literal notranslate"><span class="pre">Text</span></code> and not throw an exception.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you wish to provide the ability to add multiple arguments to your placeholder, consider specifying a way to split
+up the argument string.</p>
+<p>Remember to tell users of your plugin what you expect your argument string to look like.</p>
+</div>
+<div class="section" id="example-default-world-name-placeholderparser">
+<h3>Example: Default World Name PlaceholderParser<a class="headerlink" href="#example-default-world-name-placeholderparser" title="Permalink to this headline">¶</a></h3>
+<p>This <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> attempts to get the default world’s name, returning an empty <code class="docutils literal notranslate"><span class="pre">Text</span></code> if it cannot be
+found. It uses the builder to create the parser with ID <code class="docutils literal notranslate"><span class="pre">spongedocs:defaultworld</span></code>, assuming the plugin has an ID of
+<code class="docutils literal notranslate"><span class="pre">spongedocs</span></code>.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PluginContainer</span> <span class="n">thisPlugin</span> <span class="o">=</span> <span class="p">...;</span>
+
+<span class="n">PlaceholderParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">PlaceholderParser</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">plugin</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">thisPlugin</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">id</span><span class="p">(</span><span class="s">&quot;defaultworld&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">name</span><span class="p">(</span><span class="s">&quot;Default World Placeholder&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">parser</span><span class="p">(</span><span class="n">placeholderContext</span> <span class="o">-&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Sponge</span><span class="p">.</span><span class="na">getServer</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">getDefaultWorld</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">.</span><span class="na">getWorldName</span><span class="p">())</span>
+            <span class="p">.</span><span class="na">orElse</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-player-location-placeholderparser">
+<h3>Example: Player Location PlaceholderParser<a class="headerlink" href="#example-player-location-placeholderparser" title="Permalink to this headline">¶</a></h3>
+<p>This <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> attempts to get the player’s location in the world. If used without a <code class="docutils literal notranslate"><span class="pre">Player</span></code> as the
+associated object, it returns an empty <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/text/Text.html">Text</a>. This implements the <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> interface directly.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PlayerLocationPlaceholder</span> <span class="kd">implements</span> <span class="n">PlaceholderParser</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getId</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;spongedocs:location&quot;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;Location Placeholder&quot;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Text</span> <span class="nf">parse</span><span class="p">(</span><span class="n">PlaceholderText</span> <span class="n">placeholderText</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">placeholderText</span><span class="p">.</span><span class="na">getAssociatedReceiver</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="k">instanceof</span> <span class="n">Player</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">player</span> <span class="o">-&gt;</span> <span class="p">((</span><span class="n">Player</span><span class="p">)</span> <span class="n">player</span><span class="p">).</span><span class="na">getLocation</span><span class="p">())</span>
+            <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">location</span> <span class="o">-&gt;</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;World: &quot;</span><span class="p">,</span> <span class="n">location</span><span class="p">.</span><span class="na">getExtent</span><span class="p">().</span><span class="na">getName</span><span class="p">(),</span> <span class="s">&quot; - &quot;</span><span class="p">,</span> <span class="n">location</span><span class="p">.</span><span class="na">getPosition</span><span class="p">()))</span>
+            <span class="p">.</span><span class="na">orElse</span><span class="p">(</span><span class="n">Text</span><span class="p">.</span><span class="na">EMPTY</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-current-time-placeholderparser">
+<h3>Example: Current Time PlaceholderParser<a class="headerlink" href="#example-current-time-placeholderparser" title="Permalink to this headline">¶</a></h3>
+<p>This <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code> returns the current time in the server’s local timezone. If the string “UTC” is provided as
+the argument string, it returns the current time in the UTC time zone. This implements the <code class="docutils literal notranslate"><span class="pre">PlaceholderParser</span></code>
+interface directly.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CurrentTimePlaceholder</span> <span class="kd">implements</span> <span class="n">PlaceholderParser</span> <span class="p">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getId</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;spongedocs:currenttime&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;Current Time parser&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Text</span> <span class="nf">parse</span><span class="p">(</span><span class="n">PlaceholderContext</span> <span class="n">placeholderContext</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">placeholderContext</span><span class="p">.</span><span class="na">getArgumentString</span><span class="p">().</span><span class="na">filter</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">.</span><span class="na">equalsIgnoreCase</span><span class="p">(</span><span class="s">&quot;UTC&quot;</span><span class="p">)).</span><span class="na">isPresent</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">OffsetDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">(</span><span class="n">ZoneOffset</span><span class="p">.</span><span class="na">UTC</span><span class="p">).</span><span class="na">format</span><span class="p">(</span><span class="n">FORMATTER</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">Text</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">OffsetDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">().</span><span class="na">format</span><span class="p">(</span><span class="n">FORMATTER</span><span class="p">));</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="registering-your-placeholderparser">
+<h2>Registering Your PlaceholderParser<a class="headerlink" href="#registering-your-placeholderparser" title="Permalink to this headline">¶</a></h2>
+<p>For your parser to be easily accessible to other plugins, it must be registered in the registry. This should be done
+by listening to the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/event/game/GameRegistryEvent.Register.html">GameRegistryEvent.Register&lt;PlaceholderParser&gt;</a> event and registering your parsers using
+the <a class="reference external" href="https://jd.spongepowered.org/7.2.0/org/spongepowered/api/event/game/GameRegistryEvent.Register.html#register-T-">register</a> method.</p>
+<div class="section" id="example-registering-a-placeholderparser">
+<h3>Example: Registering a PlaceholderParser<a class="headerlink" href="#example-registering-a-placeholderparser" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PlaceholderParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="p">...;</span>
+
+<span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">registerTokensEvent</span><span class="p">(</span><span class="n">GameRegistryEvent</span><span class="p">.</span><span class="na">Register</span><span class="o">&lt;</span><span class="n">PlaceholderParser</span><span class="o">&gt;</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">event</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">parser</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+           </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="retrievingtext.html" class="btn btn-neutral float-right" title="Retrieving and Parsing Placeholders" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="index.html" class="btn btn-neutral" title="Placeholders" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.2.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/dependabot/npm_and_yarn/y18n-3.2.2/source/plugin/placeholders/creatingtokens.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/dependabot/npm_and_yarn/y18n-3.2.2/source/plugin/placeholders/creatingtokens.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+ 
+</body>
+</html>
