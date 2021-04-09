@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Filters &mdash; Sponge 7.3.0 documentation</title>
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />  <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>        <script src="../../_static/jquery.js"></script>        <script src="../../_static/underscore.js"></script>        <script src="../../_static/doctools.js"></script>        <script src="../../_static/language_data.js"></script>        <script src="../../_static/spongedocs.js"></script>    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    <link rel="index" title="Index" href="../../genindex.html" />    <link rel="search" title="Search" href="../../search.html" />    <link rel="next" title="Custom Events" href="custom.html" />    <link rel="prev" title="Event Causes" href="causes.html" /></head>
+
+<body class="wy-body-for-nav">
+
+   <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../index.html">
+            <img src="../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api-versions.html">API-Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../buildsystem.html">Build Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../workspace/index.html">Setting Up Your Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/index.html">Setting Up Your Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-class.html">Main Plugin Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../practices/index.html">Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Plugin Commands</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Events</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="listeners.html">Event Listeners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="causes.html">Event Causes</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Event Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="custom.html">Custom Events</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blocks/index.html">Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../items/index.html">Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trade-offers.html">Trade-Offers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects.html">Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database.html">Databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../permissions.html">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrics.html">Metrics Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../economy/index.html">Economy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../placeholders/index.html">Placeholders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tab-lists.html">Tab Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-meta.html">Plugin Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internals/index.html">Implementation-dependent Plugins</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" aria-label="top navigation">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">        <div class="rst-content">
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Creating a Plugin</a> &raquo;</li>
+          <li><a href="index.html">Events</a> &raquo;</li>
+      <li>Event Filters</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/SpongePowered/SpongeDocs/blob/bump-to-7.3/source/plugin/event/filters.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">           <div itemprop="articleBody">
+  <section id="event-filters">
+<h1>Event Filters<a class="headerlink" href="#event-filters" title="Permalink to this headline">¶</a></h1>
+<p>Now that you’ve spent a bit of time working with events you’ve probably noticed that there are several preconditions that you
+very commonly check while writing an event listener. Event filters are a group of annotations that assist you by allowing you
+to automatically validate aspects of the event, and if the validation fails then your listener will not be called. This allows
+your listener to be dedicated to the logic of your handler, rather than the preconditions, resulting in cleaner code.</p>
+<p>Event filters come in two varieties, event type filters and parameter filters.</p>
+<p>Event type filters are method annotations that are applied to your listener method along with the <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/Listener.html">Listener</a>
+annotation and provide several filters based on the type or state of the event.</p>
+<p>Parameter filters validate objects contained within the event such as the cause. They come in a further two varieties
+parameter sources and parameter filters. Each additional parameter must have one source annotation, and optionally may include
+any number of filter annotations.</p>
+<section id="event-type-filters">
+<h2>Event Type Filters<a class="headerlink" href="#event-type-filters" title="Permalink to this headline">¶</a></h2>
+<p><strong>&#64;Include/&#64;Exclude</strong>
+These two parameters are used in conjunction with listening for supertype events such as <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/entity/AffectEntityEvent.html">AffectEntityEvent</a>
+while narrowing the events that you receive to just a subset of the events extending the event you’re listening for.</p>
+<p>For example:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
+<span class="nd">@Exclude</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Primary</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This listener would normally be called for all events extending InteractBlockEvent. However, the <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/filter/type/Exclude.html">Exclude</a>
+annotationte will prevent your listener from being called for the <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/block/InteractBlockEvent.Primary.html">InteractBlockEvent.Primary</a> event (leaving
+just the <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/block/InteractBlockEvent.Secondary.html">InteractBlockEvent.Secondary</a> event).</p>
+<p>An example with <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/filter/type/Include.html">Include</a> could be:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
+<span class="nd">@Include</span><span class="p">({</span><span class="n">DamageEntityEvent</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">DestructEntityEvent</span><span class="p">.</span><span class="na">class</span><span class="p">})</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onEvent</span><span class="p">(</span><span class="n">TargetEntityEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This listener would normally be called for all EntityEvents, however the <code class="docutils literal notranslate"><span class="pre">Include</span></code> annotation narrows it to only
+recieve <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/entity/DamageEntityEvent.html">DamageEntityEvent</a> and <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/entity/DestructEntityEvent.html">DestructEntityEvent</a>s.</p>
+<p><strong>&#64;IsCancelled</strong>
+This annotation allows filtering events by their cancellation state at the time that your event listener would normally be
+called. By default, your event listener will not be called if the event has been cancelled by a previous event listener.
+However you can change this behavior to one of three states depending on the <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/util/Tristate.html">Tristate</a> value in the
+<a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/filter/IsCancelled.html">IsCancelled</a> annotation.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Tristate.FALSE</span></code> is the default behavior if the <code class="docutils literal notranslate"><span class="pre">IsCancelled</span></code> annotation is not present, and will not call your
+listener if the event has been cancelled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Tristate.UNDEFINED</span></code> will cause your listener to be called regardless of the cancellation state of the event.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Tristate.TRUE</span></code> will cause your listener to be called only if the event has been cancelled by a previous event listener.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="parameter-filters">
+<h2>Parameter Filters<a class="headerlink" href="#parameter-filters" title="Permalink to this headline">¶</a></h2>
+<p>Parameter filters allow you to filter based on objects within the event. These annotations come in two types, sources and
+filters. Each additional parameter for your listener method, beyond the normal event parameter, requires exactly one source
+annotation and may optionally have any number of filter annotations.</p>
+<section id="parameter-source-annotations">
+<h3>Parameter Source Annotations<a class="headerlink" href="#parameter-source-annotations" title="Permalink to this headline">¶</a></h3>
+<p>Parameter source annotations tell the event system where it should look for this parameter’s value. This may be in the events
+cause or in a member of the event object itself.</p>
+<p><strong>&#64;First</strong> This parameter source annotation tells the event system to find the first object in the event’s cause which matches
+the type of your parameter (This is equivalent to <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/cause/Cause.html#first-java.lang.Class-">Cause#first(Class)</a>). If no object is found matching this
+parameter then your listener is not called.</p>
+<p><strong>In this example your listener will only be called if there is a player in the event’s cause, and the</strong> <code class="docutils literal notranslate"><span class="pre">player</span></code>
+<strong>parameter will be set to the first player present the cause.</strong></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@First</span> <span class="n">Player</span> <span class="n">player</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>&#64;Last</strong> This is similar to <code class="docutils literal notranslate"><span class="pre">&#64;First</span></code> however it instead makes a call to <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/cause/Cause.html#last-java.lang.Class-">Cause#last(Class)</a>.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@Last</span> <span class="n">Player</span> <span class="n">player</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>&#64;Before</strong> This parameter source annotation tells the event system to find the object before the one of the type
+specified by the annotation parameter (This is equivalent to <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/cause/Cause.html#before-java.lang.Class-">Cause#before(Class)</a>). Additionally, the found
+object must match the type of the parameter. If no object is found meeting these criteria, then your listener is not
+called.</p>
+<p><strong>In this example your listener will only be called if there is a player located before a plugin container in the event’s cause.
+The</strong> <code class="docutils literal notranslate"><span class="pre">player</span></code> <strong>parameter will be set to that player.</strong></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@Before</span><span class="p">(</span><span class="n">PluginContainer</span><span class="p">.</span><span class="na">class</span><span class="p">)</span> <span class="n">Player</span> <span class="n">player</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>&#64;After</strong> This is similar to <code class="docutils literal notranslate"><span class="pre">&#64;Before</span></code>, but it instead uses <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/cause/Cause.html#after-java.lang.Class-">Cause#after(Class)</a>.</p>
+<p><strong>&#64;All</strong> This parameter source annotation requires that the annotated parameter be an array type. The returned array
+will be equivalent to the contents of calling <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/cause/Cause.html#allOf-java.lang.Class-">Cause#allOf(Class)</a>. By default, if the returned array would be
+empty then the validation fails however this can be disabled by setting <code class="docutils literal notranslate"><span class="pre">ignoreEmpty=false</span></code>.</p>
+<p><strong>In this example your listener will always be called, although the players array may be empty if the event’s cause
+contained no players.</strong></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@All</span><span class="p">(</span><span class="n">ignoreEmpty</span><span class="o">=</span><span class="kc">false</span><span class="p">)</span> <span class="n">Player</span><span class="o">[]</span> <span class="n">players</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>&#64;Root</strong> This parameter source annotation will fetch the root object of the cause, equivalent to
+<a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/cause/Cause.html#root--">Cause#root()</a>. It also performs an additional check that the type of the root object matches the type of your
+parameter.</p>
+<p><strong>&#64;Getter</strong> This parameter source annotation will fetch a getter on the event with the specified name. If the specified
+getter returns an <code class="docutils literal notranslate"><span class="pre">Optional</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;Getter</span></code> will automatically unwrap the <code class="docutils literal notranslate"><span class="pre">Optional</span></code>.</p>
+<p><strong>In this example, we attempt to retrieve the value of</strong> <code class="docutils literal notranslate"><span class="pre">getUseItemResult</span></code> <strong>using the</strong> <code class="docutils literal notranslate"><span class="pre">&#64;Getter</span></code>
+<strong>annotation.</strong></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@Getter</span><span class="p">(</span><span class="s">&quot;getUseItemResult&quot;</span><span class="p">)</span> <span class="n">Tristate</span> <span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="parameter-filter-annotations">
+<h3>Parameter Filter Annotations<a class="headerlink" href="#parameter-filter-annotations" title="Permalink to this headline">¶</a></h3>
+<p>Parameter filter annotations add additional validation to objects returned from parameter source annotations. As with all
+event filters if any of these validations fail then your listener will not be called.</p>
+<p><strong>&#64;Supports</strong>
+This parameter filter may be applied to any parameter type which is a <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/data/DataHolder.html">DataHolder</a>. It takes a class extending
+<a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/data/manipulator/DataManipulator.html">DataManipulator</a> as its parameter and validates that the annotated <code class="docutils literal notranslate"><span class="pre">DataHolder</span></code> supports the given
+<code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code>. This validation is equivalent to <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/data/value/mutable/CompositeValueStore.html#supports-java.lang.Class-">CompositeValueStore#supports(Class&lt;? extends H&gt;)</a>.</p>
+<p><strong>In this example the listener will be called only if there is an entity in the event’s cause, and if that entity supports
+the data manipulator</strong> <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/data/manipulator/mutable/entity/FlyingData.html">FlyingData</a>.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@First</span> <span class="nd">@Supports</span><span class="p">(</span><span class="n">FlyingData</span><span class="p">.</span><span class="na">class</span><span class="p">)</span> <span class="n">Entity</span> <span class="n">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>&#64;Has</strong>
+This parameter filter is similar to the <code class="docutils literal notranslate"><span class="pre">&#64;Supports</span></code> parameter filter except that it additionally validates that the
+<code class="docutils literal notranslate"><span class="pre">DataHolder</span></code> contains an instance of the given <code class="docutils literal notranslate"><span class="pre">DataManipulator</span></code>.</p>
+<p><strong>In this example the listener will be called only if there is an entity in the event’s cause, and if that entity has an
+instance of</strong> <code class="docutils literal notranslate"><span class="pre">FlyingData</span></code> <strong>available.</strong></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Listener</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onInteract</span><span class="p">(</span><span class="n">InteractBlockEvent</span><span class="p">.</span><span class="na">Secondary</span> <span class="n">event</span><span class="p">,</span> <span class="nd">@First</span> <span class="nd">@Has</span><span class="p">(</span><span class="n">FlyingData</span><span class="p">.</span><span class="na">class</span><span class="p">)</span> <span class="n">Entity</span> <span class="n">entity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Both <code class="docutils literal notranslate"><span class="pre">&#64;Has</span></code> and <code class="docutils literal notranslate"><span class="pre">&#64;Supports</span></code> have an optional parameter <code class="docutils literal notranslate"><span class="pre">inverse</span></code> which can be set to cause validation
+to fail if the does have, or does support, the target DataManipulator.</p>
+</div>
+</section>
+</section>
+</section>
+
+           </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="custom.html" class="btn btn-neutral float-right" title="Custom Events" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="causes.html" class="btn btn-neutral" title="Event Causes" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.3.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/bump-to-7.3/source/plugin/event/filters.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/bump-to-7.3/source/plugin/event/filters.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+ 
+</body>
+</html>

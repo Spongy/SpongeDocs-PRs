@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debugging Sponge &mdash; Sponge 7.3.0 documentation</title>
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />  <link rel="stylesheet" href="../../../_static/spongedocs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>        <script src="../../../_static/jquery.js"></script>        <script src="../../../_static/underscore.js"></script>        <script src="../../../_static/doctools.js"></script>        <script src="../../../_static/language_data.js"></script>        <script src="../../../_static/spongedocs.js"></script>    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    <link rel="index" title="Index" href="../../../genindex.html" />    <link rel="search" title="Search" href="../../../search.html" />    <link rel="next" title="Git" href="git.html" />    <link rel="prev" title="Submitting a Pull-Request" href="../pr.html" /></head>
+
+<body class="wy-body-for-nav">
+
+   <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../../index.html">
+            <img src="../../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugin/index.html">Creating a Plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Contributing to Sponge</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../guidelines.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../howtogit.html">How to Git(Hub)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Developing Sponge</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../codestyle.html">Code Style</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-implementation.html">Git Workflow for API and Implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pr.html">Submitting a Pull-Request</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Debugging Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="git.html">Git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ide.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="testing.html">Testing Plugins or Mods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="issues.html">Common Issues When Debugging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mixin.html">Debugging Mixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tools.html">Debugging Tools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="more.html">More Information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../datamanipulator.html">Implementing DataManipulators</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../spongedocs.html">SpongeDocs Writing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../porting.html">Porting Sponge to Other Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../versioning.html">Repository Branch Layout</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" aria-label="top navigation">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">        <div class="rst-content">
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Contributing to Sponge</a> &raquo;</li>
+          <li><a href="../index.html">Developing Sponge</a> &raquo;</li>
+      <li>Debugging Sponge</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/SpongePowered/SpongeDocs/blob/bump-to-7.3/source/contributing/implementation/debugging/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">           <div itemprop="articleBody">
+  <section id="debugging-sponge">
+<h1>Debugging Sponge<a class="headerlink" href="#debugging-sponge" title="Permalink to this headline">¶</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>See <a class="reference internal" href="../../../plugin/debugging.html"><span class="doc">Plugin Debugging</span></a> for debugging a plugin and <a class="reference internal" href="../../../plugin/debugging.html#usingdebugger"><span class="std std-ref">Using the Debugger</span></a> tips.</p>
+</div>
+<p>These sections provide information for debugging Sponge itself. Whether you need to debug SpongeForge, SpongeVanilla,
+SpongeCommon, or SpongeAPI, set up your workspace for a SpongeForge or SpongeVanilla implementation. SpongeCommon and
+SpongeAPI are debugged within the implementation setup.</p>
+<p>See <a class="reference internal" href="../../../about/structure.html"><span class="doc">The Structure of the Sponge Project</span></a> for more information.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to read and understand <a class="reference internal" href="../../howtogit.html"><span class="doc">How to Git(Hub)</span></a> and <a class="reference internal" href="../../versioning.html"><span class="doc">Repository Branch Layout</span></a> as well as the
+entirety of the <a class="reference internal" href="../index.html"><span class="doc">Developing Sponge</span></a> sections before proceeding.</p>
+</div>
+<section id="setup-the-workspace">
+<span id="setupworkspace"></span><h2>Setup the Workspace<a class="headerlink" href="#setup-the-workspace" title="Permalink to this headline">¶</a></h2>
+<p>Here are the steps to setup your workspace if you do not have one already:</p>
+<ol class="arabic simple">
+<li><p>Clone the implementation.</p></li>
+<li><p>Make changes to the local repository (e.g. create new branch if you will make changes).</p></li>
+<li><p>Setup the implementation.</p></li>
+<li><p>Build the implementation.</p></li>
+<li><p>Run the implementation.</p></li>
+</ol>
+<p>With these instructions successfully completed, you are ready to import the project into your IDE.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is an outline of the steps necessary to setup the workspace. See the <a class="reference external" href="https://github.com/SpongePowered/SpongeForge">SpongeForge</a> or
+<a class="reference external" href="https://github.com/SpongePowered/SpongeVanilla">SpongeVanilla</a> GitHub pages for complete instructions on
+cloning, setup, building, and running the implementation.</p>
+</div>
+</section>
+<section id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="git.html">Git</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ide.html">Debugging Sponge Within the IDE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing Plugins or Mods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issues.html">Common Issues When Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mixin.html">Debugging Mixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Debugging Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more.html">More Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+           </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="git.html" class="btn btn-neutral float-right" title="Git" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="../pr.html" class="btn btn-neutral" title="Submitting a Pull-Request" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.3.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/bump-to-7.3/source/contributing/implementation/debugging/index.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/bump-to-7.3/source/contributing/implementation/debugging/index.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+ 
+</body>
+</html>
