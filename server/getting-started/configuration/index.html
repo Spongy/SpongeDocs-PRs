@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuring Sponge &mdash; Sponge 7.3.0 documentation</title>
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />  <link rel="stylesheet" href="../../../_static/spongedocs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>        <script src="../../../_static/jquery.js"></script>        <script src="../../../_static/underscore.js"></script>        <script src="../../../_static/doctools.js"></script>        <script src="../../../_static/language_data.js"></script>        <script src="../../../_static/spongedocs.js"></script>    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    <link rel="index" title="Index" href="../../../genindex.html" />    <link rel="search" title="Search" href="../../../search.html" />    <link rel="next" title="global.conf" href="sponge-conf.html" />    <link rel="prev" title="Using Sponge with Server Proxies" href="../bungeecord.html" /></head>
+
+<body class="wy-body-for-nav">
+
+   <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../../index.html">
+            <img src="../../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Creating a Server</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Getting Started</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../jre.html">Installing Java</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../migrating.html">Migrating to Sponge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../implementations/index.html">Choosing an Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../launch-script.html">Creating a Launch Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../port-forward.html">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../bungeecord.html">Using Sponge with Server Proxies</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Configuring Sponge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sponge-conf.html">global.conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hocon.html">Introduction to HOCON</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../management/index.html">Server Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../spongineer/index.html">Becoming an Expert Spongineer</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../plugin/index.html">Creating a Plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" aria-label="top navigation">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">        <div class="rst-content">
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Creating a Server</a> &raquo;</li>
+          <li><a href="../index.html">Getting Started</a> &raquo;</li>
+      <li>Configuring Sponge</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/SpongePowered/SpongeDocs/blob/dependabot/npm_and_yarn/hosted-git-info-2.8.9/source/server/getting-started/configuration/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">           <div itemprop="articleBody">
+  <section id="configuring-sponge">
+<h1>Configuring Sponge<a class="headerlink" href="#configuring-sponge" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sponge-conf.html">global.conf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hocon.html">Introduction to HOCON</a></li>
+</ul>
+</div>
+<p id="configuration-sponge">This article is about configuring Sponge itself; plugins will usually create their own configuration files inside the
+server “config” directory.
+For Vanilla configuration check out the <a class="reference external" href="https://minecraft.gamepedia.com/Server.properties">Minecraft Wiki</a>.</p>
+<section id="sponge-configuration-files">
+<h2>Sponge Configuration Files<a class="headerlink" href="#sponge-configuration-files" title="Permalink to this headline">¶</a></h2>
+<p>Sponge has multiple configuration files, which all can be found in the <code class="docutils literal notranslate"><span class="pre">config/sponge/</span></code> directory of your server:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tracker.conf</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">custom_data.conf</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">global.conf</span></code>
+and the corresponding dimension and world subconfigs in the <code class="docutils literal notranslate"><span class="pre">worlds</span></code> folder</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">global.conf</span></code> file contains the global configuration settings for Sponge. Its properties can be also overridden
+for each world and dimension type by using the config files in the subfolders of <code class="docutils literal notranslate"><span class="pre">config/worlds</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">tracker.conf</span></code> can be used to configure the Phase Tracker, and the <code class="docutils literal notranslate"><span class="pre">custom_data.conf</span></code> is used to manage custom
+data added by plugins.</p>
+</section>
+<section id="modifying-the-configuration-using-a-text-editor">
+<h2>Modifying the Configuration Using a Text Editor<a class="headerlink" href="#modifying-the-configuration-using-a-text-editor" title="Permalink to this headline">¶</a></h2>
+<p>Open the desired file using your preferred editor. Sponge configuration files use HOCON format, which you can read
+more about in the <a class="reference internal" href="hocon.html"><span class="doc">“Introduction to HOCON”</span></a>.</p>
+<p>After making your desired changes, save your file. If your server was running while you made changes, you must reload
+the config file using the reload commands explained <a class="reference internal" href="#configuration-sponge-reload"><span class="std std-ref">below</span></a>. For example, after
+making changes to your <code class="docutils literal notranslate"><span class="pre">global.conf</span></code>, run <code class="docutils literal notranslate"><span class="pre">/sponge</span> <span class="pre">reload</span> <span class="pre">-g</span></code> to reload the global configurations from file.</p>
+<section id="overriding-the-global-configuration">
+<h3>Overriding the Global Configuration<a class="headerlink" href="#overriding-the-global-configuration" title="Permalink to this headline">¶</a></h3>
+<p>If you would like to override the global configs in just a single world or dimension type, for example raise the
+spawn cap of monsters in the Vanilla Nether alone, subconfigs allow you to do just that. You can find configs for
+every world and dimension on your server within the <code class="docutils literal notranslate"><span class="pre">worlds</span></code> folder, inside the main Sponge config folder. These
+are sorted first by mods, and then dimension type. Simply modify those configs to your needs, and the changes will
+be applied to all the related worlds, overriding broader configs.
+This follows a simple order: World &gt; Dimension &gt; Global</p>
+</section>
+</section>
+<section id="modifying-the-configuration-using-commands">
+<h2>Modifying the Configuration Using Commands<a class="headerlink" href="#modifying-the-configuration-using-commands" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to modify most configs through the in-game command <code class="docutils literal notranslate"><span class="pre">/sponge</span> <span class="pre">config</span></code>. The syntax for the config
+command looks like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/sponge config &lt;flag&gt; &lt;key&gt; &lt;value&gt;
+</pre></div>
+</div>
+<p>There are the following <strong>flags</strong> for specifying the target that you would wish to change.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-g</span></code> is the flag for global (<code class="docutils literal notranslate"><span class="pre">global.conf</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">&lt;dim&gt;</span></code> targets a dimension (<code class="docutils literal notranslate"><span class="pre">dimension.conf</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-w</span> <span class="pre">&lt;world&gt;</span></code> targets one world (<code class="docutils literal notranslate"><span class="pre">world.conf</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-t</span></code> is the flag for tracker (<code class="docutils literal notranslate"><span class="pre">tracker.conf</span></code>)</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> being a placeholder, you need replace with the name of your target, e.g. <code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">minecraft:nether</span></code>.</p>
+<p>The <strong>key</strong> is the value you want to change. The <strong>value</strong> is whatever you want to change the value of the key to.
+For example, if you want to change <code class="docutils literal notranslate"><span class="pre">chunk-load</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code>
+in the file <code class="docutils literal notranslate"><span class="pre">config/sponge/minecraft/nether/dimension.conf</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sponge {
+    logging {
+        # Log when chunks are loaded
+        chunk-load=false
+    }
+}
+</pre></div>
+</div>
+<p>Here is the command you should use:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/sponge config -d minecraft:nether logging.chunk-load true
+</pre></div>
+</div>
+<p>If you need to check the value of a key, simply omit the value.
+Checking the value of a key such as <code class="docutils literal notranslate"><span class="pre">logging.chunk-load</span></code> in the nether can be done like so:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/sponge config -d minecraft:nether logging.chunk-load
+</pre></div>
+</div>
+<section id="saving-config">
+<h3>Saving Config<a class="headerlink" href="#saving-config" title="Permalink to this headline">¶</a></h3>
+<p>Saving a world config to the file may be desired after making modifications. This can be useful in the event of an
+unexpected server crash. This is done by using the <code class="docutils literal notranslate"><span class="pre">/sponge</span> <span class="pre">save</span></code> command on the server. The syntax for this
+command is similar to the config command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/sponge save &lt;flag&gt;
+</pre></div>
+</div>
+<p>Here is an example for saving the global config:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/sponge save -g
+</pre></div>
+</div>
+</section>
+<section id="reloading-a-config">
+<span id="configuration-sponge-reload"></span><h3>Reloading a Config<a class="headerlink" href="#reloading-a-config" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes you need to reload a world config while the server is still running. This is useful when you have
+made changes to the local config file, and want to reload it for use on the live server. This is made
+possible by the command <code class="docutils literal notranslate"><span class="pre">/sponge</span> <span class="pre">reload</span></code>. The syntax for the command is as follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/sponge reload &lt;flag&gt;
+</pre></div>
+</div>
+<p>Here is an example of reloading the end world config file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/sponge reload -d minecraft:the_end
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+           </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="sponge-conf.html" class="btn btn-neutral float-right" title="global.conf" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="../bungeecord.html" class="btn btn-neutral" title="Using Sponge with Server Proxies" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.3.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/dependabot/npm_and_yarn/hosted-git-info-2.8.9/source/server/getting-started/configuration/index.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/dependabot/npm_and_yarn/hosted-git-info-2.8.9/source/server/getting-started/configuration/index.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+ 
+</body>
+</html>
