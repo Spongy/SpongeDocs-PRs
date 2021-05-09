@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Plugin Class &mdash; Sponge 7.3.0 documentation</title>
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />  <link rel="stylesheet" href="../_static/spongedocs.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>        <script src="../_static/jquery.js"></script>        <script src="../_static/underscore.js"></script>        <script src="../_static/doctools.js"></script>        <script src="../_static/language_data.js"></script>        <script src="../_static/spongedocs.js"></script>    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    <link rel="index" title="Index" href="../genindex.html" />    <link rel="search" title="Search" href="../search.html" />    <link rel="next" title="Plugin Lifecycle" href="lifecycle.html" />    <link rel="prev" title="Plugin Identifiers" href="plugin-identifier.html" /></head>
+
+<body class="wy-body-for-nav">
+
+   <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../index.html">
+            <img src="../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api-versions.html">API-Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildsystem.html">Build Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workspace/index.html">Setting Up Your Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project/index.html">Setting Up Your Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Main Plugin Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lifecycle.html">Plugin Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="injection.html">Dependency Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practices/index.html">Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optional/index.html">Optionals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text/index.html">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands/index.html">Plugin Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="event/index.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html">Configuring Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assets.html">The Asset API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data/index.html">The Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blocks/index.html">Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities/index.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="items/index.html">Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trade-offers.html">Trade-Offers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="effects.html">Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html">Databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permissions.html">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">Metrics Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bookview.html">Book Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="economy/index.html">Economy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="placeholders/index.html">Placeholders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wgen/index.html">World Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="game-profile-manager.html">Game Profile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="offline-userplayer-data.html">Offline Player Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tab-lists.html">Tab Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin-meta.html">Plugin Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Plugin Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals/index.html">Implementation-dependent Plugins</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" aria-label="top navigation">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">        <div class="rst-content">
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Creating a Plugin</a> &raquo;</li>
+      <li>Main Plugin Class</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/SpongePowered/SpongeDocs/blob/dependabot/npm_and_yarn/lodash-4.17.21/source/plugin/plugin-class.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">           <div itemprop="articleBody">
+  <section id="main-plugin-class">
+<h1>Main Plugin Class<a class="headerlink" href="#main-plugin-class" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The instructions within the Sponge Documentation assume that you have prior knowledge of Java. SpongeAPI
+provides the foundation for you to begin creating plugins for Minecraft servers powered by Sponge; however, it is
+up to you to be creative and make your code work! There are several free Java courses online if you have had little
+experience with Java.</p>
+</div>
+<section id="starting-your-class">
+<h2>Starting Your Class<a class="headerlink" href="#starting-your-class" title="Permalink to this headline">¶</a></h2>
+<p>The next step after adding SpongeAPI as a dependency is creating a new class. The class can be named however you
+like, and can be in any package that does <strong>not</strong> begin with <code class="docutils literal notranslate"><span class="pre">org.spongepowered</span></code>. By convention, class names should be
+in title case.</p>
+<p>Oracle <a class="reference external" href="https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html">recommends</a> to use your domain as your
+package name, if you own a domain. However, in the event that you do not own a domain, a common practice is to use an
+email address (such as <code class="docutils literal notranslate"><span class="pre">com.gmail.username.project</span></code>) or an open-source repository
+(such as <code class="docutils literal notranslate"><span class="pre">io.github.username.project</span></code>).</p>
+<p>After creating your main class, the <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/plugin/Plugin.html">Plugin</a> annotation must be affixed to it. This annotation allows Sponge
+to easily find your main plugin class when your plugin is loaded. An example usage is illustrated below, more detailed
+usage is explained on <a class="reference internal" href="plugin-meta.html"><span class="doc">Plugin Metadata</span></a>.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">io.github.username.project</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.plugin.Plugin</span><span class="p">;</span>
+
+<span class="nd">@Plugin</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="s">&quot;exampleplugin&quot;</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Example Plugin&quot;</span><span class="p">,</span> <span class="n">version</span> <span class="o">=</span> <span class="s">&quot;1.0&quot;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&quot;Example&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExamplePlugin</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Refer to <a class="reference internal" href="plugin-identifier.html"><span class="doc">Plugin Identifiers</span></a> if you’ve not chosen your plugin ID yet.</p>
+</div>
+</section>
+<section id="initializing-your-plugin">
+<h2>Initializing Your Plugin<a class="headerlink" href="#initializing-your-plugin" title="Permalink to this headline">¶</a></h2>
+<p>Plugins are loaded before the game and the world(s). This leaves a specific timeframe when your plugin should begin
+interacting with the game, such as registering commands or events.</p>
+<p>Your plugin can listen for particular events, called <strong>state events</strong>, to be notified about changes in the state of the
+game. In the example below, <code class="docutils literal notranslate"><span class="pre">onServerStart()</span></code> is called when the <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/game/state/GameStartedServerEvent.html">GameStartedServerEvent</a> occurs; take note
+of the <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/Listener.html">Listener</a> annotation before the method.</p>
+<p>The example below will log a message upon starting the server. If your plugin is correctly loaded,
+you should see this message as part of the server’s initialization output.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.plugin.Plugin</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.Listener</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.game.state.GameStartedServerEvent</span><span class="p">;</span>
+
+<span class="c1">// Imports for logger</span>
+<span class="kn">import</span> <span class="nn">com.google.inject.Inject</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.Logger</span><span class="p">;</span>
+
+<span class="nd">@Plugin</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="s">&quot;exampleplugin&quot;</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Example Plugin&quot;</span><span class="p">,</span> <span class="n">version</span> <span class="o">=</span> <span class="s">&quot;1.0&quot;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&quot;Example&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExamplePlugin</span> <span class="p">{</span>
+
+    <span class="nd">@Inject</span>
+    <span class="kd">private</span> <span class="n">Logger</span> <span class="n">logger</span><span class="p">;</span>
+
+    <span class="nd">@Listener</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onServerStart</span><span class="p">(</span><span class="n">GameStartedServerEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&quot;Successfully running ExamplePlugin!!!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The Sponge documentation provides a guide with more information on events (see <a class="reference internal" href="event/index.html"><span class="doc">Events</span></a>). Normally, in
+addition to prefixing event-handler methods with <code class="docutils literal notranslate"><span class="pre">&#64;Listener</span></code>, you must also register your object with Sponge’s
+event bus. However, your main plugin class is registered automatically.</p>
+</div>
+<section id="state-events">
+<h3>State Events<a class="headerlink" href="#state-events" title="Permalink to this headline">¶</a></h3>
+<p>It may also be desirable to listen for other state events, particularly the <code class="docutils literal notranslate"><span class="pre">GameStoppingServerEvent</span></code>. There are two
+categories of state events:</p>
+<ul class="simple">
+<li><p><strong>Initialization</strong>: These events occur when Sponge and plugins are loading.</p>
+<ul>
+<li><p><a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/game/state/GameConstructionEvent.html">GameConstructionEvent</a></p></li>
+<li><p><a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/game/state/GamePreInitializationEvent.html">GamePreInitializationEvent</a></p></li>
+<li><p><a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/game/state/GameInitializationEvent.html">GameInitializationEvent</a></p></li>
+<li><p><a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/game/state/GamePostInitializationEvent.html">GamePostInitializationEvent</a></p></li>
+<li><p><a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/game/state/GameLoadCompleteEvent.html">GameLoadCompleteEvent</a></p></li>
+</ul>
+</li>
+<li><p><strong>Running</strong>: These events occur when the game and world are loading.</p>
+<ul>
+<li><p><a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/game/state/GameAboutToStartServerEvent.html">GameAboutToStartServerEvent</a></p></li>
+<li><p><a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/game/state/GameStartingServerEvent.html">GameStartingServerEvent</a></p></li>
+<li><p><a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/game/state/GameStartedServerEvent.html">GameStartedServerEvent</a></p></li>
+<li><p><a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/game/state/GameStoppingServerEvent.html">GameStoppingServerEvent</a></p></li>
+<li><p><a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/event/game/state/GameStoppedServerEvent.html">GameStoppedServerEvent</a></p></li>
+</ul>
+</li>
+</ul>
+<p>For information regarding when each state event occurs, see the <a class="reference internal" href="lifecycle.html"><span class="doc">plugin lifecycle documentation</span></a>.</p>
+</section>
+</section>
+</section>
+
+           </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="lifecycle.html" class="btn btn-neutral float-right" title="Plugin Lifecycle" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="plugin-identifier.html" class="btn btn-neutral" title="Plugin Identifiers" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.3.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/dependabot/npm_and_yarn/lodash-4.17.21/source/plugin/plugin-class.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/dependabot/npm_and_yarn/lodash-4.17.21/source/plugin/plugin-class.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+ 
+</body>
+</html>
