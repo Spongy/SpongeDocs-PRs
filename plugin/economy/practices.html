@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Economy API Best Practices &mdash; Sponge 7.3.0 documentation</title>
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />  <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>        <script src="../../_static/jquery.js"></script>        <script src="../../_static/underscore.js"></script>        <script src="../../_static/doctools.js"></script>        <script src="../../_static/language_data.js"></script>        <script src="../../_static/spongedocs.js"></script>    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    <link rel="index" title="Index" href="../../genindex.html" />    <link rel="search" title="Search" href="../../search.html" />    <link rel="next" title="Implementing the Economy API" href="implementing.html" />    <link rel="prev" title="Using the Economy API" href="using.html" /></head>
+
+<body class="wy-body-for-nav">
+
+   <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../index.html">
+            <img src="../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Creating a Plugin</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api-versions.html">API-Versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../buildsystem.html">Build Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../workspace/index.html">Setting Up Your Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../project/index.html">Setting Up Your Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-identifier.html">Plugin Identifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-class.html">Main Plugin Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lifecycle.html">Plugin Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../injection.html">Dependency Injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../practices/index.html">Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optional/index.html">Optionals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logging.html">Logging and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/index.html">Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">Plugin Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/index.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration/index.html">Configuring Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">The Asset API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">The Data API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../blocks/index.html">Blocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../entities/index.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../items/index.html">Items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trade-offers.html">Trade-Offers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../effects.html">Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scheduler.html">Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database.html">Databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../permissions.html">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bans.html">Bans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrics.html">Metrics Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bookview.html">Book Views</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Economy</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="basics.html">Basic Concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using.html">Using the Economy API</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Economy API Best Practices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="implementing.html">Implementing the Economy API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../placeholders/index.html">Placeholders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wgen/index.html">World Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manager.html">Plugin Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../game-profile-manager.html">Game Profile Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../offline-userplayer-data.html">Offline Player Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tab-lists.html">Tab Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin-meta.html">Plugin Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-tracing.html">Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debugging.html">Plugin Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internals/index.html">Implementation-dependent Plugins</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing to Sponge</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" aria-label="top navigation">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">        <div class="rst-content">
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Creating a Plugin</a> &raquo;</li>
+          <li><a href="index.html">Economy</a> &raquo;</li>
+      <li>Economy API Best Practices</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/SpongePowered/SpongeDocs/blob/dependabot/npm_and_yarn/ws-7.4.6/source/plugin/economy/practices.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">           <div itemprop="articleBody">
+  <section id="economy-api-best-practices">
+<h1>Economy API Best Practices<a class="headerlink" href="#economy-api-best-practices" title="Permalink to this headline">¶</a></h1>
+<p>The Economy API tries to be abstract enough to give economy plugins flexibility in how they operate.
+In order to give economy plugins as much control as possible, plugins consuming the Economy API should
+follow some guidelines when working with it:</p>
+<section id="withdrawing-money">
+<h2>Withdrawing money<a class="headerlink" href="#withdrawing-money" title="Permalink to this headline">¶</a></h2>
+<p>Plugins should <em>not</em> check if an account has enough money before attempting to withdraw it. While this may
+sound counter-intuitive, it allows economy plugins to fully control how they handle negative balances.</p>
+<p>By checking yourself if the account has enough money, you prevent the economy plugin from (potentially) allowing a
+negative balance. For example, one economy plugin might want to allow negative balances to admins, or players with a
+certain permission. By performing the check yourself, you take this power away from the economy plugin.</p>
+<p>This code illustrates what <strong>not</strong> to do:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.math.BigDecimal</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.Cause</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.EventContext</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.EventContextKeys</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.economy.EconomyService</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.economy.account.Account</span><span class="p">;</span>
+
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">EconomyService</span> <span class="n">service</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">BigDecimal</span> <span class="n">requiredAmount</span> <span class="o">=</span> <span class="n">BigDecimal</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+<span class="n">EventContext</span> <span class="n">eventContext</span> <span class="o">=</span> <span class="n">EventContext</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">EventContextKeys</span><span class="p">.</span><span class="na">PLUGIN</span><span class="p">,</span> <span class="n">plugin</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
+
+<span class="c1">// BAD: Don&#39;t perform this check</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">account</span><span class="p">.</span><span class="na">getBalance</span><span class="p">(</span><span class="n">service</span><span class="p">.</span><span class="na">getDefaultCurrency</span><span class="p">()).</span><span class="na">compareTo</span><span class="p">(</span><span class="n">requiredAmount</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// You don&#39;t have enough money!</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// The account has enough, let&#39;s withdraw some cash!</span>
+    <span class="n">account</span><span class="p">.</span><span class="na">withdraw</span><span class="p">(</span><span class="n">service</span><span class="p">.</span><span class="na">getDefaultCurrency</span><span class="p">(),</span> <span class="n">requiredAmount</span><span class="p">,</span> <span class="n">Cause</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">eventContext</span><span class="p">,</span> <span class="n">plugin</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Instead of this, the best thing to do is simply withdraw the amount you need, and check the <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/service/economy/transaction/ResultType.html">ResultType</a> of
+the returned <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/service/economy/transaction/TransactionResult.html">TransactionResult</a>. An economy plugin which doesn’t want to allow negative balances will simply
+return <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/service/economy/transaction/ResultType.html#ACCOUNT_NO_FUNDS">ResultType#ACCOUNT_NO_FUNDS</a>, or <a class="reference external" href="https://jd.spongepowered.org/7.3.0/org/spongepowered/api/service/economy/transaction/ResultType.html#FAILED">ResultType#FAILED</a> in this case.</p>
+<p>Here’s how you <strong>should</strong> withdraw money:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.Cause</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.EventContext</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.event.cause.EventContextKeys</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.economy.transaction.ResultType</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.spongepowered.api.service.economy.transaction.TransactionResult</span><span class="p">;</span>
+
+<span class="n">PluginContainer</span> <span class="n">plugin</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">EconomyService</span> <span class="n">service</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">BigDecimal</span> <span class="n">requiredAmount</span> <span class="o">=</span> <span class="n">BigDecimal</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+<span class="n">EventContext</span> <span class="n">eventContext</span> <span class="o">=</span> <span class="n">EventContext</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">EventContextKeys</span><span class="p">.</span><span class="na">PLUGIN</span><span class="p">,</span> <span class="n">plugin</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
+
+<span class="n">TransactionResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">account</span><span class="p">.</span><span class="na">withdraw</span><span class="p">(</span><span class="n">service</span><span class="p">.</span><span class="na">getDefaultCurrency</span><span class="p">(),</span> <span class="n">requiredAmount</span><span class="p">,</span>
+                <span class="n">Cause</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">eventContext</span><span class="p">,</span> <span class="n">plugin</span><span class="p">));</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">getResult</span><span class="p">()</span> <span class="o">==</span> <span class="n">ResultType</span><span class="p">.</span><span class="na">SUCCESS</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Success!</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">getResult</span><span class="p">()</span> <span class="o">==</span> <span class="n">ResultType</span><span class="p">.</span><span class="na">FAILED</span> <span class="o">||</span> <span class="n">result</span><span class="p">.</span><span class="na">getResult</span><span class="p">()</span> <span class="o">==</span> <span class="n">ResultType</span><span class="p">.</span><span class="na">ACCOUNT_NO_FUNDS</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Something went wrong!</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// Handle other conditions</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+           </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="implementing.html" class="btn btn-neutral float-right" title="Implementing the Economy API" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="using.html" class="btn btn-neutral" title="Using the Economy API" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.3.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/dependabot/npm_and_yarn/ws-7.4.6/source/plugin/economy/practices.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/dependabot/npm_and_yarn/ws-7.4.6/source/plugin/economy/practices.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+ 
+</body>
+</html>
