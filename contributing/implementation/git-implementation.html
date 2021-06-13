@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git Workflow for API and Implementations &mdash; Sponge 7.3.0 documentation</title>
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />  <link rel="stylesheet" href="../../_static/spongedocs.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>        <script src="../../_static/jquery.js"></script>        <script src="../../_static/underscore.js"></script>        <script src="../../_static/doctools.js"></script>        <script src="../../_static/language_data.js"></script>        <script src="../../_static/spongedocs.js"></script>    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    <link rel="index" title="Index" href="../../genindex.html" />    <link rel="search" title="Search" href="../../search.html" />    <link rel="next" title="Submitting a Pull-Request" href="pr.html" />    <link rel="prev" title="Code Style" href="codestyle.html" /></head>
+
+<body class="wy-body-for-nav">
+
+   <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <div id="sp-logo-container" class="page-scroll">
+        <a class="logo" href="../../index.html">
+            <img src="../../_static/spongie-mark-dark.svg">
+            <span>Sponge</span>
+            <i class="fa fa-fw fa-chevron-down"></i>
+        </a>
+        <div id="sp-logo-menu">
+            <ul id="sp-logo-dropdown">
+                <li><a href="https://www.spongepowered.org"><i class="fa-fw fa fa-home"></i>Homepage</a></li>
+                <li><a href="https://forums.spongepowered.org"><i class="fa-fw fa fa-comments"></i>Forums</a></li>
+                <li><a href="https://github.com/SpongePowered"><i class="fa-fw fa fa-code"></i>Code</a></li>
+                <li class="active"><a href="https://docs.spongepowered.org"><i class="fa-fw fa fa-book"></i>Docs</a></li>
+                <li><a href="https://jd.spongepowered.org"><i class="fa-fw fa fa-graduation-cap"></i>Javadocs</a></li>
+                <li><a href="https://forums.spongepowered.org/c/plugins/plugin-releases"><i class="fa-fw fa fa-plug"></i>Plugins</a></li>
+                <li><a href="https://ore.spongepowered.org"><img src="../../_static/ore.svg" alt="" class="fa-fw fa ore-logo">Ore <sup>Beta</sup></a></li>
+                <li><a href="https://www.spongepowered.org/downloads"><i class="fa-fw fa fa-download"></i>Downloads</a></li>
+                <li><a href="https://www.spongepowered.org/chat"><i class="fa-fw fa fa-comment"></i>Chat</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../server/index.html">Creating a Server</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../versions/index.html">Versioning Policy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../preparing/index.html">Preparing for Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin/index.html">Creating a Plugin</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ore/index.html">Ore Documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Contributing to Sponge</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../guidelines.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howtogit.html">How to Git(Hub)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Developing Sponge</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="codestyle.html">Code Style</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Git Workflow for API and Implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pr.html">Submitting a Pull-Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="debugging/index.html">Debugging Sponge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mixins.html">Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datamanipulator.html">Implementing DataManipulators</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../spongedocs.html">SpongeDocs Writing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../porting.html">Porting Sponge to Other Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../versioning.html">Repository Branch Layout</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/index.html">About the Sponge Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" aria-label="top navigation">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Sponge</a>
+      </nav>
+
+
+      <div class="wy-nav-content">        <div class="rst-content">
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Contributing to Sponge</a> &raquo;</li>
+          <li><a href="index.html">Developing Sponge</a> &raquo;</li>
+      <li>Git Workflow for API and Implementations</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/SpongePowered/SpongeDocs/blob/zebra-mango-llama/source/contributing/implementation/git-implementation.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+
+  <hr/>
+</div>          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">           <div itemprop="articleBody">
+  <section id="git-workflow-for-api-and-implementations">
+<h1>Git Workflow for API and Implementations<a class="headerlink" href="#git-workflow-for-api-and-implementations" title="Permalink to this headline">¶</a></h1>
+<section id="developing-the-api">
+<h2>Developing the API<a class="headerlink" href="#developing-the-api" title="Permalink to this headline">¶</a></h2>
+<p>The basic process of adding your changes is explained in the <a class="reference internal" href="../howtogit.html"><span class="doc">How to Git(Hub)</span></a> section. On top of that we suggest that
+you create your new branch with a meaningful name. With the new branching model, you need to be aware which
+branch you need to base your PRs on and where it should get merged afterwards. Read about the new branching and
+versioning model here: <a class="reference internal" href="../versioning.html"><span class="doc">Repository Branch Layout</span></a></p>
+<p>Additionally, we require that you ensure the module will compile with <code class="docutils literal notranslate"><span class="pre">gradle</span> <span class="pre">compileJava</span></code>.
+This will run a simple build of the source files. When finished successfully, you can PR your changes to SpongeAPI
+repo.</p>
+</section>
+<section id="developing-the-implementation">
+<h2>Developing the Implementation<a class="headerlink" href="#developing-the-implementation" title="Permalink to this headline">¶</a></h2>
+<p>The process for the implementations is almost the same as for the API. You add your changes as described in
+<a class="reference internal" href="../howtogit.html"><span class="doc">How to Git(Hub)</span></a>. Note that you should give your branches a meaningful name. With the new branching model, you need to
+be aware which branch you need to base your PRs on and where it should get merged afterwards. Read about the new
+branching and versioning model here: <a class="reference internal" href="../versioning.html"><span class="doc">Repository Branch Layout</span></a></p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">gradle</span> <span class="pre">compileJava</span></code> to check if everything compiles without errors.</p>
+<p>Since you are working on the implementation, there is a possibility that your work included changes in the API. This is
+okay. Just remember to ensure the pointers for the version of SpongeAPI match the version of your branch prior to
+committing and pushing. To do this, you may need to add the submodules to the commit (with <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">SpongeAPI</span></code> and/or
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">Mixin</span></code>) prior to committing on your implementation work.</p>
+<p>You may open a pull request once your commit is pushed to your fork or the repository.</p>
+</section>
+</section>
+
+           </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="pr.html" class="btn btn-neutral float-right" title="Submitting a Pull-Request" accesskey="n" rel="next">Next <span class="fa fa-angle-right"></span></a>
+        <a href="codestyle.html" class="btn btn-neutral" title="Code Style" accesskey="p" rel="prev"><span class="fa fa-angle-left"></span> Previous</a>
+    </div>
+
+    <hr/>
+
+    <section id="license-footer">
+        <p>Except where otherwise noted,
+            <a xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" property="dct:title" rel="cc:attributionURL" href="https://github.com/SpongePowered/SpongeDocs">SpongeDocs</a>
+            is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <a id="license-icons" rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" title="CC-BY-SA" aria-hidden="true">cba</a>
+    </section>
+</footer>        </div>      </div>
+
+    </section>
+
+  </div>
+
+
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <i class="fa fa-book"> <span>SpongeDocs</span></i>
+        v: 7.3.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div id="versions" class="rst-other-versions">
+
+
+
+
+            <dl>
+                <dt>Contribute</dt>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/blob/zebra-mango-llama/source/contributing/implementation/git-implementation.rst">Source</a></dd>
+                    <dd><a href="https://github.com/SpongePowered/SpongeDocs/edit/zebra-mango-llama/source/contributing/implementation/git-implementation.rst">Edit</a></dd>
+            </dl>
+    </div>
+</div>
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+ 
+</body>
+</html>
